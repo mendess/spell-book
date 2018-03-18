@@ -1,6 +1,7 @@
 #!/bin/bash
 while true;
 do
-	/home/mendes/Dropbox/backups/changeMeWall.sh
-        sleep 5m
+    cd $(dirname "$0")
+    . ./changeMeWall.sh
+    sleep 5m
 done
