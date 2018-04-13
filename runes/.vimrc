@@ -4,8 +4,6 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
@@ -22,17 +20,23 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'rdnetto/YCM-Generator'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
-" Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-syntastic/syntastic'
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/#Virtualenv-Support
 Plugin 'nvie/vim-flake8'
 Plugin 'bitc/vim-bad-whitespace'
 Plugin 'jnurmine/Zenburn'
 Plugin 'scrooloose/nerdtree'
+Plugin 'morhetz/gruvbox'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" color scheme
+set rtp+=~/.vim/bundle/gruvbox/colors/gruvbox.vim
+colorscheme gruvbox
 
 " Enable folding
 set foldmethod=indent
@@ -41,6 +45,7 @@ set foldlevel=99
 set encoding=utf-8
 
 set nu
+
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -69,3 +74,4 @@ let python_highlight_all=1
 syntax on
 
 au FileType perl set filetype=prolog
+

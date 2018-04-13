@@ -7,14 +7,13 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="gallois"
-
+ZSH_THEME="sorin"
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
 # looking in ~/.oh-my-zsh/themes/
 # An empty array have no effect
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+ZSH_THEME_RANDOM_CANDIDATES=( "gallois" "af-magic" "muse" "philips" "nanotech" "sonicradish" "sunrise" "sorin" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -82,6 +81,44 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+allgrep(){
+    for i in $(find . $2 | grep -v 'git' 2> /dev/null);
+    do
+        grep -Hn "$1" $i 2> /dev/null
+    done
+}
+
+allsed(){
+    if [[ "$#" < 2 ]];
+    then
+        echo "Usage: allsed <find> <replace>"
+    else
+        for i in $(find . | grep -v '.git' 2>/dev/null);
+        do
+            sed -i '' -e "s/$1/$2/g" $i 2> /dev/null
+        done
+    fi
+}
+
+benchmark(){
+    for i in {1..5};
+    do
+        echo -e "\033[34mRun #$i: Starting\033[0m"
+        time ./$1 &> /dev/null
+        if (( $? ));
+        then
+            echo -e "\033[31mRun #$i: Failed\033[0m"
+        else
+            echo -e "\033[32mRun #$i: Done\033[0m"
+        fi
+        for t in {30..0};
+        do
+            echo -en $t
+            sleep 1s
+            echo -en "\b\b"
+        done;
+    done;
+}
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
@@ -92,8 +129,7 @@ export WWW_HOME='duckduckgo.com/lite'
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-alias zshconfig="vim ~/.zshrc"
+alias zshrc="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"
@@ -106,7 +142,7 @@ alias untar="tar -xzf"
 alias intellij="/opt/idea/bin/idea.sh & 2> /dev/null"
 alias changeW="/home/mendes/gitProjects/spells/changeMeWall.sh"
 alias changeWc="/home/mendes/gitProjects/spells/changeMeWallCicle.sh &"
-alias sepuku="shutdown +0"
+alias sepuku="toilet -f smblock -F metal:border Power Off && shutdown +0"
 alias rmdir="rm -rfI"
 alias prolog="/usr/local/sicstus4.3.0/bin/sicstus-4.3.0"
 alias vgup="cd ~/Homestead && vagrant up"
@@ -119,10 +155,11 @@ alias appinstall="sudo apt-get install"
 alias makeinstall='for i in *.c; make $(echo $i | sed -e "s/\.c//g")'
 alias :q="exit"
 alias xyzzy="sudo !!"
-alias countLines="echo 'Number of lines '\$(echo \$(for i in \$(find . | grep -v .git); do wc -l \$i 2> /dev/null | awk '{print \$1}'; done) | sed 's/\\ /+/g' | bc)"
+alias countLines="echo 'Number of lines '\$(echo \$(for i in \$(find . | grep -v '\.git/'); do wc -l \$i 2> /dev/null | awk '{print \$1}'; done) | sed 's/\\ /+/g' | bc)"
 alias latexBuilder="terminator -l latexBuilder 2> /dev/null &"
 alias autoLatexBuilder="~/gitProjects/spells/autoUpdateTex.sh"
 alias firefox="firefox &"
 alias fire="firefox &"
+alias backupRunes="~/gitProjects/spells/backupRunes.sh"
 #startup things
 fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
