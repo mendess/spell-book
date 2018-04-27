@@ -44,6 +44,7 @@ done
 
 while true;
 do
+    rm -rf $(find ./* | grep -v '.tex')
     clear;
     buildStr="\033[34m Building "$tex"...\033[0m"
     echo -ne $buildStr
