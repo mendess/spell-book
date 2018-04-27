@@ -1,5 +1,21 @@
 #!/bin/bash
 
+buildLatex(){
+    clear;
+    buildStr="\033[34m Building "$tex"...\033[0m"
+    echo -ne $buildStr
+    pdflatex --halt-on-error --shell-escape $tex > /dev/null
+    built=$?
+    for (( i=${#buildStr}; i>0;i--)) do echo -ne "\b"; done;
+    if [ $built -eq 0 ]
+    then
+        echo -e "\033[32m "$tex" built without errors!\033[0m"
+    else
+        echo -e "\033[31m Couldn't build "$tex". Check your tex!\033[0m"
+        rm -rf *.toc
+    fi;
+}
+
 tex="Report.tex"
 #time=2
 skip=false
@@ -42,26 +58,8 @@ do
     esac
     shift
 done
-while true;
+
+while true
 do
-    clear;
-    buildStr="\033[34m Building "$tex"...\033[0m"
-    echo -ne $buildStr
-    pdflatex --halt-on-error --shell-escape $tex > /dev/null
-    built=$?
-    for (( i=${#buildStr}; i>0;i--)) do echo -ne "\b"; done;
-    if [ $built -eq 0 ]
-    then
-        echo -e "\033[32m "$tex" built without errors!\033[0m"
-    else
-        echo -e "\033[31m Couldn't build "$tex". Check your tex!\033[0m"
-        rm -rf *.toc
-    fi;
-    lastTime=`stat -c %Z $PWD/* | xargs | sed 's/\ /+/g' - | bc`
-    testTime=`stat -c %Z $PWD/* | xargs | sed 's/\ /+/g' - | bc`
-    while [[ "$testTime" == "$lastTime" ]]
-    do
-        testTime=`stat -c %Z $PWD/* | xargs | sed 's/\ /+/g' - | bc`
-        sleep 1s
-    done;
-done;
+    inotifywait -m -e modify,create --exclude '.swp' . | buildLatex
+done
