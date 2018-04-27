@@ -1,9 +1,10 @@
 #!/bin/bash
 
 tex="Report.tex"
-time=30
+#time=2
 skip=false
-usage="Usage:\n    -h Displays this message\n    -f <file> Specify the .tex file (Default: Report.tex)\n    -t <number> Specify the delay between builds (Default: 30s)"
+usage="Usage:\n    -h Displays this message\n    -f <file> Specify the .tex file (Default: Report.tex)"
+#\n    -t <number> Specify the delay between builds (Default: 2s)"
 for op in "$@";
 do
     if $skip; then skip=false;continue;fi
@@ -23,17 +24,17 @@ do
                 exit 1
             fi
             ;;
-        -t|--time)
-            shift
-            if [[ "$1" != "" ]];
-            then
-                time="$1"
-                skip=true
-            else
-                echo "E: Arg missing for ""$op"" option"
-                exit 1
-            fi
-            ;;
+#        -t|--time)
+#            shift
+#            if [[ "$1" != "" ]];
+#            then
+#                time="$1"
+#                skip=true
+#            else
+#                echo "E: Arg missing for ""$op"" option"
+#                exit 1
+#            fi
+#            ;;
         -*)
             echo -e $usage
             exit 1
@@ -41,7 +42,6 @@ do
     esac
     shift
 done
-
 while true;
 do
     clear;
@@ -57,15 +57,11 @@ do
         echo -e "\033[31m Couldn't build "$tex". Check your tex!\033[0m"
         rm -rf *.toc
     fi;
-    echo -en "\033[33m Rebuilding in: \033[0m"
-    for (( i=$time; i>0;i--))
+    lastTime=`stat -c %Z $PWD/* | xargs | sed 's/\ /+/g' - | bc`
+    testTime=`stat -c %Z $PWD/* | xargs | sed 's/\ /+/g' - | bc`
+    while [[ "$testTime" == "$lastTime" ]]
     do
-        if [ $i -lt 10 ]
-        then
-            echo -n "0"
-        fi;
-        echo -n $i"  "
+        testTime=`stat -c %Z $PWD/* | xargs | sed 's/\ /+/g' - | bc`
         sleep 1s
-        echo -en "\b\b\b\b"
     done;
 done;
