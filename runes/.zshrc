@@ -111,6 +111,12 @@ benchmark(){
         else
             echo -e "\033[32mRun #$i: Done\033[0m"
         fi
+
+        if [[ $i == 5 ]];
+        then
+            break
+        fi
+
         for t in {30..0};
         do
             echo -en $t
@@ -140,6 +146,7 @@ alias c="clear"
 alias space="du -sh"
 alias untar="tar -xzf"
 alias intellij="/opt/idea/bin/idea.sh 2> /dev/null &"
+alias clion="/opt/clion/bin/clion.sh 2> /dev/null &"
 alias changeW="/home/mendes/gitProjects/spells/changeMeWall.sh"
 alias changeWc="/home/mendes/gitProjects/spells/changeMeWallCicle.sh &"
 alias sepuku="toilet -f smblock -F metal:border Power Off && shutdown +0"
@@ -161,5 +168,9 @@ alias autoLatexBuilder="~/gitProjects/spells/autoUpdateTex.sh"
 alias firefox="firefox &"
 alias fire="firefox &"
 alias backmeup="~/gitProjects/spells/backupRunes.sh"
+alias li3="cd ~/gitProjects/LI3/"
+alias CP="cd ~/gitProjects/CP_Project/"
+alias SO="cd ~/gitProjects/SO_Notebooks/"
+alias resumos="cd ~/gitProjects/ResumosMIEI/"
 #startup things
 fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
