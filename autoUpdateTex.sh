@@ -44,7 +44,6 @@ done
 
 while true;
 do
-    rm -rf $(find ./* | grep -v '.tex')
     clear;
     buildStr="\033[34m Building "$tex"...\033[0m"
     echo -ne $buildStr
@@ -56,6 +55,7 @@ do
         echo -e "\033[32m "$tex" built without errors!\033[0m"
     else
         echo -e "\033[31m Couldn't build "$tex". Check your tex!\033[0m"
+        rm -rf *.toc
     fi;
     echo -en "\033[33m Rebuilding in: \033[0m"
     for (( i=$time; i>0;i--))
