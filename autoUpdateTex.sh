@@ -4,7 +4,7 @@ buildLatex(){
     clear;
     buildStr="\033[34m Building "$tex"...\033[0m"
     echo -ne $buildStr
-    pdflatex --halt-on-error --shell-escape $tex > /dev/null
+    pdflatex -interaction batchmode --halt-on-error --shell-escape $tex > /dev/null
     built=$?
     for (( i=${#buildStr}; i>0;i--)) do echo -ne "\b"; done;
     if [ $built -eq 0 ]
