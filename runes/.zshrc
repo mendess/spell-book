@@ -82,10 +82,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 allgrep(){
-    for i in $(find . $2 | grep -v 'git' 2> /dev/null);
-    do
-        grep -Hn "$1" $i 2> /dev/null
-    done
+    grep -Hne $1 $(find . | grep -v 'git') 2>/dev/null
 }
 
 allsed(){
@@ -125,6 +122,19 @@ benchmark(){
         done;
     done;
 }
+make(){
+    if [ -e Makefile ] || [ -e makefile ]
+    then
+        bash -c "make $@"
+    else
+        for i in *.c;
+        do
+            file=$(echo $i | sed -e "s/\.c//g")
+            bash -c "make $file"
+        done
+    fi
+}
+
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
@@ -149,7 +159,7 @@ alias intellij="/opt/idea/bin/idea.sh 2> /dev/null &"
 alias clion="/opt/clion/bin/clion.sh 2> /dev/null &"
 alias changeW="/home/mendes/gitProjects/spells/changeMeWall.sh"
 alias changeWc="/home/mendes/gitProjects/spells/changeMeWallCicle.sh &"
-alias sepuku="toilet -f smblock -F metal:border Power Off && shutdown +0"
+alias sepuku="toilet -f smblock -F metal:border Shuting Down... && shutdown +0 &> /dev/null"
 alias rmdir="rm -rfI"
 alias prolog="/usr/local/sicstus4.3.0/bin/sicstus-4.3.0"
 alias vgup="cd ~/Homestead && vagrant up"
@@ -173,4 +183,4 @@ alias CP="cd ~/gitProjects/CP_Project/"
 alias SO="cd ~/gitProjects/SO_Notebooks/"
 alias resumos="cd ~/gitProjects/ResumosMIEI/"
 #startup things
-fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
+#fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
