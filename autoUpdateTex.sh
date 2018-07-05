@@ -17,10 +17,8 @@ buildLatex(){
 }
 
 tex="Report.tex"
-#time=2
 skip=false
 usage="Usage:\n    -h Displays this message\n    -f <file> Specify the .tex file (Default: Report.tex)"
-#\n    -t <number> Specify the delay between builds (Default: 2s)"
 for op in "$@";
 do
     if $skip; then skip=false;continue;fi
@@ -40,17 +38,6 @@ do
                 exit 1
             fi
             ;;
-#        -t|--time)
-#            shift
-#            if [[ "$1" != "" ]];
-#            then
-#                time="$1"
-#                skip=true
-#            else
-#                echo "E: Arg missing for ""$op"" option"
-#                exit 1
-#            fi
-#            ;;
         -*)
             echo -e $usage
             exit 1

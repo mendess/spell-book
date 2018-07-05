@@ -101,7 +101,7 @@ benchmark(){
     for i in {1..5};
     do
         echo -e "\033[34mRun #$i: Starting\033[0m"
-        time ./$1 &> /dev/null
+        time ./$1 #&> /dev/null
         if (( $? ));
         then
             echo -e "\033[31mRun #$i: Failed\033[0m"
@@ -180,7 +180,10 @@ alias fire="firefox &"
 alias backmeup="~/gitProjects/spells/backupRunes.sh"
 alias li3="cd ~/gitProjects/LI3/"
 alias CP="cd ~/gitProjects/CP_Project/"
-alias SO="cd ~/gitProjects/SO_Notebooks/"
 alias resumos="cd ~/gitProjects/ResumosMIEI/"
+alias lhs2tex=".cabal-sandbox/bin/lhs2TeX"
 #startup things
-#fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
+fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
+# Install Ruby Gems to ~/gems
+export GEM_HOME=$HOME/gems
+export PATH=$HOME/gems/bin:$PATH
