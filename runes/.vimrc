@@ -35,8 +35,10 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " color scheme
-set rtp+=~/.vim/bundle/gruvbox/colors/gruvbox.vim
+" set rtp+=~/.vim/bundle/gruvbox/colors/gruvbox.vim
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+set background=dark    " Setting dark mode
 
 " Enable folding
 set foldmethod=indent

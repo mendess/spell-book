@@ -160,7 +160,7 @@ alias intellij="/opt/idea/bin/idea.sh 2> /dev/null &"
 alias clion="/opt/clion/bin/clion.sh 2> /dev/null &"
 alias changeW="/home/mendess/Projects/spells/changeMeWall.sh"
 alias changeWc="/home/mendess/Projects/spells/changeMeWallCicle.sh &"
-alias sepuku="toilet -f smblock -F metal:border Shuting Down... && shutdown +0 &> /dev/null"
+alias sepuku="shutdown +0 &> /dev/null" #"toilet -f smblock -F metal:border Shuting Down... && shutdown +0 &> /dev/null"
 alias rmdir="rm -rfI"
 alias prolog="/usr/local/sicstus4.3.0/bin/sicstus-4.3.0"
 alias vgup="cd ~/Homestead && vagrant up"
@@ -183,8 +183,7 @@ alias CP="cd ~/gitProjects/CP_Project/"
 alias resumos="cd ~/gitProjects/ResumosMIEI/"
 alias lhs2tex=".cabal-sandbox/bin/lhs2TeX"
 alias ghci="stack ghci"
+alias interrail="cd ~/gitProjects/interrail-cloud"
+alias spells="cd ~/gitProjects/spells; vim ."
 #startup things
 fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
-# Install Ruby Gems to ~/gems
-export GEM_HOME=$HOME/gems
-export PATH=$HOME/gems/bin:$PATH
