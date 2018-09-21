@@ -12,15 +12,15 @@ Plugin 'gmarik/Vundle.vim'
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 Plugin 'vim-scripts/indentpython.vim'
 
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 " DEPENDENCIES  sudo apt-get install build-essential cmake
 " 		sudo apt-get install python-dev python3-dev
 " 		cd ~/.vim/bundle/YouCompleteMe
 " 		./install.py --clang-completer
-Bundle 'rdnetto/YCM-Generator'
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+"Bundle 'rdnetto/YCM-Generator'
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_confirm_extra_conf = 0
+"let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 Plugin 'vim-syntastic/syntastic'
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/#Virtualenv-Support
@@ -29,6 +29,8 @@ Plugin 'bitc/vim-bad-whitespace'
 Plugin 'jnurmine/Zenburn'
 Plugin 'scrooloose/nerdtree'
 Plugin 'morhetz/gruvbox'
+Plugin 'elixir-editors/vim-elixir'
+Plugin 'racer-rust/vim-racer'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

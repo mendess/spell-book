@@ -135,11 +135,20 @@ make(){
         done
     fi
 }
+json(){
+    if [[ $# < 1 ]];
+    then
+        echo "usage: curl [link]"
+    else
+        curl $1 | python -m json.tool | less
+    fi
+}
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-export RTV_EDITOR='vim'
+export RTV_EDITOR='nvim'
+export VISUAL='nvim'
 export WWW_HOME='duckduckgo.com/lite'
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -152,7 +161,6 @@ alias open="xdg-open"
 alias clip="xclip -sel clip"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias py="python3"
-alias clean="clear"
 alias c="clear"
 alias space="du -sh"
 alias untar="tar -xzf"
@@ -162,28 +170,26 @@ alias changeW="/home/mendess/Projects/spells/changeMeWall.sh"
 alias changeWc="/home/mendess/Projects/spells/changeMeWallCicle.sh &"
 alias sepuku="shutdown +0 &> /dev/null" #"toilet -f smblock -F metal:border Shuting Down... && shutdown +0 &> /dev/null"
 alias rmdir="rm -rfI"
-alias prolog="/usr/local/sicstus4.3.0/bin/sicstus-4.3.0"
 alias vgup="cd ~/Homestead && vagrant up"
 alias vghalt="cd ~/Homestead && vagrant halt"
 alias please='sudo $(!!)'
 alias pyenv="source env/bin/activate"
 alias makeclean="find . -maxdepth 1 -type f -executable -delete"
-alias appinstall="sudo apt-get install"
 alias makeinstall='for i in *.c; make $(echo $i | sed -e "s/\.c//g")'
 alias :q="exit"
-alias xyzzy="sudo !!"
 alias countLines="echo 'Number of lines '\$(echo \$(for i in \$(find . | grep -v '\.git/'); do wc -l \$i 2> /dev/null | awk '{print \$1}'; done) | sed 's/\\ /+/g' | bc)"
 alias latexBuilder="terminator -l latexBuilder 2> /dev/null &"
 alias autoLatexBuilder="~/gitProjects/spells/autoUpdateTex.sh"
 alias firefox="firefox &"
-alias fire="firefox &"
 alias backmeup="~/gitProjects/spells/backupRunes.sh"
 alias li3="cd ~/gitProjects/LI3/"
 alias CP="cd ~/gitProjects/CP_Project/"
 alias resumos="cd ~/gitProjects/ResumosMIEI/"
 alias lhs2tex=".cabal-sandbox/bin/lhs2TeX"
 alias ghci="stack ghci"
-alias interrail="cd ~/gitProjects/interrail-cloud"
 alias spells="cd ~/gitProjects/spells; vim ."
+alias vim="nvim"
+alias listerine="cd ~/gitProjects/Listerine"
+alias gps='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 #startup things
 fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
