@@ -144,6 +144,13 @@ json(){
     fi
 }
 
+check_ununtu(){
+    sudo mount /dev/sdb1 /mnt/mnt1
+    ls -l /mnt/mnt1
+    sudo umount /mnt/mnt1
+    ls -l /mnt/mnt1
+}
+
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
@@ -191,5 +198,6 @@ alias spells="cd ~/gitProjects/spells; vim ."
 alias vim="nvim"
 alias listerine="cd ~/gitProjects/Listerine"
 alias gps='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
+alias dex="~/gitProjects/unix_dex/target/debug/unix_dex"
 #startup things
 fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
