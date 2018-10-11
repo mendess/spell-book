@@ -1,20 +1,10 @@
 #!/bin/bash
 
-runeList=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim )
-
+# runeList=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim )
 
 echo -e "\033[34mBack me up inside\033[0m"
 
 cd ~/gitProjects/spells
-
-mkdir -p runes
-
-
-for rune in "${runeList[@]}";
-do
-    echo $rune
-    cp $rune runes/
-done
 
 git pull
 git add runes/*
