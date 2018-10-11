@@ -1,11 +1,14 @@
 #!/bin/bash
+
+runeList=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim )
+
+
 echo -e "\033[34mBack me up inside\033[0m"
 
 cd ~/gitProjects/spells
 
 mkdir -p runes
 
-runeList=( ~/.vimrc ~/.zshrc ~/.config/nvim/init.vim)
 
 for rune in "${runeList[@]}";
 do
@@ -13,8 +16,10 @@ do
     cp $rune runes/
 done
 
+git pull
 git add runes/*
-git commit -m"Backup runes"
+git add $(dirname `which $0`)"/"$(basename $0)
+git commit -m"Backup runes | "$(date +%d/%m/%y)
 git push
 
 if [[ $? == 1 ]];
