@@ -5,7 +5,7 @@ cd ~/gitProjects/spells
 
 mkdir -p runes
 
-runeList=( ~/.vimrc ~/.zshrc )
+runeList=( ~/.vimrc ~/.zshrc ~/.config/nvim/init.vim)
 
 for rune in "${runeList[@]}";
 do

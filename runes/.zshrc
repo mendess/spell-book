@@ -2,8 +2,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/mendes/.oh-my-zsh
+  export ZSH=/home/mendess/.oh-my-zsh
   export PATH=~/.bin:$PATH
+  export PATH=~/.local/bin:$PATH
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -149,7 +150,7 @@ alias zshrc="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"
-alias vimrc="vim ~/.vimrc"
+alias vimrc="vim ~/.config/nvim/init.vim"
 alias py="python3"
 alias clean="clear"
 alias c="clear"
@@ -157,15 +158,14 @@ alias space="du -sh"
 alias untar="tar -xzf"
 alias intellij="/opt/idea/bin/idea.sh 2> /dev/null &"
 alias clion="/opt/clion/bin/clion.sh 2> /dev/null &"
-alias changeW="/home/mendes/gitProjects/spells/changeMeWall.sh"
-alias changeWc="/home/mendes/gitProjects/spells/changeMeWallCicle.sh &"
+alias changeW="/home/mendess/Projects/spells/changeMeWall.sh"
+alias changeWc="/home/mendess/Projects/spells/changeMeWallCicle.sh &"
 alias sepuku="toilet -f smblock -F metal:border Shuting Down... && shutdown +0 &> /dev/null"
 alias rmdir="rm -rfI"
 alias prolog="/usr/local/sicstus4.3.0/bin/sicstus-4.3.0"
 alias vgup="cd ~/Homestead && vagrant up"
 alias vghalt="cd ~/Homestead && vagrant halt"
-alias jump="/home/mendes/Small-interesting-scripts/better-cd/bcd"
-alias fucking="sudo"
+alias please='sudo $(!!)'
 alias pyenv="source env/bin/activate"
 alias makeclean="find . -maxdepth 1 -type f -executable -delete"
 alias appinstall="sudo apt-get install"
@@ -182,6 +182,7 @@ alias li3="cd ~/gitProjects/LI3/"
 alias CP="cd ~/gitProjects/CP_Project/"
 alias resumos="cd ~/gitProjects/ResumosMIEI/"
 alias lhs2tex=".cabal-sandbox/bin/lhs2TeX"
+alias ghci="stack ghci"
 #startup things
 fortune | cowthink $(echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1)
 # Install Ruby Gems to ~/gems
