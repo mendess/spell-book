@@ -4,11 +4,11 @@
 
 echo -e "\033[34mBack me up inside\033[0m"
 
-cd ~/gitProjects/spells
+cd $(dirname `which $0`)
+pwd
 
 git pull
-git add runes/*
-git add $(dirname `which $0`)"/"$(basename $0)
+git add *
 git commit -m"Backup runes | "$(date +%d/%m/%y)
 git push
 
