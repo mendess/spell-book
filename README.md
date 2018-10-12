@@ -2,7 +2,7 @@
  A collection of scripts I like to keep handy
 
  * [autoUpdateTex](autoUpdateTex.sh) A simple script that rebuilds a
-    latex pdf every 30 seconds
+    latex pdf every time it changes
  * [changeMeWall](changeMeWall.sh) Changes the wallpaper to a random one in the
     `~/Pictures/Wallpapers` folder.
      * *[changeMeWallCicle](changeMeWallCicle.sh) runs this every 5 minutes*

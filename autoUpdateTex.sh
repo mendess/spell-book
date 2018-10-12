@@ -12,7 +12,7 @@ buildLatex(){
         echo -e "\033[32m "$tex" built without errors!\033[0m"
     else
         echo -e "\033[31m Couldn't build "$tex". Check your tex!\033[0m"
-        rm -rf *.toc
+        rm *.toc
     fi;
 }
 
