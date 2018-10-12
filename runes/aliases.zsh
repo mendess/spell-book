@@ -114,3 +114,4 @@ alias spells="cd ~/gitProjects/spells; vim ."
 alias listerine="cd ~/gitProjects/Listerine"
 alias gps='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 alias dex="~/gitProjects/unix_dex/target/debug/unix_dex"
+alias bc="bc -l"
