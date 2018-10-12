@@ -107,7 +107,7 @@ alias countLines="echo 'Number of lines '\$(echo \$(for i in \$(find . | grep -v
                  " do wc -l \$i 2> /dev/null | awk '{print \$1}'; done) | sed 's/\\ /+/g' | bc)"
 alias latexBuilder="terminator -l latexBuilder 2> /dev/null &"
 alias autoLatexBuilder="~/gitProjects/spells/autoUpdateTex.sh"
-alias backmeup="~/gitProjects/spells/backupRunes.sh"
+alias backmeup="~/gitProjects/spells/runes/backupRunes.sh"
 alias resumos="cd ~/gitProjects/ResumosMIEI/"
 alias vim="nvim"
 alias spells="cd ~/gitProjects/spells; vim ."
