@@ -1,3 +1,5 @@
+#!/bin/bash
+
 runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh )
 
 for rune in "${runes[@]}";
