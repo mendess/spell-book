@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p ~/.local/bin
+
 for spell in *.sh
 do
     if [[ $spell != $(basename $0) && ! -e ~/.local/bin/$(basename $spell .sh) ]]
