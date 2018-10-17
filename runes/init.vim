@@ -14,6 +14,8 @@ Plug 'mikewest/vimroom'
 
 Plug 'pangloss/vim-javascript'
 
+Plug 'elixir-editors/vim-elixir'
+
 call plug#end()
 
 " vimroom config
