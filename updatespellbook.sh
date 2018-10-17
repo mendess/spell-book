@@ -2,7 +2,7 @@
 
 git pull --rebase
 
-if ! git diff-index --quiet HEAD --;
+if ! git diff-index --quiet HEAD -- || [ -z "$(git cherry)" ]
 then
     exit 1
 else
