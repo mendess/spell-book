@@ -2,9 +2,11 @@
 
 git pull --rebase
 
-if git diff-index --quiet HEAD --;
+if ! git diff-index --quiet HEAD --;
 then
     exit 1
+else
+    false
 fi
 
 while [[ $? != 0 ]]
@@ -24,4 +26,4 @@ then
 fi
 
 . ./learnSpells.sh
-. ./runes/castRunes.sh
+. ./castRunes.sh

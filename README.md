@@ -1,7 +1,7 @@
 # scripts
  A collection of scripts I like to keep handy
 
-## Spells
+## Spells *(scripts)*
 
 - [autoUpdateTex](autoUpdateTex.sh) A simple script that rebuilds a
   latex pdf every time it changes.
@@ -18,7 +18,7 @@
   [runes](runes/). The location of the sym-link depends on the rune and is
   defined in the script.
 
-## Runes
+## Runes *(config files)*
 
 - [aliases.zsh](runes/aliases.zsh) Aliases for z-shell.
 - [init.vim](runes/init.vim) NeoVim configuration.
