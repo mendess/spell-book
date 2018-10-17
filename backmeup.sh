@@ -3,6 +3,7 @@
 echo -e "\033[34mBack me up inside\033[0m"
 
 cd $(dirname "$(realpath $0)")
+
 echo -e "\033[32m"
 git add --verbose --all
 echo -e "\033[0m"

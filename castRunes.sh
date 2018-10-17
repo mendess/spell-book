@@ -2,6 +2,8 @@
 
 runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh )
 
+cd $(dirname "$(realpath $0)")"/runes"
+
 for rune in "${runes[@]}";
 do
     echo -e "\e[38;2;138;93;150mCasting "$(basename $rune)"\e[0m"

@@ -2,6 +2,8 @@
 
 mkdir -p ~/.local/bin
 
+cd $(dirname "$(realpath $0)")
+
 for spell in *.sh
 do
     if [[ $spell != $(basename $0) && ! -e ~/.local/bin/$(basename $spell .sh) ]]
