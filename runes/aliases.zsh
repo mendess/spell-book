@@ -92,7 +92,7 @@ ex(){
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"
-alias vimrc="vim ~/.config/nvim/aliases.zsh"
+alias vimrc="vim ~/.config/nvim/init.vim"
 alias py="python3"
 alias c="clear"
 alias sepuku="toilet -f smblock -F metal:border Shuting Down... && sleep 1; shutdown +0 &> /dev/null"
@@ -101,10 +101,11 @@ alias pyenv="source env/bin/activate"
 alias makeclean="find . -maxdepth 1 -type f -executable -delete"
 alias makeinstall='for i in *.c; make $(echo $i | sed -e "s/\.c//g")'
 alias :q="exit"
-alias countLines="echo 'Number of lines '\$(echo \$(for i in \$(find . | grep -v '\.git/');"\
-                 " do wc -l \$i 2> /dev/null | awk '{print \$1}'; done) | sed 's/\\ /+/g' | bc)"
+alias countLines="echo 'Number of lines '\$(echo \$(for i in \$(find . | grep -v '\.git/'); do wc -l \$i 2> /dev/null | awk '{print \$1}'; done) | sed 's/\\ /+/g' | bc)"
 alias vim="nvim"
 alias gps='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 alias dex="~/gitProjects/unix_dex/target/debug/unix_dex"
 alias bc="bc -l"
 alias ghci="stack ghci"
+alias pls="sudo \!\!"
+alias reload="source ~/.zshrc"

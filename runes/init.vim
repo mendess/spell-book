@@ -12,6 +12,8 @@ Plug 'cohama/lexima.vim'
 
 Plug 'mikewest/vimroom'
 
+Plug 'pangloss/vim-javascript'
+
 call plug#end()
 
 " vimroom config
