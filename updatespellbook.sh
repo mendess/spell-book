@@ -1,13 +1,13 @@
 #!/bin/bash
 
-git pull --rebase
 
-if ! git diff-index --quiet HEAD -- || ! [ -z "$(git cherry)" ]
+if ! git diff-index --quiet HEAD --
 then
+    echo "\033[38mYou have uncommited changes\033[0m"
     exit 1
-else
-    false
 fi
+
+git pull --rebase
 
 while [[ $? != 0 ]]
 do
