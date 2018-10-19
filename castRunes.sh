@@ -1,6 +1,6 @@
 #!/bin/bash
 
-runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh )
+runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore )
 
 cd $(dirname "$(realpath $0)")"/runes"
 
