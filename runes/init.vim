@@ -10,11 +10,11 @@ Plug 'neovimhaskell/haskell-vim'
 
 Plug 'cohama/lexima.vim'
 
-Plug 'mikewest/vimroom'
-
 Plug 'pangloss/vim-javascript'
 
 Plug 'elixir-editors/vim-elixir'
+
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -38,6 +38,9 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
+" goyo
+map <F10> :Goyo<CR>
+let g:goyo_height='90'
 
 " split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -55,3 +58,12 @@ noremap <C-S> :w<CR>
 
 syntax on
 filetype plugin indent on
+
+:set number relativenumber
+
+" Relative line numbers
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
