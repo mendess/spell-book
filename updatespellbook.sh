@@ -11,6 +11,8 @@ git pull --rebase
 
 while [[ $? != 0 ]]
 do
+    echo "\033[31mConflicts emerged, please resolve them"
+    read
     rebase=1
     for file in $(git status --short | grep UU | cut -d" " -f2)
     do
