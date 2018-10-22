@@ -3,7 +3,7 @@
 
 if ! git diff-index --quiet HEAD --
 then
-    echo "\033[31mYou have uncommited changes\033[0m"
+    echo -e "\033[31mYou have uncommited changes\033[0m"
     exit 1
 fi
 
