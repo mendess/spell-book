@@ -13,7 +13,7 @@ fi
 echo -e "\033[32m"
 git add --verbose --all
 echo -e "\033[0m"
-git commit -m"Backup spell book | "$(date +%d/%m/%y)
+git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
 ./updatespellbook.sh
 git push
 

@@ -110,3 +110,4 @@ alias ghci="stack ghci"
 alias reload="source ~/.zshrc"
 alias cl="clear; ls -la"
 alias pls='sudo $(history -1 | cut -d" " -f6-)'
+alias vim.='vim .'
