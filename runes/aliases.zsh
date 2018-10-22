@@ -89,11 +89,6 @@ ex(){
   fi
 }
 
-function pls(){
-    cmd=$(!!)
-    echo $cmd
-}
-
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"
