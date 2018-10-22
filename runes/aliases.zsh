@@ -89,6 +89,11 @@ ex(){
   fi
 }
 
+function pls(){
+    cmd=$(!!)
+    echo $cmd
+}
+
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"
@@ -107,6 +112,6 @@ alias gps='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 alias dex="~/gitProjects/unix_dex/target/debug/unix_dex"
 alias bc="bc -l"
 alias ghci="stack ghci"
-alias pls="sudo \!\!"
 alias reload="source ~/.zshrc"
 alias cl="clear; ls -la"
+alias pls='sudo $(history -1 | cut -d" " -f6-)'
