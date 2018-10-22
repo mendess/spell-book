@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "\n\033[33m Casting Runes...\033[0m\n"
+
 runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore )
 
 cd $(dirname "$(realpath $0)")"/runes"
@@ -15,6 +17,6 @@ do
         ln -sv $(pwd)"/"$(basename $rune) $rune
         echo -en "\e[0m"
     else
-        echo -e "\033[36m"$rune"\033[32m already installed, skipping...\033[0m"
+        echo -e "\033[36m"$rune"\033[32m already cast, skipping...\033[0m"
     fi
 done
