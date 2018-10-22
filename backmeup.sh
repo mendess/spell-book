@@ -15,7 +15,6 @@ git add --verbose --all
 echo -e "\033[0m"
 git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
 ./updatespellbook.sh
-git push
 
 if [[ $? == 1 ]];
 then

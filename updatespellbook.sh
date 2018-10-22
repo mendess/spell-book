@@ -22,7 +22,7 @@ done
 
 if [[ $rebase != 0 ]]
 then
-    git push
+    git push > /dev/null
 fi
 
 . ./learnSpells.sh
