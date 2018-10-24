@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd $(dirname "$(realpath $0)")
 
 if ! git diff-index --quiet HEAD --
 then
