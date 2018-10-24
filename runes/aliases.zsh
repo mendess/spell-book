@@ -1,5 +1,5 @@
 allgrep(){
-    grep -Hne $1 $(find . | grep -v 'git') 2>/dev/null
+    grep -Hne $1 $(find . | grep -v 'git' | grep -v 'node_modules') 2>/dev/null
 }
 
 allsed(){
@@ -89,6 +89,17 @@ ex(){
   fi
 }
 
+pdf(){
+    if [[ $# < 1 ]]
+    then
+        echo "Usage: pdf file.pdf"
+    else
+        evince $1 &
+        disown
+        exit
+    fi
+}
+
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"
@@ -111,3 +122,5 @@ alias reload="source ~/.zshrc"
 alias cl="clear; ls -la"
 alias pls='sudo $(history -1 | cut -d" " -f6-)'
 alias vim.='vim .'
+alias mnol="cd gitProjects/MNOL/"
+alias idea="idea &; disown; exit"
