@@ -100,6 +100,21 @@ pdf(){
     fi
 }
 
+allgst (){
+    for dir in $(find . -mindepth 1 -maxdepth 1 -type d)
+    do
+        cd $dir
+        git status
+        echo -n 'Git pull? [y/n] '
+        read a
+        if [[ "$a" == "y" ]]
+        then
+            git pull --rebase
+        fi
+        cd ..
+    done
+}
+
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"
