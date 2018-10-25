@@ -16,6 +16,8 @@ Plug 'elixir-editors/vim-elixir'
 
 Plug 'junegunn/goyo.vim'
 
+Plug 'bitc/vim-bad-whitespace'
+
 call plug#end()
 
 " vimroom config
