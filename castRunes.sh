@@ -18,4 +18,4 @@ do
         echo -en "\e[0m"
     fi
 done
-echo -e "\n\033[33m Done!\033[0m\n"
+echo -e "\033[33m Done!\033[0m"

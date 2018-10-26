@@ -13,4 +13,4 @@ do
         ln -sv $(pwd)"/"$spell ~/.local/bin/$(basename $spell .sh)
     fi
 done
-echo -e "\n\033[33m Done!\033[0m\n"
+echo -e "\033[33m Done!\033[0m"
