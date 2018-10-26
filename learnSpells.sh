@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\n\033[33m Learning Spells...\033[0m\n"
+echo -e "\n\033[33m Learning Spells...\033[0m"
 mkdir -p ~/.local/bin
 
 cd $(dirname "$(realpath $0)")
