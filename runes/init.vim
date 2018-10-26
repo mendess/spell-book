@@ -20,10 +20,6 @@ Plug 'bitc/vim-bad-whitespace'
 
 call plug#end()
 
-" vimroom config
-" let g:vimroom_background = 'black'
-let g:vimroom_ctermbackground="none"
-
 
 " Gruvbox config
 colorscheme gruvbox
@@ -38,7 +34,7 @@ map <F2> :NERDTreeToggle<CR>
 " CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules)$'
 
 " goyo
 map <F10> :Goyo<CR>
