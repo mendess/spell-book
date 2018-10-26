@@ -16,7 +16,6 @@ do
         echo -en "\e[38;2;138;93;150mCasting "
         ln -sv $(pwd)"/"$(basename $rune) $rune
         echo -en "\e[0m"
-    else
-        echo -e "\033[36m"$rune"\033[32m already cast, skipping...\033[0m"
     fi
 done
+echo -e "\n\033[33m Done!\033[0m\n"
