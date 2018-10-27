@@ -2,7 +2,7 @@
 
 echo -e "\n\033[33m Casting Runes...\033[0m"
 
-runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore )
+runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore ~/.config/i3/config )
 
 cd $(dirname "$(realpath $0)")"/runes"
 
