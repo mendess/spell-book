@@ -125,3 +125,4 @@ alias pls='sudo $(history -1 | cut -d" " -f6-)'
 alias vim.='vim .'
 alias mnol="cd gitProjects/MNOL/"
 alias idea="idea &; disown; exit"
+alias matlab="/usr/local/MATLAB/R2018a/bin/matlab &; disown" #"; exit"
