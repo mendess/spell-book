@@ -4,7 +4,7 @@ if [[ $DESKTOP_SESSION == "i3" ]]
 then
     i=0
     while [ "$i" -lt "$(xrandr --query | grep ' connected' | wc -l)" ]; do
-        nitrogen --set-tiled --random --head="$i" ~/Pictures/Wallpapers
+        nitrogen --set-zoom-fill --random --head="$i" ~/Pictures/Wallpapers
         i=$(($i + 1))
     done
 else
