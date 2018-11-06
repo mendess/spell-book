@@ -53,6 +53,12 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 " Ctrl+S to save
 noremap <C-S> :w<CR>
 
+" Reopen current file in a split
+command Dup vsplit %:p
+
+" Bind W to w
+command W w
+
 
 syntax on
 filetype plugin indent on
