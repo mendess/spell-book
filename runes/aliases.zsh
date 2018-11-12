@@ -100,6 +100,14 @@ pdf(){
     fi
 }
 
+ev(){
+    if [[ $# > 0 ]]
+    then
+        evince $1 &> /dev/null &
+        disown
+    fi
+}
+
 
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
@@ -126,3 +134,4 @@ alias vim.='vim .'
 alias mnol="cd gitProjects/MNOL/"
 alias idea="idea &; disown; exit"
 alias matlab="/usr/local/MATLAB/R2018a/bin/matlab &; disown" #"; exit"
+alias caos="cd gitProjects/caos_league/dice"

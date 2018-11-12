@@ -4,7 +4,7 @@ buildLatex(){
     clear;
     buildStr="\033[34m Building "$tex"...\033[0m"
     echo -ne $buildStr
-    pdflatex -interaction batchmode --halt-on-error --shell-escape $tex > /dev/null
+    pdflatex --halt-on-error --shell-escape $tex > /dev/null
     built=$?
     for (( i=${#buildStr}; i>0;i--)) do echo -ne "\b"; done;
     if [ $built -eq 0 ]
@@ -48,5 +48,6 @@ done
 
 while true
 do
-    inotifywait -m -e modify,create --exclude '.swp' . | buildLatex
+    var="*tex"
+    inotifywait -m -e modify,create $tex | buildLatex
 done
