@@ -10,7 +10,7 @@ then
 else
     image=$(ls -1 /home/mendess/Pictures/Wallpapers/ | shuf -n1)
 
-    if gsettings set org.gnome.desktop.background picture-uri file:///home/mendess/Pictures/Wallpapers/$image 2> ~/wallerror.log
+    if gsettings set org.gnome.desktop.background picture-uri file:///home/mendess/Pictures/Wallpapers/$image
     then
         echo -e "\033[32m"$image"\033[0m"
     else
