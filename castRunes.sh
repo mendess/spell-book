@@ -2,16 +2,18 @@
 
 echo -e "\n\033[33m Casting Runes...\033[0m"
 
-runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore ) #~/.config/i3/config )
+runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore ~/.config/i3 ~/.config/i3status )
 
 cd $(dirname "$(realpath $0)")"/runes"
 
 for rune in "${runes[@]}";
 do
-    if ! [ -e $(dirname $rune) ]
+    if ! [ -e $(dirname $rune) ] # if the directory doesn't exist, create it
     then
-        echo -e "\033[31mMissing \033[36m$(dirname $rune)\033[31m directory, \033[36m$(basename $rune)\033[31m was not cast.\033[0m"
-    elif ! [ -h $rune ]
+        echo -e "\033[31mMissing \033[36m$(dirname $rune)\033[31m directory, creating....\033[0m"
+        mkdir --verbose --parent $(dirname $rune)
+    fi
+    if ! [ -h $rune ]
     then
         echo -en "\e[38;2;138;93;150mCasting "
         ln -sv $(pwd)"/"$(basename $rune) $rune
