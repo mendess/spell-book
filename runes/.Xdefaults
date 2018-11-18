@@ -32,7 +32,7 @@
 URxvt.intensityStyles:	false
 URxvt.background:       [65]#000000
 URxvt.depth:		32
-URxvt.font: 		xft:monospace:size=11, xft:Noto Emoji
+URxvt.font: 		xft:NotoSansMono-Light:size=11, xft:NotoColorEmoji
 URxvt.scrollBar:	false
 URxvt.cursorColor:	white
 

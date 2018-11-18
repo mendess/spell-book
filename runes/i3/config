@@ -12,7 +12,7 @@ new_float normal
 hide_edge_borders none
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:URWGothic-Book 11
+font xft:Noto Sans Mono:style=Bold 12
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 focus_follows_mouse no
@@ -26,6 +26,12 @@ set $ws5 5
 set $ws6 6
 set $ws7 7
 set $ws8 8
+
+######################################## ON BOOT LAUNCH APPS ###################################
+exec --no-startup-id ~/.local/bin/changeMeWallCicle
+exec --no-startup-id numlockx on
+exec xcompmgr -c -n
+exec dropbox start
 
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
@@ -130,13 +136,6 @@ bindsym $mod+Shift+s     sticky toggle
 ############## MISC
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-######################################## ON BOOT LAUNCH APPS ###################################
-exec --no-startup-id ~/.local/bin/changeMeWallCicle
-exec --no-startup-id numlockx on
-exec xcompmgr -c -n
-exec dropbox start
-exec pulseaudio
 
 ####################################### BEHAVIOR ##############################################
 assign [class="Thunderbird"] $ws3
