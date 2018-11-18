@@ -1,0 +1,1 @@
+/home/mendess/Projects/spells/runes/.profile

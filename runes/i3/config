@@ -18,7 +18,7 @@ floating_modifier $mod
 focus_follows_mouse no
 
 ######################################## WORKSPACES ##########################################
-set $ws1 1:work
+set $ws1 1:main
 set $ws2 2:browser
 set $ws3 3:mail
 set $ws4 4
@@ -170,9 +170,7 @@ for_window [class="Xfburn"]                       floating enable
 for_window [title="vis"]                          floating enable sticky enable
 
 # switch to workspace with urgent window automatically
-for_window [urgent=latest] focus
-
-
+#for_window [urgent=latest] focus
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -302,3 +300,6 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+
+# Switch to workspace 1 on boot
+exec-always workspace $ws1

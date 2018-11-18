@@ -18,7 +18,7 @@ git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
 
 if [[ $? == 1 ]];
 then
-    echo -e "\033[31mCan't backup\033[0m"
+    echo -e "\033[31m\nCan't backup\033[0m"
 else
-    echo -e "\033[32mBack me up and save me"
+    echo -e "\033[32m\nBack me up and save me"
 fi
