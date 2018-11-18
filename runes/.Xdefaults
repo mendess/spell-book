@@ -32,7 +32,10 @@
 URxvt.intensityStyles:	false
 URxvt.background:       [65]#000000
 URxvt.depth:		32
-URxvt.font: 		xft:NotoSansMono-Light:size=11, xft:NotoColorEmoji
+URxvt.font: 		xft:DejaVu Sans Mono:autohint=true:size=11
+URxvt.boldFont:         xft:DejaVu Sans Mono:autohint=true:bold:size=11
+URxvt.italicFont:       xft:DejaVu Sans Mono:autohint=true:italic:size=11
+URxvt.boldItalicFont:   xft:DejaVu Sans Mono:autohint=true:bold:italic:size=11
 URxvt.scrollBar:	false
 URxvt.cursorColor:	white
 
