@@ -16,7 +16,7 @@ do
     if ! [ -h $rune ]
     then
         echo -en "\e[38;2;138;93;150mCasting "
-        ln -sv $(pwd)"/"$(basename $rune) $rune
+        ln -sfv $(pwd)"/"$(basename $rune) $rune
         echo -en "\e[0m"
     fi
 done
