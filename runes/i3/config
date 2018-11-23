@@ -20,7 +20,7 @@ focus_follows_mouse no
 ######################################## WORKSPACES ##########################################
 set $ws1 1:main
 set $ws2 2:browser
-set $ws3 3:mail
+set $ws3 3
 set $ws4 4
 set $ws5 5
 set $ws6 6
