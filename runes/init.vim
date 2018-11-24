@@ -59,6 +59,13 @@ command Dup vsplit %:p
 " Bind W to w
 command W w
 
+" Set the default shell
+if exists('$SHELL')
+    set shell=$SHELL
+else
+    set shell=/bin/sh
+endif
+
 
 syntax on
 filetype plugin indent on
