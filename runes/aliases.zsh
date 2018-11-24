@@ -92,17 +92,19 @@ ex(){
 pdf(){
     if [[ $# < 1 ]]
     then
-        echo "Usage: pdf file.pdf"
+        echo "Usage: $0 file.pdf"
     else
-        evince $1 &
+        zathura $1 &
         disown
         exit
     fi
 }
 
 ev(){
-    if [[ $# > 0 ]]
+    if [[ $# < 1 ]]
     then
+        echo "Usage: $0 file.pdf"
+    else
         zathura $1 &> /dev/null &
         disown
     fi
@@ -129,10 +131,8 @@ alias bc="bc -l"
 alias ghci="stack ghci"
 alias :r="source ~/.zshrc"
 alias cl="clear; ls -la"
-alias pls='sudo $(history -1 | cut -d" " -f6-)'
+alias pls="sudo \$(history -1 | awk '{\$1=\"\"; print \$0 }')"
 alias vim.='vim .'
-alias mnol="cd gitProjects/MNOL/"
-alias matlab="/usr/local/MATLAB/R2018a/bin/matlab &; disown" #"; exit"
 alias caos="cd gitProjects/caos_league/dice"
 alias i3config="vim ~/.config/i3/config"
 alias i3statusconfig="vim ~/.config/i3status/config"
