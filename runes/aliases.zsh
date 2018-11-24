@@ -103,7 +103,7 @@ pdf(){
 ev(){
     if [[ $# > 0 ]]
     then
-        evince $1 &> /dev/null &
+        zathura $1 &> /dev/null &
         disown
     fi
 }
@@ -138,4 +138,4 @@ alias i3config="vim ~/.config/i3/config"
 alias i3statusconfig="vim ~/.config/i3status/config"
 alias db="dropbox-cli"
 alias dbf="dropbox-cli filestatus"
-alias time="/usr/bin/time -p"
+alias t="/usr/bin/time -p"
