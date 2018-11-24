@@ -16,7 +16,7 @@ echo -e "\033[0m"
 git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
 ./updatespellbook.sh
 
-if $?
+if [ $? ]
 then
     echo -e "\033[31m\nCan't backup\033[0m"
 else
