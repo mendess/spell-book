@@ -8,7 +8,7 @@ then
     exit 1
 fi
 
-if ! ping github.com &>/dev/null; then
+if ! ping -c 1 github.com &>/dev/null; then
     echo -e "\033[31mCan't access github\033[0m"
     exit 2
 fi
