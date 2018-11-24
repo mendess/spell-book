@@ -10,9 +10,9 @@ then
     exit 1
 fi
 
-echo -e "\033[32m"
+echo -en "\033[32m"
 git add --verbose --all
-echo -e "\033[0m"
+echo -en "\033[0m"
 git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
 ./updatespellbook.sh
 
