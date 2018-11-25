@@ -43,10 +43,11 @@ Titan — A Synthwave Mix	https://www.youtube.com/watch?v=IRGCwuYugy0
 Starship - A Synthwave Mix	https://www.youtube.com/watch?v=6lBg2EEty24
 Cyber Dream — A Synthwave Mix	https://www.youtube.com/watch?v=BYINA7W7TFg
 Future Girl — Best of Synthwave 2018 — Mix	https://www.youtube.com/watch?v=T1CowKULMx8
+Caravan Palace 60 minute mix	https://www.youtube.com/watch?v=kRDJ5FnxZHg
 "
 
-vid="$(echo "$vidlist" | grep -P "^$(echo "$vidlist" | sed 's/\t.*//g' | tail -n +2 | head -n -1 | dmenu -i -p "Learn about what? (ESC to cancel)" -l 5)\\t" | sed 's/.*\t//')"
-p=$(echo -e "yes\nno" | dmenu -i -p "With video?")
+vid="$(echo "$vidlist" | grep -P "^$(echo "$vidlist" | sed 's/\t.*//g' | tail -n +2 | head -n -1 | dmenu -i -p "Which video?" -l 5)\\t" | sed 's/.*\t//')"
+p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
 
 if [ "$p" == "yes" ]
 then
