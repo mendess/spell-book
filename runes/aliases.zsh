@@ -100,12 +100,22 @@ pdf(){
     fi
 }
 
-ev(){
+za(){
     if [[ $# < 1 ]]
     then
         echo "Usage: $0 file.pdf"
     else
         zathura $1 &> /dev/null &
+        disown
+    fi
+}
+
+fe(){
+    if [[ $# < 1 ]]
+    then
+        echo "Usage: $0 image"
+    else
+        feh $1 &> /dev/null &
         disown
     fi
 }
