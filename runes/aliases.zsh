@@ -52,6 +52,7 @@ make(){
         done
     fi
 }
+
 json(){
     if [[ $# < 1 ]];
     then
@@ -91,11 +92,9 @@ function __append_to_recents { # $1 line, $2 recents file
 function __run_disown {
     local file="$2"
     if [ "$file" = "" ] && [ -f ~/.cache/my_recents/$1 ]; then
-        file=$(cat ~/.cache/my_recents/$1 | sed -e 's/\/home\/mendess/~/' | dmenu -i)
+        file=$(cat ~/.cache/my_recents/$1 | sed -e 's/\/home\/mendess/~/' | dmenu -i -l 5)
+        [ "$file" = "" ] && return 1
         file=$HOME$(echo $file | sed -e 's/~//')
-    fi
-    if [ "$file" = "" ]; then
-        return
     fi
     $1 $file &> /dev/null &
     disown
@@ -103,8 +102,7 @@ function __run_disown {
 }
 
 function pdf {
-    __run_disown zathura "$1"
-    exit
+    __run_disown zathura "$1" && exit
 }
 
 function za {
