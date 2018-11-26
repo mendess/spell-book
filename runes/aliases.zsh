@@ -1,11 +1,11 @@
-allgrep(){
+function allgrep {
     grep -Hne $1 $(find . | grep -v 'git' | grep -v 'node_modules') 2>/dev/null
 }
 
-allsed(){
+function allsed {
     if [[ "$#" < 2 ]];
     then
-        echo "Usage: allsed <find> <replace>"
+        echo "Usage: $0 <find> <replace>"
     else
         for i in $(find . | grep -v '.git' 2>/dev/null);
         do
@@ -14,12 +14,12 @@ allsed(){
     fi
 }
 
-benchmark(){
+function benchmark {
     for i in {1..5};
     do
         echo -e "\033[34mRun #$i: Starting\033[0m"
         time ./$1 #&> /dev/null
-        if (( $? ));
+        if [ $? ];
         then
             echo -e "\033[31mRun #$i: Failed\033[0m"
         else
@@ -40,7 +40,7 @@ benchmark(){
     done;
 }
 
-make(){
+function make {
     if [ -e Makefile ] || [ -e makefile ]
     then
         bash -c "make $@"
@@ -53,7 +53,7 @@ make(){
     fi
 }
 
-json(){
+function json {
     if [[ $# < 1 ]];
     then
         echo "usage: curl [link]"
@@ -62,7 +62,7 @@ json(){
     fi
 }
 
-ex(){
+function ex {
   if [ -f $1 ] ; then
     case $1 in
       *.tar.bz2)   tar xjf $1   ;;
