@@ -61,13 +61,6 @@ json(){
     fi
 }
 
-check_ununtu(){
-    sudo mount /dev/sdb1 /mnt/mnt1
-    ls -l /mnt/mnt1
-    sudo umount /mnt/mnt1
-    ls -l /mnt/mnt1
-}
-
 ex(){
   if [ -f $1 ] ; then
     case $1 in
@@ -92,14 +85,14 @@ ex(){
 function __append_to_recents { # $1 line, $2 recents file
     mkdir -p ~/.cache/my_recents
     touch ~/.cache/my_recents/$2
-    file=$(echo $1 | sed -e 's/\/home\/mendess\//~\//')
-    echo $file | cat - ~/.cache/my_recents/$2 | uniq | head -5 > temp && mv temp ~/.cache/my_recents/$2
+    echo $1 | cat - ~/.cache/my_recents/$2 | uniq | head -5 > temp && mv temp ~/.cache/my_recents/$2
 }
 
 function __run_disown {
-    file="$2"
+    local file="$2"
     if [ "$file" = "" ] && [ -f ~/.cache/my_recents/$1 ]; then
-        file=$(cat ~/.cache/my_recents/$1 | dmenu -i)
+        file=$(cat ~/.cache/my_recents/$1 | sed -e 's/\/home\/mendess/~/' | dmenu -i)
+        file=$HOME$(echo $file | sed -e 's/~//')
     fi
     if [ "$file" = "" ]; then
         return
