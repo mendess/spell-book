@@ -89,37 +89,38 @@ ex(){
   fi
 }
 
-pdf(){
-    if [[ $# < 1 ]]
-    then
-        echo "Usage: $0 file.pdf"
-    else
-        zathura $1 &
-        disown
-        exit
-    fi
+function __append_to_recents { # $1 line, $2 recents file
+    mkdir -p ~/.cache/my_recents
+    touch ~/.cache/my_recents/$2
+    file=$(echo $1 | sed -e 's/\/home\/mendess\//~\//')
+    echo $file | cat - ~/.cache/my_recents/$2 | uniq | head -5 > temp && mv temp ~/.cache/my_recents/$2
 }
 
-za(){
-    if [[ $# < 1 ]]
-    then
-        echo "Usage: $0 file.pdf"
-    else
-        zathura $1 &> /dev/null &
-        disown
+function __run_disown {
+    file="$2"
+    if [ "$file" = "" ] && [ -f ~/.cache/my_recents/$1 ]; then
+        file=$(cat ~/.cache/my_recents/$1 | dmenu -i)
     fi
+    if [ "$file" = "" ]; then
+        return
+    fi
+    $1 $file &> /dev/null &
+    disown
+    __append_to_recents $(readlink -f $file) $1
 }
 
-fe(){
-    if [[ $# < 1 ]]
-    then
-        echo "Usage: $0 image"
-    else
-        feh $1 &> /dev/null &
-        disown
-    fi
+function pdf {
+    __run_disown zathura "$1"
+    exit
 }
 
+function za {
+    __run_disown zathura "$1"
+}
+
+function fe {
+    __run_disown feh "$1"
+}
 
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
