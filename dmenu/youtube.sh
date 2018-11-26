@@ -46,7 +46,7 @@ Future Girl — Best of Synthwave 2018 — Mix	https://www.youtube.com/watch?v=T
 Caravan Palace 60 minute mix	https://www.youtube.com/watch?v=kRDJ5FnxZHg
 "
 
-vid="$(echo "$vidlist" | grep -P "^$(echo "$vidlist" | sed 's/\t.*//g' | tail -n +2 | head -n -1 | dmenu -i -p "Which video?" -l 5)\\t" | sed 's/.*\t//')"
+vid="$(echo "$vidlist" | grep -P "^$(echo "$vidlist" | sed 's/\t.*//g' | tail -n +2 | head -n -1 | dmenu -i -p "Which video?" -l 10 )\\t" | sed 's/.*\t//')"
 p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
 
 if [ "$p" == "yes" ]

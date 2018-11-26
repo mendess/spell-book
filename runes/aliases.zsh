@@ -86,7 +86,7 @@ ex(){
 function __append_to_recents { # $1 line, $2 recents file
     mkdir -p ~/.cache/my_recents
     touch ~/.cache/my_recents/$2
-    echo $1 | cat - ~/.cache/my_recents/$2 | uniq | head -5 > temp && mv temp ~/.cache/my_recents/$2
+    echo $1 | cat - ~/.cache/my_recents/$2 | awk '!seen[$0]++' | head -5 > temp && mv temp ~/.cache/my_recents/$2
 }
 
 function __run_disown {

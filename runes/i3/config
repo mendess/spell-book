@@ -18,15 +18,15 @@ floating_modifier $mod
 focus_follows_mouse no
 
 ######################################## WORKSPACES ##########################################
-set $ws1 1:main
-set $ws2 2:browser
+set $ws1 1: Main
+set $ws2 2: Browser
 set $ws3 3
 set $ws4 4
 set $ws5 5
 set $ws6 6
 set $ws7 7
 set $ws8 8
-set $ws9 9:media
+set $ws9 9: Media
 
 ######################################## ON BOOT LAUNCH APPS ###################################
 exec --no-startup-id ~/.local/bin/changeMeWallCicle
@@ -159,8 +159,6 @@ for_window [class="GParted"]                      floating enable border normal
 for_window [title="i3_help"]                      floating enable sticky enable border normal
 for_window [class="Lightdm-gtk-greeter-settings"] floating enable
 for_window [class="Lxappearance"]                 floating enable sticky enable border normal
-for_window [class="Manjaro-hello"]                floating enable
-for_window [class="Manjaro Settings Manager"]     floating enable border normal
 for_window [title="MuseScore: Play Panel"]        floating enable
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
 for_window [class="Oblogout"]                     fullscreen enable
