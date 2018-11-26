@@ -44,6 +44,7 @@ Starship - A Synthwave Mix	https://www.youtube.com/watch?v=6lBg2EEty24
 Cyber Dream — A Synthwave Mix	https://www.youtube.com/watch?v=BYINA7W7TFg
 Future Girl — Best of Synthwave 2018 — Mix	https://www.youtube.com/watch?v=T1CowKULMx8
 Lust - A Darksynth Mix	https://www.youtube.com/watch?v=BBS19XhW1_U
+Simpson Wave	https://www.youtube.com/watch?v=miljaY0Dak4&t=534s
 Caravan Palace 60 minute mix	https://www.youtube.com/watch?v=kRDJ5FnxZHg
 "
 
