@@ -37,7 +37,7 @@ exec --no-startup-id dropbox start
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
 bindsym $mod+Return       exec --no-startup-id $term
-bindsym $mod+Shift+Return exec --no-startup-id ~/.local/bin/termFromHere
+bindsym $mod+Shift+Return exec --no-startup-id termFromHere
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spells/dmenu/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall
@@ -115,7 +115,7 @@ bindsym XF86AudioMute        exec amixer -q set Master toggle
 bindsym $mod+0               mode "$mode_system"
 set $mode_system (l)ock, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
+    bindsym l       exec --no-startup-id i3lock --image=/home/mendess/Pictures/Wallpapers/Blue_Mana.png, mode "default"
     bindsym r       exec --no-startup-id reboot, mode "default" #i3exit reboot, mode "default"
     bindsym Shift+s exec --no-startup-id shutdown now, mode "default"
     bindsym Return  mode "default"
