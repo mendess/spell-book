@@ -29,10 +29,10 @@ set $ws8 8
 set $ws9 9: Media
 
 ######################################## ON BOOT LAUNCH APPS ###################################
-exec --no-startup-id ~/.local/bin/changeMeWallCicle
+exec --no-startup-id changeMeWallCicle
 exec --no-startup-id numlockx on
-exec xcompmgr -c -n
-exec dropbox start
+exec --no-startup-id xcompmgr -c -n
+exec --no-startup-id dropbox start
 
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
@@ -40,11 +40,11 @@ bindsym $mod+Return       exec --no-startup-id $term
 bindsym $mod+Shift+Return exec --no-startup-id ~/.local/bin/termFromHere
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spells/dmenu/menu.sh
-bindsym $mod+F9           exec --no-startup-id ~/.local/bin/changeMeWall
-bindsym $mod+Ctrl+m       exec $term -e 'alsamixer'
-bindsym $mod+F2           exec firefox
-bindsym $mod+F3           exec discord
-bindsym $mod+F4           exec firefox; exec discord
+bindsym $mod+F9           exec --no-startup-id changeMeWall
+bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'alsamixer'
+bindsym $mod+F2           exec --no-startup-id firefox
+bindsym $mod+F3           exec --no-startup-id discord
+bindsym $mod+F4           exec --no-startup-id firefox; exec --no-startup-id discord
 bindsym Print             --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && xclip -sel clip -t image/png /tmp/$f && rm /tmp/$f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f'
@@ -70,7 +70,7 @@ bindsym $mod+9         workspace $ws9
 bindsym $mod+Tab       workspace next
 bindsym $mod+Shift+Tab workspace prev
 #workspace_auto_back_and_forth yes
-bindsym Mod1+Tab   workspace back_and_forth
+bindsym Mod1+Tab       workspace back_and_forth
 ####### LAYOUT
 bindsym $mod+Shift+h         move left
 bindsym $mod+Shift+j         move down
@@ -113,11 +113,9 @@ bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute        exec amixer -q set Master toggle
 bindsym $mod+0               mode "$mode_system"
-set $mode_system (l)ock, switch_(u)ser, (s)uspend, (r)eboot, (Shift+s)hutdown
+set $mode_system (l)ock, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
-    bindsym s       exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u       exec --no-startup-id i3exit switch_user, mode "default"
     bindsym r       exec --no-startup-id reboot, mode "default" #i3exit reboot, mode "default"
     bindsym Shift+s exec --no-startup-id shutdown now, mode "default"
     bindsym Return  mode "default"
@@ -136,8 +134,8 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-############## FLOATING
 bindsym $mod+e           layout toggle split
+############## FLOATING
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s     sticky toggle
 ############## MISC
