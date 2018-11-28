@@ -44,19 +44,20 @@ Starship - A Synthwave Mix	https://www.youtube.com/watch?v=6lBg2EEty24
 Cyber Dream — A Synthwave Mix	https://www.youtube.com/watch?v=BYINA7W7TFg
 Future Girl — Best of Synthwave 2018 — Mix	https://www.youtube.com/watch?v=T1CowKULMx8
 Lust - A Darksynth Mix	https://www.youtube.com/watch?v=BBS19XhW1_U
-Simpson Wave	https://www.youtube.com/watch?v=miljaY0Dak4&t=534s
+Simpson Wave	https://www.youtube.com/watch?v=miljaY0Dak4
 Caravan Palace 60 minute mix	https://www.youtube.com/watch?v=kRDJ5FnxZHg
 "
 
 vid="$(echo "$vidlist" | grep -P "^$(echo "$vidlist" | sed 's/\t.*//g' | tail -n +2 | head -n -1 | dmenu -i -p "Which video?" -l 10 )\\t" | sed 's/.*\t//')"
 p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
+echo $vid
 
 if [ "$p" == "yes" ]
 then
     mpv $vid
 elif [ "$p" == "no" ]
 then
-    urxvt -e mpv --no-video $vid
+    urxvt -title 'media' -e bash -c "youtube-dl --get-title $vid; mpv --no-video $vid"
 fi
 
 

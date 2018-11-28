@@ -146,6 +146,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 assign [class="Thunderbird"] $ws3
 assign [class="Firefox"] $ws2
 assign [title="Discord"] $ws2
+assign [title="media"] $ws9
 assign [title="mpv"] $ws9
 
 for_window [title="alsamixer"]                    floating enable border pixel 1

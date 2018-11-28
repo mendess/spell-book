@@ -132,7 +132,7 @@ alias dex="~/gitProjects/unix_dex/target/debug/unix_dex"
 alias bc="bc -l"
 alias ghci="stack ghci"
 alias :r="source ~/.zshrc"
-alias cl="clear; ls -la"
+alias cl="clear; ls -lah"
 alias pls="sudo \$(history -1 | awk '{\$1=\"\"; print \$0 }')"
 alias vim.='vim .'
 alias caos="cd gitProjects/caos_league/dice"
