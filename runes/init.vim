@@ -10,14 +10,15 @@ Plug 'neovimhaskell/haskell-vim'
 
 Plug 'cohama/lexima.vim'
 
-Plug 'pangloss/vim-javascript'
-
 Plug 'elixir-editors/vim-elixir'
 
 Plug 'junegunn/goyo.vim'
 
 Plug 'bitc/vim-bad-whitespace'
 
+" JS shit
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 call plug#end()
 
 

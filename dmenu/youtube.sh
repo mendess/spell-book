@@ -46,11 +46,15 @@ Future Girl — Best of Synthwave 2018 — Mix	https://www.youtube.com/watch?v=T
 Lust - A Darksynth Mix	https://www.youtube.com/watch?v=BBS19XhW1_U
 Simpson Wave	https://www.youtube.com/watch?v=miljaY0Dak4
 Caravan Palace 60 minute mix	https://www.youtube.com/watch?v=kRDJ5FnxZHg
+Small Red Boy	https://www.youtube.com/watch?v=nNeNn_KETIg
+No More Shame, No More Fear, No More Dread	https://www.youtube.com/watch?v=rsIHSe3IKTM
+Moonlight Sonata	https://www.youtube.com/watch?v=4Tr0otuiQuU
 "
 
-vid="$(echo "$vidlist" | grep -P "^$(echo "$vidlist" | sed 's/\t.*//g' | tail -n +2 | head -n -1 | dmenu -i -p "Which video?" -l 10 )\\t" | sed 's/.*\t//')"
+vidname="$(echo "$vidlist" | sed 's/\t.*//g' | tail -n +2 | head -n -1 | dmenu -i -p "Which video?" -l $(echo "$vidlist" | wc -l))"
+vid="$(echo "$vidlist" | grep -P "^$vidname\\t" | sed 's/.*\t//')"
+[ "$vid" = "" ] && exit
 p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
-echo $vid
 
 if [ "$p" == "yes" ]
 then
