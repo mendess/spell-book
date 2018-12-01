@@ -69,7 +69,8 @@ endif
 
 " LaTeX
 autocmd BufEnter *.tex set linebreak
-command R !pdflatex Report.tex
+command R !pdflatex Report.tex > /dev/null
+command Re !pdflatex Report.tex
 
 syntax on
 filetype plugin indent on

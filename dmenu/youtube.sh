@@ -50,8 +50,9 @@ Small Red Boy	https://www.youtube.com/watch?v=nNeNn_KETIg
 No More Shame, No More Fear, No More Dread	https://www.youtube.com/watch?v=rsIHSe3IKTM
 Moonlight Sonata	https://www.youtube.com/watch?v=4Tr0otuiQuU
 "
+vidlist=$(echo "$vidlist" | tail -n +2 | head -n -1)
 
-vidname="$(echo "$vidlist" | sed 's/\t.*//g' | tail -n +2 | head -n -1 | dmenu -i -p "Which video?" -l $(echo "$vidlist" | wc -l))"
+vidname="$(echo "$vidlist" | sed 's/\t.*//g' | dmenu -i -p "Which video?" -l $(echo "$vidlist" | wc -l))"
 vid="$(echo "$vidlist" | grep -P "^$vidname\\t" | sed 's/.*\t//')"
 [ "$vid" = "" ] && exit
 p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
