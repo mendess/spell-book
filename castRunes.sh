@@ -1,13 +1,16 @@
 #!/bin/bash
 
+
 echo -e "\n\033[33m Casting Runes...\033[0m"
 
-runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore ~/.config/i3 ~/.config/i3status ~/.Xdefaults ~/.oh-my-zsh/themes/fishy-2.zsh-theme ~/.zprofile ~/.config/zathura/zathurarc )
+runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore ~/.config/i3 ~/.config/i3status ~/.Xdefaults ~/.oh-my-zsh/custom/themes/fishy-2.zsh-theme ~/.zprofile ~/.config/zathura/zathurarc )
 
 cd $(dirname "$(realpath $0)")"/runes"
 
 for rune in "${runes[@]}";
 do
+    [[ $1 != "" ]] && [[ $rune != *"$1"* ]] && continue
+
     if ! [ -e $(dirname $rune) ] # if the directory doesn't exist, create it
     then
         echo -e "\033[31mMissing \033[36m$(dirname $rune)\033[31m directory, creating....\033[0m"
