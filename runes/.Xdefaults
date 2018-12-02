@@ -31,6 +31,7 @@
 
 URxvt.intensityStyles:	false
 URxvt.background:       [65]#000000
+URxvt.blurRadius:       128x1
 URxvt.depth:		32
 URxvt.font: 		xft:DejaVu Sans Mono:autohint=true:size=11
 URxvt.boldFont:         xft:DejaVu Sans Mono:autohint=true:bold:size=11

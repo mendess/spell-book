@@ -11,7 +11,7 @@ _fishy_collapsed_wd() {
 
 local user_color='yellow'; [ $UID -eq 0 ] && user_color='red'
 if [[ -n "$SSH_CLIENT" ]]; then
-    PROMPT='%{$fg_bold[red]%}ssh@$(uname -n) %{$fg[$user_color]%}$(_fishy_collapsed_wd)%{$reset_color%}%(!.#.>) '
+    PROMPT='%{$fg_bold[red]%}$(whoami)@$(uname -n) %{$fg[$user_color]%}$(_fishy_collapsed_wd)%{$reset_color%}%(!.#.>) '
 else
     PROMPT='%{$fg[$user_color]%}$(_fishy_collapsed_wd)%{$reset_color%}%(!.#.>) '
 fi

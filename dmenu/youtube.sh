@@ -53,7 +53,7 @@ Moonlight Sonata;https://www.youtube.com/watch?v=4Tr0otuiQuU
 vidlist=$(echo "$vidlist" | tail -n +2 | head -n -1)
 
 vidname="$(echo "$vidlist" | cut -d';' -f1 | dmenu -i -p "Which video?" -l $(echo "$vidlist" | wc -l))"
-vid="$(echo "$vidlist" | grep -P "^$vidname\\t" | cut -d';' -f2)"
+vid="$(echo "$vidlist" | grep -P "^$vidname;" | cut -d';' -f2)"
 [ "$vid" = "" ] && exit
 p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
 
@@ -64,5 +64,4 @@ elif [ "$p" == "no" ]
 then
     urxvt -title 'media' -e bash -c "youtube-dl --get-title $vid; mpv --no-video $vid"
 fi
-
 
