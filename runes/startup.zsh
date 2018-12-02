@@ -20,11 +20,15 @@ function __start_tmux {
                 echo "Which session?"
                 echo "$sessions"
                 echo -n "(default=$(echo "$sessions" | head -1))> "
-                read r
-                tmux attach -s $r
+                read s
+                [[ -z "$s" ]] && s=$(echo "$sessions" | head -1)
+                tmux attach -t "$s"
+            else
+                tmux attach
             fi
+        else
+            tmux
         fi
-        tmux attach
     else
         tmux
     fi
