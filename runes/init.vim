@@ -100,4 +100,4 @@ autocmd FileType tex inoremap ,tbf \textbf{}<Esc>T{i
 autocmd FileType tex inoremap ,tit \textit{}<Esc>T{i
 
 """ JS
-autocmd FileType *.js set shiftwidth=2
+autocmd BufEnter *.js set shiftwidth=2
