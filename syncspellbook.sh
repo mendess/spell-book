@@ -10,10 +10,12 @@ function sync {
         git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
     fi
 
+    echo -en "\033[32m"
     echo -n "Checking remote..."
     git fetch --quiet
     fetch=$?
     echo -en "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+    echo -en "\033[0m"
     if ! [ $fetch ]
     then
         echo -e "\033[31mCan't access github\033[0m"
@@ -52,7 +54,7 @@ echo -e "\033[34mBack me up inside\033[0m"
 sync
 if [ $? ]
 then
-    echo -e "\033[32m\nBack me up and save me"
+    echo -e "\033[32mBack me up and save me"
 else
-    echo -e "\033[31m\nCan't backup\033[0m"
+    echo -e "\033[31mCan't backup\033[0m"
 fi
