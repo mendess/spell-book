@@ -45,9 +45,8 @@ function sync {
         fi
     fi
 
-    echo hey
-    . ./learnSpells.sh
-    . ./castRunes.sh
+    bash ./learnSpells.sh
+    bash ./castRunes.sh
 }
 
 cd $(dirname "$(realpath $0)")

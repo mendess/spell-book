@@ -26,7 +26,7 @@ function newRunes {
 }
 
 
-newRunes || return 0 || exit 0
+newRunes || exit 0
 
 echo -e "\033[33mCasting Runes...\033[0m"
 
