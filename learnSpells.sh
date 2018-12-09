@@ -3,10 +3,7 @@
 function newSpells {
     for f in "$(ls | grep '\.sh' | sed 's/\.sh//')"
     do
-        if ! [ -h ~/.local/bin/"$f" ]
-        then
-            return 0
-        fi
+        [ -h ~/.local/bin/"$f" ] || return 0
     done
     return 1;
 }

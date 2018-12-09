@@ -17,14 +17,10 @@ runes=(
 function newRunes {
     for rune in "${runes[@]}"
     do
-        if ! [ -h "$rune" ]
-        then
-            return 0
-        fi
+        [ -h "$rune" ] || return 0
     done
     return 1
 }
-
 
 newRunes || exit 0
 
