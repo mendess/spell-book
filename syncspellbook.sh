@@ -22,7 +22,7 @@ function sync {
         return 2
     fi
 
-    if [ $(git rev-parse HEAD) == $(git rev-parse @{u}) ]
+    if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]
     then
         git pull --rebase
 
