@@ -12,9 +12,9 @@ function newSpells {
 }
 mkdir -p ~/.local/bin
 
-cd "$(dirname "$(realpath "$0")")" || exit 1
+cd "$(dirname "$(realpath "$0")")" || return 0
 
-newSpells || exit 0
+newSpells || return 0
 echo -e "\n\033[33mLearning Spells...\033[0m"
 
 for spell in *.sh
