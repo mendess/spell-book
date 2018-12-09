@@ -10,30 +10,37 @@ function sync {
         git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
     fi
 
-    if ! git fetch --quiet
+    echo -n "Checking remote..."
+    git fetch --quiet
+    fetch=$?
+    echo -en "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+    if ! [ $fetch ]
     then
         echo -e "\033[31mCan't access github\033[0m"
         return 2
     fi
 
-    git pull --rebase
-
-    while [[ $? != 0 ]]
-    do
-        echo -e "\033[31mConflicts emerged, please resolve them\033[0m"
-        read
-        rebase=1
-        for file in $(git status --short | grep UU | cut -d" " -f2)
-        do
-            nvim $file || vim $file
-        done
-        git add -A
-        git rebase --continue
-    done
-
-    if [[ $rebase != 0 ]]
+    if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]
     then
-        git push --quiet
+        git pull --rebase
+
+        while [[ $? != 0 ]]
+        do
+            echo -e "\033[31mConflicts emerged, please resolve them\033[0m"
+            read
+            rebase=1
+            for file in $(git status --short | grep UU | cut -d" " -f2)
+            do
+                nvim $file || vim $file
+            done
+            git add -A
+            git rebase --continue
+        done
+
+        if [[ $rebase != 0 ]]
+        then
+            git push --quiet
+        fi
     fi
 
     . ./learnSpells.sh
