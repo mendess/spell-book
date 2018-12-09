@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-echo -e "\n\033[33m Casting Runes...\033[0m"
+echo -e "\033[33mCasting Runes...\033[0m"
 
-runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore ~/.config/i3 ~/.config/i3status ~/.Xdefaults ~/.oh-my-zsh/custom/themes/fishy-2.zsh-theme ~/.zprofile ~/.config/zathura/zathurarc )
+runes=( ~/.oh-my-zsh/custom/aliases.zsh ~/.config/nvim/init.vim ~/.oh-my-zsh/custom/startup.zsh ~/.gitignore ~/.config/i3 ~/.config/i3status ~/.Xdefaults ~/.oh-my-zsh/custom/themes/fishy-2.zsh-theme ~/.zprofile ~/.config/zathura/zathurarc ~/.config/mpv/mpv.conf )
 
 cd $(dirname "$(realpath $0)")"/runes"
 
@@ -23,4 +23,4 @@ do
         echo -en "\e[0m"
     fi
 done
-echo -e "\033[33m Done!\033[0m"
+echo -e "\033[33mDone!\033[0m"

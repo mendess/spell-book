@@ -49,6 +49,7 @@ bindsym Print             --release exec --no-startup-id scrot -s -e 'mv $f /tmp
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
+bindsym $mod+backslash    exec --no-startup-id bash -c "echo 'cycle pause' | socat - /tmp/mpvsocket"
 ####### NAVIGATION
 bindsym $mod+j         focus down
 bindsym $mod+k         focus up

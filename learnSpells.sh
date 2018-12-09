@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\n\033[33m Learning Spells...\033[0m"
+echo -e "\n\033[33mLearning Spells...\033[0m"
 mkdir -p ~/.local/bin
 
 cd $(dirname "$(realpath $0)")
@@ -13,4 +13,4 @@ do
         ln -sv $(pwd)"/"$spell ~/.local/bin/$(basename $spell .sh)
     fi
 done
-echo -e "\033[33m Done!\033[0m"
+echo -e "\033[33mDone!\033[0m"

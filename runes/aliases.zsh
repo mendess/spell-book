@@ -142,3 +142,4 @@ alias db="dropbox-cli"
 alias dbf="dropbox-cli filestatus"
 alias t="/usr/bin/time -p"
 alias synthwave='mpv --no-video https://www.youtube.com/playlist\?list\=UUwoTj-pZgZZ8DInOXSSLMmA'
+alias mpv="mpv --input-ipc-server=/tmp/mpvsocket"
