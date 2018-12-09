@@ -1,6 +1,7 @@
 #!/bin/bash
 
-data=$(cat Dropbox/backups/ssh.data)
+data=$(cat ~/Dropbox/backups/ssh.data)
+[ -z "$data" ] && exit 1
 
 # pick connetion
 machines=$(echo "$data" | cut -d';' -f2)
