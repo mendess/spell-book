@@ -1,16 +1,28 @@
 #!/bin/bash
 
-echo -e "\n\033[33mLearning Spells...\033[0m"
+function newSpells {
+    for f in "$(ls | grep '\.sh' | sed 's/\.sh//')"
+    do
+        if ! [ -h ~/.local/bin/"$f" ]
+        then
+            return 1
+        fi
+    done
+    return 0;
+}
 mkdir -p ~/.local/bin
 
-cd $(dirname "$(realpath $0)")
+cd "$(dirname "$(realpath "$0")")" || exit 1
+
+newSpells || exit 0
+echo -e "\n\033[33mLearning Spells...\033[0m"
 
 for spell in *.sh
 do
-    if ! [ -e ~/.local/bin/$(basename $spell .sh) ]
+    if ! [ -e ~/.local/bin/"$(basename "$spell" .sh)" ]
     then
-        echo -e "\e[38;2;138;93;150mLearning "$(basename $spell .sh)"\e[0m"
-        ln -sv $(pwd)"/"$spell ~/.local/bin/$(basename $spell .sh)
+        echo -e "\e[38;2;138;93;150mLearning $(basename "$spell" .sh)\e[0m"
+        ln -sv "$(pwd)""/""$spell" ~/.local/bin/"$(basename "$spell" .sh)"
     fi
 done
 echo -e "\033[33mDone!\033[0m"

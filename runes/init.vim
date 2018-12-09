@@ -20,6 +20,8 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
+Plug 'tpope/vim-surround'
+
 " JS shit
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
