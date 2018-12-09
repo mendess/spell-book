@@ -3,13 +3,11 @@
 function newSpells {
     for f in "$(ls | grep '\.sh' | sed 's/\.sh//')"
     do
-        echo $f
         if ! [ -h ~/.local/bin/"$f" ]
         then
             return 0
         fi
     done
-    echo 0
     return 1;
 }
 mkdir -p ~/.local/bin
