@@ -12,6 +12,7 @@
 - [updatespellbook](updatespellbook.sh) Tries to synchronise with changes to the
   remote repository. Also runs [updatespellbook](updatespellbook.sh)
   and [castRunes](castRunes.sh).
+- [sssh](sssh.sh) Manages ssh connections.
 - [learnspells](learnspell.sh) Creates a sym-link on `~/.local/bin` to every
   spell.
 - [castRunes](castRunes.sh) Creates a sym-link for every rune in
