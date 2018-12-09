@@ -11,8 +11,9 @@ function newSpells {
     return 0;
 }
 mkdir -p ~/.local/bin
-
+echo hey2
 cd "$(dirname "$(realpath "$0")")" || return 0
+echo hey3
 
 newSpells || return 0
 echo -e "\n\033[33mLearning Spells...\033[0m"
