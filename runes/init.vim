@@ -18,6 +18,8 @@ Plug 'bitc/vim-bad-whitespace'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
 " JS shit
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -41,6 +43,10 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|target|out)$'
 " goyo
 map <F10> :Goyo<CR>
 let g:goyo_height='90'
+
+" markdown-preview
+let g:mkdp_browser = 'firefox'
+
 
 """ KEY BINDINGS
 

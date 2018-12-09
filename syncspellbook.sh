@@ -10,7 +10,8 @@ function sync {
         git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
     fi
 
-    if ! ping -c 1 github.com &>/dev/null; then
+    if ! git fetch --quiet
+    then
         echo -e "\033[31mCan't access github\033[0m"
         return 2
     fi
@@ -24,7 +25,7 @@ function sync {
         rebase=1
         for file in $(git status --short | grep UU | cut -d" " -f2)
         do
-            vim $file
+            nvim $file || vim $file
         done
         git add -A
         git rebase --continue
