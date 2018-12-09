@@ -45,6 +45,7 @@ function sync {
         fi
     fi
 
+    echo hey
     . ./learnSpells.sh
     . ./castRunes.sh
 }
