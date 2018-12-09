@@ -1,9 +1,9 @@
 #!/bin/bash
 
 function newSpells {
-    for f in "$(ls | grep '\.sh' | sed 's/\.sh//')"
+    for spell in *.sh
     do
-        [ -h ~/.local/bin/"$f" ] || return 0
+        [ -h ~/.local/bin/"$(basename "$spell" .sh)" ] || return 0
     done
     return 1;
 }
@@ -12,7 +12,7 @@ cd "$(dirname "$(realpath "$0")")" || return 0
 
 newSpells || exit 0
 
-echo -e "\n\033[33mLearning Spells...\033[0m"
+echo -e "\033[33mLearning Spells...\033[0m"
 
 for spell in *.sh
 do
