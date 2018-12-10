@@ -8,6 +8,8 @@ function sync {
     if ! git diff-index --quiet HEAD --
     then
         git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
+    else
+        echo -e "\033[34mNothing to backup\033[0m"
     fi
 
     echo -en "\033[32m"
