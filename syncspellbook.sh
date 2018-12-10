@@ -49,6 +49,7 @@ function sync {
 
     bash ./learnSpells.sh
     bash ./castRunes.sh
+    return 0
 }
 
 cd $(dirname "$(realpath $0)")
