@@ -45,6 +45,8 @@ function sync {
         then
             git push --quiet
         fi
+    else
+        echo -e "\033[34mNothing to pull\033[0m"
     fi
 
     bash ./learnSpells.sh
