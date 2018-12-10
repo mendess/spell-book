@@ -25,10 +25,10 @@ function sync {
     if [ "$localRemote" != "$(git rev-parse @{u})" ]; then
         hasPulls="true"
     else
-        echo -e "\033[34mNothing to pull\033[0m"
+        echo -e "\033[34mNothing to pull      \033[0m"
     fi
 
-    if [ "$hasCommits" = "true" ] && [ "$hasPulls" = "true" ]; then
+    if [ -n "$hasCommits" ] && [ -n "$hasPulls" ]; then
         while git pull --rebase
         do
             echo -e "\033[31mConflicts emerged, please resolve them\033[0m"
@@ -45,10 +45,10 @@ function sync {
         if [[ $rebase != 0 ]]; then
             git push --quiet
         fi
-    elif [ "$hasCommits" = "true" ]; then
-        git push --quiet
-    elif [ "$hasPulls" = "true" ]; then
-        git pull --quiet
+    elif [ -n "$hasCommits" ]; then
+        git push
+    elif [ -n "$hasPulls" ]; then
+        git pull
     fi
 
     bash ./learnSpells.sh
