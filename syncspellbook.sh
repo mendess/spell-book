@@ -29,6 +29,14 @@ function sync {
         hasPulls="false"
     fi
     echo $hasPulls $hasCommits
+    if [ $hasCommits = "true" ]
+    then
+        echo yay
+    fi
+    if [ "$hasCommits" = "true" ]
+    then
+        echo aya
+    fi
 
     if [ "$hasCommits" = "true" ] && [ "$hasPulls" = "true" ]; then
         while git pull --rebase
