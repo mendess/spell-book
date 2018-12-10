@@ -46,7 +46,7 @@ function sync {
             git push --quiet
         fi
     elif [ -n "$hasCommits" ]; then
-        git push
+        git push --quiet
     elif [ -n "$hasPulls" ]; then
         git pull
     fi
