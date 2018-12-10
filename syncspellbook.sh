@@ -28,6 +28,7 @@ function sync {
         echo -e "\033[34mNothing to pull\033[0m"
         hasPulls="false"
     fi
+    echo $hasPulls $hasCommits
 
     if [ "$hasCommits" = "true" ] && [ "$hasPulls" = "true" ]; then
         while git pull --rebase
