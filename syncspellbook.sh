@@ -29,7 +29,7 @@ function sync {
         hasPulls=0
     fi
 
-    if [ "$hasCommits" ] && [ "$hasPulls" ]; then
+    if [ $hasCommits ] && [ $hasPulls ]; then
         while git pull --rebase
         do
             echo -e "\033[31mConflicts emerged, please resolve them\033[0m"
@@ -46,9 +46,9 @@ function sync {
         if [[ $rebase != 0 ]]; then
             git push --quiet
         fi
-    elif [ "$hasCommits" ]; then
+    elif [ $hasCommits ]; then
         git push --quiet
-    elif [ "$hasPulls" ]; then
+    elif [ $hasPulls ]; then
         git pull --quiet
     fi
 
