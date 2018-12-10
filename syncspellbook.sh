@@ -1,13 +1,13 @@
 #!/bin/bash
 
 function sync {
+    localRemote="$(git rev-parse @{u})"
     echo -en "\033[32m"; git add --verbose --all; echo -en "\033[0m"
 
     if ! git diff-index --quiet HEAD --; then
         hasCommits="true"
         git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
     else
-        hasCommits="true"
         echo -e "\033[34mNothing to backup\033[0m"
     fi
 
@@ -22,16 +22,10 @@ function sync {
         return 2
     fi
 
-    if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
+    if [ "$localRemote" != "$(git rev-parse @{u})" ]; then
         hasPulls="true"
     else
         echo -e "\033[34mNothing to pull\033[0m"
-        hasPulls="false"
-    fi
-    echo $hasPulls $hasCommits
-    if [ "$hasPulls" = "true" ]
-    then
-        echo aya
     fi
 
     if [ "$hasCommits" = "true" ] && [ "$hasPulls" = "true" ]; then
