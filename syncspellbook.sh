@@ -4,10 +4,10 @@ function sync {
     echo -en "\033[32m"; git add --verbose --all; echo -en "\033[0m"
 
     if ! git diff-index --quiet HEAD --; then
-        hasCommits=true
+        hasCommits="true"
         git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
     else
-        hasCommits=false
+        hasCommits="true"
         echo -e "\033[34mNothing to backup\033[0m"
     fi
 
@@ -23,13 +23,13 @@ function sync {
     fi
 
     if [ "$(git rev-parse HEAD)" != "$(git rev-parse @{u})" ]; then
-        hasPulls=true
+        hasPulls="true"
     else
         echo -e "\033[34mNothing to pull\033[0m"
-        hasPulls=false
+        hasPulls="false"
     fi
 
-    if $hasCommits && $hasPulls; then
+    if [ "$hasCommits" = "true" ] && [ "$hasPulls" = "true" ]; then
         while git pull --rebase
         do
             echo -e "\033[31mConflicts emerged, please resolve them\033[0m"
@@ -46,9 +46,9 @@ function sync {
         if [[ $rebase != 0 ]]; then
             git push --quiet
         fi
-    elif $hasCommits; then
+    elif [ "$hasCommits" = "true" ]; then
         git push --quiet
-    elif $hasPulls; then
+    elif [ "$hasPulls" = "true" ]; then
         git pull --quiet
     fi
 
