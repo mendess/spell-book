@@ -85,20 +85,20 @@ function ex {
 
 function __append_to_recents { # $1 line, $2 recents file
     mkdir -p ~/.cache/my_recents
-    touch ~/.cache/my_recents/$2
-    echo $1 | cat - ~/.cache/my_recents/$2 | awk '!seen[$0]++' | head -10 > temp && mv temp ~/.cache/my_recents/$2
+    touch ~/.cache/my_recents/"$2"
+    echo "$1" | cat - ~/.cache/my_recents/"$2" | awk '!seen[$0]++' | head -10 > temp && mv temp ~/.cache/my_recents/$2
 }
 
 function __run_disown {
     local file="$2"
-    if [ "$file" = "" ] && [ -f ~/.cache/my_recents/$1 ]; then
-        file=$(cat ~/.cache/my_recents/$1 | sed -e 's/\/home\/mendess/~/' | dmenu -i -l $(cat ~/.cache/my_recents/$1 | wc -l))
+    if [ "$file" = "" ] && [ -f ~/.cache/my_recents/"$1" ]; then
+        file=$(cat ~/.cache/my_recents/"$1" | sed -e 's/\/home\/mendess/~/' | dmenu -i -l "$(cat ~/.cache/my_recents/"$1" | wc -l)")
         [ "$file" = "" ] && return 1
-        file=$HOME$(echo $file | sed -e 's/~//')
+        file=$HOME$(echo "$file" | sed -e 's/~//')
     fi
-    $1 $file &> /dev/null &
+    "$1" "$file" &> /dev/null &
     disown
-    __append_to_recents $(readlink -f $file) $1
+    __append_to_recents "$(readlink -f "$file")" "$1"
 }
 
 function pdf {
