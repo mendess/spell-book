@@ -29,11 +29,7 @@ function sync {
         hasPulls="false"
     fi
     echo $hasPulls $hasCommits
-    if [ $hasCommits = "true" ]
-    then
-        echo yay
-    fi
-    if [ "$hasCommits" = "true" ]
+    if [ "$hasPulls" = "true" ]
     then
         echo aya
     fi
