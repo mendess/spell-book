@@ -4,7 +4,7 @@ data=$(cat ~/Dropbox/backups/ssh.data)
 [ -z "$data" ] && exit 1
 
 # pick connetion
-machines=$(echo "$data" | cut -d';' -f2)
+machines=$(echo "$data" | grep -v "$(uname -n)" | cut -d';' -f2)
 echo "$machines" | nl
 echo -n "pick (empty to cancel)> "
 read -r pick
