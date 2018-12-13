@@ -22,6 +22,8 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 Plug 'tpope/vim-surround'
 
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
 " JS shit
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -49,6 +51,8 @@ let g:goyo_height='90'
 " markdown-preview
 let g:mkdp_browser = 'firefox'
 
+" deopleate
+let g:deoplete#enable_at_startup = 1
 
 """ KEY BINDINGS
 
