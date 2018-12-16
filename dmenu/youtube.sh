@@ -1,6 +1,6 @@
 #!/bin/bash
 
-vidlist="
+vidlist=$(echo "
 Hyperdrive - A Cyberpunk Mix;https://www.youtube.com/watch?v=QAUnDw9qAsI
 Beyond - A Chillwave Mix;https://www.youtube.com/watch?v=vQzqTTaWefY
 Cyberscape - A Synthwave Mix;https://www.youtube.com/watch?v=hIPgqCKMUkY
@@ -50,12 +50,17 @@ Small Red Boy;https://www.youtube.com/watch?v=nNeNn_KETIg
 No More Shame, No More Fear, No More Dread;https://www.youtube.com/watch?v=rsIHSe3IKTM
 Moonlight Sonata;https://www.youtube.com/watch?v=4Tr0otuiQuU
 Roads;https://www.youtube.com/watch?v=FRPeYP6gS-s https://www.youtube.com/watch?v=1vrEljMfXYo
-"
-vidlist=$(echo "$vidlist" | tail -n +2 | head -n -1)
+" | sed '/^$/ d')
 
-vidname="$(echo "$vidlist" | cut -d';' -f1 | dmenu -i -p "Which video?" -l $(echo "$vidlist" | wc -l))"
-vid="$(echo "$vidlist" | grep -P "^$vidname;" | cut -d';' -f2)"
+vidname="$(echo "$vidlist" | cut -d';' -f1 | dmenu -i -p "Which video? (type: \"shuff\" to pick at random)" -l $(echo "$vidlist" | wc -l))"
+
+if [ "$vidname" = "shuff" ]; then
+    vid=$(echo "$vidlist" | shuf | sed '1q' | cut -d';' -f2)
+else
+    vid="$(echo "$vidlist" | grep -P "^$vidname;" | cut -d';' -f2)"
+fi
 [ "$vid" = "" ] && exit
+
 p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
 
 if [ "$p" == "yes" ]

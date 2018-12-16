@@ -96,7 +96,7 @@ function __run_disown {
         [ "$file" = "" ] && return 1
         file=$HOME$(echo "$file" | sed -e 's/~//')
     fi
-    "$1" "$file" &> /dev/null &
+    "$1" "$(readlink -f "$file")" &> /dev/null &
     disown
     __append_to_recents "$(readlink -f "$file")" "$1"
 }

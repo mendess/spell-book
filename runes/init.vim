@@ -24,6 +24,8 @@ Plug 'tpope/vim-surround'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+Plug 'sebastianmarkow/deoplete-rust'
+
 " JS shit
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -53,6 +55,10 @@ let g:mkdp_browser = 'firefox'
 
 " deopleate
 let g:deoplete#enable_at_startup = 1
+
+" deoplete rust
+let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path = $HOME.'/rust-source/src'
 
 """ KEY BINDINGS
 
