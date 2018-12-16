@@ -41,7 +41,8 @@ bindsym $mod+Shift+Return exec --no-startup-id termFromHere
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spells/dmenu/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall
-bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'alsamixer'
+bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
+bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
 bindsym $mod+F2           exec --no-startup-id firefox
 bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id firefox; exec --no-startup-id discord
@@ -151,6 +152,8 @@ assign [title="media"] $ws9
 assign [title="mpv"] $ws9
 
 for_window [title="alsamixer"]                    floating enable border pixel 1
+for_window [title="pacmixer"]                     floating enable border pixel 1
+for_window [title="ncpamixer"]                    floating enable border pixel 1
 for_window [class="Calamares"]                    floating enable border normal
 for_window [class="Clipgrab"]                     floating enable
 for_window [title="File Transfer*"]               floating enable
