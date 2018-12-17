@@ -6,7 +6,7 @@ runes=(
 ~/.oh-my-zsh/custom/startup.zsh
 ~/.zprofile
 ~/.Xdefaults
-~/.gitignore
+~/.gitignore-global
 ~/.config/nvim/init.vim
 ~/.config/zathura/zathurarc
 ~/.config/mpv/mpv.conf
