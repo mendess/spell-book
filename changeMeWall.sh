@@ -1,7 +1,8 @@
 #!/bin/bash
 
 i=0
-while [ "$i" -lt "$(xrandr --query | grep ' connected' | wc -l)" ]; do
+displays="$(xrandr --query | grep ' connected' -c)"
+while [ "$i" -lt "$displays" ]; do
     nitrogen --set-zoom-fill --random --head="$i" ~/Pictures/Wallpapers
-    i=$(($i + 1))
+    i=$((i + 1))
 done
