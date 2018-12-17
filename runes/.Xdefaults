@@ -41,12 +41,10 @@ URxvt.scrollBar:	false
 URxvt.cursorColor:	white
 
 !! Extensions
-URxvt.perl-ext-common:	default,matcher,resize-font,url-select,keyboard-select
+URxvt.perl-ext-common:	default,matcher,resize-font,keyboard-select
 URxvt.colorUL:		#4682B4
-!! url-select
-URxvt.keysym.M-l:	    perl:url-select:select_next
-URxvt.urlLauncher:          firefox
-URxvt.url-select.underline: true
+URxvt.keysym.M-l:	perl:matcher:select
+URxvt.url-launcher:     firefox
 !! keyboard-select:
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 !! resize-font
