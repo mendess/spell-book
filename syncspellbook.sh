@@ -29,8 +29,9 @@ function sync {
     fi
 
     if [ -n "$hasCommits" ] && [ -n "$hasPulls" ]; then
-        while git pull --rebase
+        while true
         do
+git pull --rebase
             echo -e "\033[31mConflicts emerged, please resolve them\033[0m"
             read -r
             rebase=1
