@@ -26,6 +26,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'sebastianmarkow/deoplete-rust'
 
+Plug 'zchee/deoplete-clang'
+
 " JS shit
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -59,6 +61,10 @@ let g:deoplete#enable_at_startup = 1
 " deoplete rust
 let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path = $HOME.'/rust-source/src'
+
+" deoplete C
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/include/'
 
 """ KEY BINDINGS
 
