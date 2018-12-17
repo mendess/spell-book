@@ -31,7 +31,8 @@ function sync {
     if [ -n "$hasCommits" ] && [ -n "$hasPulls" ]; then
         while true
         do
-git pull --rebase
+            git pull --rebase
+            git status | grep "rebase in progress" > /dev/null || break
             echo -e "\033[31mConflicts emerged, please resolve them\033[0m"
             read -r
             rebase=1
