@@ -1,5 +1,5 @@
 function allgrep {
-    grep -Hne "$1" "$(find . | grep -v 'git' | grep -v 'node_modules')" 2>/dev/null
+    grep -Hne "$1" $(find . | grep -v 'git' | grep -v 'node_modules') 2>/dev/null
 }
 
 function allsed {
