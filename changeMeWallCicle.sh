@@ -2,6 +2,7 @@
 while true;
 do
     cd $(dirname "$0")
-    . ./changeMeWall.sh
+    [ -e ./changeMeWall.sh ] && . ./changeMeWall.sh
+    [ -e ./changeMeWall ] && . ./changeMeWall
     sleep 5m
 done
