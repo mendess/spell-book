@@ -110,8 +110,8 @@ filetype plugin indent on
 
 """ LaTeX
 autocmd BufEnter *.tex set linebreak
-command R !pdflatex Report.tex > /dev/null
-command Re !pdflatex Report.tex
+autocmd BufEnter *.tex command R !pdflatex Report.tex > /dev/null
+autocmd BufEnter *.tex command Re !pdflatex Report.tex
 " LaTeX snippets
 autocmd FileType tex inoremap ,ttt \texttt{}<Esc>T{i
 autocmd FileType tex inoremap ,tbf \textbf{}<Esc>T{i
