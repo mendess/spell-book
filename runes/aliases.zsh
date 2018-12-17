@@ -18,12 +18,12 @@ function benchmark {
     for i in {1..5}
     do
         echo -e "\033[34mRun #$i: Starting\033[0m"
-        time ./"$1" #&> /dev/null
-        if [ $? ]
+        if time "$@" #&> /dev/null
         then
-            echo -e "\033[31mRun #$i: Failed\033[0m"
-        else
             echo -e "\033[32mRun #$i: Done\033[0m"
+        else
+            echo -e "\033[31mRun #$i: Failed\033[0m"
+            break
         fi
         [ $i = "5" ] && break
 
@@ -31,7 +31,8 @@ function benchmark {
         do
             echo -en "$t"
             sleep 1s
-            echo -en "\b\b"
+            [[ "$t" -ge 10 ]] && echo -en "\b"
+            echo -en "\b"
         done
     done
 }
