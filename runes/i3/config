@@ -132,6 +132,10 @@ bindsym XF86AudioMute        exec pamixer --toggle-mute
 ############## FLOATING
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s     sticky toggle
+bindsym $mod+y           move left 30 px
+bindsym $mod+u           move down 30 px
+bindsym $mod+i           move up 30 px
+bindsym $mod+o           move right 30 px
 ############## MISC
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
