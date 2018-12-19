@@ -52,7 +52,7 @@ bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pi
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id bash -c "echo 'cycle pause' | socat - /tmp/mpvsocket"
-bindsym $mod+Mod1+s       exec --no-startup-id $term -title 'syncspellbook-term' -e syncspellbook
+bindsym $mod+Ctrl+s       exec --no-startup-id $term -title 'syncspellbook-term' -e syncspellbook
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
 ####### NAVIGATION
