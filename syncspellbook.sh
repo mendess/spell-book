@@ -67,3 +67,4 @@ then
 else
     echo -e "\033[31mCan't backup\033[0m"
 fi
+read -r
