@@ -51,6 +51,7 @@ bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pi
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id bash -c "echo 'cycle pause' | socat - /tmp/mpvsocket"
+bindsym $mod+Mod1+s      exec --no-startup-id $term -title 'syncspellbook' -e "zsh -ic syncspellbook"
 ####### NAVIGATION
 bindsym $mod+j         focus down
 bindsym $mod+k         focus up

@@ -9,7 +9,7 @@ echo "$machines" | nl
 echo -n "pick (empty to cancel)> "
 read -r pick
 [ -z "$pick" ] && exit
-machine="$(echo "$data" | sed -n "${pick}p")"
+machine="$(echo "$data" | grep -v "$(uname -n)" | sed -n "${pick}p")"
 
 # pick mode
 if [ "$(echo "$machine" | cut -d';' -f2-3)" = ";" ]
