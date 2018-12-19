@@ -179,7 +179,7 @@ for_window [class="Xfburn"]                       floating enable
 for_window [title="vis"]                          floating enable sticky enable
 for_window [class="feh"]                          floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
-for_window [class="syncspellbook"]                floating enable border pixel 1
+for_window [title="syncspellbook"]                floating enable border pixel 1
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
