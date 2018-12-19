@@ -6,7 +6,7 @@ set $mod Mod4
 set $term urxvt
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
-default_border none
+default_border pixel 1
 new_float normal
 # Hide borders
 hide_edge_borders none
@@ -25,7 +25,7 @@ set $ws4 4
 set $ws5 5
 set $ws6 6
 set $ws7 7
-set $ws8 8: SSH
+set $ws8 8
 set $ws9 9: Media
 
 ######################################## ON BOOT LAUNCH APPS ###################################
@@ -38,6 +38,7 @@ exec --no-startup-id dropbox start
 ####### APPS
 bindsym $mod+Return       exec --no-startup-id $term
 bindsym $mod+Shift+Return exec --no-startup-id termFromHere
+bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere '-title floating-terminal'
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spells/dmenu/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall
@@ -52,6 +53,8 @@ bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id bash -c "echo 'cycle pause' | socat - /tmp/mpvsocket"
 bindsym $mod+Mod1+s       exec --no-startup-id $term -title 'syncspellbook-term' -e syncspellbook
+bindsym $mod+t            exec --no-startup-id $term -e htop
+bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
 ####### NAVIGATION
 bindsym $mod+j         focus down
 bindsym $mod+k         focus up
@@ -72,18 +75,12 @@ bindsym $mod+8         workspace $ws8
 bindsym $mod+9         workspace $ws9
 bindsym $mod+Tab       workspace next
 bindsym $mod+Shift+Tab workspace prev
-#workspace_auto_back_and_forth yes
 bindsym Mod1+Tab       workspace back_and_forth
 ####### LAYOUT
 bindsym $mod+Shift+h         move left
 bindsym $mod+Shift+j         move down
 bindsym $mod+Shift+k         move up
 bindsym $mod+Shift+l         move right
-bindsym $mod+Shift+Left      move left
-bindsym $mod+Shift+Down      move down
-bindsym $mod+Shift+Up        move up
-bindsym $mod+Shift+Right     move right
-bindsym Mod1+Shift+Tab       move container to workspace back_and_forth; workspace back_and_forth
 # Move focused container to workspace
 bindsym $mod+Ctrl+1          move container to workspace $ws1
 bindsym $mod+Ctrl+2          move container to workspace $ws2
@@ -104,18 +101,25 @@ bindsym $mod+Shift+6         move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7         move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8         move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9         move container to workspace $ws9; workspace $ws9
+bindsym Mod1+Shift+Tab       move container to workspace back_and_forth; workspace back_and_forth
 bindsym $mod+q               split toggle; exec notify-send 'toggled tilling'
 bindsym $mod+f               fullscreen toggle
 bindsym $mod+s               layout tabbed
+bindsym $mod+e               layout toggle split
 bindsym $mod+space           focus mode_toggle
 bindsym $mod+Shift+q         kill
 bindsym $mod+Shift+minus     move scratchpad
 bindsym $mod+minus           scratchpad show
 bindsym $mod+m               bar mode toggle
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
-bindsym XF86AudioMute        exec amixer -q set Master toggle
+bindsym XF86AudioRaiseVolume exec pamixer --increase 6
+bindsym XF86AudioLowerVolume exec pamixer --decrease 6
+bindsym XF86AudioMute        exec pamixer --toggle-mute
 bindsym $mod+0               mode "$mode_system"
+# resize
+bindsym $mod+Shift+y         resize shrink width 5 px or 5 ppt
+bindsym $mod+Shift+u         resize shrink height 5 px or 5 ppt
+bindsym $mod+Shift+i         resize grow height 5 px or 5 ppt
+bindsym $mod+Shift+o         resize grow width 5 px or 5 ppt
 set $mode_system (l)ock, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l       exec --no-startup-id i3lock --image=/home/mendess/Pictures/Wallpapers/home.png, mode "default"
@@ -124,20 +128,6 @@ mode "$mode_system" {
     bindsym Return  mode "default"
     bindsym Escape  mode "default"
 }
-bindsym $mod+r mode "resize"
-mode "resize" {
-        bindsym h resize shrink width 5 px or 5 ppt
-        bindsym j resize grow   height 5 px or 5 ppt
-        bindsym k resize shrink height 5 px or 5 ppt
-        bindsym l resize grow   width 5 px or 5 ppt
-        bindsym Left  resize shrink width 10 px or 10 ppt
-        bindsym Down  resize grow   height 10 px or 10 ppt
-        bindsym Up    resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow   width 10 px or 10 ppt
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $mod+e           layout toggle split
 ############## FLOATING
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s     sticky toggle
@@ -180,6 +170,7 @@ for_window [title="vis"]                          floating enable sticky enable
 for_window [class="feh"]                          floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
 for_window [title="syncspellbook-term"]           floating enable border pixel 1
+for_window [title="floating-terminal"]            floating enable border pixel 1
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
@@ -240,7 +231,7 @@ bar {
         focused_workspace  #F9FAF9 #16a085 #292F34
         active_workspace   #595B5B #353836 #FDF6E3
         inactive_workspace #595B5B #283339 #EEE8D5
-        binding_mode       #16a085 #2C2C2C #F9FAF9
+        binding_mode       #16A085 #2C2C2C #F9FAF9
         urgent_workspace   #16a085 #FDF6E3 #E5201D
     }
 }
@@ -265,54 +256,25 @@ bar {
 gaps inner 8
 gaps outer 7
 
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
-
 # Smart gaps (gaps used if only more than one container on the workspace)
 smart_gaps on
 
-# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# Smart borders (draw borders around container only if it is not the only container on this
+# workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
 
-# Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps Inner Gaps: +|-|0, Outer Gaps: Shift + +|-|0
 bindsym $mod+g mode "$mode_gaps"
-
 mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
+        bindsym 0     gaps inner current set 8
 
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
-
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
+        bindsym Shift+plus  gaps outer current plus 5
+        bindsym Shift+minus gaps outer current minus 5
+        bindsym Shift+0     gaps outer current set 8
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
-# Switch to workspace 1 on boot
-exec-always workspace $ws1

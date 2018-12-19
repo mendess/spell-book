@@ -68,6 +68,7 @@ then
     mpv $vid
 elif [ "$p" == "no" ]
 then
-    urxvt -title 'my-media-player' -e bash -c "youtube-dl --get-title $vid; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid"
+    cmd="echo -e ' '; youtube-dl --get-title $vid; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid"
+    urxvt -title 'my-media-player' -e bash -c "$cmd"
 fi
 
