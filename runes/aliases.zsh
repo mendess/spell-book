@@ -125,3 +125,4 @@ alias dbf="dropbox-cli filestatus"
 alias t="/usr/bin/time -p"
 alias synthwave='mpv --no-video https://www.youtube.com/playlist\?list\=UUwoTj-pZgZZ8DInOXSSLMmA'
 alias gamend="git commit --amend"
+alias e="exit"
