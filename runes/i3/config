@@ -47,7 +47,7 @@ bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
 bindsym $mod+F2           exec --no-startup-id firefox
 bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id firefox; exec --no-startup-id discord
-bindsym Print             --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && xclip -sel clip -t image/png /tmp/$f && rm /tmp/$f'
+bindsym Print             --release exec --no-startup-id scrot -s -e 'xclip -sel clip -t image/png $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
@@ -111,15 +111,12 @@ bindsym $mod+Shift+q         kill
 bindsym $mod+Shift+minus     move scratchpad
 bindsym $mod+minus           scratchpad show
 bindsym $mod+m               bar mode toggle
-bindsym XF86AudioRaiseVolume exec pamixer --increase 6
-bindsym XF86AudioLowerVolume exec pamixer --decrease 6
-bindsym XF86AudioMute        exec pamixer --toggle-mute
-bindsym $mod+0               mode "$mode_system"
 # resize
 bindsym $mod+Shift+y         resize shrink width 5 px or 5 ppt
 bindsym $mod+Shift+u         resize shrink height 5 px or 5 ppt
 bindsym $mod+Shift+i         resize grow height 5 px or 5 ppt
 bindsym $mod+Shift+o         resize grow width 5 px or 5 ppt
+bindsym $mod+0               mode "$mode_system"
 set $mode_system (l)ock, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l       exec --no-startup-id i3lock --image=/home/mendess/Pictures/Wallpapers/home.png, mode "default"
@@ -128,6 +125,10 @@ mode "$mode_system" {
     bindsym Return  mode "default"
     bindsym Escape  mode "default"
 }
+####### FN KEYS
+bindsym XF86AudioRaiseVolume exec pamixer --increase 6
+bindsym XF86AudioLowerVolume exec pamixer --decrease 6
+bindsym XF86AudioMute        exec pamixer --toggle-mute
 ############## FLOATING
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s     sticky toggle
