@@ -148,8 +148,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 assign [class="Thunderbird"] $ws3
 assign [class="Firefox"] $ws2
 assign [title="Discord"] $ws2
-assign [title="media"] $ws9
-assign [title="mpv"] $ws9
+assign [title="my-media-player"] $ws9
 
 for_window [title="alsamixer"]                    floating enable border pixel 1
 for_window [title="pacmixer"]                     floating enable border pixel 1
@@ -178,6 +177,7 @@ for_window [class="(?i)virtualbox"]               floating enable border normal
 for_window [class="Xfburn"]                       floating enable
 for_window [title="vis"]                          floating enable sticky enable
 for_window [class="feh"]                          floating enable border pixel 1
+for_window [class="mpv"]                          floating enable border pixel 1
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus

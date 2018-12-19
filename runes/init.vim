@@ -57,10 +57,18 @@ let g:mkdp_browser = 'firefox'
 
 " deopleate
 let g:deoplete#enable_at_startup = 1
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ deoplete#manual_complete()
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
 
 " deoplete rust
 let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = $HOME.'/rust-source/src'
+let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
 " deoplete C
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'

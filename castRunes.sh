@@ -9,7 +9,6 @@ runes=(
 ~/.gitignore-global
 ~/.config/nvim/init.vim
 ~/.config/zathura/zathurarc
-~/.config/mpv/mpv.conf
 ~/.config/i3
 ~/.config/i3status
 )
