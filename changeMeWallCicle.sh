@@ -1,5 +1,4 @@
 #!/bin/bash
-sleep 30
 while true;
 do
     cd $(dirname "$0")
