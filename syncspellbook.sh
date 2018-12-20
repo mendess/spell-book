@@ -50,7 +50,7 @@ function sync {
     elif [ -n "$hasCommits" ]; then
         git push --quiet
     elif [ -n "$hasPulls" ]; then
-        git pull
+        git pull --rebase
     fi
 
     bash ./learnSpells.sh
