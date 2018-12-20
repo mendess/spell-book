@@ -97,10 +97,6 @@ function za {
     __run_disown zathura "$1"
 }
 
-function setKeyboardLight {
-    dbus-send --system --type=method_call --dest="org.freedesktop.UPower" "/org/freedesktop/UPower/KbdBacklight" "org.freedesktop.UPower.KbdBacklight.SetBrightnes" int32:$1
-}
-
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"
