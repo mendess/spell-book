@@ -11,6 +11,7 @@ runes=(
 ~/.config/zathura/zathurarc
 ~/.config/i3
 ~/.config/i3status
+~/.IntelliJIdea2018.3/config/idea.properties
 )
 
 function newRunes {

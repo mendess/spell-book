@@ -30,7 +30,6 @@ set $ws9 9: Media
 
 ######################################## ON BOOT LAUNCH APPS ###################################
 exec --no-startup-id changeMeWallCicle
-exec --no-startup-id numlockx on
 exec --no-startup-id xcompmgr -c -n
 exec --no-startup-id dropbox start
 
@@ -47,12 +46,12 @@ bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
 bindsym $mod+F2           exec --no-startup-id firefox
 bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id firefox; exec --no-startup-id discord
-bindsym Print             --release exec --no-startup-id scrot -s -e 'xclip -sel clip -t image/png $f'
+bindsym Print             --release exec --no-startup-id scrot -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/'
-bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f'
+bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f && rm /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id bash -c "echo 'cycle pause' | socat - /tmp/mpvsocket"
-bindsym $mod+Ctrl+s       exec --no-startup-id $term -title 'syncspellbook-term' -e syncspellbook
+bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
 ####### NAVIGATION
@@ -112,15 +111,15 @@ bindsym $mod+Shift+minus     move scratchpad
 bindsym $mod+minus           scratchpad show
 bindsym $mod+m               bar mode toggle
 # resize
-bindsym $mod+Shift+y         resize shrink width 5 px or 5 ppt
-bindsym $mod+Shift+u         resize shrink height 5 px or 5 ppt
-bindsym $mod+Shift+i         resize grow height 5 px or 5 ppt
-bindsym $mod+Shift+o         resize grow width 5 px or 5 ppt
+bindsym $mod+Shift+y         resize shrink width 15 px or 15 ppt
+bindsym $mod+Shift+u         resize grow height 15 px or 15 ppt
+bindsym $mod+Shift+i         resize shrink height 15 px or 15 ppt
+bindsym $mod+Shift+o         resize grow width 15 px or 15 ppt
 bindsym $mod+0               mode "$mode_system"
 set $mode_system (l)ock, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l       exec --no-startup-id i3lock --image=/home/mendess/Pictures/Wallpapers/home.png, mode "default"
-    bindsym r       exec --no-startup-id reboot, mode "default" #i3exit reboot, mode "default"
+    bindsym r       exec --no-startup-id reboot, mode "default"
     bindsym Shift+s exec --no-startup-id shutdown now, mode "default"
     bindsym Return  mode "default"
     bindsym Escape  mode "default"
