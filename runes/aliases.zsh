@@ -97,6 +97,12 @@ function za {
     __run_disown zathura "$1"
 }
 
+function allClips {
+    echo "primary  : "`xclip -selection primary   -o 2>/dev/null`
+    echo "secondary: "`xclip -selection secondary -o 2>/dev/null`
+    echo "clipboard: "`xclip -selection clipboard -o 2>/dev/null`
+}
+
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"

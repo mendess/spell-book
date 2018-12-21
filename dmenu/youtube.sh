@@ -56,8 +56,12 @@ vidname="$(echo "$vidlist" | cut -d';' -f1 | dmenu -i -p "Which video? (type: \"
 
 if [ "$vidname" = "shuff" ]; then
     vid=$(echo "$vidlist" | shuf | sed '1q' | cut -d';' -f2)
+    title=$(echo "$vidlist" | grep "$vid" | cut -d';' -f1)
+elif [ "$vidname" = "shuffA" ]; then
+    vid=$(echo "$vidlist" | shuf | cut -d';' -f2 | xargs)
 else
     vid="$(echo "$vidlist" | grep -P "^$vidname;" | cut -d';' -f2)"
+    title="$vidname"
 fi
 [ "$vid" = "" ] && exit
 
@@ -68,7 +72,7 @@ then
     mpv $vid
 elif [ "$p" == "no" ]
 then
-    cmd="echo -e ' '; youtube-dl --get-title $vid; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid"
-    urxvt -title 'my-media-player' -e bash -c "$cmd"
+    cmd="echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid"
+    urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title 'my-media-player' -e bash -c "$cmd"
 fi
 

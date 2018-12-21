@@ -7,7 +7,7 @@ set $term urxvt
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 1
-new_float normal
+default_floating_border pixel 1
 # Hide borders
 hide_edge_borders none
 # Font for window titles. Will also be used by the bar unless a different font
@@ -118,7 +118,7 @@ bindsym $mod+Shift+o         resize grow width 15 px or 15 ppt
 bindsym $mod+0               mode "$mode_system"
 set $mode_system (l)ock, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym l       exec --no-startup-id i3lock --image=/home/mendess/Pictures/Wallpapers/home.png, mode "default"
+    bindsym l       exec --no-startup-id i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png, mode "default"
     bindsym r       exec --no-startup-id reboot, mode "default"
     bindsym Shift+s exec --no-startup-id shutdown now, mode "default"
     bindsym Return  mode "default"
@@ -192,45 +192,45 @@ set_from_resource $term_color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	i3bar_command i3bar
-	status_command i3status
-	position top
-        mode hide
+  i3bar_command i3bar
+  status_command i3status
+  position top
+  mode hide
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 #	tray_output primary
 #	tray_output eDP1
 
-	bindsym button4 nop
-	bindsym button5 nop
+  bindsym button4 nop
+  bindsym button5 nop
 #   font xft:URWGothic-Book 11
-	strip_workspace_numbers no
+  strip_workspace_numbers no
 
-    colors {
-        background #283339
-        statusline #F9FAF9
-        separator  #454947
+  colors {
+    background #000000
+    statusline #FFFFFF
+    separator  #666666
 
-#                      border  backgr. text
-        focused_workspace  #F9FAF9 #16a085 #292F34
-        active_workspace   #595B5B #353836 #FDF6E3
-        inactive_workspace #595B5B #283339 #EEE8D5
-        binding_mode       #16A085 #2C2C2C #F9FAF9
-        urgent_workspace   #16a085 #FDF6E3 #E5201D
-    }
+    # item             border  bground text
+    focused_workspace  #4C7899 #285577 #FFFFFF
+    active_workspace   #333333 #222222 #FFFFFF
+    inactive_workspace #333333 #222222 #DDDDDD
+    urgent_workspace   #2F343A #900000 #FFFFFF
+    binding_mode       #2F343A #0E5815 #FFFFFF
+  }
 }
 
 # hide/unhide i3status bar
 
 # Theme colors
-# class                   border  backgr. text    indic.   child_border
-  client.focused          #556064 #556064 #80FFF9 #FDF6E3
-  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
-  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
-  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000
+# class                 border  bground text    indicator child_border
+client.focused          #4C7899 #285577 #FFFFFF #2E9EF4   #285577
+client.focused_inactive #333333 #222222 #DDDDDD #484E50   #5F676A
+client.unfocused        #333333 #5F676A #DDDDDD #292D2E   #222222
+client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
-  client.background       #2B2C2B
+client.background       #FFFFFF
 
 #############################
 ### settings for i3-gaps: ###
@@ -251,7 +251,7 @@ smart_borders on
 set $mode_gaps Inner Gaps: +|-|0, Outer Gaps: Shift + +|-|0
 bindsym $mod+g mode "$mode_gaps"
 mode "$mode_gaps" {
-        bindsym plus  gaps inner current plus 5
+    bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
         bindsym 0     gaps inner current set 8
 
