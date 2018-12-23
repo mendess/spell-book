@@ -10,4 +10,6 @@ if [[ "$(tty)" == "/dev/tty1" ]]; then
     toilet -f mono9 -F metal "           Starting i3  "
     pgrep i3 || startx > /dev/null
     clear
+else
+    tmux new-session -s "$(basename $(tty))"
 fi
