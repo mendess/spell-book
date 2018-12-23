@@ -50,6 +50,7 @@ Small Red Boy;https://www.youtube.com/watch?v=nNeNn_KETIg
 No More Shame, No More Fear, No More Dread;https://www.youtube.com/watch?v=rsIHSe3IKTM
 Moonlight Sonata;https://www.youtube.com/watch?v=4Tr0otuiQuU
 Roads;https://www.youtube.com/watch?v=FRPeYP6gS-s https://www.youtube.com/watch?v=1vrEljMfXYo
+Crypt of the Necrodancer OST;https://www.youtube.com/watch?v=iBk8owuhNkQ
 " | sed '/^$/ d')
 
 vidname="$(echo "$vidlist" | cut -d';' -f1 | dmenu -i -p "Which video? (type: \"shuff\" to pick at random)" -l $(echo "$vidlist" | wc -l))"
