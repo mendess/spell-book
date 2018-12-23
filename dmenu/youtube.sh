@@ -51,6 +51,7 @@ No More Shame, No More Fear, No More Dread;https://www.youtube.com/watch?v=rsIHS
 Moonlight Sonata;https://www.youtube.com/watch?v=4Tr0otuiQuU
 Roads;https://www.youtube.com/watch?v=FRPeYP6gS-s https://www.youtube.com/watch?v=1vrEljMfXYo
 Crypt of the Necrodancer OST;https://www.youtube.com/watch?v=iBk8owuhNkQ
+GLITCH - A Synthwave Mix;https://www.youtube.com/watch?v=isIj3tuQTDY
 " | sed '/^$/ d')
 
 vidname="$(echo "$vidlist" | cut -d';' -f1 | dmenu -i -p "Which video? (type: \"shuff\" to pick at random)" -l $(echo "$vidlist" | wc -l))"
