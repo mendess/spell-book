@@ -69,7 +69,10 @@ function! s:check_back_space() abort "{{{
 endfunction"}}}
 
 " deoplete rust
+""" rustup component add nightly
+""" cargo +nightly install racer
 let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
+""" rustup component add rust-src
 let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
 " deoplete C
