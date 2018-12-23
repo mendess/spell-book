@@ -54,6 +54,7 @@ bindsym $mod+backslash    exec --no-startup-id bash -c "echo 'cycle pause' | soc
 bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
+bindsym $mod+x            exec --no-startup-id $term -title floating-terminal-calendar -e bash -c "cal && read -n 1 -s -r";
 ####### NAVIGATION
 bindsym $mod+j         focus down
 bindsym $mod+k         focus up
@@ -135,6 +136,8 @@ bindsym $mod+y           move left 30 px
 bindsym $mod+u           move down 30 px
 bindsym $mod+i           move up 30 px
 bindsym $mod+o           move right 30 px
+bindsym $mod+p fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 1500 800
+bindsym $mod+Shift+p sticky disable; floating disable
 ############## MISC
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -155,6 +158,7 @@ for_window [class="feh"]                          floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
 for_window [title="syncspellbook-term"]           floating enable border pixel 1
 for_window [title="floating-terminal"]            floating enable border pixel 1
+for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 200 180
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus

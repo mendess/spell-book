@@ -67,4 +67,4 @@ then
 else
     echo -e "\033[31mCan't backup\033[0m"
 fi
-echo -n 'Press Enter ' && read -r
+read -n 1 -s -r -p 'Press any key to close '

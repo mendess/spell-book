@@ -91,6 +91,10 @@ map <leader>s :!clear && shellcheck %<CR>
 " toggle spelling
 map <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
 
+inoremap <C-v> <ESC>"+pa
+vnoremap <C-c> "+y
+vnoremap <C-d> "+d
+
 """ COMMANDS
 " Reopen current file in a split
 command Dup vsplit %:p
