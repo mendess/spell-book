@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function sync {
-    localRemote="$(git rev-parse @{u})"
+    localRemote="$(git rev-parse @{u})" # latest known commit
     echo -en "\033[32m"; git add --verbose --all; echo -en "\033[0m"
 
     if ! git diff-index --quiet HEAD --; then
