@@ -18,6 +18,7 @@ function sync {
     fetch="$?"
     echo -en "\033[0m"
     echo -en "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+    echo "$fetch"
     if ! [ "$fetch" ]; then
         echo -e "\033[31mCan't access github\033[0m"
         return 2
