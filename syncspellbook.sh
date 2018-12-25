@@ -28,7 +28,7 @@ function sync {
     if [ "$localRemote" != "$(git rev-parse @{u})" ]; then
         hasPulls="true"
     else
-        echo -e "\033[34mNothing to pull\033[0m"
+        echo -e "\033[34mNothing to pull    \033[0m"
     fi
 
     if [ -n "$hasCommits" ] && [ -n "$hasPulls" ]; then
