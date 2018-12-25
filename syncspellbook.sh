@@ -4,9 +4,11 @@ function sync {
     localRemote="$(git rev-parse @{u})" # latest known commit
     echo -en "\033[32m"; git add --verbose --all; echo -en "\033[0m"
 
-    if ! git diff-index --quiet HEAD -- || [ -n "`git rev-list @{u}..`" ]; then
+    if ! git diff-index --quiet HEAD -- ; then
         hasCommits="true"
         git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
+    elif [ -n "`git rev-list @{u}..`" ]; then
+        hasCommits="true"
     else
         echo -e "\033[34mNothing to backup\033[0m"
     fi
