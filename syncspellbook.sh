@@ -64,7 +64,7 @@ echo -e "\033[33m=======> Back me up inside\033[0m"
 sync
 if [ $? ]
 then
-    echo -e "\033[32m=======> Back me up and save me"
+    echo -e "\033[33m=======> Back me up and save me"
 else
     echo -e "\033[31m=======> Can't backup\033[0m"
 fi
