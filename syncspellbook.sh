@@ -58,14 +58,15 @@ function sync {
     bash ./castRunes.sh
     return 0
 }
-
+farrow="=======> "
+barrow=" <======="
 cd "$(dirname "$(realpath "$0")")" || exit 1
-echo -e "\033[33m=======> Back me up inside\033[0m"
+echo -e "\033[33m${farrow}Back me up inside${barrow}\033[0m"
 sync
 if [ $? ]
 then
-    echo -e "\033[33m=======> Back me up and save me"
+    echo -e "\033[33m${farrow}Back me up and save me${barrow}\033[0m"
 else
-    echo -e "\033[31m=======> Can't backup\033[0m"
+    echo -e "\033[31m${farrow}Can't backup${barrow}\033[0m"
 fi
 read -n 1 -s -r
