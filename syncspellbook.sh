@@ -13,10 +13,11 @@ function sync {
 
     echo -en "\033[32m"
     echo -n "Checking remote..."
+    echo -en "\033[34m"
     git fetch --quiet
     fetch=$?
-    echo -en "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
     echo -en "\033[0m"
+    echo -en "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
     if ! [ $fetch ]; then
         echo -e "\033[31mCan't access github\033[0m"
         return 2
