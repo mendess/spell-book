@@ -51,8 +51,7 @@ function sync {
             git push --quiet
         fi
     elif [ -n "$hasCommits" ]; then
-        echo push
-        #git push --quiet
+        git push --quiet
     elif [ -n "$hasPulls" ]; then
         git pull --rebase
     fi
