@@ -54,7 +54,7 @@ bindsym $mod+backslash    exec --no-startup-id bash -c "echo 'cycle pause' | soc
 bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
-bindsym $mod+x            exec --no-startup-id $term -title floating-terminal-calendar -e bash -c "cal && read -n 1 -s -r";
+bindsym $mod+x            exec --no-startup-id $term  -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal && read -n 1 -s -r";
 ####### NAVIGATION
 bindsym $mod+j         focus down
 bindsym $mod+k         focus up
@@ -157,7 +157,7 @@ for_window [class="feh"]                          floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
 for_window [title="syncspellbook-term"]           floating enable border pixel 1
 for_window [title="floating-terminal"]            floating enable border pixel 1
-for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 200 180
+for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 370 300
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
