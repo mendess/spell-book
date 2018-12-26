@@ -157,7 +157,7 @@ for_window [class="feh"]                          floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
 for_window [title="syncspellbook-term"]           floating enable border pixel 1
 for_window [title="floating-terminal"]            floating enable border pixel 1
-for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 370 300
+for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 330 294
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
