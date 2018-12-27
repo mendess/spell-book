@@ -16,6 +16,8 @@ font xft:Noto Sans Mono:style=Bold 12
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 focus_follows_mouse no
+# Don't switch workspace when switching focus, unless there is only one window in the current ws
+focus_wrapping force
 
 ######################################## WORKSPACES ##########################################
 set $ws1 1: Main
