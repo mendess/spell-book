@@ -132,4 +132,4 @@ alias t="/usr/bin/time -p"
 alias synthwave='mpv --no-video https://www.youtube.com/playlist\?list\=UUwoTj-pZgZZ8DInOXSSLMmA'
 alias gamend="git commit --amend"
 alias e="exit"
-alias autoBuildRust="find . | grep '\.rs' | entr cargo build"
+alias autoBuildRust="find . | grep '\.rs' | entr -c cargo build"
