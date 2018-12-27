@@ -8,7 +8,9 @@ if [ "$vidname" = "shuff" ]; then
     vid=$(echo "$vidlist" | shuf | sed '1q' | cut -d';' -f2)
     title=$(echo "$vidlist" | grep "$vid" | cut -d';' -f1)
 elif [ "$vidname" = "shuffA" ]; then
-    vid=$(echo "$vidlist" | shuf | cut -d';' -f2 | xargs)
+    tmp=$(echo "$vidlist" | shuf)
+    vid=$(echo "$tmp" | cut -d';' -f2 | xargs)
+    title="$(echo "$tmp" | cut -d';' -f1)"
 else
     vid="$(echo "$vidlist" | grep -P "^$vidname;" | cut -d';' -f2)"
     title="$vidname"
