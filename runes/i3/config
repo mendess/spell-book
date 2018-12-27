@@ -57,6 +57,7 @@ bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
 bindsym $mod+x            exec --no-startup-id $term  -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal && read -n 1 -s -r";
+bindsym $mod+v            exec --no-startup-id playClipboard
 ####### NAVIGATION
 bindsym $mod+j         focus down
 bindsym $mod+k         focus up

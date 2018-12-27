@@ -1,5 +1,6 @@
 function allgrep {
-    grep -Hne "$1" $(find . | grep -v 'git' | grep -v 'node_modules') 2>/dev/null
+    # -I ignore binary files; -H with file name; -n with line numbers; -e PATERNS
+    grep -IHn -e "$1" $(find . -type f | grep -v '.git') 2>/dev/null
 }
 
 function allsed {
@@ -7,10 +8,7 @@ function allsed {
     then
         echo "Usage: $0 <find> <replace>"
     else
-        for i in $(find . | grep -v '.git' 2>/dev/null);
-        do
-            sed -i '' -e "s/$1/$2/g" "$i" 2> /dev/null
-        done
+        allgrep "$1" | cut -d':' -f1 | sort | uniq | xargs sed -e "s/$1/$2/g" -i
     fi
 }
 
@@ -98,9 +96,9 @@ function za {
 }
 
 function allClips {
-    echo "primary  : "`xclip -selection primary   -o 2>/dev/null`
-    echo "secondary: "`xclip -selection secondary -o 2>/dev/null`
-    echo "clipboard: "`xclip -selection clipboard -o 2>/dev/null`
+    echo "primary  : $(xclip -selection primary   -o 2>/dev/null)"
+    echo "secondary: $(xclip -selection secondary -o 2>/dev/null)"
+    echo "clipboard: $(xclip -selection clipboard -o 2>/dev/null)"
 }
 
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
