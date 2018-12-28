@@ -30,6 +30,9 @@ Plug 'sebastianmarkow/deoplete-rust'
 
 Plug 'zchee/deoplete-clang'
 
+" Requires: cargo install rustfmt
+Plug 'Chiel92/vim-autoformat'
+
 " JS shit
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -98,6 +101,8 @@ inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
 
+map <leader>f :Autoformat<CR>
+
 """ COMMANDS
 " Reopen current file in a split
 command Dup vsplit %:p
@@ -108,6 +113,7 @@ command Q q
 """ AUTOCOMMANDS
 " clear trailling whitespace
 autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre *.rs :Autoformat
 
 """ SETTINGS
 " indent using spaces

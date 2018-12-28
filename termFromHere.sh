@@ -7,12 +7,12 @@ CWD=''
 ID=$(xdpyinfo | grep focus | cut -f4 -d " ")
 
 # Get PID of process whose window this is
-PID=$(xprop -id $ID | grep -m 1 PID | cut -d " " -f 3)
+PID=$(xprop -id "$ID" | grep -m 1 PID | cut -d " " -f 3)
 
 # Get last child process (shell, vim, etc)
 if [ -n "$PID" ]; then
-  TREE=$(pstree -lpA $PID | tail -n 1)
-  PID=$(echo $TREE | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
+  TREE=$(pstree -lpA "$PID" | tail -n 1)
+  PID=$(echo "$TREE" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
 
   # If we find the working directory, run the command in that directory
   if [ -e "/proc/$PID/cwd" ]; then
@@ -20,7 +20,7 @@ if [ -n "$PID" ]; then
   fi
 fi
 if [ -n "$CWD" ]; then
-  cd $CWD && $CMD $1
+  cd "$CWD" && "$CMD" $1 &
 else
-  $CMD $1
+  "$CMD" $1 &
 fi
