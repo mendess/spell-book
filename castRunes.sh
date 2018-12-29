@@ -14,6 +14,17 @@ runes=(
 ~/.IntelliJIdea2018.3/config/idea.properties
 )
 
+function cleanSpells {
+    for rune in "${runes[@]}"
+    do
+        if [ -h "$rune" ] && ! [ -e "$rune" ]; then
+            echo -e "\033[31mRemoving broken rune: $(basename $rune)\033[0m"
+            rm $rune
+        fi
+    done
+    return 1;
+}
+
 function newRunes {
     for rune in "${runes[@]}"
     do
@@ -22,6 +33,7 @@ function newRunes {
     return 1
 }
 
+cleanRunes
 newRunes || exit 0
 
 echo -e "\033[33mCasting Runes...\033[0m"
