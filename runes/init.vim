@@ -114,6 +114,7 @@ command Q q
 " clear trailling whitespace
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre *.rs :Autoformat
+autocmd BufNewFile,BufRead *.spell set syntax=sh
 
 """ SETTINGS
 " indent using spaces
