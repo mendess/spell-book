@@ -14,7 +14,7 @@ runes=(
 ~/.IntelliJIdea2018.3/config/idea.properties
 )
 
-function cleanSpells {
+function cleanRunes {
     for rune in "${runes[@]}"
     do
         if [ -h "$rune" ] && ! [ -e "$rune" ]; then
