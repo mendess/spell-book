@@ -56,8 +56,8 @@ function sync {
         git pull --rebase
     fi
 
-    bash ./learnSpells.sh
-    bash ./castRunes.sh
+    bash ../learnSpells.sh
+    bash ../castRunes.sh
     return 0
 }
 farrow="=======> "
