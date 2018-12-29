@@ -19,7 +19,7 @@ do
     if ! [ -e ~/.local/bin/"$(basename "$spell" .sh)" ]
     then
         echo -e "\e[38;2;138;93;150m    $(basename "$spell" .sh)\e[0m"
-        ln -s "$(pwd)/$spell" ~/.local/bin/"$(basename "$spell" .sh)"
+        ln -fs "$(pwd)/$spell" ~/.local/bin/"$(basename "$spell" .sh)"
     fi
 done
 echo -e "\033[33mDone!\033[0m"
