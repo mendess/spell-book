@@ -52,7 +52,15 @@ bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.p
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f && rm /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
-bindsym $mod+backslash    exec --no-startup-id bash -c "echo 'cycle pause' | socat - /tmp/mpvsocket"
+bindsym $mod+backslash    exec --no-startup-id pause
+bindsym $mod+minus        exec --no-startup-id vd
+bindsym $mod+plus         exec --no-startup-id vu
+bindsym $mod+Prior        exec --no-startup-id next
+bindsym $mod+Next         exec --no-startup-id prev
+bindsym $mod+Up           exec --no-startup-id frwd 60
+bindsym $mod+Down         exec --no-startup-id back 60
+bindsym $mod+Right        exec --no-startup-id frwd 5
+bindsym $mod+Left         exec --no-startup-id back 5
 bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
@@ -64,10 +72,6 @@ bindsym $mod+j         focus down
 bindsym $mod+k         focus up
 bindsym $mod+h         focus left
 bindsym $mod+l         focus right
-bindsym $mod+Left      focus left
-bindsym $mod+Down      focus down
-bindsym $mod+Up        focus up
-bindsym $mod+Right     focus right
 bindsym $mod+1         workspace $ws1
 bindsym $mod+2         workspace $ws2
 bindsym $mod+3         workspace $ws3
@@ -112,8 +116,8 @@ bindsym $mod+s               layout tabbed
 bindsym $mod+e               layout toggle split
 bindsym $mod+space           focus mode_toggle
 bindsym $mod+Shift+q         kill
-bindsym $mod+Shift+minus     move scratchpad
-bindsym $mod+minus           scratchpad show
+bindsym $mod+Shift+period    move scratchpad
+bindsym $mod+period          scratchpad show
 bindsym $mod+m               bar mode toggle
 # resize
 bindsym $mod+Ctrl+h         resize shrink width 15 px or 15 ppt

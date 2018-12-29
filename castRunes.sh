@@ -40,9 +40,9 @@ do
     fi
     if ! [ -h "$rune" ]
     then
-        echo -en "\e[38;2;138;93;150mCasting "
+        echo -en "\033[35mCasting "
         ln -sfv "$(pwd)/$(basename "$rune")" "$rune"
-        echo -en "\e[0m"
+        echo -en "\033[0m"
     fi
 done
 echo -e "\033[33mDone!\033[0m"
