@@ -43,6 +43,7 @@ do
         echo -en "\033[0m"
     if ! [ -h "$rune" ]
     then
+	    true
     fi
 done
 echo -e "\033[33mDone!\033[0m"
