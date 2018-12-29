@@ -22,7 +22,7 @@ function newRunes {
     return 1
 }
 
-newRunes || exit 0
+#newRunes || exit 0
 
 echo -e "\033[33mCasting Runes...\033[0m"
 
@@ -38,11 +38,11 @@ do
         echo -e "\033[31mMissing \033[36m$(dirname "$rune")\033[31m directory, creating....\033[0m"
         mkdir --verbose --parent "$(dirname "$rune")"
     fi
-    if ! [ -h "$rune" ]
-    then
         echo -en "\033[35mCasting "
         ln -sfv "$(pwd)/$(basename "$rune")" "$rune"
         echo -en "\033[0m"
+    if ! [ -h "$rune" ]
+    then
     fi
 done
 echo -e "\033[33mDone!\033[0m"
