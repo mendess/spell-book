@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function newSpells {
-    for spell in *.sh
+    for spell in spells/*.sh
     do
         [ -h ~/.local/bin/"$(basename "$spell" .sh)" ] || return 0
     done
@@ -14,7 +14,7 @@ newSpells || exit 0
 
 echo -e "\033[33mLearning Spells...\033[0m"
 
-for spell in *.sh
+for spell in spells/*.sh
 do
     if ! [ -e ~/.local/bin/"$(basename "$spell" .sh)" ]
     then
