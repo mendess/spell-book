@@ -41,7 +41,7 @@ bindsym $mod+Return       exec --no-startup-id $term
 bindsym $mod+Shift+Return exec --no-startup-id termFromHere
 bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere '-title floating-terminal'
 bindsym $mod+d            exec --no-startup-id dmenu_run
-bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spells/cantrips/menu.sh
+bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall
 bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
 bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
