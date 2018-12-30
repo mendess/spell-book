@@ -147,8 +147,8 @@ autocmd FileType tex inoremap ,ttt \texttt{}<Esc>T{i
 autocmd FileType tex inoremap ,tbf \textbf{}<Esc>T{i
 autocmd FileType tex inoremap ,tit \textit{}<Esc>T{i
 
-autocmd BufEnter *.sh    inoremap ,bb #!/bin/bash
-autocmd BufEnter *.spell inoremap ,bb #!/bin/bash
+autocmd BufEnter *.sh    inoremap ,bb #!/bin/bash<Esc>o<Return>
+autocmd BufEnter *.spell inoremap ,bb #!/bin/bash<Esc>o<Return>
 
 """ JS
 autocmd BufEnter *.js set shiftwidth=2
