@@ -7,4 +7,6 @@ fi
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
-echo "$(youtube-dl --get-title "$1");$1" >> ../cantrips/links
+link="$(youtube-dl --get-title "$1");$1"
+echo adding "$link"
+echo "$link" >> ../cantrips/links

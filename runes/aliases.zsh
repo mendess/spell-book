@@ -16,7 +16,7 @@ function benchmark {
     for i in {1..5}
     do
         echo -e "\033[34mRun #$i: Starting\033[0m"
-        if time "$@" #&> /dev/null
+        if time "$@" > /dev/null
         then
             echo -e "\033[32mRun #$i: Done\033[0m"
         else
