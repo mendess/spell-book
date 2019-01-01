@@ -72,10 +72,10 @@ function! s:check_back_space() abort "{{{
 endfunction"}}}
 
 " deoplete rust
-""" rustup component add nightly
-""" cargo +nightly install racer
+""" Requires: rustup component add nightly
+""" Requires: cargo +nightly install racer
 let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
-""" rustup component add rust-src
+""" Requires: rustup component add rust-src
 let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
 " deoplete C
@@ -101,20 +101,23 @@ inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
 
+nnoremap <A-Enter> z=
+
 map <leader>f :Autoformat<CR>
 
 """ COMMANDS
 " Reopen current file in a split
-command Dup vsplit %:p
+command! Dup vsplit %:p
 " Bind W to w
-command W w
-command Q q
+command! W w
+command! Q q
+command! V :split ~/.config/nvim/init.vim | :source ~/.config/nvim/init.vim
 
 """ AUTOCOMMANDS
 " clear trailling whitespace
-autocmd BufWritePre * %s/\s\+$//e
-autocmd BufWritePre *.rs :Autoformat
-autocmd BufNewFile,BufRead *.spell set syntax=sh
+autocmd! BufWritePre * %s/\s\+$//e
+autocmd! BufWritePre *.rs :Autoformat
+autocmd! BufNewFile,BufRead *.spell set syntax=sh
 
 """ SETTINGS
 " indent using spaces
@@ -140,15 +143,24 @@ filetype plugin indent on
 
 """ LaTeX
 autocmd BufEnter *.tex set linebreak
-autocmd BufEnter *.tex command R !pdflatex Report.tex > /dev/null
-autocmd BufEnter *.tex command Re !pdflatex Report.tex
+autocmd BufEnter *.tex command! R !pdflatex  --shell-escape Report.tex > /dev/null
+autocmd BufEnter *.tex command! Re !pdflatex --shell-escape Report.tex
 " LaTeX snippets
 autocmd FileType tex inoremap ,ttt \texttt{}<Esc>T{i
 autocmd FileType tex inoremap ,tbf \textbf{}<Esc>T{i
 autocmd FileType tex inoremap ,tit \textit{}<Esc>T{i
+autocmd FileType tex inoremap ,st \section{}<Esc>T{i
+autocmd FileType tex inoremap ,sst \subsection{}<Esc>T{i
+autocmd FileType tex inoremap ,ssst \subsubsection{}<Esc>T{i
+autocmd FileType tex inoremap ,bit \begin{itemize}<CR><CR>\end{itemize}<Esc>ki<Tab>\item<Space>
+autocmd FileType tex inoremap ~a ã
+autocmd FileType tex noremap  <buffer> <silent> k gk
+autocmd FileType tex noremap  <buffer> <silent> j gj
+autocmd FileType tex noremap  <buffer> <silent> 0 g0
+autocmd FileType tex noremap  <buffer> <silent> $ g$
 
 autocmd BufEnter *.sh    inoremap ,bb #!/bin/bash<Esc>o<Return>
 autocmd BufEnter *.spell inoremap ,bb #!/bin/bash<Esc>o<Return>
 
 """ JS
-autocmd BufEnter *.js set shiftwidth=2
+autocmd! BufEnter *.js set shiftwidth=2
