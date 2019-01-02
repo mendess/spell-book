@@ -15,7 +15,6 @@ else
     vid="$(echo "$vidlist" | grep -P "^$vidname;" | cut -d';' -f2)"
     title="$vidname"
 fi
-echo "$vid"
 [ "$vid" = "" ] && exit
 
 p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
