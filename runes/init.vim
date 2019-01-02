@@ -33,6 +33,8 @@ Plug 'zchee/deoplete-clang'
 " Requires: cargo install rustfmt
 Plug 'Chiel92/vim-autoformat'
 
+Plug 'cespare/vim-toml'
+
 " JS shit
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -154,6 +156,7 @@ autocmd FileType tex inoremap ,sst \subsection{}<Esc>T{i
 autocmd FileType tex inoremap ,ssst \subsubsection{}<Esc>T{i
 autocmd FileType tex inoremap ,bit \begin{itemize}<CR><CR>\end{itemize}<Esc>ki<Tab>\item<Space>
 autocmd FileType tex inoremap ~a ã
+autocmd FileType tex inoremap `e é
 autocmd FileType tex noremap  <buffer> <silent> k gk
 autocmd FileType tex noremap  <buffer> <silent> j gj
 autocmd FileType tex noremap  <buffer> <silent> 0 g0
