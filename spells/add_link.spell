@@ -7,6 +7,6 @@ fi
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
-link="$(youtube-dl --get-title "$1" | sed 's/\(/{/g; s/\)/}/g');$1"
+link="$(youtube-dl --get-title "$1" | sed 's/(/{/g; s/)/}/g');$1"
 echo adding "$link"
 echo "$link" >> ../cantrips/links
