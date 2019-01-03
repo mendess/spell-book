@@ -53,8 +53,8 @@ bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rena
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id pause
-bindsym $mod+minus        exec --no-startup-id vd
-bindsym $mod+plus         exec --no-startup-id vu
+bindsym $mod+minus        exec --no-startup-id vd 2
+bindsym $mod+plus         exec --no-startup-id vu 2
 bindsym $mod+Prior        exec --no-startup-id next
 bindsym $mod+Next         exec --no-startup-id prev
 bindsym $mod+Up           exec --no-startup-id frwd 60
@@ -64,7 +64,7 @@ bindsym $mod+Left         exec --no-startup-id back 5
 bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
-bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal && read -n 1 -s -r";
+bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal && read -n 1 -s -r"
 bindsym $mod+Shift+x      exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=30" -title floating-terminal-clock -e clock
 bindsym $mod+v            exec --no-startup-id playClipboard
 ####### NAVIGATION
