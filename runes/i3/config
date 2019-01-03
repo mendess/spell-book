@@ -50,7 +50,7 @@ bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id firefox; exec --no-startup-id discord
 bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/'
-bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f && rm /tmp/$f'
+bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv /tmp/$f && rm /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id pause
 bindsym $mod+minus        exec --no-startup-id vd
@@ -140,10 +140,10 @@ bindsym XF86AudioMute        exec pamixer --toggle-mute
 ############## FLOATING
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s     sticky toggle
-bindsym $mod+y           move left 30 px
-bindsym $mod+u           move down 30 px
-bindsym $mod+i           move up 30 px
-bindsym $mod+o           move right 30 px
+bindsym $mod+Shift+y     move left 30 px
+bindsym $mod+Shift+u     move down 30 px
+bindsym $mod+Shift+i     move up 30 px
+bindsym $mod+Shift+o     move right 30 px
 #bindsym $mod+p fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 1500 800
 #bindsym $mod+Shift+p sticky disable; floating disable
 ############## MISC
@@ -158,7 +158,7 @@ assign [title="my-media-player"] $ws9
 
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
 for_window [class="(?i)virtualbox"]               floating enable border normal
-for_window [class="feh"]                          floating enable border pixel 1
+for_window [class="sxiv"]                         floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
 for_window [title="alsamixer"]                    floating enable border pixel 1
 for_window [title="pacmixer"]                     floating enable border pixel 1
@@ -263,13 +263,13 @@ set $mode_gaps Inner Gaps: +|-|0, Outer Gaps: Shift + +|-|0
 bindsym $mod+g mode "$mode_gaps"
 mode "$mode_gaps" {
     bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 8
+    bindsym minus gaps inner current minus 5
+    bindsym 0     gaps inner current set 8
 
-        bindsym Shift+plus  gaps outer current plus 5
-        bindsym Shift+minus gaps outer current minus 5
-        bindsym Shift+0     gaps outer current set 8
+    bindsym Shift+plus  gaps outer current plus 5
+    bindsym Shift+minus gaps outer current minus 5
+    bindsym Shift+0     gaps outer current set 8
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }

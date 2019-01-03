@@ -157,6 +157,10 @@ autocmd FileType tex inoremap ,ssst \subsubsection{}<Esc>T{i
 autocmd FileType tex inoremap ,bit \begin{itemize}<CR><CR>\end{itemize}<Esc>ki<Tab>\item<Space>
 autocmd FileType tex inoremap ~a ã
 autocmd FileType tex inoremap `e é
+autocmd FileType tex inoremap `E É
+autocmd FileType tex inoremap `a à
+autocmd FileType tex inoremap `A A
+autocmd FileType tex inoremap ~a ã
 autocmd FileType tex noremap  <buffer> <silent> k gk
 autocmd FileType tex noremap  <buffer> <silent> j gj
 autocmd FileType tex noremap  <buffer> <silent> 0 g0

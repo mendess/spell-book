@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pkgs=( numlockx rxvt-unicode urxvt-perls ttf-dejavu scrot xcompmgr nitrogen feh alsa-utils firefox xclip xorg-server xorg-init nm-applet )
+pkgs=( numlockx rxvt-unicode urxvt-perls ttf-dejavu scrot xcompmgr nitrogen sxiv alsa-utils firefox xclip xorg-server xorg-init nm-applet )
 
 aurpkgs=( dropbox discord )
 
