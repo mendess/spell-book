@@ -50,7 +50,7 @@ bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id firefox; exec --no-startup-id discord
 bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
-bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv /tmp/$f && rm /tmp/$f'
+bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id pause
 bindsym $mod+minus        exec --no-startup-id vd
@@ -158,7 +158,7 @@ assign [title="my-media-player"] $ws9
 
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
 for_window [class="(?i)virtualbox"]               floating enable border normal
-for_window [class="sxiv"]                         floating enable border pixel 1
+for_window [class="Sxiv"]                         floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
 for_window [title="alsamixer"]                    floating enable border pixel 1
 for_window [title="pacmixer"]                     floating enable border pixel 1
