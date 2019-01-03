@@ -49,7 +49,7 @@ bindsym $mod+F2           exec --no-startup-id firefox
 bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id firefox; exec --no-startup-id discord
 bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
-bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'mv $f ~/Pictures/'
+bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv /tmp/$f && rm /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id pause
