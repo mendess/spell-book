@@ -160,6 +160,7 @@ assign [class="jetbrains-idea"] $ws5
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
 for_window [class="(?i)virtualbox"]               floating enable border normal
 for_window [class="Sxiv"]                         floating enable border pixel 1
+for_window [class="feh"]                         floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
 for_window [title="alsamixer"]                    floating enable border pixel 1
 for_window [title="pacmixer"]                     floating enable border pixel 1
@@ -226,7 +227,7 @@ bar {
     # item             border  bground text
     focused_workspace  #4C7899 #285577 #FFFFFF
     active_workspace   #333333 #222222 #FFFFFF
-    inactive_workspace #333333 #222222 #DDDDDD
+    inactive_workspace #333333 #222222 #BBBBBB
     urgent_workspace   #2F343A #900000 #FFFFFF
     binding_mode       #2F343A #0E5815 #FFFFFF
   }
@@ -237,8 +238,8 @@ bar {
 # Theme colors
 # class                 border  bground text    indicator child_border
 client.focused          #4C7899 #285577 #FFFFFF #2E9EF4   #285577
-client.focused_inactive #333333 #222222 #DDDDDD #484E50   #5F676A
-client.unfocused        #333333 #5F676A #DDDDDD #292D2E   #222222
+client.focused_inactive #333333 #222222 #FFFFFF #484E50   #5F676A
+client.unfocused        #333333 #343434 #BBBBBB #292D2E   #222222
 client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
 client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 
