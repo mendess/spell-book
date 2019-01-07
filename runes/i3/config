@@ -53,8 +53,8 @@ bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rena
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id pause
-bindsym $mod+minus        exec --no-startup-id vd 2
-bindsym $mod+plus         exec --no-startup-id vu 2
+bindsym $mod+minus        exec --no-startup-id vd 5
+bindsym $mod+plus         exec --no-startup-id vu 5
 bindsym $mod+Prior        exec --no-startup-id next
 bindsym $mod+Next         exec --no-startup-id prev
 bindsym $mod+Up           exec --no-startup-id frwd 60
