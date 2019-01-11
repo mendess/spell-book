@@ -162,7 +162,7 @@ assign [class="jetbrains-idea"] $ws5
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
 for_window [class="(?i)virtualbox"]               floating enable border normal
 for_window [class="Sxiv"]                         floating enable border pixel 1
-for_window [class="feh"]                         floating enable border pixel 1
+for_window [class="feh"]                          floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
 for_window [title="alsamixer"]                    floating enable border pixel 1
 for_window [title="pacmixer"]                     floating enable border pixel 1
@@ -170,6 +170,7 @@ for_window [title="ncpamixer"]                    floating enable border pixel 1
 for_window [title="floating-terminal"]            floating enable border pixel 1
 for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 330 294
 for_window [title="floating-terminal-clock"]      floating enable border pixel 1 resize set 10 10
+for_window [title="pacman-game"]                  floating enable border pixel 1
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
