@@ -120,10 +120,10 @@ bindsym $mod+Shift+period    move scratchpad
 bindsym $mod+period          scratchpad show
 bindsym $mod+m               bar mode toggle
 # resize
-bindsym $mod+Ctrl+h         resize shrink width  15 px
-bindsym $mod+Ctrl+j         resize grow   height 15 px
-bindsym $mod+Ctrl+k         resize shrink height 15 px
-bindsym $mod+Ctrl+l         resize grow   width  15 px
+bindsym $mod+Ctrl+h         resize shrink width  15 px or 3 ppt
+bindsym $mod+Ctrl+j         resize grow   height 15 px or 3 ppt
+bindsym $mod+Ctrl+k         resize shrink height 15 px or 3 ppt
+bindsym $mod+Ctrl+l         resize grow   width  15 px or 3 ppt
 bindsym $mod+Shift+plus     resize grow   width 32 px; resize grow   height 18 px; move left  16 px; move up   9 px;
 bindsym $mod+Shift+minus    resize shrink width 32 px; resize shrink height 18 px; move right 16 px; move down 9 px;
 bindsym $mod+0               mode "$mode_system"
