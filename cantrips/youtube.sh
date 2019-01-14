@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 vidlist=$(sed '/^$/ d' links)
 
@@ -17,12 +17,12 @@ else
 fi
 [ "$vid" = "" ] && exit
 
-p=$(echo -e "no\nyes" | dmenu -i -p "With video?")
+p=$(echo "no\nyes" | dmenu -i -p "With video?")
 
-if [ "$p" == "yes" ]
+if [ "$p" = "yes" ]
 then
     mpv $vid
-elif [ "$p" == "no" ]
+elif [ "$p" = "no" ]
 then
     cmd="echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid"
     urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title 'my-media-player' -e bash -c "$cmd"

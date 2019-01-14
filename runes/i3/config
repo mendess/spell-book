@@ -156,6 +156,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 assign [class="Thunderbird"] $ws3
 assign [class="Firefox"] $ws2
 assign [class="discord"] $ws2
+assign [class="Steam"] $ws2
 assign [title="my-media-player"] $ws9
 assign [class="jetbrains-idea"] $ws5
 
@@ -171,6 +172,8 @@ for_window [title="floating-terminal"]            floating enable border pixel 1
 for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 330 294
 for_window [title="floating-terminal-clock"]      floating enable border pixel 1 resize set 10 10
 for_window [title="pacman-game"]                  floating enable border pixel 1
+for_window [class="Steam"]                        floating enable
+for_window [title="Steam"]                        floating disable
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
