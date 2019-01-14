@@ -2,10 +2,7 @@
 
 i=0
 displays="$(xrandr --query | grep ' connected' -c)"
-walls="$(ls ~/Pictures/Wallpapers | shuf)"
 while [ "$i" -lt "$displays" ]; do
-    xwallpaper \
-        --screen $i \
-        --zoom ~/Pictures/Wallpapers/"$(echo "$walls" | sed "1${i}q" | tail -1)"
+    nitrogen --set-zoom-fill --random --head="$i" ~/Pictures/Wallpapers
     i=$((i + 1))
 done
