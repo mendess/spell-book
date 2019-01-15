@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 vidlist=$(sed '/^$/ d' links)
 
@@ -17,7 +17,8 @@ else
 fi
 [ "$vid" = "" ] && exit
 
-p=$(echo "no\nyes" | dmenu -i -p "With video?")
+p=$(echo "no
+yes" | dmenu -i -p "With video?")
 
 if [ "$p" = "yes" ]
 then
