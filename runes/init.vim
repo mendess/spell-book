@@ -18,8 +18,6 @@ Plug 'bitc/vim-bad-whitespace'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-
 Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-commentary'
@@ -156,11 +154,12 @@ autocmd FileType tex inoremap ,sst \subsection{}<Esc>T{i
 autocmd FileType tex inoremap ,ssst \subsubsection{}<Esc>T{i
 autocmd FileType tex inoremap ,bit \begin{itemize}<CR><CR>\end{itemize}<Esc>ki<Tab>\item<Space>
 autocmd FileType tex inoremap ~a ã
-autocmd FileType tex inoremap `e é
-autocmd FileType tex inoremap `E É
 autocmd FileType tex inoremap `a à
 autocmd FileType tex inoremap `A A
-autocmd FileType tex inoremap ~a ã
+autocmd FileType tex inoremap `e é
+autocmd FileType tex inoremap `E É
+autocmd FileType tex inoremap `o ó
+autocmd FileType tex inoremap `u ú
 autocmd FileType tex noremap  <buffer> <silent> k gk
 autocmd FileType tex noremap  <buffer> <silent> j gj
 autocmd FileType tex noremap  <buffer> <silent> 0 g0
@@ -172,11 +171,12 @@ autocmd BufEnter *.spell inoremap ,bb #!/bin/bash<Esc>o<Return>
 """ Markdown
 autocmd BufEnter *.md set linebreak
 autocmd FileType markdown inoremap ~a ã
-autocmd FileType markdown inoremap `e é
-autocmd FileType markdown inoremap `E É
 autocmd FileType markdown inoremap `a à
 autocmd FileType markdown inoremap `A A
-autocmd FileType markdown inoremap ~a ã
+autocmd FileType markdown inoremap `e é
+autocmd FileType markdown inoremap `E É
+autocmd FileType markdown inoremap `o ó
+autocmd FileType markdown inoremap `u ú
 autocmd FileType markdown noremap  <buffer> <silent> k gk
 autocmd FileType markdown noremap  <buffer> <silent> j gj
 autocmd FileType markdown noremap  <buffer> <silent> 0 g0
