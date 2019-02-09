@@ -101,6 +101,11 @@ function allClips {
     echo "clipboard: $(xclip -selection clipboard -o 2>/dev/null)"
 }
 
+function alarm {
+    (sleep $1 && mpv https://www.youtube.com/watch?v=is_6KivKjQI) &
+    disown
+}
+
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias open="xdg-open"
 alias clip="xclip -sel clip"

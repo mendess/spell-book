@@ -64,8 +64,10 @@ bindsym $mod+Left         exec --no-startup-id back 5
 bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
-bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal && read -n 1 -s -r"
-bindsym $mod+Shift+x      exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=30" -title floating-terminal-clock -e clock
+bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal && read -s -r -n 1"
+bindsym $mod+Shift+x      exec --no-startup-id $term -title floating-terminal-weather -e bash -c "curl http://wttr.in/ && read -s -r -n 1"
+bindsym $mod+Mod1+s      exec --no-startup-id $term -title floating-terminal -e sssh
+# bindsym $mod+Shift+x      exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=30" -title floating-terminal-clock -e clock
 bindsym $mod+v            exec --no-startup-id playClipboard
 ####### NAVIGATION
 bindsym $mod+j         focus down
@@ -171,7 +173,8 @@ for_window [title="ncpamixer"]                    floating enable border pixel 1
 for_window [title="floating-terminal"]            floating enable border pixel 1
 for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 330 294
 for_window [title="floating-terminal-clock"]      floating enable border pixel 1 resize set 10 10
-for_window [title="pacman-game"]                  floating enable border pixel 1
+for_window [title="floating-terminal-weather"]    floating enable border pixel 1 resize set 1150 726
+for_window [title="pacman-game"]                  fullscreen enable
 for_window [class="Steam"]                        floating enable
 for_window [title="Steam"]                        floating disable
 
