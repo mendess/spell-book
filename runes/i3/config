@@ -66,7 +66,7 @@ bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
 bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal && read -s -r -n 1"
 bindsym $mod+Shift+x      exec --no-startup-id $term -title floating-terminal-weather -e bash -c "curl http://wttr.in/ && read -s -r -n 1"
-bindsym $mod+Mod1+s      exec --no-startup-id $term -title floating-terminal -e sssh
+bindsym $mod+Mod1+s       exec --no-startup-id $term -title floating-terminal -e sssh
 # bindsym $mod+Shift+x      exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=30" -title floating-terminal-clock -e clock
 bindsym $mod+v            exec --no-startup-id playClipboard
 ####### NAVIGATION
