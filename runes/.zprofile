@@ -5,6 +5,7 @@ export BROWSER="firefox"
 export WWW_HOME='duckduckgo.com/lite'
 
 export PATH=~/.local/bin:$PATH
+export PATH=~/.cargo/bin:$PATH
 
 if [[ "$(tty)" == "/dev/tty1" ]]; then
     toilet -f mono9 -F metal "           Starting i3  "
