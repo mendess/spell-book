@@ -46,6 +46,8 @@ call plug#end()
 colorscheme gruvbox
 set background=dark
 let g:gruvbox_contrast_dark = 'hard'
+command! Bt :highlight Normal ctermbg=None
+command! Bo :highlight Normal ctermbg=000000
 
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
@@ -145,8 +147,8 @@ filetype plugin indent on
 
 """ LaTeX
 autocmd BufEnter *.tex set linebreak
-autocmd BufEnter *.tex command! R !pdflatex  --shell-escape Report.tex > /dev/null
-autocmd BufEnter *.tex command! Re !pdflatex --shell-escape Report.tex
+autocmd BufEnter *.tex command! R !pdflatex  --shell-escape %:p > /dev/null
+autocmd BufEnter *.tex command! Re !pdflatex --shell-escape %:p
 " LaTeX snippets
 autocmd FileType tex inoremap ,ttt \texttt{}<Esc>T{i
 autocmd FileType tex inoremap ,tbf \textbf{}<Esc>T{i
@@ -186,3 +188,4 @@ autocmd FileType markdown noremap  <buffer> <silent> $ g$
 
 """ JS
 autocmd! BufEnter *.js set shiftwidth=2
+
