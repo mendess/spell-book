@@ -33,6 +33,8 @@ Plug 'Chiel92/vim-autoformat'
 
 Plug 'cespare/vim-toml'
 
+Plug 'octol/vim-cpp-enhanced-highlight'
+
 " JS shit
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
