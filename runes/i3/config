@@ -129,10 +129,11 @@ bindsym $mod+Ctrl+l         resize grow   width  15 px or 3 ppt
 bindsym $mod+Shift+plus     resize grow   width 32 px; resize grow   height 18 px; move left  16 px; move up   9 px;
 bindsym $mod+Shift+minus    resize shrink width 32 px; resize shrink height 18 px; move right 16 px; move down 9 px;
 bindsym $mod+0               mode "$mode_system"
-set $mode_system (l)ock, (r)eboot, (Shift+s)hutdown
+set $mode_system (l)ock, (s)uspend (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l       exec --no-startup-id i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png, mode "default"
     bindsym r       exec --no-startup-id reboot, mode "default"
+    bindsym s       exec --no-startup-id systemctl suspend, mode "default"
     bindsym Shift+s exec --no-startup-id shutdown now, mode "default"
     bindsym Return  mode "default"
     bindsym Escape  mode "default"
@@ -173,10 +174,11 @@ for_window [title="ncpamixer"]                    floating enable border pixel 1
 for_window [title="floating-terminal"]            floating enable border pixel 1
 for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 330 294
 for_window [title="floating-terminal-clock"]      floating enable border pixel 1 resize set 10 10
-for_window [title="floating-terminal-weather"]    floating enable border pixel 1 resize set 1150 726
+for_window [title="floating-terminal-weather"]    floating enable border pixel 1 move up 160px resize set 1150 726
 for_window [title="pacman-game"]                  fullscreen enable
 for_window [class="Steam"]                        floating enable
 for_window [title="Steam"]                        floating disable
+for_window [title="CG-Teapot"] floating enable
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
