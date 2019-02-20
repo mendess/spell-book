@@ -28,6 +28,8 @@ Plug 'sebastianmarkow/deoplete-rust'
 
 Plug 'zchee/deoplete-clang'
 
+Plug 'w0rp/ale'
+
 " Requires: cargo install rustfmt
 Plug 'Chiel92/vim-autoformat'
 
@@ -103,7 +105,7 @@ map <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
 
 inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
-vnoremap <C-d> "+d
+vnoremap <C-x> "+d
 
 nnoremap <A-Enter> z=
 

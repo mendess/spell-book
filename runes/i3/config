@@ -178,7 +178,7 @@ for_window [title="floating-terminal-weather"]    floating enable border pixel 1
 for_window [title="pacman-game"]                  fullscreen enable
 for_window [class="Steam"]                        floating enable
 for_window [title="Steam"]                        floating disable
-for_window [title="CG-Teapot"] floating enable
+for_window [title="CG"]                           floating enable
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
