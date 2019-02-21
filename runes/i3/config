@@ -64,7 +64,7 @@ bindsym $mod+Left         exec --no-startup-id back 5
 bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
-bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal && read -s -r -n 1"
+bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
 bindsym $mod+Shift+x      exec --no-startup-id $term -title floating-terminal-weather -e bash -c "curl http://wttr.in/ && read -s -r -n 1"
 bindsym $mod+Mod1+s       exec --no-startup-id $term -title floating-terminal -e sssh
 # bindsym $mod+Shift+x      exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=30" -title floating-terminal-clock -e clock
@@ -178,7 +178,7 @@ for_window [title="floating-terminal-weather"]    floating enable border pixel 1
 for_window [title="pacman-game"]                  fullscreen enable
 for_window [class="Steam"]                        floating enable
 for_window [title="Steam"]                        floating disable
-for_window [title="CG"]                           floating enable
+for_window [title="CG-Assignment"]                floating enable
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
