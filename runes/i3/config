@@ -180,6 +180,7 @@ for_window [title="pacman-game"]                  fullscreen enable
 for_window [class="Steam"]                        floating enable
 for_window [title="Steam"]                        floating disable
 for_window [title="CG-Assignment"]                floating enable
+for_window [title="CG-Engine"]                floating enable
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
