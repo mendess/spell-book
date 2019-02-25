@@ -8,4 +8,4 @@ fi
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
 echo adding "$1"
-echo "$1" >> ../cantrips/bookmarks
+echo "$1" | sed 's;https://;;g' >> ../cantrips/bookmarks
