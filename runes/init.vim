@@ -117,6 +117,7 @@ command! Dup vsplit %:p
 " Bind W to w
 command! W w
 command! Q q
+command! WQ wq
 command! V :split ~/.config/nvim/init.vim | :source ~/.config/nvim/init.vim
 
 """ AUTOCOMMANDS
@@ -136,6 +137,8 @@ if exists('$SHELL')
 else
     set shell=/bin/sh
 endif
+set foldmethod=indent
+set nofoldenable
 
 syntax on
 filetype plugin indent on

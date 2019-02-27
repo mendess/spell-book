@@ -102,7 +102,11 @@ function allClips {
 }
 
 function alarm {
-    (sleep $1 && mpv https://www.youtube.com/watch?v=is_6KivKjQI) &
+    if [ $# -lt 1 ]; then
+        echo provide a time string
+        return 1
+    fi
+    sleep $1 && mpv --no-video "$(shuf ~/Projects/spell-book/cantrips/links | head -1 | cut -d';' -f2)"
     disown
 }
 

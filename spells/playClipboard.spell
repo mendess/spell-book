@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if mpv "$(xclip -sel clip -o)" &
+if mpv "$(xclip -sel clip -o)" || mpv "$(xclip -sel primary -o)"
 then
     disown
     exit
