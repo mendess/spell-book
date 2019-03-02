@@ -2,7 +2,7 @@
 
 vidlist=$(sed '/^$/ d' links)
 
-vidname="$(echo "$vidlist" | cut -d';' -f1 | dmenu -i -p "Which video? (type: \"shuff\" to pick at random)" -l $(echo "$vidlist" | wc -l))"
+vidname="$(echo "$vidlist" | cut -d';' -f1 | dmenu -i -p "Which video? (type: \"shuff\" to pick at random)" -l "$(echo "$vidlist" | wc -l)")"
 
 if [ "$vidname" = "shuff" ]; then
     vid=$(echo "$vidlist" | shuf | sed '1q' | cut -d';' -f2)
@@ -22,7 +22,7 @@ yes" | dmenu -i -p "With video?")
 
 if [ "$p" = "yes" ]
 then
-    mpv $vid
+    mpv "$vid"
 elif [ "$p" = "no" ]
 then
     cmd="echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid"
