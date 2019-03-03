@@ -22,7 +22,7 @@ yes" | dmenu -i -p "With video?")
 
 if [ "$p" = "yes" ]
 then
-    mpv "$vid"
+    mpv --input-ipc-server=/tmp/mpvsocket $vid
 elif [ "$p" = "no" ]
 then
     cmd="echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid"
