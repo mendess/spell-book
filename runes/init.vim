@@ -69,12 +69,12 @@ let g:mkdp_browser = 'firefox'
 " deopleate
 let g:deoplete#enable_at_startup = 1
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ deoplete#manual_complete()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ deoplete#manual_complete()
 function! s:check_back_space() abort "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
 " deoplete rust
@@ -150,18 +150,23 @@ filetype plugin indent on
 :augroup END
 
 
+""" Jumps
+inoremap ,, <Esc>/<++><Enter>"_c4l
+inoremap ,mks <++>
 """ LaTeX
 autocmd BufEnter *.tex set linebreak
-autocmd BufEnter *.tex command! R !pdflatex  --shell-escape %:p > /dev/null
+autocmd FileType tex map <leader>r :!pdflatex  --shell-escape %:p > /dev/null &<Return>
 autocmd BufEnter *.tex command! Re !pdflatex --shell-escape %:p
 " LaTeX snippets
-autocmd FileType tex inoremap ,ttt \texttt{}<Esc>T{i
-autocmd FileType tex inoremap ,tbf \textbf{}<Esc>T{i
-autocmd FileType tex inoremap ,tit \textit{}<Esc>T{i
-autocmd FileType tex inoremap ,st \section{}<Esc>T{i
-autocmd FileType tex inoremap ,sst \subsection{}<Esc>T{i
-autocmd FileType tex inoremap ,ssst \subsubsection{}<Esc>T{i
-autocmd FileType tex inoremap ,bit \begin{itemize}<CR><CR>\end{itemize}<Esc>ki<Tab>\item<Space>
+autocmd FileType tex inoremap ,tt \texttt{}<Space><++><Esc>T{i
+autocmd FileType tex inoremap ,bf \textbf{}<Space><++><Esc>T{i
+autocmd FileType tex inoremap ,it \textit{}<Space><++><Esc>T{i
+autocmd FileType tex inoremap ,st \section{}<Return><Return><++><Esc>2kt}a
+autocmd FileType tex inoremap ,sst \subsection{}<Return><Return><++><Esc>2kt}a
+autocmd FileType tex inoremap ,ssst \subsubsection{}<Return><Return><++><Esc>2kt}a
+autocmd FileType tex inoremap ,bit \begin{itemize}<CR><CR>\end{itemize}<Return><++><Esc>kki<Tab>\item<Space>
+autocmd FileType tex inoremap ,bfi \begin{figure}[H]<CR><CR>\end{figure}<Return><++><Esc>kki<Tab>\includegraphics{}<CR>\caption{<++>}<Esc>k$i
+autocmd FileType tex inoremap ,beg \begin{<++>}<Esc>yyp0lcwend<Esc>O<Tab><++><Esc>k0<Esc>/<++><Enter>"_c4l
 autocmd FileType tex inoremap ~a ã
 autocmd FileType tex inoremap `a à
 autocmd FileType tex inoremap `A A
@@ -174,8 +179,8 @@ autocmd FileType tex noremap  <buffer> <silent> j gj
 autocmd FileType tex noremap  <buffer> <silent> 0 g0
 autocmd FileType tex noremap  <buffer> <silent> $ g$
 
-autocmd BufEnter *.sh    inoremap ,bb #!/bin/bash<Esc>o<Return>
-autocmd BufEnter *.spell inoremap ,bb #!/bin/bash<Esc>o<Return>
+autocmd BufEnter *.sh    inoremap ,bb #!/bin/bash<Esc>o
+autocmd BufEnter *.spell inoremap ,bb #!/bin/bash<Esc>o
 
 """ Markdown
 autocmd BufEnter *.md set linebreak
