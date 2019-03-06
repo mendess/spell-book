@@ -1,5 +1,5 @@
 #fortune | cowthink `echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1`
-fortune
+fortune -c
 
 export ZSH_THEME="fishy-2"
 function exit {
