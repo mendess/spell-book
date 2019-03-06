@@ -3,26 +3,32 @@
 
 ## Spells *(scripts)*
 
-- [allgst](./allgst.sh) Performs `git status` on every folder in the `cwd`.
-- [bash_color](./bash_color.sh) Display a certain RGB combo to the terminal and the
+- [allgst](./spells/allgst.sh) Performs `git status` on every folder in the `cwd`.
+- [bash_color](./spells/bash_color.sh) Display a certain RGB combo to the terminal and the
   corresponding escape sequence.
-- [castRunes](./castRunes.sh) Creates a sym-link for every rune in
+- [castRunes](./spells/castRunes.sh) Creates a sym-link for every rune in
   [runes](runes/). The location of the sym-link depends on the rune and is
   defined in the script.
-- [changeMeWall](./changeMeWall.sh) Changes the wallpaper to a random one in the
+- [changeMeWall](./spells/changeMeWall.sh) Changes the wallpaper to a random one in the
   `~/Pictures/Wallpapers` folder (requires `nitrogem`).
     - *[changeMeWallCicle](changeMeWallCicle.sh) runs this every 5 minutes.*
-- [gitconfig](./gitconfig.sh) Configures git with my credentials.
-- [learnSpells](./learnSpells.sh) Creates a sym-link on `~/.local/bin` to every
+- [gitconfig](./spells/gitconfig.sh) Configures git with my credentials.
+- [learnSpells](./spells/learnSpells.sh) Creates a sym-link on `~/.local/bin` to every
   spell.
-- [mtg-wallpapers](./mtg-wallpapers.sh) Downloads the last 6 wallpapers to show
+- [mtg-wallpapers](./spells/mtg-wallpapers.sh) Downloads the last 6 wallpapers to show
   https://magic.wizards.com/en/articles/media/wallpapers.
-- [sssh](sssh.sh) Manages ssh connections.
-- [syncspellbook](./syncspellbook.sh) Tries to synchronise with changes to the
+- [playClipboard](./spells/playClipboard.spell) Plays whatever is in the clipboard on mpv.
+- [scrot-rename](./spells/scrot-rename.spell) Used to rename screenshots. (see i3 config).
+- [sssh](./spell/sssh.sh) Manages ssh connections.
+- [syncspellbook](./spells/syncspellbook.sh) Tries to synchronise with changes to the
   remote repository. Also runs [updatespellbook](updatespellbook.sh)
-  and [castRunes](castRunes.sh).
-- [termFromHere](./termFromHere.sh) Opens a terminal in the same `cwd` as the focused `X`
+  and [castRunes](./spells/castRunes.sh).
+- [termFromHere](./spells/termFromHere.sh) Opens a terminal in the same `cwd` as the focused `X`
   program. (Meant to be used with `i3wm`)
+
+### Cantrips Helpers
+- [back](./spells/back.spell), [frwd](./spells/frwd.spell), [vu](./spells/vu.spell), [vd](./spells/vd.spell), [next](./spells/next.spell), [prev](./spells/prev.spell), [pause](./spells/pause.spell) Serve as meia keys to control mpv running with a ipc socket.
+- [add_link](./spells/add_link.spell) Adds a link to the [links](./cantrips/links) file to be used by the [youtube](./cantrips/youtube.sh) cantrip.
 
 ## Runes *(config files)*
 
