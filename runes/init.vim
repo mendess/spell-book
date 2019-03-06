@@ -104,6 +104,8 @@ let mapleader =" "
 map <leader>s :!clear && shellcheck %<CR>
 " toggle spelling
 map <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
+" Alt-Tab
+map <leader><Tab> :e #<CR>
 
 inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
