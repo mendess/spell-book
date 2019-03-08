@@ -30,8 +30,6 @@ Plug 'zchee/deoplete-clang'
 
 Plug 'w0rp/ale'
 
-Plug 'anned20/vimsence'
-
 " Requires: cargo install rustfmt
 Plug 'Chiel92/vim-autoformat'
 
