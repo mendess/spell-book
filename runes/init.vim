@@ -87,6 +87,8 @@ let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable
 " deoplete C
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/include/'
+" ALE C
+" autocmd BufEnter *.c let b:ale_linters = ['clang `pkg-config --libs -cflags glib-2.0`']
 
 """ KEY BINDINGS
 

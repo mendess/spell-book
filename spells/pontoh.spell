@@ -1,0 +1,16 @@
+#!/bin/bash
+
+for f in *.c
+do
+    pontoh="$(basename "$f" .c).h"
+    header_guard="$(basename "$f" .c | tr '[:lower:]' '[:upper:]')_H"
+    {
+        echo -e "#ifndef $header_guard\n#define $header_guard"
+        grep -P '^[a-zA-Z_][^)]+\)' "$f" \
+            | grep -v 'static' \
+            | sed -E 's/(^[a-zA-Z_][^)]+\))/\1;/g'
+
+        echo "#endif // $header_guard"
+    } > "$pontoh"
+
+done
