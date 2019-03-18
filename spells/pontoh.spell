@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for f in *.c
+for f in */*.c
 do
-    pontoh="$(basename "$f" .c).h"
+    pontoh="$(dirname "$f")/$(basename "$f" .c).h"
     header_guard="$(basename "$f" .c | tr '[:lower:]' '[:upper:]')_H"
     {
         echo -e "#ifndef $header_guard\n#define $header_guard"
