@@ -33,7 +33,8 @@ set $ws9 9: Media
 exec --no-startup-id changeMeWallCicle
 exec --no-startup-id xcompmgr -c -n
 exec --no-startup-id dropbox start
-exec --no-startup-id battery_check
+exec --no-startup-id battery_check_cicle
+exec --no-startup-id dunst
 
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
