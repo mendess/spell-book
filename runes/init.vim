@@ -76,6 +76,7 @@ function! s:check_back_space() abort "{{{
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " deoplete rust
 """ Requires: rustup component add nightly
