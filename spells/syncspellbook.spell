@@ -69,4 +69,7 @@ if sync; then
 else
     echo -e "\033[31m\n${farrow}     Can't backup     ${barrow}\033[0m"
 fi
-read -n 1 -s -r
+if [ "$1" == '--hold' ]
+then
+    read -n 1 -s -r
+fi

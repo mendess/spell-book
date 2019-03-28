@@ -66,7 +66,7 @@ bindsym $mod+Up           exec --no-startup-id frwd 60
 bindsym $mod+Down         exec --no-startup-id back 60
 bindsym $mod+Right        exec --no-startup-id frwd 5
 bindsym $mod+Left         exec --no-startup-id back 5
-bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook
+bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook --hold
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
 bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
