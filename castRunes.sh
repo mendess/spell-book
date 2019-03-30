@@ -1,16 +1,17 @@
 #!/bin/bash
 
 runes=(
-~/.oh-my-zsh/custom/aliases.zsh
+~/.zprofile
 ~/.oh-my-zsh/custom/themes/fishy-2.zsh-theme
 ~/.oh-my-zsh/custom/startup.zsh
-~/.zprofile
-~/.Xdefaults
+~/.oh-my-zsh/custom/aliases.zsh
 ~/.gitignore-global
-~/.config/nvim/init.vim
 ~/.config/zathura/zathurarc
-~/.config/i3
+~/.config/nvim/init.vim
 ~/.config/i3status
+~/.config/i3
+~/.config/dunst/dunstrc
+~/.Xdefaults
 ~/.IntelliJIdea2018.3/config/idea.properties
 )
 
