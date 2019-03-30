@@ -6,11 +6,7 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'kien/ctrlp.vim'
 
-Plug 'neovimhaskell/haskell-vim'
-
 Plug 'cohama/lexima.vim'
-
-Plug 'elixir-editors/vim-elixir'
 
 Plug 'junegunn/goyo.vim'
 
@@ -37,9 +33,6 @@ Plug 'cespare/vim-toml'
 
 Plug 'octol/vim-cpp-enhanced-highlight'
 
-" JS shit
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 call plug#end()
 
 """ PLUGIN CONFIGS
@@ -61,6 +54,21 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|target|out)$'
 
 " goyo
 map <F10> :Goyo<CR>
+function! s:goyo_enter()
+    :set nonumber norelativenumber
+    :autocmd! numbertoggle
+endfunction
+
+function! s:goyo_leave()
+    :set number relativenumber
+    :augroup numbertoggle
+    :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+    :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+    :augroup END
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:goyo_height='90'
 
 " markdown-preview
@@ -171,7 +179,7 @@ autocmd FileType tex inoremap ,sst \subsection{}<Return><Return><++><Esc>2kt}a
 autocmd FileType tex inoremap ,ssst \subsubsection{}<Return><Return><++><Esc>2kt}a
 autocmd FileType tex inoremap ,bit \begin{itemize}<CR><CR>\end{itemize}<Return><++><Esc>kki<Tab>\item<Space>
 autocmd FileType tex inoremap ,bfi \begin{figure}[H]<CR><CR>\end{figure}<Return><++><Esc>kki<Tab>\includegraphics{}<CR>\caption{<++>}<Esc>k$i
-autocmd FileType tex inoremap ,beg \begin{<++>}<Esc>yyp0lcwend<Esc>O<Tab><++><Esc>k0<Esc>/<++><Enter>"_c4l
+autocmd FileType tex inoremap ,beg \begin{<++>}<Esc>yyp0fbcwend<Esc>O<Tab><++><Esc>k0<Esc>/<++><Enter>"_c4l
 autocmd FileType tex inoremap ~a ã
 autocmd FileType tex inoremap `a à
 autocmd FileType tex inoremap `A A
