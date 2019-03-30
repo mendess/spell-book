@@ -26,6 +26,8 @@ Plug 'zchee/deoplete-clang'
 
 Plug 'w0rp/ale'
 
+Plug 'AndrewRadev/splitjoin.vim'
+
 " Requires: cargo install rustfmt
 Plug 'Chiel92/vim-autoformat'
 
@@ -71,9 +73,6 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:goyo_height='90'
 
-" markdown-preview
-let g:mkdp_browser = 'firefox'
-
 " deopleate
 let g:deoplete#enable_at_startup = 1
 inoremap <silent><expr> <TAB>
@@ -106,15 +105,29 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+nnoremap <M-h> <C-w>H
+nnoremap <M-j> <C-w>J
+nnoremap <M-k> <C-w>K
+nnoremap <M-l> <C-w>L
+
 " Ctrl+S to save
-noremap <C-S> :w<CR>
+map <C-S> :w<CR>
+imap <C-S> <Esc>:w<CR>a
+
 let mapleader =" "
 " shell script linting
 map <leader>s :!clear && shellcheck %<CR>
 " toggle spelling
 map <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
+map <leader>O :setlocal spell! spelllang=en_gb<CR>
 " Alt-Tab
 map <leader><Tab> :e #<CR>
+" clear search results
+nmap <leader><leader> :noh<CR>
+
+" Lock
+nnoremap <leader>L :silent !i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png<CR>
 
 inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
@@ -162,16 +175,19 @@ filetype plugin indent on
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
 
+" Number of lines between cursor and scroll
+set scrolloff=4
 
 """ Jumps
 inoremap ,, <Esc>/<++><Enter>"_c4l
 inoremap ,mks <++>
 """ LaTeX
 autocmd BufEnter *.tex set linebreak
-autocmd FileType tex map <leader>r :!pdflatex  --shell-escape %:p > /dev/null &<Return>
+autocmd FileType tex map <leader>r :silent !pdflatex  --shell-escape %:p > /dev/null &<Return>
 autocmd BufEnter *.tex command! Re !pdflatex --shell-escape %:p
 " LaTeX snippets
 autocmd FileType tex inoremap ,tt \texttt{}<Space><++><Esc>T{i
+autocmd FileType tex inoremap ,ve \verb!!<Space><++><Esc>T!i
 autocmd FileType tex inoremap ,bf \textbf{}<Space><++><Esc>T{i
 autocmd FileType tex inoremap ,it \textit{}<Space><++><Esc>T{i
 autocmd FileType tex inoremap ,st \section{}<Return><Return><++><Esc>2kt}a

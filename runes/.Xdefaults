@@ -43,7 +43,7 @@ URxvt.cursorColor:	white
 !! Extensions
 URxvt.perl-ext-common:	default,matcher,resize-font,keyboard-select
 URxvt.colorUL:		#4682B4
-URxvt.keysym.M-l:	perl:matcher:select
+URxvt.keysym.M-u:	perl:matcher:select
 URxvt.url-launcher:     firefox
 !! keyboard-select:
 URxvt.keysym.M-Escape: perl:keyboard-select:activate

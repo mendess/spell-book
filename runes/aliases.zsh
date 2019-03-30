@@ -131,7 +131,7 @@ alias dex="~/gitProjects/unix_dex/target/debug/unix_dex"
 alias bc="bc -l"
 alias ghci="stack ghci"
 alias :r="source ~/.zshrc"
-alias cl="clear; ls -lah"
+alias cl="clear; ls -lh"
 alias pls="sudo \$(history -1 | awk '{\$1=\"\"; print \$0 }')"
 alias vim.='vim .'
 alias i3config="vim ~/.config/i3/config"
@@ -141,7 +141,6 @@ alias dbf="dropbox-cli filestatus"
 alias t="/usr/bin/time -p"
 alias synthwave='mpv --no-video https://www.youtube.com/playlist\?list\=UUwoTj-pZgZZ8DInOXSSLMmA'
 alias gamend="git commit --amend"
-alias e="exit"
 alias autoBuildRust="find . | grep '\.rs' | entr -c cargo check"
 alias mpvs='mpv --no-video --input-ipc-server=/tmp/mpvsocket'
 alias mpvsv='mpv --input-ipc-server=/tmp/mpvsocket'
