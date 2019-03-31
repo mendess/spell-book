@@ -59,8 +59,8 @@ bindsym $mod+Shift+v      exec --no-startup-id $term -e vis
 bindsym $mod+backslash    exec --no-startup-id pause
 bindsym $mod+minus        exec --no-startup-id vd 5
 bindsym $mod+plus         exec --no-startup-id vu 5
-bindsym $mod+Prior        exec --no-startup-id next
-bindsym $mod+Next         exec --no-startup-id prev
+bindsym $mod+Next         exec --no-startup-id next
+bindsym $mod+Prior        exec --no-startup-id prev
 bindsym $mod+End          exec --no-startup-id next-file
 bindsym $mod+Home         exec --no-startup-id prev-file
 bindsym $mod+Up           exec --no-startup-id frwd 60
