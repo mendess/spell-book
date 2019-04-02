@@ -1,6 +1,3 @@
-#fortune | cowthink `echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1`
-fortune -c
-
 export ZSH_THEME="fishy-2"
 function exit {
     if [[ -z $TMUX ]]; then
@@ -42,4 +39,12 @@ if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
         start_tmux
         exit
     fi
+fi
+
+if mn -V > /dev/null
+then
+    mn list
+else
+    #fortune | cowthink `echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1`
+    fortune -c
 fi
