@@ -141,6 +141,10 @@ nnoremap <A-Enter> z=
 
 map <leader>f :Autoformat<CR>
 
+nnoremap gd <C-[>
+
+nnoremap <C-q> :q<CR>
+
 """ COMMANDS
 " Reopen current file in a split
 command! Dup vsplit %:p
@@ -149,6 +153,7 @@ command! W w
 command! Q q
 command! WQ wq
 command! V :split ~/.config/nvim/init.vim | :source ~/.config/nvim/init.vim
+command! C :!ctags -R .
 
 """ AUTOCOMMANDS
 " clear trailling whitespace
