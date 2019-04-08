@@ -43,7 +43,7 @@ case "$mode" in
             | tr '\t' '\n' \
             | sed '/^$/ d' \
             | sort \
-            | uniq \
+            | uniq -c \
             | dmenu -i -p "Which category?")
 
         vid="$(echo "$vidlist" | grep -P ".*\t.*\t.*$catg" | awk -F'\t' '{print $2}')"
