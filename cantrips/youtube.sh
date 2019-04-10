@@ -34,7 +34,7 @@ case "$mode" in
         ;;
     shuffA)
         tmp=$(echo "$vidlist" | shuf)
-        vid=$(echo "$tmp" | awk -F'\t' '{print $2}')
+        vid=$(echo "$tmp" | awk -F'\t' '{print $2}' | xargs)
         title="$(echo "$tmp" | awk -F'\t' '{print $1}')"
         ;;
     shuffC)
@@ -44,8 +44,8 @@ case "$mode" in
             | sed '/^$/ d' \
             | sort \
             | uniq -c \
-            | dmenu -i -p "Which category?")
-
+            | dmenu -i -p "Which category?" \
+            | sed -E 's/^[ ]*[0-9]*[ ]*//')
         vid="$(echo "$vidlist" | grep -P ".*\t.*\t.*$catg" | awk -F'\t' '{print $2}')"
         title="$(echo "$vidlist" | grep -P ".*\t.*\t.*$catg" | awk -F'\t' '{print $1}')"
         ;;

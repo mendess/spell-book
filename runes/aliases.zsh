@@ -8,7 +8,8 @@ function allsed {
     then
         echo "Usage: $0 <find> <replace>"
     else
-        allgrep "$1" | cut -d':' -f1 | sort | uniq | xargs sed -e "s/$1/$2/g" -i
+        replace=${2/\//\\/}
+        allgrep "$1" | cut -d':' -f1 | sort | uniq | xargs sed -e "s/$1/$replace/g" -i
     fi
 }
 
@@ -62,6 +63,7 @@ function ex {
       *.zip)       unzip "$1"     ;;
       *.Z)         uncompress "$1";;
       *.7z)        7z x "$1"      ;;
+      *.xz)        xz -d "$1"     ;;
       *)           echo "$1 cannot be extracted via ex()" ;;
     esac
   else
