@@ -46,7 +46,8 @@ case "$mode" in
             | uniq -c \
             | dmenu -i -p "Which category?" \
             | sed -E 's/^[ ]*[0-9]*[ ]*//')
-        vid="$(echo "$vidlist" | grep -P ".*\t.*\t.*$catg" | awk -F'\t' '{print $2}')"
+
+        vid="$(echo "$vidlist" | grep -P ".*\t.*\t.*$catg" | awk -F'\t' '{print $2}' | xargs)"
         title="$(echo "$vidlist" | grep -P ".*\t.*\t.*$catg" | awk -F'\t' '{print $1}')"
         ;;
 esac
