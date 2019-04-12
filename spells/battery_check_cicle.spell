@@ -1,4 +1,8 @@
 #!/bin/bash
+if acpi | grep 'rate information unavailable'
+then
+    exit
+fi
 while true;
 do
     battery_check
