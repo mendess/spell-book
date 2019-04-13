@@ -32,7 +32,7 @@ set $ws9 9: Media
 ######################################## ON BOOT LAUNCH APPS ###################################
 exec --no-startup-id changeMeWallCicle
 #TODO change to compton
-exec --no-startup-id xcompmgr -c -n
+exec --no-startup-id compton -I 1 -O 1
 exec --no-startup-id dropbox start
 exec --no-startup-id battery_check_cicle
 exec --no-startup-id dunst
