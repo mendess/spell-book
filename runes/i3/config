@@ -187,6 +187,7 @@ for_window [class="Steam"]                        floating enable
 for_window [title="Steam"]                        floating disable
 for_window [title="CG-Assignment"]                floating enable border normal
 for_window [title="CG-Engine"]                    floating enable border normal
+for_window [class="jetbrains-toolbox"]            floating enable
 
 # switch to workspace with urgent window automatically
 #for_window [urgent=latest] focus
