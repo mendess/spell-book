@@ -6,10 +6,14 @@ if [ "$#" -lt 1 ]; then
 fi
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
-url="$(echo "$1" | sed -E 's|https://.*=(.*)|https://youtu.be/\1|')"
+
+url="$(echo "$1" | sed -E 's|https://.*=(.*)\&|https://youtu.be/\1|')"
+
 c=( "${@:2}" )
 categories=$(echo "${c[@]}" | tr ' ' '\t')
+
 link="$(youtube-dl --get-title "$1" | sed -e 's/(/{/g; s/)/}/g' -e "s/'//g")	$url	$categories"
+
 echo adding "$link"
 if grep "$link" "$LINKS" >/dev/null
 then

@@ -1,0 +1,10 @@
+#!/bin/bash
+LINKS=../cantrips/links
+cd "$(dirname "$(realpath "$0")")" || exit 1
+file=$(echo '{ "command": ["get_property", "filename"] }' \
+        | socat - /tmp/mpvsocket \
+        | jq --raw-output '.data')
+
+grep "$file" "$LINKS" \
+         | awk -F'\t' '{print "\"Now playing:\"\n\""$1"\""}' \
+         | xargs notify-send
