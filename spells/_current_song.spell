@@ -2,9 +2,9 @@
 LINKS=../cantrips/links
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
-file=$(echo '{ "command": ["get_property", "filename"] }' \
-    | socat - /tmp/mpvsocket \
-    | jq --raw-output '.data')
+file=$(echo '{ "command": ["get_property", "filename"] }' | socat - /tmp/mpvsocket | jq --raw-output '.data')
+
+[ ${#file} -eq 0 ] && exit 2
 
 case $1 in
     -n)
