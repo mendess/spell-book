@@ -1,0 +1,14 @@
+#!/bin/bash
+LINKS=../cantrips/links
+cd "$(dirname "$(realpath "$0")")" || exit 1
+
+current_song=$(_current_song | tail -1)
+while :
+do
+    cat=$(echo | dmenu -p "Category name? (done to quit)")
+    if [ "$cat" = "done" ]
+    then
+        break
+    fi
+    sed "/$current_song/ s|$|	$cat|" "$LINKS"
+done

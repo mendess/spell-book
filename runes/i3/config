@@ -75,7 +75,8 @@ bindsym $mod+Up           exec --no-startup-id frwd 60
 bindsym $mod+Down         exec --no-startup-id back 60
 bindsym $mod+Right        exec --no-startup-id frwd 5
 bindsym $mod+Left         exec --no-startup-id back 5
-bindsym $mod+Insert       exec --no-startup-id _current_song
+bindsym $mod+Insert       exec --no-startup-id _current_song -n
+bindsym $mod+Del          exec --no-startup-id _current_song_add_cat
 
 ####### NAVIGATION
 bindsym $mod+j         focus down
