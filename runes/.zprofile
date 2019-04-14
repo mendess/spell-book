@@ -6,6 +6,8 @@ export WWW_HOME='duckduckgo.com/lite'
 
 export PATH=~/.local/bin:$PATH
 export PATH=~/.cargo/bin:$PATH
+export PATH=$PATH:~/.dotnet/tools/
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export PAGER="less"
 export LESS_TERMCAP_mb=$'\e[1;35m'
 export LESS_TERMCAP_md=$'\e[1;36m'
