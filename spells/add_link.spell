@@ -7,7 +7,7 @@ fi
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
-url="$(echo "$1" | sed -E 's|https://.*=(.*)\&|https://youtu.be/\1|')"
+url="$(echo "$1" | sed -E 's|https://.*=(.*)\&?|https://youtu.be/\1|')"
 
 c=( "${@:2}" )
 categories=$(echo "${c[@]}" | tr ' ' '\t')
