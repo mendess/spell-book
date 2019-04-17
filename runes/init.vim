@@ -1,7 +1,7 @@
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin()
@@ -25,9 +25,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -95,6 +95,8 @@ function! s:check_back_space() abort "{{{
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
+set completeopt-=preview
+
 " deoplete rust
 """ Requires: rustup component add nightly
 """ Requires: cargo +nightly install racer
@@ -104,8 +106,16 @@ let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable
 
 " deoplete C
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/include/'
-" ALE C
+let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
+
+" ale
+let g:ale_echo_msg_format = '%linter%: %s'
+
+" ale C/C++
+let g:ale_cpp_clang_options = '-std=c++20 -Wall'
+let g:ale_c_parse_makefile = 1
+let g:ale_c_parse_compile_commands = 1
+let g:ale_linters_ignore = {'cpp': ['gcc']}
 " autocmd BufEnter *.c let b:ale_linters = ['clang `pkg-config --libs -cflags glib-2.0`']
 
 """ KEY BINDINGS
@@ -193,6 +203,8 @@ filetype plugin indent on
 
 " Number of lines between cursor and scroll
 set scrolloff=4
+
+set hidden
 
 """ Jumps
 inoremap ,, <Esc>/<++><Enter>"_c4l
