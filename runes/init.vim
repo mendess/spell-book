@@ -112,7 +112,7 @@ let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
 let g:ale_echo_msg_format = '%linter%: %s'
 
 " ale C/C++
-let g:ale_cpp_clang_options = '-std=c++20 -Wall'
+let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra -pedantic'
 let g:ale_c_parse_makefile = 1
 let g:ale_c_parse_compile_commands = 1
 let g:ale_linters_ignore = {'cpp': ['gcc']}
