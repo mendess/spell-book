@@ -8,7 +8,7 @@ file=$(echo '{ "command": ["get_property", "filename"] }' | socat - /tmp/mpvsock
 
 case $1 in
     -n)
-        grep "$file" "$LINKS" \
+        grep -F -e "$file" "$LINKS" \
             | awk -F'\t' '{print "\"Now playing:\"\n\""$1"\""}' \
             | xargs notify-send
 
