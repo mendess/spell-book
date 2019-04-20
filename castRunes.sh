@@ -13,6 +13,8 @@ runes=(
 ~/.config/dunst/dunstrc
 ~/.Xdefaults
 ~/.IntelliJIdea2018.3/config/idea.properties
+~/.config/mutt/muttrc
+~/.config/mutt/colors.muttrc
 )
 
 function cleanRunes {

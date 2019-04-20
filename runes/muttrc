@@ -1,0 +1,21 @@
+
+set folder = "imaps://pedro.mendes.26@gmail.com@imap.gmail.com:993"
+set smtp_url = "smtp://pedro.mendes.26@gmail.com@smtp.gmail.com:587"
+set spoolfile = "+INBOX"
+
+set from = "pedro.mendes.26@gmail.com"
+set realname = "Pedro Mendes"
+
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Draft"
+
+set ssl_force_tls = yes
+
+source ~/.muttpass
+
+bind index G imap-fetch-mail
+
+mailboxes =INBOX =Sent =Trash =Drafts =Junk =Other
+
+source colors.muttrc

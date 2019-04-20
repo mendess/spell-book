@@ -158,7 +158,7 @@ nnoremap <A-Enter> z=
 
 map <leader>f :Autoformat<CR>
 
-nnoremap gd :ALEGoToDefinition
+nnoremap gd :ALEGoToDefinition<CR>
 
 nnoremap <C-q> :q<CR>
 
