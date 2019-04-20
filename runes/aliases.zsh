@@ -108,7 +108,12 @@ function alarm {
         echo provide a time string
         return 1
     fi
-    sleep $1 && mpv --no-video "$(shuf ~/Projects/spell-book/cantrips/links | head -1 | cut -d';' -f2)"
+    {
+    link="$(shuf ~/Projects/spell-book/cantrips/links | head -1 | awk -F'\t' '{print $2}')"
+    sleep $1 \
+        && mpv --no-video "$link" \
+        && notify-send -u urgent "${2:-"Alarm"}"
+    } &
     disown
 }
 

@@ -163,8 +163,6 @@ nnoremap gd :ALEGoToDefinition<CR>
 nnoremap <C-q> :q<CR>
 
 """ COMMANDS
-" Reopen current file in a split
-command! Dup vsplit %:p
 " Bind W to w
 command! W w
 command! Q q
