@@ -4,7 +4,6 @@ cd "$(dirname "$(realpath "$0")")""/runes" || exit 1
 
 runes=(
 ~/.zprofile,zprofile
-~/.oh-my-zsh/custom/themes/fishy-2.zsh-theme,fishy-2.zsh-theme # Come back for this
 ~/.oh-my-zsh/custom,zsh
 ~/.gitignore-global,gitignore-global
 ~/.config/zathura/zathurarc,zathurarc
@@ -17,23 +16,37 @@ runes=(
 ~/.IntelliJIdea2018.3/config/idea.properties,idea.properties
 )
 
-function cleanRunes {
-    local rune link file
-    for rune in "${runes[@]}"
+expandedRunes=()
+
+function expand {
+    for file in "$2"/*
     do
-        IFS=',' read -r link file <<< "${rune}"
+        f="$(basename "$file")"
         if [ -d "$file" ]
         then
-            for f in "$file"/*
-            do
-                l="$link/$(basename "$f")"
-                if [ -h "$l" ] && ! [ -e "$l" ]
-                then
-                    echo -e "\033[31mRemoving broken rune: $(basename "$l")\033[0m"
-                    rm "$l"
-                fi
-            done
+            expand "$1/$f" "$2/$f"
+        else
+            expandedRunes+=("$1/$f,$2/$f")
         fi
+    done
+}
+
+for rune in "${runes[@]}"
+do
+    IFS=',' read -r link file <<< "${rune}"
+    if [ -d "$link" ]
+    then
+        expand "$link" "$file"
+    else
+        expandedRunes+=("$rune")
+    fi
+done
+
+function cleanRunes {
+    local rune link file
+    for rune in "${expandedRunes[@]}"
+    do
+        IFS=',' read -r link file <<< "${rune}"
         if [ -h "$link" ] && ! [ -e "$link" ]
         then
             echo -e "\033[31mRemoving broken rune: $(basename "$link")\033[0m"
@@ -45,10 +58,10 @@ function cleanRunes {
 
 function newRunes {
     local rune link file
-    for rune in "${runes[@]}"
+    for rune in "${expandedRunes[@]}"
     do
         IFS=',' read -r link file <<< "${rune}"
-        [ -h "$link" ] || [ -d "$link" ] || return 0 # TODO: Come back to this
+        [ -h "$link" ] || return 0
     done
     return 1
 }
@@ -70,28 +83,15 @@ function makeIfAbsent {
     fi
 }
 
-# make a function that creates a new array of runes
-# containing the expanded versions of the directory
-# runes
-
 cleanRunes
 newRunes || exit 0
 
 echo -e "\033[33mCasting Runes...\033[0m"
 
-for rune in "${runes[@]}";
+for rune in "${expandedRunes[@]}";
 do
     IFS=',' read -r link file <<< "${rune}"
-    if [ -d "$file" ]
-    then
-        makeIfAbsent "$link"
-        for f in "$file"/*
-        do
-            linkRune "$f" "$link/$(basename "$f")"
-        done
-    else
-        makeIfAbsent "$(dirname "$link")"
-        linkRune "$file" "$link"
-    fi
+    makeIfAbsent "$(dirname "$link")"
+    linkRune "$file" "$link"
 done
 echo -e "\033[33mDone!\033[0m"
