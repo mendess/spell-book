@@ -70,6 +70,9 @@ function makeIfAbsent {
     fi
 }
 
+# make a function that creates a new array of runes
+# containing the expanded versions of the directory
+# runes
 
 cleanRunes
 newRunes || exit 0
