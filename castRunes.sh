@@ -57,7 +57,7 @@ function linkRune {
     if ! [ -h "$2" ]
     then
         echo -en "\033[35mCasting "
-        ln --symbolic --verbose "$(pwd)/$1" "$2"
+        ln -s -v "$(pwd)/$1" "$2"
         echo -en "\033[0m"
     fi
 }
