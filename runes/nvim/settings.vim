@@ -1,5 +1,5 @@
 " indent using spaces
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 " splitbelow and right
 set splitbelow splitright
 " Set the default shell
