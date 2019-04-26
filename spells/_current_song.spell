@@ -18,7 +18,7 @@ case $1 in
         ;;
     *)
         grep "$file" "$LINKS" \
-            | awk -F'\t' '{print "\"Now playing:\"\n\""$1"\""}'
+            | awk -F'\t' '{print "Now playing:\n"$1""}'
 
         ;;
 esac
