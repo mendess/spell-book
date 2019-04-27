@@ -147,7 +147,6 @@ alias db="dropbox-cli"
 alias dbf="dropbox-cli filestatus"
 alias t="/usr/bin/time -p"
 alias synthwave='mpv --no-video https://www.youtube.com/playlist\?list\=UUwoTj-pZgZZ8DInOXSSLMmA'
-alias gamend="git commit --amend"
 alias autoBuildRust="find . | grep '\.rs' | entr -c cargo check"
 alias mpvs='mpv --no-video --input-ipc-server=/tmp/mpvsocket'
 alias mpvsv='mpv --input-ipc-server=/tmp/mpvsocket'
