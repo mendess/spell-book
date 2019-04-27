@@ -1,3 +1,4 @@
+let mapleader =" "
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/settings.vim
 source ~/.config/nvim/commands.vim

@@ -13,7 +13,6 @@ nnoremap <M-l> <C-w>L
 map <C-S> :w<CR>
 imap <C-S> <Esc>:w<CR>a
 
-let mapleader =" "
 " shell script linting
 map <leader>s :!clear && shellcheck %<CR>
 " toggle spelling

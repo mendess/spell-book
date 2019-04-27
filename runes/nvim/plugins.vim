@@ -11,6 +11,7 @@ Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdtree'
 
 Plug 'kien/ctrlp.vim'
+
 Plug 'cohama/lexima.vim'
 
 Plug 'junegunn/goyo.vim'
@@ -28,11 +29,15 @@ Plug 'autozimu/LanguageClient-neovim', {
             \ 'do': 'bash install.sh',
             \ }
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('python3')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'sebastianmarkow/deoplete-rust'
+    Plug 'sebastianmarkow/deoplete-rust'
 
-Plug 'zchee/deoplete-clang'
+    Plug 'zchee/deoplete-clang'
+
+    Plug 'deoplete-plugins/deoplete-jedi'
+endif
 
 Plug 'w0rp/ale'
 
