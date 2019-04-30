@@ -2,6 +2,8 @@
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 " splitbelow and right
 set splitbelow splitright
+" make path recursive
+set path=**
 " Set the default shell
 if exists('$SHELL')
     set shell=$SHELL

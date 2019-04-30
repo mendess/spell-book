@@ -39,7 +39,7 @@ exec --no-startup-id setxkbmap -option caps:escape
 
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
-bindsym $mod+Return       exec --no-startup-id $term
+bindsym $mod+Return       exec --no-startup-id alacritty || $term
 bindsym $mod+Shift+Return exec --no-startup-id termFromHere
 bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere '-title floating-terminal'
 bindsym $mod+d            exec --no-startup-id dmenu_run
