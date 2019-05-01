@@ -8,7 +8,7 @@ call plug#begin()
 
 Plug 'morhetz/gruvbox'
 
-" Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 Plug 'kien/ctrlp.vim'
 
@@ -62,7 +62,7 @@ command! Bt :highlight Normal ctermbg=None
 command! Bo :highlight Normal ctermbg=000000
 
 " Nerdtree config
-" map <F2> :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle<CR>
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
@@ -115,6 +115,9 @@ let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
 " ale
 let g:ale_echo_msg_format = '%linter%: %s'
 nnoremap gd :ALEGoToDefinition<CR>
+nnoremap <F11> :ALEPreviousWrap<CR>
+nnoremap <F12> :ALENextWrap<CR>
+nnoremap <F9> :ALEDetail<CR>
 
 " ale C/C++
 let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra -pedantic'

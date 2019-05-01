@@ -22,7 +22,7 @@ map <leader>O :setlocal spell! spelllang=en_gb<CR>
 nnoremap <A-Enter> z=
 
 " Dir tree
-map <F2> :20vs .<CR>
+" map <F2> :20vs .<CR>
 
 " Alt-Tab
 map <leader><Tab> <C-^>
