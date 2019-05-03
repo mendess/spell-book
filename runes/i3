@@ -63,6 +63,7 @@ bindsym $mod+Shift+x      exec --no-startup-id $term -title floating-terminal-we
 bindsym $mod+Mod1+s       exec --no-startup-id $term -title floating-terminal -e sssh
 bindsym $mod+Ctrl+x       exec --no-startup-id notify-send -t 2000 $(date +"%H:%M")
 bindsym $mod+v            exec --no-startup-id playClipboard
+bindsym $mod+Shift+t      exec --no-startup-id echo -n "🤔" | xclip -sel clip
 
 ####### MEDIA KEYS
 bindsym $mod+backslash    exec --no-startup-id pause
