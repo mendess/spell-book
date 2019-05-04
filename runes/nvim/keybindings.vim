@@ -47,3 +47,6 @@ tnoremap <A-[> <Esc>
 
 " Jumps
 inoremap ,, <Esc>/<++><Enter>"_c4l
+
+"
+vnoremap // y/\V<C-R>"<CR>
