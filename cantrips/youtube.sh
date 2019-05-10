@@ -1,9 +1,9 @@
 #!/bin/bash
 
 MODES="single
-shuff
-shuffA
-shuffC"
+shuf
+shufA
+shufC"
 
 mode=$(echo "$MODES" | dmenu -i -p "Mode?" -l "$(echo "$MODES" | wc -l)")
 
