@@ -21,7 +21,7 @@ case "$mode" in
 
         title="$vidname"
         ;;
-    shuff)
+    shuf)
         vid=$(echo "$vidlist" \
             | shuf \
             | sed '1q' \
@@ -32,12 +32,12 @@ case "$mode" in
             | awk -F'\t' '{print $1}')
 
         ;;
-    shuffA)
+    shufA)
         tmp=$(echo "$vidlist" | shuf)
         vid=$(echo "$tmp" | awk -F'\t' '{print $2}' | xargs)
         title="$(echo "$tmp" | awk -F'\t' '{print $1}')"
         ;;
-    shuffC)
+    shufC)
         catg=$(echo "$vidlist" \
             | awk -F'\t' '{for(i = 3; i <= NF; i++) { print $i } }' \
             | tr '\t' '\n' \
