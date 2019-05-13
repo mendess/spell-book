@@ -37,3 +37,6 @@ autocmd BufEnter *.sh    inoremap ,bb #!/bin/bash<Esc>o
 autocmd BufEnter *.spell inoremap ,bb #!/bin/bash<Esc>o
 
 autocmd! BufEnter *.js set shiftwidth=2
+
+autocmd! TermOpen * set nonumber
+autocmd! TermOpen * set norelativenumber
