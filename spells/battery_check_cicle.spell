@@ -1,5 +1,5 @@
 #!/bin/bash
-if acpi | grep 'rate information unavailable'
+if acpi 2>&1 | grep 'power_supply'
 then
     exit
 fi
