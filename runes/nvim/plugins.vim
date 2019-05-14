@@ -82,6 +82,7 @@ function! s:goyo_leave()
     :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
     :augroup END
+    :highlight ColorColumn ctermbg=Black
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()

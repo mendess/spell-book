@@ -40,3 +40,6 @@ autocmd! BufEnter *.js set shiftwidth=2
 
 autocmd! TermOpen * set nonumber
 autocmd! TermOpen * set norelativenumber
+
+highlight ColorColumn ctermbg=Black
+set colorcolumn=80

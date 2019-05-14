@@ -2,23 +2,28 @@
 LINKS=../cantrips/links
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
-file=$(echo '{ "command": ["get_property", "filename"] }' | socat - /tmp/mpvsocket | jq --raw-output '.data')
+file=$(echo '{ "command": ["get_property", "filename"] }' \
+    | socat - /tmp/mpvsocket \
+    | jq --raw-output '.data')
+
+filename=$(grep -F -e "$file" "$LINKS" | awk -F'\t' '{print $1}')
+
+chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' | socat - /tmp/mpvsocket | jq '.data.title' -r)
 
 [ ${#file} -eq 0 ] && exit 2
 
+[ -n "$chapter" ] && filename="Video:  $filename
+Song:   $chapter"
+
 case $1 in
     -n)
-        grep -F -e "$file" "$LINKS" \
-            | awk -F'\t' '{print "\"Now playing:\"\n\""$1"\""}' \
-            | xargs notify-send
-
+        notify-send "Now Playing" "$filename"
         ;;
     -i)
         echo "$file"
         ;;
     *)
-        grep "$file" "$LINKS" \
-            | awk -F'\t' '{print "Now playing:\n"$1""}'
-
+        echo "Now Playing"
+        echo "$filename"
         ;;
 esac
