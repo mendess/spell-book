@@ -1,5 +1,5 @@
 #!/bin/bash
-LINKS=../cantrips/links
+LINKS=../cantrips/playlist
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
 current_song=$(_current_song | tail -1 | sed 's/"//g')

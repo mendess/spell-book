@@ -7,7 +7,7 @@ shufC"
 
 mode=$(echo "$MODES" | dmenu -i -p "Mode?" -l "$(echo "$MODES" | wc -l)")
 
-vidlist=$(sed '/^$/ d' links)
+vidlist=$(sed '/^$/ d' playlist)
 
 case "$mode" in
     single)

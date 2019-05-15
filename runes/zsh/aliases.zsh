@@ -109,7 +109,7 @@ function alarm {
         return 1
     fi
     {
-    link="$(shuf ~/Projects/spell-book/cantrips/links | head -1 | awk -F'\t' '{print $2}')"
+    link="$(shuf ~/Projects/spell-book/cantrips/playlist | head -1 | awk -F'\t' '{print $2}')"
     sleep $1 \
         && mpv --no-video "$link" \
         && notify-send -u urgent "${2:-"Alarm"}"

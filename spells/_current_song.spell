@@ -1,5 +1,5 @@
 #!/bin/bash
-LINKS=../cantrips/links
+LINKS=../cantrips/playlist
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
 file=$(echo '{ "command": ["get_property", "filename"] }' \

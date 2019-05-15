@@ -28,7 +28,7 @@
 
 ### Cantrips Helpers
 - [back](./spells/back.spell), [frwd](./spells/frwd.spell), [vu](./spells/vu.spell), [vd](./spells/vd.spell), [next](./spells/next.spell), [prev](./spells/prev.spell), [pause](./spells/pause.spell) Serve as meia keys to control mpv running with a ipc socket.
-- [add_link](./spells/add_link.spell) Adds a link to the [links](./cantrips/links) file to be used by the [youtube](./cantrips/youtube.sh) cantrip.
+- [add_link](./spells/add_link.spell) Adds a link to the [playlist](./cantrips/playlist) file to be used by the [youtube](./cantrips/youtube.sh) cantrip.
 
 ## Runes *(config files)*
 
