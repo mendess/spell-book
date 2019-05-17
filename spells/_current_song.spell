@@ -1,18 +1,16 @@
 #!/bin/bash
-LINKS=../cantrips/playlist
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
-file=$(echo '{ "command": ["get_property", "filename"] }' \
+filename=$(echo '{ "command": ["get_property", "media-title"] }' \
     | socat - /tmp/mpvsocket \
     | jq --raw-output '.data')
 
-filename=$(grep -F -e "$file" "$LINKS" | awk -F'\t' '{print $1}')
 
 chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' | socat - /tmp/mpvsocket | jq '.data.title' -r)
 
-[ ${#file} -eq 0 ] && exit 2
+[ -z "$filename" ] && exit 2
 
-[ -n "$chapter" ] && filename="Video:  $filename
+[ -n "$chapter" ] && [ "$chapter" != "null" ] && filename="Video:  $filename
 Song:   $chapter"
 
 case $1 in
@@ -20,7 +18,10 @@ case $1 in
         notify-send "Now Playing" "$filename"
         ;;
     -i)
-        echo "$file"
+        echo '{ "command": ["get_property", "filename"] }' \
+            | socat - /tmp/mpvsocket \
+            | jq --raw-output '.data'
+
         ;;
     *)
         echo "Now Playing"

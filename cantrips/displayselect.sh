@@ -17,10 +17,10 @@ function twoscreen { # If multi-monitor is selected and there are two screens.
         res_external=$(xrandr --query | sed -n "/^$external/,/\+/p" | tail -n 1 | awk '{print $1}')
         res_internal=$(xrandr --query | sed -n "/^$internal/,/\+/p" | tail -n 1 | awk '{print $1}')
 
-        res_ext_x=$(echo "$res_external" | sed 's/x.*//')
-        res_ext_y=$(echo "$res_external" | sed 's/.*x//')
-        res_int_x=$(echo "$res_internal" | sed 's/x.*//')
-        res_int_y=$(echo "$res_internal" | sed 's/.*x//')
+        res_ext_x=$(echo $res_external | sed 's/x.*//')
+        res_ext_y=$(echo $res_external | sed 's/.*x//')
+        res_int_x=$(echo $res_internal | sed 's/x.*//')
+        res_int_y=$(echo $res_internal | sed 's/.*x//')
 
         scale_x=$(echo "$res_ext_x / $res_int_x" | bc -l)
         scale_y=$(echo "$res_ext_y / $res_int_y" | bc -l)
@@ -45,7 +45,7 @@ function morescreen { # If multi-monitor is selected and there are more than two
 
 function multimon { # Multi-monitor handler.
     case "$(echo "$screens" | wc -l)" in
-        1) xrandr "$(echo "$allposs" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ')" ;;
+        1) xrandr $(echo "$allposs" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
         2) twoscreen ;;
         *) morescreen ;;
     esac ;}
