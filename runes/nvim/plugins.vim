@@ -124,7 +124,9 @@ nnoremap <F9> :ALEDetail<CR>
 let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra -pedantic'
 let g:ale_c_parse_makefile = 1
 let g:ale_c_parse_compile_commands = 1
-let g:ale_linters_ignore = {'cpp': ['gcc']}
+let g:ale_cpp_parse_makefile = 1
+let g:ale_cpp_parse_compile_commands = 1
+let g:ale_linters_ignore = {'cpp': ['gcc'], 'c': ['clang']}
 
 " ale Rust
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
