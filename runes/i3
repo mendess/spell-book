@@ -45,7 +45,7 @@ bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere '-title floating-ter
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall
-bindsym $mod+F8           exec --no-startup-id nitrogen --head="0" --set-zoom-fill ~/Pictures/Wallpapers/home.png
+bindsym $mod+F8           exec --no-startup-id nitrogen --head="0" --set-zoom-fill ~/Pictures/Wallpapers/home.png && nitrogen --head="1" --set-zoom-fill ~/Pictures/Wallpapers/home.png
 bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
 bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
 bindsym $mod+F2           exec --no-startup-id firefox

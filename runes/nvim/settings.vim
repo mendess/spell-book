@@ -43,6 +43,7 @@ autocmd! TermOpen * set norelativenumber
 
 highlight ColorColumn ctermbg=Black
 set colorcolumn=80
+highlight Normal ctermbg=None
 
 set undodir=~/.cache/vimundo
 set undofile
