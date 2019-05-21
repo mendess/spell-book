@@ -6,30 +6,30 @@ endif
 
 call plug#begin()
 
+" Color scheme
 Plug 'morhetz/gruvbox'
 
+" File browser
 Plug 'scrooloose/nerdtree'
 
-Plug 'kien/ctrlp.vim'
-
+" Auto close parens
 Plug 'cohama/lexima.vim'
 
+" Zen mode
 Plug 'junegunn/goyo.vim'
 
 Plug 'bitc/vim-bad-whitespace'
-
-Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-commentary'
 
-Plug 'autozimu/LanguageClient-neovim', {
-            \ 'branch': 'next',
-            \ 'do': 'bash install.sh',
-            \ }
-
 if has('python3')
+    Plug 'autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh',
+                \ }
+
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
     Plug 'sebastianmarkow/deoplete-rust'
@@ -48,6 +48,8 @@ Plug 'Chiel92/vim-autoformat'
 
 Plug 'cespare/vim-toml'
 
+Plug 'PotatoesMaster/i3-vim-syntax'
+
 Plug 'octol/vim-cpp-enhanced-highlight'
 
 call plug#end()
@@ -63,11 +65,6 @@ command! Bo :highlight Normal ctermbg=000000
 
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
-
-" CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|node_modules|target|out)$'
 
 " goyo
 map <F10> :Goyo<CR>
