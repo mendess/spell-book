@@ -18,7 +18,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-    toilet -f mono9 -F metal "           Starting i3  "
+    toilet -f mono9 -F metal "Starting i3"
     pgrep i3 || startx 2> /dev/null
     clear
 elif [ "$(tty)" = "/dev/tty2" ]; then

@@ -278,10 +278,10 @@ client.background       #FFFFFF
 
 # Set inner/outer gaps
 gaps inner 8
-gaps outer 7
+gaps outer 0
 
 # Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
+# smart_gaps off
 
 # Smart borders (draw borders around container only if it is not the only container on this
 # workspace)
