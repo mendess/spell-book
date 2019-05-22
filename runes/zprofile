@@ -21,6 +21,9 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     toilet -f mono9 -F metal "           Starting i3  "
     pgrep i3 || startx 2> /dev/null
     clear
+elif [ "$(tty)" = "/dev/tty2" ]; then
+    toilet -f mono9 -F metal "            Starting dwm  "
+    pgrep dwm || startx /usr/local/bin/dwm
 elif [[ $(tty) == *"tty"* ]]; then
     tmux new-session -s "$(basename $(tty))"
 fi
