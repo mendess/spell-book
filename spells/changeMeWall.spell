@@ -3,6 +3,6 @@
 i=0
 displays="$(xrandr --query | grep ' connected' -c)"
 while [ "$i" -lt "$displays" ]; do
-    nitrogen --set-zoom-fill --random --head="$i" ~/Pictures/Wallpapers
+    nitrogen --set-zoom-fill --random --head="$i" ~/Pictures/Wallpapers &
     i=$((i + 1))
 done
