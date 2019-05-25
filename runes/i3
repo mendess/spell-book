@@ -171,7 +171,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 assign [class="Thunderbird"] $ws3
 assign [class="Firefox"] $ws2
 assign [class="discord"] $ws2
-assign [class="Steam"] $ws2
+assign [class="Steam"] workspace number 2
 assign [title="my-media-player"] $ws9
 assign [class="jetbrains-idea"] $ws5
 assign [class="jetbrains-rider"] $ws5
