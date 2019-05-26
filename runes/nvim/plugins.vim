@@ -81,7 +81,9 @@ function! s:goyo_leave()
     :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
     :augroup END
-    :highlight ColorColumn ctermbg=Black
+    highlight ColorColumn ctermbg=Black
+    set colorcolumn=80
+    highlight Normal ctermbg=None
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -125,7 +127,7 @@ let g:ale_c_parse_makefile = 1
 let g:ale_c_parse_compile_commands = 1
 let g:ale_cpp_parse_makefile = 1
 let g:ale_cpp_parse_compile_commands = 1
-let g:ale_linters_ignore = {'cpp': ['gcc'], 'c': ['clang']}
+let g:ale_linters_ignore = {'cpp': ['gcc'], 'c': ['clang'], 'latex': ['chktex']}
 
 " ale Rust
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
