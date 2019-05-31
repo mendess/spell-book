@@ -64,6 +64,9 @@ bindsym $mod+Mod1+s       exec --no-startup-id $term -title floating-terminal -e
 bindsym $mod+Ctrl+x       exec --no-startup-id notify-send -t 2000 $(date +"%H:%M")
 bindsym $mod+v            exec --no-startup-id playClipboard
 bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.pl https://youtu.be/'$(_current_song -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && ~/.local/bin/next-file"
+
+####### MEMES
+bindsym $mod+Shift+Ctrl+i --release exec --no-startup-id echo -n "INACEITAVEL e INACREDITAVEL" | xclip -sel clip && sleep 0.5 && xdotool key 'Ctrl+V'
 bindsym $mod+Shift+t      exec --no-startup-id echo -n "🤔" | xclip -sel clip
 
 ####### MEDIA KEYS

@@ -1,4 +1,8 @@
 export ZSH_THEME="fishy-2"
+if [ "$(uname -n)" = "mirrodin" ]
+then
+    export TERM=xterm-256color
+fi
 function exit {
     if [[ -z $TMUX ]]; then
         builtin exit
