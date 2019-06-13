@@ -1,0 +1,6 @@
+#!/bin/bash
+cd "$(dirname "$(realpath "$0")")" || exit 1
+library="$(pwd)"/../library
+echo "PLAYLIST=$library/playlist"
+echo "EMOJIS=$library/emojis"
+echo "BOOKMARKS=$library/bookmarks"

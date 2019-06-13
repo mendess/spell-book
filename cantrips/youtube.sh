@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+
+spelldir="${0%/*}/.."
+# shellcheck source=/home/mendess/Projects/spell-book/library.sh
+. "$spelldir"/library.sh
 
 MODES="single
 shuf
@@ -7,7 +11,7 @@ shufC"
 
 mode=$(echo "$MODES" | dmenu -i -p "Mode?" -l "$(echo "$MODES" | wc -l)")
 
-vidlist=$(sed '/^$/ d' playlist)
+vidlist=$(sed '/^$/ d' "$PLAYLIST")
 
 case "$mode" in
     single)

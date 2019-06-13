@@ -1,0 +1,105 @@
+#!/bin/bash
+cd "$(dirname "$(realpath "$0")")" || exit 1
+
+eval "$(library)"
+
+current_song () {
+    filename=$(echo '{ "command": ["get_property", "media-title"] }' \
+            | socat - /tmp/mpvsocket \
+            | jq --raw-output '.data')
+
+    chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' \
+            | socat - /tmp/mpvsocket \
+            | jq '.data.title' -r)
+
+     [ -z "$filename" ] && exit 2
+     [ -n "$chapter" ] \
+         && [ "$chapter" != "null" ] \
+         && filename="Video:  $filename
+Song:   $chapter"
+
+    case $1 in
+         -n|--notify)
+             notify-send "Now Playing" "$filename"
+             ;;
+         -i|--link)
+             echo '{ "command": ["get_property", "filename"] }' \
+                | socat - /tmp/mpvsocket \
+                | jq --raw-output '.data'
+             ;;
+          *)
+             echo "Now Playing"
+             echo "$filename"
+             ;;
+    esac
+}
+
+add_cat () {
+    current_song=$(current_song --link | tail -1 | sed 's/"//g')
+
+    [ -z "$current_song" ] && exit 2
+
+    while :
+    do
+        cat=$(echo | dmenu -p "Category name? (done to quit)")
+        if [ "$cat" = "done" ]
+        then
+            break
+        fi
+        sed -i -E "/$current_song/ s|$|	$cat|" "$PLAYLIST"
+    done
+}
+
+case $1 in
+    pause)
+        echo 'cycle pause' | socat - /tmp/mpvsocket
+        ;;
+    current)
+        current_song "$2"
+        ;;
+    add-cat-to-current)
+        add_cat "$2"
+        ;;
+    vu)
+        if [ -z "$2" ]; then
+            echo 'add volume 10' | socat - /tmp/mpvsocket
+        else
+            echo "add volume $2" | socat - /tmp/mpvsocket
+        fi
+        ;;
+    vd)
+        if [ -z "$2" ]; then
+            echo 'add volume -10' | socat - /tmp/mpvsocket
+        else
+            echo "add volume -$2" | socat - /tmp/mpvsocket
+        fi
+        ;;
+    prev)
+        echo 'add chapter -1' | socat - /tmp/mpvsocket
+        ;;
+    next)
+        echo 'add chapter 1' | socat - /tmp/mpvsocket
+        ;;
+    prev-file)
+        echo 'playlist-prev' | socat - /tmp/mpvsocket
+        ;;
+    next-file)
+        echo 'playlist-next' | socat - /tmp/mpvsocket
+        ;;
+    back)
+        if [ -z "$2" ]; then
+            echo 'seek -10' | socat - /tmp/mpvsocket
+        else
+            echo "seek -$2" | socat - /tmp/mpvsocket
+        fi
+        ;;
+    frwd)
+        if [ -z "$2" ]; then
+            echo 'seek 10' | socat - /tmp/mpvsocket
+        else
+            echo "seek $2" | socat - /tmp/mpvsocket
+        fi
+        ;;
+    *)
+        echo "¯\\_(ツ)_/¯"
+esac

@@ -1,11 +1,11 @@
 #!/bin/bash
-LINKS=../cantrips/playlist
 if [ "$#" -lt 1 ]; then
     echo "Usage: $0 <link>"
     exit 1
 fi
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
+eval "$(library)"
 
 url="$(echo "$1" | sed -E 's|https://.*=(.*)\&?|https://youtu.be/\1|')"
 
@@ -15,10 +15,10 @@ categories=$(echo "${c[@]}" | tr ' ' '\t')
 link="$(youtube-dl --get-title "$1" | sed -e 's/(/{/g; s/)/}/g' -e "s/'//g")	$url	$categories"
 
 echo adding "$link"
-if grep "$link" "$LINKS" >/dev/null
+if grep "$link" "$PLAYLIST" >/dev/null
 then
-    echo "$link" already in "$LINKS" 2>&1
+    echo "$link" already in "$PLAYLIST" 2>&1
     exit 1
 else
-    echo "$link" >> ../cantrips/playlist
+    echo "$link" >> "$PLAYLIST"
 fi

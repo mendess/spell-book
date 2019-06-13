@@ -1,2 +1,0 @@
-#!/bin/bash
-echo 'playlist-prev' | socat - /tmp/mpvsocket

@@ -70,19 +70,19 @@ bindsym $mod+Shift+Ctrl+i --release exec --no-startup-id echo -n "INACEITAVEL e 
 bindsym $mod+Shift+t      exec --no-startup-id echo -n "🤔" | xclip -sel clip
 
 ####### MEDIA KEYS
-bindsym $mod+backslash    exec --no-startup-id pause
-bindsym $mod+minus        exec --no-startup-id vd 5
-bindsym $mod+plus         exec --no-startup-id vu 5
-bindsym $mod+Next         exec --no-startup-id next
-bindsym $mod+Prior        exec --no-startup-id prev
-bindsym $mod+End          exec --no-startup-id next-file
-bindsym $mod+Home         exec --no-startup-id prev-file
-bindsym $mod+Up           exec --no-startup-id frwd 60
-bindsym $mod+Down         exec --no-startup-id back 60
-bindsym $mod+Right        exec --no-startup-id frwd 5
-bindsym $mod+Left         exec --no-startup-id back 5
-bindsym $mod+Insert       exec --no-startup-id _current_song -n
-bindsym $mod+Delete       exec --no-startup-id _current_song_add_cat
+bindsym $mod+backslash    exec --no-startup-id m pause
+bindsym $mod+minus        exec --no-startup-id m vd 5
+bindsym $mod+plus         exec --no-startup-id m vu 5
+bindsym $mod+Next         exec --no-startup-id m next
+bindsym $mod+Prior        exec --no-startup-id m prev
+bindsym $mod+End          exec --no-startup-id m next-file
+bindsym $mod+Home         exec --no-startup-id m prev-file
+bindsym $mod+Up           exec --no-startup-id m frwd 60
+bindsym $mod+Down         exec --no-startup-id m back 60
+bindsym $mod+Right        exec --no-startup-id m frwd 5
+bindsym $mod+Left         exec --no-startup-id m back 5
+bindsym $mod+Insert       exec --no-startup-id m current --notify
+bindsym $mod+Delete       exec --no-startup-id m add-cat-to-current
 
 ####### NAVIGATION
 bindsym $mod+j         focus down

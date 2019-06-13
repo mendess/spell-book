@@ -1,2 +1,0 @@
-#!/bin/bash
-echo 'playlist-next' | socat - /tmp/mpvsocket

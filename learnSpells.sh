@@ -4,8 +4,8 @@ function cleanSpells {
     for spell in ~/.local/bin/*
     do
         if [ -h "$spell" ] && ! [ -e "$spell" ]; then
-            echo -e "\033[31mRemoving dead spell: $(basename $spell)\033[0m"
-            rm $spell
+            echo -e "\033[31mRemoving dead spell: $(basename "$spell")\033[0m"
+            rm "$spell"
         fi
     done
     return 1;

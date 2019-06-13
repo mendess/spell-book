@@ -1,6 +1,0 @@
-#!/bin/bash
-if [ -z "$1" ]; then
-echo 'add volume -10' | socat - /tmp/mpvsocket
-else
-echo "add volume -$1" | socat - /tmp/mpvsocket
-fi
