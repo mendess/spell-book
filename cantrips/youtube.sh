@@ -1,8 +1,6 @@
 #!/bin/sh
 
-spelldir="${0%/*}/.."
-# shellcheck source=/home/mendess/Projects/spell-book/library.sh
-. "$spelldir"/library.sh
+eval "$(library)"
 
 MODES="single
 shuf
