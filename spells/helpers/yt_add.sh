@@ -1,10 +1,13 @@
 #!/bin/bash
 
-PLAYLIST_ID='PLMlpz9TVZoe-3bMPXLuRrnJmY7xcOe_6w'
+PLAYLIST_ID='PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3'
 
-spelldir="${0%/*}"
+cd "$(dirname "$(realpath "$0")")" || exit 1
 
-"$spelldir"/yt_auth.sh
+access_token=""
+. ./yt_auth.sh
+
+[ -z "$access_token" ] && echo "No access_token" && exit 1
 
 curl --request POST \
     'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key='"$API_KEY" \

@@ -20,5 +20,9 @@ then
     echo "$link" already in "$PLAYLIST" 2>&1
     exit 1
 else
-    echo "$link" >> "$PLAYLIST"
+    # echo "$link" >> "$PLAYLIST"
+    true
 fi
+
+link_id="$(echo "$link" | awk -F'\t' '{print $2}' | sed -E 's|.*be/(.*)|\1|g')"
+./helpers/yt_add.sh "$link_id"
