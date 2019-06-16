@@ -1,5 +1,5 @@
-# scripts
- A collection of scripts I like to keep handy
+# Spell Book
+ A collection of scripts and config files I like to keep handy
 
 ## Spells *(scripts)*
 
