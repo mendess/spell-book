@@ -42,7 +42,7 @@ autocmd! TermOpen * set nonumber
 autocmd! TermOpen * set norelativenumber
 
 highlight ColorColumn ctermbg=Black
-set colorcolumn=80
+set colorcolumn=100
 highlight Normal ctermbg=None
 
 set undodir=~/.cache/vimundo
