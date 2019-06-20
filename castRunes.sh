@@ -13,7 +13,7 @@ runes=(
 ~/.config/i3/config,i3
 ~/.config/dunst/dunstrc,dunstrc
 ~/.Xdefaults,Xdefaults
-~/.IntelliJIdea2018.3/config/idea.properties,idea.properties
+# ~/.IntelliJIdea2018.3/config/idea.properties,idea.properties
 #~/.Rider2018.3/config/idea.properties,idea.properties
 )
 
