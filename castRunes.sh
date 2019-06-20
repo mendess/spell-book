@@ -35,7 +35,7 @@ function expand {
 for rune in "${runes[@]}"
 do
     IFS=',' read -r link file <<< "${rune}"
-    if [ -d "$link" ]
+    if [ -d "$file" ]
     then
         expand "$link" "$file"
     else

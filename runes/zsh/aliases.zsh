@@ -97,15 +97,14 @@ function matrix {
 }
 
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
-alias copy="xclip -sel clip"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias py="python3"
 alias c="clear"
 alias seppuku="toilet -f smblock -F metal:border Shuting Down... && sleep 0.5; shutdown +0"
 alias pyenv="source .env/bin/activate"
 alias makeclean="find . -maxdepth 1 -type f -executable -delete"
-alias :q="exit"
-alias vim="nvim"
+alias :q=exit
+alias vim=nvim
 alias bc="bc -l"
 alias :r="source ~/.zshrc"
 alias cl="clear; ls -lh"
@@ -118,7 +117,6 @@ alias autoBuildRust="find . | grep '\.rs' | entr -c cargo check"
 alias mpvs='mpv --no-video --input-ipc-server=/tmp/mpvsocket'
 alias mpvsv='mpv --input-ipc-server=/tmp/mpvsocket'
 alias record='ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+0,0 "output-$(date +"%d_%m_%Y_%H_%M").mp4"'
-alias du="du -h"
 alias cr='cargo run'
 alias cb='cargo build'
 alias crr='cargo run --release'
