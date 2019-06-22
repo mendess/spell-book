@@ -54,6 +54,9 @@ case $1 in
     pause)
         echo 'cycle pause' | socat - /tmp/mpvsocket
         ;;
+    add_song)
+        ./helpers/add_link.sh
+        ;;
     current)
         current_song "$2"
         ;;
