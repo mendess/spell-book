@@ -50,59 +50,72 @@ add_cat () {
     done
 }
 
-case $1 in
-    pause)
-        echo 'cycle pause' | socat - /tmp/mpvsocket
-        ;;
-    add_song)
-        ./helpers/add_link.sh
-        ;;
-    current)
-        current_song "$2"
-        ;;
-    add-cat-to-current)
-        add_cat "$2"
-        ;;
-    vu)
-        if [ -z "$2" ]; then
-            echo 'add volume 10' | socat - /tmp/mpvsocket
-        else
-            echo "add volume $2" | socat - /tmp/mpvsocket
-        fi
-        ;;
-    vd)
-        if [ -z "$2" ]; then
-            echo 'add volume -10' | socat - /tmp/mpvsocket
-        else
-            echo "add volume -$2" | socat - /tmp/mpvsocket
-        fi
-        ;;
-    prev)
-        echo 'add chapter -1' | socat - /tmp/mpvsocket
-        ;;
-    next)
-        echo 'add chapter 1' | socat - /tmp/mpvsocket
-        ;;
-    prev-file)
-        echo 'playlist-prev' | socat - /tmp/mpvsocket
-        ;;
-    next-file)
-        echo 'playlist-next' | socat - /tmp/mpvsocket
-        ;;
-    back)
-        if [ -z "$2" ]; then
-            echo 'seek -10' | socat - /tmp/mpvsocket
-        else
-            echo "seek -$2" | socat - /tmp/mpvsocket
-        fi
-        ;;
-    frwd)
-        if [ -z "$2" ]; then
-            echo 'seek 10' | socat - /tmp/mpvsocket
-        else
-            echo "seek $2" | socat - /tmp/mpvsocket
-        fi
-        ;;
-    *)
-        echo "¯\\_(ツ)_/¯"
-esac
+main () {
+    case $1 in
+        p|pause)
+            echo 'cycle pause' | socat - /tmp/mpvsocket
+            ;;
+        add_song)
+            ./helpers/add_link.sh
+            ;;
+        current)
+            current_song "$2"
+            ;;
+        add-cat-to-current)
+            add_cat "$2"
+            ;;
+        k|vu)
+            if [ -z "$2" ]; then
+                echo 'add volume 10' | socat - /tmp/mpvsocket
+            else
+                echo "add volume $2" | socat - /tmp/mpvsocket
+            fi
+            ;;
+        j|vd)
+            if [ -z "$2" ]; then
+                echo 'add volume -10' | socat - /tmp/mpvsocket
+            else
+                echo "add volume -$2" | socat - /tmp/mpvsocket
+            fi
+            ;;
+        H|prev)
+            echo 'add chapter -1' | socat - /tmp/mpvsocket
+            ;;
+        L|next)
+            echo 'add chapter 1' | socat - /tmp/mpvsocket
+            ;;
+        h|prev-file)
+            echo 'playlist-prev' | socat - /tmp/mpvsocket
+            ;;
+        l|next-file)
+            echo 'playlist-next' | socat - /tmp/mpvsocket
+            ;;
+        J|back)
+            if [ -z "$2" ]; then
+                echo 'seek -10' | socat - /tmp/mpvsocket
+            else
+                echo "seek -$2" | socat - /tmp/mpvsocket
+            fi
+            ;;
+        K|frwd)
+            if [ -z "$2" ]; then
+                echo 'seek 10' | socat - /tmp/mpvsocket
+            else
+                echo "seek $2" | socat - /tmp/mpvsocket
+            fi
+            ;;
+        int|interactive)
+            while :;
+            do
+                read -r -n 1 input
+                [ "$input" = "q" ] && break
+                main "$input"
+                echo -en "\b"
+            done
+            ;;
+        *)
+            echo "¯\\_(ツ)_/¯"
+    esac
+}
+
+main "$1" "$2"
