@@ -45,7 +45,7 @@ if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
     fi
 fi
 
-if mn -V &> /dev/null
+if mn -V &> /dev/null && mn list | grep -v ' 0 ' > /dev/null
 then
     mn list
 else
