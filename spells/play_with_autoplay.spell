@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+    echo "Usage: $0 url" 2>&1
+    exit 1
+fi
+
+current_url=$1
+
+while mpv --no-video --input-ipc-server=/tmp/mpvsocket "$current_url";
+do
+    current_url=https://youtu.be$(curl "$current_url" | grep -A50 'A seguir' | grep -Po '/watch[^"]+' | head -1)
+done
