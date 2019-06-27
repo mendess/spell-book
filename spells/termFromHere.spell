@@ -16,11 +16,14 @@ if [ -n "$PID" ]; then
 
   # If we find the working directory, run the command in that directory
   if [ -e "/proc/$PID/cwd" ]; then
-    CWD=$(readlink /proc/$PID/cwd)
+    CWD=$(readlink /proc/"$PID"/cwd)
   fi
 fi
 if [ -n "$CWD" ]; then
-  cd "$CWD" && "$CMD" $1 &
+  cd "$CWD"
+  "$CMD" $1 &
 else
   "$CMD" $1 &
 fi
+disown
+exit

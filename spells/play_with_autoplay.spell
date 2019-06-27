@@ -7,8 +7,18 @@ then
 fi
 
 current_url=$1
+load_items() {
+    sleep 30
+    while :;
+    do
+        current_url=https://youtu.be$(curl "$current_url" | grep -Po '/watch[^"]+' | grep -v "$current_url" | head -1)
+        if youtube-dl --get-title "$current_url"
+        then
+            echo '{ "command": ["loadfile", "https://www.youtube.com/watch?v=-LWMU576gA4", "append"] }' | socat - /tmp/mpvsocket
+        fi
+        sleep 3m
+    done
+}
 
-while mpv --no-video --input-ipc-server=/tmp/mpvsocket "$current_url";
-do
-    current_url=https://youtu.be$(curl "$current_url" | grep -A50 'A seguir' | grep -Po '/watch[^"]+' | head -1)
-done
+load_items &
+mpv --no-video --input-ipc-server=/tmp/mpvsocket "$current_url"
