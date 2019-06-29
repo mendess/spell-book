@@ -33,8 +33,8 @@ autocmd! BufLeave,BufHidden ~/.config/nvim/init.vim :so ~/.config/nvim/init.vim
 autocmd! BufWritePre * %s/\s\+$//e
 autocmd! BufNewFile,BufRead *.spell set syntax=sh
 
-autocmd BufEnter *.sh    inoremap ,bb #!/bin/bash<Esc>o
-autocmd BufEnter *.spell inoremap ,bb #!/bin/bash<Esc>o
+autocmd BufEnter *.sh    inoremap ,bb #!/bin/sh<Esc>o
+autocmd BufEnter *.spell inoremap ,bb #!/bin/sh<Esc>o
 
 autocmd! BufEnter *.js set shiftwidth=2
 
