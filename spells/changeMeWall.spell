@@ -1,8 +1,27 @@
 #!/bin/bash
 
-i=0
-displays="$(xrandr --query | grep ' connected' -c)"
-while [ "$i" -lt "$displays" ]; do
-    nitrogen --set-zoom-fill --random --head="$i" ~/Pictures/Wallpapers &
-    i=$((i + 1))
-done
+WALLPAPERS=~/Pictures/Wallpapers
+
+files=$(find "$WALLPAPERS" \
+    | shuf -n "$(xrandr --query | grep ' connected' -c)")
+
+wide=$(echo "$files" \
+    | xargs file \
+    | cut -d':' -f2- \
+    | grep -Po '[0-9]{4}\ ?x\ ?[0-9]{3,4}' \
+    | sed 's|x|/|g' \
+    | bc -l \
+    | awk '$0 > (28/9) {found=1; exit} END {if(found) {print NR} else {print "0"}}')
+
+if [ "$wide" -gt 0 ]
+then
+    wall=$(echo "$files" | sed -n -e "${wide}"p)
+    nitrogen --set-zoom-fill "$wall"
+else
+    i=0
+    while read -r wall
+    do
+        nitrogen --set-zoom-fill --head="$i" "$wall"
+        i=$((i + 1))
+    done <<< "$files"
+fi

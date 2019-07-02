@@ -1,5 +1,5 @@
 #!/bin/bash
-sleep 30
+changeMeWall
 while true;
 do
     changeMeWall
