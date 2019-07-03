@@ -1,4 +1,16 @@
-#!/bin/sh
+#!/bin/bash
+
+if ! [ -e ~/.links/mcserverip ]
+then
+    notify-send "Error:" "$HOME/.links/mcserverip No such file"
+    exit
+fi
+
+if ! hash mcstatus
+then
+    notify-send "Error:" "mcstatus not installed. Please run 'pip install --user mcstatus'"
+    exit 1
+fi
 
 MEMBERS=$(mcstatus "$(cat ~/.links/mcserverip)" status \
     | grep players \
