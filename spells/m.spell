@@ -113,6 +113,10 @@ main () {
                 echo -en "\b"
             done
             ;;
+        r|help)
+            echo -en "\b"
+            grep -Po '\w\|\w[^)]+\)' "$0"
+            ;;
         *)
             echo "¯\\_(ツ)_/¯"
     esac
