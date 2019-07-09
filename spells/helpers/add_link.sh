@@ -12,7 +12,7 @@ url="$(echo "$1" | sed -E 's|https://.*=(.*)\&?|https://youtu.be/\1|')"
 c=( "${@:2}" )
 categories=$(echo "${c[@]}" | tr ' ' '\t')
 
-if ! link="$(youtube-dl --get-title "$1" | sed -e 's/(/{/g; s/)/}/g' -e "s/'//g")	$(youtube-dl --get-duration "$1" | sed -E 's/(.*):(.+):(.+)/\1*3600+\2*60+\3/;s/(.+):(.+)/\1*60+\2/' | bc)	$url	$categories"
+if ! link="$(youtube-dl --get-title "$1" | sed -e 's/(/{/g; s/)/}/g' -e "s/'//g")	$url	$(youtube-dl --get-duration "$1" | sed -E 's/(.*):(.+):(.+)/\1*3600+\2*60+\3/;s/(.+):(.+)/\1*60+\2/' | bc)	$categories"
 then
     echo yt dl failed
     exit
