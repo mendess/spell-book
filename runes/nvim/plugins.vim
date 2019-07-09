@@ -35,6 +35,8 @@ if has('python3')
 
     Plug 'sebastianmarkow/deoplete-rust'
 
+    Plug 'racer-rust/vim-racer'
+
     Plug 'zchee/deoplete-clang'
 
     Plug 'deoplete-plugins/deoplete-jedi'
@@ -133,4 +135,4 @@ let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 " Autoformat
 map <leader>f :Autoformat<CR>
-autocmd! BufWritePre *.rs :Autoformat
+" autocmd! BufWritePre *.rs :Autoformat

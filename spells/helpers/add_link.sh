@@ -29,4 +29,4 @@ else
 fi
 
 link_id="$(echo "$link" | awk -F'\t' '{print $2}' | sed -E 's|.*be/(.*)|\1|g')"
-./helpers/yt_add.sh "$link_id"
+./yt_add.sh "$link_id"
