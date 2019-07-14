@@ -106,6 +106,8 @@ bindsym $mod+Shift+h         move left
 bindsym $mod+Shift+j         move down
 bindsym $mod+Shift+k         move up
 bindsym $mod+Shift+l         move right
+bindsym $mod+Mod1+h          move workspace to output left
+bindsym $mod+Mod1+l          move workspace to output right
 # Move focused container to workspace
 bindsym $mod+Ctrl+1          move container to workspace number 1
 bindsym $mod+Ctrl+2          move container to workspace number 2
