@@ -17,7 +17,7 @@ function start_tmux {
         echo "\033[1mRunning sessions:\033[0m"
         tmux ls -F '#{session_name}:	(#{t:session_created})	#{?session_attached,yes,no}' \
             | awk 'BEGIN {print "name\tsession created at\tatached"} {print $0}' \
-            | column -s'  ' -t
+            # | column -s'  ' -t
         echo -n "Resume old session? [Y/n] "
         read -r r
         if [[ $r == "" ]] || [[ $r == "y" ]] || [[ $r == "Y" ]]; then
