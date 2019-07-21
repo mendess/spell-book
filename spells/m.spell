@@ -55,14 +55,14 @@ main () {
         p|pause)
             echo 'cycle pause' | socat - /tmp/mpvsocket
             ;;
-        add_song)
-            ./helpers/add_link.sh "$2"
+        add_song|new)
+            ./helpers/add_link.sh "${@:2}"
             ;;
         current)
-            current_song "$2"
+            current_song "${@:2}"
             ;;
-        add-cat-to-current)
-            add_cat "$2"
+        add-cat-to-current|new-cat)
+            add_cat "${@:2}"
             ;;
         k|vu)
             if [ -z "$2" ]; then

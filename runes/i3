@@ -83,6 +83,7 @@ bindsym $mod+Right        exec --no-startup-id m frwd 5
 bindsym $mod+Left         exec --no-startup-id m back 5
 bindsym $mod+Insert       exec --no-startup-id m current --notify
 bindsym $mod+Delete       exec --no-startup-id m add-cat-to-current
+bindsym $mod+BackSpace    exec --no-startup-id sh -c "echo quit | socat - /tmp/mpvalarm"
 
 ####### NAVIGATION
 bindsym $mod+j         focus down

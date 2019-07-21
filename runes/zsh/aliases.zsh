@@ -31,7 +31,7 @@ function ex {
     case "$1" in
       *.tar.bz2)   tar xjf "$1"   ;;
       *.tar.gz)    tar xzf "$1"   ;;
-      *.bz2)       bunzip2 "$1"   ;;
+      *.bz2)       bunzip2 -v "$1"   ;;
       *.rar)       unrar x "$1"   ;;
       *.gz)        gunzip "$1"    ;;
       *.tar)       tar xf "$1"    ;;
@@ -80,10 +80,10 @@ function alarm {
         return 1
     fi
     {
-    link="$(shuf ~/Projects/spell-book/cantrips/playlist | head -1 | awk -F'\t' '{print $2}')"
-    sleep $1 \
-        && mpv --no-video "$link" \
-        && notify-send -u urgent "${2:-"Alarm"}"
+        link="https://www.youtube.com/watch?v=4iC-7aJ6LDY"
+        sleep $1
+        mpv --no-video "$link" --input-ipc-server=/tmp/mpvalarm &
+        notify-send -u critical "Alarm" "$2"
     } &
     disown
 }
