@@ -12,7 +12,10 @@ function exit {
 }
 
 function start_tmux {
-    if (pgrep tmux &> /dev/null); then
+    if pgrep tmux &> /dev/null;
+    then
+        echo "Running sessions:"
+        tmux list-sessions | column -t
         echo -n "Resume old session? [Y/n] "
         read -r r
         if [[ $r == "" ]] || [[ $r == "y" ]] || [[ $r == "Y" ]]; then
