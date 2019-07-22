@@ -1,9 +1,3 @@
-*foreground: #FFFFFF
-*foreground_bold: #a8a19f
-!! *cursor: #a8a19f
-*background:       #1b1918
-!!*background: rgba(0, 0, 0, .7)
-
 !! black
 *color0: #1b1918
 *color8: #766e6b
@@ -29,39 +23,26 @@
 *color7: #a8a19f
 *color15: #f1efee
 
-URxvt.intensityStyles:	false
-URxvt.background:       [95]#222222
-URxvt.blurRadius:       128x1
-URxvt.depth:		32
-URxvt.font: 		xft:DejaVu Sans Mono:autohint=true:size=11
-URxvt.boldFont:         xft:DejaVu Sans Mono:autohint=true:bold:size=11
-URxvt.italicFont:       xft:DejaVu Sans Mono:autohint=true:italic:size=11
-URxvt.boldItalicFont:   xft:DejaVu Sans Mono:autohint=true:bold:italic:size=11
-URxvt.scrollBar:	false
-URxvt.cursorColor:	white
+urxvt.background:       [95]#222222
+urxvt.foreground:       #FFFFFF
+urxvt.blurRadius:       1
+urxvt.depth:		    32
+urxvt.font: 		    xft:DejaVu Sans Mono:autohint=true:size=11
+urxvt.boldFont:         xft:DejaVu Sans Mono:autohint=true:bold:size=11
+urxvt.italicFont:       xft:DejaVu Sans Mono:autohint=true:italic:size=11
+urxvt.boldItalicFont:   xft:DejaVu Sans Mono:autohint=true:bold:italic:size=11
+urxvt.scrollBar:	    false
+urxvt.cursorColor:	    white
 
 !! Extensions
-URxvt.perl-ext-common:	default,matcher,resize-font,keyboard-select
-URxvt.colorUL:		#4682B4
-URxvt.keysym.M-u:	perl:matcher:select
-URxvt.url-launcher:     firefox
+urxvt.perl-ext-common:	default,matcher,resize-font,keyboard-select
+urxvt.colorUL:		    #4682B4
+urxvt.keysym.M-u:	    perl:matcher:select
+urxvt.url-launcher:     firefox
 !! keyboard-select:
-URxvt.keysym.M-Escape: perl:keyboard-select:activate
+urxvt.keysym.M-Escape:  perl:keyboard-select:activate
 !! resize-font
-URxvt.resize-font.smaller:	C-Down
-URxvt.resize-font.bigger:	C-Up
+urxvt.resize-font.smaller:	C-Down
+urxvt.resize-font.bigger:	C-Up
 !! Matcher
-URxvt.matcher.button:	1
-
-rofi.color-enabled:	true
-rofi.color-window:	#000, #000, #000
-rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
-rofi.color-active:	#002b37, #008ed4, #003643, #008ed4, #66c6ff
-rofi.color-urgent:	#002b37, #da4281, #003643, #008ed4, #890661
-
-rofi.fake-transparency:	true
-rofi.lines:		3
-rofi.bw:		0
-rofi.opacity:		"10"
-rofi.hide-scrollbar:	true
-rofi.width:		30
+urxvt.matcher.button:	1
