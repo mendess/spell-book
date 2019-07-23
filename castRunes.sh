@@ -14,7 +14,7 @@ runes=(
 ~/.config/dunst/dunstrc,dunstrc
 ~/.Xdefaults,Xdefaults
 ~/.xinitrc,xinitrc
-# ~/.IntelliJIdea2018.3/config/idea.properties,idea.properties
+~/.IntelliJIdea2018.3/config/idea.properties,idea.properties
 #~/.Rider2018.3/config/idea.properties,idea.properties
 )
 
