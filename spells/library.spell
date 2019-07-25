@@ -4,3 +4,4 @@ library="$(pwd)"/../library
 echo "PLAYLIST=$library/playlist"
 echo "EMOJIS=$library/emojis"
 echo "BOOKMARKS=$library/bookmarks"
+echo "PLAYLIST_ID='PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3'"

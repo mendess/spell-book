@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PLAYLIST_ID='PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3'
+eval "$(library)"
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
@@ -14,6 +14,6 @@ curl --request POST \
     --header 'Authorization: Bearer '"$access_token" \
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json' \
-    --data '{"snippet":{"playlistId":"'$PLAYLIST_ID'","resourceId":{"kind":"youtube#video","videoId":"'"$1"'"}}}' \
+    --data '{"snippet":{"playlistId":"'"$PLAYLIST_ID"'","resourceId":{"kind":"youtube#video","videoId":"'"$1"'"}}}' \
     --compressed
 

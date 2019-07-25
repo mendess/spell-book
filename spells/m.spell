@@ -64,6 +64,9 @@ main () {
         add-cat-to-current|new-cat)
             add_cat "${@:2}"
             ;;
+        delete_song)
+            ./helpers/del_link.sh "${@:2}"
+            ;;
         k|vu)
             if [ -z "$2" ]; then
                 echo 'add volume 10' | socat - /tmp/mpvsocket
