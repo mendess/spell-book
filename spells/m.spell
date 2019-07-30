@@ -41,8 +41,8 @@ add_cat () {
 
     while :
     do
-        cat=$(echo | dmenu -p "Category name? (done to quit)")
-        if [ "$cat" = "done" ]
+        cat=$(echo | dmenu -p "Category name? (Esq to quit)")
+        if [ -z "$cat" ]
         then
             break
         fi
