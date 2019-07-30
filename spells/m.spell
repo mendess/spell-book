@@ -8,11 +8,18 @@ current_song () {
             | socat - /tmp/mpvsocket \
             | jq --raw-output '.data')
 
+    videoId="$(echo '{ "command": ["get_property", "filename"] }' \
+                         | socat - /tmp/mpvsocket \
+                         | jq --raw-output '.data')"
+
     chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' \
             | socat - /tmp/mpvsocket \
             | jq '.data.title' -r)
 
-     [ -z "$filename" ] && exit 2
+     if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]
+     then
+         filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
+     fi
      [ -n "$chapter" ] \
          && [ "$chapter" != "null" ] \
          && filename="Video:  $filename
