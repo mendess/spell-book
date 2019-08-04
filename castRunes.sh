@@ -10,7 +10,9 @@ runes=(
 ~/.config/nvim,nvim
 ~/.config/mutt,mutt
 ~/.config/i3status/config,i3status
+~/.config/i3blocks,i3blocks
 ~/.config/i3/config,i3
+~/.config/compton.conf,compton.conf
 ~/.config/dunst/dunstrc,dunstrc
 ~/.Xdefaults,Xdefaults
 ~/.xinitrc,xinitrc

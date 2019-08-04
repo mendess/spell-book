@@ -18,6 +18,7 @@ current_song () {
 
      if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]
      then
+         [ -z "$videoId" ] && exit 1
          filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
      fi
      [ -n "$chapter" ] \

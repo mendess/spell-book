@@ -55,6 +55,9 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'octol/vim-cpp-enhanced-highlight'
 
+" Let me sudo save in nvim
+Plug 'lambdalisue/suda.vim'
+
 call plug#end()
 
 """ PLUGIN CONFIGS

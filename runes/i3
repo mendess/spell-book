@@ -175,7 +175,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 ####################################### BEHAVIOR ##############################################
 assign [class="Thunderbird"] $ws3
-assign [class="Firefox"] $ws2
+assign [class="firefox"] $ws2
 assign [class="discord"] $ws2
 assign [class="Steam"] workspace number 2
 assign [title="my-media-player"] $ws9
@@ -188,6 +188,7 @@ for_window [class="Nitrogen"]                     floating enable sticky enable 
 for_window [class="Sxiv"]                         floating enable border pixel 1
 for_window [class="feh"]                          floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
+for_window [title="QEMU"]                         floating enable border pixel 1
 for_window [title="alsamixer"]                    floating enable border pixel 1
 for_window [title="pacmixer"]                     floating enable border pixel 1
 for_window [title="ncpamixer"]                    floating enable border pixel 1
@@ -239,7 +240,7 @@ set_from_resource $term_color15    color15
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
   i3bar_command i3bar
-  status_command i3status
+  status_command i3blocks
   position top
   mode hide
 

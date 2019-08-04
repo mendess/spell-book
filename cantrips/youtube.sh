@@ -64,11 +64,16 @@ yes" | dmenu -i -p "With video?")
 
 case $p in
     yes)
+        {
+            sleep 10
+            pkill -SIGRTMIN+10 i3blocks
+        } &
         # shellcheck disable=SC2086
         mpv --input-ipc-server=/tmp/mpvsocket $vid
         ;;
     no)
-        cmd="echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid"
-        urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title 'my-media-player' -e bash -c "$cmd"
+        cmd="(sleep 2; pkill -SIGRTMIN+10 i3blocks) &
+        echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid; pkill -SIGRTMIN+10 i3blocks"
+        urxvt -title 'my-media-player' -e bash -c "$cmd"
         ;;
 esac
