@@ -66,14 +66,15 @@ case $p in
     yes)
         {
             sleep 10
-            pkill -SIGRTMIN+10 i3blocks
+            eval "$UPDATE_I3BLOCKS"
         } &
         # shellcheck disable=SC2086
         mpv --input-ipc-server=/tmp/mpvsocket $vid
+        eval "$UPDATE_I3BLOCKS"
         ;;
     no)
-        cmd="(sleep 2; pkill -SIGRTMIN+10 i3blocks) &
-        echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid; pkill -SIGRTMIN+10 i3blocks"
+        cmd="(sleep 2; $UPDATE_I3BLOCKS) &
+        echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid ; $UPDATE_I3BLOCKS"
         urxvt -title 'my-media-player' -e bash -c "$cmd"
         ;;
 esac

@@ -91,15 +91,19 @@ main () {
             ;;
         H|prev)
             echo 'add chapter -1' | socat - /tmp/mpvsocket
+            eval "$UPDATE_I3BLOCKS"
             ;;
         L|next)
             echo 'add chapter 1' | socat - /tmp/mpvsocket
+            eval "$UPDATE_I3BLOCKS"
             ;;
         h|prev-file)
             echo 'playlist-prev' | socat - /tmp/mpvsocket
+            eval "$UPDATE_I3BLOCKS"
             ;;
         l|next-file)
             echo 'playlist-next' | socat - /tmp/mpvsocket
+            eval "$UPDATE_I3BLOCKS"
             ;;
         J|back)
             if [ -z "$2" ]; then

@@ -18,15 +18,16 @@
 #ALERT_LOW="${1:-10}" # color will turn red under this value (default: 10%)
 
 free_space () {
-    df -h -P -l "$1" | awk '
-        /\/.*/ {
-        print $4
-        exit 0
-    }
-    '
+    df -h \
+        | grep '^/dev' \
+        | grep -v '/boot$' \
+        | awk '{print $3" "$6}' \
+        | awk -F'/' '{if (NF > 2) {print $1" "$NF} else { print $0 }}' \
+        | sed 's|/home|~|g' \
+        | awk '{print "["$2" "$1"]"}' \
+        | tr '\n' ' '
 }
 
-ROOT="$(free_space /)"
-Home="$(free_space "$HOME")"
-
-echo "💽" "[/ $ROOT]" "[~ $Home]"
+SPACE="$(free_space)"
+echo "💽" "$SPACE"
+echo "💽" "$SPACE"

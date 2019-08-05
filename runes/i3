@@ -52,9 +52,9 @@ bindsym $mod+F2           exec --no-startup-id firefox
 bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id steam
 bindsym $mod+F5           exec --no-startup-id idea
-bindsym Print             --release exec --no-startup-id escrotum '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
-bindsym Shift+Print       --release exec --no-startup-id escrotum -s -e 'escrotum-rename $f'
-bindsym $mod+Print        --release exec --no-startup-id escrotum -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
+bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
+bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook --hold
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
