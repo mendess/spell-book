@@ -1,5 +1,5 @@
 changeMeWallCicle &
-compton -I 1 -O 1 --config $HOME/.config/compton.conf &
+compton -I 1 -O 1 --config $HOME/.config/compton.conf -b
 dropbox start &
 battery_check_cicle &
 dunst &
