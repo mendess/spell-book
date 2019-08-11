@@ -21,7 +21,7 @@ free_space () {
     df -h \
         | grep '^/dev' \
         | grep -v '/boot$' \
-        | awk '{print $3" "$6}' \
+        | awk '{print $4" "$6}' \
         | awk -F'/' '{if (NF > 2) {print $1" "$NF} else { print $0 }}' \
         | sed 's|/home|~|g' \
         | awk '{print "["$2" "$1"]"}' \

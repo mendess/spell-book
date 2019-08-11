@@ -29,6 +29,7 @@ Song:   $chapter"
     case $1 in
          -n|--notify)
              notify-send "Now Playing" "$filename"
+             eval "$UPDATE_I3BLOCKS"
              ;;
          -i|--link)
              echo '{ "command": ["get_property", "filename"] }' \

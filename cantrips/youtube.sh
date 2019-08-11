@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 eval "$(library)"
 
@@ -75,6 +75,7 @@ case $p in
     no)
         cmd="(sleep 2; $UPDATE_I3BLOCKS) &
         echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid ; $UPDATE_I3BLOCKS"
-        urxvt -title 'my-media-player' -e bash -c "$cmd"
+        urxvt -title 'my-media-player' -e bash -c "$cmd" &
+        disown
         ;;
 esac

@@ -126,7 +126,7 @@ nnoremap <F12> :ALENextWrap<CR>
 nnoremap <F9> :ALEDetail<CR>
 
 " ale C/C++
-let g:ale_cpp_clang_options = '-std=c++20 -Wall -Wextra -pedantic'
+let g:ale_cpp_clang_options = '-std=c++2a -Wall -Wextra -pedantic -Iinclude'
 let g:ale_c_parse_makefile = 1
 let g:ale_c_parse_compile_commands = 1
 let g:ale_cpp_parse_makefile = 1
