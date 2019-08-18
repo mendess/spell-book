@@ -112,6 +112,12 @@ function loop {
     done
 }
 
+function clearswap {
+    local drive="$(lsblk -i | grep SWAP | awk '{print $1}' | sed 's#|-#/dev/#')"
+    sudo swapoff "$drive"
+    sudo swapon "$drive"
+}
+
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias py="python3"
