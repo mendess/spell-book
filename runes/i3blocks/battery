@@ -32,6 +32,9 @@ close(ACPI);
 if ($acpi !~ /: (\w+), (\d+)%/) {
 	die "$acpi\n";
 }
+if ($acpi ~ /rate information unavaliable/) {
+    die
+}
 
 $status = $1;
 $percent = $2;

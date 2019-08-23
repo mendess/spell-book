@@ -181,6 +181,7 @@ assign [class="Steam"] workspace number 2
 assign [title="my-media-player"] $ws9
 assign [class="jetbrains-idea"] $ws5
 assign [class="jetbrains-rider"] $ws5
+assign [class="jetbrains-studio"] $ws5
 assign [class="[Running] - Oracle VM VirtualBox"] $ws6
 
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
