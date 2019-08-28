@@ -2,8 +2,6 @@
 
 packages=(
 alsa-utils
-base
-base-devel
 bc
 clang
 cmake
@@ -28,7 +26,7 @@ jq
 mpv
 neofetch
 network-manager-applet
-nitrogem
+nitrogen
 nmap
 noto-fonts-emoji
 openssh
@@ -55,9 +53,8 @@ unzip
 urxvt-perls
 wget
 xclip
-xorg-init
 xorg-server
-xrandr
+xorg-xrandr
 xz
 zathura
 zip
