@@ -154,6 +154,7 @@ alias gb='g --no-pager branch -vv'
 alias gdd='git difftool --tool=vimdiff'
 if hash exa
 then
+    alias exa='exa -g'
     alias ls='exa'
     alias tree='exa -T'
     alias li='exa --git --git-ignore'
