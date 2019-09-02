@@ -2,6 +2,7 @@
 
 packages=(
 alsa-utils
+acpi
 bc
 clang
 cmake
@@ -54,8 +55,10 @@ urxvt-perls
 wget
 xclip
 xorg-server
+xorg-xinit
 xorg-xrandr
 xz
+youtube-dl
 zathura
 zip
 zsh
@@ -79,6 +82,8 @@ tealdeer
 hyperfine
 exa
 bat
+cargo-watch
+racer
 )
 
 bloat=(
@@ -103,11 +108,11 @@ curl https://sh.rustup.rs -sSf | sh
 
 # Rua (AUR manager)
 cd /tmp || exit 1
-git clone https://aur.archlinux.org/rua.git
-cd rua || exit 2
-makepkg -si
+git clone https://aur.archlinux.org/yay.git
+cd yay || exit 1
+makepkg -s
 
-rua install "${aurpackages[@]}"
+yay -S "${aurpackages[@]}"
 
 cargo install "${cargopackages[@]}"
 

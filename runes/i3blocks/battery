@@ -32,7 +32,7 @@ close(ACPI);
 if ($acpi !~ /: (\w+), (\d+)%/) {
 	die "$acpi\n";
 }
-if ($acpi ~ /rate information unavaliable/) {
+if ($acpi =~ /rate information unavaliable/) {
     die
 }
 
