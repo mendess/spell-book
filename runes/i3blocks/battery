@@ -9,31 +9,32 @@ acpi = check_output(['acpi', '-b']).decode('utf-8')
 if 'rate information unavailable' in acpi:
     exit(1)
 
-p = re.compile(": (\w+), (\d+)")
+p = re.compile(": (\w+), (\d+)%, (\d\d:\d\d)")
 m = p.search(acpi)
 status = m.group(1)
 percent = m.group(2)
+time = m.group(3)
 
 if status == 'Discharging':
-    full_text = ' DIS'
+    status = ' DIS'
 elif status == 'Charging':
-    full_text = ' CHR'
+    status = ' CHR'
 else:
-    full_text = ' FULL'
+    status = ' FULL'
 
-print(percent, '%', status)
-print(percent, '%', status)
+print(percent, '%', status, "({})".format(time))
+print(percent, '%', status, "({})".format(time))
 
-if status == 'Discharging':
+if status == ' DIS':
     percent = int(percent)
     if percent < 20:
-        print("#FF0000")
+        print(r"#FF0000")
     elif percent < 40:
-        print("#FFAE00")
+        print(r"#FFAE00")
     elif percent < 60:
-        print("FFF600")
+        print(r"#FFF600")
     elif percent < 85:
-        print("A8FF00")
+        print(r"#A8FF00")
 
     if percent < 5:
         exit(33)
