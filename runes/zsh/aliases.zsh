@@ -118,6 +118,12 @@ function clearswap {
     sudo swapon "$drive"
 }
 
+function surfc {
+    surf $1 &
+    disown
+    exit
+}
+
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
 alias vimrc="vim ~/.config/nvim/init.vim"
 alias py="python3"
