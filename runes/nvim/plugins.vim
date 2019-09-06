@@ -47,7 +47,7 @@ Plug 'w0rp/ale'
 Plug 'AndrewRadev/splitjoin.vim'
 
 " Requires: cargo install rustfmt
-Plug 'Chiel92/vim-autoformat'
+Plug 'sbdchd/neoformat'
 
 Plug 'cespare/vim-toml'
 
@@ -137,5 +137,5 @@ let g:ale_linters_ignore = {'cpp': ['gcc'], 'c': ['clang'], 'latex': ['chktex']}
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 " Autoformat
-map <leader>f :Autoformat<CR>
+map <leader>f :Neoformat<CR>
 " autocmd! BufWritePre *.rs :Autoformat
