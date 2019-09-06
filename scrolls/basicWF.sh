@@ -1,8 +1,10 @@
 #!/bin/bash
 
+script_dir="$(dirname "$(realpath "$0")")"
+
 packages=(
-alsa-utils
 acpi
+alsa-utils
 bc
 clang
 cmake
@@ -41,6 +43,7 @@ python-pip
 python-pygments
 rsync
 rtv
+rustup
 rxvt-unicode
 scrot
 shellcheck
@@ -101,12 +104,11 @@ pip3 install --user --upgrade pynvim
 nvim -c PlugInstall -c qall
 
 #Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 
 # Rust
-curl https://sh.rustup.rs -sSf | sh
 
-# Rua (AUR manager)
+# Yay (AUR manager)
 cd /tmp || exit 1
 git clone https://aur.archlinux.org/yay.git
 cd yay || exit 1
@@ -116,4 +118,14 @@ yay -S "${aurpackages[@]}"
 
 cargo install "${cargopackages[@]}"
 
+# Compton
+sudo pacman -S libconfig libxdg-basedir asciidoc
+cd /tmp || exit 1
+git clone https://github.com/tryone144/compton
+cd compton || exit 1
+make
+make docs
+sudo make install
+
+cd "$script_dir" || exit 1
 ../spells/syncspellbook.spell
