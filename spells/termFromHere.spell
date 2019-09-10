@@ -21,9 +21,9 @@ if [ -n "$PID" ]; then
 fi
 if [ -n "$CWD" ]; then
   cd "$CWD"
-  "$CMD" $1 &
+  "$CMD" "$@" &
 else
-  "$CMD" $1 &
+  "$CMD" "$@" &
 fi
 disown
 exit

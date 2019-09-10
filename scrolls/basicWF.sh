@@ -60,6 +60,7 @@ xclip
 xorg-server
 xorg-xinit
 xorg-xrandr
+xorg-xdpyinfo
 xz
 youtube-dl
 zathura
