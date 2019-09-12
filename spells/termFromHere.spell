@@ -20,9 +20,10 @@ if [ -n "$PID" ]; then
   fi
 fi
 if [ -n "$CWD" ]; then
-  cd "$CWD"
+  cd "$CWD" || exit 1
   "$CMD" "$@" &
 else
+    notify-send -u low "Couldn't find cwd"
   "$CMD" "$@" &
 fi
 disown

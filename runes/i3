@@ -41,7 +41,7 @@ set $ws9 9: Media
 ####### APPS
 bindsym $mod+Return       exec --no-startup-id $term
 bindsym $mod+Shift+Return exec --no-startup-id termFromHere
-bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere '-title floating-terminal'
+bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere -title floating-terminal
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall
@@ -51,7 +51,7 @@ bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
 bindsym $mod+F2           exec --no-startup-id firefox
 bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id steam
-bindsym $mod+F5           exec --no-startup-id idea
+# bindsym $mod+F5           exec --no-startup-id idea
 bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
