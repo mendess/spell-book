@@ -64,8 +64,11 @@ main () {
         p|pause)
             echo 'cycle pause' | socat - /tmp/mpvsocket
             ;;
-        add_song|new)
+        add?song|new)
             ./helpers/add_link.sh "${@:2}"
+            ;;
+        categories)
+            cut -f4- "$PLAYLIST" | tr '\t' '\n' | sort | uniq
             ;;
         current)
             current_song "${@:2}"
