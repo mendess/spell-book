@@ -58,6 +58,7 @@ function sync {
 
     bash ../learnSpells.sh
     bash ../castRunes.sh
+    bash ../synclinks.sh
     return 0
 }
 farrow="=======> "
