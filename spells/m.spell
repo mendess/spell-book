@@ -67,7 +67,13 @@ main () {
         add?song|new)
             ./helpers/add_link.sh "${@:2}"
             ;;
-        categories)
+        add?playlist)
+            for l in $(youtube-dl --get-id "$2" | sed 's|^|https://youtu.be/|')
+            do
+                main add_song "$l" "${@:3}"
+            done
+            ;;
+        cat)
             cut -f4- "$PLAYLIST" | tr '\t' '\n' | sort | uniq
             ;;
         current)
