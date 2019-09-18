@@ -51,6 +51,8 @@ bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
 bindsym $mod+F2           exec --no-startup-id firefox
 bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id steam
+bindsym $mod+m            exec --no-startup-id $term -e 'neomutt'
+bindsym $mod+Shift+c      exec --no-startup-id $term -e 'calcurse'
 # bindsym $mod+F5           exec --no-startup-id idea
 bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
@@ -138,7 +140,7 @@ bindsym $mod+space           focus mode_toggle
 bindsym $mod+Shift+q         kill
 bindsym $mod+Shift+period    move scratchpad
 bindsym $mod+period          scratchpad show
-bindsym $mod+m               bar mode toggle
+bindsym $mod+Shift+m               bar mode toggle
 # resize
 bindsym $mod+Ctrl+h         resize shrink width  15 px or 3 ppt
 bindsym $mod+Ctrl+j         resize grow   height 15 px or 3 ppt
