@@ -16,6 +16,7 @@ runes=(
 ~/.config/dunst/dunstrc,dunstrc
 ~/.Xdefaults,Xdefaults
 ~/.xinitrc,xinitrc
+~/.tmux.conf,tmux.conf
 ~/.IntelliJIdea2018.3/config/idea.properties,idea.properties
 #~/.Rider2018.3/config/idea.properties,idea.properties
 )
