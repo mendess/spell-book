@@ -61,6 +61,7 @@ xorg-xdpyinfo
 xz
 youtube-dl
 zathura
+zathura-pdf-poppler
 zip
 zsh
 )

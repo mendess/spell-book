@@ -5,6 +5,6 @@ eval "$(library)"
 rm ~/.calcurse/apts
 while read -r cal
 do
-    curl "$cal" > /tmp/cal
+    curl --silent "$cal" > /tmp/cal
     calcurse -i /tmp/cal
 done < "$LINKS"/calendarios
