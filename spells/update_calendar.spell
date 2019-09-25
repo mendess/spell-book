@@ -1,6 +1,8 @@
 #!/bin/sh
 
-eval "$(library)"
+echo "========"
+date
+eval "$(~/.local/bin/library)"
 
 ping -c 1 github.com || exit 1
 
@@ -13,3 +15,4 @@ done < "$LINKS"/calendarios
 
 rm -f ~/.calcurse/apts
 calcurse -i /tmp/cal
+echo "========"
