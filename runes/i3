@@ -53,7 +53,6 @@ bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id steam
 bindsym $mod+m            exec --no-startup-id $term -e 'neomutt'
 bindsym $mod+Shift+c      exec --no-startup-id $term -e 'calcurse'
-# bindsym $mod+F5           exec --no-startup-id idea
 bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
@@ -176,18 +175,14 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 ####################################### BEHAVIOR ##############################################
-assign [class="Thunderbird"] $ws3
-assign [class="firefox"] $ws2
+assign [class="firefox"] workspace number 2
 assign [class="discord"] $ws2
 assign [class="Steam"] workspace number 2
 assign [title="my-media-player"] $ws9
-assign [class="jetbrains-idea"] $ws5
-assign [class="jetbrains-rider"] $ws5
-assign [class="jetbrains-studio"] $ws5
+assign [class="jetbrains"] $ws5
 assign [class="[Running] - Oracle VM VirtualBox"] $ws6
 
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
-#for_window [class="(?i)virtualbox"]               floating enable border normal
 for_window [class="Sxiv"]                         floating enable border pixel 1
 for_window [class="feh"]                          floating enable border pixel 1
 for_window [class="mpv"]                          floating enable border pixel 1
@@ -196,7 +191,7 @@ for_window [title="alsamixer"]                    floating enable border pixel 1
 for_window [title="pacmixer"]                     floating enable border pixel 1
 for_window [title="ncpamixer"]                    floating enable border pixel 1
 for_window [title="floating-terminal"]            floating enable border pixel 1
-for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 330 294
+for_window [title="floating-terminal-calendar"]   floating enable border pixel 1 resize set 350 288
 for_window [title="clock"]                        floating enable border pixel 1
 for_window [title="floating-terminal-weather"]    floating enable border pixel 1 move up 160px resize set 1150 726
 for_window [title="pacman-game"]                  fullscreen enable

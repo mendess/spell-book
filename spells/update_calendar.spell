@@ -2,9 +2,14 @@
 
 eval "$(library)"
 
-rm ~/.calcurse/apts
+ping -c 1 github.com || exit 1
+
+rm -f /tmp/cal
 while read -r cal
 do
-    curl --silent "$cal" > /tmp/cal
-    calcurse -i /tmp/cal
+    echo downloading "$cal"
+    curl --silent "$cal" >> /tmp/cal || exit 2
 done < "$LINKS"/calendarios
+
+rm -f ~/.calcurse/apts
+calcurse -i /tmp/cal
