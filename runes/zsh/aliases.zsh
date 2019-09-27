@@ -1,3 +1,5 @@
+. library
+
 function allgrep {
     # -I ignore binary files; -H with file name; -n with line numbers; -e PATERNS
     grep -IHn -e "$1" $(find . -type f | grep -v '.git') 2>/dev/null
@@ -142,8 +144,8 @@ alias i3config="vim ~/.config/i3/config"
 alias i3statusconfig="vim ~/.config/i3status/config"
 alias db="dropbox-cli"
 alias autoBuildRust="find . | grep '\.rs' | entr -c cargo check"
-alias mpvs='mpv --no-video --input-ipc-server=/tmp/mpvsocket'
-alias mpvsv='mpv --input-ipc-server=/tmp/mpvsocket'
+alias mpvs="mpv --no-video --input-ipc-server='$MPVSOCKET'"
+alias mpvsv="mpv --input-ipc-server='$MPVSOCKET'"
 alias record='ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+0,0 "output-$(date +"%d_%m_%Y_%H_%M").mp4"'
 alias cr='cargo run'
 alias cb='cargo build'

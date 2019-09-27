@@ -1,6 +1,7 @@
 #!/bin/bash
 
-eval "$(library)"
+#shellcheck source=/home/mendess/.local/bin/library
+. library
 
 MODES="single
 shuf
@@ -69,12 +70,12 @@ case $p in
             eval "$UPDATE_I3BLOCKS"
         } &
         # shellcheck disable=SC2086
-        mpv --input-ipc-server=/tmp/mpvsocket $vid
+        mpv --input-ipc-server="$MPVSOCKET" $vid
         eval "$UPDATE_I3BLOCKS"
         ;;
     no)
         cmd="(sleep 2; $UPDATE_I3BLOCKS) &
-        echo -e '\n$title'; mpv --input-ipc-server=/tmp/mpvsocket --no-video $vid ; $UPDATE_I3BLOCKS"
+        echo -e '\n$title'; mpv --input-ipc-server='$MPVSOCKET' --no-video $vid ; $UPDATE_I3BLOCKS"
         urxvt -title 'my-media-player' -e bash -c "$cmd" &
         disown
         ;;

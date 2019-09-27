@@ -2,7 +2,7 @@
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
-eval "$(library)"
+. library
 
 awk -F'\t' '{print $2}' "$PLAYLIST" \
     | cut -d'/' -f4 \

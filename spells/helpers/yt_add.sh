@@ -1,6 +1,6 @@
 #!/bin/bash
 
-eval "$(library)"
+. library
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
 

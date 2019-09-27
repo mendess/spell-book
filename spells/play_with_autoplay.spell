@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#shellcheck source=/home/mendess/.local/bin/library
+. library
+
 if [ $# -lt 1 ]
 then
     echo "Usage: $0 url" 2>&1
@@ -14,11 +17,11 @@ load_items() {
         current_url=https://youtu.be$(curl "$current_url" | grep -Po '/watch[^"]+' | grep -v "$current_url" | head -1)
         if youtube-dl --get-title "$current_url"
         then
-            echo '{ "command": ["loadfile", "https://www.youtube.com/watch?v=-LWMU576gA4", "append"] }' | socat - /tmp/mpvsocket
+            echo '{ "command": ["loadfile", "https://www.youtube.com/watch?v=-LWMU576gA4", "append"] }' | socat - "$MPVSOCKET"
         fi
         sleep 3m
     done
 }
 
 load_items &
-mpv --no-video --input-ipc-server=/tmp/mpvsocket "$current_url"
+mpv --no-video --input-ipc-server="$MPVSOCKET" "$current_url"

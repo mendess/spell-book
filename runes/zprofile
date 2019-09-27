@@ -1,3 +1,4 @@
+#!/bin/zsh
 export RTV_EDITOR='nvim'
 export VISUAL='nvim'
 export EDITOR='nvim'
@@ -14,6 +15,7 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
+export SPELLS="$(dirname "$(dirname "$(readlink ~/.zprofile)")")"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
     toilet -f mono9 -F metal "Starting i3"
@@ -23,5 +25,5 @@ elif [ "$(tty)" = "/dev/tty2" ]; then
     toilet -f mono9 -F metal "            Starting dwm  "
     pgrep dwm || startx /usr/local/bin/dwm
 elif [[ $(tty) == *"tty"* ]]; then
-    tmux new-session -s "$(basename $(tty))"
+    tmux new-session -s "$(basename "$(tty)")"
 fi

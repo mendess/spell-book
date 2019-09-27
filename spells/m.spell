@@ -1,19 +1,20 @@
 #!/bin/bash
-cd "$(dirname "$(realpath "$0")")" || exit 1
+cd "$SPELLS"/spells || exit 1
 
-eval "$(library)"
+#shellcheck source=/home/mendess/.local/bin/library
+. library
 
 current_song () {
     filename=$(echo '{ "command": ["get_property", "media-title"] }' \
-            | socat - /tmp/mpvsocket \
+            | socat - "$MPVSOCKET" \
             | jq --raw-output '.data')
 
     videoId="$(echo '{ "command": ["get_property", "filename"] }' \
-                         | socat - /tmp/mpvsocket \
+                         | socat - "$MPVSOCKET" \
                          | jq --raw-output '.data')"
 
     chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' \
-            | socat - /tmp/mpvsocket \
+            | socat - "$MPVSOCKET" \
             | jq '.data.title' -r)
 
      if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]
@@ -33,7 +34,7 @@ Song:   $chapter"
              ;;
          -i|--link)
              echo '{ "command": ["get_property", "filename"] }' \
-                | socat - /tmp/mpvsocket \
+                | socat - "$MPVSOCKET" \
                 | jq --raw-output '.data'
              ;;
           *)
@@ -62,7 +63,7 @@ add_cat () {
 main () {
     case $1 in
         p|pause)
-            echo 'cycle pause' | socat - /tmp/mpvsocket
+            echo 'cycle pause' | socat - "$MPVSOCKET"
             ;;
         add?song|new)
             ./helpers/add_link.sh "${@:2}"
@@ -87,46 +88,46 @@ main () {
             ;;
         k|vu)
             if [ -z "$2" ]; then
-                echo 'add volume 10' | socat - /tmp/mpvsocket
+                echo 'add volume 10' | socat - "$MPVSOCKET"
             else
-                echo "add volume $2" | socat - /tmp/mpvsocket
+                echo "add volume $2" | socat - "$MPVSOCKET"
             fi
             ;;
         j|vd)
             if [ -z "$2" ]; then
-                echo 'add volume -10' | socat - /tmp/mpvsocket
+                echo 'add volume -10' | socat - "$MPVSOCKET"
             else
-                echo "add volume -$2" | socat - /tmp/mpvsocket
+                echo "add volume -$2" | socat - "$MPVSOCKET"
             fi
             ;;
         H|prev)
-            echo 'add chapter -1' | socat - /tmp/mpvsocket
+            echo 'add chapter -1' | socat - "$MPVSOCKET"
             eval "$UPDATE_I3BLOCKS"
             ;;
         L|next)
-            echo 'add chapter 1' | socat - /tmp/mpvsocket
+            echo 'add chapter 1' | socat - "$MPVSOCKET"
             eval "$UPDATE_I3BLOCKS"
             ;;
         h|prev-file)
-            echo 'playlist-prev' | socat - /tmp/mpvsocket
+            echo 'playlist-prev' | socat - "$MPVSOCKET"
             eval "$UPDATE_I3BLOCKS"
             ;;
         l|next-file)
-            echo 'playlist-next' | socat - /tmp/mpvsocket
+            echo 'playlist-next' | socat - "$MPVSOCKET"
             eval "$UPDATE_I3BLOCKS"
             ;;
         J|back)
             if [ -z "$2" ]; then
-                echo 'seek -10' | socat - /tmp/mpvsocket
+                echo 'seek -10' | socat - "$MPVSOCKET"
             else
-                echo "seek -$2" | socat - /tmp/mpvsocket
+                echo "seek -$2" | socat - "$MPVSOCKET"
             fi
             ;;
         K|frwd)
             if [ -z "$2" ]; then
-                echo 'seek 10' | socat - /tmp/mpvsocket
+                echo 'seek 10' | socat - "$MPVSOCKET"
             else
-                echo "seek $2" | socat - /tmp/mpvsocket
+                echo "seek $2" | socat - "$MPVSOCKET"
             fi
             ;;
         int|interactive)
