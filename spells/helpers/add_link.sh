@@ -10,7 +10,7 @@ eval "$(library)"
 url="$(echo "$1" | sed -E 's|https://.*=(.*)\&?|https://youtu.be/\1|')"
 link_id="$(echo "$1" | sed -E 's|https://.*=(.*)\&?|\1|')"
 c=( "${@:2}" )
-categories=$(echo "${c[@]}" | tr ' ' '\t')
+categories=$(echo "${c[@]}" | tr '[:upper:]' '[:lower:]' | tr ' ' '\t')
 title="$(youtube-dl --get-title "$1" | sed -e 's/(/{/g; s/)/}/g' -e "s/'//g")"
 if [ "${PIPESTATUS[0]}" -ne 0 ]
 then
