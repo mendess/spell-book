@@ -20,7 +20,7 @@
   https://magic.wizards.com/en/articles/media/wallpapers.
 - [playClipboard](./spells/playClipboard.spell) Plays whatever is in the clipboard on mpv.
 - [scrot-rename](./spells/scrot-rename.spell) Used to rename screenshots. (see i3 config).
-- [sssh](./spell/sssh.spell) Manages ssh connections.
+- [sssh](./spells/sssh.spell) Manages ssh connections.
 - [syncspellbook](./spells/syncspellbook.spell) Tries to synchronise with changes to the
   remote repository. Also runs [updatespellbook](./updatespellbook.spell)
   and [castRunes](./castRunes.sh).
