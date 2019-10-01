@@ -60,6 +60,23 @@ add_cat () {
     done
 }
 
+queue () {
+    if [ "$#" -lt 1 ]
+    then
+        echo please provide a link
+        return 1
+    fi
+    echo '{ "command": ["loadfile", "'"$1"'", "append"]}' | socat - $MPVSOCKET
+    COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' \
+        | socat - $MPVSOCKET \
+        | jq --raw-output '.data')
+    CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' \
+        | socat - $MPVSOCKET \
+        | jq --raw-output '.data')
+    echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$((CURRENT + 1))']}' \
+        | socat - $MPVSOCKET
+}
+
 main () {
     case $1 in
         p|pause)
@@ -82,6 +99,9 @@ main () {
             ;;
         add-cat-to-current|new-cat)
             add_cat "${@:2}"
+            ;;
+        queue)
+            queue "$2"
             ;;
         delete_song)
             ./helpers/del_link.sh "${@:2}"
