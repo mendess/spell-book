@@ -42,5 +42,10 @@ Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 The playlist is also maintained on [youtube](https://www.youtube.com/playlist?list=PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3)
 through google's API and a lot of pain.
 
-## Runes *(config files)*
-Static configuration files: [runes/](./runes/)
+## [Runes](./runes) *(config files)*
+Static configuration files
+
+## [Scrolls](./scrolls) *(Install scripts)*
+Scripts to run to compleat a fresh arch install.
+
+*Mostly untested*
