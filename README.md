@@ -22,7 +22,7 @@
 - [scrot-rename](./spells/scrot-rename.spell) Used to rename screenshots. (see i3 config).
 - [sssh](./spells/sssh.spell) Manages ssh connections.
 - [syncspellbook](./spells/syncspellbook.spell) Tries to synchronise with changes to the
-  remote repository. Also runs [updatespellbook](./updatespellbook.spell)
+  remote repository. Also runs [learnSpells](./learnSpells.sh)
   and [castRunes](./castRunes.sh).
 - [termFromHere](./spells/termFromHere.spell) Opens a terminal in the same `cwd` as the focused `X`
   program. (Meant to be used with `i3wm`)
