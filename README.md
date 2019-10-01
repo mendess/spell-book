@@ -2,10 +2,7 @@
  A collection of scripts I like to keep handy
 
 ## Spells *(scripts)*
-
 - [allgst](./spells/allgst.spell) Performs `git status` on every folder in the `cwd`.
-- [bash_color](./spells/bash_color.spell) Display a certain RGB combo to the terminal and the
-  corresponding escape sequence.
 - [battery_check](./spells/battery_check.spell) Checks battery life and suspends if it's too
   low
     - *[battery_check_cicle](./spells/battery_check_cicle.spell) runs this every 10 seconds.*
