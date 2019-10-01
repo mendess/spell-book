@@ -36,8 +36,11 @@ Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 - [i3-rename-ws](./cantrips/i3-rename-ws.sh) Renames de current workspace
 
 ### Music Player
-- [m](./spells/m.spell) Is the main entry point to control the music player. It also manages the
-  [playlist](./library/playlist).
+[m](./spells/m.spell) Is the main entry point to control the music player. It also manages the
+[playlist](./library/playlist).
+
+The playlist is also maintained on [youtube](https://www.youtube.com/playlist?list=PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3)
+through google's API and a lot of pain.
 
 ## Runes *(config files)*
 Static configuration files: [runes/](./runes/)
