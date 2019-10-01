@@ -77,7 +77,7 @@ main () {
         cat)
             cut -f4- "$PLAYLIST" | tr '\t' '\n' | sort | uniq
             ;;
-        current)
+        c|current)
             current_song "${@:2}"
             ;;
         add-cat-to-current|new-cat)
@@ -135,13 +135,14 @@ main () {
             do
                 read -r -n 1 input
                 [ "$input" = "q" ] && break
+                [ "$input" = "c" ] && echo
                 main "$input"
-                echo -en "\b"
+                [ "$input" = "c" ] || echo -en "\b"
             done
             ;;
         r|help)
             echo -en "\b"
-            grep -Po '\w\|\w[^)]+\)' "$0"
+            grep -Po ' \w\|\w[^)]+\)' "$0"
             ;;
         *)
             echo "¯\\_(ツ)_/¯"

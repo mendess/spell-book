@@ -2,7 +2,8 @@
 
 echo "========"
 date
-eval "$(~/.local/bin/library)"
+# shellcheck source=/home/mendess/.local/bin/library
+. ~/.local/bin/library
 
 ping -c 1 github.com || exit 1
 
