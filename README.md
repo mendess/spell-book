@@ -1,7 +1,8 @@
-# scripts
- A collection of scripts I like to keep handy
+# Spell Book
+ A collection of scripts and dotfile I like to keep handy.
 
 ## Spells *(scripts)*
+Scritps to be run by hand or through a keybind.
 - [allgst](./spells/allgst.spell) Performs `git status` on every folder in the `cwd`.
 - [battery_check](./spells/battery_check.spell) Checks battery life and suspends if it's too
   low
