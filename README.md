@@ -1,7 +1,7 @@
 # Spell Book
  A collection of scripts and dotfile I like to keep handy.
 
-## Spells *(scripts)*
+## [Spells](./spells) *(scripts)*
 Scritps to be run by hand or through a keybind.
 - [allgst](./spells/allgst.spell) Performs `git status` on every folder in the `cwd`.
 - [battery_check](./spells/battery_check.spell) Checks battery life and suspends if it's too
@@ -28,19 +28,19 @@ Scritps to be run by hand or through a keybind.
 - [termFromHere](./spells/termFromHere.spell) Opens a terminal in the same `cwd` as the focused `X`
   program. (Meant to be used with `i3wm`)
 
-## Cantrips
-Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
-- [youtube](./cantrips/youtube.sh) Launches the music player controled using [m](./spells/m.spell)
-- [quickbrowser](./cantrips/quickbrowser.sh) Launches surf with one of the [bookmarks](./library/bookmarks)
-- [today](./cantrips/today.sh) Show's today's apointments
-- [i3-rename-ws](./cantrips/i3-rename-ws.sh) Renames de current workspace
-
 ### Music Player
 [m](./spells/m.spell) Is the main entry point to control the music player. It also manages the
 [playlist](./library/playlist).
 
 The playlist is also maintained on [youtube](https://www.youtube.com/playlist?list=PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3)
 through google's API and a lot of pain.
+
+## [Cantrips](./cantrips/)
+Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
+- [youtube](./cantrips/youtube.sh) Launches the music player controled using [m](./spells/m.spell)
+- [quickbrowser](./cantrips/quickbrowser.sh) Launches surf with one of the [bookmarks](./library/bookmarks)
+- [today](./cantrips/today.sh) Show's today's apointments
+- [i3-rename-ws](./cantrips/i3-rename-ws.sh) Renames de current workspace
 
 ## [Runes](./runes) *(config files)*
 Static configuration files
