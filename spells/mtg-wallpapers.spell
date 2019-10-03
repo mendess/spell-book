@@ -1,9 +1,14 @@
 #!/bin/bash
 mkdir -p /tmp/walls
-cd /tmp/walls || exit
+cd /tmp/walls || exit 1
 rm -f *
 
-curl -s https://magic.wizards.com/en/articles/media/wallpapers | grep '1920x1080' | cut -d'=' -f2 | cut -d'"' -f2 | xargs wget
+curl --silent https://magic.wizards.com/en/articles/media/wallpapers \
+    | grep '1920x1080' \
+    | cut -d'=' -f2 \
+    | cut -d'"' -f2 \
+    | xargs wget --quiet \
+    || exit 1
 
 for f in *
 do
