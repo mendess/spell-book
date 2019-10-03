@@ -38,8 +38,9 @@ autocmd BufEnter *.spell inoremap ,bb #!/bin/sh<Esc>o
 
 autocmd! BufEnter *.js set shiftwidth=2
 
-autocmd! TermOpen * set nonumber
-autocmd! TermOpen * set norelativenumber
+autocmd! TermEnter * setlocal nonumber
+autocmd! TermEnter * setlocal norelativenumber
+autocmd! TermEnter * autocmd! numbertoggle
 
 highlight ColorColumn ctermbg=Black
 set colorcolumn=100

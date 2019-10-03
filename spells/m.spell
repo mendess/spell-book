@@ -66,15 +66,15 @@ queue () {
         echo please provide a link
         return 1
     fi
-    echo '{ "command": ["loadfile", "'"$1"'", "append"]}' | socat - $MPVSOCKET
+    echo '{ "command": ["loadfile", "'"$1"'", "append"]}' | socat - "$MPVSOCKET"
     COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' \
-        | socat - $MPVSOCKET \
+        | socat - "$MPVSOCKET" \
         | jq --raw-output '.data')
     CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' \
-        | socat - $MPVSOCKET \
+        | socat - "$MPVSOCKET" \
         | jq --raw-output '.data')
     echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$((CURRENT + 1))']}' \
-        | socat - $MPVSOCKET
+        | socat - "$MPVSOCKET"
 }
 
 main () {
@@ -83,7 +83,15 @@ main () {
             echo 'cycle pause' | socat - "$MPVSOCKET"
             ;;
         add?song|new)
-            ./helpers/add_link.sh "${@:2}"
+            case $2 in
+                -r|--remote)
+                    # shellcheck disable=SC2029
+                    ssh mirrodin "m add-song ${*:3}"
+                    ;;
+                *)
+                    ./helpers/add_link.sh "${@:2}"
+                    ;;
+            esac
             ;;
         add?playlist)
             for l in $(youtube-dl --get-id "$2" | sed 's|^|https://youtu.be/|')
