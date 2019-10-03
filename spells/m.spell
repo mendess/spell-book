@@ -85,8 +85,7 @@ main () {
         add?song|new)
             case $2 in
                 -r|--remote)
-                    # shellcheck disable=SC2029
-                    ssh mirrodin "m add-song ${*:3}"
+                    yes no | ssh mirrodin 'zsh -c "PATH=$PATH:~/.local/bin; . ~/.zprofile; ~/.local/bin/m add_song '"${*:3}"'"'
                     ;;
                 *)
                     ./helpers/add_link.sh "${@:2}"
