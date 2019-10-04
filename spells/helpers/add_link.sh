@@ -17,8 +17,12 @@ then
     unset title
 fi
 duration="$(youtube-dl --get-duration "$1" | sed -E 's/(.*):(.+):(.+)/\1*3600+\2*60+\3/;s/(.+):(.+)/\1*60+\2/' | bc)"
-entry="$title	$url	$duration	$categories"
 
+if grep "$url" "$PLAYLIST" >/dev/null
+then
+    echo "$entry" already in "$PLAYLIST" 2>&1
+    exit 1
+fi
 
 if ! output="$(./yt_add.sh "$link_id")"
 then
@@ -35,14 +39,6 @@ then
         exit 1
     fi
 fi
+entry="$title	$url	$duration	$categories"
 
-echo adding "$entry"
-if grep "$entry" "$PLAYLIST" >/dev/null
-then
-    echo "$entry" already in "$PLAYLIST" 2>&1
-    exit 1
-else
-    echo "$entry" >> "$PLAYLIST"
-    true
-fi
-
+echo "$entry" >> "$PLAYLIST"
