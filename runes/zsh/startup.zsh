@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 export ZSH_THEME="fishy-2"
 if [ "$(uname -n)" = "mirrodin" ]
 then
@@ -5,8 +7,7 @@ then
 fi
 function exit {
     if [[ -z $TMUX ]]; then
-        builtin exit
-    else
+        builtin exit else
         tmux detach
     fi
 }
@@ -55,5 +56,14 @@ then
     mn list
 else
     #fortune | cowthink `echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1`
-    fortune -c
+    if [ -e /tmp ]
+    then
+        fortune -c
+    else
+        fortune
+    fi
+fi
+if hash calcurse
+then
+    calcurse --todo
 fi
