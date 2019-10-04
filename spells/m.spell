@@ -85,7 +85,7 @@ main () {
         add?song|new)
             case $2 in
                 -r|--remote)
-                    yes no | ssh mirrodin 'zsh -c "PATH=$PATH:~/.local/bin; . ~/.zprofile; ~/.local/bin/m add_song '"${*:3}"'"; ~/.local/bin/syncspellbook'
+                    yes no | ssh mirrodin 'zsh -c "PATH=$PATH:~/.local/bin; . ~/.zprofile; ~/.local/bin/syncspellbook; ~/.local/bin/m add_song '"${*:3}"'"; ~/.local/bin/syncspellbook'
                     ;;
                 *)
                     ./helpers/add_link.sh "${@:2}"
