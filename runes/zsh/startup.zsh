@@ -63,7 +63,7 @@ else
         fortune
     fi
 fi
-if hash calcurse
+if hash calcurse &>/dev/null
 then
     calcurse --todo
 fi
