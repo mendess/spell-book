@@ -171,3 +171,4 @@ then
     alias lg='exa -laah --git'
 fi
 alias notes='mn'
+alias ru='evcxr'

@@ -62,7 +62,6 @@ bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e
 bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
 bindsym $mod+Shift+x      exec --no-startup-id $term -title floating-terminal-weather -e bash -c "curl http://wttr.in/ && read -s -r -n 1"
 bindsym $mod+Mod1+s       exec --no-startup-id $term -title floating-terminal -e sssh
-bindsym $mod+Ctrl+x       exec --no-startup-id notify-send -t 2000 $(date +"%H:%M")
 bindsym $mod+v            exec --no-startup-id playClipboard
 bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.pl https://youtu.be/'$(m current -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && m next-file"
 

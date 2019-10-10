@@ -11,7 +11,7 @@ Plug 'morhetz/gruvbox'
 " File browser
 Plug 'scrooloose/nerdtree'
 
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Auto close parens
 Plug 'cohama/lexima.vim'
