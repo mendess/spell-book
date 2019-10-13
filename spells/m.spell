@@ -108,7 +108,17 @@ main () {
             add_cat "${@:2}"
             ;;
         queue)
-            queue "$2"
+            if ! echo "$2" | grep '^http'; then
+                matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "$2")"
+                link="$(echo "$matches" | cut -f2)"
+                if [ -z "$link" ]; then echo "No song found" && exit 1; fi
+                if [ "$(echo "$link" | wc -l)" -gt 1 ]; then
+                    echo -e "Too many matches:\n$(echo "$matches" | cut -f1)" && exit 1
+                fi
+                queue "$link"
+            else
+                queue "$2"
+            fi
             ;;
         delete_song)
             ./helpers/del_link.sh "${@:2}"
