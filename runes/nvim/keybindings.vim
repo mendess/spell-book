@@ -50,3 +50,6 @@ inoremap ,, <Esc>/<++><Enter>"_c4l
 
 "
 vnoremap // y/\V<C-R>"<CR>
+
+ino <C-A> <space><Esc>y^$a=<space><C-R>=<C-R>0<CR>
+vnoremap <C-M> dpa<space>=<space><C-R>=<C-R>0<CR>
