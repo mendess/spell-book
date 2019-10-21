@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set_wall() {
+    convert "$2" <( curl wttr.in/Lisbon_tqp0.png ) -geometry +50+50 -composite /tmp/target.jpg
+    nitrogen --set-zoom-fill --head="$1" "/tmp/target.jpg"
+}
+
 WALLPAPERS=~/Pictures/Wallpapers
 
 files=$(find "$WALLPAPERS" \
@@ -21,7 +26,7 @@ else
     i=0
     while read -r wall
     do
-        nitrogen --set-zoom-fill --head="$i" "$wall"
+        set_wall "$i" "$wall"
         i=$((i + 1))
     done <<< "$files"
 fi
