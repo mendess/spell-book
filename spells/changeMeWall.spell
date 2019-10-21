@@ -1,8 +1,20 @@
 #!/bin/bash
 
 set_wall() {
-    convert "$2" <( curl wttr.in/Lisbon_tqp0.png ) -geometry +50+50 -composite /tmp/target.jpg
-    nitrogen --set-zoom-fill --head="$1" "/tmp/target.jpg"
+
+    curl wttr.in/Lisbon_tqp0.png > /tmp/weather.png
+    magick "$2" -gravity center -crop 16:9 /tmp/tmp.png
+
+    width=$(magick /tmp/tmp.png -format "%w" info:)
+    height=$(magick /tmp/tmp.png -format "%w" info:)
+    off=$(( width * 2 / 100 ))
+    ww=$(( width * 10 / 100 ))
+    hh=$(( height * 10 / 100 ))
+
+    magick /tmp/tmp.png /tmp/weather.png -geometry ${ww}x${hh}+${off}+${off} -composite /tmp/target.jpg
+
+    nitrogen --set-zoom-fill --head="$1" /tmp/target.jpg
+    rm /tmp/tmp.png /tmp/weather.png /tmp/target.jpg
 }
 
 WALLPAPERS=~/Pictures/Wallpapers
@@ -22,7 +34,6 @@ if [ "$wide" -gt 0 ]
 then
     wall=$(echo "$files" | sed -n -e "${wide}"p)
     nitrogen --set-zoom-fill "$wall"
-
 else
     i=0
     while read -r wall
