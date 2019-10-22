@@ -1,6 +1,6 @@
 #!/bin/bash
 # depends: xorg-xdpyinfo xorg-xprop
-CMD=urxvt
+CMD=termite
 CWD=''
 
 # Get window ID

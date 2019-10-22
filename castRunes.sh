@@ -17,6 +17,7 @@ runes=(
 ~/.Xdefaults,Xdefaults
 ~/.xinitrc,xinitrc
 ~/.tmux.conf,tmux.conf
+~/.config/termite/config,termite
 ~/.IntelliJIdea2018.3/config/idea.properties,idea.properties
 #~/.Rider2018.3/config/idea.properties,idea.properties
 )

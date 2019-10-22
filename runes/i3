@@ -2,7 +2,7 @@
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
-set $term urxvt
+set $term termite
 
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 1
@@ -41,7 +41,7 @@ set $ws9 9: Media
 ####### APPS
 bindsym $mod+Return       exec --no-startup-id $term
 bindsym $mod+Shift+Return exec --no-startup-id termFromHere
-bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere -title floating-terminal
+bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere --title floating-terminal
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall
@@ -56,12 +56,12 @@ bindsym $mod+Shift+c      exec --no-startup-id $term -e 'calcurse'
 bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
-bindsym $mod+Ctrl+s       exec --no-startup-id $term -title floating-terminal -e syncspellbook --hold
+bindsym $mod+Ctrl+s       exec --no-startup-id $term --title floating-terminal -e syncspellbook --hold
 bindsym $mod+t            exec --no-startup-id $term -e htop
-bindsym $mod+c            exec --no-startup-id $term -title floating-terminal -e bc -l
-bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" -title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
-bindsym $mod+Shift+x      exec --no-startup-id $term -title floating-terminal-weather -e bash -c "curl http://wttr.in/ && read -s -r -n 1"
-bindsym $mod+Mod1+s       exec --no-startup-id $term -title floating-terminal -e sssh
+bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e bc -l
+bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
+bindsym $mod+Shift+x      exec --no-startup-id $term --title floating-terminal-weather -e bash -c "curl http://wttr.in/ && read -s -r -n 1"
+bindsym $mod+Mod1+s       exec --no-startup-id $term --title floating-terminal -e sssh
 bindsym $mod+v            exec --no-startup-id playClipboard
 bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.pl https://youtu.be/'$(m current -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && m next-file"
 
@@ -238,10 +238,10 @@ set_from_resource $term_color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-  i3bar_command i3bar
+  i3bar_command i3bar -t
   status_command i3blocks
   position top
-  mode hide
+  #mode show
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
 #	tray_output primary
@@ -253,15 +253,15 @@ bar {
   strip_workspace_numbers no
 
   colors {
-    background #000000
+    background #22222200
     statusline #FFFFFF
     separator  #666666
 
     # item             border  bground text
-    focused_workspace  #4C7899 #285577 #FFFFFF
-    active_workspace   #333333 #222222 #FFFFFF
-    inactive_workspace #333333 #222222 #BBBBBB
-    urgent_workspace   #2F343A #900000 #FFFFFF
+    focused_workspace  #4C789900 #28557799 #FFFFFF
+    active_workspace   #33333300 #22222299 #FFFFFF
+    inactive_workspace #33333300 #22222200 #BBBBBB
+    urgent_workspace   #2F343A00 #90000099 #FFFFFF
     binding_mode       #2F343A #0E5815 #FFFFFF
   }
 }

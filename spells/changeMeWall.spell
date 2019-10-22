@@ -1,20 +1,15 @@
 #!/bin/bash
 
 set_wall() {
-
-    curl wttr.in/Lisbon_tqp0.png > /tmp/weather.png
-    magick "$2" -gravity center -crop 16:9 /tmp/tmp.png
-
-    width=$(magick /tmp/tmp.png -format "%w" info:)
-    height=$(magick /tmp/tmp.png -format "%w" info:)
-    off=$(( width * 2 / 100 ))
-    ww=$(( width * 10 / 100 ))
-    hh=$(( height * 10 / 100 ))
-
-    magick /tmp/tmp.png /tmp/weather.png -geometry ${ww}x${hh}+${off}+${off} -composite /tmp/target.jpg
-
-    nitrogen --set-zoom-fill --head="$1" /tmp/target.jpg
-    rm /tmp/tmp.png /tmp/weather.png /tmp/target.jpg
+    if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png
+    then
+        nitrogen --set-zoom-fill "$1" "$2"
+    else
+        magick "$2" -gravity center -crop 16:9 -resize 1920x1080 /tmp/tmp.png
+        magick /tmp/tmp.png /tmp/weather.png -geometry +50+50 -composite /tmp/target.jpg
+        nitrogen --set-zoom-fill "$1" /tmp/target.jpg
+        rm /tmp/tmp.png /tmp/weather.png /tmp/target.jpg
+    fi
 }
 
 WALLPAPERS=~/Pictures/Wallpapers
@@ -33,12 +28,12 @@ wide=$(echo "$files" \
 if [ "$wide" -gt 0 ]
 then
     wall=$(echo "$files" | sed -n -e "${wide}"p)
-    nitrogen --set-zoom-fill "$wall"
+    set_wall " " "$wall"
 else
     i=0
     while read -r wall
     do
-        set_wall "$i" "$wall"
+        set_wall "--head=$i" "$wall"
         i=$((i + 1))
     done <<< "$files"
 fi
