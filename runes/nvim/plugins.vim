@@ -127,11 +127,13 @@ nnoremap <F9> :ALEDetail<CR>
 
 " ale C/C++
 let g:ale_cpp_clang_options = '-std=c++2a -Wall -Wextra -pedantic -Iinclude'
+let g:ale_cpp_clangtidy_options = '-- -std=c++2a' " -Wall -Wextra -pedantic -Iinclude'
+let g:ale_cpp_clangcheck_options = '-- -std=c++2a'
 let g:ale_c_parse_makefile = 1
 let g:ale_c_parse_compile_commands = 1
 let g:ale_cpp_parse_makefile = 1
 let g:ale_cpp_parse_compile_commands = 1
-let g:ale_linters_ignore = {'cpp': ['gcc'], 'c': ['clang'], 'latex': ['chktex']}
+let g:ale_linters_ignore = {'cpp': ['gcc', 'clangd'], 'c': ['clang'], 'latex': ['chktex']}
 
 " ale Rust
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
