@@ -43,7 +43,7 @@ autocmd! TermEnter * setlocal norelativenumber
 autocmd! TermEnter * autocmd! numbertoggle
 
 highlight ColorColumn ctermbg=Black
-set colorcolumn=100
+set colorcolumn=101
 highlight Normal ctermbg=None
 
 set undodir=~/.cache/vimundo

@@ -56,12 +56,11 @@ bindsym $mod+Shift+c      exec --no-startup-id $term -e 'calcurse'
 bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
 bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
-bindsym $mod+Ctrl+s       exec --no-startup-id $term --title floating-terminal -e syncspellbook --hold
+bindsym $mod+Ctrl+s       exec --no-startup-id $term --title floating-terminal -e 'syncspellbook --hold'
 bindsym $mod+t            exec --no-startup-id $term -e htop
-bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e bc -l
-bindsym $mod+x            exec --no-startup-id $term -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
-bindsym $mod+Shift+x      exec --no-startup-id $term --title floating-terminal-weather -e bash -c "curl http://wttr.in/ && read -s -r -n 1"
-bindsym $mod+Mod1+s       exec --no-startup-id $term --title floating-terminal -e sssh
+bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e 'bc -l'
+bindsym $mod+x            exec --no-startup-id urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
+bindsym $mod+Shift+x      exec --no-startup-id urxvt --title floating-terminal-weather -e "curl http://wttr.in/ && read -s -r -n 1"
 bindsym $mod+v            exec --no-startup-id playClipboard
 bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.pl https://youtu.be/'$(m current -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && m next-file"
 
@@ -258,10 +257,10 @@ bar {
     separator  #666666
 
     # item             border  bground text
-    focused_workspace  #4C789900 #28557799 #FFFFFF
-    active_workspace   #33333300 #22222299 #FFFFFF
-    inactive_workspace #33333300 #22222200 #BBBBBB
-    urgent_workspace   #2F343A00 #90000099 #FFFFFF
+    focused_workspace  #28557799 #28557799 #FFFFFF
+    active_workspace   #22222299 #22222299 #FFFFFF
+    inactive_workspace #22222299 #22222299 #BBBBBB
+    urgent_workspace   #90000099 #90000099 #FFFFFF
     binding_mode       #2F343A #0E5815 #FFFFFF
   }
 }
