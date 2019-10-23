@@ -7,7 +7,8 @@ then
 fi
 function exit {
     if [[ -z $TMUX ]]; then
-        builtin exit else
+        builtin exit
+    else
         tmux detach
     fi
 }
