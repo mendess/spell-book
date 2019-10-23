@@ -1,6 +1,10 @@
 #!/bin/sh
 
+# shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
+. library
+
 CURRENT="$(m current | tail -1 | cut -d ':' -f2 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
 [ -z "$CURRENT" ] && exit 0
-echo "♪" "$CURRENT"
-echo "♪" "$CURRENT"
+VOL="$(echo '{ "command": ["get_property", "volume"] }'| socat - "$MPVSOCKET" | jq -r .data)"
+echo "♪" "$CURRENT" "@ $VOL%"
+echo "♪" "$CURRENT" "@ $VOL%"

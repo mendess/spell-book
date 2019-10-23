@@ -30,7 +30,7 @@ Song:   $chapter"
     case $1 in
          -n|--notify)
              notify-send "Now Playing" "$filename"
-             eval "$UPDATE_I3BLOCKS"
+             __update_i3blocks
              ;;
          -i|--link)
              echo '{ "command": ["get_property", "filename"] }' \
@@ -129,6 +129,7 @@ main () {
             else
                 echo "add volume $2" | socat - "$MPVSOCKET"
             fi
+            __update_i3blocks
             ;;
         j|vd)
             if [ -z "$2" ]; then
@@ -136,22 +137,23 @@ main () {
             else
                 echo "add volume -$2" | socat - "$MPVSOCKET"
             fi
+            __update_i3blocks
             ;;
         H|prev)
             echo 'add chapter -1' | socat - "$MPVSOCKET"
-            eval "$UPDATE_I3BLOCKS"
+            __update_i3blocks
             ;;
         L|next)
             echo 'add chapter 1' | socat - "$MPVSOCKET"
-            eval "$UPDATE_I3BLOCKS"
+            __update_i3blocks
             ;;
         h|prev-file)
             echo 'playlist-prev' | socat - "$MPVSOCKET"
-            eval "$UPDATE_I3BLOCKS"
+            __update_i3blocks
             ;;
         l|next-file)
             echo 'playlist-next' | socat - "$MPVSOCKET"
-            eval "$UPDATE_I3BLOCKS"
+            __update_i3blocks
             ;;
         J|back)
             if [ -z "$2" ]; then
