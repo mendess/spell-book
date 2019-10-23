@@ -8,7 +8,7 @@ set_wall() {
         magick "$2" -gravity center -crop 16:9 -resize 1920x1080 /tmp/tmp.png
         magick /tmp/tmp.png /tmp/weather.png -geometry +50+50 -composite /tmp/target.jpg
         nitrogen --set-zoom-fill "$1" /tmp/target.jpg
-        rm /tmp/tmp.png /tmp/weather.png /tmp/target.jpg
+        rm /tmp/tmp.png /tmp/target.jpg
     fi
 }
 

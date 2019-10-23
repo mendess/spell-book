@@ -11,8 +11,6 @@ Plug 'morhetz/gruvbox'
 " File browser
 Plug 'scrooloose/nerdtree'
 
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-
 " Auto close parens
 Plug 'cohama/lexima.vim'
 
@@ -35,7 +33,7 @@ if has('python3')
 
     Plug 'sebastianmarkow/deoplete-rust'
 
-    Plug 'racer-rust/vim-racer'
+    "Plug 'racer-rust/vim-racer'
 
     Plug 'zchee/deoplete-clang'
 
@@ -44,19 +42,15 @@ endif
 
 Plug 'w0rp/ale'
 
-Plug 'AndrewRadev/splitjoin.vim'
-
 " Requires: cargo install rustfmt
 Plug 'sbdchd/neoformat'
 
+" Syntax highlighting
 Plug 'cespare/vim-toml'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'octol/vim-cpp-enhanced-highlight'
-
-" Let me sudo save in nvim
-Plug 'lambdalisue/suda.vim'
 
 call plug#end()
 
@@ -85,38 +79,41 @@ function! s:goyo_leave()
     :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
     :augroup END
-    highlight ColorColumn ctermbg=Black
-    set colorcolumn=80
-    highlight Normal ctermbg=None
+    :highlight ColorColumn ctermbg=Black
+    :set colorcolumn=101
+    :highlight Normal ctermbg=None
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:goyo_height='90'
+let g:goyo_width='105'
 
-" deopleate
-let g:deoplete#enable_at_startup = 1
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ deoplete#manual_complete()
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
+if has('python3')
+    " deopleate
+    let g:deoplete#enable_at_startup = 1
+    inoremap <silent><expr> <TAB>
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ deoplete#manual_complete()
+    function! s:check_back_space() abort "{{{
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction"}}}
 
-set completeopt-=preview
+    set completeopt-=preview
 
-" deoplete rust
-""" Requires: rustup component add nightly
-""" Requires: cargo +nightly install racer
-let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
-""" Requires: rustup component add rust-src
-let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+    " deoplete rust
+    """ Requires: rustup component add nightly
+    """ Requires: cargo +nightly install racer
+    let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
+    """ Requires: rustup component add rust-src
+    let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 
-" deoplete C
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
+    " deoplete C
+    let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+    let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
+endif
 
 " ale
 let g:ale_echo_msg_format = '%linter%: %s'
