@@ -134,7 +134,7 @@ function whoshome {
         s/(weatherlight|mirari|powerstone)\.lan/\\e[34m\1\.lan\\e[0m/'
     [ -e /etc/resolv.conf ] && cp -v /etc/resolv.conf /tmp/resolv.conf
     echo 'nameserver 192.168.1.1' | sudo tee /etc/resolv.conf
-    output=$(sudo nmap -sn 192.168.1.1/24 \
+    output=$(nmap -sn 192.168.1.1/24 \
         | sed -r "$db" \
         | sed -r 's/([^ ]+\.lan)/\\e[31m\1\\e[0m/')
     echo -e "$output"
