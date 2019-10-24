@@ -29,7 +29,7 @@ echo -e "\033[33mLearning Spells...\033[0m"
 for spell in spells/*.spell
 do
     spell_name=$(basename "$spell" .spell)
-    if ! [ -e ~/.local/bin/"$spell_name" ]; then
+    if ! [ -h ~/.local/bin/"$spell_name" ]; then
         echo -e "\033[35m\t$spell_name\033[0m"
         ln -s "$(pwd)/$spell" ~/.local/bin/"$spell_name"
     fi
