@@ -132,14 +132,14 @@ function whoshome {
         s|unknown482ca0694473.lan|\\e[33mAndroid-Quarto1-2-3(unknown482ca0694473)\\e[0m|
         s|Redmi4X-Redmi.lan|\\e[33mAndroid-Quarto1-2-3(Redmi4X-Redmi)\\e[0m|
         s/(weatherlight|mirari|powerstone)\.lan/\\e[34m\1\.lan\\e[0m/'
-    [ -e /etc/resolv.conf ] \
-        && cp -v /etc/resolv.conf /tmp/resolv.conf \
-        && echo 'nameserver 192.168.1.1' | sudo tee /etc/resolv.conf
-    output=$(nmap -sn 192.168.1.1/24 \
+    # [ -e /etc/resolv.conf ] \
+    #     && cp -v /etc/resolv.conf /tmp/resolv.conf \
+    #     && echo 'nameserver 192.168.1.1' | sudo tee /etc/resolv.conf
+    output=$(nmap --dns-servers 192.168.1.1 -sn 192.168.1.1/24 \
         | sed -r "$db" \
         | sed -r 's/([^ ]+\.lan)/\\e[31m\1\\e[0m/')
     echo -e "$output"
-    [ -e /etc/resolv.conf ] && sudo mv -v /tmp/resolv.conf /etc/resolv.conf
+    # [ -e /etc/resolv.conf ] && sudo mv -v /tmp/resolv.conf /etc/resolv.conf
 }
 
 alias zshrc="vim ~/.oh-my-zsh/custom/aliases.zsh"
