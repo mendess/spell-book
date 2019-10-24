@@ -148,7 +148,8 @@ bindsym $mod+Shift+minus    resize shrink width 32 px; resize shrink height 18 p
 bindsym $mod+0               mode "$mode_system"
 set $mode_system (l)ock, (s)uspend (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym l       exec --no-startup-id i3lock -p win -t -e --image=/home/mendess/Pictures/winxp.png, mode "default"
+    #bindsym l       exec --no-startup-id i3lock -p win -t -e --image=/home/mendess/Pictures/winxp.png, mode "default"
+    bindsym l       exec --no-startup-id i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png, mode "default"
     bindsym r       exec --no-startup-id reboot, mode "default"
     bindsym s       exec --no-startup-id systemctl suspend, mode "default"
     bindsym Shift+s exec --no-startup-id shutdown now, mode "default"
@@ -254,7 +255,7 @@ bar {
   colors {
     background #22222277
     statusline #FFFFFF
-    separator  #666666
+    separator  #0033AA77
 
     # item             border  bground text
     focused_workspace  #28557799 #28557799 #FFFFFF
