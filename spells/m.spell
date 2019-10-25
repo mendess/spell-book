@@ -109,7 +109,7 @@ main () {
             ;;
         queue)
             if ! echo "$2" | grep '^http'; then
-                matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "$2")"
+                matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "${@:2}")"
                 link="$(echo "$matches" | cut -f2)"
                 if [ -z "$link" ]; then echo "No song found" && exit 1; fi
                 if [ "$(echo "$link" | wc -l)" -gt 1 ]; then

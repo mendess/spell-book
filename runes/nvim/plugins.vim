@@ -24,34 +24,14 @@ Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-commentary'
 
-"if has('python3')
-"    Plug 'autozimu/LanguageClient-neovim', {
-"                \ 'branch': 'next',
-"                \ 'do': 'bash install.sh',
-"                \ }
-
-"    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-"    Plug 'sebastianmarkow/deoplete-rust'
-
-"    "Plug 'racer-rust/vim-racer'
-
-"    Plug 'zchee/deoplete-clang'
-
-"    Plug 'deoplete-plugins/deoplete-jedi'
-"endif
-
-" Plug 'w0rp/ale'
-
 " Requires: cargo install rustfmt
 Plug 'sbdchd/neoformat'
 
 " Syntax highlighting
 Plug 'cespare/vim-toml'
-
 Plug 'PotatoesMaster/i3-vim-syntax'
-
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'udalov/kotlin-vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
