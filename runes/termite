@@ -6,7 +6,9 @@
 #cell_width_scale = 1.0
 clickable_url = true
 #dynamic_title = true
-font = DejaVu Sans Mono 11
+# font = DejaVu Sans Mono 11
+# font = Iosevka 14
+font = Hack 13
 #fullscreen = true
 #icon_name = terminal
 mouse_autohide = true

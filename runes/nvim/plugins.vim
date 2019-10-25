@@ -7,6 +7,7 @@ call plug#begin()
 
 " Color scheme
 Plug 'morhetz/gruvbox'
+Plug 'ayu-theme/ayu-vim'
 
 " File browser
 Plug 'scrooloose/nerdtree'
@@ -62,6 +63,12 @@ call plug#end()
 colorscheme gruvbox
 set background=dark
 let g:gruvbox_contrast_dark = 'hard'
+
+" Ayu config
+set termguicolors
+let ayucolor="dark"
+colorscheme ayu
+
 command! Bt :highlight Normal ctermbg=None
 command! Bo :highlight Normal ctermbg=000000
 
