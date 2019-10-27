@@ -79,15 +79,20 @@ queue () {
         echo please provide a link
         return 1
     fi
-    echo '{ "command": ["loadfile", "'"$1"'", "append"]}' | socat - "$MPVSOCKET"
+    echo -n 'Queueing song: '
+    echo '{ "command": ["loadfile", "'"$1"'", "append"]}' \
+        | socat - "$MPVSOCKET" \
+        | jq --raw-output .error
     COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' \
         | socat - "$MPVSOCKET" \
         | jq --raw-output '.data')
     CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' \
         | socat - "$MPVSOCKET" \
         | jq --raw-output '.data')
+    echo -n 'Moving: '
     echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$((CURRENT + 1))']}' \
-        | socat - "$MPVSOCKET"
+        | socat - "$MPVSOCKET" \
+        | jq --raw-output .error
 }
 
 main () {
