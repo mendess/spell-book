@@ -50,7 +50,7 @@ function start_tmux {
     fi
 }
 
-if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ]; then
+if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ] && hash ls 2>/dev/null; then
     echo -n "Launch tmux session? [Y/n] "
     read -r r
     if [[ $r == "" ]] || [[ $r == "y" ]] || [[ $r == "Y" ]]; then

@@ -1,8 +1,9 @@
+#!/bin/bash
 . library
 
 function allgrep {
     # -I ignore binary files; -H with file name; -n with line numbers; -e PATERNS
-    grep -IHn -e "$1" $(find . -type f | grep -v '.git') 2>/dev/null
+    grep -IHn -e "$1" "$(find . -type f | grep -v '.git')" 2>/dev/null
 }
 
 function allsed {
@@ -83,7 +84,7 @@ function alarm {
     fi
     {
         link="https://www.youtube.com/watch?v=4iC-7aJ6LDY"
-        sleep $1
+        sleep "$1"
         mpv --no-video "$link" --input-ipc-server=/tmp/mpvalarm &
         notify-send -u critical "Alarm" "$2"
     } &
@@ -99,7 +100,7 @@ function matrix {
     clear
     while :
     do
-        echo $LINES $COLUMNS $(( $RANDOM % $COLUMNS)) $(( $RANDOM % 72 ))
+        echo $LINES $COLUMNS $(( RANDOM % COLUMNS)) $(( RANDOM % 72 ))
         sleep 0.05
     done \
         | awk '{ letters="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()"; c=$4; letter=substr(letters,c,1);a[$3]=0;for (x in a) {o=a[x];a[x]=a[x]+1; printf "\033[%s;%sH\033[2;32m%s",o,x,letter; printf "\033[%s;%sH\033[1;37m%s\033[0;0H",a[x],x,letter;if (a[x] >= $1) { a[x]=0; } }}'
@@ -115,13 +116,14 @@ function loop {
 }
 
 function clearswap {
-    local drive="$(lsblk -i | grep SWAP | awk '{print $1}' | sed 's#|-#/dev/#')"
+    local drive
+    drive="$(lsblk -i | grep SWAP | awk '{print $1}' | sed 's#|-#/dev/#')"
     sudo swapoff "$drive"
     sudo swapon "$drive"
 }
 
 function surfc {
-    surf $1 &
+    surf "$1" &
     disown
     exit
 }
@@ -162,12 +164,15 @@ alias bc="bc -l"
 alias :r="source ~/.zshrc"
 alias cl="clear; ls -lh"
 alias clg="clear; ls -lh --git"
-alias pls="sudo \$(history -1 | awk '{\$1=\"\"; print \$0 }')"
+#shellcheck disable=SC2142
+alias pls='sudo $(history -1 | awk '\''{$1=\"\"; print $0 }'\'')'
 alias i3config="vim ~/.config/i3/config"
 alias i3statusconfig="vim ~/.config/i3status/config"
 alias db="dropbox-cli"
 alias autoBuildRust="find . | grep '\.rs' | entr -c cargo check"
+#shellcheck disable=SC2139
 alias mpvs="mpv --no-video --input-ipc-server='$MPVSOCKET'"
+#shellcheck disable=SC2139
 alias mpvsv="mpv --input-ipc-server='$MPVSOCKET'"
 alias record='ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+0,0 "output-$(date +"%d_%m_%Y_%H_%M").mp4"'
 alias cr='cargo run'

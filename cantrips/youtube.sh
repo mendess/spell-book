@@ -75,7 +75,7 @@ case $p in
         ;;
     no)
         cmd="(sleep 2; __update_i3blocks) &
-        echo -e '\n$title'; mpv --input-ipc-server='$MPVSOCKET' --no-video $vid ; __update_i3blocks"
+        echo -e '\n$title'; mpv --input-ipc-server='$MPVSOCKET' --no-video $vid ; $(command -v __update_i3blocks | cut -d\' -f2)"
         urxvt -title 'my-media-player' -e bash -c "$cmd" &
         disown
         ;;

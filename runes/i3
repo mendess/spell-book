@@ -40,8 +40,8 @@ set $ws9 9: Media
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
 bindsym $mod+Return       exec --no-startup-id $term
-bindsym $mod+Shift+Return exec --no-startup-id $term || termFromHere
-bindsym $mod+Ctrl+Return  exec --no-startup-id $term --title floating-terminal || termFromHere --title floating-terminal
+bindsym $mod+Shift+Return exec --no-startup-id $term
+bindsym $mod+Ctrl+Return  exec --no-startup-id $term --title floating-terminal
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall

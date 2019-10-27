@@ -17,18 +17,31 @@ current_song () {
             | socat - "$MPVSOCKET" \
             | jq '.data.title' -r)
 
-     if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]
-     then
-         [ -z "$videoId" ] && exit 1
-         filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
-     fi
-     [ -n "$chapter" ] \
-         && [ "$chapter" != "null" ] \
-         && filename="Video:  $filename
+    if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]
+    then
+        [ -z "$videoId" ] && exit 1
+        filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
+    fi
+    if [ -n "$chapter" ] && [ "$chapter" != "null" ]
+    then
+        filename="Video:  $filename
 Song:   $chapter"
-
+    fi
+    width=$(if [ "${#filename}" -lt 15 ]; then echo 15; else echo "${#filename}"; fi)
+    cateories=$(awk -F'\t' '/'"$videoId"'/ {
+            for(i = 4; i <= NF; i++) {
+                acc = acc " | " $i
+            };
+            print("Categories:"acc" |")
+        }' "$PLAYLIST" \
+        | fold -s -w "$width")
     case $1 in
          -n|--notify)
+             if [ -n "$cateories" ]
+             then
+                 filename="$filename
+        $cateories"
+             fi
              notify-send "Now Playing" "$filename"
              __update_i3blocks
              ;;
@@ -120,23 +133,15 @@ main () {
                 queue "$2"
             fi
             ;;
-        delete_song)
+        delete?song)
             ./helpers/del_link.sh "${@:2}"
             ;;
         k|vu)
-            if [ -z "$2" ]; then
-                echo 'add volume 10' | socat - "$MPVSOCKET"
-            else
-                echo "add volume $2" | socat - "$MPVSOCKET"
-            fi
+            echo "add volume ${2:-10}" | socat - "$MPVSOCKET"
             __update_i3blocks
             ;;
         j|vd)
-            if [ -z "$2" ]; then
-                echo 'add volume -10' | socat - "$MPVSOCKET"
-            else
-                echo "add volume -$2" | socat - "$MPVSOCKET"
-            fi
+            echo "add volume -${2:-10}" | socat - "$MPVSOCKET"
             __update_i3blocks
             ;;
         H|prev)
@@ -156,18 +161,10 @@ main () {
             __update_i3blocks
             ;;
         J|back)
-            if [ -z "$2" ]; then
-                echo 'seek -10' | socat - "$MPVSOCKET"
-            else
-                echo "seek -$2" | socat - "$MPVSOCKET"
-            fi
+            echo "seek -${2:-10}" | socat - "$MPVSOCKET"
             ;;
         K|frwd)
-            if [ -z "$2" ]; then
-                echo 'seek 10' | socat - "$MPVSOCKET"
-            else
-                echo "seek $2" | socat - "$MPVSOCKET"
-            fi
+            echo "seek ${2:-10}" | socat - "$MPVSOCKET"
             ;;
         int|interactive)
             while :;
@@ -185,6 +182,7 @@ main () {
             ;;
         *)
             echo "¯\\_(ツ)_/¯"
+            echo "use r|help to see available commands"
     esac
 }
 
