@@ -131,7 +131,7 @@ function surfc {
 function whoshome {
     db='s|DESKTOP-0K7JVC2.lan|\\e[33mPC-Quarto2-3\\e[0m|
         s|DESKTOP-VOKMDBO.lan|\\e[33mPC-Quarto2-3\\e[0m|
-        s|unknown482ca0694473.lan|\\e[33mAndroid-Quarto1-2-3(unknown482ca0694473)\\e[0m|
+        s|unknown482ca0694473.lan|\\e[33mAndroid-Quarto3(unknown482ca0694473)\\e[0m|
         s|Redmi4X-Redmi.lan|\\e[33mAndroid-Quarto1-2-3(Redmi4X-Redmi)\\e[0m|
         s/(weatherlight|mirari|powerstone)\.lan/\\e[34m\1\.lan\\e[0m/'
     if hash sudo &>/dev/null
