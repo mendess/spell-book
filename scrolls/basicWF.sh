@@ -77,7 +77,7 @@ makepkg -s
 yay -S "${aurpackages[@]}"
 }
 
-car && cargo install "${cargopackages[@]}"
+carg && cargo install "${cargopackages[@]}"
 
 # Compton
 pac && {
