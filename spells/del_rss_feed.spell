@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$#" -lt 1 ]
+then
+    echo Usage: "$0" feed
+    exit 1
+fi
+id=$(basename "$1")
+sed -i '/'"$id"'/d' ~/.config/newsboat/urls
+newsboat -x reload
