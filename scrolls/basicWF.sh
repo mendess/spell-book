@@ -29,19 +29,19 @@ else
 fi
 
 function pac {
-    test "$ALL" || "$PACMAN"
+    test "$ALL" = 1 || "$PACMAN" = 1
 }
 
 function aur {
-    test "$ALL" || "$AUR"
+    test "$ALL" = 1 || "$AUR" = 1
 }
 
 function zsh {
-    test "$ALL" || "$ZSH"
+    test "$ALL" = 1 || "$ZSH" = 1
 }
 
 function carg {
-    test "$ALL" || "$CARGO"
+    test "$ALL" = 1 || "$CARGO" = 1
 }
 
 script_dir="$(dirname "$(realpath "$0")")"
