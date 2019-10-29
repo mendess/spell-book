@@ -1,0 +1,52 @@
+#!/bin/sh
+
+runes="$SPELLS/runes.csv"
+
+if [ $# -lt 1 ]
+then
+    echo Usage: "$0" dotfile
+    exit 1
+fi
+
+if [ -d "$1" ]
+then
+    echo Adding folders not suported yet
+    exit 1
+fi
+
+# Opts
+# -a Alternate name
+# -o Options
+
+while [ "$#" -gt 0 ]
+do
+    case "$1" in
+        -a|--alternate)
+            alt="$2"
+            shift
+            shift
+            ;;
+        -o|--options)
+            opt="$2"
+            shift
+            shift
+            ;;
+        *)
+            dotfile="$1"
+            shift
+            ;;
+    esac
+done
+
+if ! [ -f "$dotfile" ]
+then
+    echo No such file or directory: "$dotfile"
+    exit 1
+fi
+
+[ -n "$alt" ] || alt="$(basename "$dotfile" | sed 's/^\.//')"
+[ -n "$opt" ] && opt=",$opt"
+
+echo "$dotfile,$alt${opt:-""}" | tee >> "$runes"
+mv -v "$dotfile" "$SPELLS"/runes/"$alt"
+"$SPELLS"/castRunes.sh

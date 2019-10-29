@@ -1,26 +1,9 @@
 #!/bin/bash
 
-cd "$(dirname "$(realpath "$0")")""/runes" || exit 1
+#shellcheck source=/home/mendess/.local/bin/library
+. library
 
-runes=(
-~/.zprofile,zprofile
-~/.oh-my-zsh/custom,zsh
-~/.gitignore-global,gitignore-global
-~/.config/zathura/zathurarc,zathurarc
-~/.config/nvim,nvim
-~/.config/mutt,mutt
-~/.config/i3status/config,i3status
-~/.config/i3blocks,i3blocks
-~/.config/i3/config,i3
-~/.config/compton.conf,compton.conf
-~/.config/dunst/dunstrc,dunstrc
-~/.Xdefaults,Xdefaults
-~/.xinitrc,xinitrc
-~/.tmux.conf,tmux.conf
-~/.config/termite/config,termite
-~/.IntelliJIdea2018.3/config/idea.properties,idea.properties
-#~/.Rider2018.3/config/idea.properties,idea.properties
-)
+cd "$SPELLS/runes" || exit 1
 
 expandedRunes=()
 
@@ -37,16 +20,21 @@ function expand {
     done
 }
 
-for rune in "${runes[@]}"
+while IFS=',' read -r link file options
 do
-    IFS=',' read -r link file <<< "${rune}"
+    link="${link/#\~/$HOME}"
+    if [ "$options" = "check" ]
+    then
+        # TODO: Check
+        true
+    fi
     if [ -d "$file" ]
     then
         expand "$link" "$file"
     else
-        expandedRunes+=("$rune")
+        expandedRunes+=("$link,$file")
     fi
-done
+done < ../runes.csv
 
 function cleanRunes {
     local rune link file

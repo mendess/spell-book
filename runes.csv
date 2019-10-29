@@ -1,0 +1,17 @@
+~/.zprofile,zprofile
+~/.oh-my-zsh/custom,zsh
+~/.gitignore-global,gitignore-global
+~/.config/zathura/zathurarc,zathurarc
+~/.config/nvim,nvim
+~/.config/mutt,mutt
+~/.config/i3status/config,i3status
+~/.config/i3blocks,i3blocks
+~/.config/i3/config,i3
+~/.config/compton.conf,compton.conf
+~/.config/dunst/dunstrc,dunstrc
+~/.Xdefaults,Xdefaults
+~/.xinitrc,xinitrc
+~/.tmux.conf,tmux.conf
+~/.config/termite/config,termite
+~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,check
+~/.Rider2018.3/config/idea.properties,idea.properties,check
