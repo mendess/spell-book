@@ -32,6 +32,7 @@ Plug 'cespare/vim-toml'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'udalov/kotlin-vim'
+Plug 'vim-python/python-syntax'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 

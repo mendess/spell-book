@@ -142,11 +142,11 @@ main () {
             ./helpers/del_link.sh "${@:2}"
             ;;
         k|vu)
-            echo "add volume ${2:-10}" | socat - "$MPVSOCKET"
+            echo "add volume ${2:-2}" | socat - "$MPVSOCKET"
             __update_i3blocks
             ;;
         j|vd)
-            echo "add volume -${2:-10}" | socat - "$MPVSOCKET"
+            echo "add volume -${2:-2}" | socat - "$MPVSOCKET"
             __update_i3blocks
             ;;
         H|prev)

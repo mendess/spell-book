@@ -1,7 +1,8 @@
 #!/bin/bash
 
 set_wall() {
-    if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png
+    if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png \
+        || ! file /tmp/weather.png | grep 'PNG'
     then
         nitrogen --set-zoom-fill "$1" "$2"
     else
