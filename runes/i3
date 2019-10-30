@@ -177,10 +177,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 assign [class="firefox"] workspace number 2
 assign [class="discord"] $ws2
 assign [class="Steam"] workspace number 2
-assign [title="my-media-player"] $ws9
 assign [class="jetbrains"] $ws5
 assign [class="[Running] - Oracle VM VirtualBox"] $ws6
 
+for_window [title="my-media-player"] move workspace $ws9
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
 for_window [class="Sxiv"]                         floating enable border pixel 1
 for_window [class="feh"]                          floating enable border pixel 1
