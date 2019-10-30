@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages=(
+export packages=(
 acpi
 alsa-utils
 bc
@@ -66,7 +66,7 @@ zip
 zsh
 )
 
-aurpackages=(
+export aurpackages=(
 dropbox
 dropbox-cli
 discord
@@ -79,7 +79,7 @@ urxvt-resize-font-git
 shellcheck-static
 )
 
-cargopackages=(
+export cargopackages=(
 tealdeer
 hyperfine
 exa
@@ -88,6 +88,6 @@ cargo-watch
 racer
 )
 
-bloat=(
+export bloat=(
 nano
 )

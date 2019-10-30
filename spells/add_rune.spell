@@ -57,5 +57,5 @@ then
     exit 0
 fi
 echo "$dotfile,$alt${opt:-""}" | tee -a "$runes"
-mv -v "$dotfile" "$SPELLS"/runes/"$alt"
+mv -v "${dotfile/#\~/$HOME}" "$SPELLS"/runes/"$alt"
 "$SPELLS"/castRunes.sh

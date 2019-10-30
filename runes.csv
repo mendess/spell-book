@@ -16,3 +16,5 @@
 ~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,check
 ~/.Rider2018.3/config/idea.properties,idea.properties,check
 ~/.config/newsboat/config,newsboat
+~/.mozilla/firefox/o57wmvxn.default-release/chrome/userChrome.css,firefox.css,check
+~/.config/libinput-gestures.conf,libinput-gestures.conf

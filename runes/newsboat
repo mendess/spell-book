@@ -1,5 +1,5 @@
-#show-read-feeds no
-#auto-reload yes
+show-read-feeds yes
+auto-reload yes
 
 bind-key j down
 bind-key k up

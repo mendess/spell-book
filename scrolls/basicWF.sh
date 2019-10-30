@@ -50,7 +50,8 @@ packages=()
 aurpackages=()
 bloat=()
 cargopackages=()
-eval "$(cat "$script_dir"/packages.sh)"
+#shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
+. "$script_dir"/packages.sh
 
 pac && yes n | sudo pacman -S  "${packages[@]}"
 
