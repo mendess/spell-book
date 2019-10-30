@@ -79,32 +79,6 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:goyo_height='90'
 let g:goyo_width='105'
 
-" if has('python3')
-"     " deopleate
-"     let g:deoplete#enable_at_startup = 1
-"     inoremap <silent><expr> <TAB>
-"                 \ pumvisible() ? "\<C-n>" :
-"                 \ <SID>check_back_space() ? "\<TAB>" :
-"                 \ deoplete#manual_complete()
-"     function! s:check_back_space() abort "{{{
-"         let col = col('.') - 1
-"         return !col || getline('.')[col - 1]  =~ '\s'
-"     endfunction"}}}
-
-"     set completeopt-=preview
-
-"     " deoplete rust
-"     " Requires: rustup component add nightly
-"     " Requires: cargo +nightly install racer
-"     let g:deoplete#sources#rust#racer_binary = $HOME.'/.cargo/bin/racer'
-"     " Requires: rustup component add rust-src
-"     let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
-
-"     " deoplete C
-"     let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-"     let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
-" endif
-
 " coc
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -139,26 +113,6 @@ nmap <leader>rn <Plug>(coc-rename)
 
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
-
-" ale
-" let g:ale_echo_msg_format = '%linter%: %s'
-" nnoremap gd :ALEGoToDefinition<CR>
-" nnoremap <F10> :ALEPreviousWrap<CR>
-" nnoremap <F12> :ALENextWrap<CR>
-" nnoremap <F9> :ALEDetail<CR>
-
-" ale C/C++
-let g:ale_cpp_clang_options = '-std=c++2a -Wall -Wextra -pedantic -Iinclude'
-let g:ale_cpp_clangtidy_options = '-- -std=c++2a' " -Wall -Wextra -pedantic -Iinclude'
-let g:ale_cpp_clangcheck_options = '-- -std=c++2a'
-let g:ale_c_parse_makefile = 1
-let g:ale_c_parse_compile_commands = 1
-let g:ale_cpp_parse_makefile = 1
-let g:ale_cpp_parse_compile_commands = 1
-let g:ale_linters_ignore = {'cpp': ['gcc', 'clangd'], 'c': ['clang'], 'latex': ['chktex']}
-
-" ale Rust
-let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 " Autoformat
 map <leader>f :Neoformat<CR>

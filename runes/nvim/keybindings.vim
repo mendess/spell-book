@@ -9,6 +9,12 @@ nnoremap <M-j> <C-w>J
 nnoremap <M-k> <C-w>K
 nnoremap <M-l> <C-w>L
 
+" split resize
+nnoremap <M-K> <C-w>+
+nnoremap <M-J> <C-w>-
+nnoremap <M-H> <C-w><
+nnoremap <M-L> <C-w>>
+
 " Ctrl+S to save
 map <C-S> :w<CR>
 imap <C-S> <Esc>:w<CR>a
@@ -20,9 +26,6 @@ map <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
 map <leader>O :setlocal spell! spelllang=en_gb<CR>
 " Open spelling suggestions
 nnoremap <A-Enter> z=
-
-" Dir tree
-" map <F2> :20vs .<CR>
 
 " Alt-Tab
 map <leader><Tab> <C-^>

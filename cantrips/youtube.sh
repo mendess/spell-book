@@ -50,6 +50,7 @@ case "$mode" in
             | dmenu -i -p "Which category?" -l 30 \
             | sed -E 's/^[ ]*[0-9]*[ ]*//')
         [ -z "$catg" ] && exit
+        vidlist=$(echo "$vidlist" | shuf)
         vid="$(echo "$vidlist" | grep -P ".*\t.*\t.*\t.*$catg" | awk -F'\t' '{print $2}' | xargs)"
         title="$(echo "$vidlist" | grep -P ".*\t.*\t.*\t.*$catg" | awk -F'\t' '{print $1}')"
         ;;
@@ -66,7 +67,7 @@ yes" | dmenu -i -p "With video?")
 case $p in
     yes)
         {
-            sleep 10
+            sleep 5
             __update_i3blocks
         } &
         # shellcheck disable=SC2086
@@ -74,8 +75,9 @@ case $p in
         __update_i3blocks
         ;;
     no)
-        cmd="(sleep 2; __update_i3blocks) &
-        echo -e '\n$title'; mpv --input-ipc-server='$MPVSOCKET' --no-video $vid ; $(command -v __update_i3blocks | cut -d\' -f2)"
+        resolve_alias="$(command -v __update_i3blocks | cut -d\' -f2)"
+        cmd="(sleep 2; $resolve_alias) &
+        echo -e '\n$title'; mpv --input-ipc-server='$MPVSOCKET' --no-video $vid ; $resolve_alias"
         urxvt -title 'my-media-player' -e bash -c "$cmd" &
         disown
         ;;
