@@ -40,7 +40,7 @@ Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 - [youtube](./cantrips/youtube.sh) Launches the music player controled using [m](./spells/m.spell)
 - [quickbrowser](./cantrips/quickbrowser.sh) Launches surf with one of the [bookmarks](./library/bookmarks)
 - [today](./cantrips/today.sh) Show's today's apointments
-- [i3-rename-ws](./cantrips/i3-rename-ws.sh) Renames de current workspace
+- [i3-rename-ws](./cantrips/i3-rename-ws.sh) Renames the current workspace
 
 ## [Runes](./runes) *(config files)*
 Static configuration files
