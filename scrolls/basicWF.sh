@@ -29,19 +29,19 @@ else
 fi
 
 function pac {
-    test "$ALL" = 1 || "$PACMAN" = 1
+    test "$ALL" = 1 || test "$PACMAN" = 1
 }
 
 function aur {
-    test "$ALL" = 1 || "$AUR" = 1
+    test "$ALL" = 1 || test "$AUR" = 1
 }
 
 function zsh {
-    test "$ALL" = 1 || "$ZSH" = 1
+    test "$ALL" = 1 || test "$ZSH" = 1
 }
 
 function carg {
-    test "$ALL" = 1 || "$CARGO" = 1
+    test "$ALL" = 1 || test "$CARGO" = 1
 }
 
 script_dir="$(dirname "$(realpath "$0")")"
@@ -93,4 +93,4 @@ sudo make install
 }
 
 cd "$script_dir" || exit 1
-../spells/syncspellbook.spell
+#../spells/syncspellbook.spell
