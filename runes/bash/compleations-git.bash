@@ -1,4 +1,3 @@
-
 # bash/zsh completion support for core Git.
 #
 # Copyright (C) 2006,2007 Shawn O. Pearce <spearce@spearce.org>
@@ -3254,11 +3253,11 @@ _git ()
 # wrapper for backwards compatibility
 _gitk ()
 {
-	__git_wrap__gitk_main100 69954  100 69954    0     0   253k      0 --:--:-- --:--:-- --:--:--  253k
-
+	__git_wrap__gitk_main
 }
 
 __git_complete git __git_main
+__git_complete g __git_main
 __git_complete gitk __gitk_main
 
 # The following are necessary only for Cygwin, and only are needed

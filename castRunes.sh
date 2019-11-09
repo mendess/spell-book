@@ -34,7 +34,7 @@ do
     else
         expandedRunes+=("$link,$file")
     fi
-done < ../runes/db
+done < ../runes/.db
 
 function cleanRunes {
     local rune link file

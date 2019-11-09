@@ -145,6 +145,6 @@ discordStream() {
 }
 
 
-f() {
-	"$EDITOR" "$1"
+svim() {
+	"$EDITOR" "$SPELLS"/"$1"
 }
