@@ -19,3 +19,4 @@
 ~/.config/libinput-gestures.conf,libinput-gestures.conf
 ~/.bashrc,bash/bashrc
 ~/.bash_profile,bash/profile
+~/.inputrc,inputrc
