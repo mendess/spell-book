@@ -12,7 +12,10 @@ PID=$(xprop -id "$ID" | grep -m 1 PID | cut -d " " -f 3)
 {
 # Get last child process (shell, vim, etc)
 if [ -n "$PID" ]; then
-  CPID=$(pstree -lpA 24487 | grep -oP '(bash|zsh|vim|nvim)\([0-9]+\)' | tail -1 | grep -oP '[0-9]+')
+  CPID=$(pstree -lpA "$PID" \
+      | grep -oP '(bash|zsh|vim|nvim)\([0-9]+\)' \
+      | tail -1 \
+      | grep -oP '[0-9]+')
 
   # If we find the working directory, run the command in that directory
   if [ -e "/proc/$CPID/cwd" ]; then
