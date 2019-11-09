@@ -3,5 +3,5 @@
 newsboat -x reload
 if ! newsboat -x print-unread | grep -P '^0 unread articles' >/dev/null
 then
-    notify-send "New Articles" "$(newsboat- x print-unread)"
+    notify-send "New Articles" "$(newsboat -x print-unread)"
 fi

@@ -1,26 +1,25 @@
-#!/bin/zsh
+#!/bin/bash
 
-export ZSH_THEME="fishy-2"
 if [ "$(uname -n)" = "mirrodin" ]
 then
     export TERM=xterm-256color
 fi
 if [ "$TERM" = "linux" ]; then
     _SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
-    for i in $(sed -n "$_SEDCMD" $HOME/.Xdefaults | awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
+    sed -n "$_SEDCMD" "$HOME"/.Xdefaults | awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}' | while read -r i
+    do
         echo -en "$i"
     done
     clear
 fi
-function exit {
-    if [[ -z $TMUX ]]; then
-        builtin exit
-    else
-        tmux detach
-    fi
-}
 
-function start_tmux {
+if [[ -n $TMUX ]]; then
+    exit() {
+        tmux detach
+    }
+fi
+
+start_tmux() {
     if pgrep tmux &> /dev/null;
     then
         echo "\033[1mRunning sessions:\033[0m"
@@ -63,7 +62,6 @@ if mn -V &> /dev/null && mn list | grep -v ' 0 ' > /dev/null
 then
     mn list
 else
-    #fortune | cowthink `echo " \n-b\n-d\n-g\n-p\n-s\n-t\n-w\n-y" | shuf -n1`
     if [ -e /tmp ]
     then
         fortune -c

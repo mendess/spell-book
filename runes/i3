@@ -40,8 +40,8 @@ set $ws9 9: Media
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
 bindsym $mod+Return       exec --no-startup-id $term
-bindsym $mod+Shift+Return exec --no-startup-id $term
-bindsym $mod+Ctrl+Return  exec --no-startup-id $term --title floating-terminal
+bindsym $mod+Shift+Return exec --no-startup-id termFromHere
+bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere --title floating-terminal
 bindsym $mod+d            exec --no-startup-id dmenu_run
 bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
 bindsym $mod+F9           exec --no-startup-id changeMeWall
@@ -49,6 +49,7 @@ bindsym $mod+F8           exec --no-startup-id nitrogen --head="0" --set-zoom-fi
 bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
 bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
 bindsym $mod+F2           exec --no-startup-id firefox
+bindsym $mod+Shift+F2     exec --no-startup-id firefox -private-window https://duckduckgo.com/
 bindsym $mod+F3           exec --no-startup-id discord
 bindsym $mod+F4           exec --no-startup-id steam
 bindsym $mod+m            exec --no-startup-id $term -e 'neomutt'
@@ -137,12 +138,12 @@ bindsym $mod+space           focus mode_toggle
 bindsym $mod+Shift+q         kill
 bindsym $mod+Shift+period    move scratchpad
 bindsym $mod+period          scratchpad show
-bindsym $mod+Shift+m               bar mode toggle
+bindsym $mod+Shift+m         bar mode toggle
 # resize
-bindsym $mod+Ctrl+h         resize shrink width  15 px or 3 ppt
-bindsym $mod+Ctrl+j         resize grow   height 15 px or 3 ppt
-bindsym $mod+Ctrl+k         resize shrink height 15 px or 3 ppt
-bindsym $mod+Ctrl+l         resize grow   width  15 px or 3 ppt
+bindsym $mod+Ctrl+h         resize shrink width  20 px
+bindsym $mod+Ctrl+l         resize grow   width  20 px
+bindsym $mod+Ctrl+j         resize grow   height 22 px
+bindsym $mod+Ctrl+k         resize shrink height 22 px
 bindsym $mod+Shift+plus     resize grow   width 32 px; resize grow   height 18 px; move left  16 px; move up   9 px;
 bindsym $mod+Shift+minus    resize shrink width 32 px; resize shrink height 18 px; move right 16 px; move down 9 px;
 bindsym $mod+0               mode "$mode_system"
@@ -157,9 +158,9 @@ mode "$mode_system" {
     bindsym Escape  mode "default"
 }
 ####### FN KEYS
-bindsym XF86AudioRaiseVolume exec pamixer --increase 6
-bindsym XF86AudioLowerVolume exec pamixer --decrease 6
-bindsym XF86AudioMute        exec pamixer --toggle-mute
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 ############## FLOATING
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s     sticky toggle
@@ -175,7 +176,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 ####################################### BEHAVIOR ##############################################
 #assign [class="firefox"] workspace number 2
-assign [class="discord"] $ws2
+#assign [class="discord"] $ws2
 assign [class="Steam"] workspace number 2
 assign [class="jetbrains"] $ws5
 assign [class="[Running] - Oracle VM VirtualBox"] $ws6

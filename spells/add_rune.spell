@@ -31,6 +31,20 @@ do
             shift
             shift
             ;;
+        -h)
+            cat <<EOF
+Usage add_rune [-a alternate] [-o options]
+
+-a | --alternate
+    Choose the name to save under in the runes directory
+
+-o | --options
+    Add options. Currently only 'check' is suported. To prevent
+    creation of the symlink if the dir doesn't exist
+EOF
+            exit 42
+            ;;
+
         *)
             dotfile="$1"
             shift

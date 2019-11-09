@@ -53,14 +53,11 @@ cargopackages=()
 #shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
-pac && yes n | sudo pacman -S  "${packages[@]}"
+pac && yes | sudo pacman -S  "${packages[@]}"
 
-pac && yes n | sudo pacman -Rsn "${bloat[@]}"
+pac && yes | sudo pacman -Rsn "${bloat[@]}"
 
 ## NEOVIM
-pac && pip3 install --user pynvim
-pac && pip3 install --user --upgrade pynvim
-
 pac && nvim -c PlugInstall -c qall
 
 #Oh My Zsh

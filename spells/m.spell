@@ -40,7 +40,7 @@ Song:   $chapter"
              if [ -n "$cateories" ]
              then
                  filename="$filename
-        $cateories"
+$cateories"
              fi
              notify-send "Now Playing" "$filename"
              __update_i3blocks

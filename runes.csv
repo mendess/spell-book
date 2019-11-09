@@ -1,5 +1,4 @@
 ~/.zprofile,zprofile
-~/.oh-my-zsh/custom,zsh
 ~/.gitignore-global,gitignore-global
 ~/.config/zathura/zathurarc,zathurarc
 ~/.config/nvim,nvim
@@ -18,3 +17,5 @@
 ~/.config/newsboat/config,newsboat
 ~/.mozilla/firefox/o57wmvxn.default-release/chrome/userChrome.css,firefox.css,check
 ~/.config/libinput-gestures.conf,libinput-gestures.conf
+~/.bashrc,bash/bashrc
+~/.bash_profile,bash/profile

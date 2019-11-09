@@ -1,0 +1,33 @@
+#!/bin/bash
+
+
+[[ $- != *i* ]] && return
+
+
+for f in "$SPELLS"/runes/bash/*.bash
+do
+    #shellcheck disable=SC1090
+    source "$f"
+done
+
+truncPath() {
+    pwd | sed -r -e 's!^'"$HOME"'!~!g' -e 's|([^/])[^/]+/|\1/|g' | tr -d '\n'
+}
+rightprompt()
+{
+    [ "$1" -gt 0 ] && printf "%*s\e[1;31m%s\e[0m" $(( COLUMNS - ${#1} )) ' ' "$1"
+}
+
+PS1='\[\e[33m\]$(truncPath)\[\e[0m\]> '
+if [ -n "$SSH_CLIENT" ]
+then
+    PS1='\[\e[1;31m\]\u@\h\[\e[0m\] '$PS1
+fi
+if [[ "$(tty)" = *"tty"* ]] && [ -f /sys/class/power_supply/BAT0/capacity ]
+then
+    #shellcheck disable=SC2154
+    #PS1='\[$(batery_color $(batery))\]$(batery)&\[\e[0m\]'$PS1
+    PS1='$(cat /sys/class/power_supply/BAT0/capacity)% $(date +%H:%M) '$PS1
+fi
+#shellcheck disable=SC2154
+PS1='\[$(r=$?; tput sc; rightprompt $r; tput rc)\]'$PS1
