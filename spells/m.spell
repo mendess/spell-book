@@ -4,6 +4,31 @@ cd "$SPELLS"/spells || exit 1
 #shellcheck source=/home/mendess/.local/bin/library
 . library
 
+up_next() {
+    next_id="$(( $(echo '{ "command": ["get_property", "playlist-pos"]}' \
+        | socat - "$MPVSOCKET" \
+        | jq .data) + 1))"
+
+    videoId="$(echo '{ "command": ["get_property", "playlist"]}' \
+        | socat - "$MPVSOCKET" | jq .data["$next_id"].filename -r \
+        | sed -r 's|.*/([^/]+)/?$|\1|g')"
+
+    filename=$(awk -F '\t' '$2 ~ /'"$videoId"'/ {print $1}' "$PLAYLIST")
+
+    width=40
+    [ "${#filename}" -gt $width ] && width="${#filename}"
+    cateories=$(awk -F'\t' '$2 ~ /'"$videoId"'/ {
+            for(i = 4; i <= NF; i++) {
+                acc = acc " | " $i
+            };
+            print("Categories:"acc" |")
+        }' "$PLAYLIST" \
+        | fold -s -w "$width")
+
+    echo "$filename
+$cateories"
+
+}
 current_song () {
     filename=$(echo '{ "command": ["get_property", "media-title"] }' \
             | socat - "$MPVSOCKET" \
@@ -27,7 +52,8 @@ current_song () {
         filename="Video:  $filename
 Song:   $chapter"
     fi
-    width=$(if [ "${#filename}" -lt 15 ]; then echo 15; else echo "${#filename}"; fi)
+    width=40
+    [ "${#filename}" -gt $width ] && width="${#filename}"
     cateories=$(awk -F'\t' '/'"$videoId"'/ {
             for(i = 4; i <= NF; i++) {
                 acc = acc " | " $i
@@ -40,7 +66,10 @@ Song:   $chapter"
              if [ -n "$cateories" ]
              then
                  filename="$filename
-$cateories"
+$cateories
+
+=== UP NEXT ===
+$(up_next)"
              fi
              notify-send "Now Playing" "$filename"
              __update_i3blocks
