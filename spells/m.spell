@@ -6,40 +6,36 @@ cd "$SPELLS"/spells || exit 1
 
 up_next() {
     next_id="$(( $(echo '{ "command": ["get_property", "playlist-pos"]}' \
-        | socat - "$MPVSOCKET" \
+        | socat - "$(mpvsocket)" \
         | jq .data) + 1))"
 
     videoId="$(echo '{ "command": ["get_property", "playlist"]}' \
-        | socat - "$MPVSOCKET" | jq .data["$next_id"].filename -r \
-        | sed -r 's|.*/([^/]+)/?$|\1|g')"
+        | socat - "$(mpvsocket)" | jq .data["$next_id"].filename -r)"
 
-    filename=$(awk -F '\t' '$2 ~ /'"$videoId"'/ {print $1}' "$PLAYLIST")
-
+    if [[ "$videoId" = *youtu* ]]
+    then
+        videoId="$(echo "$videoId" | sed -r 's|.*/([^/]+)/?$|\1|g')"
+        filename=$(awk -F '\t' '$2 ~ /'"$videoId"'/ {print $1}' "$PLAYLIST")
+    else
+        filename=$(basename "$videoId" | sed -r 's/\.[^.]+$//')
+    fi
     width=40
     [ "${#filename}" -gt $width ] && width="${#filename}"
-    cateories=$(awk -F'\t' '$2 ~ /'"$videoId"'/ {
-            for(i = 4; i <= NF; i++) {
-                acc = acc " | " $i
-            };
-            print("Categories:"acc" |")
-        }' "$PLAYLIST" \
-        | fold -s -w "$width")
-
-    echo "$filename
-$cateories"
-
+    echo "=== UP NEXT ==="
+    echo "$filename"
 }
+
 current_song () {
     filename=$(echo '{ "command": ["get_property", "media-title"] }' \
-            | socat - "$MPVSOCKET" \
-            | jq --raw-output '.data')
+        | socat - "$(mpvsocket)" \
+        | jq --raw-output '.data')
 
     videoId="$(echo '{ "command": ["get_property", "filename"] }' \
-                         | socat - "$MPVSOCKET" \
-                         | jq --raw-output '.data')"
+        | socat - "$(mpvsocket)" \
+        | jq --raw-output '.data')"
 
     chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' \
-            | socat - "$MPVSOCKET" \
+            | socat - "$(mpvsocket)" \
             | jq '.data.title' -r)
 
     if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]
@@ -66,17 +62,17 @@ Song:   $chapter"
              if [ -n "$cateories" ]
              then
                  filename="$filename
-$cateories
-
-=== UP NEXT ===
-$(up_next)"
+$cateories"
              fi
+             filename="$filename
+
+$(up_next)"
              notify-send "Now Playing" "$filename"
              __update_i3blocks
              ;;
          -i|--link)
              echo '{ "command": ["get_property", "filename"] }' \
-                | socat - "$MPVSOCKET" \
+                | socat - "$(mpvsocket)" \
                 | jq --raw-output '.data'
              ;;
           *)
@@ -110,24 +106,24 @@ queue () {
     fi
     echo -n 'Queueing song: '
     echo '{ "command": ["loadfile", "'"$1"'", "append"]}' \
-        | socat - "$MPVSOCKET" \
+        | socat - "$(mpvsocket)" \
         | jq --raw-output .error
     COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' \
-        | socat - "$MPVSOCKET" \
+        | socat - "$(mpvsocket)" \
         | jq --raw-output '.data')
     CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' \
-        | socat - "$MPVSOCKET" \
+        | socat - "$(mpvsocket)" \
         | jq --raw-output '.data')
     echo -n 'Moving: '
     echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$((CURRENT + 1))']}' \
-        | socat - "$MPVSOCKET" \
+        | socat - "$(mpvsocket)" \
         | jq --raw-output .error
 }
 
 main () {
     case $1 in
         p|pause)
-            echo 'cycle pause' | socat - "$MPVSOCKET"
+            echo 'cycle pause' | socat - "$(mpvsocket)"
             ;;
         add?song|new)
             case $2 in
@@ -171,34 +167,34 @@ main () {
             ./helpers/del_link.sh "${@:2}"
             ;;
         k|vu)
-            echo "add volume ${2:-2}" | socat - "$MPVSOCKET"
+            echo "add volume ${2:-2}" | socat - "$(mpvsocket)"
             __update_i3blocks
             ;;
         j|vd)
-            echo "add volume -${2:-2}" | socat - "$MPVSOCKET"
+            echo "add volume -${2:-2}" | socat - "$(mpvsocket)"
             __update_i3blocks
             ;;
         H|prev)
-            echo 'add chapter -1' | socat - "$MPVSOCKET"
+            echo 'add chapter -1' | socat - "$(mpvsocket)"
             __update_i3blocks
             ;;
         L|next)
-            echo 'add chapter 1' | socat - "$MPVSOCKET"
+            echo 'add chapter 1' | socat - "$(mpvsocket)"
             __update_i3blocks
             ;;
         h|prev-file)
-            echo 'playlist-prev' | socat - "$MPVSOCKET"
+            echo 'playlist-prev' | socat - "$(mpvsocket)"
             __update_i3blocks
             ;;
         l|next-file)
-            echo 'playlist-next' | socat - "$MPVSOCKET"
+            echo 'playlist-next' | socat - "$(mpvsocket)"
             __update_i3blocks
             ;;
         J|back)
-            echo "seek -${2:-10}" | socat - "$MPVSOCKET"
+            echo "seek -${2:-10}" | socat - "$(mpvsocket)"
             ;;
         K|frwd)
-            echo "seek ${2:-10}" | socat - "$MPVSOCKET"
+            echo "seek ${2:-10}" | socat - "$(mpvsocket)"
             ;;
         int|interactive)
             while :;

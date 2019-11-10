@@ -18,27 +18,21 @@ case "$mode" in
             | awk -F'\t' '{print $1}' \
             | dmenu -i -p "Which video?" -l "$(echo "$vidlist" | wc -l)")"
 
-        vid="$(echo "$vidlist" \
+        vid=("$(echo "$vidlist" \
             | grep -P "^$vidname" \
-            | awk -F'\t' '{print $2}')"
+            | awk -F'\t' '{print $2}')")
 
-        title="$vidname"
         ;;
     shuf)
-        vid=$(echo "$vidlist" \
+        mapfile vid < <(echo "$vidlist" \
             | shuf \
             | sed '1q' \
             | awk -F'\t' '{print $2}')
 
-        title=$(echo "$vidlist" \
-            | grep "$vid" \
-            | awk -F'\t' '{print $1}')
-
         ;;
     shufA)
         tmp=$(echo "$vidlist" | shuf)
-        vid=$(echo "$tmp" | awk -F'\t' '{print $2}' | xargs)
-        title="$(echo "$tmp" | awk -F'\t' '{print $1}')"
+        mapfile vid < <(echo "$tmp" | awk -F'\t' '{print $2}' | xargs)
         ;;
     shufC)
         catg=$(echo "$vidlist" \
@@ -51,15 +45,17 @@ case "$mode" in
             | sed -E 's/^[ ]*[0-9]*[ ]*//')
         [ -z "$catg" ] && exit
         vidlist=$(echo "$vidlist" | shuf)
-        vid="$(echo "$vidlist" | grep -P ".*\t.*\t.*\t.*$catg" | awk -F'\t' '{print $2}' | xargs)"
-        title="$(echo "$vidlist" | grep -P ".*\t.*\t.*\t.*$catg" | awk -F'\t' '{print $1}')"
+        mapfile vid < <(echo "$vidlist" \
+            | grep -P ".*\t.*\t.*\t.*$catg" \
+            | awk -F'\t' '{print $2}' \
+            | xargs)
         ;;
     *)
         exit
         ;;
 esac
 
-[ -z "$vid" ] && exit
+[ "${#vid}" -lt 1 ] && exit
 
 p=$(echo "no
 yes" | dmenu -i -p "With video?")
@@ -70,15 +66,14 @@ case $p in
             sleep 5
             __update_i3blocks
         } &
-        # shellcheck disable=SC2086
-        mpv --input-ipc-server="$MPVSOCKET" $vid
+        mpv --input-ipc-server="$(mpvsocket new)" "${vid[@]}"
         __update_i3blocks
         ;;
     no)
         resolve_alias="$(command -v __update_i3blocks | cut -d\' -f2)"
         cmd="(sleep 2; $resolve_alias) &
-        echo -e '\n$title'; mpv --input-ipc-server='$MPVSOCKET' --no-video $vid ; $resolve_alias"
-        urxvt -title 'my-media-player' -e bash -c "$cmd" &
-        disown
+        mpv --input-ipc-server='$(mpvsocket new)' --no-video ${vid[*]}
+        $resolve_alias;"
+        termite --title 'my-media-player' -e "bash -c '$cmd'"
         ;;
 esac

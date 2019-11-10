@@ -20,7 +20,7 @@ map <C-S> :w<CR>
 imap <C-S> <Esc>:w<CR>a
 
 " shell script linting
-map <leader>s :!clear && shellcheck %<CR>
+map <leader>s :!clear && shellcheck -x %<CR>
 " toggle spelling
 map <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
 map <leader>O :setlocal spell! spelllang=en_gb<CR>

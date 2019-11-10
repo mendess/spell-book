@@ -9,10 +9,30 @@ export PLAYLIST_ID='PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3'
 export UPDATE_I3BLOCKS='__update_i3blocks'
 alias __update_i3blocks='pkill -SIGRTMIN+10 i3blocks'
 export LINKS="$HOME"/.links
-if [ -e /tmp ]
-then
-    export MPVSOCKET=/tmp/mpvsocket
-else
-    export MPVSOCKET=~/.mpvsocket
-fi
+mpvsocket() {
+    if [ -e /tmp ]
+    then
+        prefix=/tmp
+    else
+        prefix="$HOME"
+    fi
+    #shellcheck disable=SC2009
+    last=$(ps -ef | grep -v grep | grep -oP '\.mpvsocket[0-9]*' | sort | uniq | tail -1)
+    if [ -z "$last" ]
+    then
+        if [ $# -gt 0 ] && [ "$1" = new ]
+        then
+            echo "$prefix/.mpvsocket0"
+        else
+            echo "/dev/null"
+        fi
+    else
+        if [ $# -gt 0 ] && [ "$1" = new ]
+        then
+            echo "$prefix/.mpvsocket$(( $(echo "$last" | grep -oP '[0-9]+$') + 1 ))"
+        else
+            echo "$prefix/$last"
+        fi
+    fi
+}
 

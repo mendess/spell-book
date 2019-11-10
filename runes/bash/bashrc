@@ -10,6 +10,9 @@ do
     source "$f"
 done
 
+#shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
+source "$SPELLS"/spells/library.spell
+
 truncPath() {
     pwd | sed -r -e 's!^'"$HOME"'!~!g' -e 's|([^/])[^/]+/|\1/|g' | tr -d '\n'
 }

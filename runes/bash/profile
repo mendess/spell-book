@@ -21,33 +21,6 @@ SPELLS=""
 SPELLS="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.bash_profile)")")")"
 export SPELLS
 
-mpvsocket() {
-    if [ -e /tmp ]
-    then
-        prefix=/tmp
-    else
-        prefix=~
-    fi
-    #shellcheck disable=SC2009
-    last=$(ps -ef | grep -oP 'mpvsocket[0-9]*' | sort | uniq | tail -1)
-    if [ -z "$last" ]
-    then
-        if [ "$2" = new ]
-        then
-            echo "$prefix/.mpvsocket0"
-        else
-            echo "/dev/null"
-        fi
-    else
-        if [ "$2" = new ]
-        then
-            echo "$prefix/.mpvsocket$(( $(echo "$last" | grep -oP '[0-9]+$') + 1 ))"
-        else
-            echo "$prefix/$last"
-        fi
-    fi
-}
-
 #shellcheck source=/home/mendess/.bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc >/dev/null
 

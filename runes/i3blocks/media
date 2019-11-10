@@ -10,6 +10,8 @@ CURRENT="$(m current \
     | cut -c 1-50 \
     | sed -r 's/^(.{47}).*/\1.../')"
 [ -z "$CURRENT" ] && exit 0
-VOL="$(echo '{ "command": ["get_property", "volume"] }'| socat - "$MPVSOCKET" | jq -r .data)"
+VOL="$(echo '{ "command": ["get_property", "volume"] }' \
+    | socat - "$(mpvsocket)" \
+    | jq -r .data)"
 echo "♪" "$CURRENT" "@ $VOL%"
 echo "♪" "$CURRENT" "@ $VOL%"
