@@ -17,7 +17,7 @@ mpvsocket() {
         prefix="$HOME"
     fi
     #shellcheck disable=SC2009
-    last=$(ps -ef | grep -v grep | grep -oP '\.mpvsocket[0-9]*' | sort | uniq | tail -1)
+    last=$(ps -ef | grep -v grep | grep -oP '\.mpvsocket[0-9]*' | sort -V | uniq | tail -1)
     if [ -z "$last" ]
     then
         if [ $# -gt 0 ] && [ "$1" = new ]

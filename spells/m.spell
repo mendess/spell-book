@@ -125,6 +125,9 @@ main () {
         p|pause)
             echo 'cycle pause' | socat - "$(mpvsocket)"
             ;;
+        quit)
+            echo 'quit' | socat - "$(mpvsocket)"
+            ;;
         add?song|new)
             case $2 in
                 -r|--remote)
