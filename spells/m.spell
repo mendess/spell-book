@@ -124,6 +124,7 @@ main () {
     case $1 in
         p|pause)
             echo 'cycle pause' | socat - "$(mpvsocket)"
+            __update_i3blocks
             ;;
         quit)
             echo 'quit' | socat - "$(mpvsocket)"
