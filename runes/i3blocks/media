@@ -4,21 +4,25 @@
 . library
 
 CURRENT="$(m current \
+    | head -2 \
     | tail -1 \
     | cut -d ':' -f2 \
     | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' \
     | cut -c 1-50 \
     | sed -r 's/^(.{47}).*/\1.../')"
+
 [ -z "$CURRENT" ] && exit 0
 
 case $BLOCK_BUTTON in
-  1|2|3) m pause ;;
-  4) m vu 5 ;;
-  5) m vd 5 ;;
+    1) m prev-file ;;
+    2) m pause ;;
+    3) m next-file ;;
+    4) m vu 5 ;;
+    5) m vd 5 ;;
 esac
 
 case $(echo '{"command":["get_property","pause"]}' | socat - "$(mpvsocket)" | jq .data -r) in
-    true) SIGIL='| |' ;;
+    true) SIGIL='││' ;;
     false) SIGIL='⊳' ;;
 esac
 

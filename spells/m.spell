@@ -180,19 +180,19 @@ main () {
             ;;
         H|prev)
             echo 'add chapter -1' | socat - "$(mpvsocket)"
-            __update_i3blocks
+            { sleep 2; __update_i3blocks; } &
             ;;
         L|next)
             echo 'add chapter 1' | socat - "$(mpvsocket)"
-            __update_i3blocks
+            { sleep 2; __update_i3blocks; } &
             ;;
         h|prev-file)
             echo 'playlist-prev' | socat - "$(mpvsocket)"
-            __update_i3blocks
+            { sleep 2; __update_i3blocks; } &
             ;;
         l|next-file)
             echo 'playlist-next' | socat - "$(mpvsocket)"
-            __update_i3blocks
+            { sleep 2; __update_i3blocks; } &
             ;;
         J|back)
             echo "seek -${2:-10}" | socat - "$(mpvsocket)"

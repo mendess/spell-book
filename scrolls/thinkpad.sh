@@ -1,4 +1,3 @@
 #!/bin/sh
 
-yes | sudo pacman -S tp_smapi
-
+yes | sudo pacman -S xorg-xinput
