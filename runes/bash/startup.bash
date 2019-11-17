@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec >> /dev/stderr
+
 if [ "$(uname -n)" = "mirrodin" ]
 then
     export TERM=xterm-256color

@@ -25,8 +25,8 @@ export SPELLS
 [[ -f ~/.bashrc ]] && . ~/.bashrc >/dev/null
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-    toilet -f mono9 -F metal "Starting i3"
-    pgrep i3 || startx 2> /dev/null
+    toilet -f mono9 -F metal "Starting startup programs"
+    pgrep i3 || startx #2> /dev/null
     clear
 elif [[ $(tty) == *"tty"* ]] && [[ $(tty) != '/dev/tty2' ]]; then
     tmux new-session -s "$(basename "$(tty)")"
