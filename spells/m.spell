@@ -134,6 +134,11 @@ main () {
                 -r|--remote)
                     yes no | ssh mirrodin 'zsh -c "PATH=$PATH:~/.local/bin; . ~/.zprofile; ~/.local/bin/syncspellbook; ~/.local/bin/m add_song '"${*:3}"'"; ~/.local/bin/syncspellbook'
                     ;;
+                -q|--queue)
+                    shift
+                    m queue "$2"
+                    main add_song "${@:2}"
+                    ;;
                 *)
                     ./helpers/add_link.sh "${@:2}"
                     ;;

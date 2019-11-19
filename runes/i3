@@ -285,7 +285,7 @@ client.background       #FFFFFF
 #############################
 
 # Set inner/outer gaps
-gaps inner 8
+gaps inner 3
 gaps outer 0
 
 # Smart gaps (gaps used if only more than one container on the workspace)
@@ -299,13 +299,13 @@ smart_borders on
 set $mode_gaps Inner Gaps: +|-|0, Outer Gaps: Shift + +|-|0
 bindsym $mod+g mode "$mode_gaps"
 mode "$mode_gaps" {
-    bindsym plus  gaps inner current plus 5
-    bindsym minus gaps inner current minus 5
-    bindsym 0     gaps inner current set 8
+    bindsym plus  gaps inner current plus 1
+    bindsym minus gaps inner current minus 1
+    bindsym 0     gaps inner current set 3
 
-    bindsym Shift+plus  gaps outer current plus 5
-    bindsym Shift+minus gaps outer current minus 5
-    bindsym Shift+0     gaps outer current set 8
+    bindsym Shift+plus  gaps outer current plus 1
+    bindsym Shift+minus gaps outer current minus 1
+    bindsym Shift+0     gaps outer current set 0
 
     bindsym Return mode "default"
     bindsym Escape mode "default"

@@ -3,6 +3,9 @@
 
 [[ $- != *i* ]] && return
 
+unset HISTSIZE
+unset HISTFILESIZE
+shopt -s histappend
 
 for f in "$SPELLS"/runes/bash/*.bash
 do
