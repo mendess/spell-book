@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec >> /dev/stderr
+[ -n "$SSH_CONNECTION" ] && exec >> /dev/stderr
 
 if [ "$(uname -n)" = "mirrodin" ]
 then
@@ -22,42 +22,35 @@ if [[ -n $TMUX ]]; then
 fi
 
 start_tmux() {
-    if pgrep tmux &> /dev/null;
-    then
-        echo "\033[1mRunning sessions:\033[0m"
-        tmux list-sessions \
-            -F '#{session_name}:	(#{t:session_created})	#{?session_attached,yes,no}' \
-            | column -s'	' -t -N 'name,session created at,atached'
-        echo -n "Resume old session? [Y/n] "
-        read -r r
-        if [[ $r == "" ]] || [[ $r == "y" ]] || [[ $r == "Y" ]]; then
-            local sessions
-            sessions=$(tmux list-sessions | cut -d":" -f1)
-            if [[ $(echo "$sessions" | wc -l) != "1" ]]; then
-                echo "Which session?"
-                echo "$sessions"
-                echo -n "(default=$(echo "$sessions" | head -1))> "
-                read -r s
-                [[ -z "$s" ]] && s=$(echo "$sessions" | head -1)
-                tmux attach -t "$s"
-            else
-                tmux attach
+    echo -n "Launch tmux session? [Y/n] "
+    read -r r
+    if [[ $r == "" ]] || [[ $r == "y" ]] || [[ $r == "Y" ]]; then
+        if pgrep tmux &> /dev/null;
+        then
+            echo "\033[1mWhich session?\033[0m"
+            tmux list-sessions \
+                -F '#{session_name}:	(#{t:session_created})	#{?session_attached,yes,no}' \
+                | column -s'	' -t -N 'name,session created at,atached'
+
+            echo -n "(Nothing for a new session)> "
+            read -r r
+            if [ -z "$r" ]
+            then
+                tmux
+            elif ! tmux attach -t "$s"
+            then
+                echo "Starting a new session"
+                tmux
             fi
         else
             tmux
         fi
-    else
-        tmux
+        exit
     fi
 }
 
-if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" != "" ] && hash ls 2>/dev/null; then
-    echo -n "Launch tmux session? [Y/n] "
-    read -r r
-    if [[ $r == "" ]] || [[ $r == "y" ]] || [[ $r == "Y" ]]; then
-        start_tmux
-        exit
-    fi
+if [[ -z "$TMUX" ]] && [ -n "$SSH_CONNECTION" ] && hash ls 2>/dev/null; then
+    start_tmux
 fi
 
 if mn -V &> /dev/null && mn list | grep -v ' 0 ' > /dev/null
