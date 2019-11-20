@@ -148,3 +148,13 @@ discordStream() {
 svim() {
 	"$EDITOR" "$SPELLS"/"$1"
 }
+
+k() {
+	if lsusb | grep 'Mechanical' | grep 'Keyboard' &>/dev/null
+    then
+        setxkbmap us
+    else
+        setxkbmap pt
+    fi
+}
+
