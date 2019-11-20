@@ -33,8 +33,8 @@ start_tmux() {
                 | column -s'	' -t -N 'name,session created at,atached'
 
             echo -n "(Nothing for a new session)> "
-            read -r r
-            if [ -z "$r" ]
+            read -r s
+            if [ -z "$s" ]
             then
                 tmux
             elif ! tmux attach -t "$s"

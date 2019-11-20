@@ -6,7 +6,7 @@ function sync {
 
     if ! git diff-index --quiet HEAD -- ; then
         hasCommits="true"
-        git commit -m"Backup spell book | $(date '+%d/%m/%y %H:%M')"
+        git commit -m"Backup spell book | $(uname -n)@$(date '+%d/%m/%y %H:%M')"
     elif [ -n "`git rev-list @{u}..`" ]; then
         hasCommits="true"
     else
