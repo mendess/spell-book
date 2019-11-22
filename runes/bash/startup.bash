@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -n "$SSH_CONNECTION" ] && exec >> /dev/stderr
+[ -n "$SSH_CONNECTION" ] && [ -e /dev/stderr ] && exec >> /dev/stderr
 
 if [ "$(uname -n)" = "mirrodin" ]
 then

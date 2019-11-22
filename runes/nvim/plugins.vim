@@ -6,7 +6,6 @@ endif
 call plug#begin()
 
 " Color scheme
-Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 
 " File browser
@@ -39,11 +38,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 """ PLUGIN CONFIGS
-
-" Gruvbox config
-colorscheme gruvbox
-set background=dark
-let g:gruvbox_contrast_dark = 'hard'
 
 " Ayu config
 set termguicolors

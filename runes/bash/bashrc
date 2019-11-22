@@ -7,6 +7,13 @@ unset HISTSIZE
 unset HISTFILESIZE
 shopt -s histappend
 
+if [ -z "$SPELLS" ]
+then
+    tmp="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.bash_profile)")")")"
+    export SPELLS="$tmp"
+    unset tmp
+fi
+
 for f in "$SPELLS"/runes/bash/*.bash
 do
     #shellcheck disable=SC1090
