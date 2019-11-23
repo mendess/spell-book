@@ -14,15 +14,22 @@ up_next() {
 
     if [[ "$videoId" = *youtu* ]]
     then
-        videoId="$(echo "$videoId" | sed -r 's|.*/([^/]+)/?$|\1|g')"
-        filename=$(awk -F '\t' '$2 ~ /'"$videoId"'/ {print $1}' "$PLAYLIST")
+        id="$(echo "$videoId" | sed -r 's|.*/([^/]+)/?$|\1|g')"
+        filename=$(awk -F '\t' '$2 ~ /'"$id"'/ {print $1}' "$PLAYLIST")
+        if [ -z "$filename" ]
+        then
+            filename=$(youtube-dl --get-title "$videoId")
+        fi
     else
         filename=$(basename "$videoId" | sed -r 's/\.[^.]+$//')
     fi
     width=40
     [ "${#filename}" -gt $width ] && width="${#filename}"
-    echo "=== UP NEXT ==="
-    echo "$filename"
+    if [ -n "$filename" ] && [ "$filename" != null ]
+    then
+        echo "=== UP NEXT ==="
+        echo "$filename"
+    fi
 }
 
 current_song () {

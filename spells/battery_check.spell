@@ -9,31 +9,33 @@ if [ ! -f "/tmp/.battery" ]; then
     exit
 fi
 
-previous_battery_level=$(cat /tmp/.battery | head -n 1)
-previous_battery_state=$(cat /tmp/.battery | tail -n 1)
+previous_battery_level=$(head -n 1 /tmp/.battery)
+previous_battery_state=$(tail -n 1 /tmp/.battery)
 echo "$battery_level" > /tmp/.battery
 echo "$battery_state" >> /tmp/.battery
 
 checkBatteryLevel() {
-    if [ "$battery_state" != "Discharging" ] || [ "${battery_level}" == "${previous_battery_level}" ]; then
+    if [ "$battery_state" != "Discharging" ] || [ "${battery_level}" = "${previous_battery_level}" ]; then
         exit
     fi
 
-    if [ $battery_level -le 5 ]; then
+    if [ "$battery_level" -le 10 ]; then
         systemctl suspend
-    elif [ $battery_level -le 7 ]; then
+    elif [ "$battery_level" -le 20 ]; then
         notify-send "Low Battery" "Your computer will suspend soon unless plugged into a power outlet." -u critical
-    elif [ $battery_level -le 10 ]; then
+    elif [ "$battery_level" -le 30 ]; then
         notify-send "Low Battery" "${battery_level}% (${battery_remaining}) of battery remaining." -u normal
+    elif [ "$battery_level" -gt 90 ]; then
+        notify-send "Battery almost full: ${battery_level}%, unplug" -u low
     fi
 }
 
 checkBatteryStateChange() {
-    if [ "$battery_state" != "Discharging" ] && [ "$previous_battery_state" == "Discharging" ]; then
+    if [ "$battery_state" != "Discharging" ] && [ "$previous_battery_state" = "Discharging" ]; then
         notify-send "Charging" "Battery is now plugged in." -u low
     fi
 
-    if [ "$battery_state" == "Discharging" ] && [ "$previous_battery_state" != "Discharging" ]; then
+    if [ "$battery_state" = "Discharging" ] && [ "$previous_battery_state" != "Discharging" ]; then
         notify-send "Power Unplugged" "Your computer has been disconnected from power." -u low
     fi
 }

@@ -48,3 +48,7 @@ highlight Normal ctermbg=None
 
 set undodir=~/.cache/vimundo
 set undofile
+
+iabbrev ture true
+iabbrev stirng string
+iabbrev Stirng String

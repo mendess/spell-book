@@ -1,6 +1,6 @@
 """ LaTeX
 autocmd BufEnter *.tex set linebreak
-autocmd! BufEnter *.tex set tw=100
+autocmd! BufEnter *.tex set tw=80
 autocmd FileType tex map <leader>r :silent !pdflatex --shell-escape %:p > /dev/null &<Return>
 autocmd BufEnter *.tex command! Re !pdflatex --shell-escape %:p
 " LaTeX snippets

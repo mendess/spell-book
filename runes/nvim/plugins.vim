@@ -71,7 +71,7 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:goyo_height='90'
-let g:goyo_width='105'
+let g:goyo_width='95'
 
 " coc
 " Use tab for trigger completion with characters ahead and navigate.

@@ -11,4 +11,4 @@ autocmd! FileType markdown noremap  <buffer> <silent> k gk
 autocmd! FileType markdown noremap  <buffer> <silent> j gj
 autocmd! FileType markdown noremap  <buffer> <silent> 0 g0
 autocmd! FileType markdown noremap  <buffer> <silent> $ g$
-autocmd! BufEnter *.md set tw=100
+autocmd! BufEnter *.md set tw=80
