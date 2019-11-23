@@ -52,3 +52,5 @@ set undofile
 iabbrev ture true
 iabbrev stirng string
 iabbrev Stirng String
+autocmd! BufEnter *.c iabbrev use #include <
+autocmd! BufEnter *.cpp iabbrev use #include <
