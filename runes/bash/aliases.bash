@@ -39,10 +39,9 @@ then
     alias la='exa -la'
     alias lg='exa -laah --git'
 fi
-alias lg='exa -laah --git'
 alias l='ls -lha'
 alias ll='ls -lh'
-alias cl="clear; ls -lh"
+alias cl="clear; ls -1"
 alias clg="clear; ls -lh --git"
 # DOCKER
 alias doc='docker'
