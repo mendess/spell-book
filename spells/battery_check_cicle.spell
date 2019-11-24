@@ -6,5 +6,5 @@ fi
 while true;
 do
     battery_check
-    sleep 10
+    sleep 1m
 done
