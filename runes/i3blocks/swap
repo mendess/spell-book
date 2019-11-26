@@ -1,0 +1,6 @@
+#!/bin/bash
+
+[ -e /tmp/.bloat ] || exit
+
+free -h | awk '$1 == "Swap:" { print $3 }'
+free -h | awk '$1 == "Swap:" { print $3 }'

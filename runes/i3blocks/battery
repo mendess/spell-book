@@ -2,6 +2,7 @@
 
 from sys import exit
 from subprocess import check_output
+from os import path
 import re
 
 acpi = check_output(['acpi', '-b']).decode('utf-8')
@@ -15,16 +16,16 @@ status = m.group(1)
 percent = m.group(2)
 
 if status == 'Discharging':
-    print_status = '🔻'
+    print_status = '▽'
 elif status == 'Charging':
-    print_status = '🟡'
+    print_status = '△'
 else:
-    print_status = '🟢'
+    print_status = '⬙'
 
-if 'harging' not in status:
+if 'harging' not in status or not path.exists('/tmp/.bloat'):
     time = ""
 else:
-    time = "({})".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
+    time = "{}".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
 
 print(percent, print_status, time)
 print(percent, print_status, time)

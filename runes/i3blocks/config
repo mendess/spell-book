@@ -62,18 +62,21 @@ signal=10
 
 # Disk usage
 [disk]
-interval=120
+interval=once
+signal=11
 
 # Network interface monitoring
 [iface]
 #instance=wlan0
 color=#00FF00
-interval=10
+interval=once
 separator=false
+signal=11
 
 [wifi]
 instance=wlp5s0
-interval=10
+interval=once
+signal=11
 
 #[bandwidth]
 ##instance=eth0
@@ -87,15 +90,21 @@ interval=10
 # separator=false
 
 [load_average]
-interval=10
+interval=once
+signal=11
+
+[swap]
+interval=once
+signal=11
 
 # Battery indicator
 [battery]
 label=⚡
 #instance=1
 interval=30
+signal=11
 
 # Date Time
 [time]
-command=date +"📆 %d-%m-%Y⌚%H:%M"
+command=date +"%d/%m %H:%M"
 interval=5

@@ -17,6 +17,8 @@
 #DIR="${BLOCK_INSTANCE:-$HOME}"
 #ALERT_LOW="${1:-10}" # color will turn red under this value (default: 10%)
 
+[ -e /tmp/.bloat ] || exit
+
 free_space () {
     df -h \
         | grep '^/dev' \
@@ -29,5 +31,5 @@ free_space () {
 }
 
 SPACE="$(free_space)"
-echo "💽" "$SPACE"
-echo "💽" "$SPACE"
+echo "$SPACE"
+echo "$SPACE"

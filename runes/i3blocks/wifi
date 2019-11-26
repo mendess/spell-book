@@ -16,6 +16,8 @@
 
 #------------------------------------------------------------------------
 
+[ -e /tmp/.bloat ] || exit
+
 INTERFACE="${BLOCK_INSTANCE:-wlp5s0}"
 
 #------------------------------------------------------------------------
@@ -32,8 +34,8 @@ SSID=$(nmcli -t dev | awk -F':' '$2 == "wifi" && $3 == "connected" {print $4}')
 
 #------------------------------------------------------------------------
 
-echo "$SSID" "$QUALITY"% # full text
-echo "$SSID" "$QUALITY"% # short text
+echo "$(echo "$SSID" | sed -r 's/^(.{8}).*/\1.../')" "$QUALITY"% # full text
+echo "$(echo "$SSID" | sed -r 's/^(.{8}).*/\1.../')" "$QUALITY"% # short text
 
 # color
 if [[ $QUALITY -ge 80 ]]; then
