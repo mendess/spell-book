@@ -4,9 +4,11 @@
 
 # Must have xclip installed to even show menu.
 xclip -h >/dev/null || exit
-spelldir="${0%/*}"
 
-chosen=$(grep -v "#" "$spelldir" | dmenu -i -l 20 -fn Monospace-18)
+# shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
+. library
+
+chosen=$(grep -v "#" "$EMOJIS" | dmenu -i -l 20 -fn Monospace-18)
 
 [ "$chosen" != "" ] || exit
 

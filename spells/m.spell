@@ -45,7 +45,7 @@ current_song () {
             | socat - "$(mpvsocket)" \
             | jq '.data.title' -r)
 
-    if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]
+    if [ -z "$filename" ] || [ "$filename" = "_" ]# || [ "$filename" = "$videoId" ]
     then
         [ -z "$videoId" ] && exit 1
         filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
