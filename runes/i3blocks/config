@@ -5,7 +5,6 @@ markup=none
 [media]
 interval=30
 signal=10
-signal=11
 
 [brightness]
 interval=once
