@@ -48,6 +48,7 @@ alias doc='docker'
 alias dor='docker run'
 alias dob='docker build'
 alias dos='docker stop'
+alias dop='yes | docker container prune'
 ## GIT
 alias gb='g --no-pager branch -vv'
 alias gdd='git difftool --tool=vimdiff'

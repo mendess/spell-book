@@ -17,7 +17,7 @@ echo "$battery_state" >> /tmp/.battery
 checkBatteryLevel() {
     [ "$battery_level" = "$previous_battery_level" ] && exit
 
-    if [ "$battery_state" != "Discharging" ] && [ "$battery_level" -gt 90 ]; then
+    if [ "$battery_state" != "Discharging" ] && [ "$battery_level" -ge 80 ]; then
         notify-send "Battery almost full: ${battery_level}%, unplug" -u low
     elif [ "$battery_state" = "Discharging" ]; then
         if [ "$battery_level" -le 10 ]; then

@@ -10,7 +10,7 @@ _za() {
 complete -F _za za
 complete -F _za pdf
 
-_f() {
+_svim() {
 	local curw
 	local files
 	curw=${COMP_WORDS[COMP_CWORD]}
@@ -19,7 +19,7 @@ _f() {
 	return
 }
 
-complete -F _f svim
+complete -F _svim svim
 
 _ssh()
 {

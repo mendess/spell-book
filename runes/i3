@@ -163,6 +163,8 @@ mode "$mode_system" {
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym $mod+F6              exec --no-startup-id sh -c 'echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 5 )) > /sys/class/backlight/intel_backlight/brightness'
+bindsym $mod+F5              exec --no-startup-id sh -c 'echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 5 )) > /sys/class/backlight/intel_backlight/brightness'
 ############## FLOATING
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s     sticky toggle
@@ -180,10 +182,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 #assign [class="firefox"] workspace number 2
 #assign [class="discord"] $ws2
 assign [class="Steam"] workspace number 2
-assign [class="jetbrains"] $ws5
-assign [class="[Running] - Oracle VM VirtualBox"] $ws6
+assign [class="jetbrains"] workspace number 5
+assign [class="[Running] - Oracle VM VirtualBox"] workspace number 6
 
-for_window [title="my-media-player"] move workspace $ws9
+for_window [title="my-media-player"]              move workspace number 9
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
 for_window [class="Sxiv"]                         floating enable border pixel 1
 for_window [class="feh"]                          floating enable border pixel 1

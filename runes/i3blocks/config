@@ -1,73 +1,21 @@
-# i3blocks config file
-#
-# Please see man i3blocks for a complete reference!
-# The man page is also hosted at http://vivien.github.io/i3blocks
-#
-# List of valid properties:
-#
-# align
-# color
-# command
-# full_text
-# instance
-# interval
-# label
-# min_width
-# name
-# separator
-# separator_block_width
-# short_text
-# signal
-# urgent
-
-# Global properties
-#
-# The top properties below are applied to every block, but can be overridden.
-# Each block command defaults to the script name to avoid boilerplate.
 command=$HOME/.config/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-# Volume indicator
-#
-# The first parameter sets the step (and units to display)
-# The second parameter overrides the mixer selection
-# See the script for details.
-#[volume]
-#label=VOL
-#label=♪
-#instance=Master
-#instance=PCM
-#interval=once
-#signal=10
-
-# Memory usage
-#
-# The type defaults to "mem" if the instance is not specified.
-# [memory]
-# label=MEM
-# interval=10
-# separator=false
-# interval=30
-
-# [memory]
-# label=SWAP
-# instance=swap
-# separator=false
-# interval=30
-
 [media]
 interval=30
 signal=10
+signal=11
 
-# Disk usage
+[brightness]
+interval=once
+signal=11
+
 [disk]
 interval=once
 signal=11
 
-# Network interface monitoring
 [iface]
-#instance=wlan0
 color=#00FF00
 interval=once
 separator=false
@@ -78,33 +26,20 @@ instance=wlp5s0
 interval=once
 signal=11
 
-#[bandwidth]
-##instance=eth0
-#interval=5
-
-# CPU usage
-# [cpu_usage]
-# label=CPU
-# interval=10
-# min_width=CPU: 100.00%
-# separator=false
-
 [load_average]
 interval=once
 signal=11
 
-[swap]
+[memory]
+instance=swap
 interval=once
 signal=11
 
-# Battery indicator
 [battery]
 label=⚡
-#instance=1
 interval=30
 signal=11
 
-# Date Time
 [time]
 command=date +"%d/%m %H:%M"
 interval=5

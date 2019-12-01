@@ -3,17 +3,19 @@ autocmd Filetype tex call SetWritingOpts()
 function SetWritingOpts()
     set linebreak
     set tw=80
-    inoremap `A A
-    inoremap `E É
-    inoremap `a à
-    inoremap `e é
-    inoremap `o ó
-    inoremap `u ú
-    inoremap ~a ã
-    noremap  <buffer> <silent> k gk
-    noremap  <buffer> <silent> j gj
-    noremap  <buffer> <silent> 0 g0
-    noremap  <buffer> <silent> $ g$
+    iabbrev `A A
+    iabbrev `E É
+    iabbrev `a à
+    iabbrev `e é
+    iabbrev `o ó
+    iabbrev `u ú
+    iabbrev ~a ã
+    iabbrev tb também
+    iabbrev nao não
+    noremap <buffer> <silent> k gk
+    noremap <buffer> <silent> j gj
+    noremap <buffer> <silent> 0 g0
+    noremap <buffer> <silent> $ g$
 endfunction
 
 autocmd FileType tex call SetTexOpts()

@@ -3,8 +3,9 @@
 
 [[ $- != *i* ]] && return
 
-unset HISTSIZE
-unset HISTFILESIZE
+export HISTSIZE="INFINITY + 1"
+PROMPT_COMMAND='history -a;history -n'
+export HISTCONTROL='ignoredups'
 shopt -s histappend
 
 if [ -z "$SPELLS" ]

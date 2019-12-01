@@ -22,6 +22,11 @@ SPELLS=""
 SPELLS="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.bash_profile)")")")"
 export SPELLS
 
+# FZF
+export FZF_DEFAULT_OPTS='
+--height 40%
+--preview '\''(bat --color always --style plain {} || cat {} || tree -C {}) 2>/dev/null '
+
 #shellcheck source=/home/mendess/.bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 

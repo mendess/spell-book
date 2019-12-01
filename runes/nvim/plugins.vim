@@ -35,6 +35,8 @@ Plug 'vim-python/python-syntax'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug '/usr/bin/fzf'
+
 call plug#end()
 
 """ PLUGIN CONFIGS
@@ -110,4 +112,7 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Autoformat
 map <leader>f :Neoformat<CR>
-" autocmd! BufWritePre *.rs :Autoformat
+
+" FZZ
+nmap <leader>p :FZF<CR>
+nmap <leader>P :FZF<CR>

@@ -16,7 +16,9 @@
 
 TYPE="${BLOCK_INSTANCE:-mem}"
 
-awk -v type=$TYPE '
+[ -e /tmp/.bloat ] || exit
+
+awk -v type="$TYPE" '
 /^MemTotal:/ {
 	mem_total=$2
 }

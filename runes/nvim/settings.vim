@@ -53,7 +53,7 @@ iabbrev ture true
 iabbrev stirng string
 iabbrev Stirng String
 iabbrev tho though
-autocmd! BufEnter *.md iabbrev tb também
-autocmd! BufEnter *.tex iabbrev tb também
-autocmd! BufEnter *.c iabbrev use #include <
-autocmd! BufEnter *.cpp iabbrev use #include <
+autocmd! FileType c iabbrev use #include <
+autocmd! FileType cpp iabbrev use #include <
+autocmd! FileType rust iabbrev if if<++> {<++>},,
+autocmd! FileType c iabbrev if if (<++>) {<++>},,

@@ -4,3 +4,5 @@ set default-bg "#666666"
 map i recolor
 map I recolor
 set recolor-lightcolor "#181A1C"
+map b toggle_statusbar
+map B toggle_statusbar

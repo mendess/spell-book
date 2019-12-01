@@ -146,7 +146,15 @@ discordStream() {
 
 
 svim() {
-	"$EDITOR" "$SPELLS"/"$1"
+    if [ -n "$1" ]; then
+	    "$EDITOR" "$SPELLS"/"$1"
+    else
+        cd "$SPELLS" || exit 1
+        local DIR
+        DIR="$(find . -type f | grep -v '.git' | sed 's|^./||g' | fzf)"
+        [ -n "$DIR" ] && "$EDITOR" "$DIR"
+        cd - &>/dev/null || exit 1
+    fi
 }
 
 k() {

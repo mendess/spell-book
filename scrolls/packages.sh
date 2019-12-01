@@ -15,6 +15,7 @@ dunst
 entr
 feh
 firefox
+fzf
 gdb
 gimp
 gparted
@@ -55,9 +56,9 @@ urxvt-perls
 wget
 xclip
 xorg-server
+xorg-xdpyinfo
 xorg-xinit
 xorg-xrandr
-xorg-xdpyinfo
 xz
 youtube-dl
 zathura
