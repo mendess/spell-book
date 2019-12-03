@@ -3,7 +3,6 @@
 
 [[ $- != *i* ]] && return
 
-exit
 export HISTSIZE="INFINITY + 1"
 PROMPT_COMMAND='history -a;history -n'
 export HISTCONTROL='ignoredups'
