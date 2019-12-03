@@ -166,3 +166,19 @@ k() {
     fi
 }
 
+advent-of-code() {
+    if [[ "$1" != day* ]]; then echo "bad input: '$1'"; exit 1; fi
+    cargo new "$1" || exit 1
+    cd "$1" || exit 1
+    echo '
+[[bin]]
+name = "one"
+path = "src/one.rs"
+
+[[bin]]
+name = "two"
+path = "src/two.rs"' >> Cargo.toml
+    cp src/main.rs src/one.rs
+    cp src/main.rs src/two.rs
+    rm src/main.rs
+}
