@@ -9,7 +9,7 @@
 # - $FZF_TMUX_HEIGHT        (default: '40%')
 # - $FZF_COMPLETION_TRIGGER (default: '**')
 # - $FZF_COMPLETION_OPTS    (default: empty)
-hash fzf &>/dev/null || exit
+hash fzf &>/dev/null || return
 
 if [[ $- =~ i ]]; then
 
