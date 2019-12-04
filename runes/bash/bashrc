@@ -2,7 +2,7 @@
 
 
 [[ $- != *i* ]] && return
-[ -n "$SSH_CLIENT" ] && exit
+[ -n "$SSH_CLIENT" ] && return
 
 export HISTSIZE="INFINITY + 1"
 PROMPT_COMMAND='history -a;history -n'
