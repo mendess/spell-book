@@ -3,9 +3,10 @@
 
 [[ $- != *i* ]] && return
 
-ls
-#scp -r .shortcuts mendess@mirrodin:~
-#scp -r .shortcuts mendess@mirrodin:~
+ls -l
+scp -r .shortcuts mendess@mirrodin:~/termux
+scp -r '.local' mendess@mirrodin:~/termux
+scp setup.sh mendess@mirrodin:~/termux
 
 export HISTSIZE="INFINITY + 1"
 PROMPT_COMMAND='history -a;history -n'
