@@ -62,12 +62,12 @@ pac && nvim -c PlugInstall -c qall
 
 # (AUR manager)
 aur && {
-    mkdir tmp
+    sudo -u mendess mkdir tmp
     cd tmp || exit 1
     for i in "${aurpackages[@]}"
     do
         old="$(pwd)"
-        git clone https://aur.archlinux.org/"$i"
+        sudo -u mendess git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
         yes | sudo -u mendess makepkg -si --skippgpcheck --clean
         cd "$old" || exit 1
