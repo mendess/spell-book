@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 if [ "$#" = 0 ]
 then
     ALL=1
