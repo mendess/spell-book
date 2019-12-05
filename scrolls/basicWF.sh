@@ -53,7 +53,7 @@ cargopackages=()
 #shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
-pac && yes | sudo pacman -S  "${packages[@]}"
+pac && yes | sudo pacman -S --needed  "${packages[@]}"
 
 pac && yes | sudo pacman -Rsn "${bloat[@]}"
 
@@ -74,8 +74,7 @@ carg && cargo install "${cargopackages[@]}"
 
 # Compton
 pac && {
-yes n | sudo pacman -S libconfig libxdg-basedir asciidoc
-exit
+yes | sudo pacman -S --needed libconfig libxdg-basedir asciidoc
 cd /tmp || exit 1
 git clone https://github.com/tryone144/compton
 cd compton || exit 1
