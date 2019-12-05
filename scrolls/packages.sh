@@ -3,26 +3,28 @@
 export packages=(
 acpi
 alsa-utils
+bat
 bc
 clang
 cmake
-compton
 cronie
 curl
 dash
+discord
 dmenu
 dunst
 entr
+exa
 feh
 firefox
+fortune-mod
 fzf
 gdb
 gimp
-gparted
 htop
 i3-gaps
-i3lock
 i3blocks
+i3lock
 imagemagick
 jq
 mpv
@@ -44,11 +46,11 @@ python-pygments
 rsync
 rtv
 rustup
-rxvt-unicode
 scrot
 socat
 surf
 sxiv
+termite
 tmux
 tree
 ttf-dejavu
@@ -70,21 +72,16 @@ zip
 export aurpackages=(
 dropbox
 dropbox-cli
-discord
 entr
-fortune-mod
 ncpamixer
 pacmixer
 toilet
-urxvt-resize-font-git
 shellcheck-static
 )
 
 export cargopackages=(
-tealdeer
+#tealdeer
 hyperfine
-exa
-bat
 cargo-watch
 racer
 )

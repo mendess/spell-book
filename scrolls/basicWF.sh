@@ -84,12 +84,13 @@ carg && {
 # Compton
 pac && {
 yes | sudo pacman -S --needed libconfig libxdg-basedir asciidoc
-cd /tmp || exit 1
 git clone https://github.com/tryone144/compton
 cd compton || exit 1
 make
 make docs
 sudo make install
+cd ..
+rm -rf compton
 }
 
 pac && sudo ln -sf /usr/bin/dash /usr/bin/sh
