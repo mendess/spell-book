@@ -72,7 +72,7 @@ aur && {
         cd /tmp || exit 1
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
-        yes | sudo -u mendess makepkg -si --clean
+        yes | makepkg -si --clean
         cd "$old" || exit 1
     done
 }
