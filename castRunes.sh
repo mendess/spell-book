@@ -7,7 +7,7 @@ then
 
     cd "$SPELLS/runes" || exit 1
 else
-    cd "$(dirname "$0")" || exit 1
+    cd "$(dirname "$0")"/runes || exit 1
 fi
 
 expandedRunes=()
