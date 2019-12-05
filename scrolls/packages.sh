@@ -27,6 +27,7 @@ imagemagick
 jq
 mpv
 neofetch
+neovim
 network-manager-applet
 nitrogen
 nmap
