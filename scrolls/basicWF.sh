@@ -64,15 +64,18 @@ pac && nvim -c PlugInstall -c qall
 
 # (AUR manager)
 aur && {
+    mkdir tmp
+    cd tmp || exit 1
     for i in "${aurpackages[@]}"
     do
         old="$(pwd)"
-        cd /tmp || exit 1
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
         yes | makepkg -si --skippgpcheck --clean
         cd "$old" || exit 1
     done
+    cd ..
+    rm -rf tmp
 }
 
 carg && {
