@@ -69,7 +69,7 @@ aur && {
         old="$(pwd)"
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
-        yes | makepkg -si --skippgpcheck --clean
+        yes | sudo -u mendess makepkg -si --skippgpcheck --clean
         cd "$old" || exit 1
     done
     cd ..
