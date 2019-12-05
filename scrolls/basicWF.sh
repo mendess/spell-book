@@ -64,8 +64,6 @@ pac && nvim -c PlugInstall -c qall
 
 # (AUR manager)
 aur && {
-    #shellcheck source=/home/mendess/Projects/spell-book/runes/bash/functions.bash
-    source ../runes/bash/functions.bash
     for i in "${aurpackages[@]}"
     do
         old="$(pwd)"
