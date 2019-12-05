@@ -70,7 +70,7 @@ aur && {
         cd /tmp || exit 1
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
-        yes | makepkg -si --clean
+        yes | makepkg -si --skippgpcheck --clean
         cd "$old" || exit 1
     done
 }
