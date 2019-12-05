@@ -66,11 +66,19 @@ aur && {
     source ../runes/bash/functions.bash
     for i in "${aurpackages[@]}"
     do
-        yes | aura -S "$i"
+        old="$(pwd)"
+        cd /tmp || exit 1
+        git clone https://aur.archlinux.org/"$1"
+        cd "$1" || exit 1
+        yes | makepkg -si --clean
+        cd "$old" || exit 1
     done
 }
 
-carg && cargo install "${cargopackages[@]}"
+carg && {
+    rustup default stable
+    cargo install "${cargopackages[@]}"
+}
 
 # Compton
 pac && {
