@@ -1,9 +1,14 @@
 #!/bin/bash
 
-#shellcheck source=/home/mendess/.local/bin/library
-. library
+if hash library 2>/dev/null
+then
+    #shellcheck source=/home/mendess/.local/bin/library
+    . library
 
-cd "$SPELLS/runes" || exit 1
+    cd "$SPELLS/runes" || exit 1
+else
+    cd "$(dirname "$0")" || exit 1
+fi
 
 expandedRunes=()
 

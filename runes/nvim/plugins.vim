@@ -34,6 +34,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'vim-python/python-syntax'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'lervag/vimtex'
 
 Plug '/usr/bin/fzf'
 
@@ -73,7 +74,7 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:goyo_height='90'
-let g:goyo_width='95'
+let g:goyo_width='83'
 
 " coc
 " Use tab for trigger completion with characters ahead and navigate.
