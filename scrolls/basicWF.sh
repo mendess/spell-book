@@ -68,8 +68,8 @@ aur && {
     do
         old="$(pwd)"
         cd /tmp || exit 1
-        git clone https://aur.archlinux.org/"$1"
-        cd "$1" || exit 1
+        git clone https://aur.archlinux.org/"$i"
+        cd "$i" || exit 1
         yes | makepkg -si --clean
         cd "$old" || exit 1
     done
