@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ "$#" = 0 ]
 then
     ALL=1
@@ -70,7 +72,7 @@ aur && {
         cd /tmp || exit 1
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
-        yes | makepkg -si --clean
+        yes | sudo -u mendess makepkg -si --clean
         cd "$old" || exit 1
     done
 }
