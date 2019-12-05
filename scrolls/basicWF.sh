@@ -60,12 +60,7 @@ pac && yes | sudo pacman -Rsn "${bloat[@]}"
 ## NEOVIM
 pac && nvim -c PlugInstall -c qall
 
-#Oh My Zsh
-zsh && \
-    curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh \
-    | sh
-
-# Yay (AUR manager)
+# (AUR manager)
 aur && {
     #shellcheck source=/home/mendess/.bashrc
     source ~/.bashrc
@@ -88,6 +83,8 @@ make
 make docs
 sudo make install
 }
+
+pac && sudo ln -sf /usr/bin/dash /usr/bin/sh
 
 cd "$script_dir" || exit 1
 #../spells/syncspellbook.spell

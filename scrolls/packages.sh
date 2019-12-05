@@ -64,7 +64,6 @@ youtube-dl
 zathura
 zathura-pdf-poppler
 zip
-zsh
 )
 
 export aurpackages=(
@@ -91,4 +90,5 @@ racer
 
 export bloat=(
 nano
+vim
 )
