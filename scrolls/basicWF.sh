@@ -62,11 +62,11 @@ pac && nvim -c PlugInstall -c qall
 
 # (AUR manager)
 aur && {
-    #shellcheck source=/home/mendess/.bashrc
-    source ~/.bashrc
+    #shellcheck source=/home/mendess/Projects/spell-book/runes/bash/functions.bash
+    source ../runes/bash/functions.bash
     for i in "${aurpackages[@]}"
     do
-        aura -S "$i"
+        yes | aura -S "$i"
     done
 }
 
