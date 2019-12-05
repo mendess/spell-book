@@ -67,12 +67,12 @@ zsh && \
 
 # Yay (AUR manager)
 aur && {
-cd /tmp || exit 1
-git clone https://aur.archlinux.org/yay.git
-cd yay || exit 1
-makepkg -s
-
-yay -S "${aurpackages[@]}"
+    #shellcheck source=/home/mendess/.bashrc
+    source ~/.bashrc
+    for i in "${aurpackages[@]}"
+    do
+        aura -S "$i"
+    done
 }
 
 carg && cargo install "${cargopackages[@]}"
