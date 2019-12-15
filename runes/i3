@@ -29,14 +29,6 @@ set $ws7 7
 set $ws8 8
 set $ws9 9: Media
 
-######################################## ON BOOT LAUNCH APPS ###################################
-# exec --no-startup-id changeMeWallCicle
-# exec --no-startup-id compton -I 1 -O 1
-# exec --no-startup-id dropbox start
-# exec --no-startup-id battery_check_cicle
-# exec --no-startup-id dunst
-# exec --no-startup-id setxkbmap -option caps:escape
-
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
 bindsym $mod+Return       exec --no-startup-id $term
@@ -47,7 +39,6 @@ bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/me
 bindsym $mod+F9           exec --no-startup-id changeMeWall
 bindsym $mod+F8           exec --no-startup-id nitrogen --head="0" --set-zoom-fill ~/Pictures/Wallpapers/home.png && nitrogen --head="1" --set-zoom-fill ~/Pictures/Wallpapers/home.png
 bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
-bindsym $mod+Mod1+m       exec --no-startup-id $term -e 'ncpamixer'
 bindsym $mod+F2           exec --no-startup-id firefox
 bindsym $mod+Shift+F2     exec --no-startup-id firefox -private-window https://duckduckgo.com/
 bindsym $mod+F3           exec --no-startup-id discord
@@ -61,7 +52,6 @@ bindsym $mod+Ctrl+s       exec --no-startup-id urxvt --title floating-terminal -
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e 'bc -l'
 bindsym $mod+x            exec --no-startup-id urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
-bindsym $mod+Shift+x      exec --no-startup-id urxvt --title floating-terminal-weather -e "curl http://wttr.in/ && read -s -r -n 1"
 bindsym $mod+v            exec --no-startup-id playClipboard
 bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.p https://youtu.be/'$(m current -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && m next-file"
 
@@ -163,8 +153,8 @@ mode "$mode_system" {
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-bindsym $mod+F6              exec --no-startup-id sh -c 'echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 5 )) > /sys/class/backlight/intel_backlight/brightness'
-bindsym $mod+F5              exec --no-startup-id sh -c 'echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 5 )) > /sys/class/backlight/intel_backlight/brightness'
+bindsym $mod+F6              exec --no-startup-id sh -c 'echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness'
+bindsym $mod+F5              exec --no-startup-id sh -c 'echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness'
 ############## FLOATING
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s     sticky toggle
@@ -172,11 +162,11 @@ bindsym $mod+Shift+y     move left 30 px
 bindsym $mod+Shift+u     move down 30 px
 bindsym $mod+Shift+i     move up 30 px
 bindsym $mod+Shift+o     move right 30 px
-#bindsym $mod+p fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 1500 800
-#bindsym $mod+Shift+p sticky disable; floating disable
+bindsym $mod+p           fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 1500 800
+bindsym $mod+Shift+p     sticky disable; floating disable
 ############## MISC
-bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+r     restart
+bindsym $mod+Shift+e     exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 ####################################### BEHAVIOR ##############################################
 #assign [class="firefox"] workspace number 2

@@ -45,7 +45,7 @@ current_song () {
             | socat - "$(mpvsocket)" \
             | jq '.data.title' -r)
 
-    if [ -z "$filename" ] || [ "$filename" = "_" ]# || [ "$filename" = "$videoId" ]
+    if [ -z "$filename" ] || [ "$filename" = "_" ] # || [ "$filename" = "$videoId" ]
     then
         [ -z "$videoId" ] && exit 1
         filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
@@ -105,6 +105,10 @@ add_cat () {
     done
 }
 
+last_queue() {
+    echo "$(mpvsocket)_last_queue"
+}
+
 queue () {
     if [ "$#" -lt 1 ]
     then
@@ -115,16 +119,25 @@ queue () {
     echo '{ "command": ["loadfile", "'"$1"'", "append"]}' \
         | socat - "$(mpvsocket)" \
         | jq --raw-output .error
+    local COUNT CURRENT TARGET LAST_QUEUE
     COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' \
         | socat - "$(mpvsocket)" \
         | jq --raw-output '.data')
     CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' \
         | socat - "$(mpvsocket)" \
         | jq --raw-output '.data')
-    echo -n 'Moving: '
-    echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$((CURRENT + 1))']}' \
+
+    TARGET=$((CURRENT + 1))
+    LAST_QUEUE="$(last_queue)"
+    if [ -e "$LAST_QUEUE" ] && [ "$TARGET" -le "$(cat "$LAST_QUEUE")" ]
+    then
+        TARGET=$(( $(cat "$LAST_QUEUE") + 1 ))
+    fi
+    echo -n "Moving from $COUNT -> $TARGET"
+    echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$TARGET']}' \
         | socat - "$(mpvsocket)" \
         | jq --raw-output .error
+    echo "$TARGET" > "$LAST_QUEUE"
 }
 
 main () {

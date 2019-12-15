@@ -54,6 +54,7 @@ termite
 tmux
 tree
 ttf-dejavu
+ttf-hack
 unzip
 urxvt-perls
 wget

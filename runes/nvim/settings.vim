@@ -53,6 +53,8 @@ iabbrev ture true
 iabbrev stirng string
 iabbrev Stirng String
 iabbrev tho though
+iabbrev flase false
+iabbrev Flase False
 autocmd! FileType c iabbrev use #include <
 autocmd! FileType cpp iabbrev use #include <
 autocmd! FileType rust iabbrev if if<++> {<++>},,

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 newsboat -x reload
-if ! newsboat -x print-unread | grep -P '^0 unread articles' >/dev/null
+if ! newsboat -x print-unread | grep -P '^0 unread articles'
 then
     notify-send "New Articles" "$(newsboat -x print-unread)"
 fi
