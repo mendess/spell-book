@@ -182,3 +182,11 @@ path = "src/two.rs"' >> Cargo.toml
     cp src/main.rs src/two.rs
     rm src/main.rs
 }
+
+degen() {
+    python3 -c '
+from random import choice
+from sys import argv
+print("".join((map(lambda x: x.upper() if choice([True, False]) else x.lower(), " ".join(argv[1:])))))
+' "$@"
+}
