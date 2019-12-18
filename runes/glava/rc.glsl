@@ -13,7 +13,7 @@
    as a 2D sampler.
 
    See documentation for more details. */
-#request mod radial
+#request mod bars
 
 /* Window hints */
 #request setfloating  true
@@ -45,7 +45,7 @@
 #request setshaderversion 330
 
 /* Window title */
-#request settitle "floating-terminal"
+#request settitle "Glava"
 
 /* Window geometry (x, y, width, height) */
 #request setgeometry 0 0 800 600
