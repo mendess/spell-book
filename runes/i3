@@ -76,6 +76,7 @@ bindsym $mod+Insert          exec --no-startup-id m current --notify
 bindsym $mod+Delete          exec --no-startup-id m add-cat-to-current
 bindsym $mod+BackSpace       exec --no-startup-id sh -c "echo quit | socat - /tmp/mpvalarm"
 bindsym $mod+comma           exec --no-startup-id show_full_bar
+bindsym $mod+Shift+Insert    exec --no-startup-id glava
 
 ####### NAVIGATION
 bindsym $mod+j         focus down
@@ -153,6 +154,7 @@ mode "$mode_system" {
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86MicrofoneMute        exec --no-startup-id pactl set-source-mute 1 toggle # mute sound
 bindsym $mod+F6              exec --no-startup-id sh -c 'echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness'
 bindsym $mod+F5              exec --no-startup-id sh -c 'echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness'
 ############## FLOATING
@@ -194,7 +196,6 @@ for_window [title="Steam"]                        floating disable
 for_window [title="CG-Assignment"]                floating enable border normal
 for_window [title="CG-Engine"]                    floating enable border normal
 for_window [class="jetbrains-toolbox"]            floating enable
-for_window [title="DAD --"]                       floating enable border normal
 for_window [class="Tk"]                           floating enable
 
 # switch to workspace with urgent window automatically

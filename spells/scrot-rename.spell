@@ -4,8 +4,6 @@
 
 rename="$(true | dmenu -p 'Select picture name' | sed 's/^\s *//; s/\s*$//; s/\s\s*/_/g').png"
 
-if [ -z "$rename" ]; then
-    mv $1 ~/Pictures
-else
-    mv $1 ~/Pictures/"$rename"
+if [ -n "$rename" ]; then
+    mv "$1" ~/Pictures/"$rename"
 fi

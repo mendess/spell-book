@@ -1,6 +1,6 @@
 #!/bin/bash
 
-runes="$SPELLS/runes.csv"
+runes="$SPELLS/runes/.db"
 
 if [ $# -lt 1 ]
 then
@@ -31,7 +31,7 @@ do
             shift
             shift
             ;;
-        -h)
+        -h|--help)
             cat <<EOF
 Usage add_rune [-a alternate] [-o options]
 

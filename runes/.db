@@ -19,3 +19,8 @@
 ~/.bashrc,bash/bashrc
 ~/.bash_profile,bash/profile
 ~/.inputrc,inputrc
+~/.config/glava/rc.glsl,glava_rc.gsl
+~/.config/glava/bars.glsl,glava_bars.gsl
+~/.config/glava/circle.glsl,glava_circl.gsl
+~/.config/glava/wave.glsl,glava_wave.glsl
+~/.config/glava/graph.glsl,glava_graph.glsl
