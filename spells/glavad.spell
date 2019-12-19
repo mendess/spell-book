@@ -1,3 +1,12 @@
-#!/bin/sh
-glava --request='setgeometry 0 0 1920 1080' -d &
-disown
+#!/bin/bash
+if pgrep -a -o glava | grep -v 'glavad'
+then
+    pkill glava
+else
+    glava \
+        --request='setgeometry 0 0 1920 1080' \
+        --request='setopacity "xroot"' \
+        -d &
+
+    disown
+fi
