@@ -53,7 +53,7 @@ cargopackages=()
 #shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
-read -r -s PASSWORD -p "[sudo] password for $LOGNAME"
+read -r -s -p "[sudo] password for $LOGNAME" PASSWORD
 
 pac && pacman -S --noconfirm --downloadonly --needed "${packages[@]}"
 
