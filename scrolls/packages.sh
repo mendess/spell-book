@@ -22,6 +22,7 @@ fortune-mod
 fzf
 gdb
 gimp
+glava
 htop
 hyperfine
 i3-gaps
