@@ -74,7 +74,7 @@ then
     done
 else
     p=$(echo "no
-    yes" | dmenu -i -p "With video?")
+yes" | dmenu -i -p "With video?")
 
     rm -f "$(mpvsocket new)_last_queue"
     case $p in
