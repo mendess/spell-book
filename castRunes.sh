@@ -82,7 +82,7 @@ function linkRune {
 }
 
 function makeIfAbsent {
-    if ! [ -e "$1" ] && ! [ "$2" != "check" ]
+    if ! [ -e "$1" ] && [ "$2" != "check" ]
     then
         echo -e "\033[31mMissing \033[36m$1\033[31m directory, creating....\033[0m"
         mkdir --parent "$1"
