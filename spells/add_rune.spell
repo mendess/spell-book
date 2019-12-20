@@ -71,5 +71,13 @@ then
     exit 0
 fi
 echo "$dotfile,$alt${opt:-""}" | tee -a "$runes"
-mv -v "${dotfile/#\~/$HOME}" "$SPELLS"/runes/"$alt"
+args=(-v "${dotfile/#\~/$HOME}" "$SPELLS/runes/$alt")
+if [ "$opt" = ",sudo" ]
+then
+    cp "${args[@]}"
+    echo "sudo for '$dotfile'"
+    sudo rm "${args[0]}" "${args[1]}"
+else
+    mv "${args[@]}"
+fi
 "$SPELLS"/castRunes.sh

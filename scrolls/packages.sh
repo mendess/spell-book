@@ -3,6 +3,7 @@
 export packages=(
 acpi
 alsa-utils
+asciidoc # compton dependency
 bat
 bc
 clang
@@ -22,11 +23,14 @@ fzf
 gdb
 gimp
 htop
+hyperfine
 i3-gaps
 i3blocks
 i3lock
 imagemagick
 jq
+libconfig # compton dependency
+libxdg-basedir # compton dependency
 mpv
 neofetch
 neovim
@@ -43,6 +47,7 @@ pulseaudio-bluetooth
 pygmentize
 python-pip
 python-pygments
+ripgrep
 rsync
 rtv
 rustup
@@ -82,9 +87,8 @@ shellcheck-static
 
 export cargopackages=(
 #tealdeer
-hyperfine
 cargo-watch
-racer
+#racer
 )
 
 export bloat=(

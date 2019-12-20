@@ -29,19 +29,19 @@ else
 fi
 
 function pac {
-    test "$ALL" = 1 || test "$PACMAN" = 1
+    [ "$ALL" = 1 ] || [ "$PACMAN" = 1 ]
 }
 
 function aur {
-    test "$ALL" = 1 || test "$AUR" = 1
+    [ "$ALL" = 1 ] || [ "$AUR" = 1 ]
 }
 
 function zsh {
-    test "$ALL" = 1 || test "$ZSH" = 1
+    [ "$ALL" = 1 ] || [ "$ZSH" = 1 ]
 }
 
 function carg {
-    test "$ALL" = 1 || test "$CARGO" = 1
+    [ "$ALL" = 1 ] || [ "$CARGO" = 1 ]
 }
 
 script_dir="$(dirname "$(realpath "$0")")"
@@ -53,47 +53,59 @@ cargopackages=()
 #shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
-pac && yes | sudo pacman -S --needed  "${packages[@]}"
+read -r -s PASSWORD -p "[sudo] password for $LOGNAME"
 
-pac && yes | sudo pacman -Rsn "${bloat[@]}"
+pac && pacman -S --noconfirm --downloadonly --needed "${packages[@]}"
 
-## NEOVIM
-pac && nvim -c PlugInstall -c qall
+echo "$PASSWORD" | sudo -S true
+pac && sudo pacman -S --noconfirm --needed "${packages[@]}"
+
+echo "$PASSWORD" | sudo -S true
+pac && sudo pacman -Rsn --noconfirm "${bloat[@]}"
+
+# Compton
+pac && {
+    git clone https://github.com/tryone144/compton
+    cd compton || exit 1
+    make
+    make docs
+    echo "$PASSWORD" | sudo -S true
+    sudo make install
+    cd ..
+    rm -rf compton
+}
+
+# Dash
+echo "$PASSWORD" | sudo -S true
+pac && sudo ln -sf /usr/bin/dash /usr/bin/sh
+
+# Zathura as default pdf reader
+xdg-mime default org.pwmt.zathura.desktop application/pdf
 
 # (AUR manager)
 aur && {
-    sudo -u mendess mkdir tmp
+    mkdir tmp
     cd tmp || exit 1
     for i in "${aurpackages[@]}"
     do
         old="$(pwd)"
-        sudo -u mendess git clone https://aur.archlinux.org/"$i"
+        git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
-        yes | sudo -u mendess makepkg -si --skippgpcheck --clean
+        echo "$PASSWORD" | sudo -S true
+        makepkg --syncdeps --install --noconfirm --skippgpcheck --clean
         cd "$old" || exit 1
     done
     cd ..
     rm -rf tmp
 }
 
+## NEOVIM
+pac && nvim -c PlugInstall -c qall
+
 carg && {
     rustup default stable
     cargo install "${cargopackages[@]}"
 }
 
-# Compton
-pac && {
-yes | sudo pacman -S --needed libconfig libxdg-basedir asciidoc
-git clone https://github.com/tryone144/compton
-cd compton || exit 1
-make
-make docs
-sudo make install
-cd ..
-rm -rf compton
-}
-
-pac && sudo ln -sf /usr/bin/dash /usr/bin/sh
-
 cd "$script_dir" || exit 1
-#../spells/syncspellbook.spell
+../spells/syncspellbook.spell

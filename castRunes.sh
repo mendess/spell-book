@@ -29,11 +29,6 @@ while IFS=',' read -r link file options
 do
     options="${options:-none}"
     link="${link/#\~/$HOME}"
-    if [ "$options" = "check" ]
-    then
-        # TODO: Check
-        true
-    fi
     if [ -d "$file" ]
     then
         expand "$link" "$file" "$options"
@@ -67,16 +62,21 @@ function newRunes {
 }
 
 function linkRune {
-    local force
-    if [ "$2" = "force" ]; then
-        force="-f"
-    else
-        force=""
-    fi
     if ! [ -h "$2" ]
     then
-        echo -en "\033[35mCasting "
-        ln -s $force -v "$(pwd)/$1" "$2"
+        if [ "$3" = "force" ]; then
+            cmd=(ln --symbolic --force --verbose "$(pwd)/$1" "$2")
+        else
+            cmd=(ln --symbolic         --verbose "$(pwd)/$1" "$2")
+        fi
+        if [ "$3" = "sudo" ]; then
+            echo "sudo for '$2'"
+            echo -en "\033[35mCasting "
+            sudo "${cmd[@]}"
+        else
+            echo -en "\033[35mCasting "
+            "${cmd[@]}"
+        fi
         echo -en "\033[0m"
     fi
 }
