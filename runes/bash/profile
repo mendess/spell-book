@@ -34,6 +34,6 @@ if [ "$(tty)" = "/dev/tty1" ] || [ "$(tty)" = "/dev/tty6" ]; then
     toilet -f mono9 -F metal "Starting i3"
     pgrep i3 || startx &> /tmp/startx.log
     clear
-elif [[ $(tty) == *"tty"* ]] && [[ $(tty) != '/dev/tty2' ]]; then
+elif [[ $(tty) == *"tty"* ]] && [[ $(tty) != '/dev/tty2' ]] && hash tmux 2>/dev/null; then
     tmux new-session -s "$(basename "$(tty)")"
 fi

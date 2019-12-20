@@ -49,7 +49,7 @@ start_tmux() {
     fi
 }
 
-if [[ -z "$TMUX" ]] && [ -n "$SSH_CONNECTION" ] && hash ls 2>/dev/null; then
+if [[ -z "$TMUX" ]] && [ -n "$SSH_CONNECTION" ] && hash tmux 2>/dev/null; then
     start_tmux
 fi
 
