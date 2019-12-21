@@ -36,7 +36,6 @@ mpv
 neofetch
 neovim
 network-manager-applet
-nitrogen
 nmap
 noto-fonts-cjk
 noto-fonts-emoji

@@ -1,38 +1,17 @@
 #!/bin/bash
-
-set_wall() {
-    wall="$1"
-    shift
-    if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png \
-        || ! file /tmp/weather.png | grep 'PNG'
-    then
-        nitrogen --set-zoom-fill "$wall" "$@"
-    else
-        if [ "$wide" -gt 0 ]; then
-            crop=32:9
-            resize=3840x1080
-        else
-            crop=16:9
-            resize=1920x1080
-        fi
-        magick "$wall" -gravity center -crop $crop -resize $resize /tmp/tmp.png
-        magick /tmp/tmp.png /tmp/weather.png -geometry +50+50 -composite /tmp/target.jpg
-        nitrogen --set-zoom-fill /tmp/target.jpg "$@"
-        rm /tmp/tmp.png /tmp/target.jpg
-    fi
-}
-
+set -e
 WALLPAPERS=~/Pictures/Wallpapers
 
 if [ "$#" -gt 0 ]
 then
-    files="$1"
+    files=( "$1" )
     wide="${2:-0}"
 else
-    files=$(find "$WALLPAPERS" \
-        | shuf -n "$(xrandr --query | grep ' connected' -c)")
+    mapfile files < <(find "$WALLPAPERS" \
+        | shuf -n "$(xrandr --query | grep ' connected' -c)" \
+        | grep -vP '^$')
 
-    wide=$(echo "$files" \
+    wide=$(echo "${files[@]}" \
         | xargs file \
         | cut -d':' -f2- \
         | grep -Po '[0-9]{4}\ ?x\ ?[0-9]{3,4}' \
@@ -43,13 +22,29 @@ fi
 
 if [ "$wide" -gt 0 ]
 then
-    wall=$(echo "$files" | sed -n -e "${wide}"p)
-    set_wall "$wall"
+    wall=$(echo "${files[@]}" | sed -n -e "${wide}"p)
+fi
+
+if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png \
+    || ! file /tmp/weather.png | grep 'PNG'
+then
+    feh --no-fehbg --bg-fill "${files[@]}"
 else
-    i=0
-    while read -r wall
+    if [ "$wide" -gt 0 ]; then
+        crop=32:9
+        resize=3840x1080
+    else
+        crop=16:9
+        resize=1920x1080
+    fi
+    treated=()
+    for wall in "${files[@]}"
     do
-        set_wall "$wall" "--head=$i"
-        i=$((i + 1))
-    done <<< "$files"
+        wall="$(echo "$wall" | tr -d '\n')"
+        magick "$wall" -gravity center -crop $crop -resize $resize /tmp/tmp.png
+        magick /tmp/tmp.png /tmp/weather.png -geometry +50+50 -composite "/tmp/target_$(basename "$wall").jpg"
+        treated+=( "/tmp/target_$(basename "$wall").jpg" )
+    done
+    feh --no-fehbg --bg-fill "${treated[@]}"
+    rm /tmp/tmp.png "${treated[@]}"
 fi
