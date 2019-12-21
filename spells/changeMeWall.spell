@@ -1,14 +1,23 @@
 #!/bin/bash
 
 set_wall() {
+    wall="$1"
+    shift
     if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png \
         || ! file /tmp/weather.png | grep 'PNG'
     then
-        nitrogen --set-zoom-fill "$1" "$2"
+        nitrogen --set-zoom-fill "$wall" "$@"
     else
-        magick "$2" -gravity center -crop 16:9 -resize 1920x1080 /tmp/tmp.png
+        if [ "$wide" -gt 0 ]; then
+            crop=32:9
+            resize=3840x1080
+        else
+            crop=16:9
+            resize=1920x1080
+        fi
+        magick "$wall" -gravity center -crop $crop -resize $resize /tmp/tmp.png
         magick /tmp/tmp.png /tmp/weather.png -geometry +50+50 -composite /tmp/target.jpg
-        nitrogen --set-zoom-fill "$1" /tmp/target.jpg
+        nitrogen --set-zoom-fill /tmp/target.jpg "$@"
         rm /tmp/tmp.png /tmp/target.jpg
     fi
 }
@@ -18,28 +27,29 @@ WALLPAPERS=~/Pictures/Wallpapers
 if [ "$#" -gt 0 ]
 then
     files="$1"
+    wide="${2:-0}"
 else
     files=$(find "$WALLPAPERS" \
         | shuf -n "$(xrandr --query | grep ' connected' -c)")
-fi
 
-wide=$(echo "$files" \
-    | xargs file \
-    | cut -d':' -f2- \
-    | grep -Po '[0-9]{4}\ ?x\ ?[0-9]{3,4}' \
-    | sed 's|x|/|g' \
-    | bc -l \
-    | awk '$0 > (28/9) {found=1; exit} END {if(found) {print NR} else {print "0"}}')
+    wide=$(echo "$files" \
+        | xargs file \
+        | cut -d':' -f2- \
+        | grep -Po '[0-9]{4}\ ?x\ ?[0-9]{3,4}' \
+        | sed 's|x|/|g' \
+        | bc -l \
+        | awk '$0 > (28/9) {found=1; exit} END {if(found) {print NR} else {print "0"}}')
+fi
 
 if [ "$wide" -gt 0 ]
 then
     wall=$(echo "$files" | sed -n -e "${wide}"p)
-    set_wall " " "$wall"
+    set_wall "$wall"
 else
     i=0
     while read -r wall
     do
-        set_wall "--head=$i" "$wall"
+        set_wall "$wall" "--head=$i"
         i=$((i + 1))
     done <<< "$files"
 fi

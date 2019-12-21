@@ -16,7 +16,7 @@
    correctly on X11 with `"native"` transparency. */
 #define USE_ALPHA 0
 /* How strong the gradient changes */
-#define GRADIENT_POWER 100
+#define GRADIENT_POWER 400
 /* Bar color changes with height */
 #define GRADIENT (d / GRADIENT_POWER + 1)
 /* Bar color */

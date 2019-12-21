@@ -3,10 +3,15 @@ if pgrep -a -o glava | grep -v 'glavad'
 then
     pkill glava
 else
+    num_screens="$(xrandr --query | grep ' connected' -c)"
+#    width=$(( num_screens * 1920 ))
+    width=1920
     glava \
-        --request='setgeometry 0 0 1920 1080' \
+        --request='setgeometry 0 0 '$width' 1080' \
         --request='setopacity "xroot"' \
-        -d &
+        -d \
+        "$@" \
+        &
 
     disown
 fi
