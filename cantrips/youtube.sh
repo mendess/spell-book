@@ -22,24 +22,24 @@ clipboard"
 
         if [ "$vidname" = "clipboard" ]
         then
-            vid=("$(xclip -sel clip -o)")
+            vids="$(xclip -sel clip -o)"
         else
-            vid=("$(echo "$vidlist" \
+            vids="$(echo "$vidlist" \
                 | grep -P "^$vidname" \
-                | awk -F'\t' '{print $2}')")
+                | awk -F'\t' '{print $2}')"
         fi
         ;;
 
     shuf)
-        mapfile vid < <(echo "$vidlist" \
+        vids="$(echo "$vidlist" \
             | shuf \
             | sed '1q' \
-            | awk -F'\t' '{print $2}')
+            | awk -F'\t' '{print $2}')"
         ;;
 
     shufA)
         tmp=$(echo "$vidlist" | shuf)
-        mapfile vid < <(echo "$tmp" | awk -F'\t' '{print $2}' | xargs)
+        vids="$(echo "$tmp" | awk -F'\t' '{print $2}' | xargs)"
         ;;
 
     shufC)
@@ -53,10 +53,10 @@ clipboard"
             | sed -E 's/^[ ]*[0-9]*[ ]*//')
         [ -z "$catg" ] && exit
         vidlist=$(echo "$vidlist" | shuf)
-        mapfile vid < <(echo "$vidlist" \
+        vids="$(echo "$vidlist" \
             | grep -P ".*\t.*\t.*\t.*$catg" \
             | awk -F'\t' '{print $2}' \
-            | xargs)
+            | xargs)"
         ;;
 
     *)
@@ -64,11 +64,11 @@ clipboard"
         ;;
 esac
 
-[ "${#vid}" -lt 1 ] && exit
+[ -z "$vids" ] && exit
 
 if [ "$(mpvsocket)" != "/dev/null" ]
 then
-    for song in "${vid[@]}"
+    for song in $vids
     do
         m queue "$song"
     done
@@ -80,14 +80,15 @@ yes" | dmenu -i -p "With video?")
     case $p in
         yes)
             ( sleep 5; __update_i3blocks; ) &
-            mpv --input-ipc-server="$(mpvsocket new)" "${vid[@]}"
+            #shellcheck disable=2086
+            mpv --input-ipc-server="$(mpvsocket new)" $vids
             __update_i3blocks
             ;;
 
         no)
             resolve_alias="$(command -v __update_i3blocks | cut -d\' -f2)"
             cmd="(sleep 2; $resolve_alias) &
-            mpv --input-ipc-server='$(mpvsocket new)' --no-video ${vid[*]}
+            mpv --input-ipc-server='$(mpvsocket new)' --no-video $vids
             $resolve_alias;"
             termite --title 'my-media-player' -e "bash -c '$cmd'"
             ;;
