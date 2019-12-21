@@ -2,14 +2,19 @@
 set -e
 WALLPAPERS=~/Pictures/Wallpapers
 
+wide() {
+    [ "$wide" -gt 0 ]
+    return $?
+}
+
 if [ "$#" -gt 0 ]
 then
-    files=( "$1" )
+    files="$*"
     wide="${2:-0}"
 else
-    mapfile files < <(find "$WALLPAPERS" \
+    files="$(find "$WALLPAPERS" \
         | shuf -n "$(xrandr --query | grep ' connected' -c)" \
-        | grep -vP '^$')
+        | grep -vP '^$')"
 
     wide=$(echo "${files[@]}" \
         | xargs file \
@@ -20,13 +25,10 @@ else
         | awk '$0 > (28/9) {found=1; exit} END {if(found) {print NR} else {print "0"}}')
 fi
 
-if [ "$wide" -gt 0 ]
-then
-    wall=$(echo "${files[@]}" | sed -n -e "${wide}"p)
-fi
+wide && files=$(echo "$files" | sed -n -e "${wide}"p)
 
 if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png \
-    || ! file /tmp/weather.png | grep 'PNG'
+    || ! file /tmp/weather.png | grep 'PNG' &>/dev/null
 then
     feh --no-fehbg --bg-fill "${files[@]}"
 else
@@ -38,13 +40,17 @@ else
         resize=1920x1080
     fi
     treated=()
-    for wall in "${files[@]}"
+    for wall in $files
     do
         wall="$(echo "$wall" | tr -d '\n')"
         magick "$wall" -gravity center -crop $crop -resize $resize /tmp/tmp.png
         magick /tmp/tmp.png /tmp/weather.png -geometry +50+50 -composite "/tmp/target_$(basename "$wall").jpg"
         treated+=( "/tmp/target_$(basename "$wall").jpg" )
     done
-    feh --no-fehbg --bg-fill "${treated[@]}"
+    if wide ; then
+        feh --no-fehbg --bg-fill --no-xinerama "${treated[@]}"
+    else
+        feh --no-fehbg --bg-fill "${treated[@]}"
+    fi
     rm /tmp/tmp.png "${treated[@]}"
 fi
