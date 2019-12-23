@@ -1,4 +1,6 @@
 #!/bin/bash
+#shellcheck disable=SC2119
+
 cd "$SPELLS"/spells || exit 1
 
 #shellcheck source=/home/mendess/.local/bin/library
@@ -138,6 +140,11 @@ queue () {
         | socat - "$(mpvsocket)" \
         | jq --raw-output .error
     echo "$TARGET" > "$LAST_QUEUE"
+    if [ "$2" = "--notify" ]
+    then
+        name=$(if echo "$1" | grep -P 'https' &>/dev/null; then youtube-dl --get-title "$1"; else echo "$1" ; fi)
+        notify-send "Queued '$name'" "Current: $CURRENT\nQueue pos: $TARGET"
+    fi
 }
 
 main () {
@@ -187,9 +194,9 @@ main () {
                 if [ "$(echo "$link" | wc -l)" -gt 1 ]; then
                     echo -e "Too many matches:\n$(echo "$matches" | cut -f1)" && exit 1
                 fi
-                queue "$link"
+                queue "$link" "$3"
             else
-                queue "$2"
+                queue "$2" "$3"
             fi
             ;;
         delete?song)

@@ -30,7 +30,7 @@ wide && files=$(echo "$files" | sed -n -e "${wide}"p)
 if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png \
     || ! file /tmp/weather.png | grep 'PNG' &>/dev/null
 then
-    feh --no-fehbg --bg-fill "${files[@]}"
+    feh --no-fehbg --bg-fill "$files"
 else
     if [ "$wide" -gt 0 ]; then
         crop=32:9

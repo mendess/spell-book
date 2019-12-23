@@ -70,7 +70,7 @@ if [ "$(mpvsocket)" != "/dev/null" ]
 then
     for song in $vids
     do
-        m queue "$song"
+        m queue "$song" --notify
     done
 else
     p=$(echo "no
