@@ -31,23 +31,23 @@ set $ws9 9: Media
 
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
-bindsym $mod+Return       exec --no-startup-id $term
-bindsym $mod+Shift+Return exec --no-startup-id termFromHere
-bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere --title floating-terminal
-bindsym $mod+d            exec --no-startup-id dmenu_run
-bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
-bindsym $mod+F9           exec --no-startup-id changeMeWall
-bindsym $mod+F8           exec --no-startup-id nitrogen --head="0" --set-zoom-fill ~/Pictures/Wallpapers/home.png && nitrogen --head="1" --set-zoom-fill ~/Pictures/Wallpapers/home.png
-bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
-bindsym $mod+F2           exec --no-startup-id firefox
-bindsym $mod+Shift+F2     exec --no-startup-id firefox -private-window https://duckduckgo.com/
-bindsym $mod+F3           exec --no-startup-id discord
-bindsym $mod+F4           exec --no-startup-id steam
-bindsym $mod+m            exec --no-startup-id $term -e 'neomutt'
-bindsym $mod+Shift+c      exec --no-startup-id $term -e 'calcurse'
-bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
-bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
-bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
+# bindsym $mod+Return       exec --no-startup-id $term
+# bindsym $mod+Shift+Return exec --no-startup-id termFromHere
+# bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere --title floating-terminal
+# bindsym $mod+d            exec --no-startup-id dmenu_run
+# bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
+# bindsym $mod+F9           exec --no-startup-id changeMeWall
+# bindsym $mod+F8           exec --no-startup-id nitrogen --head="0" --set-zoom-fill ~/Pictures/Wallpapers/home.png && nitrogen --head="1" --set-zoom-fill ~/Pictures/Wallpapers/home.png
+# bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
+# bindsym $mod+F2           exec --no-startup-id firefox
+# bindsym $mod+Shift+F2     exec --no-startup-id firefox -private-window https://duckduckgo.com/
+# bindsym $mod+F3           exec --no-startup-id discord
+# bindsym $mod+F4           exec --no-startup-id steam
+# bindsym $mod+m            exec --no-startup-id $term -e 'neomutt'
+# bindsym $mod+Shift+c      exec --no-startup-id $term -e 'calcurse'
+# bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+# bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
+# bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 bindsym $mod+Ctrl+s       exec --no-startup-id urxvt --title floating-terminal -e syncspellbook --hold
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e 'bc -l'

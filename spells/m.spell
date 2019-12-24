@@ -51,6 +51,7 @@ current_song () {
     then
         [ -z "$videoId" ] && exit 1
         filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
+        [ -z "$filename" ] && filename="$videoId"
     fi
     if [ -n "$chapter" ] && [ "$chapter" != "null" ]
     then
@@ -187,7 +188,11 @@ main () {
             add_cat "${@:2}"
             ;;
         queue)
-            if ! echo "$2" | grep '^http'; then
+            if echo "$2" | grep '^http'; then
+                queue "$2" "$3"
+            elif [ -e "$2" ]; then
+                queue "$2" "$3"
+            else
                 matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "${@:2}")"
                 link="$(echo "$matches" | cut -f2)"
                 if [ -z "$link" ]; then echo "No song found" && exit 1; fi
@@ -195,8 +200,6 @@ main () {
                     echo -e "Too many matches:\n$(echo "$matches" | cut -f1)" && exit 1
                 fi
                 queue "$link" "$3"
-            else
-                queue "$2" "$3"
             fi
             ;;
         delete?song)
