@@ -16,7 +16,7 @@ else
         | shuf -n "$(xrandr --query | grep ' connected' -c)" \
         | grep -vP '^$')"
 
-    wide=$(echo "${files[@]}" \
+    wide=$(echo "$files" \
         | xargs file \
         | cut -d':' -f2- \
         | grep -Po '[0-9]{4}\ ?x\ ?[0-9]{3,4}' \
@@ -30,9 +30,9 @@ wide && files=$(echo "$files" | sed -n -e "${wide}"p)
 if ! curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png \
     || ! file /tmp/weather.png | grep 'PNG' &>/dev/null
 then
-    feh --no-fehbg --bg-fill "$files"
+    echo "$files" | xargs feh --no-fehbg --bg-fill
 else
-    if [ "$wide" -gt 0 ]; then
+    if wide; then
         crop=32:9
         resize=3840x1080
     else

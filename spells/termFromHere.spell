@@ -9,7 +9,6 @@ ID=$(xdpyinfo | grep focus | cut -f4 -d " ")
 # Get PID of process whose window this is
 PID=$(xprop -id "$ID" | grep -m 1 PID | cut -d " " -f 3)
 
-{
 # Get last child process (shell, vim, etc)
 if [ -n "$PID" ]; then
   CPID=$(pstree -lpA "$PID" \
@@ -31,4 +30,3 @@ else
 fi
 disown
 exit
-} &>> ~/termFromHereLog &
