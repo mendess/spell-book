@@ -48,7 +48,7 @@ set $ws9 9: Media
 # bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 # bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
 # bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
-bindsym $mod+Ctrl+s       exec --no-startup-id urxvt --title floating-terminal -e syncspellbook --hold
+# bindsym $mod+Ctrl+s       exec --no-startup-id urxvt --title floating-terminal -e syncspellbook --hold
 bindsym $mod+t            exec --no-startup-id $term -e htop
 bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e 'bc -l'
 bindsym $mod+x            exec --no-startup-id urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
