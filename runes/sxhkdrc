@@ -1,0 +1,177 @@
+super + Return
+  termite
+
+super + shift + Return
+  termFromHere
+
+super + control + Return
+  termFromHere --title floating-terminal --class floating-terminal
+
+super + d
+  dmenu_run
+
+super + shift + d
+  ~/Projects/spell-book/cantrips/menu.sh
+
+super + F9
+  changeMeWall
+
+super + F8
+  feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/home.png
+
+super + control + m
+  termite --class floating-terminal -e pacmixer
+
+super + F2
+  firefox
+
+super + shift + F2
+  firefox -private-window https://duckduckgo.com/
+
+super + F3
+  discord
+
+super + F4
+  steam
+
+super + m
+  termite -e neomutt
+
+super + shift + c
+  termite -e calcurse
+
+@Print
+  scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+
+shift + @Print
+  scrot -s -e 'scrot-rename $f'
+
+super + @Print
+  scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
+
+super + control + s
+  termite --class floating-terminal --title floating-terminal -e 'syncspellbook --hold'
+
+super + t
+  termite -e htop
+
+super + c
+  termite --class floating-terminal --title floating-terminal -e 'bc -l'
+
+super + x
+  urxvt -fn 'xft:DejaVu Sans Mono:autohint=true:size=200' --title floating-terminal -e bash -c 'cal -s && read -s -r -n 1'
+
+super + v
+  playClipboard
+
+super + shift + v
+  sleep 0.5 && echo .p "https://youtu.be/$(m current -i)" | xclip -sel clip && xdotool key Ctrl+V && xdotool key Return && m next-file
+
+super + shift + control + i
+  echo -n INACEITAVEL e INACREDITAVEL | xclip -sel clip && sleep 0.5 && xdotool key Ctrl+V
+
+super + shift + t
+ echo -n '🤔' | xclip -sel clip
+
+super + backslash
+  m pause
+
+super + shift + backslash
+  m quit
+
+super + minus
+  m vd 2
+
+super + plus
+  m vu 2
+
+super + Next
+  m next
+
+super + Prior
+  m prev
+
+super + End
+  m next-file
+
+super + Home
+  m prev-file
+
+super + Up
+  m frwd 60
+
+super + Down
+  m back 60
+
+super + Right
+  m frwd 5
+
+super + Left
+  m back 5
+
+super + Insert
+  m current --notify
+
+super + Delete
+  m add-cat-to-current
+
+super + BackSpace
+  echo quit | socat - /tmp/mpvalarm
+
+super + comma
+  show_full_bar
+
+super + F6
+  echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness
+
+super + F5
+  echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness
+
+# bspwm
+super + shift + space
+    bspc node -t \~floating
+
+super + f
+    bspc node -t \~fullscreen
+
+super + shift + q
+    bspc node -c
+
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east} || bspc node -f {prev, prev, next, next}
+
+super + {1-9,0}
+    bspc desktop -f '^{1-9,10}'
+
+super + shift + {1-9,0}
+    bspc node -d '^{1-9,10}' --follow
+
+super + shift + r
+    ~/.config/bspwm/bspwmrc && ( killall sxhkd ; sxhkd & ) ; notify-send -t 500 -u low 'reset done'
+
+# set directly keycode (here control + f with my keyboard)
+# "termite"
+#   c:41 + m:0x4
+
+# specify a mouse button
+# "termite"
+#   control + b:2
+
+#"xterm -geom 50x20+20+20"
+#   shift+Mod2+alt + s
+#
+## set directly keycode (here control+alt+mod2 + f with my keyboard)
+#"xterm"
+#  alt + c:0x29 + m:4 + mod2
+#
+## control+shift+a  release event starts rxvt
+#"rxvt"
+#  release+control+shift + a
+#
+## control + mouse button 2 release event starts rxvt
+#"rxvt"
+#  control + b:2 + Release
+
+##################################
+# End of xbindkeys configuration #
+##################################

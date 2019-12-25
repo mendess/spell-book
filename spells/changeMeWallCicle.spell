@@ -1,5 +1,4 @@
 #!/bin/bash
-changeMeWall
 while true;
 do
     changeMeWall

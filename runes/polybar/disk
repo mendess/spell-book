@@ -26,10 +26,9 @@ free_space () {
         | awk '{print $4" "$NF}' \
         | awk -F'/' '{if (NF > 2) {print $1" "$NF} else { print $0 }}' \
         | sed 's|/home|~|g' \
-        | awk '{print "["$2" "$1"]"}' \
+        | awk '{print ""$2" "$1""}' \
         | tr '\n' ' '
 }
 
 SPACE="$(free_space)"
-echo "$SPACE"
 echo "$SPACE"

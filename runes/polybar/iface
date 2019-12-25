@@ -35,8 +35,7 @@ fi
 
 if [[ "$(cat /sys/class/net/$IF/operstate)" = 'down' ]]; then
   echo down # full text
-  echo down # short text
-  echo \#FF0000 # color
+  # echo \#FF0000 # color
   exit
 fi
 
@@ -59,4 +58,3 @@ esac
 #------------------------------------------------------------------------
 
 echo "$IPADDR" # full text
-echo "$IPADDR" # short text

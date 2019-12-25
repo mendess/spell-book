@@ -1,16 +1,12 @@
 #!/bin/bash
 
+set -e
+
 runes="$SPELLS/runes/.db"
 
 if [ $# -lt 1 ]
 then
     echo Usage: "$0" dotfile
-    exit 1
-fi
-
-if [ -d "$1" ]
-then
-    echo Adding folders not suported yet
     exit 1
 fi
 
@@ -33,7 +29,7 @@ do
             ;;
         -h|--help)
             cat <<EOF
-Usage add_rune [-a alternate] [-o options]
+Usage add_rune rune [-a alternate] [-o options]
 
 -a | --alternate
     Choose the name to save under in the runes directory
@@ -52,18 +48,18 @@ EOF
     esac
 done
 
-if ! [ -f "$dotfile" ]
+if ! [ -e "$dotfile" ]
 then
     echo No such file or directory: "$dotfile"
     exit 1
 fi
-dotfile="$(realpath "$dotfile")"
-dotfile="${dotfile/#$HOME/\~}"
 
-[ -n "$alt" ] || alt="$(basename "$dotfile" | sed 's/^\.//')"
+dotfile_exp="$(realpath "$dotfile")"
+dotfile="${dotfile_exp/#$HOME/\~}"
 [ -n "$opt" ] && opt=",$opt"
+[ -n "$alt" ] || alt="$(basename "$dotfile" | sed 's/^\.//')"
 
-echo "$dotfile,$alt${opt:-""}" #| tee -a "$runes"
+echo "$dotfile,$alt${opt:-""}"
 echo -n "Confirm [Y/n] "
 read -r response
 if [ "$response" = "n" ] || [ "$response" = "N" ]
@@ -71,13 +67,30 @@ then
     exit 0
 fi
 echo "$dotfile,$alt${opt:-""}" | tee -a "$runes"
-args=(-v "${dotfile/#\~/$HOME}" "$SPELLS/runes/$alt")
-if [ "$opt" = ",sudo" ]
+awk '!seen_lines[$0]++' "$runes" > /tmp/.add_rune_t
+mv /tmp/.add_rune_t "$runes"
+
+move_dotfile() {
+    if [ "$opt" = ",sudo" ]
+    then
+        cp "${args[@]}"
+        echo "sudo for '$1'"
+        sudo rm "${args[0]}" "${args[1]}"
+    else
+        mv "${args[@]}"
+    fi
+}
+
+if [ -d "$dotfile_exp" ]
 then
-    cp "${args[@]}"
-    echo "sudo for '$dotfile'"
-    sudo rm "${args[0]}" "${args[1]}"
+    mkdir -vp "$SPELLS/runes/$alt" || exit 1
+    for f in "$dotfile_exp"/*
+    do
+        args=(-v "$f" "$SPELLS/runes/$alt/$(basename "$f")")
+        move_dotfile "$f"
+    done
 else
-    mv "${args[@]}"
+    args=(-v "$dotfile_exp" "$SPELLS/runes/$alt")
+    move_dotfile "$dotfile_exp"
 fi
 "$SPELLS"/castRunes.sh

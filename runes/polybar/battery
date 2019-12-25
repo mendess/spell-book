@@ -1,0 +1,47 @@
+#!/bin/python3
+
+from sys import exit
+from subprocess import check_output
+from os import path
+import re
+
+acpi = check_output(['acpi', '-b']).decode('utf-8')
+
+if 'rate information unavailable' in acpi:
+    exit(1)
+
+p = re.compile(r": (\w+), (\d+)%")
+m = p.search(acpi)
+status = m.group(1)
+percent = m.group(2)
+
+if status == 'Discharging':
+    print_status = '▽'
+elif status == 'Charging':
+    print_status = '△'
+else:
+    print_status = '⬙'
+
+if 'harging' not in status or not path.exists('/tmp/.bloat'):
+    time = ""
+else:
+    time = "{}".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
+
+print(percent, print_status, time)
+print(percent, print_status, time)
+
+if status == 'Discharging':
+    percent = int(percent)
+    if percent < 20:
+        print(r"#FF0000")
+    elif percent < 40:
+        print(r"#FFAE00")
+    elif percent < 60:
+        print(r"#FFF600")
+    elif percent < 85:
+        print(r"#A8FF00")
+
+    if percent < 5:
+        exit(33)
+
+exit(0)

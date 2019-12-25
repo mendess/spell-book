@@ -14,22 +14,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#DIR="${BLOCK_INSTANCE:-$HOME}"
-#ALERT_LOW="${1:-10}" # color will turn red under this value (default: 10%)
-
 [ -e /tmp/.bloat ] || exit 0
 
-free_space () {
-    df -h \
-        | grep '^/dev' \
-        | grep -v '/boot$' \
-        | awk '{print $4" "$NF}' \
-        | awk -F'/' '{if (NF > 2) {print $1" "$NF} else { print $0 }}' \
-        | sed 's|/home|~|g' \
-        | awk '{print "["$2" "$1"]"}' \
-        | tr '\n' ' '
-}
+load="$(cut -d ' ' -f1 /proc/loadavg)"
+cpus="$(nproc)"
 
-SPACE="$(free_space)"
-echo "$SPACE"
-echo "$SPACE"
+# full text
+echo "$load"
+
+exit 0
+# short text
+echo "$load"
+
+# color if load is too high
+awk -v cpus=$cpus -v cpuload=$load '
+    BEGIN {
+        if (cpus <= cpuload) {
+            print "#FF0000";
+            exit 33;
+        }
+    }
+'
