@@ -49,34 +49,33 @@ set $ws9 9: Media
 # bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
 # bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 # bindsym $mod+Ctrl+s       exec --no-startup-id urxvt --title floating-terminal -e syncspellbook --hold
-bindsym $mod+t            exec --no-startup-id $term -e htop
-bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e 'bc -l'
-bindsym $mod+x            exec --no-startup-id urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
-bindsym $mod+v            exec --no-startup-id playClipboard
-bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.p https://youtu.be/'$(m current -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && m next-file"
+# bindsym $mod+t            exec --no-startup-id $term -e htop
+# bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e 'bc -l'
+# bindsym $mod+x            exec --no-startup-id urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
+# bindsym $mod+v            exec --no-startup-id playClipboard
+# bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.p https://youtu.be/'$(m current -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && m next-file"
 
 ####### MEMES
-bindsym $mod+Shift+Ctrl+i --release exec --no-startup-id echo -n "INACEITAVEL e INACREDITAVEL" | xclip -sel clip && sleep 0.5 && xdotool key 'Ctrl+V'
-bindsym $mod+Shift+t      exec --no-startup-id echo -n "🤔" | xclip -sel clip
+# bindsym $mod+Shift+Ctrl+i --release exec --no-startup-id echo -n "INACEITAVEL e INACREDITAVEL" | xclip -sel clip && sleep 0.5 && xdotool key 'Ctrl+V'
+# bindsym $mod+Shift+t      exec --no-startup-id echo -n "🤔" | xclip -sel clip
 
 ####### MEDIA KEYS
-bindsym $mod+backslash       exec --no-startup-id m pause
-bindsym $mod+Shift+backslash exec --no-startup-id m quit
-bindsym $mod+minus           exec --no-startup-id m vd 2
-bindsym $mod+plus            exec --no-startup-id m vu 2
-bindsym $mod+Next            exec --no-startup-id m next
-bindsym $mod+Prior           exec --no-startup-id m prev
-bindsym $mod+End             exec --no-startup-id m next-file
-bindsym $mod+Home            exec --no-startup-id m prev-file
-bindsym $mod+Up              exec --no-startup-id m frwd 60
-bindsym $mod+Down            exec --no-startup-id m back 60
-bindsym $mod+Right           exec --no-startup-id m frwd 5
-bindsym $mod+Left            exec --no-startup-id m back 5
-bindsym $mod+Insert          exec --no-startup-id m current --notify
-bindsym $mod+Delete          exec --no-startup-id m add-cat-to-current
-bindsym $mod+BackSpace       exec --no-startup-id sh -c "echo quit | socat - /tmp/mpvalarm"
-bindsym $mod+comma           exec --no-startup-id show_full_bar
-bindsym $mod+Shift+Insert    exec --no-startup-id glava
+# bindsym $mod+backslash       exec --no-startup-id m pause
+# bindsym $mod+Shift+backslash exec --no-startup-id m quit
+# bindsym $mod+minus           exec --no-startup-id m vd 2
+# bindsym $mod+plus            exec --no-startup-id m vu 2
+# bindsym $mod+Next            exec --no-startup-id m next
+# bindsym $mod+Prior           exec --no-startup-id m prev
+# bindsym $mod+End             exec --no-startup-id m next-file
+# bindsym $mod+Home            exec --no-startup-id m prev-file
+# bindsym $mod+Up              exec --no-startup-id m frwd 60
+# bindsym $mod+Down            exec --no-startup-id m back 60
+# bindsym $mod+Right           exec --no-startup-id m frwd 5
+# bindsym $mod+Left            exec --no-startup-id m back 5
+# bindsym $mod+Insert          exec --no-startup-id m current --notify
+# bindsym $mod+Delete          exec --no-startup-id m add-cat-to-current
+# bindsym $mod+BackSpace       exec --no-startup-id sh -c "echo quit | socat - /tmp/mpvalarm"
+# bindsym $mod+comma           exec --no-startup-id show_full_bar
 
 ####### NAVIGATION
 bindsym $mod+j         focus down
