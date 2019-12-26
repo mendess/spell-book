@@ -78,10 +78,6 @@ enable-ipc = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[module/xwindow]
-type = internal/xwindow
-label = %title:0:30:...%
-
 [module/ipc]
 type = custom/ipc
 hook-0 = notify-send 'hooked but not good'
@@ -216,7 +212,7 @@ label = %date% %time%
 type = internal/battery
 battery = BAT0
 adapter = AC
-full-at = 100
+full-at = 95
 
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
@@ -225,8 +221,8 @@ format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
 format-full-prefix = "⬙"
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${colors.foreground}
+format-full-prefix-foreground = #00AA00
+format-full-underline = #00AA00
 
 ramp-capacity-0 = shrug
 ramp-capacity-1 = shrug

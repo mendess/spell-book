@@ -6,6 +6,7 @@ alsa-utils
 asciidoc # compton dependency
 bat
 bc
+bspwm
 clang
 cmake
 cronie
@@ -25,9 +26,6 @@ gimp
 glava
 htop
 hyperfine
-i3-gaps
-i3blocks
-i3lock
 imagemagick
 jq
 libconfig # compton dependency
@@ -55,6 +53,7 @@ rustup
 scrot
 socat
 surf
+sxhkd
 sxiv
 termite
 tmux
@@ -69,6 +68,7 @@ xorg-server
 xorg-xdpyinfo
 xorg-xinit
 xorg-xrandr
+xorg-xsetroot
 xz
 youtube-dl
 zathura
@@ -84,6 +84,7 @@ ncpamixer
 pacmixer
 toilet
 shellcheck-static
+polybar
 )
 
 export cargopackages=(

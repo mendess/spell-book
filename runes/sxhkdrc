@@ -59,7 +59,7 @@ super + c
   termite --class floating-terminal --title floating-terminal -e 'bc -l'
 
 super + x
-  urxvt -fn 'xft:DejaVu Sans Mono:autohint=true:size=200' --title floating-terminal -e bash -c 'cal -s && read -s -r -n 1'
+  termite --class floating-terminal -e 'bash -c "cal -s && read -s -r -n 1"'
 
 super + v
   playClipboard
