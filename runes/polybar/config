@@ -114,17 +114,17 @@ label-empty-padding = 2
 
 [module/mpv]
 type = custom/script
-exec = .config/polybar/media
+exec = ~/.config/polybar/media
 format-background = ${colors.background-alt}
 format-underline = ${colors.primary}
 
 [module/xbacklight]
 type = custom/script
-exec = .config/polybar/brightness
+exec = ~/.config/polybar/brightness
 
 [module/memory]
 type = custom/script
-exec = .config/polybar/memory
+exec = ~/.config/polybar/memory
 
 [module/wlan]
 type = internal/network
