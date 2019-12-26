@@ -20,14 +20,14 @@ user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1577358081)
 user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1577358201);
 user_pref("app.update.lastUpdateTime.browser-cleanup-thumbnails", 1577358441);
 user_pref("app.update.lastUpdateTime.recipe-client-addon-run", 1577358055);
-user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1573260331);
+user_pref("app.update.lastUpdateTime.search-engine-update-timer", 1577358561);
 user_pref("app.update.lastUpdateTime.services-settings-poll-changes", 1573260558);
 user_pref("app.update.lastUpdateTime.telemetry_modules_ping", 1572944757);
 user_pref("app.update.lastUpdateTime.xpi-signature-verification", 1577358321);
 user_pref("browser.bookmarks.editDialog.confirmationHintShowCount", 3);
 user_pref("browser.bookmarks.restore_default_bookmarks", false);
 user_pref("browser.bookmarks.showMobileBookmarks", true);
-user_pref("browser.cache.disk.amount_written", 119203);
+user_pref("browser.cache.disk.amount_written", 129664);
 user_pref("browser.cache.disk.capacity", 1048576);
 user_pref("browser.cache.disk.filesystem_reported", 1);
 user_pref("browser.cache.disk.hashstats_reported", 1);
