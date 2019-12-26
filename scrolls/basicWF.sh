@@ -54,18 +54,25 @@ cargopackages=()
 #shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
-read -r -s -p "[sudo] password for $LOGNAME" PASSWORD
+read -r -s -p "[sudo] password for $LOGNAME " PASSWORD
 
-pac && pacman -S --noconfirm --downloadonly --needed "${packages[@]}"
+echo "$PASSWORD" | sudo -S true
+pac && sudo pacman -S --noconfirm --downloadonly --needed "${packages[@]}"
 
 echo "$PASSWORD" | sudo -S true
 pac && sudo pacman -S --noconfirm --needed "${packages[@]}"
 
-echo "$PASSWORD" | sudo -S true
-pac && sudo pacman -Rsn --noconfirm "${bloat[@]}"
+pac && for package in ${bloat[@]}
+do
+    if pacman -Q $package
+    then
+        echo "$PASSWORD" | sudo -S true
+        sudo pacman -Rsn --noconfirm "$package"
+    fi
+done
 
 # Compton
-pac && {
+pac && { ! pacman -Q xcompmgr ; } && {
     git clone https://github.com/tryone144/compton
     cd compton || exit 1
     make
@@ -89,6 +96,7 @@ aur && {
     cd tmp || exit 1
     for i in "${aurpackages[@]}"
     do
+        pacman -Q $i && continue
         old="$(pwd)"
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
@@ -105,7 +113,7 @@ pac && nvim -c PlugInstall -c qall
 
 carg && {
     rustup default stable
-    cargo install "${cargopackages[@]}"
+    cargo install --force "${cargopackages[@]}"
 }
 
 cd "$script_dir" || exit 1
