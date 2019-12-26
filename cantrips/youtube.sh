@@ -90,7 +90,7 @@ yes" | dmenu -i -p "With video?")
             cmd="(sleep 2; $resolve_alias) &
             mpv --input-ipc-server='$(mpvsocket new)' --no-video $vids
             $resolve_alias;"
-            termite --title 'my-media-player' -e "bash -c '$cmd'"
+            termite --class 'my-media-player' -e "bash -c '$cmd'"
             ;;
     esac
 fi

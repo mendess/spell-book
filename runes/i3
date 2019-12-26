@@ -31,51 +31,51 @@ set $ws9 9: Media
 
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### APPS
-# bindsym $mod+Return       exec --no-startup-id $term
-# bindsym $mod+Shift+Return exec --no-startup-id termFromHere
-# bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere --title floating-terminal
-# bindsym $mod+d            exec --no-startup-id dmenu_run
-# bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
-# bindsym $mod+F9           exec --no-startup-id changeMeWall
-# bindsym $mod+F8           exec --no-startup-id nitrogen --head="0" --set-zoom-fill ~/Pictures/Wallpapers/home.png && nitrogen --head="1" --set-zoom-fill ~/Pictures/Wallpapers/home.png
-# bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
-# bindsym $mod+F2           exec --no-startup-id firefox
-# bindsym $mod+Shift+F2     exec --no-startup-id firefox -private-window https://duckduckgo.com/
-# bindsym $mod+F3           exec --no-startup-id discord
-# bindsym $mod+F4           exec --no-startup-id steam
-# bindsym $mod+m            exec --no-startup-id $term -e 'neomutt'
-# bindsym $mod+Shift+c      exec --no-startup-id $term -e 'calcurse'
-# bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
-# bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
-# bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
-# bindsym $mod+Ctrl+s       exec --no-startup-id urxvt --title floating-terminal -e syncspellbook --hold
-# bindsym $mod+t            exec --no-startup-id $term -e htop
-# bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e 'bc -l'
-# bindsym $mod+x            exec --no-startup-id urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
-# bindsym $mod+v            exec --no-startup-id playClipboard
-# bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.p https://youtu.be/'$(m current -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && m next-file"
+bindsym $mod+Return       exec --no-startup-id $term
+bindsym $mod+Shift+Return exec --no-startup-id termFromHere
+bindsym $mod+Ctrl+Return  exec --no-startup-id termFromHere --title floating-terminal
+bindsym $mod+d            exec --no-startup-id dmenu_run
+bindsym $mod+Shift+d      exec --no-startup-id ~/Projects/spell-book/cantrips/menu.sh
+bindsym $mod+F9           exec --no-startup-id changeMeWall
+bindsym $mod+F8           exec --no-startup-id nitrogen --head="0" --set-zoom-fill ~/Pictures/Wallpapers/home.png && nitrogen --head="1" --set-zoom-fill ~/Pictures/Wallpapers/home.png
+bindsym $mod+Ctrl+m       exec --no-startup-id $term -e 'pacmixer'
+bindsym $mod+F2           exec --no-startup-id firefox
+bindsym $mod+Shift+F2     exec --no-startup-id firefox -private-window https://duckduckgo.com/
+bindsym $mod+F3           exec --no-startup-id discord
+bindsym $mod+F4           exec --no-startup-id steam
+bindsym $mod+m            exec --no-startup-id $term -e 'neomutt'
+bindsym $mod+Shift+c      exec --no-startup-id $term -e 'calcurse'
+bindsym Print             --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+bindsym Shift+Print       --release exec --no-startup-id scrot -s -e 'scrot-rename $f'
+bindsym $mod+Print        --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
+bindsym $mod+Ctrl+s       exec --no-startup-id urxvt --title floating-terminal -e syncspellbook --hold
+bindsym $mod+t            exec --no-startup-id $term -e htop
+bindsym $mod+c            exec --no-startup-id $term --title floating-terminal -e 'bc -l'
+bindsym $mod+x            exec --no-startup-id urxvt -fn "xft:DejaVu Sans Mono:autohint=true:size=20" --title floating-terminal-calendar -e bash -c "cal -s && read -s -r -n 1"
+bindsym $mod+v            exec --no-startup-id playClipboard
+bindsym $mod+Shift+v      exec --no-startup-id sh -c "sleep 0.5 && echo '.p https://youtu.be/'$(m current -i) | xclip -sel clip && xdotool key 'Ctrl+V' && xdotool key 'Return' && m next-file"
 
-####### MEMES
-# bindsym $mod+Shift+Ctrl+i --release exec --no-startup-id echo -n "INACEITAVEL e INACREDITAVEL" | xclip -sel clip && sleep 0.5 && xdotool key 'Ctrl+V'
-# bindsym $mod+Shift+t      exec --no-startup-id echo -n "🤔" | xclip -sel clip
+######MEMES
+bindsym $mod+Shift+Ctrl+i --release exec --no-startup-id echo -n "INACEITAVEL e INACREDITAVEL" | xclip -sel clip && sleep 0.5 && xdotool key 'Ctrl+V'
+bindsym $mod+Shift+t      exec --no-startup-id echo -n "🤔" | xclip -sel clip
 
-####### MEDIA KEYS
-# bindsym $mod+backslash       exec --no-startup-id m pause
-# bindsym $mod+Shift+backslash exec --no-startup-id m quit
-# bindsym $mod+minus           exec --no-startup-id m vd 2
-# bindsym $mod+plus            exec --no-startup-id m vu 2
-# bindsym $mod+Next            exec --no-startup-id m next
-# bindsym $mod+Prior           exec --no-startup-id m prev
-# bindsym $mod+End             exec --no-startup-id m next-file
-# bindsym $mod+Home            exec --no-startup-id m prev-file
-# bindsym $mod+Up              exec --no-startup-id m frwd 60
-# bindsym $mod+Down            exec --no-startup-id m back 60
-# bindsym $mod+Right           exec --no-startup-id m frwd 5
-# bindsym $mod+Left            exec --no-startup-id m back 5
-# bindsym $mod+Insert          exec --no-startup-id m current --notify
-# bindsym $mod+Delete          exec --no-startup-id m add-cat-to-current
-# bindsym $mod+BackSpace       exec --no-startup-id sh -c "echo quit | socat - /tmp/mpvalarm"
-# bindsym $mod+comma           exec --no-startup-id show_full_bar
+######MEDIA KEYS
+bindsym $mod+backslash       exec --no-startup-id m pause
+bindsym $mod+Shift+backslash exec --no-startup-id m quit
+bindsym $mod+minus           exec --no-startup-id m vd 2
+bindsym $mod+plus            exec --no-startup-id m vu 2
+bindsym $mod+Next            exec --no-startup-id m next
+bindsym $mod+Prior           exec --no-startup-id m prev
+bindsym $mod+End             exec --no-startup-id m next-file
+bindsym $mod+Home            exec --no-startup-id m prev-file
+bindsym $mod+Up              exec --no-startup-id m frwd 60
+bindsym $mod+Down            exec --no-startup-id m back 60
+bindsym $mod+Right           exec --no-startup-id m frwd 5
+bindsym $mod+Left            exec --no-startup-id m back 5
+bindsym $mod+Insert          exec --no-startup-id m current --notify
+bindsym $mod+Delete          exec --no-startup-id m add-cat-to-current
+bindsym $mod+BackSpace       exec --no-startup-id sh -c "echo quit | socat - /tmp/mpvalarm"
+bindsym $mod+comma           exec --no-startup-id show_full_bar
 
 ####### NAVIGATION
 bindsym $mod+j         focus down
@@ -176,7 +176,7 @@ assign [class="Steam"] workspace number 2
 assign [class="jetbrains"] workspace number 5
 assign [class="[Running] - Oracle VM VirtualBox"] workspace number 6
 
-for_window [title="my-media-player"]              move workspace number 9
+for_window [class="my-media-player"]              move workspace number 9
 for_window [class="Nitrogen"]                     floating enable sticky enable border normal
 for_window [class="Sxiv"]                         floating enable border pixel 1
 for_window [class="feh"]                          floating enable border pixel 1
