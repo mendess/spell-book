@@ -31,6 +31,7 @@ jq
 libconfig # compton dependency
 libxdg-basedir # compton dependency
 mpv
+man
 neofetch
 neovim
 network-manager-applet
@@ -62,10 +63,13 @@ ttf-dejavu
 ttf-hack
 unzip
 urxvt-perls
+usbutils
 wget
 xclip
+xdg-user-dirs
 xorg-server
 xorg-xdpyinfo
+xorg-xev
 xorg-xinit
 xorg-xrandr
 xorg-xsetroot

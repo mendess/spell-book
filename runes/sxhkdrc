@@ -1,131 +1,149 @@
 super + Return
-  termite
+  	termite
 
 super + shift + Return
-  termFromHere
+  	termFromHere
 
 super + control + Return
-  termFromHere --title floating-terminal --class floating-terminal
+  	termFromHere --title floating-terminal --class floating-terminal
 
 super + d
-  dmenu_run
+  	dmenu_run
 
 super + shift + d
-  ~/Projects/spell-book/cantrips/menu.sh
+  	~/Projects/spell-book/cantrips/menu.sh
 
 super + F9
-  changeMeWall
+  	changeMeWall
 
 super + F8
-  feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/home.png
+  	feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/home.png
 
 super + control + m
-  termite --class floating-terminal -e pacmixer
+  	termite --class floating-terminal -e pacmixer
 
 super + F2
-  firefox
+  	firefox
 
 super + shift + F2
-  firefox -private-window https://duckduckgo.com/
+  	firefox -private-window https://duckduckgo.com/
 
 super + F3
-  discord
+  	discord
 
 super + F4
-  steam
+  	steam
 
 super + m
-  termite -e neomutt
+  	termite -e neomutt
 
 super + shift + c
-  termite -e calcurse
+  	termite -e calcurse
 
 @Print
-  scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+  	scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 
 shift + @Print
-  scrot -s -e 'scrot-rename $f'
+  	scrot -s -e 'scrot-rename $f'
 
 super + @Print
-  scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
+  	scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 
 super + control + s
-  termite --class floating-terminal --title floating-terminal -e 'syncspellbook --hold'
+  	termite --class floating-terminal --title floating-terminal -e 'syncspellbook --hold'
 
 super + t
-  termite -e htop
+  	termite -e htop
 
 super + c
-  termite --class floating-terminal --title floating-terminal -e 'bc -l'
+  	termite --class floating-terminal --title floating-terminal -e 'bc -l'
 
 super + x
-  termite --class floating-terminal -e 'bash -c "cal -s && read -s -r -n 1"'
+  	termite --class floating-terminal -e 'bash -c "cal -s && read -s -r -n 1"'
 
 super + v
-  playClipboard
+  	playClipboard
 
 super + shift + v
-  sleep 0.5 && echo .p "https://youtu.be/$(m current -i)" | xclip -sel clip && xdotool key Ctrl+V && xdotool key Return && m next-file
+  	sleep 0.5 && echo .p "https://youtu.be/$(m current -i)" | xclip -sel clip && xdotool key Ctrl+V && xdotool key Return && m next-file
 
 super + shift + control + i
-  echo -n INACEITAVEL e INACREDITAVEL | xclip -sel clip && sleep 0.5 && xdotool key Ctrl+V
+  	echo -n INACEITAVEL e INACREDITAVEL | xclip -sel clip && sleep 0.5 && xdotool key Ctrl+V
 
 super + shift + t
- echo -n '🤔' | xclip -sel clip
+ 	echo -n '🤔' | xclip -sel clip
+
+XF86AudioMute
+    pactl 'set-sink-mute' 0 toggle
+
+XF86AudioRaiseVolume
+	pactl 'set-sink-volume' 0 '+5%'
+
+XF86AudioLowerVolume
+    pactl 'set-sink-volume' 0 '-5%'
+
+XF86AudioMicMute
+	pactl 'set-source-mute' 1 toggle
 
 super + backslash
-  m pause
+  	m pause
 
 super + shift + backslash
-  m quit
+  	m quit
 
 super + minus
-  m vd 2
+  	m vd 2
 
 super + plus
-  m vu 2
+  	m vu 2
 
 super + Next
-  m next
+  	m next
 
 super + Prior
-  m prev
+  	m prev
 
 super + End
-  m next-file
+  	m next-file
 
 super + Home
-  m prev-file
+  	m prev-file
 
 super + Up
-  m frwd 60
+  	m frwd 60
 
 super + Down
-  m back 60
+  	m back 60
 
 super + Right
-  m frwd 5
+  	m frwd 5
 
 super + Left
-  m back 5
+  	m back 5
 
 super + Insert
-  m current --notify
+  	m current --notify
 
 super + Delete
-  m add-cat-to-current
+  	m add-cat-to-current
 
 super + BackSpace
-  echo quit | socat - /tmp/mpvalarm
+  	echo quit | socat - /tmp/mpvalarm
 
 super + comma
-  show_full_bar
+  	show_full_bar
 
 super + F6
-  echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness
+  	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness
 
 super + F5
-  echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness
+  	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness
+
+XF86MonBrightnessUp
+	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness
+
+XF86MonBrightnessDown
+	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness
 
 # bspwm
 super + shift + space
@@ -149,7 +167,15 @@ super + shift + {h,j,k,l}
     fi
 
 super + {1-9,0}
-    bspc desktop -f '^{1-9,10}'
+    D={1-9,10}; \
+    M=$(bspc query --monitors --desktop $D); \
+    if [[ $(bspc query --desktops --monitor $M | wc -l) -gt 1 ]] \
+      && [[ $(bspc query --desktops --desktop focused) != $D ]]; then \
+        bspc desktop $D --to-monitor focused; \
+        bspc desktop $D --focus; \
+    elif [[ $(bspc query --monitors --monitor focused) != $M ]]; then \
+      bspc desktop eDP-1:focused --swap eDP-1:focused; \
+    fi
 
 super + shift + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
@@ -161,9 +187,31 @@ super + control + {h,j,k,l}
     bspc node --resize {right -10 0, bottom 0 +10, bottom 0 -10, right +10 0}
 
 super + shift + r
-    ~/.config/bspwm/bspwmrc && ( killall sxhkd ; sxhkd & ) ; notify-send -t 500 -u low 'reset done'
+    ~/.config/bspwm/bspwmrc ; notify-send -t 500 -u low 'reset done'
 
+alt + Tab
+	bspc desktop -f last
 
+super + {_,shift +} Tab
+	bspc desktop -f {next,prev}.local.occupied
+
+super + e
+	bspc desktop --layout next
+
+super + {_,shift +} n
+	bspc desktop --bubble {next,prev}
+
+super + g
+	bspc node -s biggest.local
+
+super + shift + e
+	bspc node --equalize
+
+super + q + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+super + apostrophe
+	bspc node -t \~pseudo_tiled
 
 # set directly keycode (here control + f with my keyboard)
 # "termite"

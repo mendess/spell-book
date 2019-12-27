@@ -6,7 +6,7 @@ i=1
 for monitor in $(bspc query -M); do
     bspc monitor "$monitor" \
             -n "$i" \
-            -d $i/{i,ii,iii,iv,v,vi,vii,viii,ix,x}
+            -d 1 2 3 4 5 6 7 8 9 10
     (( i++ ))
 done
 unset i
@@ -29,6 +29,7 @@ bspc rule -a feh state=floating
 bspc rule -a URxvt state=floating
 bspc rule -a Sxiv state=floating
 bspc rule -a my-media-player desktop=^10
+bspc rule -a Zathura state=tiling
 
 bar() {
     while :;
@@ -46,7 +47,18 @@ bar() {
     done
 }
 
-killall sxhkd polybar
+if ! pgrep sxhkd
+then
+    sxhkd > ~/.sxhkd.log &
+else
+    pkill -USR1 -x sxhkd
+    tee ~/.sxhkd.log
+    # sxhkd > ~/.sxhkd.log &
+fi
 
-sxhkd &
-polybar example &
+if ! pgrep polybar
+then
+    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+        MONITOR=$m polybar --reload example &
+    done
+fi

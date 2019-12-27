@@ -67,8 +67,8 @@ wm-restack = bspwm
 
 ;override-redirect = true
 
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
+scroll-up = bspc desktop -f prev.local.occupied
+scroll-down = bspc desktop -f next.local.occupied
 
 ;scroll-up = i3wm-wsnext
 ;scroll-down = i3wm-wsprev
@@ -85,30 +85,30 @@ hook-0 = notify-send 'hooked but not good'
 [module/filesystem]
 inherit = module/ipc
 type = custom/script
-interval = 25
-exec = .config/polybar/disk
+exec = ~/.config/polybar/disk
 exec-if = [ -e /tmp/.bloat ]
+interval = 1
 hook-1 = notify-send 'hooked'
 
 [module/bspwm]
 type = internal/bspwm
 
-label-focused = %index%
-label-focused-background = #50285577
+label-focused = %name%
+label-focused-background = #AA285577
 label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
-label-occupied = %index%
+label-occupied = %name%
 label-occupied-padding = 2
 
-label-urgent = %index%!
+label-urgent = %name%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
 label-empty =
 label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
-
+label-empty-padding = 0
+enable-scroll = false
 ; Separator in between workspaces
 ; label-separator = |
 
@@ -117,14 +117,22 @@ type = custom/script
 exec = ~/.config/polybar/media
 format-background = ${colors.background-alt}
 format-underline = ${colors.primary}
+interval = 1
+click-middle = m pause
+click-right = m next-file
+click-left = m prev-file
 
 [module/xbacklight]
 type = custom/script
 exec = ~/.config/polybar/brightness
+exec-if = [ -e /tmp/.bloat ]
+interval = 1
 
 [module/memory]
 type = custom/script
 exec = ~/.config/polybar/memory
+exec-if = [ -e /tmp/.bloat ]
+interval = 1
 
 [module/wlan]
 type = internal/network

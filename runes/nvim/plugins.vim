@@ -32,8 +32,8 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'udalov/kotlin-vim'
 Plug 'vim-python/python-syntax'
+Plug 'kovetskiy/sxhkd-vim'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'lervag/vimtex'
 
 Plug '/usr/bin/fzf'

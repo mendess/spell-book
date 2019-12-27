@@ -34,4 +34,3 @@ VOL="$(echo '{ "command": ["get_property", "volume"] }' \
     | jq -r .data)"
 
 echo "♪" "$CURRENT" "$SIGIL" "$VOL%"
-# echo "♪" "$CURRENT" "$SIGIL" "$VOL%"
