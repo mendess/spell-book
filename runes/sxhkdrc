@@ -167,15 +167,21 @@ super + shift + {h,j,k,l}
     fi
 
 super + {1-9,0}
-    D={1-9,10}; \
-    M=$(bspc query --monitors --desktop $D); \
-    if [[ $(bspc query --desktops --monitor $M | wc -l) -gt 1 ]] \
-      && [[ $(bspc query --desktops --desktop focused) != $D ]]; then \
-        bspc desktop $D --to-monitor focused; \
-        bspc desktop $D --focus; \
-    elif [[ $(bspc query --monitors --monitor focused) != $M ]]; then \
-      bspc desktop eDP-1:focused --swap eDP-1:focused; \
-    fi
+	bspc desktop -f ^{1-9,10}
+	# D={1-9,10}; \
+	# bspc query --nodes --desktop >/dev/null ; \
+	# empty=$?; \
+	# cur="$(bspc query --desktops --desktop)"; \
+	# echo "E: $empty C: $cur D: $D"; \
+	# if ! bspc desktop -f ^$D; then \
+	# 	echo "1st if"; \
+	# 	bspc monitor -a $D; \
+	# 	bspc desktop -f ^$D; \
+	# fi; \
+	# if [ $empty -eq 1 ]; then \
+	# 	echo "2nd if"; \
+	# 	bspc desktop $cur --remove; \
+	# fi
 
 super + shift + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
@@ -207,7 +213,7 @@ super + g
 super + shift + e
 	bspc node --equalize
 
-super + q + {h,j,k,l}
+super + q ; {h,j,k,l}
 	bspc node -p {west,south,north,east}
 
 super + apostrophe

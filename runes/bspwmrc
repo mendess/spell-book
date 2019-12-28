@@ -1,22 +1,22 @@
 #!/bin/bash
 
-#sxhkd &
-
-i=1
-for monitor in $(bspc query -M); do
-    bspc monitor "$monitor" \
-            -n "$i" \
-            -d 1 2 3 4 5 6 7 8 9 10
-    (( i++ ))
-done
-unset i
+case "$(hostname)" in
+    weatherlight)
+        bspc monitor -d 1 2 3 4 5 6 7 8 9 A
+        ;;
+    tolaria)
+        bspc monitor ^1 -d 1 2 3 4 5
+        bspc monitor ^2 -d 6 7 8 9 A
+        ;;
+esac
 
 bspc config border_width         1
 bspc config window_gap           4
 
 bspc config split_ratio          0.5
-bspc config borderless_monocle   true
-bspc config gapless_monocle      true
+bspc config borderless_monocle   false
+bspc config gapless_monocle      false
+bspc config remove_unplugged_monitors true
 
 # bspc rule -a Gimp desktop='^8' state=floating follow=on
 # bspc rule -a Chromium desktop='^2'
@@ -52,7 +52,7 @@ then
     sxhkd > ~/.sxhkd.log &
 else
     pkill -USR1 -x sxhkd
-    tee ~/.sxhkd.log
+    :> ~/.sxhkd.log
     # sxhkd > ~/.sxhkd.log &
 fi
 
