@@ -7,12 +7,17 @@ case "$(hostname)" in
     tolaria)
         bspc monitor -O DVI-D-0 DVI-I-1
         bspc monitor DVI-I-1 -d 1 2 3 4 5
-        bspc monitor DVI-D-0 -d 6 7 8 9 A
+        bspc monitor DVI-D-0 -d 6 7 8 9 0
         ;;
 esac
 
-bspc config border_width         4
-bspc config window_gap           2
+if [[ "$(hostname)" = tolaria ]]
+then
+    bspc config window_gap           10
+else
+    bspc config window_gap           2
+fi
+bspc config border_width         5
 
 bspc config split_ratio          0.5
 bspc config borderless_monocle   false

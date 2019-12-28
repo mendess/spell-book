@@ -26,7 +26,7 @@ Scritps to be run by hand or through a keybind.
   remote repository. Also runs [learnSpells](./learnSpells.sh)
   and [castRunes](./castRunes.sh).
 - [termFromHere](./spells/termFromHere.spell) Opens a terminal in the same `cwd` as the focused `X`
-  program. (Meant to be used with `i3wm`)
+  program.
 
 ### Music Player
 [m](./spells/m.spell) Is the main entry point to control the music player. It also manages the
@@ -40,7 +40,7 @@ Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 - [youtube](./cantrips/youtube.sh) Launches the music player controled using [m](./spells/m.spell)
 - [quickbrowser](./cantrips/quickbrowser.sh) Launches surf with one of the [bookmarks](./library/bookmarks)
 - [today](./cantrips/today.sh) Show's today's apointments
-- [i3-rename-ws](./cantrips/i3-rename-ws.sh) Renames the current workspace
+- [bspwm-rename-ws](./cantrips/bspwm-rename-ws.sh) Renames the current workspace
 
 ## [Runes](./runes) *(config files)*
 Static configuration files

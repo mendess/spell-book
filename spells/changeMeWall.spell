@@ -46,12 +46,12 @@ else
         wall="$(echo "$wall" | tr -d '\n')"
         magick "$wall" -gravity center -crop $crop -resize $resize /tmp/tmp.png
         magick /tmp/tmp.png /tmp/weather.png -geometry +50+50 -composite "/tmp/target_$(basename "$wall").jpg"
-        if hash bspc &> /dev/null
+        if hash bspc &> /dev/null && [[ "$i" -eq 1 ]]
         then
             color=$(convert $wall -shave 25% -gravity center +dither -colors 1 -crop 1x1+40+30 txt: \
                 | grep -oP '#[^ ].....')
             bspc config -m ^$i focused_border_color "$color"
-            bspc config -m ^$i active_border_color "$color"
+            # bspc config -m ^$i active_border_color "$color"
             bspc config -m ^$i presel_feedback_color "$color"
             (( i++ ))
             echo "$i"

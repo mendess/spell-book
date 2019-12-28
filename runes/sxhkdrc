@@ -229,29 +229,5 @@ super + q ; {h,j,k,l}
 super + apostrophe
 	bspc node -t \~pseudo_tiled
 
-# set directly keycode (here control + f with my keyboard)
-# "termite"
-#   c:41 + m:0x4
-
-# specify a mouse button
-# "termite"
-#   control + b:2
-
-#"xterm -geom 50x20+20+20"
-#   shift+Mod2+alt + s
-#
-## set directly keycode (here control+alt+mod2 + f with my keyboard)
-#"xterm"
-#  alt + c:0x29 + m:4 + mod2
-#
-## control+shift+a  release event starts rxvt
-#"rxvt"
-#  release+control+shift + a
-#
-## control + mouse button 2 release event starts rxvt
-#"rxvt"
-#  control + b:2 + Release
-
-##################################
-# End of xbindkeys configuration #
-##################################
+super + i
+	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
