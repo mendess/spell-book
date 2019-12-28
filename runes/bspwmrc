@@ -31,29 +31,12 @@ bspc rule -a Sxiv state=floating
 bspc rule -a my-media-player desktop=^10
 bspc rule -a Zathura state=tiling
 
-bar() {
-    while :;
-    do
-        echo "$(.config/bspwm/media)" \
-            "$(.config/bspwm/brightness)" \
-            "$(.config/bspwm/disk)" \
-            "$(.config/bspwm/iface)" \
-            "$(.config/bspwm/wifi)" \
-            "$(.config/bspwm/load_average)" \
-            "$(.config/bspwm/memory)" \
-            "⚡$(.config/bspwm/battery)" \
-            "$(date +"%d/%m %H:%M")"
-        sleep 10
-    done
-}
-
 if ! pgrep sxhkd
 then
     sxhkd > ~/.sxhkd.log &
 else
     pkill -USR1 -x sxhkd
     :> ~/.sxhkd.log
-    # sxhkd > ~/.sxhkd.log &
 fi
 
 if ! pgrep polybar
