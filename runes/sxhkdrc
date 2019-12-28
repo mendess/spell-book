@@ -149,6 +149,13 @@ XF86MonBrightnessDown
 super + shift + space
     bspc node -t \~floating
 
+super + space
+	if bspc query --nodes --node focused.floating; then \
+		bspc node last.tiled -f; \
+	else \
+		bspc node last.floating -f; \
+	fi
+
 super + f
     bspc node -t \~fullscreen
 
@@ -193,7 +200,7 @@ super + control + {h,j,k,l}
     bspc node --resize {right -10 0, bottom 0 +10, bottom 0 -10, right +10 0}
 
 super + shift + r
-    ~/.config/bspwm/bspwmrc ; notify-send -t 500 -u low 'reset done'
+    bspc wm --restart ; notify-send -t 500 -u low 'reset done'
 
 alt + Tab
 	bspc desktop -f last
