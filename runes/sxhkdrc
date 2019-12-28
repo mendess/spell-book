@@ -145,7 +145,7 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
 	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness
 
-# bspwm
+###### bspwm
 super + shift + space
     bspc node -t \~floating
 
@@ -198,6 +198,9 @@ super + control + {1-9,0}
 
 super + control + {h,j,k,l}
     bspc node --resize {right -10 0, bottom 0 +10, bottom 0 -10, right +10 0}
+
+super + alt + {h,l}
+	bspc node --to-monitor {prev,next} --follow
 
 super + shift + r
     bspc wm --restart ; notify-send -t 500 -u low 'reset done'
