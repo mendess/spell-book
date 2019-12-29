@@ -14,7 +14,7 @@ CURRENT="$(m current \
     | cut -c 1-50 \
     | sed -r 's/^(.{'"$TRUNC"'}).*/\1.../')"
 
-[ -z "$CURRENT" ] && exit 0
+[ -z "$CURRENT" ] && echo && exit 0
 
 case $BLOCK_BUTTON in
     1) m prev-file ;;

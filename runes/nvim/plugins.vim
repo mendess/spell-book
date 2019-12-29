@@ -79,37 +79,37 @@ let g:goyo_width='83'
 " coc
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> <F10> <Plug>(coc-diagnostic-prev)
-nmap <silent> <F12> <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
- " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" " Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> <F10> <Plug>(coc-diagnostic-prev)
+" nmap <silent> <F12> <Plug>(coc-diagnostic-next)
+" nmap <silent> gd <Plug>(coc-definition)
+"  " Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+" " Remap for rename current word
+" nmap <leader>rn <Plug>(coc-rename)
 
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+" " Fix autofix problem of current line
+" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Autoformat
 map <leader>f :Neoformat<CR>

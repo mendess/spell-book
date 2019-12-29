@@ -231,3 +231,12 @@ super + apostrophe
 
 super + i
 	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
+
+super + o
+	notify-send -u low '===========' '(l)ock \n\
+	(s)uspend \n\
+	(r)eboot \n\
+	(shift+s)hutdown'
+
+super + o; {l,s,r,shift + s}
+	{i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png,systemctl suspend,reboot,shutdown now}
