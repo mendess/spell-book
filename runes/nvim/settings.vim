@@ -26,8 +26,6 @@ filetype plugin indent on
 set scrolloff=4
 " Don't close buffers that aren't bound to a window
 set hidden
-" Don't wrap text
-set nowrap
 " smartcase matching
 set ignorecase
 set smartcase

@@ -15,6 +15,7 @@ else
     files="$(find "$WALLPAPERS" \
         | shuf -n "$(xrandr --query | grep ' connected' -c)" \
         | grep -vP '^$')"
+    echo "Setting these boys: $files" >> ~/.changeWall.log
 
     wide=$(echo "$files" \
         | xargs file \
