@@ -3,16 +3,13 @@
 # shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
 . library
 
-TRUNC=$(if [ -e /tmp/.bloat ]; then echo '47'; else echo '32'; fi)
-
-
 CURRENT="$(m current \
     | head -2 \
     | tail -1 \
     | cut -d ':' -f2 \
     | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' \
     | cut -c 1-50 \
-    | sed -r 's/^(.{'"$TRUNC"'}).*/\1.../')"
+    | cat)"
 
 [ -z "$CURRENT" ] && echo && exit 0
 

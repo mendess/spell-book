@@ -59,7 +59,7 @@ super + c
   	termite --class floating-terminal --title floating-terminal -e 'bc -l'
 
 super + x
-  	termite --class floating-terminal -e 'bash -c "cal -s && read -s -r -n 1"'
+  	termite --class floating-terminal -e 'bash -c "cal -3 -s && read -s -r -n 1"'
 
 super + v
   	playClipboard
@@ -197,7 +197,8 @@ super + control + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
 
 super + control + {h,j,k,l}
-    bspc node --resize {right -10 0, bottom 0 +10, bottom 0 -10, right +10 0}
+    bspc node --resize {right -10 0, bottom 0 +10, bottom 0 -10, right +10 0} \
+	|| bspc node --resize {left -10 0, top 0 +10, top 0 -10, left +10 0}
 
 super + alt + {h,l}
 	bspc node --to-monitor {prev,next} --follow
