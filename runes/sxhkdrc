@@ -224,7 +224,7 @@ super + shift + e
 	bspc node --equalize
 
 super + q ; {h,j,k,l}
-	bspc node -p {west,south,north,east}
+	bspc node --presel-dir \~{west,south,north,east}
 
 super + apostrophe
 	bspc node -t \~pseudo_tiled
