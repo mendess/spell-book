@@ -50,17 +50,17 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = fixed:pixelsize=11;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-0 = DejaVu Sans Serif:size=10.5;0
+font-1 = Hack:pixelsize=11;1
+# unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
 modules-left = bspwm
-modules-center = mpv
+modules-center = mpv spotify
 modules-right = filesystem xbacklight pulseaudio wlan eth battery date
 
 tray-position = right
 tray-padding = 1
-;tray-background = #0063ff
 
 wm-restack = bspwm
 
@@ -98,13 +98,14 @@ label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
 label-occupied = %name%
+label-occupied-underline= ${colors.foreground-alt}
 label-occupied-padding = 2
 
 label-urgent = %name%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-label-empty = %name%
+label-empty =
 label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 enable-scroll = false
@@ -115,11 +116,21 @@ enable-scroll = false
 type = custom/script
 exec = ~/.config/polybar/media
 format-background = ${colors.background-alt}
-format-underline = ${colors.primary}
+format-underline = #e66300
 interval = 1
 click-middle = m pause
 click-right = m next-file
 click-left = m prev-file
+
+[module/spotify]
+type = custom/script
+interval = 1
+format = <label>
+exec = python ~/.config/polybar/spotify_status.py -p '⊳,││' -f '{artist}: {song} {play_pause}'
+click-middle = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+click-left = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+click-right = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+format-underline = #1db954
 
 [module/xbacklight]
 type = custom/script

@@ -197,8 +197,9 @@ super + control + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
 
 super + control + {h,j,k,l}
-    bspc node --resize {right -10 0, bottom 0 +10, bottom 0 -10, right +10 0} \
-	|| bspc node --resize {left -10 0, top 0 +10, top 0 -10, left +10 0}
+	dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
+    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} \
+	|| bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
 
 super + alt + {h,l}
 	bspc node --to-monitor {prev,next} --follow
@@ -222,22 +223,19 @@ super + g
 	bspc node -s biggest.local
 
 super + shift + e
-	bspc node --equalize
+	bspc node $(bspc query --nodes --desktop | head -1) --equalize
+
+super + r
+	bspc node $(bspc query --nodes --desktop | head -1) --circulate forward
 
 super + q ; {h,j,k,l}
 	bspc node --presel-dir \~{west,south,north,east}
 
-super + apostrophe
-	bspc node -t \~pseudo_tiled
+super + {_,shift +} apostrophe
+	bspc node -t {\~pseudo_tiled,tiled}
 
 super + i
 	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
-
-super + o
-	notify-send -u low '===========' '(l)ock \n\
-	(s)uspend \n\
-	(r)eboot \n\
-	(shift+s)hutdown'
 
 super + o; {l,s,r,shift + s}
 	{i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png,systemctl suspend,reboot,shutdown now}

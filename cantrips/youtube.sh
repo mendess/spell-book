@@ -25,7 +25,7 @@ clipboard"
             vids="$(xclip -sel clip -o)"
         else
             vids="$(echo "$vidlist" \
-                | grep -P "^$vidname" \
+                | grep -F "$vidname" \
                 | awk -F'\t' '{print $2}')"
         fi
         ;;
