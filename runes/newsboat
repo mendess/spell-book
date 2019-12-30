@@ -32,7 +32,7 @@ browser surf
 macro , open-in-browser
 macro t set browser "tsp youtube-dl --add-metadata -ic"; open-in-browser ; set browser surf
 macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best"; open-in-browser ; set browser surf
-macro v set browser "i3 exec mpv"; open-in-browser ; set browser surf
+macro v set browser "mpv"; open-in-browser ; set browser surf
 macro w set browser "surf"; open-in-browser ; set browser surf
 macro c set browser "xsel -b <<<" ; open-in-browser ; set browser surf
 macro x set browser "del_rss_feed"; open-in-browser ; set browser surf

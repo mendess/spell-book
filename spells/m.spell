@@ -6,6 +6,24 @@ cd "$SPELLS"/spells || exit 1
 #shellcheck source=/home/mendess/.local/bin/library
 . library
 
+spotify_toggle_pause() {
+    dbus-send --print-reply \
+        --dest=org.mpris.MediaPlayer2.spotify \
+        /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+}
+
+spotify_next() {
+    dbus-send --print-reply \
+        --dest=org.mpris.MediaPlayer2.spotify \
+        /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+}
+
+spotify_prev() {
+    dbus-send --print-reply \
+        --dest=org.mpris.MediaPlayer2.spotify \
+        /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+}
+
 up_next() {
     next_id="$(( $(echo '{ "command": ["get_property", "playlist-pos"]}' \
         | socat - "$(mpvsocket)" \
@@ -151,8 +169,12 @@ queue () {
 main () {
     case $1 in
         p|pause)
-            echo 'cycle pause' | socat - "$(mpvsocket)"
-            __update_i3blocks
+            if pgrep spotify &>/dev/null; then
+                spotify_toggle_pause
+            else
+                echo 'cycle pause' | socat - "$(mpvsocket)"
+                __update_i3blocks
+            fi
             ;;
         quit)
             echo 'quit' | socat - "$(mpvsocket)"
@@ -222,12 +244,20 @@ main () {
             { sleep 2; __update_i3blocks; } &
             ;;
         h|prev-file)
-            echo 'playlist-prev' | socat - "$(mpvsocket)"
-            { sleep 2; __update_i3blocks; } &
+            if pgrep spotify &>/dev/null; then
+                spotify_prev
+            else
+                echo 'playlist-prev' | socat - "$(mpvsocket)"
+                { sleep 2; __update_i3blocks; } &
+            fi
             ;;
         l|next-file)
-            echo 'playlist-next' | socat - "$(mpvsocket)"
-            { sleep 2; __update_i3blocks; } &
+            if pgrep spotify &>/dev/null; then
+                spotify_next
+            else
+                echo 'playlist-next' | socat - "$(mpvsocket)"
+                { sleep 2; __update_i3blocks; } &
+            fi
             ;;
         J|back)
             echo "seek -${2:-10}" | socat - "$(mpvsocket)"

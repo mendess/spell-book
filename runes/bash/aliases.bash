@@ -1,33 +1,6 @@
 #!/bin/bash
 
 #shellcheck disable=SC2139
-alias bashrc="vim $SPELLS/runes/bash"
-alias vimrc="vim ~/.config/nvim/init.vim"
-alias py="python3"
-alias c="clear"
-alias pyenv="source .env/bin/activate"
-alias makeclean="find . -maxdepth 1 -type f -executable -delete"
-alias :q=exit
-alias vim=nvim
-alias bc="bc -l"
-alias :r="source ~/.bashrc"
-alias i3config="vim ~/.config/i3/config"
-alias i3statusconfig="vim ~/.config/i3status/config"
-alias db="dropbox-cli"
-alias mpvs='mpv --no-video --input-ipc-server=$(mpvsocket new)'
-alias mpvsv='mpv --input-ipc-server=$(mpvsocket new)'
-alias record='ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+0,0 "output-$(date +"%d_%m_%Y_%H_%M").mp4"'
-alias s='sxiv'
-alias notes='mn'
-alias ru='evcxr'
-alias sudo='sudo '
-alias ..='cd ..'
-alias ...=../..
-alias ....=../../..
-alias .....=../../../..
-alias ......=../../../../..
-alias whoshome='cd ~/Projects/whoshome/; pyenv; py main.py; deactivate; cd - &>/dev/null'
-
 # LS
 if hash exa &>/dev/null
 then
@@ -81,4 +54,33 @@ alias cnb='cargo +nightly build'
 alias cnrr='cargo +nightly run --release'
 alias cnbr='cargo +nightly build --release'
 alias cnch='cargo +nightly check'
+
+alias bashrc="vim $SPELLS/runes/bash"
+alias vimrc="vim ~/.config/nvim/init.vim"
+alias py="python3"
+alias c="clear"
+alias pyenv="source .env/bin/activate"
+alias makeclean="find . -maxdepth 1 -type f -executable -delete"
+alias :q=exit
+alias vim=nvim
+alias bc="bc -l"
+alias :r="source ~/.bashrc"
+alias i3config="vim ~/.config/i3/config"
+alias i3statusconfig="vim ~/.config/i3status/config"
+alias db="dropbox-cli"
+alias mpvs='mpv --no-video --input-ipc-server=$(mpvsocket new)'
+alias mpvsv='mpv --input-ipc-server=$(mpvsocket new)'
+alias record='ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+0,0 "output-$(date +"%d_%m_%Y_%H_%M").mp4"'
+alias s='sxiv'
+alias notes='mn'
+alias ru='evcxr'
+alias sudo='sudo '
+alias ..='cd ..'
+alias ...=../..
+alias ....=../../..
+alias .....=../../../..
+alias ......=../../../../..
+alias whoshome='cd ~/Projects/whoshome/; pyenv; py main.py; deactivate; cd - &>/dev/null'
 alias screenoff='DISPLAY=:0 xset dpms force off'
+alias spotify="LD_PRELOAD=$HOME/.local/bin/spotify-adblock.so spotify"
+
