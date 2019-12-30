@@ -7,4 +7,8 @@ cd spotify-adblock-linux
 make
 mv spotify-adblock.so ~/.local/bin/
 cd "$cwd"
-
+cat <<EOF > ~/.local/bin/spotify
+#!/bin/bash
+LD_PRELOAD="$HOME/.local/bin/spotify-adblock.so" /usr/bin/spotify
+EOF
+chmod +x ~/.local/bin/spotify
