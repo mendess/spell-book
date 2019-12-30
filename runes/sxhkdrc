@@ -88,7 +88,7 @@ XF86AudioMicMute
 super + backslash
   	m pause
 
-super + shift + backslash
+super + shift + bar
   	m quit
 
 super + minus
