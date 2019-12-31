@@ -86,6 +86,8 @@ function makeIfAbsent {
     then
         echo -e "\033[31mMissing \033[36m$1\033[31m directory, creating....\033[0m"
         mkdir --parent "$1"
+    else
+        return 1
     fi
 }
 
@@ -97,7 +99,8 @@ echo -e "\033[33mCasting Runes...\033[0m"
 for rune in "${expandedRunes[@]}";
 do
     IFS=',' read -r link file options <<< "${rune}"
-    makeIfAbsent "$(dirname "$link")" "$options"
-    linkRune "$file" "$link" "$options"
+    if makeIfAbsent "$(dirname "$link")" "$options"; then
+        linkRune "$file" "$link" "$options"
+    fi
 done
 echo -e "\033[33mDone!\033[0m"
