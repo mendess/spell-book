@@ -85,7 +85,7 @@
 
     ### Text ###
 
-    font = Hack 8
+    font = Hack 9
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -125,7 +125,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b\n<i>%a</i>"
+    format = "<b>%s</b>\n%b\n<i>%a</i>\n%n"
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
@@ -159,10 +159,10 @@
     ### Icons ###
 
     # Align icons left/right/off
-    icon_position = off
+    icon_position = left
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 32
+    max_icon_size = 64
 
     # Paths to default icons.
     icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/

@@ -35,7 +35,8 @@ bspc rule -a feh state=floating
 bspc rule -a URxvt state=floating
 bspc rule -a Sxiv state=floating
 bspc rule -a my-media-player desktop=^10
-bspc rule -a Zathura state=tiling
+bspc rule -a Zathura state=tiled
+bspc rule -a Wine state=pseudo_tiled
 
 if ! pgrep sxhkd
 then

@@ -7,3 +7,4 @@ rename="$(true | dmenu -p 'Select picture name' | sed 's/^\s *//; s/\s*$//; s/\s
 if [ -n "$rename" ]; then
     mv "$1" ~/Pictures/"$rename"
 fi
+notify-send 'Screenshot captured' "Saved to <b>~/Pictures/$rename</b>" -i "~/Pictures/$rename" -a scrot
