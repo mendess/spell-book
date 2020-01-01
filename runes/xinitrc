@@ -4,8 +4,10 @@ dropbox start &
 battery_check_cicle &
 dunst &
 setxkbmap -option caps:escape
-xrandr --output DVI-D-0 --mode 1920x1080 --rate 120  --rotate normal --primary
+if [ "$(hostname)" = tolaria ]
+then
+    xrandr --output DVI-D-0 --mode 1920x1080 --rate 120  --rotate normal --primary
+fi
 calcurse --deamon
 nm-applet &
-xbindkeys --file .config/xbindkeys/rc
 exec bspwm

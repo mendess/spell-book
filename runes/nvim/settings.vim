@@ -35,10 +35,11 @@ autocmd! BufLeave,BufHidden ~/.config/nvim/init.vim :so ~/.config/nvim/init.vim
 " clear trailling whitespace
 autocmd! BufWritePre * %s/\s\+$//e
 autocmd! BufNewFile,BufRead *.spell set syntax=sh
+autocmd! BufEnter *xinitrc set syntax=sh
 autocmd! BufNewFile,BufRead *.glsl set syntax=c
 
-autocmd BufEnter *.sh    inoremap ,bb #!/bin/sh<Esc>o
-autocmd BufEnter *.spell inoremap ,bb #!/bin/sh<Esc>o
+autocmd! BufEnter *.sh    inoremap ,bb #!/bin/sh<Esc>o
+autocmd! BufEnter *.spell inoremap ,bb #!/bin/sh<Esc>o
 
 autocmd! BufEnter *.js set shiftwidth=2
 

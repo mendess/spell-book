@@ -14,14 +14,14 @@ aura() {
                 | jq '.results[] | "\(.Name) -> \(.Description)"'
             ;;
         -S)
-            aura "$2"
+            aura "${@:2}"
             ;;
         *)
             old="$(pwd)"
             cd /tmp || exit 1
             git clone https://aur.archlinux.org/"$1"
             cd "$1" || exit 1
-            makepkg -si --clean
+            makepkg -si --clean "${@:2}"
             cd "$old" || exit 1
             ;;
     esac

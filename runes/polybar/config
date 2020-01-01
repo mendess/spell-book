@@ -121,6 +121,8 @@ interval = 1
 click-middle = m pause
 click-right = m next-file
 click-left = m prev-file
+scroll-up = m vu
+scroll-down = m vd
 
 [module/spotify]
 type = custom/script
