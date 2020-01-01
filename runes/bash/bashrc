@@ -31,10 +31,10 @@ truncPath() {
 }
 rightprompt()
 {
-    [ "$1" -gt 0 ] && printf "|\e[1;31m%s\e[0m" "$1"
+    [ "$1" -gt 0 ] && printf "%s" "$1"
 }
 
-PS1='\[\e[33m\]$(truncPath $?)\[\e[0m$(rightprompt $?)\]> '
+PS1='\[\e[33m\]$(truncPath $?)\[\e[0m\e[1;31m\]$(rightprompt $?)\[\e[0m\]> '
 if [ -n "$SSH_CLIENT" ]
 then
     PS1='\[\e[1;31m\]\u@\h\[\e[0m\] '$PS1

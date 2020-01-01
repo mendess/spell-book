@@ -7,25 +7,26 @@ then
 else
     while [[ $# -gt 0 ]]
     do
-    key="$1"
+        key="$1"
 
-    case $key in
-        -p|--pacman)
-        PACMAN=1
-        shift
-        ;;
-        -a|--aur)
-        AUR=1
-        shift
-        ;;
-        -z|--zsh)
-        ZSH=1
-        shift
-        ;;
-        -c|--cargo)
-        CARGO=1
-        shift
-    esac
+        case $key in
+            -p|--pacman)
+                PACMAN=1
+                shift
+                ;;
+            -a|--aur)
+                AUR=1
+                shift
+                ;;
+            -c|--cargo)
+                CARGO=1
+                shift
+                ;;
+            -p|--python)
+                PYTHON=1
+                shift
+                ;;
+        esac
     done
 fi
 
@@ -37,12 +38,12 @@ function aur {
     [ "$ALL" = 1 ] || [ "$AUR" = 1 ]
 }
 
-function zsh {
-    [ "$ALL" = 1 ] || [ "$ZSH" = 1 ]
-}
-
 function carg {
     [ "$ALL" = 1 ] || [ "$CARGO" = 1 ]
+}
+
+function pytho {
+    [ "$ALL" = 1 ] || [ "$PYTHON" = 1 ]
 }
 
 script_dir="$(dirname "$(realpath "$0")")"
@@ -51,6 +52,7 @@ packages=()
 aurpackages=()
 bloat=()
 cargopackages=()
+python=()
 #shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
@@ -116,5 +118,8 @@ carg && {
     cargo install --force "${cargopackages[@]}"
 }
 
+pytho && {
+    pip install --user "${pythonpackages[@]}"
+}
 cd "$script_dir" || exit 1
 ../spells/syncspellbook.spell

@@ -151,7 +151,7 @@ super + shift + space
 
 super + space
 	if bspc query --nodes --node focused.floating; then \
-		bspc node last.tiled -f; \
+		bspc node last.local.tiled -f; \
 	else \
 		bspc node last.floating -f; \
 	fi
@@ -208,7 +208,7 @@ super + shift + r
     bspc wm --restart ; notify-send -t 500 -u low 'reset done'
 
 alt + Tab
-	bspc desktop -f last
+	bspc desktop -f last.occupied
 
 super + {_,shift +} Tab
 	bspc desktop -f {next,prev}.local.occupied

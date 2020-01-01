@@ -101,3 +101,8 @@ export bloat=(
 nano
 vim
 )
+
+export pythonpackages=(
+dbus-python
+yeelight
+)
