@@ -64,7 +64,7 @@ else
             bspc config -m ^$i focused_border_color "$color"
             # bspc config -m ^$i active_border_color "$color"
             bspc config -m ^$i presel_feedback_color "$color"
-            if nmcli -t dev | grep ZON2010; then
+            if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
                 ssh 192.168.1.5 "python ~/bulb/color.py \\$color" &
             fi
         fi &

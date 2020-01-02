@@ -161,6 +161,7 @@ k() {
 	if lsusb | grep 'Mechanical' | grep 'Keyboard' &>/dev/null
     then
         setxkbmap us
+        xmodmap -e 'keycode  21 = plus equal plus equal'
     else
         setxkbmap pt
     fi
@@ -189,4 +190,18 @@ from random import choice
 from sys import argv
 print("".join((map(lambda x: x.upper() if choice([True, False]) else x.lower(), " ".join(argv[1:])))))
 ' "$@"
+}
+
+record() {
+    if [ "$1" = right ]; then
+        i=1920
+    else
+        i=0
+    fi
+    ffmpeg \
+        -video_size 1920x1080 \
+        -framerate 60 \
+        -f x11grab \
+        -i :0.0+$i,0 \
+        "output-$(date +"%d_%m_%Y_%H_%M").mp4"
 }

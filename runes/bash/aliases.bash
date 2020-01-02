@@ -70,7 +70,6 @@ alias i3statusconfig="vim ~/.config/i3status/config"
 alias db="dropbox-cli"
 alias mpvs='mpv --no-video --input-ipc-server=$(mpvsocket new)'
 alias mpvsv='mpv --input-ipc-server=$(mpvsocket new)'
-alias record='ffmpeg -video_size 1920x1080 -framerate 60 -f x11grab -i :0.0+0,0 "output-$(date +"%d_%m_%Y_%H_%M").mp4"'
 alias s='sxiv'
 alias notes='mn'
 alias ru='evcxr'
