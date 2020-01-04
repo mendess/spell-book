@@ -25,26 +25,27 @@ else:
 if 'harging' not in status or not path.exists('/tmp/.bloat'):
     time = ""
 else:
-    time = " {}".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
+    time = " {} ".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
 
 if status == 'Discharging':
     percent = int(percent)
     if percent < 20:
-        c = r"%{F#FF0000}"
+        c = r"#FF0000"
     elif percent < 40:
-        c = r"%{F#FFAE00}"
+        c = r"#FFAE00"
     elif percent < 60:
-        c = r"%{F#FFF600}"
+        c = r"#FFF600"
     elif percent < 85:
-        c = r"%{F#A8FF00}"
+        c = r"#A8DD00"
     else:
-        c = ''
+        c = '-'
 else:
-    c = ''
+    c = '-'
 
 if c != '':
     clear = '%{F-}'
 else:
     clear = ''
-
-print("%{{F#FFFF00}}⚡%{{F-}}{}{} {}{}{}".format(c, percent, print_status, time, clear))
+fore = '%{{F{}}}'.format(c)
+under = '%{{U{}}}'.format(c)
+print("{}%{{+u}}%{{F#FFFF00}} ⚡%{{F-}}{}{} {}{}{}%{{U-}}%{{-u}}".format(under, fore, percent, print_status, time, clear))

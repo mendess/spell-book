@@ -21,25 +21,25 @@ checkBatteryLevel() {
         notify-send "Battery almost full: ${battery_level}%, unplug" -u low
     elif [ "$battery_state" = "Discharging" ]; then
         if [ -e /tmp/.use_the_juice ] && [ "$battery_level" -le 5 ]; then
-            notify-send 'Shutting down' -u critical
+            notify-send 'Shutting down' -u critical -a "$0"
             shutdown
         elif ! [ -e /tmp/.use_the_juice ] && [ "$battery_level" -le 10 ]; then
             systemctl suspend
         elif [ "$battery_level" -le 20 ]; then
-            notify-send "Low Battery" "Your computer will suspend soon unless plugged into a power outlet." -u critical
+            notify-send "Low Battery" "Your computer will suspend soon unless plugged into a power outlet." -u critical -a "$0"
         elif [ "$battery_level" -le 30 ]; then
-            notify-send "Low Battery" "$battery_level% ($battery_remaining) of battery remaining." -u normal
+            notify-send "Low Battery" "$battery_level% ($battery_remaining) of battery remaining." -u normal -a "$0"
         fi
     fi
 }
 
 checkBatteryStateChange() {
     if [ "$battery_state" != "Discharging" ] && [ "$previous_battery_state" = "Discharging" ]; then
-        notify-send "Charging" "Battery is now plugged in." -u low
+        notify-send "Charging" "Battery is now plugged in." -u low -a "$0"
     fi
 
     if [ "$battery_state" = "Discharging" ] && [ "$previous_battery_state" != "Discharging" ]; then
-        notify-send "Power Unplugged" "Your computer has been disconnected from power." -u low
+        notify-send "Power Unplugged" "Your computer has been disconnected from power." -u low -a "$0"
     fi
 }
 

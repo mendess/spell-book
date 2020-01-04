@@ -5,6 +5,8 @@
 
 num_mon=$(bspc query -M | wc -l)
 
+SCROLL_ACTIONS="%{A4:bspc desktop -f prev.local.occupied:}%{A5:bspc desktop -f next.local.occupied:}"
+SCROLL_CLOSE="%{A}%{A}"
 bspc subscribe report | while read -r line ; do
     . "$(dirname "$0")/workspaces_colors"
     case $line in
@@ -104,6 +106,6 @@ bspc subscribe report | while read -r line ; do
             done
             ;;
     esac
-    echo "%{l}${wm}"
+    echo "${wm}"
 done
 

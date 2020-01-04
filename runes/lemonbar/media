@@ -4,15 +4,17 @@
 # shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
 . library
 
-TRUNC=$(if ! [ -e /tmp/.bloat ]; then echo '47'; else echo '22'; fi)
 
 CURRENT="$(m current \
     | head -2 \
     | tail -1 \
     | cut -d ':' -f2 \
-    | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' \
-    | cut -c 1-50 \
-    | sed -r 's/^(.{'"$TRUNC"'}).*/\1.../')"
+    | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+
+if [ -e /tmp/.bloat ]; then
+    TRUNC=40
+    CURRENT="$(echo "$CURRENT" | sed -r 's/^(.{'"$TRUNC"'}).*/\1.../')"
+fi
 
 [ -z "$CURRENT" ] && echo && exit 0
 
@@ -33,5 +35,4 @@ VOL="$(echo '{ "command": ["get_property", "volume"] }' \
     | socat - "$(mpvsocket)" \
     | jq -r .data)"
 
-B_COLOR="%{F#399EE6}"
-echo "$B_COLOR⌊%{F-}" "♪" "$CURRENT" "$SIGIL" "$VOL%" "$B_COLOR⌋%{F-}"
+echo "♪" "$CURRENT" "$SIGIL" "$VOL%" "♪"

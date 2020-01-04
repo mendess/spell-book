@@ -3,7 +3,7 @@
 set -e
 case "$(hostname)" in
     weatherlight)
-        bspc monitor -d 1 2 3 4 5 6 7 8 9 A
+        bspc monitor -d 1 2 3 4 5 6 7 8 9 0
         ;;
     tolaria)
         bspc monitor -O DVI-D-0 DVI-I-1

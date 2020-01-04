@@ -2,7 +2,6 @@ bg:#aa222222
 geometry:x22
 separator:' | '
 n_clickables:32
-font:'-*-Hack-*-*-r-*-12-*-*-*-*-*-*-*'
 underline_width: 2
 
 > Workspaces
