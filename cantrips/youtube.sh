@@ -79,14 +79,14 @@ yes" | dmenu -i -p "With video?")
     rm -f "$(mpvsocket new)_last_queue"
     case $p in
         yes)
-            ( sleep 5; __update_i3blocks; ) &
+            ( sleep 5; __update_panel; ) &
             #shellcheck disable=2086
             mpv --input-ipc-server="$(mpvsocket new)" $vids
-            __update_i3blocks
+            __update_panel
             ;;
 
         no)
-            resolve_alias="$(command -v __update_i3blocks | cut -d\' -f2)"
+            resolve_alias="$(command -v __update_panel | cut -d\' -f2)"
             cmd="(sleep 2; $resolve_alias) &
             mpv --input-ipc-server='$(mpvsocket new)' --no-video $vids
             $resolve_alias;"

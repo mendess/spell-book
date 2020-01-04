@@ -96,7 +96,7 @@ $cateories"
 
 $(up_next)"
              notify-send "Now Playing" "$filename"
-             __update_i3blocks
+             __update_panel
              ;;
          -i|--link)
              echo '{ "command": ["get_property", "filename"] }' \
@@ -173,7 +173,7 @@ main () {
                 spotify_toggle_pause
             else
                 echo 'cycle pause' | socat - "$(mpvsocket)"
-                __update_i3blocks
+                __update_panel
             fi
             ;;
         quit)
@@ -229,26 +229,26 @@ main () {
             ;;
         k|vu)
             echo "add volume ${2:-2}" | socat - "$(mpvsocket)"
-            __update_i3blocks
+            __update_panel
             ;;
         j|vd)
             echo "add volume -${2:-2}" | socat - "$(mpvsocket)"
-            __update_i3blocks
+            __update_panel
             ;;
         H|prev)
             echo 'add chapter -1' | socat - "$(mpvsocket)"
-            { sleep 2; __update_i3blocks; } &
+            { sleep 2; __update_panel; } &
             ;;
         L|next)
             echo 'add chapter 1' | socat - "$(mpvsocket)"
-            { sleep 2; __update_i3blocks; } &
+            { sleep 2; __update_panel; } &
             ;;
         h|prev-file)
             if pgrep spotify &>/dev/null; then
                 spotify_prev
             else
                 echo 'playlist-prev' | socat - "$(mpvsocket)"
-                { sleep 2; __update_i3blocks; } &
+                { sleep 2; __update_panel; } &
             fi
             ;;
         l|next-file)
@@ -256,7 +256,7 @@ main () {
                 spotify_next
             else
                 echo 'playlist-next' | socat - "$(mpvsocket)"
-                { sleep 2; __update_i3blocks; } &
+                { sleep 2; __update_panel; } &
             fi
             ;;
         J|back)
