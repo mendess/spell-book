@@ -1,0 +1,8 @@
+#!/bin/sh
+# shellcheck disable=SC2029
+
+scp "$1" mirrodin:Pictures/Wallpapers
+if [ "$2" = "-s" ] || [ "$(hostname)" = weatherlight ]; then
+    name="$(basename "$1")"
+    ssh mirrodin "ln -s ~/Pictures/Wallpapers/$name ~/Pictures/Shortlist"
+fi
