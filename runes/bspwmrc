@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 case "$(hostname)" in
     weatherlight)
         bspc monitor -d 1 2 3 4 5 6 7 8 9 A
@@ -37,6 +38,7 @@ bspc rule -a URxvt state=floating
 bspc rule -a Sxiv state=floating
 bspc rule -a my-media-player desktop=^10
 bspc rule -a Zathura state=tiled
+bspc rule -a Surf state=tiled
 bspc rule -a Wine state=pseudo_tiled
 
 if ! pgrep sxhkd
@@ -46,10 +48,16 @@ else
     pkill -USR1 -x sxhkd
 fi
 
-if ! pgrep polybar
-then
-    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-        MONITOR=$m polybar --reload example &
-    done
+# if ! pgrep polybar
+# then
+#     for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+#         MONITOR=$m polybar --reload example &
+#     done
+# fi
+#[ -e "$PANEL_FIFO" ] && bspc subscribe report > "$PANEL_FIFO" &
+pgrep -x lemon && killall lemon
+#pgrep -x panel > /dev/null || "$(dirname "$0")/panel" &
+if ! [ -e ~/.config/lemonbar/lemon ]; then
+    rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon
 fi
-#killall yabar ; yabar &
+~/.config/lemonbar/lemon &

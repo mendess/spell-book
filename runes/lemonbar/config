@@ -94,7 +94,7 @@ type = internal/bspwm
 
 label-focused = %name%
 label-focused-background = #AA285577
-label-focused-underline = ${colors.primary}
+label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
 label-occupied = %name%

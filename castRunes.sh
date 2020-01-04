@@ -35,7 +35,7 @@ do
     else
         expandedRunes+=("$link,$file,$options")
     fi
-done < ../runes/.db
+done < <(sed '/^#/d' ../runes/.db)
 
 function cleanRunes {
     local rune link file
@@ -55,8 +55,10 @@ function newRunes {
     local rune link file
     for rune in "${expandedRunes[@]}"
     do
-        IFS=',' read -r link file <<< "${rune}"
-        [ -h "$link" ] || return 0
+        IFS=',' read -r link file options <<< "${rune}"
+        if ! [ -h "$link" ] && [ "$options" != "check" ]; then
+            return 0
+        fi
     done
     return 1
 }
@@ -82,13 +84,13 @@ function linkRune {
 }
 
 function makeIfAbsent {
-    if ! [ -e "$1" ] && [ "$2" != "check" ]
+    if ! [ -e "$1" ]
     then
+        [ "$2" == "check" ] && return 1
         echo -e "\033[31mMissing \033[36m$1\033[31m directory, creating....\033[0m"
         mkdir --parent "$1"
-    else
-        return 1
     fi
+    return 0
 }
 
 cleanRunes

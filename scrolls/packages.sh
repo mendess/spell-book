@@ -32,6 +32,7 @@ libconfig # compton dependency
 libxdg-basedir # compton dependency
 mpv
 man
+man-pages
 neofetch
 neovim
 network-manager-applet

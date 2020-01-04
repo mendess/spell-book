@@ -38,6 +38,8 @@ Plug 'kovetskiy/sxhkd-vim'
 
 Plug '/usr/bin/fzf'
 
+Plug 'dense-analysis/ale'
+
 call plug#end()
 
 """ PLUGIN CONFIGS
@@ -110,6 +112,9 @@ let g:goyo_width='83'
 
 " " Fix autofix problem of current line
 " nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Ale
+let g:ale_linters = { 'rust' : ['rls'] }
 
 " Autoformat
 map <leader>f :Neoformat<CR>

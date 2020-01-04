@@ -1,9 +1,7 @@
 #!/bin/bash
 
 touch /tmp/.bloat
-pkill -SIGRTMIN+11 i3blocks
-pkill -SIGRTMIN+10 i3blocks
+pkill -10 -x lemon
 sleep 10
 rm /tmp/.bloat
-pkill -SIGRTMIN+11 i3blocks
-pkill -SIGRTMIN+10 i3blocks
+pkill -10 -x lemon

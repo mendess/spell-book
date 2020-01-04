@@ -1,0 +1,37 @@
+#!/bin/sh
+# shellcheck disable=SC2119
+
+# shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
+. library
+
+TRUNC=$(if ! [ -e /tmp/.bloat ]; then echo '47'; else echo '22'; fi)
+
+CURRENT="$(m current \
+    | head -2 \
+    | tail -1 \
+    | cut -d ':' -f2 \
+    | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' \
+    | cut -c 1-50 \
+    | sed -r 's/^(.{'"$TRUNC"'}).*/\1.../')"
+
+[ -z "$CURRENT" ] && echo && exit 0
+
+case $BLOCK_BUTTON in
+    1) m prev-file ;;
+    2) m pause ;;
+    3) m next-file ;;
+    4) m vu 5 ;;
+    5) m vd 5 ;;
+esac
+
+case $(echo '{"command":["get_property","pause"]}' | socat - "$(mpvsocket)" | jq .data -r) in
+    true) SIGIL='││' ;;
+    false) SIGIL='⊳' ;;
+esac
+
+VOL="$(echo '{ "command": ["get_property", "volume"] }' \
+    | socat - "$(mpvsocket)" \
+    | jq -r .data)"
+
+B_COLOR="%{F#399EE6}"
+echo "$B_COLOR⌊%{F-}" "♪" "$CURRENT" "$SIGIL" "$VOL%" "$B_COLOR⌋%{F-}"

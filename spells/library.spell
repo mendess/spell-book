@@ -8,7 +8,7 @@ export BOOKMARKS="$library"/bookmarks
 export PLAYLIST_ID='PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3'
 export PLAYLIST_LINK='https://www.youtube.com/playlist?list='"$PLAYLIST_ID"
 export UPDATE_I3BLOCKS='__update_i3blocks'
-alias __update_i3blocks='pkill -SIGRTMIN+10 i3blocks'
+alias __update_i3blocks='pkill -10 -x lemon'
 export LINKS="$HOME"/.links
 mpvsocket() {
     if [ -e /tmp ]
