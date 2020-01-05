@@ -1,0 +1,35 @@
+#!/bin/sh
+# shellcheck disable=SC2029
+
+mode=add
+host="$(hostname)"
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -s)
+            host=weatherlight
+            ;;
+        -h)
+            host=tolaria
+            ;;
+        -d)
+            mode=delete
+            ;;
+        *)
+            wall="$1"
+            ;;
+    esac
+    shift
+done
+
+case "$mode" in
+    add)
+        scp "$wall" mirrodin:Pictures/Wallpapers
+        [ "$host" = weatherlight ] && \
+            ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$(basename "$wall") ~/Pictures/Shortlist"
+
+        ;;
+    delete)
+        ssh mirrodin "find Pictures/ -type l,f -name '$(basename "$wall")' | xargs rm -v"
+        rm -v "$wall"
+        ;;
+esac

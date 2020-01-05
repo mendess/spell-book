@@ -2,7 +2,9 @@ bg:#aa222222
 geometry:x22
 separator:' | '
 n_clickables:32
+font:Misc Termsyn:size=13
 underline_width: 2
+name:bar_of_the_lemons
 
 > Workspaces
 persistent: ~/.config/lemonbar/workspaces

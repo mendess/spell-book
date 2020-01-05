@@ -12,7 +12,7 @@ CURRENT="$(m current \
     | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
 
 if [ -e /tmp/.bloat ]; then
-    TRUNC=40
+    TRUNC=22
     CURRENT="$(echo "$CURRENT" | sed -r 's/^(.{'"$TRUNC"'}).*/\1.../')"
 fi
 

@@ -95,7 +95,7 @@ bspc subscribe report | while read -r line ; do
                                 fi
                                 ;;
                         esac
-                        wm="${wm}%{F${FG}}%{B${BG}}%{U${UL}}%{+u}%{A:bspc desktop -f ${name}:} ${name} %{A}%{B-}%{F-}%{-u}"
+                        wm="${wm}%{F${FG}}%{B${BG}}%{U${UL}}%{+u}%{A:bspc desktop -f '${name}':} ${name} %{A}%{B-}%{F-}%{-u}"
                         ;;
                     [LTG]*)
                         # layout, state and flags

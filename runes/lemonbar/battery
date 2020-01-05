@@ -48,4 +48,4 @@ else:
     clear = ''
 fore = '%{{F{}}}'.format(c)
 under = '%{{U{}}}'.format(c)
-print("{}%{{+u}}%{{F#FFFF00}} ⚡%{{F-}}{}{} {}{}{}%{{U-}}%{{-u}}".format(under, fore, percent, print_status, time, clear))
+print("{}%{{+u}}%{{F#FFFF00}}⚡%{{F-}}{}{}{}{}{}%{{U-}}%{{-u}}".format(under, fore, percent, print_status, time, clear))
