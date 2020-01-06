@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [[ "$(tty)" != *tty* ]]; then
+    true
+fi

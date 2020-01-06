@@ -16,16 +16,16 @@ status = m.group(1)
 percent = m.group(2)
 
 if status == 'Discharging':
-    print_status = '▽'
+    print_status = 'v' #'▽'
 elif status == 'Charging':
-    print_status = '△'
+    print_status = '^' #'△'
 else:
-    print_status = '⬙'
+    print_status = 'o' #'⬙'
 
-if 'harging' not in status or not path.exists('/tmp/.bloat'):
+if 'harging' not in status: #or not path.exists('/tmp/.bloat'):
     time = ""
 else:
-    time = " {} ".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
+    time = " {}".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
 
 if status == 'Discharging':
     percent = int(percent)
@@ -38,14 +38,21 @@ if status == 'Discharging':
     elif percent < 85:
         c = r"#A8DD00"
     else:
-        c = '-'
+        c = r"#A8FF00"
 else:
     c = '-'
 
-if c != '':
+if c != '-':
     clear = '%{F-}'
 else:
     clear = ''
-fore = '%{{F{}}}'.format(c)
-under = '%{{U{}}}'.format(c)
-print("{}%{{+u}}%{{F#FFFF00}}⚡%{{F-}}{}{}{}{}{}%{{U-}}%{{-u}}".format(under, fore, percent, print_status, time, clear))
+
+fore = '%{F' + c + '}'
+under = '%{U' + c + '}'
+print("{under}%{{+u}}%{{F#FFFF00}}⚡%{{F-}}{fore}{percent}{status}{time}{clear}%{{U-}}%{{-u}}".format(
+    under = under,
+    fore = fore,
+    percent = percent,
+    status = print_status,
+    time = time,
+    clear = clear))

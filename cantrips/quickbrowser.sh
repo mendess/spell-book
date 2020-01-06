@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck source=/home/mendess/.local/bin/library
 . library
 
 nlines="$(wc -l "$BOOKMARKS" | cut -d' ' -f1)"

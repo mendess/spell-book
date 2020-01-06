@@ -162,9 +162,6 @@ super + f
 super + shift + q
     bspc node -c
 
-super + {h,j,k,l}
-	bspc node --focus {west,south,north,east}
-
 super + shift + {h,j,k,l}
     d='{west:-10 0,south:0 10,north:0 -10,east:10 0}'; \
     if [ -n "$(bspc query -N -n focused.floating)" ]; then \
@@ -195,11 +192,6 @@ super + shift + {1-9,0}
 
 super + control + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
-
-super + control + {h,j,k,l}
-	dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
-    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} \
-	|| bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
 
 super + alt + {h,l}
 	bspc node --to-monitor {prev,next} --follow
@@ -242,3 +234,14 @@ super + o; {l,s,r,shift + s}
 
 super + shift + r
 	bspc node @parent -R 90
+
+super + control + {h,j,k,l}
+	dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
+    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} \
+	|| bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
+
+super + {h,j,k,l}
+	dir={(west backward),(south backward),(north forward),(east forward)}; \
+	bspc node --focus $\{dir[0]\} \
+	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
+

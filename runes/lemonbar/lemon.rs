@@ -6,7 +6,7 @@ use std::{
     io::{self, BufRead, BufReader, Write as _},
     process::{Command, Stdio},
     str::{self, FromStr},
-    sync::{mpsc, Arc, RwLock, Weak},
+    sync::{mpsc, Arc, RwLock},
     thread::{self, Thread},
     time::Duration,
 };
@@ -352,7 +352,7 @@ type Config<'a> = HashMap<Alignment, Vec<Block<'a>>>;
 // Features
 // - Signal
 fn main() -> io::Result<()> {
-    let config = if let Some(arg) = env::args().nth(1) {
+    let input = if let Some(arg) = env::args().nth(1) {
         fs::read_to_string(arg)?
     } else if let Some(arg) = env::var_os("XDG_CONFIG") {
         fs::read_to_string(arg)?
@@ -363,15 +363,18 @@ fn main() -> io::Result<()> {
             io::ErrorKind::NotFound,
             "Couldn't find config file",
         ));
-    };
-    let config = match parse(&config) {
+    }
+    .into_boxed_str();
+    let input: &'static mut str = Box::leak(input);
+    let (global_c, blocks) = match parse(input) {
         Ok(b) => b,
         Err((bit, cause)) => {
             eprintln!("Parse error in '{}', {}", bit, cause);
             std::process::exit(1);
         }
     };
-    start_event_loop(config.0, config.1);
+    start_event_loop(global_c, blocks);
+    // unsafe { Box::from_raw(input.as_mut_ptr()) };
     Ok(())
 }
 
@@ -555,7 +558,7 @@ enum Event {
     TrayResize(u32),
 }
 
-fn start_event_loop(global_config: GlobalConfig, config: Config) {
+fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
     let lemonbar = Command::new("lemonbar")
         .args(global_config.to_arg_list())
         .stdin(Stdio::piped())
@@ -582,8 +585,7 @@ fn start_event_loop(global_config: GlobalConfig, config: Config) {
         }
     }
     let config = Arc::new(config);
-    let config_ref =
-        unsafe { std::mem::transmute::<_, Weak<Config<'static>>>(Arc::downgrade(&config)) };
+    let config_ref = Arc::downgrade(&config);
     let ch = sx.clone();
     let loop_t = thread::spawn(move || {
         while let Some(c) = config_ref.upgrade() {
@@ -601,8 +603,7 @@ fn start_event_loop(global_config: GlobalConfig, config: Config) {
             thread::sleep(Duration::from_secs(1))
         }
     });
-    let config_ref =
-        unsafe { std::mem::transmute::<_, Weak<Config<'static>>>(Arc::downgrade(&config)) };
+    let config_ref = Arc::downgrade(&config);
     trayer(&global_config, sx.clone());
     let signal_thread = thread::spawn(move || loop {
         unsafe {
@@ -689,7 +690,12 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
         "0",
     ]));
     thread::spawn(move || {
-        Command::new("killall").arg("trayer").spawn().unwrap().wait().unwrap();
+        Command::new("killall")
+            .arg("trayer")
+            .spawn()
+            .unwrap()
+            .wait()
+            .unwrap();
         trayer.spawn().expect("Couldn't start trayer");
         thread::sleep(Duration::from_millis(500));
         let o = Command::new("xprop")

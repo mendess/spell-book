@@ -27,7 +27,7 @@ source "$SPELLS"/spells/library.spell
 
 truncPath() {
     pwd | sed -r -e 's!^'"$HOME"'!~!g' -e 's|([^/])[^/]+/|\1/|g' | tr -d '\n'
-    return $1
+    return "$1"
 }
 rightprompt()
 {
@@ -45,5 +45,3 @@ then
     #PS1='\[$(batery_color $(batery))\]$(batery)&\[\e[0m\]'$PS1
     PS1='$(cat /sys/class/power_supply/BAT0/capacity)% $(date +%H:%M) '$PS1
 fi
-#shellcheck disable=SC2154
-#PS1='\[$(r=$?; tput sc; rightprompt $r; tput rc)\]'$PS1

@@ -5,14 +5,22 @@ mode=add
 host="$(hostname)"
 while [ "$#" -gt 0 ]; do
     case "$1" in
-        -s)
+        -w)
             host=weatherlight
             ;;
-        -h)
+        -t)
             host=tolaria
             ;;
         -d)
             mode=delete
+            ;;
+        -h)
+            wall=""
+            break
+            ;;
+        -n)
+            shift
+            name="$1"
             ;;
         *)
             wall="$1"
@@ -20,16 +28,44 @@ while [ "$#" -gt 0 ]; do
     esac
     shift
 done
+if [ -z "$wall" ]; then
+    cat <<EOF
+Wallpaper Manager
+
+Usage
+    $(basename "$0") [OPTIONS] wallpaper
+
+Options
+    -d
+        Delete instead of adding
+    -w
+        Add wallpaper to the weatherlight collection
+    -t
+        Add wallpaper only to the tolaria collection
+    -n name
+        Specifiy the wallpaper's name
+EOF
+    exit 1
+fi
+
+[ -z "$name" ] && name="$(basename "$wall")"
 
 case "$mode" in
     add)
-        scp "$wall" mirrodin:Pictures/Wallpapers
-        [ "$host" = weatherlight ] && \
-            ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$(basename "$wall") ~/Pictures/Shortlist"
-
+        case "$wall" in
+            http*)
+                wget "$wall" -O "/tmp/$name"
+                wall="/tmp/$name"
+                ;;
+        esac
+        scp "$wall" "mirrodin:Pictures/Wallpapers/$name"
+        if [ "$host" = weatherlight ]; then
+            ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/Shortlist"
+            mv -v "$wall" "Pictures/Wallpapers/$name"
+        fi
         ;;
     delete)
-        ssh mirrodin "find Pictures/ -type l,f -name '$(basename "$wall")' | xargs rm -v"
+        ssh mirrodin "find Pictures/ -type l,f -name '$(basename "$wall")' | xargs rm -v" | sed "s/'/'mirrodin:/"
         rm -v "$wall"
         ;;
 esac

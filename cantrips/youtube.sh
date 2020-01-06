@@ -3,12 +3,42 @@
 #shellcheck source=/home/mendess/.local/bin/library
 . library
 
+if [[ -z "$DISPLAY" ]]; then
+    if ! hash fzf; then
+        echo 'Need X with dmenu or fzf to use'
+        exit 1
+    fi
+fi
+
+selector() {
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            -l)
+                listsize="$2"
+                shift
+                ;;
+            -p)
+                prompt="$2"
+                shift
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+    if [ -z "$DISPLAY" ]; then
+        fzf --prompt "$prompt" -i
+    else
+        dmenu -p "$prompt" -l "$listsize"
+    fi
+}
+
 MODES="single
 shuf
 shufA
 shufC"
 
-mode=$(echo "$MODES" | dmenu -i -p "Mode?" -l "$(echo "$MODES" | wc -l)")
+mode=$(echo "$MODES" | selector -i -p "Mode?" -l "$(echo "$MODES" | wc -l)")
 
 vidlist=$(sed '/^$/ d' "$PLAYLIST")
 
@@ -18,11 +48,13 @@ case "$mode" in
 clipboard"
         vidname="$(echo "$vidlist" \
             | awk -F'\t' '{print $1}' \
-            | dmenu -i -p "Which video?" -l "$(echo "$vidlist" | wc -l)")"
+            | selector -i -p "Which video?" -l "$(echo "$vidlist" | wc -l)")"
 
         if [ "$vidname" = "clipboard" ]
         then
             vids="$(xclip -sel clip -o)"
+        elif [ -z "$vidname" ]; then
+            exit 1
         else
             vids="$(echo "$vidlist" \
                 | grep -F "$vidname" \
@@ -35,6 +67,7 @@ clipboard"
             | shuf \
             | sed '1q' \
             | awk -F'\t' '{print $2}')"
+
         ;;
 
     shufA)
@@ -49,14 +82,16 @@ clipboard"
             | sed '/^$/ d' \
             | sort \
             | uniq -c \
-            | dmenu -i -p "Which category?" -l 30 \
+            | selector -i -p "Which category?" -l 30 \
             | sed -E 's/^[ ]*[0-9]*[ ]*//')
+
         [ -z "$catg" ] && exit
         vidlist=$(echo "$vidlist" | shuf)
         vids="$(echo "$vidlist" \
             | grep -P ".*\t.*\t.*\t.*$catg" \
             | awk -F'\t' '{print $2}' \
             | xargs)"
+
         ;;
 
     *)
@@ -74,7 +109,7 @@ then
     done
 else
     p=$(echo "no
-yes" | dmenu -i -p "With video?")
+    yes" | selector -i -p "With video?")
 
     rm -f "$(mpvsocket new)_last_queue"
     case $p in
@@ -94,4 +129,3 @@ yes" | dmenu -i -p "With video?")
             ;;
     esac
 fi
-

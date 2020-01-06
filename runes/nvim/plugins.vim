@@ -28,7 +28,6 @@ Plug 'sbdchd/neoformat'
 
 " Syntax highlighting
 Plug 'cespare/vim-toml'
-Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'udalov/kotlin-vim'
 Plug 'vim-python/python-syntax'
@@ -114,6 +113,11 @@ let g:goyo_width='83'
 " nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Ale
+let g:ale_echo_msg_format = '%linter%: %s'
+nnoremap gd :ALEGoToDefinition<CR>
+nnoremap <F10> :ALEPreviousWrap<CR>
+nnoremap <F12> :ALENextWrap<CR>
+nnoremap <F9> :ALEDetail<CR>
 let g:ale_linters = { 'rust' : ['rls'] }
 
 " Autoformat
