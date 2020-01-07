@@ -3,3 +3,4 @@
 if [[ "$(tty)" != *tty* ]]; then
     true
 fi
+notify-send "$@"

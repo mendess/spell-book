@@ -101,31 +101,57 @@ esac
 
 [ -z "$vids" ] && exit
 
-if [ "$(mpvsocket)" != "/dev/null" ]
+final_list=()
+for v in $(echo "$vids" | shuf)
+do
+    PATTERN=(~/Music/*"$(basename "$v")"*)
+    echo -n "PATTERNS: ${PATTERN[*]}"
+    if [ -f "${PATTERN[0]}" ]
+    then
+        echo '  -> ' added as file
+        final_list+=("${PATTERN[0]}")
+    else
+        echo '  -> ' added as link
+        final_list+=("$v")
+    fi
+done
+echo "Vid 1: '${final_list[0]}'"
+echo "Vid 2: '${final_list[1]}'"
+echo "Vid 3: '${final_list[2]}'"
+read -r
+(cd ~/Music || exit 1; echo "$vids" | grep '^http' | xargs -L 1 youtube-dl --add-metadata) &
+
+if false && [ "$(mpvsocket)" != "/dev/null" ]
 then
-    for song in $vids
+    for song in "${final_list[@]}"
     do
         m queue "$song" --notify
     done
 else
-    p=$(echo "no
-    yes" | selector -i -p "With video?")
+    if [ -z "$DISPLAY" ]; then
+        p=no
+    else
+        p=$(echo "no
+yes" | selector -i -p "With video?")
+    fi
 
     rm -f "$(mpvsocket new)_last_queue"
+    (
+        sleep 8
+        __update_panel
+        sleep 2
+        for file in "${final_list[@]:1}"
+        do
+            m queue "$file"
+        done
+    ) &
     case $p in
         yes)
-            ( sleep 5; __update_panel; ) &
-            #shellcheck disable=2086
-            mpv --input-ipc-server="$(mpvsocket new)" $vids
-            __update_panel
+            mpv --input-ipc-server="$(mpvsocket new)" "${final_list[0]}"
             ;;
 
         no)
-            resolve_alias="$(command -v __update_panel | cut -d\' -f2)"
-            cmd="(sleep 2; $resolve_alias) &
-            mpv --input-ipc-server='$(mpvsocket new)' --no-video $vids
-            $resolve_alias;"
-            termite --class 'my-media-player' -e "bash -c '$cmd'"
+            termite --class my-media-player -e "mpv --input-ipc-server=$(mpvsocket new) --no-video '${final_list[0]}'" &
             ;;
     esac
 fi

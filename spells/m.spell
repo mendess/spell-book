@@ -136,7 +136,7 @@ queue () {
         echo please provide a link
         return 1
     fi
-    echo -n 'Queueing song: '
+    echo -n "Queueing song: '$1'... "
     echo '{ "command": ["loadfile", "'"$1"'", "append"]}' \
         | socat - "$(mpvsocket)" \
         | jq --raw-output .error
