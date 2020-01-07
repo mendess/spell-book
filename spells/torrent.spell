@@ -1,0 +1,2 @@
+#!/bin/sh
+transmission-cli "$1"

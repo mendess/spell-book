@@ -41,7 +41,7 @@ up_next() {
             filename=$(youtube-dl --get-title "$videoId")
         fi
     else
-        filename=$(basename "$videoId" | sed -r 's/\.[^.]+$//')
+        filename=$(basename "$videoId" | sed -r 's/\.[^.]+$//' | sed -r 's/-[a-zA-Z\-_0-9]{11}$//')
     fi
     width=40
     [ "${#filename}" -gt $width ] && width="${#filename}"
@@ -95,7 +95,7 @@ $cateories"
              filename="$filename
 
 $(up_next)"
-             notify-send "Now Playing" "$filename"
+             notify-send "Now Playing" "$filename" -a "$(basename "$0")"
              __update_panel
              ;;
          -i|--link)
@@ -136,6 +136,10 @@ queue () {
         echo please provide a link
         return 1
     fi
+    if [ "$#" = '--reset' ]; then
+        rm "$(last_queue)"
+        return 0
+    fi
     echo -n "Queueing song: '$1'... "
     echo '{ "command": ["loadfile", "'"$1"'", "append"]}' \
         | socat - "$(mpvsocket)" \
@@ -162,7 +166,7 @@ queue () {
     if [ "$2" = "--notify" ]
     then
         name=$(if echo "$1" | grep -P 'https' &>/dev/null; then youtube-dl --get-title "$1"; else echo "$1" ; fi)
-        notify-send "Queued '$name'" "Current: $CURRENT\nQueue pos: $TARGET"
+        notify-send "Queued '$name'" "Current: $CURRENT\nQueue pos: $TARGET" -a "$(basename "$0")"
     fi
 }
 

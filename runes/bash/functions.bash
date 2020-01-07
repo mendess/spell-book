@@ -6,7 +6,7 @@
 aura() {
     case "$1" in
         -R*)
-            pacman -Rsn "$2"
+            sudo pacman -Rsn "$2"
             # pacman "$1" "$2"
             ;;
         -Ss)

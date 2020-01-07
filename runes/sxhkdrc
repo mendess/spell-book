@@ -229,8 +229,8 @@ super + {_,shift +} apostrophe
 super + i
 	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
 
-super + o; {l,s,r,shift + s}
-	{i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png,systemctl suspend,reboot,shutdown now}
+super + shift + o
+	echo -e 'i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now' | dmenu -nb '#6b0213' -sb '#a8031e' -l 4 | sh
 
 super + shift + r
 	bspc node @parent -R 90

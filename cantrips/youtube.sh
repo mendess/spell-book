@@ -115,11 +115,7 @@ do
         final_list+=("$v")
     fi
 done
-echo "Vid 1: '${final_list[0]}'"
-echo "Vid 2: '${final_list[1]}'"
-echo "Vid 3: '${final_list[2]}'"
-read -r
-(cd ~/Music || exit 1; echo "$vids" | grep '^http' | xargs -L 1 youtube-dl --add-metadata) &
+(cd ~/Music || exit 1; echo "${final_list[@]}" | grep '^http' | xargs -L 1 youtube-dl --add-metadata) &
 
 if false && [ "$(mpvsocket)" != "/dev/null" ]
 then
@@ -137,13 +133,15 @@ yes" | selector -i -p "With video?")
 
     rm -f "$(mpvsocket new)_last_queue"
     (
-        sleep 8
-        __update_panel
         sleep 2
+        __update_panel
+        sleep 8
         for file in "${final_list[@]:1}"
         do
+            sleep 0.1
             m queue "$file"
         done
+        m queue --reset
     ) &
     case $p in
         yes)
