@@ -57,14 +57,16 @@ else
         } &
         if hash bspc &> /dev/null && [[ "$i" -eq 1 ]]
         then
-            color=$(convert $wall -shave 25% -gravity center +dither -colors 1 -crop 1x1+40+30 txt: \
+            color=$(convert "$wall" -shave 25% -gravity center +dither -colors 1 -crop 1x1+40+30 txt: \
                 | grep -oP '#[^ ].....')
             # color=$(convert Pictures/Wallpapers/genji.png -format %c -depth 9 histogram:info: \
             #     | sort -n | tail -1 | grep -oP '#......')
-            bspc config -m ^$i focused_border_color "$color"
-            # bspc config -m ^$i active_border_color "$color"
-            bspc config -m ^$i presel_feedback_color "$color"
+            #bspc config -m ^$i focused_border_color "$color"
+            #bspc config -m ^$i active_border_color "$color"
+            #bspc config -m ^$i presel_feedback_color "$color"
+            bspc config -m ^$i normal_border_color "$color"
             if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
+                #shellcheck disable=2029
                 ssh 192.168.1.5 "python ~/bulb/color.py \\$color" &
             fi
         fi &

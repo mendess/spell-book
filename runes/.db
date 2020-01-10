@@ -2,6 +2,7 @@
 ~/.gitignore-global,gitignore-global
 ~/.config/zathura/zathurarc,zathurarc
 ~/.config/nvim,nvim
+~/.vimrc,nvim/init.vim
 ~/.config/mutt,mutt
 #~/.config/i3status/config,i3status
 #~/.config/i3blocks,i3blocks

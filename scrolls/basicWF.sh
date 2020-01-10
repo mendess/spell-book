@@ -21,7 +21,7 @@ else
                 CARGO=1
                 shift
                 ;;
-            -p|--python)
+            -y|--python)
                 PYTHON=1
                 shift
                 ;;
@@ -51,7 +51,7 @@ packages=()
 aurpackages=()
 bloat=()
 cargopackages=()
-python=()
+pythonpackages=()
 #shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
@@ -63,9 +63,9 @@ pac && sudo pacman -S --noconfirm --downloadonly --needed "${packages[@]}"
 echo "$PASSWORD" | sudo -S true
 pac && sudo pacman -S --noconfirm --needed "${packages[@]}"
 
-pac && for package in ${bloat[@]}
+pac && for package in "${bloat[@]}"
 do
-    if pacman -Q $package
+    if pacman -Q "$package"
     then
         echo "$PASSWORD" | sudo -S true
         sudo pacman -Rsn --noconfirm "$package"
@@ -97,7 +97,7 @@ aur && {
     cd tmp || exit 1
     for i in "${aurpackages[@]}"
     do
-        pacman -Q $i && continue
+        pacman -Q "$i" && continue
         old="$(pwd)"
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1

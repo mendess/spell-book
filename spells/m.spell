@@ -241,10 +241,12 @@ main () {
             ;;
         H|prev)
             echo 'add chapter -1' | socat - "$(mpvsocket)"
+            __update_panel
             { sleep 2; __update_panel; } &
             ;;
         L|next)
             echo 'add chapter 1' | socat - "$(mpvsocket)"
+            __update_panel
             { sleep 2; __update_panel; } &
             ;;
         h|prev-file)
@@ -254,6 +256,7 @@ main () {
                 echo 'playlist-prev' | socat - "$(mpvsocket)"
                 { sleep 2; __update_panel; } &
             fi
+            __update_panel
             ;;
         l|next-file)
             if pgrep spotify &>/dev/null; then
@@ -262,6 +265,7 @@ main () {
                 echo 'playlist-next' | socat - "$(mpvsocket)"
                 { sleep 2; __update_panel; } &
             fi
+            __update_panel
             ;;
         J|back)
             echo "seek -${2:-10}" | socat - "$(mpvsocket)"

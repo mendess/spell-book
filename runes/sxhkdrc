@@ -151,9 +151,9 @@ super + shift + space
 
 super + space
 	if bspc query --nodes --node focused.floating; then \
-		bspc node last.local.tiled -f; \
+		bspc node last.local.\!floating -f; \
 	else \
-		bspc node last.floating -f; \
+		bspc node last.local.floating -f; \
 	fi
 
 super + f
@@ -197,7 +197,7 @@ super + alt + {h,l}
 	bspc node --to-monitor {prev,next} --follow
 
 super + shift + F5
-    bspc wm --restart ; notify-send -t 500 -u low 'reset done'
+    bspc wm --restart ; notify-send -t 500 -u low 'reset done' -a bspwm
 
 alt + Tab
 	bspc desktop -f last.occupied
@@ -242,6 +242,6 @@ super + control + {h,j,k,l}
 
 super + {h,j,k,l}
 	dir={(west backward),(south backward),(north forward),(east forward)}; \
-	bspc node --focus $\{dir[0]\} \
+	bspc node --focus $\{dir[0]\}.!floating \
 	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
 

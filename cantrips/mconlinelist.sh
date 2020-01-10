@@ -2,13 +2,13 @@
 
 if ! [ -e ~/.links/mcserverip ]
 then
-    notify-send "Error:" "$HOME/.links/mcserverip No such file"
+    notify-send "Error:" "$HOME/.links/mcserverip No such file" -a "$(basename "$0")"
     exit
 fi
 
 if ! hash mcstatus
 then
-    notify-send "Error:" "mcstatus not installed. Please run 'pip install --user mcstatus'"
+    notify-send "Error:" "mcstatus not installed. Please run 'pip install --user mcstatus'" -a "$(basename "$0")"
     exit 1
 fi
 
@@ -20,7 +20,7 @@ MEMBERS=$(mcstatus "$(cat ~/.links/mcserverip)" status \
 
 if [ -z "$MEMBERS" ]
 then
-    notify-send "No one online"
+    notify-send "No one online" -a "$(basename "$0")"
 else
-    notify-send "Members online" "$MEMBERS"
+    notify-send "Members online" "$MEMBERS" -a "$(basename "$0")"
 fi

@@ -43,9 +43,11 @@ autocmd! BufEnter *.spell inoremap ,bb #!/bin/sh<Esc>o
 
 autocmd! BufEnter *.js set shiftwidth=2
 
-autocmd! TermEnter * setlocal nonumber
-autocmd! TermEnter * setlocal norelativenumber
-autocmd! TermEnter * autocmd! numbertoggle
+if ! has("gui_running")
+    autocmd! TermEnter * setlocal nonumber
+    autocmd! TermEnter * setlocal norelativenumber
+    autocmd! TermEnter * autocmd! numbertoggle
+endif
 
 highlight ColorColumn ctermbg=Black
 set colorcolumn=101
@@ -64,3 +66,8 @@ autocmd! FileType c iabbrev use #include <
 autocmd! FileType cpp iabbrev use #include <
 autocmd! FileType rust iabbrev if if<++> {<++>},,
 autocmd! FileType c iabbrev if if (<++>) {<++>},,
+
+if has("gui_running")
+    set tb=
+    set go=
+endif

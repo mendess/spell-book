@@ -98,7 +98,7 @@ alarm() {
         link="https://www.youtube.com/watch?v=4iC-7aJ6LDY"
         sleep "$1"
         mpv --no-video "$link" --input-ipc-server=/tmp/mpvalarm &
-        notify-send -u critical "Alarm" "$2"
+        notify-send -u critical "Alarm" "$2" -a "$(basename "$0")"
     } &
     disown
 }
@@ -204,4 +204,17 @@ record() {
         -f x11grab \
         -i :0.0+$i,0 \
         "output-$(date +"%d_%m_%Y_%H_%M").mp4"
+}
+
+share() {
+    FILE="$*"
+    if [ -d "$FILE" ]
+    then
+        zip -r "/tmp/$(basename "$FILE").zip" "$FILE"
+        FILE="/tmp/$(basename "$FILE").zip"
+    fi
+    scp "$FILE" mirrodin:~/disk0/Mirrodin/serve
+    url="http://mendess.xyz/file/$(basename "$FILE")"
+    echo "$url" | xclip -sel clip
+    echo "$url"
 }

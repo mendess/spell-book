@@ -1,25 +1,6 @@
 #!/bin/bash
 
-[ -n "$SSH_CONNECTION" ] && [ -e /dev/stderr ] && exec >> /dev/stderr
-
-if [ "$(uname -n)" = "mirrodin" ]
-then
-    export TERM=xterm-256color
-fi
-if [ "$TERM" = "linux" ]; then
-    _SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
-    sed -n "$_SEDCMD" "$HOME"/.Xdefaults | awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}' | while read -r i
-    do
-        echo -en "$i"
-    done
-    clear
-fi
-
-if [[ -n $TMUX ]]; then
-    exit() {
-        tmux detach
-    }
-fi
+[ -n "$SSH_CONNECTION" ] && [ -e /dev/stderr ] && exec >> /dev/stderr && export TERM=xterm-256color
 
 start_tmux() {
     echo -n "Launch tmux session? [Y/n] "
@@ -51,6 +32,12 @@ start_tmux() {
 
 if [[ -z "$TMUX" ]] && [ -n "$SSH_CONNECTION" ] && hash tmux 2>/dev/null; then
     start_tmux
+fi
+
+if [[ -n $TMUX ]]; then
+    exit() {
+        tmux detach
+    }
 fi
 
 if mn -V &> /dev/null && mn list | grep -v ' 0 ' > /dev/null

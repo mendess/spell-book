@@ -429,7 +429,7 @@ impl<'a> GlobalConfig<'a> {
 
 fn parse(config: &str) -> Result<(GlobalConfig, Config), (&str, &str)> {
     let mut blocks = HashMap::<Alignment, Vec<Block>>::with_capacity(3);
-    let mut blocks_iter = config.split('>');
+    let mut blocks_iter = config.split("\n>");
     let mut global_config = GlobalConfig::default();
     if let Some(globals) = blocks_iter.next() {
         for opt in globals.split('\n').filter(|s| !s.trim().is_empty()) {
@@ -479,9 +479,10 @@ fn parse(config: &str) -> Result<(GlobalConfig, Config), (&str, &str)> {
     }
     for block in blocks_iter {
         let mut block_b = BlockBuilder::default();
+        println!("block: {}", block);
         for opt in block.split('\n').skip(1).filter(|s| !s.trim().is_empty()) {
             let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
-            let value = value[1..].trim_end_matches('\'');
+            let value = value[1..].trim().trim_end_matches('\'');
             let color = || Color::from_str(value).map_err(|e| (opt, e));
             block_b = match key
                 .trim()

@@ -77,17 +77,11 @@ cursor-scroll = ns-resize
 ;monitor = ${env:MONITOR:eDP-1}
 monitor = ${env:MONITOR:}
 
-[module/ipc]
-type = custom/ipc
-hook-0 = notify-send 'hooked but not good'
-
 [module/filesystem]
-inherit = module/ipc
 type = custom/script
 exec = ~/.config/polybar/disk
 exec-if = [ -e /tmp/.bloat ]
 interval = 1
-hook-1 = notify-send 'hooked'
 
 [module/bspwm]
 type = internal/bspwm

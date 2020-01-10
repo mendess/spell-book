@@ -14,8 +14,8 @@ chosen=$(grep -v "#" "$EMOJIS" | dmenu -i -l 20 -fn Monospace-18)
 
 c=$(echo "$chosen" | sed "s/ .*//")
 echo "$c" | tr -d '\n' | xclip -selection clipboard
-notify-send "'$c' copied to clipboard." &
+notify-send "'$c' copied to clipboard." -a "$(basename "$0")" &
 
 s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
 echo "$s" | tr -d '\n' | xclip
-notify-send "'$s' copied to primary." &
+notify-send "'$s' copied to primary." -a "$(basename "$0")" &

@@ -23,6 +23,15 @@ scroll-down: m vd
 underline:#e66300
 signal:true
 
+> Spotify
+underline:#1db954
+left-click:m prev-file
+middle-click:m pause
+right-click:m next-file
+interval:1
+alignment:middle
+command: python3 ~/.config/lemonbar/spotify_status.py -p ">,||" -f "{artist}: {song} {play_pause}"
+
 > Brightness
 command: ~/.config/lemonbar/brightness
 interval:10
