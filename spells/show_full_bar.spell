@@ -2,6 +2,9 @@
 
 touch /tmp/.bloat
 pkill -10 -x lemon
-sleep 10
+for _ in {0..10}; do
+    sleep 1
+    pkill -10 -x lemon
+done
 rm /tmp/.bloat
 pkill -10 -x lemon

@@ -2,7 +2,7 @@ bg:#aa222222
 geometry:x22
 separator:' | '
 n_clickables:32
-font:Misc Termsyn:size=13
+font:Misc Termsyn:size=12
 underline_width: 2
 name:bar_of_the_lemons
 
@@ -24,13 +24,14 @@ underline:#e66300
 signal:true
 
 > Spotify
+command: python3 ~/.config/lemonbar/spotify_status.py -p ">,||"
 underline:#1db954
 left-click:m prev-file
 middle-click:m pause
 right-click:m next-file
 interval:1
 alignment:middle
-command: python3 ~/.config/lemonbar/spotify_status.py -p ">,||" -f "{artist}: {song} {play_pause}"
+signal:true
 
 > Brightness
 command: ~/.config/lemonbar/brightness

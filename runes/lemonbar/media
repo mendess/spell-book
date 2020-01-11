@@ -27,8 +27,8 @@ case $BLOCK_BUTTON in
 esac
 
 case $(echo '{"command":["get_property","pause"]}' | socat - "$(mpvsocket)" | jq .data -r) in
-    true) SIGIL='││' ;;
-    false) SIGIL='⊳' ;;
+    true) SIGIL='||' ;;
+    false) SIGIL='>' ;;
 esac
 
 VOL="$(echo '{ "command": ["get_property", "volume"] }' \

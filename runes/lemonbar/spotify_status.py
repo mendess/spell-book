@@ -3,14 +3,9 @@
 import sys
 import dbus
 import argparse
+from os import path
 
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    '-t',
-    '--trunclen',
-    type=int,
-    metavar='trunclen'
-)
 parser.add_argument(
     '-f',
     '--format',
@@ -49,8 +44,12 @@ def fix_string(string):
         return string.encode('utf-8')
 
 # Default parameters
-output = fix_string(u'{play_pause} {artist}: {song}')
-trunclen = 25
+trunclen = 22 if path.exists("/tmp/.bloat") else None
+if trunclen:
+    output = fix_string("{song} {play_pause}")
+else:
+    output = fix_string("{artist}: {song} {play_pause}")
+
 play_pause = fix_string(u'\u25B6,\u23F8') # first character is play, second is paused
 
 label_with_font = '%{{T{font}}}{label}%{{T-}}'
@@ -58,8 +57,6 @@ font = args.font
 play_pause_font = args.play_pause_font
 
 # parameters can be overwritten by args
-if args.trunclen is not None:
-    trunclen = args.trunclen
 if args.custom_format is not None:
     output = args.custom_format
 if args.play_pause is not None:
@@ -103,7 +100,7 @@ try:
     if not artist and not song and not album:
         print('')
     else:
-        if len(song) > trunclen:
+        if trunclen and len(song) > trunclen:
             song = song[0:trunclen]
             song += '...'
             if ('(' in song) and (')' not in song):
@@ -114,10 +111,14 @@ try:
             song = label_with_font.format(font=font, label=song)
             album = label_with_font.format(font=font, label=album)
 
-        print(output.format(artist=artist, song=song, play_pause=play_pause, album=album))
+        if trunclen:
+            print(output.format(song=song, play_pause=play_pause, album=album))
+        else:
+            print(output.format(artist=artist, song=song, play_pause=play_pause, album=album))
 
 except Exception as e:
     if isinstance(e, dbus.exceptions.DBusException):
         print('')
     else:
-        print(e)
+        print('Error: ', e)
+        raise

@@ -136,7 +136,7 @@ queue () {
         echo please provide a link
         return 1
     fi
-    if [ "$#" = '--reset' ]; then
+    if [ "$1" = '--reset' ]; then
         rm "$(last_queue)"
         return 0
     fi
@@ -165,8 +165,19 @@ queue () {
     echo "$TARGET" > "$LAST_QUEUE"
     if [ "$2" = "--notify" ]
     then
-        name=$(if echo "$1" | grep -P 'https' &>/dev/null; then youtube-dl --get-title "$1"; else echo "$1" ; fi)
-        notify-send "Queued '$name'" "Current: $CURRENT\nQueue pos: $TARGET" -a "$(basename "$0")"
+        IMG=/tmp/thumb.jpg
+        if echo "$1" | grep -P 'https' &>/dev/null; then
+            data=$(youtube-dl --get-title "$1")
+            name=$(echo "$data" | head -1)
+            echo "$data" | tail -1 | xargs wget --quiet -O "$IMG"
+        else
+            name="$(ffprobe "$1" 2>&1 | grep title | cut -d':' -f2 | xargs)"
+            ffmpeg -loglevel error -hide_banner -vsync 2 -i "$1"  -frames:v 1 "$IMG" > /dev/null
+        fi
+        notify-send "Queued '$name'" "Current: $CURRENT\nQueue pos: $TARGET" \
+            -a "$(basename "$0")" \
+            -i $IMG
+        rm "$IMG"
     fi
 }
 
@@ -214,7 +225,9 @@ main () {
             add_cat "${@:2}"
             ;;
         queue)
-            if echo "$2" | grep '^http'; then
+            if [ "$2" = '--reset' ]; then
+                queue "$2"
+            elif echo "$2" | grep '^http'; then
                 queue "$2" "$3"
             elif [ -e "$2" ]; then
                 queue "$2" "$3"

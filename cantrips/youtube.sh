@@ -27,9 +27,9 @@ selector() {
         esac
     done
     if [ -z "$DISPLAY" ]; then
-        fzf --prompt "$prompt" -i
+        fzf -i --prompt "$prompt"
     else
-        dmenu -p "$prompt" -l "$listsize"
+        dmenu -i -p "$prompt" -l "$listsize"
     fi
 }
 
@@ -40,6 +40,7 @@ shufC"
 
 mode=$(echo "$MODES" | selector -i -p "Mode?" -l "$(echo "$MODES" | wc -l)")
 
+echo "$PLAYLIST"
 vidlist=$(sed '/^$/ d' "$PLAYLIST")
 
 case "$mode" in
@@ -117,7 +118,7 @@ do
 done
 (cd ~/Music || exit 1; echo "${final_list[@]}" | grep '^http' | xargs -L 1 youtube-dl --add-metadata) &
 
-if false && [ "$(mpvsocket)" != "/dev/null" ]
+if [ "$(mpvsocket)" != "/dev/null" ]
 then
     for song in "${final_list[@]}"
     do

@@ -2,7 +2,7 @@
 set -e
 WALLPAPERS=~/Pictures/Wallpapers
 
-wide() {
+is_wide() {
     [ "$wide" -gt 0 ]
     return $?
 }
@@ -22,10 +22,10 @@ do
     aspect_ratio="$(convert "$file" -format '%[fx:w/h]' info:)"
     wide=$(echo "$aspect_ratio" | awk '$0 > (28/9) {found=1}
     END {if(found) {print NR} else {print "0"}}')
-    wide && break
+    is_wide && break
 done
 
-wide && files=$(echo "$files" | sed -n -e "${wide}"p)
+is_wide && files=$(echo "$files" | sed -n -e "${wide}"p)
 
 first="$(echo "$files" | head -1)"
 if hash bspc &> /dev/null
@@ -39,59 +39,3 @@ then
     fi
 fi &
 echo "$files" | xargs feh --no-fehbg --bg-fill
-
-#if ! [ -e /tmp/weather.png ]
-#then
-#    echo "$files" | xargs feh --no-fehbg --bg-fill
-#    {
-#        curl 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather.png
-#        file /tmp/weather.png | grep 'PNG' &>/dev/null || rm -f /tmp/weather.png
-#    } &
-#else
-#    if wide; then
-#        crop=32:9
-#        resize=3840x1080
-#    else
-#        crop=16:9
-#        resize=1920x1080
-#    fi
-#    treated=()
-#    i=1
-#    for wall in $files
-#    do
-#        wall="$(echo "$wall" | tr -d '\n')"
-#        target="/tmp/target_$(basename "$wall").jpg"
-#        {
-#            magick "$wall" -gravity center -crop $crop -resize $resize "$target"
-#            magick "$target" /tmp/weather.png -geometry +50+50 -composite "$target"
-#        } &
-#        if hash bspc &> /dev/null && [[ "$i" -eq 1 ]]
-#        then
-#            color=$(convert "$wall" -shave 25% -gravity center +dither -colors 1 -crop 1x1+40+30 txt: \
-#                | grep -oP '#[^ ].....')
-#            bspc config -m ^$i normal_border_color "$color"
-#            if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
-#                #shellcheck disable=2029
-#                ssh 192.168.1.5 "python ~/bulb/color.py \\$color" &
-#            fi
-#        fi &
-#        (( i++ ))
-#        treated+=( "$target" )
-#    done
-#    wait
-#    if wide ; then
-#        feh --no-fehbg --bg-fill --no-xinerama "${treated[@]}"
-#    else
-#        feh --no-fehbg --bg-fill "${treated[@]}"
-#    fi
-#    rm "${treated[@]}"
-#fi
-#{
-#    curl --silent 'wttr.in/Lisbon_pq0_transparency=200.png' > /tmp/weather_tmp.png
-#    if file /tmp/weather_tmp.png | grep 'PNG' &>/dev/null; then
-#        mv /tmp/weather_tmp.png /tmp/weather.png
-#    else
-#        rm -f /tmp/weather.png
-#    fi
-#} &
-#disown
