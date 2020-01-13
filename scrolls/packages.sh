@@ -24,7 +24,6 @@ fzf
 gdb
 gimp
 glava
-htop
 hyperfine
 imagemagick
 jq
@@ -85,11 +84,12 @@ export aurpackages=(
 dropbox
 dropbox-cli
 entr
+htop-vim-git
 ncpamixer
 pacmixer
-toilet
-shellcheck-static
 polybar
+shellcheck-static
+toilet
 )
 
 export cargopackages=(

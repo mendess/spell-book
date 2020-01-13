@@ -31,10 +31,9 @@ export FZF_CTRL_R_OPTS='--no-sort'
 #shellcheck source=/home/mendess/.bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-if [ "$(tty)" = "/dev/tty1" ] || [ "$(tty)" = "/dev/tty6" ]; then
+if [ "$(tty)" = "/dev/tty1" ]; then
     toilet -f mono9 -F metal "Booting bspwm"
-    pgrep i3 || startx &> /tmp/startx.log
-    # clear
+    pgrep bspwm || startx &> /tmp/startx.log
 elif [[ $(tty) == *"tty"* ]] && [[ $(tty) != '/dev/tty2' ]] && hash tmux 2>/dev/null; then
     tmux new-session -s "$(basename "$(tty)")"
 fi

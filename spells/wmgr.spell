@@ -28,7 +28,7 @@ while [ "$#" -gt 0 ]; do
     esac
     shift
 done
-if [ -z "$wall" ]; then
+if [ "$mode" != delete ] && [ -z "$wall" ]; then
     cat <<EOF
 Wallpaper Manager
 
@@ -65,7 +65,14 @@ case "$mode" in
         fi
         ;;
     delete)
-        ssh mirrodin "find Pictures/ -type l,f -name '$(basename "$wall")' | xargs rm -v" | sed "s/'/'mirrodin:/"
-        rm -v "$wall"
+        if [ -z "$wall" ]; then
+            wall="$(sxiv -g 1800x1000 -b -t -o ~/Pictures/Wallpapers)"
+            if [ -z "$wall" ]; then echo please pick a wallpaper to delete; exit 1; fi
+        fi
+        for w in $wall; do
+            ssh mirrodin \
+                "find Pictures/ -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'mirrodin:/"
+            rm -v "$w"
+        done
         ;;
 esac

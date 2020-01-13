@@ -31,7 +31,7 @@ Plug 'cespare/vim-toml'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'udalov/kotlin-vim'
 Plug 'vim-python/python-syntax'
-Plug 'kovetskiy/sxhkd-vim'
+Plug 'baskerville/vim-sxhkdrc'
 
 "Plug 'lervag/vimtex'
 

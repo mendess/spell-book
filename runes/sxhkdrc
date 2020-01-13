@@ -237,11 +237,14 @@ super + shift + r
 
 super + control + {h,j,k,l}
 	dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
-    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} \
-	|| bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
+    if ! i=$(bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} || bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}) ; then \
+		notify-send 'Error bind' "$i"; fi
+
 
 super + {h,j,k,l}
 	dir={(west backward),(south backward),(north forward),(east forward)}; \
 	bspc node --focus $\{dir[0]\}.!floating \
 	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
 
+super + shift + s
+    bspc node -g sticky

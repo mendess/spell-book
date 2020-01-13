@@ -53,6 +53,7 @@ clipboard"
 
         if [ "$vidname" = "clipboard" ]
         then
+            clipboard=1
             vids="$(xclip -sel clip -o)"
         elif [ -z "$vidname" ]; then
             exit 1
@@ -116,7 +117,9 @@ do
         final_list+=("$v")
     fi
 done
-(cd ~/Music || exit 1; echo "${final_list[@]}" | grep '^http' | xargs -L 1 youtube-dl --add-metadata) &
+[ -n "$clipboard" ] || \
+    (cd ~/Music || exit 1; \
+        echo "${final_list[@]}" | grep '^http' | xargs -L 1 youtube-dl --add-metadata) &
 
 if [ "$(mpvsocket)" != "/dev/null" ]
 then

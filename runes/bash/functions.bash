@@ -218,3 +218,11 @@ share() {
     echo "$url" | xclip -sel clip
     echo "$url"
 }
+
+connect() {
+    if [ $# -lt 2 ]; then
+        echo "Usage: $0 ssid password"
+        return
+    fi
+    nmcli device wifi connect "$1" password "$2"
+}

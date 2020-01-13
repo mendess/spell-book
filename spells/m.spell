@@ -140,6 +140,10 @@ queue () {
         rm "$(last_queue)"
         return 0
     fi
+    if [ -z "$1" ]; then
+        notify-send 'Error queueing' 'Empty file name'
+        return 1
+    fi
     echo -n "Queueing song: '$1'... "
     echo '{ "command": ["loadfile", "'"$1"'", "append"]}' \
         | socat - "$(mpvsocket)" \
@@ -166,18 +170,19 @@ queue () {
     if [ "$2" = "--notify" ]
     then
         IMG=/tmp/thumb.jpg
-        if echo "$1" | grep -P 'https' &>/dev/null; then
-            data=$(youtube-dl --get-title "$1")
+        rm "$IMG"
+        if [[ "$1" == https* ]]; then
+            data=$(youtube-dl --get-title "$1" --get-thumbnail)
             name=$(echo "$data" | head -1)
             echo "$data" | tail -1 | xargs wget --quiet -O "$IMG"
         else
             name="$(ffprobe "$1" 2>&1 | grep title | cut -d':' -f2 | xargs)"
             ffmpeg -loglevel error -hide_banner -vsync 2 -i "$1"  -frames:v 1 "$IMG" > /dev/null
         fi
+        convert -scale x64 -- "$IMG" "tmp" && mv tmp "$IMG"
         notify-send "Queued '$name'" "Current: $CURRENT\nQueue pos: $TARGET" \
             -a "$(basename "$0")" \
             -i $IMG
-        rm "$IMG"
     fi
 }
 
@@ -227,7 +232,7 @@ main () {
         queue)
             if [ "$2" = '--reset' ]; then
                 queue "$2"
-            elif echo "$2" | grep '^http'; then
+            elif [[ "$2" == http* ]]; then
                 queue "$2" "$3"
             elif [ -e "$2" ]; then
                 queue "$2" "$3"

@@ -11,6 +11,10 @@ persistent: ~/.config/lemonbar/workspaces
 raw:true
 align:left
 
+> PID
+command: ps aux | awk '{print($2)}' | sort -n | tail -1 | rev | sed -r 's/(...)/\1_/g' | rev | sed -r "s/^/PID: /"
+align:left
+
 > Music
 command: ~/.config/lemonbar/media
 interval:10
