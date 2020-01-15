@@ -3,6 +3,7 @@ set -e
 WALLPAPERS=~/Pictures/Wallpapers
 BRIGHTNESS_FILTER='
 import sys
+import colorsys
 count = 1
 at_least_one = False
 last_line = ""
@@ -14,12 +15,12 @@ for line in sys.stdin:
     r = int(line[0:2], 16)
     g = int(line[2:4], 16)
     b = int(line[4:6], 16)
-    brightness = (r + g + b) / 3
-    if brightness > 85.0 and brightness < 190:
+    hsv = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+    if hsv[1] < 0.2 or hsv[2] < 0.3:
+        print("{:02d}:".format(count), og_line, r, g, b, "s: {:.2f} v: {:.2f}".format(*hsv[1:]), file=sys.stderr)
+    else:
         at_least_one = True
         print(og_line)
-    else:
-        print("{:02d}:".format(count), og_line, r, g, b, "{:.2f}".format(brightness), file=sys.stderr)
     count += 1
     last_line = og_line
 

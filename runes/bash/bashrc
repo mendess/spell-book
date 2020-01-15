@@ -39,7 +39,7 @@ if [ -n "$SSH_CLIENT" ]
 then
     PS1='\[\e[1;31m\]\u@\h\[\e[0m\] '$PS1
 fi
-if [[ "$(tty)" = *"tty"* ]] && [ -f /sys/class/power_supply/BAT0/capacity ]
+if [[ "$(tty)" == *tty* ]] && [ -f /sys/class/power_supply/BAT0/capacity ]
 then
     #shellcheck disable=SC2154
     #PS1='\[$(batery_color $(batery))\]$(batery)&\[\e[0m\]'$PS1

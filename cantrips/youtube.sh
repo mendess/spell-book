@@ -119,6 +119,7 @@ do
 done
 [ -n "$clipboard" ] || \
     (cd ~/Music || exit 1; \
+        echo "${final_list[@]}" | grep '^http' && \
         echo "${final_list[@]}" | grep '^http' | xargs -L 1 youtube-dl --add-metadata) &
 
 if [ "$(mpvsocket)" != "/dev/null" ]
@@ -153,7 +154,11 @@ yes" | selector -i -p "With video?")
             ;;
 
         no)
-            termite --class my-media-player -e "mpv --input-ipc-server=$(mpvsocket new) --no-video '${final_list[0]}'" &
+            if [ -z "$DISPLAY" ]; then
+                mpv --input-ipc-server="$(mpvsocket new)" --no-video "${final_list[0]}"
+            else
+                termite --class my-media-player -e "mpv --input-ipc-server=$(mpvsocket new) --no-video '${final_list[0]}'" &
+            fi
             ;;
     esac
 fi

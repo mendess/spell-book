@@ -243,8 +243,17 @@ super + control + {h,j,k,l}
 
 super + {h,j,k,l}
 	dir={(west backward),(south backward),(north forward),(east forward)}; \
-	bspc node --focus $\{dir[0]\}.!floating \
-	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
+	bspc node --focus $\{dir[0]\}.!floating
+
+#	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
 
 super + shift + s
     bspc node -g sticky
+
+super + shift + m
+    if marked=$(bspc query -N -n .marked); then \
+        bspc node --swap $marked ; \
+        bspc node $marked -g 'marked=off' ; \
+    else \
+        bspc node -g marked ; \
+    fi
