@@ -1,6 +1,31 @@
 #!/bin/bash
 set -e
 WALLPAPERS=~/Pictures/Wallpapers
+BRIGHTNESS_FILTER='
+import sys
+count = 1
+at_least_one = False
+last_line = ""
+for line in sys.stdin:
+    line = line.strip()
+    og_line = str(line)
+    if line.startswith("#"):
+        line = line[1:]
+    r = int(line[0:2], 16)
+    g = int(line[2:4], 16)
+    b = int(line[4:6], 16)
+    brightness = (r + g + b) / 3
+    if brightness > 85.0 and brightness < 190:
+        at_least_one = True
+        print(og_line)
+    else:
+        print("{:02d}:".format(count), og_line, r, g, b, "{:.2f}".format(brightness), file=sys.stderr)
+    count += 1
+    last_line = og_line
+
+if not at_least_one:
+    print(last_line)
+'
 
 is_wide() {
     [ "$wide" -gt 0 ]
@@ -9,9 +34,13 @@ is_wide() {
 
 if [ "$#" -gt 0 ]
 then
-    files="$*"
+    if [ "$1" = '-s' ]; then
+        files="$(sxiv -t -b -g 1800x1000 -o "$WALLPAPERS")"
+    else
+        files="$*"
+    fi
 else
-    files="$(find "$WALLPAPERS" \
+    files="$(find "$WALLPAPERS" -type f \
         | shuf -n "$(xrandr --query | grep ' connected' -c)" \
         | grep -vP '^$')"
 
@@ -30,12 +59,19 @@ is_wide && files=$(echo "$files" | sed -n -e "${wide}"p)
 first="$(echo "$files" | head -1)"
 if hash bspc &> /dev/null
 then
-    color=$(convert "$first" -shave 15% -gravity center +dither -colors 1 -crop 1x1+40+30 txt: \
-        | grep -oP '#[^ ].....')
+    color=$(convert "$first" +dither -colors 10 histogram: \
+        | grep -aoP '[0-9][0-9][0-9]+:.*$' \
+        | sort -n \
+        | grep -aoP '#[^ ].....' \
+        | python3 -c "$BRIGHTNESS_FILTER" \
+        | tail -1)
+
     bspc config normal_border_color "$color"
     if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
-        ssh 192.168.1.5 "python ~/bulb/color.py \\$color" &
+        ssh 192.168.1.5 "python ~/bulb/color.py \\$color"
     fi
-fi &
+fi 2>&1 | color_picker -f &
+
 echo "$files" | xargs feh --no-fehbg --bg-fill
+wait

@@ -61,7 +61,7 @@ case "$mode" in
         scp "$wall" "mirrodin:Pictures/Wallpapers/$name"
         if [ "$host" = weatherlight ]; then
             ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/Shortlist"
-            mv -v "$wall" "Pictures/Wallpapers/$name"
+            mv -v "$wall" "$HOME/Pictures/Wallpapers/$name"
         fi
         ;;
     delete)

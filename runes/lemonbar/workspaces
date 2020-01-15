@@ -99,7 +99,7 @@ bspc subscribe report | while read -r line ; do
                         wm="${wm}%{F${FG}}%{B${BG}}%{U${UL}}%{+u}%{A1:bspc desktop -f '${name}':}%{A2:bspc desktop -f '${name}':} ${name} %{A}%{A}%{B-}%{F-}%{-u}"
                         ;;
                     LT) ;;
-                    [LG]*) # [LTG]
+                    [LG]?) # [LTG]
                         # layout, state and flags
                         wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
                         ;;

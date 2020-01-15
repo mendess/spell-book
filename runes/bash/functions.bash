@@ -125,7 +125,7 @@ loop() {
 
 clearswap() {
     local drive
-    drive="$(lsblk -i | grep SWAP | awk '{print $1}' | sed 's#|-#/dev/#')"
+    drive="$(lsblk -i | grep SWAP | awk '{print $1}' | sed -r 's#[|`]-#/dev/#')"
     sudo swapoff "$drive"
     sudo swapon "$drive"
 }
