@@ -8,7 +8,7 @@ import re
 acpi = check_output(['acpi', '-b']).decode('utf-8')
 
 if 'rate information unavailable' in acpi:
-    exit(1)
+    exit(0)
 
 p = re.compile(r": (\w+), (\d+)%")
 m = p.search(acpi)

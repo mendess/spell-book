@@ -85,11 +85,13 @@ dropbox
 dropbox-cli
 entr
 htop-vim-git
+lemonbar
 ncpamixer
 pacmixer
 polybar
 shellcheck-static
 toilet
+xdo-git
 )
 
 export cargopackages=(

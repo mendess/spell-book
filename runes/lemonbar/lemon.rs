@@ -1,4 +1,5 @@
 use std::{
+    borrow::Cow,
     collections::HashMap,
     env,
     fmt::{self, Display, Write},
@@ -344,6 +345,36 @@ impl<'a> Lemonbar for String {}
 
 type Config<'a> = HashMap<Alignment, Vec<Block<'a>>>;
 
+#[derive(Default)]
+struct Args {
+    config: Option<String>,
+    geometry: Option<String>,
+    tray: bool,
+}
+
+fn arg_parse() -> io::Result<Args> {
+    let mut args = Args::default();
+    let mut argv = env::args().skip(1);
+    while let Some(arg) = argv.next() {
+        match arg.as_str() {
+            "-c" | "--config" => {
+                args.config = Some(fs::read_to_string(
+                    argv.next().expect("Expected argument to config parameter"),
+                )?);
+            }
+            "-g" | "--geometry" => {
+                args.geometry = Some(
+                    argv.next()
+                        .expect("Expected argument to geometry parameter"),
+                );
+            }
+            "-t" | "--tray" => args.tray = true,
+            _ => (),
+        }
+    }
+    Ok(args)
+}
+
 // TODO:
 // Manpage
 // - Sdir
@@ -352,27 +383,36 @@ type Config<'a> = HashMap<Alignment, Vec<Block<'a>>>;
 // Features
 // - Signal
 fn main() -> io::Result<()> {
-    let input = if let Some(arg) = env::args().nth(1) {
-        fs::read_to_string(arg)?
-    } else if let Some(arg) = env::var_os("XDG_CONFIG") {
-        fs::read_to_string(arg)?
-    } else if let Ok(home) = env::var("HOME") {
-        fs::read_to_string(format!("{}/{}", home, ".config/lemonbar/lemonrc"))?
+    let args = arg_parse()?;
+    let input = if let Some(input) = args.config {
+        input
     } else {
-        return Err(io::Error::new(
-            io::ErrorKind::NotFound,
-            "Couldn't find config file",
-        ));
-    }
-    .into_boxed_str();
-    let input: &'static mut str = Box::leak(input);
-    let (global_c, blocks) = match parse(input) {
+        if let Some(arg) = env::var_os("XDG_CONFIG") {
+            fs::read_to_string(arg)?
+        } else if let Ok(home) = env::var("HOME") {
+            fs::read_to_string(format!("{}/{}", home, ".config/lemonbar/lemonrc"))?
+        } else {
+            return Err(io::Error::new(
+                io::ErrorKind::NotFound,
+                "Couldn't find config file",
+            ));
+        }
+    };
+    let input: &'static mut str = Box::leak(input.into_boxed_str());
+    let (mut global_c, blocks) = match parse(input) {
         Ok(b) => b,
         Err((bit, cause)) => {
             eprintln!("Parse error in '{}', {}", bit, cause);
             std::process::exit(1);
         }
     };
+    if let Some(geo) = args.geometry {
+        match global_c.geometry {
+            Some(g) => global_c.geometry = Some(merge_geometries(&g, &geo).into()),
+            None => global_c.geometry = Some(geo.into()),
+        }
+    }
+    global_c.tray = args.tray;
     start_event_loop(global_c, blocks);
     // unsafe { Box::from_raw(input.as_mut_ptr()) };
     Ok(())
@@ -380,7 +420,7 @@ fn main() -> io::Result<()> {
 
 #[derive(Default)]
 struct GlobalConfig<'a> {
-    geometry: Option<&'a str>,
+    geometry: Option<Cow<'a, str>>,
     bottom: bool,
     font: Option<&'a str>,
     n_clickbles: Option<u32>,
@@ -390,13 +430,14 @@ struct GlobalConfig<'a> {
     foreground: Option<Color<'a>>,
     underline: Option<Color<'a>>,
     separator: Option<&'a str>,
+    tray: bool,
 }
 
 impl<'a> GlobalConfig<'a> {
     fn to_arg_list(&self) -> Vec<String> {
         let mut vector: Vec<String> = vec![];
-        if let Some(g) = self.geometry {
-            vector.extend_from_slice(&["-g".into(), g.into()]);
+        if let Some(g) = &self.geometry {
+            vector.extend_from_slice(&["-g".into(), g.to_string()]);
         }
         if self.bottom {
             vector.extend_from_slice(&["-b".into()]);
@@ -469,7 +510,7 @@ fn parse(config: &str) -> Result<(GlobalConfig, Config), (&str, &str)> {
                     )
                 }
                 "separator" => global_config.separator = Some(value),
-                "geometry" | "g" => global_config.geometry = Some(value),
+                "geometry" | "g" => global_config.geometry = Some(value.into()),
                 "name" | "n" => global_config.name = Some(value),
                 s => {
                     eprintln!("Warning: unrecognised option '{}', skipping", s);
@@ -479,7 +520,6 @@ fn parse(config: &str) -> Result<(GlobalConfig, Config), (&str, &str)> {
     }
     for block in blocks_iter {
         let mut block_b = BlockBuilder::default();
-        println!("block: {}", block);
         for opt in block.split('\n').skip(1).filter(|s| !s.trim().is_empty()) {
             let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
             let value = value[1..].trim().trim_end_matches('\'');
@@ -605,12 +645,13 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
         }
     });
     let config_ref = Arc::downgrade(&config);
-    trayer(&global_config, sx.clone());
+    if global_config.tray {
+        trayer(&global_config, sx.clone());
+    }
     let signal_thread = thread::spawn(move || loop {
         unsafe {
             signal(10, handle);
         };
-        eprintln!("Parking");
         thread::park();
         if let Some(c) = config_ref.upgrade() {
             c.values()
@@ -627,7 +668,6 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
             tray_offset = o;
         }
         let line = build_line(&global_config, &config, tray_offset);
-        eprintln!("line: {}", line);
         le_in
             .write_all(line.as_bytes())
             .expect("Couldn't talk to lemon bar :(");
@@ -666,7 +706,7 @@ fn persistent_command(cmd: String, ch: mpsc::Sender<Event>, last_run: Arc<RwLock
 
 fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
     let mut trayer = Command::new("trayer");
-    trayer.args(dbg!(&[
+    trayer.args(&[
         "--edge",
         "top",
         "--align",
@@ -676,6 +716,7 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
         "--height",
         global_config
             .geometry
+            .as_ref()
             .and_then(|x| x.split("x").nth(1))
             .and_then(|x| x.split("+").next())
             .unwrap_or("18"),
@@ -689,7 +730,7 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
         "true",
         "--alpha",
         "0",
-    ]));
+    ]);
     thread::spawn(move || {
         Command::new("killall")
             .arg("trayer")
@@ -729,4 +770,39 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
                     .and_then(|o: u32| ch.send(Event::TrayResize(o + 5)).ok());
             })
     });
+}
+
+fn merge_geometries(geo1: &str, geo2: &str) -> String {
+    if geo1.is_empty() {
+        return geo2.into();
+    }
+    if geo2.is_empty() {
+        return geo1.into();
+    }
+    let parse = |geo: &str| {
+        let (geow, geo) = geo.split_at(geo.find('x').unwrap_or(0));
+        let geo = geo.get(1..).unwrap_or("");
+        let (geoh, geo) = geo.split_at(geo.find('+').unwrap_or(geo.len()));
+        let (geox, geoy) = geo
+            .get(1..)
+            .and_then(|s| s.find('+').map(|i| s.split_at(i)))
+            .unwrap_or(("", ""));
+        (
+            geow.parse::<i32>().unwrap_or(0),
+            geoh.parse::<i32>().unwrap_or(0),
+            geox.parse::<i32>().unwrap_or(0),
+            geoy.parse::<i32>().unwrap_or(0),
+        )
+    };
+
+    let (geo1w, geo1h, geo1x, geo1y) = parse(geo1);
+    let (geo2w, geo2h, geo2x, geo2y) = parse(geo2);
+
+    format!(
+        "{}x{}+{}+{}",
+        geo1w + geo2w,
+        geo1h + geo2h,
+        geo1x + geo2x,
+        geo1y + geo2y
+    )
 }

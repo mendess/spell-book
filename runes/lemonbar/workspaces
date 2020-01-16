@@ -1,12 +1,15 @@
-#! /bin/sh
+#!/bin/bash
 
 # COLOR_DEFAULT_FG="#a7a5a5"
 # COLOR_DEFAULT_BG="#333232"
 
 num_mon=$(bspc query -M | wc -l)
 
+
 #SCROLL_ACTIONS="%{A4:bspc desktop -f prev.local.occupied:}%{A5:bspc desktop -f next.local.occupied:}"
 #SCROLL_CLOSE="%{A}%{A}"
+MON=${MON:-0}
+echo "$MON" >&2
 bspc subscribe report | while read -r line ; do
     # shellcheck source=/home/mendess/Projects/spell-book/runes/lemonbar/workspaces_colors
     . "$(dirname "$0")/workspaces_colors"
@@ -16,6 +19,7 @@ bspc subscribe report | while read -r line ; do
             wm=
             IFS=':'
             set -- ${line#?}
+            cur_mon=1
             while [ $# -gt 0 ] ; do
                 item=$1
                 name=${item#?}
@@ -36,7 +40,12 @@ bspc subscribe report | while read -r line ; do
                                 ;;
                         esac
                         [ "$num_mon" -lt 2 ] && shift && continue
-                        wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc monitor -f ${name}:} ${name} %{A}%{B-}%{F-}"
+                        shift
+                        if [ "$cur_mon" != "$MON" ]; then
+                            while [ $# -gt 0 ] && [[ "$1" != [mM]* ]]; do shift; done
+                        fi
+                        cur_mon=$(( cur_mon + 1 ))
+                        continue
                         ;;
                     [fFoOuU]*)
                         case $item in

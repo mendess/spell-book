@@ -2,7 +2,7 @@
 
 [ -e /tmp/.bloat ] || exit 0
 
-[ -e /sys/class/backlight/intel_backlight ] || exit 1
+[ -e /sys/class/backlight/intel_backlight ] || exit 0
 
 bright=$(cat /sys/class/backlight/intel_backlight/brightness)
 #max_b=$(cat /sys/class/backlight/intel_backlight/max_brightness)

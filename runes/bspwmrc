@@ -1,7 +1,4 @@
 #!/bin/bash
-exec > ~/log
-exec 2> ~/log
-set -e
 case "$(hostname)" in
     weatherlight)
         bspc monitor -d 1 2 3 4 5 6 7 8 9 0
@@ -56,13 +53,30 @@ pgrep -x lemon && killall lemon
 if ! [ -e ~/.config/lemonbar/lemon ]; then
     rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon
 fi
-~/.config/lemonbar/lemon &
+tray="true"
+MON=1
+for mon in $(bspc query -M)
+do
+    l() {
+        bspc query -T -m $mon | jq .rectangle.$1
+    }
 
+    MON=$MON ~/.config/lemonbar/lemon \
+        --geometry "$(l width)x0+$(l x)+$(l y)" \
+        "$([[ "$tray" == true ]] && echo '--tray')" &
+
+    MON=$(( MON+1 ))
+    tray=""
+done
+
+sleep 1.5
 until bar_id=$(xdo id -a 'bar_of_the_lemons')
 do
   sleep 0.001
 done
-xdo below -t "$(xdo id -n root)" "$bar_id"
+for bar in $bar_id ; do
+    xdo below -t "$(xdo id -n root)" "$bar"
+done
 until systray_id=$(xdo id -N 'trayer')
 do
   sleep 0.001

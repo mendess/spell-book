@@ -68,6 +68,7 @@ then
         | tail -1)
 
     bspc config normal_border_color "$color"
+    bspc config active_border_color "$color"
     if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
         ssh 192.168.1.5 "python ~/bulb/color.py \\$color"

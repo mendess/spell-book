@@ -170,7 +170,7 @@ end
 
 function update_panel()
     local update_panel = ("pkill -10 -x lemon")
-    print_debug("command: " .. update_panel)
+    print("executing command: " .. update_panel)
     os.execute(update_panel)
 end
 
