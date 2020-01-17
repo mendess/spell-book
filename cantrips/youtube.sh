@@ -36,7 +36,8 @@ selector() {
 MODES="single
 shuf
 shufA
-shufC"
+shufC
+clipboard"
 
 mode=$(echo "$MODES" | selector -i -p "Mode?" -l "$(echo "$MODES" | wc -l)")
 
@@ -45,17 +46,11 @@ vidlist=$(sed '/^$/ d' "$PLAYLIST")
 
 case "$mode" in
     single)
-        vidlist="$vidlist
-clipboard"
         vidname="$(echo "$vidlist" \
             | awk -F'\t' '{print $1}' \
             | selector -i -p "Which video?" -l "$(echo "$vidlist" | wc -l)")"
 
-        if [ "$vidname" = "clipboard" ]
-        then
-            clipboard=1
-            vids="$(xclip -sel clip -o)"
-        elif [ -z "$vidname" ]; then
+        if [ -z "$vidname" ]; then
             exit 1
         else
             vids="$(echo "$vidlist" \
@@ -96,6 +91,11 @@ clipboard"
 
         ;;
 
+    clipboard)
+        clipboard=1
+        vids="$(xclip -sel clip -o)"
+        [ -n "$vids" ] || exit 1
+        ;;
     *)
         exit
         ;;

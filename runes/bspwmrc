@@ -1,12 +1,23 @@
 #!/bin/bash
-case "$(hostname)" in
-    weatherlight)
+case "$(bspc query -M | wc -l)" in
+    1)
         bspc monitor -d 1 2 3 4 5 6 7 8 9 0
         ;;
-    tolaria)
-        bspc monitor -o DVI-D-0 DVI-I-1
-        bspc monitor DVI-I-1 -d 1 2 3
-        bspc monitor DVI-D-0 -d 4 5 6 7 8 9 0
+    2)
+        [[ "$(hostname)" == tolaria ]] && bspc monitor -o DVI-D-0 DVI-I-1
+        bspc monitor ^1 -d 1 2 3
+        bspc monitor ^2 -d 4 5 6 7 8 9 0
+        ;;
+    3)
+        bspc monitor ^1 -d 1 2 3
+        bspc monitor ^2 -d 4 5 6
+        bspc monitor ^3 -d 7 8 9 0
+        ;;
+    4)
+        bspc monitor ^1 -d 1
+        bspc monitor ^2 -d 2 3 4
+        bspc monitor ^3 -d 5 6 7
+        bspc monitor ^4 -d 8 9 0
         ;;
 esac
 
