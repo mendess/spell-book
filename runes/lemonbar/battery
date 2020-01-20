@@ -1,13 +1,14 @@
 #!/bin/python3
 
 from sys import exit
-from subprocess import check_output
+from subprocess import check_output, STDOUT
 from os import path
 import re
 
-acpi = check_output(['acpi', '-b']).decode('utf-8')
+acpi = check_output(['acpi', '-b'], stderr=STDOUT).decode('utf-8').strip()
 
-if 'rate information unavailable' in acpi:
+if 'rate information unavailable' in acpi \
+    or 'support for device type' in acpi:
     exit(0)
 
 p = re.compile(r": (\w+), (\d+)%")

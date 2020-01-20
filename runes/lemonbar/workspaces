@@ -8,8 +8,8 @@ num_mon=$(bspc query -M | wc -l)
 
 #SCROLL_ACTIONS="%{A4:bspc desktop -f prev.local.occupied:}%{A5:bspc desktop -f next.local.occupied:}"
 #SCROLL_CLOSE="%{A}%{A}"
-MON=${MON:-0}
-echo "$MON" >&2
+MON=${MONITOR:-0}
+echo "monitor: $MON" >&2
 bspc subscribe report | while read -r line ; do
     # shellcheck source=/home/mendess/Projects/spell-book/runes/lemonbar/workspaces_colors
     . "$(dirname "$0")/workspaces_colors"
@@ -19,7 +19,7 @@ bspc subscribe report | while read -r line ; do
             wm=
             IFS=':'
             set -- ${line#?}
-            cur_mon=1
+            cur_mon=0
             while [ $# -gt 0 ] ; do
                 item=$1
                 name=${item#?}

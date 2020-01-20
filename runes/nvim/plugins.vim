@@ -39,6 +39,16 @@ Plug '/usr/bin/fzf'
 
 Plug 'dense-analysis/ale'
 
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug 'andys8/vim-elm-syntax'
+
 call plug#end()
 
 """ PLUGIN CONFIGS
@@ -118,7 +128,7 @@ nnoremap gd :ALEGoToDefinition<CR>
 nnoremap <F10> :ALEPreviousWrap<CR>
 nnoremap <F12> :ALENextWrap<CR>
 nnoremap <F9> :ALEDetail<CR>
-let g:ale_linters = { 'rust' : ['rls'] }
+let g:ale_linters = { 'rust' : ['cargo'] }
 
 " Autoformat
 map <leader>f :Neoformat<CR>
@@ -126,3 +136,17 @@ map <leader>f :Neoformat<CR>
 " FZZ
 nmap <leader>p :FZF<CR>
 nmap <leader>P :FZF<CR>
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+set completeopt-=preview
+let g:deoplete#enable_at_startup = 1
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ deoplete#manual_complete()
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}

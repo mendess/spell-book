@@ -1,11 +1,13 @@
 use std::{
-    borrow::Cow,
     collections::HashMap,
+    convert::TryFrom,
     env,
+    ffi::OsStr,
     fmt::{self, Display, Write},
     fs,
     io::{self, BufRead, BufReader, Write as _},
-    process::{Command, Stdio},
+    ops::{Index, IndexMut},
+    process::{ChildStdin, Command, Stdio},
     str::{self, FromStr},
     sync::{mpsc, Arc, RwLock},
     thread::{self, Thread},
@@ -15,6 +17,8 @@ use std::{
 extern "C" {
     fn signal(sig: i32, handler: extern "C" fn(i32) -> i32) -> extern "C" fn(i32) -> i32;
 }
+
+type ParseError<'a> = (&'a str, &'a str);
 
 struct Color<'a>(&'a str);
 
@@ -69,20 +73,97 @@ enum Content<'a> {
     Static(&'a str),
     Cmd {
         cmd: &'a str,
-        last_run: RwLock<String>,
+        last_run: OneOrMore<RwLock<String>>,
     },
     Persistent {
         cmd: &'a str,
-        last_run: Arc<RwLock<String>>,
+        last_run: OneOrMore<Arc<RwLock<String>>>,
     },
 }
 
-impl<'a> Display for Content<'a> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+#[derive(Debug)]
+enum OneOrMore<T> {
+    One(T),
+    More(Vec<T>),
+}
+
+impl<T: Default> Default for OneOrMore<T> {
+    fn default() -> Self {
+        Self::One(Default::default())
+    }
+}
+
+impl<T> Index<usize> for OneOrMore<T> {
+    type Output = T;
+    fn index(&self, i: usize) -> &T {
         match self {
-            Self::Static(s) => write!(f, "{}", s),
-            Self::Cmd { last_run, .. } => write!(f, "{}", last_run.read().unwrap()),
-            Self::Persistent { last_run, .. } => write!(f, "{}", last_run.read().unwrap()),
+            Self::One(t) => t,
+            Self::More(m) => &m[i],
+        }
+    }
+}
+
+impl<T> IndexMut<usize> for OneOrMore<T> {
+    fn index_mut(&mut self, i: usize) -> &mut T {
+        match self {
+            Self::One(t) => t,
+            Self::More(m) => &mut m[i],
+        }
+    }
+}
+
+impl<T> OneOrMore<T> {
+    fn push(&mut self, t: T) {
+        match std::mem::replace(self, OneOrMore::More(vec![])) {
+            Self::One(o) => *self = Self::More(vec![o, t]),
+            Self::More(mut m) => {
+                m.push(t);
+                *self = OneOrMore::More(m)
+            }
+        }
+    }
+
+    fn len(&self) -> usize {
+        match self {
+            Self::One(_) => 1,
+            Self::More(m) => m.len(),
+        }
+    }
+
+    fn iter(&self) -> Iter<T> {
+        match self {
+            Self::One(t) => Iter::One(Some(t)),
+            Self::More(m) => Iter::More(m.iter())
+        }
+    }
+}
+
+enum Iter<'a, T> {
+    One(Option<&'a T>),
+    More(std::slice::Iter<'a, T>),
+}
+
+impl<'a, T> Iterator for Iter<'a, T> {
+    type Item = &'a T;
+    fn next(&mut self) -> Option<Self::Item> {
+        match self {
+            Self::One(t) => t.take(),
+            Self::More(m) => m.next(),
+        }
+    }
+}
+
+
+struct DisplayContent<'a, 'b: 'a>(&'b Content<'a>, usize);
+
+impl<'a, 'b> Display for DisplayContent<'a, 'b> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self.0 {
+            Content::Static(s) => write!(f, "{}", s),
+            Content::Cmd { last_run, .. } => write!(f, "{}", last_run[self.1].read().unwrap()),
+            Content::Persistent { last_run, .. } => {
+                write!(f, "{}", last_run[self.1].read().unwrap())
+            }
         }
     }
 }
@@ -90,41 +171,61 @@ impl<'a> Display for Content<'a> {
 impl<'a> Content<'a> {
     fn update(&self) {
         if let Self::Cmd { cmd, last_run } = self {
-            match Command::new("sh")
-                .args(&["-c", cmd])
-                .stdout(Stdio::piped())
-                .stderr(Stdio::inherit())
-                .spawn()
-                .and_then(|c| c.wait_with_output())
-                .and_then(|o| {
-                    if o.status.success() {
-                        Ok(o.stdout)
-                    } else {
-                        Err(io::Error::from(io::ErrorKind::InvalidInput))
-                    }
-                })
-                .map_err(|e| e.to_string())
-                .and_then(|o| String::from_utf8(o).map_err(|e| e.to_string()))
-                .map(|mut l| {
-                    if let Some(i) = l.find('\n') {
-                        l.truncate(i);
-                        l
-                    } else {
-                        l
-                    }
-                }) {
-                Ok(o) => *last_run.write().unwrap() = o,
-                Err(e) => *last_run.write().unwrap() = e,
+            for m in 0..last_run.len() {
+                match Command::new("sh")
+                    .args(&["-c", cmd])
+                    .env("MONITOR", m.to_string())
+                    .stdout(Stdio::piped())
+                    .stderr(Stdio::inherit())
+                    .spawn()
+                    .and_then(|c| c.wait_with_output())
+                    .and_then(|o| {
+                        if o.status.success() {
+                            Ok(o.stdout)
+                        } else {
+                            Err(io::Error::from(io::ErrorKind::InvalidInput))
+                        }
+                    })
+                    .map_err(|e| e.to_string())
+                    .and_then(|o| String::from_utf8(o).map_err(|e| e.to_string()))
+                    .map(|mut l| {
+                        if let Some(i) = l.find('\n') {
+                            l.truncate(i);
+                            l
+                        } else {
+                            l
+                        }
+                    }) {
+                    Ok(o) => *(last_run.index(m).write().unwrap()) = o,
+                    Err(e) => *(last_run.index(m).write().unwrap()) = e,
+                }
             }
         }
     }
 
-    fn is_empty(&self) -> bool {
+    fn is_empty(&self, monitor: usize) -> bool {
         match self {
             Self::Static(s) => s.is_empty(),
-            Self::Cmd { last_run, .. } => last_run.read().unwrap().is_empty(),
-            Self::Persistent { last_run, .. } => last_run.read().unwrap().is_empty(),
+            Self::Cmd { last_run, .. } => last_run[monitor].read().unwrap().is_empty(),
+            Self::Persistent { last_run, .. } => last_run[monitor].read().unwrap().is_empty(),
         }
+    }
+
+    fn replicate_to_mon(mut self, n_monitor: usize) -> Self {
+        match &mut self {
+            Self::Cmd { last_run, .. } => {
+                while last_run.len() < n_monitor {
+                    last_run.push(RwLock::new(String::new()));
+                }
+            }
+            Self::Persistent { last_run, .. } => {
+                while last_run.len() < n_monitor {
+                    last_run.push(Arc::new(RwLock::new(String::new())));
+                }
+            }
+            _ => (),
+        }
+        self
     }
 }
 
@@ -143,29 +244,81 @@ struct Block<'a> {
     signal: bool,
 }
 
-impl<'a> Display for Block<'a> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        if self.raw {
-            return write!(f, "{}", self.content);
+impl<'a> Block<'a> {
+    fn parse(block: &'a str, n_monitor: usize) -> Result<Self, ParseError> {
+        let mut block_b = BlockBuilder::default();
+        for opt in block.split('\n').skip(1).filter(|s| !s.trim().is_empty()) {
+            let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
+            let value = value[1..].trim().trim_end_matches('\'');
+            let color = || Color::from_str(value).map_err(|e| (opt, e));
+            block_b = match key
+                .trim()
+                .trim_start_matches('*')
+                .trim_start_matches('-')
+                .trim()
+            {
+                "background" | "bg" => block_b.bg(color()?),
+                "foreground" | "fg" => block_b.fg(color()?),
+                "underline" | "un" => block_b.un(color()?),
+                "font" => block_b.font(value).map_err(|e| (opt, e))?,
+                "offset" => block_b.offset(value).map_err(|_| (opt, "invalid offset"))?,
+                "left-click" => block_b.action(0, value),
+                "middle-click" => block_b.action(1, value),
+                "right-click" => block_b.action(2, value),
+                "scroll-up" => block_b.action(3, value),
+                "scroll-down" => block_b.action(4, value),
+                "interval" => block_b.interval(Duration::from_secs(
+                    value
+                        .parse::<u64>()
+                        .map_err(|_| (opt, "Invalid duration"))?,
+                )),
+                "command" | "cmd" => block_b.content_command(value),
+                "static" => block_b.content_static(value),
+                "persistent" => block_b.content_persistent(value),
+                "alignment" | "align" => block_b.alignment(value.parse().map_err(|e| (opt, e))?),
+                "signal" => block_b.signal(value.parse().map_err(|_| (opt, "Invalid boolean"))?),
+                "raw" => block_b.raw(value.parse().map_err(|_| (opt, "Invalid boolean"))?),
+                "multi_monitor" => {
+                    block_b.multi_monitor(value.parse().map_err(|_| (opt, "Invalid boolean"))?)
+                }
+                s => {
+                    eprintln!("Warning: unrecognised option '{}', skipping", s);
+                    block_b
+                }
+            };
         }
-        if let Some(x) = &self.offset {
+        block_b
+            .build(n_monitor)
+            .map_err(|e| ("BLOCK DEFINITION", e))
+    }
+}
+
+struct DisplayBlock<'a, 'b: 'a>(&'b Block<'a>, usize);
+
+impl<'a, 'b> Display for DisplayBlock<'a, 'b> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let DisplayBlock(b, mon) = self;
+        if b.raw {
+            return write!(f, "{}", DisplayContent(&b.content, *mon));
+        }
+        if let Some(x) = &b.offset {
             f.lemon('O', x)?;
         }
-        if let Some(x) = &self.bg {
+        if let Some(x) = &b.bg {
             f.lemon('B', x)?;
         }
-        if let Some(x) = &self.fg {
+        if let Some(x) = &b.fg {
             f.lemon('F', x)?;
         }
-        if let Some(x) = &self.un {
+        if let Some(x) = &b.un {
             f.lemon('U', x)?;
             f.write_str("%{+u}")?;
         }
-        if let Some(x) = &self.font {
+        if let Some(x) = &b.font {
             f.lemon('T', x)?;
         }
         let mut num_cmds = 0;
-        for (i, a) in self
+        for (i, a) in b
             .actions
             .iter()
             .enumerate()
@@ -174,22 +327,22 @@ impl<'a> Display for Block<'a> {
             write!(f, "%{{A{index}:{cmd}:}}", index = i + 1, cmd = a)?;
             num_cmds += 1;
         }
-        write!(f, "{}", self.content)?;
+        write!(f, "{}", DisplayContent(&b.content, *mon))?;
         (0..num_cmds).try_for_each(|_| f.write_str("%{A}"))?;
-        if let Some(_) = &self.offset {
+        if let Some(_) = &b.offset {
             f.lemon('O', "0")?;
         }
-        if let Some(_) = &self.bg {
+        if let Some(_) = &b.bg {
             f.lemon('B', "-")?;
         }
-        if let Some(_) = &self.fg {
+        if let Some(_) = &b.fg {
             f.lemon('F', "-")?;
         }
-        if let Some(_) = &self.un {
+        if let Some(_) = &b.un {
             f.lemon('U', "-")?;
             f.write_str("%{-u}")?;
         }
-        if let Some(_) = &self.font {
+        if let Some(_) = &b.font {
             f.lemon('T', "-")?;
         }
         Ok(())
@@ -209,6 +362,7 @@ struct BlockBuilder<'a> {
     alignment: Option<Alignment>,
     raw: bool,
     signal: bool,
+    multi_monitor: bool,
 }
 
 impl<'a> BlockBuilder<'a> {
@@ -306,26 +460,36 @@ impl<'a> BlockBuilder<'a> {
         Self { signal: b, ..self }
     }
 
-    fn build(self) -> Result<Block<'a>, &'static str> {
-        if self.content.is_none() {
-            Err("No content defined")
-        } else if self.alignment.is_none() {
-            Err("No alignment defined")
+    fn multi_monitor(self, b: bool) -> Self {
+        Self {
+            multi_monitor: b,
+            ..self
+        }
+    }
+
+    fn build(self, n_monitor: usize) -> Result<Block<'a>, &'static str> {
+        let n_monitor = if self.multi_monitor { n_monitor } else { 1 };
+        if let Some(content) = self.content {
+            if let Some(alignment) = self.alignment {
+                Ok(Block {
+                    bg: self.bg,
+                    fg: self.fg,
+                    un: self.un,
+                    font: self.font,
+                    offset: self.offset,
+                    content: content.replicate_to_mon(n_monitor),
+                    interval: self.interval.unwrap_or_else(|| Duration::from_secs(10)),
+                    actions: self.actions,
+                    alignment,
+                    timer: Default::default(),
+                    raw: self.raw,
+                    signal: self.signal,
+                })
+            } else {
+                Err("No alignment defined")
+            }
         } else {
-            Ok(Block {
-                bg: self.bg,
-                fg: self.fg,
-                un: self.un,
-                font: self.font,
-                offset: self.offset,
-                content: self.content.unwrap(),
-                interval: self.interval.unwrap_or_else(|| Duration::from_secs(10)),
-                actions: self.actions,
-                alignment: self.alignment.unwrap(),
-                timer: Default::default(),
-                raw: self.raw,
-                signal: self.signal,
-            })
+            Err("No content defined")
         }
     }
 }
@@ -345,10 +509,10 @@ impl<'a> Lemonbar for String {}
 
 type Config<'a> = HashMap<Alignment, Vec<Block<'a>>>;
 
-#[derive(Default)]
+#[derive(Debug, Default)]
 struct Args {
     config: Option<String>,
-    geometry: Option<String>,
+    bars: Vec<String>,
     tray: bool,
 }
 
@@ -362,65 +526,23 @@ fn arg_parse() -> io::Result<Args> {
                     argv.next().expect("Expected argument to config parameter"),
                 )?);
             }
-            "-g" | "--geometry" => {
-                args.geometry = Some(
+            "-t" | "--tray" => args.tray = true,
+            "-b" | "--bar" => {
+                args.bars.push(
                     argv.next()
                         .expect("Expected argument to geometry parameter"),
                 );
             }
-            "-t" | "--tray" => args.tray = true,
             _ => (),
         }
     }
     Ok(args)
 }
 
-// TODO:
-// Manpage
-// - Sdir
-// - attribute
-//
-// Features
-// - Signal
-fn main() -> io::Result<()> {
-    let args = arg_parse()?;
-    let input = if let Some(input) = args.config {
-        input
-    } else {
-        if let Some(arg) = env::var_os("XDG_CONFIG") {
-            fs::read_to_string(arg)?
-        } else if let Ok(home) = env::var("HOME") {
-            fs::read_to_string(format!("{}/{}", home, ".config/lemonbar/lemonrc"))?
-        } else {
-            return Err(io::Error::new(
-                io::ErrorKind::NotFound,
-                "Couldn't find config file",
-            ));
-        }
-    };
-    let input: &'static mut str = Box::leak(input.into_boxed_str());
-    let (mut global_c, blocks) = match parse(input) {
-        Ok(b) => b,
-        Err((bit, cause)) => {
-            eprintln!("Parse error in '{}', {}", bit, cause);
-            std::process::exit(1);
-        }
-    };
-    if let Some(geo) = args.geometry {
-        match global_c.geometry {
-            Some(g) => global_c.geometry = Some(merge_geometries(&g, &geo).into()),
-            None => global_c.geometry = Some(geo.into()),
-        }
-    }
-    global_c.tray = args.tray;
-    start_event_loop(global_c, blocks);
-    // unsafe { Box::from_raw(input.as_mut_ptr()) };
-    Ok(())
-}
-
 #[derive(Default)]
 struct GlobalConfig<'a> {
-    geometry: Option<Cow<'a, str>>,
+    base_geometry: Option<&'a str>,
+    bars_geometries: Vec<String>,
     bottom: bool,
     font: Option<&'a str>,
     n_clickbles: Option<u32>,
@@ -434,10 +556,15 @@ struct GlobalConfig<'a> {
 }
 
 impl<'a> GlobalConfig<'a> {
-    fn to_arg_list(&self) -> Vec<String> {
+    fn to_arg_list(&self, extra_geomtery: Option<&str>) -> Vec<String> {
         let mut vector: Vec<String> = vec![];
-        if let Some(g) = &self.geometry {
-            vector.extend_from_slice(&["-g".into(), g.to_string()]);
+        if let Some(g) = &self.base_geometry {
+            vector.extend_from_slice(&[
+                "-g".into(),
+                extra_geomtery
+                    .map(|e| merge_geometries(g, e))
+                    .unwrap_or_else(|| g.to_string()),
+            ]);
         }
         if self.bottom {
             vector.extend_from_slice(&["-b".into()]);
@@ -468,11 +595,10 @@ impl<'a> GlobalConfig<'a> {
     }
 }
 
-fn parse(config: &str) -> Result<(GlobalConfig, Config), (&str, &str)> {
-    let mut blocks = HashMap::<Alignment, Vec<Block>>::with_capacity(3);
-    let mut blocks_iter = config.split("\n>");
-    let mut global_config = GlobalConfig::default();
-    if let Some(globals) = blocks_iter.next() {
+impl<'a> TryFrom<&'a str> for GlobalConfig<'a> {
+    type Error = ParseError<'a>;
+    fn try_from(globals: &'a str) -> Result<Self, Self::Error> {
+        let mut global_config = Self::default();
         for opt in globals.split('\n').filter(|s| !s.trim().is_empty()) {
             let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
             let value = value[1..].trim_matches('\'');
@@ -510,66 +636,193 @@ fn parse(config: &str) -> Result<(GlobalConfig, Config), (&str, &str)> {
                     )
                 }
                 "separator" => global_config.separator = Some(value),
-                "geometry" | "g" => global_config.geometry = Some(value.into()),
+                "geometry" | "g" => global_config.base_geometry = Some(value.into()),
                 "name" | "n" => global_config.name = Some(value),
                 s => {
                     eprintln!("Warning: unrecognised option '{}', skipping", s);
                 }
             }
         }
+        Ok(global_config)
     }
-    for block in blocks_iter {
-        let mut block_b = BlockBuilder::default();
-        for opt in block.split('\n').skip(1).filter(|s| !s.trim().is_empty()) {
-            let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
-            let value = value[1..].trim().trim_end_matches('\'');
-            let color = || Color::from_str(value).map_err(|e| (opt, e));
-            block_b = match key
-                .trim()
-                .trim_start_matches('*')
-                .trim_start_matches('-')
-                .trim()
-            {
-                "background" | "bg" => block_b.bg(color()?),
-                "foreground" | "fg" => block_b.fg(color()?),
-                "underline" | "un" => block_b.un(color()?),
-                "font" => block_b.font(value).map_err(|e| (opt, e))?,
-                "offset" => block_b.offset(value).map_err(|_| (opt, "invalid offset"))?,
-                "left-click" => block_b.action(0, value),
-                "middle-click" => block_b.action(1, value),
-                "right-click" => block_b.action(2, value),
-                "scroll-up" => block_b.action(3, value),
-                "scroll-down" => block_b.action(4, value),
-                "interval" => block_b.interval(Duration::from_secs(
-                    value
-                        .parse::<u64>()
-                        .map_err(|_| (opt, "Invalid duration"))?,
-                )),
-                "command" | "cmd" => block_b.content_command(value),
-                "static" => block_b.content_static(value),
-                "persistent" => block_b.content_persistent(value),
-                "alignment" | "align" => block_b.alignment(value.parse().map_err(|e| (opt, e))?),
-                "signal" => block_b.signal(value.parse().map_err(|_| (opt, "Invalid boolean"))?),
-                "raw" => block_b.raw(value.parse().map_err(|_| (opt, "Invalid boolean"))?),
-                s => {
-                    eprintln!("Warning: unrecognised option '{}', skipping", s);
-                    block_b
-                }
-            };
+}
+
+// TODO:
+// Manpage
+// - Sdir
+// - attribute
+//
+// Features
+// - Signal
+fn main() -> io::Result<()> {
+    let args = arg_parse()?;
+    let input = if let Some(input) = args.config {
+        input
+    } else {
+        if let Some(arg) = env::var_os("XDG_CONFIG") {
+            fs::read_to_string(arg)?
+        } else if let Ok(home) = env::var("HOME") {
+            fs::read_to_string(format!("{}/{}", home, ".config/lemonbar/lemonrc"))?
+        } else {
+            return Err(io::Error::new(
+                io::ErrorKind::NotFound,
+                "Couldn't find config file",
+            ));
         }
-        let b = block_b.build().map_err(|e| ("BLOCK DEFINITION", e))?;
-        blocks.entry(b.alignment).or_default().push(b)
+    };
+    let input = Box::leak(input.into_boxed_str());
+    let (mut global_c, blocks) = match parse(input, args.bars.len()) {
+        Ok(b) => b,
+        Err((bit, cause)) => {
+            eprintln!("Parse error in '{}', {}", bit, cause);
+            std::process::exit(1);
+        }
+    };
+    global_c.tray = args.tray;
+    global_c.bars_geometries = args.bars;
+    start_event_loop(global_c, blocks);
+    // unsafe { Box::from_raw(input.as_mut_ptr()) };
+    Ok(())
+}
+
+fn parse(config: &str, monitor: usize) -> Result<(GlobalConfig, Config), ParseError> {
+    let mut blocks = HashMap::<Alignment, Vec<Block>>::with_capacity(3);
+    let mut blocks_iter = config.split("\n>");
+    let global_config = blocks_iter
+        .next()
+        .map(GlobalConfig::try_from)
+        .unwrap_or_else(|| Ok(Default::default()))?;
+    for block in blocks_iter {
+        let b: Block = Block::parse(block, monitor)?;
+        blocks.entry(b.alignment).or_default().push(b);
     }
     Ok((global_config, blocks))
 }
 
-fn build_line(global_config: &GlobalConfig, config: &Config, tray_offset: u32) -> String {
+enum Event {
+    Update,
+    TrayResize(u32),
+}
+
+fn spawn_bar<A, S>(args: A) -> ChildStdin
+where
+    A: IntoIterator<Item = S> + std::fmt::Debug,
+    S: AsRef<OsStr>,
+{
+    let lemonbar = Command::new("lemonbar")
+        .args(args)
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .spawn()
+        .expect("Couldn't start lemonbar");
+    let (le_in, le_out) = (
+        lemonbar.stdin.expect("Failed to find lemon stdin"),
+        lemonbar.stdout.expect("Failed to find lemon stdout"),
+    );
+    Command::new("sh")
+        .stdin(Stdio::from(le_out))
+        .spawn()
+        .expect("Couldn't start action shell");
+    le_in
+}
+
+fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
+    let mut lemon_inputs = if global_config.bars_geometries.is_empty() {
+        vec![spawn_bar(&global_config.to_arg_list(None))]
+    } else {
+        global_config
+            .bars_geometries
+            .iter()
+            .map(|g| global_config.to_arg_list(Some(&g)))
+            .map(spawn_bar)
+            .collect()
+    };
+    let (sx, event_loop) = mpsc::channel();
+    // Persistent blocks
+    for blocks in config.values() {
+        for b in blocks {
+            if let Content::Persistent { cmd, last_run } = &b.content {
+                for (m, r) in last_run.iter().enumerate() {
+                    let cmd = cmd.to_string();
+                    let ch = sx.clone();
+                    let r = Arc::clone(&r);
+                    thread::spawn(move || persistent_command(cmd, ch, r, m));
+                }
+            }
+        }
+    }
+    let config = Arc::new(config);
+    let config_ref = Arc::downgrade(&config);
+    let ch = sx.clone();
+    // Timer blocks
+    let loop_t = thread::spawn(move || {
+        while let Some(c) = config_ref.upgrade() {
+            for block in c.values().flatten() {
+                let mut b_timer = block.timer.write().unwrap();
+                match b_timer.checked_sub(Duration::from_secs(1)) {
+                    Some(d) => *b_timer = d,
+                    None => {
+                        block.content.update();
+                        *b_timer = block.interval;
+                    }
+                }
+            }
+            ch.send(Event::Update).unwrap();
+            thread::sleep(Duration::from_secs(1))
+        }
+    });
+    let config_ref = Arc::downgrade(&config);
+    if global_config.tray {
+        trayer(&global_config, sx.clone());
+    }
+    // Signal Capturing thread
+    let signal_thread = thread::spawn(move || loop {
+        unsafe {
+            signal(10, handle);
+        };
+        thread::park();
+        if let Some(c) = config_ref.upgrade() {
+            c.values().flatten().filter(|b| b.signal).for_each(|b| {
+                b.content.update();
+            });
+            sx.send(Event::Update).unwrap();
+        }
+    });
+    unsafe { SIGNAL_THREAD = Some(signal_thread.thread().clone()) };
+    let mut tray_offset = 0;
+    for e in event_loop {
+        if let Event::TrayResize(o) = e {
+            tray_offset = o;
+        }
+        for (i, le_in) in lemon_inputs.iter_mut().enumerate() {
+            let line = if i == 0 {
+                build_line(&global_config, &config, tray_offset, i)
+            } else {
+                build_line(&global_config, &config, 0, i)
+            };
+            le_in
+                .write_all(line.as_bytes())
+                .expect("Couldn't talk to lemon bar :(");
+        }
+    }
+    drop(config);
+    loop_t.join().unwrap();
+    signal_thread.join().unwrap();
+}
+
+fn build_line(
+    global_config: &GlobalConfig,
+    config: &Config,
+    tray_offset: u32,
+    monitor: usize,
+) -> String {
     let mut line = String::new();
     let add_blocks = |blocks: &[Block], l: &mut String| {
         blocks
             .iter()
-            .filter(|b| !b.content.is_empty())
-            .map(ToString::to_string)
+            .filter(|b| !b.content.is_empty(monitor))
+            .map(|b| DisplayBlock(b, monitor))
+            .map(|db| db.to_string())
             .zip(std::iter::successors(Some(Some("")), |_| {
                 Some(global_config.separator)
             }))
@@ -594,89 +847,6 @@ fn build_line(global_config: &GlobalConfig, config: &Config, tray_offset: u32) -
     line + "\n"
 }
 
-enum Event {
-    Update,
-    TrayResize(u32),
-}
-
-fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
-    let lemonbar = Command::new("lemonbar")
-        .args(global_config.to_arg_list())
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .spawn()
-        .expect("Couldn't start lemonbar");
-    let (mut le_in, le_out) = (
-        lemonbar.stdin.expect("Failed to find lemon stdin"),
-        lemonbar.stdout.expect("Failed to find lemon stdout"),
-    );
-    Command::new("sh")
-        .stdin(Stdio::from(le_out))
-        .spawn()
-        .expect("Couldn't start action shell");
-    let (sx, event_loop) = mpsc::channel();
-    for blocks in config.values() {
-        for b in blocks {
-            if let Content::Persistent { cmd, last_run } = &b.content {
-                let cmd = cmd.to_string();
-                let ch = sx.clone();
-                let last_run = Arc::clone(&last_run);
-                thread::spawn(|| persistent_command(cmd, ch, last_run));
-            }
-        }
-    }
-    let config = Arc::new(config);
-    let config_ref = Arc::downgrade(&config);
-    let ch = sx.clone();
-    let loop_t = thread::spawn(move || {
-        while let Some(c) = config_ref.upgrade() {
-            for block in c.values().flatten() {
-                let mut b_timer = block.timer.write().unwrap();
-                match b_timer.checked_sub(Duration::from_secs(1)) {
-                    Some(d) => *b_timer = d,
-                    None => {
-                        block.content.update();
-                        *b_timer = block.interval;
-                    }
-                }
-            }
-            ch.send(Event::Update).unwrap();
-            thread::sleep(Duration::from_secs(1))
-        }
-    });
-    let config_ref = Arc::downgrade(&config);
-    if global_config.tray {
-        trayer(&global_config, sx.clone());
-    }
-    let signal_thread = thread::spawn(move || loop {
-        unsafe {
-            signal(10, handle);
-        };
-        thread::park();
-        if let Some(c) = config_ref.upgrade() {
-            c.values()
-                .flatten()
-                .filter(|b| b.signal)
-                .for_each(|b| b.content.update());
-            sx.send(Event::Update).unwrap();
-        }
-    });
-    unsafe { SIGNAL_THREAD = Some(signal_thread.thread().clone()) };
-    let mut tray_offset = 0;
-    for e in event_loop {
-        if let Event::TrayResize(o) = e {
-            tray_offset = o;
-        }
-        let line = build_line(&global_config, &config, tray_offset);
-        le_in
-            .write_all(line.as_bytes())
-            .expect("Couldn't talk to lemon bar :(");
-    }
-    drop(config);
-    loop_t.join().unwrap();
-    signal_thread.join().unwrap();
-}
-
 static mut SIGNAL_THREAD: Option<Thread> = None;
 
 extern "C" fn handle(x: i32) -> i32 {
@@ -686,11 +856,17 @@ extern "C" fn handle(x: i32) -> i32 {
     x
 }
 
-fn persistent_command(cmd: String, ch: mpsc::Sender<Event>, last_run: Arc<RwLock<String>>) {
+fn persistent_command(
+    cmd: String,
+    ch: mpsc::Sender<Event>,
+    last_run: Arc<RwLock<String>>,
+    monitor: usize,
+) {
     BufReader::new(
         Command::new("sh")
             .args(&["-c", &cmd])
             .stdout(Stdio::piped())
+            .env("MONITOR", &monitor.to_string())
             .spawn()
             .expect("Couldn't start persistent cmd")
             .stdout
@@ -715,7 +891,7 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
         "request",
         "--height",
         global_config
-            .geometry
+            .base_geometry
             .as_ref()
             .and_then(|x| x.split("x").nth(1))
             .and_then(|x| x.split("+").next())

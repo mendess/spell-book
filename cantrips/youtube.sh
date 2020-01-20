@@ -103,6 +103,13 @@ esac
 
 [ -z "$vids" ] && exit
 
+if [ "$(mpvsocket)" != "/dev/null" ] || [ -z "$DISPLAY" ]; then
+    p=no
+else
+    p=$(echo "no
+yes" | selector -i -p "With video?")
+fi
+
 final_list=()
 for v in $(echo "$vids" | shuf)
 do
@@ -117,25 +124,26 @@ do
         final_list+=("$v")
     fi
 done
+
 [ -n "$clipboard" ] || \
-    (cd ~/Music || exit 1; \
-        echo "${final_list[@]}" | grep '^http' && \
-        echo "${final_list[@]}" | grep '^http' | xargs -L 1 youtube-dl --add-metadata) &
+    (
+        cd ~/Music || exit 1; \
+        echo "${final_list[@]}" | grep '^http' | xargs --no-run-if-empty -L 1 youtube-dl --add-metadata
+    ) &
 
 if [ "$(mpvsocket)" != "/dev/null" ]
 then
     for song in "${final_list[@]}"
     do
-        m queue "$song" --notify
+        if [[ "$song" == *playlist* ]]; then
+            for s in $(youtube-dl "$song" --get-id); do
+                m queue "https://youtu.be/$s" --notify
+            done
+        else
+            m queue "$song" --notify
+        fi
     done
 else
-    if [ -z "$DISPLAY" ]; then
-        p=no
-    else
-        p=$(echo "no
-yes" | selector -i -p "With video?")
-    fi
-
     rm -f "$(mpvsocket new)_last_queue"
     (
         sleep 2

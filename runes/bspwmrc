@@ -64,21 +64,15 @@ pgrep -x lemon && killall lemon
 if ! [ -e ~/.config/lemonbar/lemon ]; then
     rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon
 fi
-tray="true"
-MON=1
+bar_args=()
 for mon in $(bspc query -M)
 do
     l() {
-        bspc query -T -m $mon | jq .rectangle.$1
+        bspc query -T -m "$mon" | jq .rectangle."$1"
     }
-
-    MON=$MON ~/.config/lemonbar/lemon \
-        --geometry "$(l width)x0+$(l x)+$(l y)" \
-        "$([[ "$tray" == true ]] && echo '--tray')" &
-
-    MON=$(( MON+1 ))
-    tray=""
+    bar_args+=('--bar' "$(l width)x0+$(l x)+$(l y)")
 done
+~/.config/lemonbar/lemon --tray "${bar_args[@]}" &
 
 sleep 1.5
 until bar_id=$(xdo id -a 'bar_of_the_lemons')

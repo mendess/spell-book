@@ -257,3 +257,6 @@ super + shift + m
     else \
         bspc node -g marked ; \
     fi
+
+super + shift + BackSpace
+    ssh mirrodin python bulb/let_there_be_light.py

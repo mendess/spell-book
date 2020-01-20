@@ -10,6 +10,7 @@ name:bar_of_the_lemons
 persistent: ~/.config/lemonbar/workspaces
 raw:true
 align:left
+multi_monitor:true
 
 > PID
 command: ps aux | awk '{print($2)}' | sort -n | tail -1 | rev | sed -r 's/(...)/\1_/g' | rev | sed -r "s/^/PID: /"
