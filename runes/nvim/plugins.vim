@@ -39,7 +39,7 @@ Plug '/usr/bin/fzf'
 
 Plug 'dense-analysis/ale'
 
-if has('nvim')
+if has('nvim') && has('python3')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Shougo/deoplete.nvim'

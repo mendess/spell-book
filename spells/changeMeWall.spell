@@ -34,27 +34,45 @@ is_wide() {
     return $?
 }
 
-if [ "$#" -gt 0 ]
-then
-    if [ "$1" = '-s' ]; then
-        files="$(sxiv -t -b -g 1800x1000 -o "$WALLPAPERS")"
-    else
-        files="$*"
-    fi
-else
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -f)
+            filter="$2"
+            shift
+            ;;
+        -s)
+            sxiv=1
+            ;;
+        -*)
+            echo "Invalid option '$1'"
+            exit 1
+            ;;
+        *)
+            files="$files $1"
+            ;;
+    esac
+    shift
+done
+if [ -n "$sxiv" ]; then
+    files="$(sxiv -to "$WALLPAPERS")"
+elif [ -z "$files" ]; then
     files="$(find "$WALLPAPERS" -type f \
+        | grep -iP "$filter" \
         | shuf -n "$(xrandr --query | grep ' connected' -c)" \
         | grep -vP '^$')"
-
 fi
+
 wide=0
+i=1
 for file in $files
 do
     aspect_ratio="$(convert "$file" -format '%[fx:w/h]' info:)"
     wide=$(echo "$aspect_ratio" | awk '$0 > (28/9) {found=1}
-    END {if(found) {print NR} else {print "0"}}')
+    END {if(found) {print '$i'} else {print "0"}}')
     is_wide && break
+    i=$(( i + 1 ))
 done
+unset i
 
 is_wide && files=$(echo "$files" | sed -n -e "${wide}"p)
 
@@ -77,5 +95,11 @@ then
     fi
 fi 2>&1 | color_picker -f &
 
-echo "$files" | xargs feh --no-fehbg --bg-fill
+echo "Setting:
+$files"
+if is_wide; then
+    echo "$files" | xargs feh --no-fehbg --bg-fill --no-xinerama
+else
+    echo "$files" | xargs feh --no-fehbg --bg-fill
+fi
 wait

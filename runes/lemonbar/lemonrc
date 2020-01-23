@@ -13,7 +13,7 @@ align:left
 multi_monitor:true
 
 > PID
-command: ps aux | awk '{print($2)}' | sort -n | tail -1 | rev | sed -r 's/(...)/\1_/g' | rev | sed -r "s/^/PID: /"
+command: ps aux | awk '{print($2)}' | sort -n | tail -1 | rev | perl -ne 's/(...)(?!$)/\1_/g; print;' | rev | sed -r "s/^/PID: /"
 align:left
 
 > Music
