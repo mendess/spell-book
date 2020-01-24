@@ -1,0 +1,19 @@
+#!/bin/python3
+import xlrd
+import os
+import csv
+
+def main():
+    file = sys.argv[1]
+    print('Converting...')
+    wb = xlrd.open_workbook(file)
+    sheets = []
+    for sheet in wb.sheets():
+        file = '{}-{}.csv'.format(file, sheet.name)
+        with open(file, 'w') as csv_file:
+            wr = csv.writer(csv_file, delimiter=';')
+            for rownum in range(sh.nrows):
+                wr.writerow(sh.row_values(rownum))
+
+if __name__ == '__main__':
+    main()
