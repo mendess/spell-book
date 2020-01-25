@@ -226,3 +226,11 @@ connect() {
     fi
     nmcli device wifi connect "$1" password "$2"
 }
+
+gcl() {
+    if [[ "$1" == */* ]]; then
+        git clone git@github.com:"$1"
+    else
+        git clone git@github.com:"$(git config --global user.name)"/"$1"
+    fi
+}
