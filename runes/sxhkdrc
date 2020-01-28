@@ -1,5 +1,5 @@
 super + Return
-  	termite
+  	$TERMINAL
 
 super + shift + Return
   	termFromHere
@@ -20,13 +20,13 @@ super + F8
   	feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/home.png
 
 super + control + m
-  	termite --class floating-terminal -e pacmixer
+  	$TERMINAL --class floating-terminal -e pacmixer
 
 super + F2
-  	firefox
+  	$BROWSER
 
 super + shift + F2
-  	firefox -private-window https://duckduckgo.com/
+  	$BROWSER -private-window https://duckduckgo.com/
 
 super + F3
   	discord
@@ -35,10 +35,10 @@ super + F4
   	steam
 
 super + m
-  	termite -e neomutt
+  	$TERMINAL -e neomutt
 
 super + shift + c
-  	termite -e calcurse
+  	$TERMINAL -e calcurse
 
 @Print
   	scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
@@ -50,16 +50,16 @@ super + @Print
   	scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 
 super + control + s
-  	termite --class floating-terminal --title floating-terminal -e 'syncspellbook --hold'
+  	$TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
 
 super + t
-  	termite -e htop
+  	$TERMINAL -e htop
 
 super + c
-  	termite --class floating-terminal --title floating-terminal -e 'bc -l'
+  	$TERMINAL --class floating-terminal --title floating-terminal -e bc -l
 
 super + x
-  	termite --class floating-terminal -e 'bash -c "cal -3 -s && read -s -r -n 1"'
+  	$TERMINAL --class floating-terminal -e bash -c "cal -3 -s && read -s -r -n 1"
 
 super + v
   	playClipboard

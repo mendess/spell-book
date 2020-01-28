@@ -12,7 +12,7 @@
 ~/.Xdefaults,Xdefaults
 ~/.xinitrc,xinitrc
 ~/.tmux.conf,tmux.conf
-~/.config/termite/config,termite
+#~/.config/termite/config,termite
 ~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,check
 ~/.Rider2018.3/config/idea.properties,idea.properties,check
 ~/.config/newsboat/config,newsboat
@@ -28,3 +28,4 @@
 ~/.config/gtk-3.0,gtk-3.0
 ~/.config/lemonbar,lemonbar
 ~/.config/mpv,mpv
+~/.config/alacritty/alacritty.yml,alacritty.yml

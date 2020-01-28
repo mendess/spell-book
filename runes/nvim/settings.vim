@@ -64,8 +64,6 @@ iabbrev flase false
 iabbrev Flase False
 autocmd! FileType c iabbrev use #include <
 autocmd! FileType cpp iabbrev use #include <
-autocmd! FileType rust iabbrev if if<++> {<++>},,
-autocmd! FileType c iabbrev if if (<++>) {<++>},,
 
 if has("gui_running")
     set tb=

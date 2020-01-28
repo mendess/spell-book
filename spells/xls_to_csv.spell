@@ -1,19 +1,21 @@
 #!/bin/python3
 import xlrd
-import os
+from os import path
 import csv
+from sys import argv
 
 def main():
-    file = sys.argv[1]
-    print('Converting...')
-    wb = xlrd.open_workbook(file)
-    sheets = []
-    for sheet in wb.sheets():
-        file = '{}-{}.csv'.format(file, sheet.name)
-        with open(file, 'w') as csv_file:
-            wr = csv.writer(csv_file, delimiter=';')
-            for rownum in range(sh.nrows):
-                wr.writerow(sh.row_values(rownum))
+    for file in argv[1:]:
+        print('Converting:', file)
+        wb = xlrd.open_workbook(file)
+        for sheet in wb.sheets():
+            file = '{}-{}.csv'.format(path.splitext(path.basename(file))[0], sheet.name)
+            print('Creating:', file)
+            with open(file, 'w') as csv_file:
+                wr = csv.writer(csv_file, delimiter=';')
+                for rownum in range(sheet.nrows):
+                    wr.writerow(sheet.row_values(rownum))
+    print('Done')
 
 if __name__ == '__main__':
     main()

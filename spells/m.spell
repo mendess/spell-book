@@ -141,7 +141,11 @@ queue () {
         return 0
     fi
     if [ -z "$1" ]; then
-        notify-send 'Error queueing' 'Empty file name'
+        notify-send 'Error queueing' 'Empty file name' -a "$(basename "$0")"
+        return 1
+    fi
+    if [[ "$1" == http* ]] && ! youtube-dl --get-title "$1"; then
+        notify-send 'Invalid link:' "$1" -a "$(basename "$0")"
         return 1
     fi
     echo -n "Queueing song: '$1'... "
@@ -174,7 +178,8 @@ queue () {
         if [[ "$1" == https* ]]; then
             data=$(youtube-dl --get-title "$1" --get-thumbnail)
             name=$(echo "$data" | head -1)
-            echo "$data" | tail -1 | xargs wget --quiet -O "$IMG"
+            echo "$data" | tail -1 | xargs -r wget --quiet -O "$IMG"
+            [ -z "$name" ] && name="$1"
         else
             name="$(ffprobe "$1" 2>&1 | grep title | cut -d':' -f2 | xargs)"
             ffmpeg -loglevel error -hide_banner -vsync 2 -i "$1"  -frames:v 1 "$IMG" > /dev/null

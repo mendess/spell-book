@@ -14,7 +14,7 @@ then
 fi
 alias l='ls -lha'
 alias ll='ls -lh'
-alias cl="clear; ls -1"
+alias cl="clear; ls -lh"
 alias clg="clear; ls -lh --git"
 # DOCKER
 alias doc='docker'
@@ -72,7 +72,7 @@ alias mpvs='mpv --no-video --input-ipc-server=$(mpvsocket new)'
 alias mpvsv='mpv --input-ipc-server=$(mpvsocket new)'
 alias s='sxiv'
 alias notes='mn'
-alias ru='evcxr'
+alias rs='evcxr'
 alias sudo='sudo '
 alias ..='cd ..'
 alias ...=../..
@@ -82,4 +82,4 @@ alias ......=../../../../..
 alias whoshome='cd ~/Projects/whoshome/; pyenv; py main.py; deactivate; cd - &>/dev/null'
 alias screenoff='DISPLAY=:0 xset dpms force off'
 alias spotify="LD_PRELOAD=$HOME/.local/bin/spotify-adblock.so spotify"
-
+alias grep='grep --color=auto'
