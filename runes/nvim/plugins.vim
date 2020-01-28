@@ -6,7 +6,7 @@ endif
 call plug#begin()
 
 " Color scheme
-Plug 'ayu-theme/ayu-vim'
+Plug 'Mendess2526/ayu-vim'
 
 " File browser
 Plug 'scrooloose/nerdtree'
