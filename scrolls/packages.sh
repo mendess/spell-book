@@ -2,6 +2,7 @@
 
 export packages=(
 acpi
+alacritty
 alsa-utils
 asciidoc # compton dependency
 bat
@@ -56,7 +57,6 @@ socat
 surf
 sxhkd
 sxiv
-termite
 tmux
 tree
 ttf-dejavu

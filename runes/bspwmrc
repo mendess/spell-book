@@ -4,9 +4,21 @@ case "$(bspc query -M | wc -l)" in
         bspc monitor -d 1 2 3 4 5 6 7 8 9 0
         ;;
     2)
-        [[ "$(hostname)" == tolaria ]] && bspc monitor -o DVI-D-0 DVI-I-1
-        bspc monitor ^1 -d 1 2 3
-        bspc monitor ^2 -d 4 5 6 7 8 9 0
+        case "$(hostnamea)" in
+            tolaria)
+                bspc monitor -o DVI-D-0 DVI-I-1
+                bspc monitor ^1 -d 1 2 3
+                bspc monitor ^2 -d 4 5 6 7 8 9 0
+                ;;
+            weatherlight)
+                bspc monitor ^1 -d 1 2 3 4 5 6 7
+                bspc monitor ^2 -d 8 9 0
+                ;;
+            *)
+                bspc monitor ^1 -d 1 2 3 4 5 6 7 8
+                bspc monitor ^2 -d 9 0
+                ;;
+        esac
         ;;
     3)
         bspc monitor ^1 -d 1 2 3
@@ -70,20 +82,20 @@ do
     l() {
         bspc query -T -m "$mon" | jq .rectangle."$1"
     }
-    bar_args+=('--bar' "$(l width)x0+$(l x)+$(l y)")
+bar_args+=('--bar' "$(l width)x0+$(l x)+$(l y)")
 done
 ~/.config/lemonbar/lemon --tray "${bar_args[@]}" &
 
 sleep 1.5
 until bar_id=$(xdo id -a 'bar_of_the_lemons')
 do
-  sleep 0.001
+    sleep 0.001
 done
 for bar in $bar_id ; do
     xdo below -t "$(xdo id -n root)" "$bar"
 done
 until systray_id=$(xdo id -N 'trayer')
 do
-  sleep 0.001
+    sleep 0.001
 done
 xdo below -t "$(xdo id -n root)" "$systray_id"

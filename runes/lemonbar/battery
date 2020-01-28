@@ -21,7 +21,7 @@ if status == 'Discharging':
 elif status == 'Charging':
     print_status = '^' #'△'
 else:
-    print_status = 'o' #'⬙'
+    print_status = ' -' #'⬙'
 
 if 'harging' not in status: #or not path.exists('/tmp/.bloat'):
     time = ""
