@@ -4,7 +4,7 @@ case "$(bspc query -M | wc -l)" in
         bspc monitor -d 1 2 3 4 5 6 7 8 9 0
         ;;
     2)
-        case "$(hostnamea)" in
+        case "$(hostname)" in
             tolaria)
                 bspc monitor -o DVI-D-0 DVI-I-1
                 bspc monitor ^1 -d 1 2 3
