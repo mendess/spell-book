@@ -17,14 +17,14 @@ start_tmux() {
             read -r s
             if [ -z "$s" ]
             then
-                tmux
+                tmux -2
             elif ! tmux attach -t "$s"
             then
                 echo "Starting a new session"
-                tmux
+                tmux -2
             fi
         else
-            tmux
+            tmux -2
         fi
         exit
     fi

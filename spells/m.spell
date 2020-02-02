@@ -144,7 +144,8 @@ queue () {
         notify-send 'Error queueing' 'Empty file name' -a "$(basename "$0")"
         return 1
     fi
-    if [[ "$1" == http* ]] && ! youtube-dl --get-title "$1"; then
+    if [[ "$1" == http* ]] \
+        && ! youtube-dl --max-downloads 1 --get-title "$1" &>/dev/null; then
         notify-send 'Invalid link:' "$1" -a "$(basename "$0")"
         return 1
     fi

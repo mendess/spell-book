@@ -34,6 +34,7 @@ is_wide() {
     return $?
 }
 
+wide=0
 while [ "$#" -gt 0 ]; do
     case "$1" in
         -f)
@@ -43,12 +44,19 @@ while [ "$#" -gt 0 ]; do
         -s)
             sxiv=1
             ;;
+        -w)
+            wide=1
+            ;;
         -*)
             echo "Invalid option '$1'"
             exit 1
             ;;
         *)
-            files="$files $1"
+            if [ -z "$files" ]; then
+                files="$1"
+            else
+                files="$files $1"
+            fi
             ;;
     esac
     shift
@@ -62,14 +70,13 @@ elif [ -z "$files" ]; then
         | grep -vP '^$')"
 fi
 
-wide=0
 i=1
 for file in $files
 do
+    is_wide && break
     aspect_ratio="$(convert "$file" -format '%[fx:w/h]' info:)"
     wide=$(echo "$aspect_ratio" | awk '$0 > (28/9) {found=1}
     END {if(found) {print '$i'} else {print "0"}}')
-    is_wide && break
     i=$(( i + 1 ))
 done
 unset i
