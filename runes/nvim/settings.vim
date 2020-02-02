@@ -62,6 +62,8 @@ iabbrev Stirng String
 iabbrev tho though
 iabbrev flase false
 iabbrev Flase False
+iabbrev slef self
+iabbrev Slef Self
 autocmd! FileType c iabbrev use #include <
 autocmd! FileType cpp iabbrev use #include <
 

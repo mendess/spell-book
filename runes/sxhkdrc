@@ -5,7 +5,7 @@ super + shift + Return
   	termFromHere
 
 super + control + Return
-  	termFromHere --title floating-terminal --class floating-terminal
+  	termFromHere --class floating-terminal
 
 super + d
   	dmenu_run

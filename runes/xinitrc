@@ -10,5 +10,5 @@ then
     xmodmap -e 'keycode  21 = plus equal plus equal'
 fi
 calcurse --deamon
-nmcli -t dev | grep 'ethernet' || nm-applet &
+nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
 exec bspwm
