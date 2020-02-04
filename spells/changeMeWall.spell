@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 WALLPAPERS=~/Pictures/Wallpapers
-pgrep wineserver && exit 0
 BRIGHTNESS_FILTER='
 import sys
 import colorsys

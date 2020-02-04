@@ -1,6 +1,9 @@
 #!/bin/bash
+changeMeWall
 while true;
 do
-    changeMeWall
     sleep 10m
+    pgrep wineserver && continue
+    pgrep steam && continue
+    changeMeWall
 done

@@ -57,6 +57,7 @@ bspc rule -a my-media-player desktop=^10
 bspc rule -a Zathura state=tiled
 bspc rule -a Surf state=tiled
 bspc rule -a Wine state=pseudo_tiled
+[[ "$(hostname)" = tolaria ]] && bspc rule -a Steam desktop=^2
 
 if ! pgrep sxhkd
 then

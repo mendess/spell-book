@@ -83,3 +83,5 @@ alias whoshome='cd ~/Projects/whoshome/; pyenv; py main.py; deactivate; cd - &>/
 alias screenoff='DISPLAY=:0 xset dpms force off'
 alias spotify="LD_PRELOAD=$HOME/.local/bin/spotify-adblock.so spotify"
 alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+alias tmux='tmux -2'
