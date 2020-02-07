@@ -32,6 +32,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'udalov/kotlin-vim'
 Plug 'vim-python/python-syntax'
 Plug 'baskerville/vim-sxhkdrc'
+Plug 'plasticboy/vim-markdown'
 
 "Plug 'lervag/vimtex'
 

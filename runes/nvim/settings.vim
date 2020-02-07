@@ -56,6 +56,10 @@ highlight Normal ctermbg=None
 set undodir=~/.cache/vimundo
 set undofile
 
+" syntax concealment
+set conceallevel=2
+set concealcursor=nc
+
 iabbrev ture true
 iabbrev stirng string
 iabbrev Stirng String
