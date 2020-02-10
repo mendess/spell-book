@@ -34,9 +34,9 @@ selector() {
 }
 
 MODES="single
-shuf
-shufA
-shufC
+random
+All
+Category
 clipboard"
 
 mode=$(echo "$MODES" | selector -i -p "Mode?" -l "$(echo "$MODES" | wc -l)")
@@ -59,7 +59,7 @@ case "$mode" in
         fi
         ;;
 
-    shuf)
+    random)
         vids="$(echo "$vidlist" \
             | shuf \
             | sed '1q' \
@@ -67,12 +67,12 @@ case "$mode" in
 
         ;;
 
-    shufA)
+    All)
         tmp=$(echo "$vidlist" | shuf)
         vids="$(echo "$tmp" | awk -F'\t' '{print $2}' | xargs)"
         ;;
 
-    shufC)
+    Category)
         catg=$(echo "$vidlist" \
             | awk -F'\t' '{for(i = 4; i <= NF; i++) { print $i } }' \
             | tr '\t' '\n' \

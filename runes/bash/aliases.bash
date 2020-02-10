@@ -85,3 +85,4 @@ alias spotify="LD_PRELOAD=$HOME/.local/bin/spotify-adblock.so spotify"
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias tmux='tmux -2'
+alias sctl='systemctl'

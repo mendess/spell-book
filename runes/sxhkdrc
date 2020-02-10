@@ -41,13 +41,13 @@ super + shift + c
   	$TERMINAL -e calcurse
 
 @Print
-  	scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+  	scrot -f '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 
 shift + @Print
-  	scrot -s -e 'scrot-rename $f'
+  	scrot -f -s -e 'scrot-rename $f'
 
 super + @Print
-  	scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
+  	scrot -f -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 
 super + control + s
   	$TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
@@ -145,6 +145,13 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
 	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness
 
+
+super + shift + BackSpace
+    ssh mirrodin python bulb/let_there_be_light.py
+
+super + control + BackSpace
+    ssh mirrodin python bulb/turn_off.py
+
 ###### bspwm
 super + shift + space
     bspc node -t \~floating
@@ -229,6 +236,9 @@ super + {_,shift +} apostrophe
 super + i
 	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
 
+# super + shift + i
+#     for n in $(bspc query --nodes); do bspc node $n -g hidden; done
+
 super + shift + o
 	echo -e 'i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now' | dmenu -nb '#6b0213' -sb '#a8031e' -l 4 | sh
 
@@ -257,6 +267,3 @@ super + shift + m
     else \
         bspc node -g marked ; \
     fi
-
-super + shift + BackSpace
-    ssh mirrodin python bulb/let_there_be_light.py

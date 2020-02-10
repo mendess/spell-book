@@ -26,6 +26,7 @@ for line in sys.stdin:
 
 if not at_least_one:
     print(last_line)
+    print("resorting to most common", last_line, file=sys.stderr)
 '
 
 is_wide() {
@@ -97,9 +98,9 @@ then
     bspc config presel_feedback_color "$color"
     if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
-        ssh 192.168.1.5 "python ~/bulb/color.py \\$color"
+        ssh mirrodin "python ~/bulb/color.py \\$color"
     fi
-fi 2>&1 | color_picker -f &
+fi 2>&1 | color_picker -f #&
 
 echo "Setting:
 $files"

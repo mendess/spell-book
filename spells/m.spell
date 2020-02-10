@@ -205,6 +205,13 @@ main () {
         quit)
             echo 'quit' | socat - "$(mpvsocket)"
             ;;
+        play)
+            if [ -z "$2" ]; then
+                echo 'Give me something to play'
+                exit 1
+            fi
+            mpv --no-video --input-ipc-server="$(mpvsocket new)" "$2"
+            ;;
         add?song|new)
             case $2 in
                 -r|--remote)
