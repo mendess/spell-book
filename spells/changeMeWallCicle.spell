@@ -2,7 +2,7 @@
 changeMeWall
 while true;
 do
-    sleep 10m
+    sleep 5m
     pgrep wineserver && continue
     pgrep steam && continue
     changeMeWall
