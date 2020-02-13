@@ -13,6 +13,7 @@ error_selfish() {
     cat <<EOF
     Option $1 must is selfish and can't be used with other non-selfish host options
 EOF
+
     exit 1
 }
 
@@ -37,6 +38,7 @@ Options
     -n name
         Specifiy the wallpaper's name
 EOF
+
     exit 1
 }
 
@@ -129,14 +131,18 @@ case "$mode" in
         ;;
     delete)
         if [ -z "$wall" ]; then
-            wall="$(sxiv -g 1800x1000 -b -t -o ~/Pictures/Wallpapers)"
-            if [ -z "$wall" ]; then echo please pick a wallpaper to delete; exit 1; fi
+            wall="$(find ~/Pictures/Wallpapers -type f -printf '%T@ %p\n' \
+                | sort -n \
+                | cut -d' ' -f2- \
+                | sxiv -i -g 1800x1000 -b -t -o)"
+
         fi
         for w in $wall; do
             ssh mirrodin \
                 "find Pictures/ -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'mirrodin:/"
-                            rm -v "$w"
-                        done
-                        ;;
-                esac
-                exit 0
+
+            [ "$(hostname)" = tolaria ] || rm -v "$w"
+        done
+        ;;
+esac
+exit 0
