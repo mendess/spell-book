@@ -37,9 +37,76 @@ Options
         Add wallpaper only to the powerstone collection (selfish)
     -n name
         Specifiy the wallpaper's name
+    -s --sync
+        Download missing wallpapers
 EOF
 
     exit 1
+}
+
+process_params() {
+    [ -z "$name" ] && name="$(basename "$wall")"
+
+    case "$mode" in
+        add)
+            case "$wall" in
+                http*)
+                    wget --no-verbose "$wall" -O "/tmp/$name"
+                    wall="/tmp/$name"
+                    ;;
+            esac
+            if [[ "${host[0]}" = Powerstone ]]; then
+                yellow "Sending $name to PhoneCollection"
+                if ssh mirrodin test -e "Pictures/PhoneCollection/$name"; then
+                    echo 'A wallpaper with that name already exists'
+                    exit 1
+                fi
+                scp "$wall" "mirrodin:Pictures/PhoneCollection/$name"
+                return 0
+            else
+                yellow "Sending $name to Wallpapers"
+                if ssh mirrodin test -e "Pictures/Wallpapers/$name"; then
+                    echo 'A wallpaper with that name already exists'
+                    exit 1
+                fi
+                scp "$wall" "mirrodin:Pictures/Wallpapers/$name"
+                [[ "${host[0]}" = Tolaria ]] && return 0
+            fi
+            for h in "${host[@]}"
+            do
+                case "$h" in
+                    weatherlight)
+                        blue "Creating symlink"
+                        ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
+                        [[ "$(hostname)" != "tolaria" ]] && mv -v "$wall" "$HOME/Pictures/Wallpapers/$name"
+                        ;;
+                    powerstone)
+                        blue "Creating symlink"
+                        if ssh mirrodin test -e "Pictures/PhoneCollection/$name"; then
+                            echo -e "A wallpaper \e[34mlink\e[0m with that name already exists"
+                            exit 1
+                        fi
+                        ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/PhoneCollection"
+                        ;;
+                esac
+            done
+            ;;
+        delete)
+            if [ -z "$wall" ]; then
+                wall="$(find ~/Pictures/Wallpapers -type f -printf '%T@ %p\n' \
+                    | sort -n \
+                    | cut -d' ' -f2- \
+                    | sxiv -i -g 1800x1000 -b -t -o)"
+
+            fi
+            for w in $wall; do
+                ssh mirrodin \
+                    "find Pictures/ -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'mirrodin:/"
+
+                [ "$(hostname)" = tolaria ] || rm -v "$w"
+            done
+            ;;
+    esac
 }
 
 mode=add
@@ -73,6 +140,9 @@ while [ "$#" -gt 0 ]; do
             shift
             name="$1"
             ;;
+        -s|--sync)
+            sync=1
+            ;;
         *)
             wall="$1"
             ;;
@@ -83,66 +153,14 @@ if [ "$mode" != delete ] && [ -z "$wall" ]; then
     help_message
 fi
 
-[ -z "$name" ] && name="$(basename "$wall")"
-
-case "$mode" in
-    add)
-        case "$wall" in
-            http*)
-                wget --no-verbose "$wall" -O "/tmp/$name"
-                wall="/tmp/$name"
-                ;;
-        esac
-        if [[ "${host[0]}" = Powerstone ]]; then
-            yellow "Sending $name to PhoneCollection"
-            if ssh mirrodin test -e "Pictures/PhoneCollection/$name"; then
-                echo 'A wallpaper with that name already exists'
-                exit 1
-            fi
-            scp "$wall" "mirrodin:Pictures/PhoneCollection/$name"
-            exit 0
-        else
-            yellow "Sending $name to Wallpapers"
-            if ssh mirrodin test -e "Pictures/Wallpapers/$name"; then
-                echo 'A wallpaper with that name already exists'
-                exit 1
-            fi
-            scp "$wall" "mirrodin:Pictures/Wallpapers/$name"
-            [[ "${host[0]}" = Tolaria ]] && exit 0
+process_params
+if [ -n "$sync" ]; then
+    endpoint="$(if nmcli dev wifi | grep -P 'ZON2010|TPLINK'; then echo mirrodin; else echo mendess.xyz; fi)"
+    mkdir -p ~/Pictures/Wallpapers
+    cd ~/Pictures/Wallpapers || exit 1
+    for f in $(curl "$endpoint/walls" | grep '<a' | cut -d'"' -f2); do
+        if ! [ -e "$(basename "$f")" ]; then
+            wget "$f"
         fi
-        for h in "${host[@]}"
-        do
-            case "$h" in
-                weatherlight)
-                    blue "Creating symlink"
-                    ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
-                    [[ "$(hostname)" != "tolaria" ]] && mv -v "$wall" "$HOME/Pictures/Wallpapers/$name"
-                    ;;
-                powerstone)
-                    blue "Creating symlink"
-                    if ssh mirrodin test -e "Pictures/PhoneCollection/$name"; then
-                        echo -e "A wallpaper \e[34mlink\e[0m with that name already exists"
-                        exit 1
-                    fi
-                    ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/PhoneCollection"
-                    ;;
-            esac
-        done
-        ;;
-    delete)
-        if [ -z "$wall" ]; then
-            wall="$(find ~/Pictures/Wallpapers -type f -printf '%T@ %p\n' \
-                | sort -n \
-                | cut -d' ' -f2- \
-                | sxiv -i -g 1800x1000 -b -t -o)"
-
-        fi
-        for w in $wall; do
-            ssh mirrodin \
-                "find Pictures/ -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'mirrodin:/"
-
-            [ "$(hostname)" = tolaria ] || rm -v "$w"
-        done
-        ;;
-esac
-exit 0
+    done
+fi
