@@ -149,8 +149,12 @@ while [ "$#" -gt 0 ]; do
     esac
     shift
 done
-if [ "$mode" != delete ] && [ -z "$wall" ] && [ -z "$sync" ]; then
-    help_message
+if [ "$mode" != delete ] && [ -z "$wall" ]; then
+    if [ -z "$sync" ]; then
+        help_message
+    else
+        mode=sync
+    fi
 fi
 
 process_params
