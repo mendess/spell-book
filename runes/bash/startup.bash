@@ -8,7 +8,7 @@ start_tmux() {
     if [[ $r == "" ]] || [[ $r == "y" ]] || [[ $r == "Y" ]]; then
         if pgrep tmux &> /dev/null;
         then
-            echo "\033[1mWhich session?\033[0m"
+            echo -e "\033[1mWhich session?\033[0m"
             tmux list-sessions \
                 -F '#{session_name}:	(#{t:session_created})	#{?session_attached,yes,no}' \
                 | column -s'	' -t -N 'name,session created at,atached'
