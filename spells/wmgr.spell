@@ -160,12 +160,15 @@ fi
 
 process_params
 if [ -n "$sync" ]; then
-    endpoint="$(if nmcli dev wifi | grep -P 'ZON2010|TPLINK'; then echo mirrodin; else echo mendess.xyz; fi)"
+    endpoint="$(if nmcli dev wifi 2>/dev/null | grep -P 'ZON2010|TP-LINK_BBBCCC' >/dev/null; then echo mirrodin; else echo mendess.xyz; fi)"
     mkdir -p ~/Pictures/Wallpapers
     cd ~/Pictures/Wallpapers || exit 1
-    for f in $(curl "$endpoint/walls" | grep '<a' | cut -d'"' -f2); do
+    for f in $(curl --silent "$endpoint/walls" | grep '<a' | cut -d'"' -f2); do
         if ! [ -e "$(basename "$f")" ]; then
-            wget "$f"
+            echo -n "Downloading $endpoint$f ..."
+            wget --quiet "http://$endpoint/$f"
+            echo 'Done'
         fi
     done
+    echo 'Synced'
 fi

@@ -623,7 +623,7 @@ key_bindings:
   - { key: PageDown,  mods: Control,   action: ScrollPageDown, mode: ~Alt       }
   - { key: K,         mods: Control,   action: ScrollLineUp,   mode: ~Alt       }
   - { key: J,         mods: Control,   action: ScrollLineDown, mode: ~Alt       }
-  - { key: Y,         mods: Control,   action: ScrollLineUp,   mode: ~Alt       }
-  - { key: E,         mods: Control,   action: ScrollLineDown, mode: ~Alt       }
+  # - { key: Y,         mods: Control,   action: ScrollLineUp,   mode: ~Alt       }
+  # - { key: E,         mods: Control,   action: ScrollLineDown, mode: ~Alt       }
   #- { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
   #- { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
