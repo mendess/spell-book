@@ -36,6 +36,7 @@ fi
 
 feed="https://www.youtube.com/feeds/videos.xml?channel_id=$id \"YouTube Subscriptions\""
 
-printf "Adding this feed:\n\t%s" "$feed"
+printf "Adding this feed:\n\t%s\n" "$feed"
 
-echo "$feed" >> ./config/newsboat/urls
+echo "$feed" >> ~/.config/newsboat/urls
+newsboat --version >/dev/null
