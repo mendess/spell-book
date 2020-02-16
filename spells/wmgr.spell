@@ -77,8 +77,10 @@ process_params() {
                 case "$h" in
                     weatherlight)
                         blue "Creating symlink"
-                        ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
-                        [[ "$(hostname)" != "tolaria" ]] && mv -v "$wall" "$HOME/Pictures/Wallpapers/$name"
+                        ssh mirrodin \
+                            "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
+                        [[ "$(hostname)" != "tolaria" ]] \
+                            && mv -v "$wall" "$HOME/Pictures/Wallpapers/$name"
                         ;;
                     powerstone)
                         blue "Creating symlink"
