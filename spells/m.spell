@@ -52,7 +52,7 @@ up_next() {
     fi
 }
 
-current_song () {
+current_song() {
     filename=$(echo '{ "command": ["get_property", "media-title"] }' \
         | socat - "$(mpvsocket)" \
         | jq --raw-output '.data')
@@ -192,9 +192,10 @@ queue () {
     fi
 }
 
-main () {
+main() {
     case $1 in
         p|pause)
+            ## Togle pause
             if pgrep spotify &>/dev/null; then
                 spotify_toggle_pause
             else
@@ -203,9 +204,13 @@ main () {
             fi
             ;;
         quit)
+            ## Kill the most recent player
             echo 'quit' | socat - "$(mpvsocket)"
+            __update_panel
             ;;
         play)
+            ## Play something
+            ##      Usage: m play link
             if [ -z "$2" ]; then
                 echo 'Give me something to play'
                 exit 1
@@ -213,11 +218,16 @@ main () {
             mpv --no-video --input-ipc-server="$(mpvsocket new)" "$2"
             ;;
         add?song|new)
+            ## Add a new song
+            ##      Usage: m add-song [options] link [category,..]
+            ## Options:
             case $2 in
                 -r|--remote)
+                    ## Add it remotely [deprecated]
                     yes no | ssh mirrodin 'zsh -c "PATH=$PATH:~/.local/bin; . ~/.zprofile; ~/.local/bin/syncspellbook; ~/.local/bin/m add_song '"${*:3}"'"; ~/.local/bin/syncspellbook'
                     ;;
                 -q|--queue)
+                    ## Queue the song too
                     shift
                     m queue "$2"
                     main add_song "${@:2}"
@@ -228,21 +238,32 @@ main () {
             esac
             ;;
         add?playlist)
-            for l in $(youtube-dl --get-id "$2" | sed 's|^|https://youtu.be/|')
+            ## Append a playlist to the personal playlist
+            ##      Usage: m add-playlist [link] [category,..]
+            youtube-dl --get-id "$2" | sed 's|^|https://youtu.be/|' | while read -r l
             do
+                echo "adding $l"
                 main add_song "$l" "${@:3}"
             done
             ;;
         cat)
+            ## List all current categories
             cut -f4- "$PLAYLIST" | tr '\t' '\n' | sort | uniq
             ;;
         c|current)
+            ## Show the current song
+            ##      -n --notify With a notification
+            ##      -i --link   Print the filename / link
+            ##      default:    The song's name
             current_song "${@:2}"
             ;;
         add-cat-to-current|new-cat)
+            ## Add a category to the current song
             add_cat "${@:2}"
             ;;
         queue)
+            ## Queue a song
+            ##     --reset Resets the queue fairness
             if [ "$2" = '--reset' ]; then
                 queue "$2"
             elif [[ "$2" == http* ]]; then
@@ -260,27 +281,33 @@ main () {
             fi
             ;;
         delete?song)
+            ## Delete a passed song
             ./helpers/del_link.sh "${@:2}"
             ;;
         k|vu)
+            ## Increase volume by ${2:-2}%
             echo "add volume ${2:-2}" | socat - "$(mpvsocket)"
             __update_panel
             ;;
         j|vd)
+            ## Increase volume by ${2:-2}%
             echo "add volume -${2:-2}" | socat - "$(mpvsocket)"
             __update_panel
             ;;
         H|prev)
+            ## Previous chapter in a file
             echo 'add chapter -1' | socat - "$(mpvsocket)"
             __update_panel
             { sleep 2; __update_panel; } &
             ;;
         L|next)
+            ## Next chapter in a file
             echo 'add chapter 1' | socat - "$(mpvsocket)"
             __update_panel
             { sleep 2; __update_panel; } &
             ;;
         h|prev-file)
+            ## Go to previous file
             if pgrep spotify &>/dev/null; then
                 spotify_prev
             else
@@ -290,6 +317,7 @@ main () {
             __update_panel
             ;;
         l|next-file)
+            ## Skip to the next file
             if pgrep spotify &>/dev/null; then
                 spotify_next
             else
@@ -299,12 +327,15 @@ main () {
             __update_panel
             ;;
         J|back)
+            ## Seek ${2:-10}s backward
             echo "seek -${2:-10}" | socat - "$(mpvsocket)"
             ;;
         K|frwd)
+            ## Seek ${2:-10}s forward
             echo "seek ${2:-10}" | socat - "$(mpvsocket)"
             ;;
         int|interactive)
+            ## Enter interactive mode
             while :;
             do
                 read -r -n 1 input
@@ -314,9 +345,31 @@ main () {
                 [ "$input" = "c" ] || echo -en "\b"
             done
             ;;
-        r|help)
+        r)
+            ## Get help for interactive mode
             echo -en "\b"
             grep -Po ' \w\|\w[^)]+\)' "$0"
+            ;;
+        help)
+            ## Get help
+            if [ $# -gt 0 ]; then
+                search_for="$2"
+                search=1
+            else
+                search=0
+            fi
+            awk 'BEGIN { in_main=0; in_case=0; inner_case=0; search='$search' }
+            $0 ~ /main\(\)/                                                     {in_main=1}
+            inner_case  && $0 ~ /\w[^)]*\)$/                         {print("\t"$1)}
+            inner_case  && (found || !search) && $0 ~ /^\s+##.*/                {sub(/^\s+##/, "", $0); print("\t\t"$0)}
+            inner_case  && $0 ~ /esac/                                          {inner_case=0}
+            !inner_case && $0 ~ /;;/                                            {found=0}
+            !inner_case && in_case && $0 ~ /case/                               {inner_case=1}
+            !inner_case && in_case && !search && $0 ~ /\w[^)]*\)$/              {print($1)}
+            !inner_case && in_case && search  && $0 ~ /'"$search_for"'[^)]*\)$/ {print($1" " found); found=1}
+            !inner_case && in_case && (found || !search) && $0 ~ /^\s+##.*/     {sub(/^\s+##/, "", $0); print("\t"$0)}
+            in_main     && $0 ~ /case/                                          {in_case=1}
+            ' "$0"
             ;;
         *)
             echo "¯\\_(ツ)_/¯"

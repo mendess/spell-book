@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#shellcheck source=/home/mendess/.local/bin/library
 . library
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
@@ -15,5 +16,6 @@ curl --request POST \
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json' \
     --data '{"snippet":{"playlistId":"'"$PLAYLIST_ID"'","resourceId":{"kind":"youtube#video","videoId":"'"$1"'"}}}' \
-    --compressed
+    --compressed \
+    --write-out 'Status code: %{http_code}'
 

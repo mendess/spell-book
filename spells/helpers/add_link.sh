@@ -5,6 +5,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
+#shellcheck source=/home/mendess/.local/bin/library
 . library
 
 url="$(echo "$1" | sed -E 's|https://.*=(.*)\&?|https://youtu.be/\1|')"

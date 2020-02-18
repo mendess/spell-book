@@ -128,7 +128,7 @@ done
 [ -n "$clipboard" ] || \
     (
         cd ~/Music || exit 1; \
-        echo "${final_list[@]}" | grep '^http' | xargs --no-run-if-empty -L 1 youtube-dl --add-metadata
+        echo "${final_list[@]}" | grep '^http' | xargs --no-run-if-empty -L 1 youtube-dl --add-metadata &>/tmp/youtube-dl
     ) &
 
 if [ "$(mpvsocket)" != "/dev/null" ]
