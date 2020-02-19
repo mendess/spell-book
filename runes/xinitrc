@@ -11,4 +11,5 @@ then
 fi
 calcurse --deamon
 nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
+wmname compiz
 exec bspwm

@@ -6,6 +6,7 @@ export EDITOR='nvim'
 export BROWSER="firefox"
 export WWW_HOME='duckduckgo.com/lite'
 export TERMINAL='alacritty'
+export _JAVA_AWT_WM_NONREPARTENTING=1
 
 export PATH=~/.local/bin:$PATH
 export PATH=~/.cargo/bin:$PATH

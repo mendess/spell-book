@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if pgrep dunst;
+then
+    notify-send "$@"
+else
+    echo "$@"
+fi
