@@ -282,6 +282,7 @@ main() {
             ;;
         delete?song)
             ## Delete a passed song
+            [ $# -gt 1 ] || exit 1
             ./helpers/del_link.sh "${@:2}"
             ;;
         k|vu)
