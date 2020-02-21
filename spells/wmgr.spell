@@ -112,7 +112,6 @@ process_params() {
 }
 
 mode=add
-host=("$(hostname)")
 while [ "$#" -gt 0 ]; do
     case "$1" in
         -w)
@@ -151,6 +150,9 @@ while [ "$#" -gt 0 ]; do
     esac
     shift
 done
+if [ ${#host} -lt 1 ]; then
+    host=("$(hostname)")
+fi
 
 if [ "$mode" != delete ] && [ -z "$wall" ]; then
     if [ -z "$sync" ]; then

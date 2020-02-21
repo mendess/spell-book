@@ -25,6 +25,7 @@ Plug 'tpope/vim-commentary'
 
 " Requires: cargo install rustfmt
 Plug 'sbdchd/neoformat'
+Plug 'rhysd/vim-clang-format'
 
 " Syntax highlighting
 Plug 'cespare/vim-toml'
