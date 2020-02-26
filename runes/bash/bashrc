@@ -31,7 +31,7 @@ truncPath() {
 }
 rightprompt()
 {
-    [ "$1" -gt 0 ] && printf "%s" "$1"
+    [ "$1" -gt 0 ] && printf " %s" "$1"
 }
 
 PS1='\[\e[33m\]$(truncPath $?)\[\e[0m\e[1;31m\]$(rightprompt $?)\[\e[0m\]> '

@@ -51,6 +51,10 @@ endif
 
 Plug 'andys8/vim-elm-syntax'
 
+Plug 'whonore/Coqtail'
+
+Plug 'let-def/vimbufsync'
+
 call plug#end()
 
 """ PLUGIN CONFIGS
@@ -154,3 +158,6 @@ if has('python3')
         return !col || getline('.')[col - 1]  =~ '\s'
     endfunction"}}}
 endif
+
+autocmd! FileType coq let mapleader='\'
+g:coqtail_nomap = 1

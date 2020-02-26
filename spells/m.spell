@@ -1,6 +1,8 @@
 #!/bin/bash
 #shellcheck disable=SC2119
 
+CALLING_DIR="$PWD"
+
 cd "$SPELLS"/spells || exit 1
 
 #shellcheck source=/home/mendess/.local/bin/library
@@ -268,7 +270,7 @@ main() {
                 queue "$2"
             elif [[ "$2" == http* ]]; then
                 queue "$2" "$3"
-            elif [ -e "$2" ]; then
+            elif [ -e "$2" ] || [ -e "$CALLING_DIR/$2" ]; then
                 queue "$2" "$3"
             else
                 matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "${@:2}")"

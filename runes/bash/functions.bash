@@ -229,8 +229,8 @@ connect() {
 
 gcl() {
     if [[ "$1" == */* ]]; then
-        git clone git@github.com:"$1"
+        git clone git@github.com:"$1" "${@:2}"
     else
-        git clone git@github.com:"$(git config --global user.name)"/"$1"
+        git clone git@github.com:"$(git config --global user.name)"/"$1" "${@:2}"
     fi
 }

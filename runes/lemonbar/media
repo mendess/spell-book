@@ -18,14 +18,6 @@ fi
 
 [ -z "$CURRENT" ] && echo && exit 0
 
-case $BLOCK_BUTTON in
-    1) m prev-file ;;
-    2) m pause ;;
-    3) m next-file ;;
-    4) m vu 5 ;;
-    5) m vd 5 ;;
-esac
-
 case $(echo '{"command":["get_property","pause"]}' | socat - "$(mpvsocket)" | jq .data -r) in
     true) SIGIL='||' ;;
     false) SIGIL='>' ;;
