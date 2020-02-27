@@ -62,7 +62,7 @@ alias c="clear"
 alias pyenv="source .env/bin/activate"
 alias makeclean="find . -maxdepth 1 -type f -executable -delete"
 alias :q=exit
-if hash nvim; then
+if hash nvim &>/dev/null; then
     alias vim=nvim
 fi
 alias bc="bc -l"
