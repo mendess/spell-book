@@ -9,9 +9,9 @@ then
     alias tree='exa -T'
     alias li='exa --git --git-ignore'
     alias lli='exa -l --git --git-ignore'
-    alias la='exa -la'
     alias lg='exa -laah --git'
 fi
+alias la='ls -la'
 alias l='ls -lha'
 alias ll='ls -lh'
 alias cl="clear; ls -lh"
@@ -62,7 +62,9 @@ alias c="clear"
 alias pyenv="source .env/bin/activate"
 alias makeclean="find . -maxdepth 1 -type f -executable -delete"
 alias :q=exit
-alias vim=nvim
+if hash nvim; then
+    alias vim=nvim
+fi
 alias bc="bc -l"
 alias :r="source ~/.bashrc"
 alias i3config="vim ~/.config/i3/config"

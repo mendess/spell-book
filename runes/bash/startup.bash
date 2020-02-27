@@ -44,11 +44,13 @@ if mn -V &> /dev/null && mn list | grep -v ' 0 ' > /dev/null
 then
     mn list
 else
-    if [ -e /tmp ]
-    then
-        fortune -c
-    else
-        fortune
+    if hash fortune ; then
+        if [ -e /tmp ]
+        then
+            fortune -c
+        else
+            fortune
+        fi
     fi
 fi
 if hash calcurse &>/dev/null
