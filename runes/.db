@@ -30,3 +30,5 @@
 ~/.config/mpv,mpv
 ~/.config/alacritty/alacritty.yml,alacritty.yml
 ~/.mailcap,mailcap
+~/.clang-tidy,clang-tidy
+~/.clang-format,clang-format
