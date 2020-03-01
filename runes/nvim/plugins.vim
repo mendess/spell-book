@@ -134,6 +134,8 @@ nnoremap gd :ALEGoToDefinition<CR>
 nnoremap <F10> :ALEPreviousWrap<CR>
 nnoremap <F12> :ALENextWrap<CR>
 nnoremap <F9> :ALEDetail<CR>
+let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
+let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
 let g:ale_linters = { 'rust' : ['cargo'] }
 
 " Autoformat
@@ -159,5 +161,5 @@ if has('python3')
     endfunction"}}}
 endif
 
-autocmd! FileType coq let mapleader='\'
-g:coqtail_nomap = 1
+"autocmd! FileType coq let mapleader='\'
+"g:coqtail_nomap = 1
