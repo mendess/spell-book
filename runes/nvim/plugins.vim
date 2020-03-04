@@ -140,7 +140,9 @@ nnoremap <F12> :ALENextWrap<CR>
 nnoremap <F9> :ALEDetail<CR>
 let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
 let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
-let g:ale_linters = { 'rust' : ['cargo'] }
+let g:ale_linters = { 'rust' : ['cargo'] , 'c': ['clangtidy', 'clangcheck']}
+let g:ale_c_parse_compile_commands = 1
+let g:ale_c_parse_makefile = 1
 
 " Autoformat
 map <leader>f :Neoformat<CR>
