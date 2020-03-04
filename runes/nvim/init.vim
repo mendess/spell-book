@@ -1,4 +1,6 @@
-let mapleader =" "
+if has('nvim')
+    let mapleader =" "
+endif
 source ~/.config/nvim/plugins.vim
 source ~/.config/nvim/settings.vim
 source ~/.config/nvim/commands.vim

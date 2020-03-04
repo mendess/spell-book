@@ -26,7 +26,10 @@ else:
 if 'harging' not in status: #or not path.exists('/tmp/.bloat'):
     time = ""
 else:
-    time = " {}".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
+    try:
+        time = " {}".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
+    except: # sometimes acpi bugs out and says "Charging" but doesn't give time cause it's @ 100%
+        time = ""
 
 if status == 'Discharging':
     percent = int(percent)

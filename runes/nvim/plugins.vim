@@ -41,17 +41,21 @@ Plug '/usr/bin/fzf'
 
 Plug 'dense-analysis/ale'
 
-if has('nvim') && has('python3')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+if has('nvim')
+    if has('python3')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    else
+        Plug 'Shougo/deoplete.nvim'
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endif
 endif
 
 Plug 'andys8/vim-elm-syntax'
 
-Plug 'whonore/Coqtail'
+if ! has('nvim')
+    Plug 'whonore/Coqtail'
+endif
 
 Plug 'let-def/vimbufsync'
 

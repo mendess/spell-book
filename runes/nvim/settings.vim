@@ -43,7 +43,7 @@ autocmd! BufEnter *.spell inoremap ,bb #!/bin/sh<Esc>o
 
 autocmd! BufEnter *.js set shiftwidth=2
 
-if ! has("gui_running")
+if has("nvim")
     autocmd! TermEnter * setlocal nonumber
     autocmd! TermEnter * setlocal norelativenumber
     autocmd! TermEnter * autocmd! numbertoggle
@@ -75,3 +75,5 @@ if has("gui_running")
     set tb=
     set go=
 endif
+
+set showcmd

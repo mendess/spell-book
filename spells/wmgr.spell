@@ -51,7 +51,7 @@ process_params() {
         add)
             case "$wall" in
                 http*)
-                    wget --no-verbose "$wall" -O "/tmp/$name"
+                    wget --no-verbose "$wall" -O "$TMPDIR/$name"
                     wall="/tmp/$name"
                     ;;
             esac
