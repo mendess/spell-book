@@ -147,7 +147,7 @@ queue () {
         return 1
     fi
     if [[ "$1" == http* ]] \
-        && ! youtube-dl --max-downloads 1 --get-title "$1" &>/dev/null; then
+        && [ "$(youtube-dl --max-downloads 1 --get-title "$1" --quiet | wc -l)" -ne 1 ]; then
         notify-send 'Invalid link:' "$1" -a "$(basename "$0")"
         return 1
     fi

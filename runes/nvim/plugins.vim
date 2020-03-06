@@ -146,6 +146,13 @@ let g:ale_c_parse_makefile = 1
 
 " Autoformat
 map <leader>f :Neoformat<CR>
+augroup fmt
+  autocmd!
+  autocmd BufWritePre *.c undojoin | Neoformat
+  autocmd BufWritePre *.h undojoin | Neoformat
+  autocmd BufWritePre *.cpp undojoin | Neoformat
+  autocmd BufWritePre *.hpp undojoin | Neoformat
+augroup END
 
 " FZZ
 nmap <leader>p :FZF<CR>

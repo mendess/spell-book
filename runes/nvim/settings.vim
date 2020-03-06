@@ -37,6 +37,7 @@ autocmd! BufWritePre * %s/\s\+$//e
 autocmd! BufNewFile,BufRead *.spell set syntax=sh
 autocmd! BufEnter *xinitrc set syntax=sh
 autocmd! BufNewFile,BufRead *.glsl set syntax=c
+autocmd! BufNewFile,BufRead *.hbs set syntax=html
 
 autocmd! BufEnter *.sh    inoremap ,bb #!/bin/sh<Esc>o
 autocmd! BufEnter *.spell inoremap ,bb #!/bin/sh<Esc>o
