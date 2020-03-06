@@ -41,13 +41,13 @@ super + shift + c
   	$TERMINAL -e calcurse
 
 @Print
-  	scrot -f '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+  	scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 
 shift + @Print
-  	scrot -f -s -e 'scrot-rename $f'
+  	scrot -s -e 'scrot-rename $f'
 
 super + @Print
-  	scrot -f -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
+  	scrot -s -e 'mv $f /tmp/ && sxiv -b -g $wx$h -p /tmp/$f && rm /tmp/$f'
 
 super + control + s
   	$TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold

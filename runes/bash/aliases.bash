@@ -43,6 +43,7 @@ alias gpf='git push --force-with-lease'
 alias gpsup='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 alias gst='git status'
 alias gcm='git checkout master'
+alias gcm='git checkout develop || git checkout dev'
 # CARGO
 alias cr='cargo run'
 alias cb='cargo build'
