@@ -30,9 +30,9 @@ imagemagick
 jq
 libconfig # compton dependency
 libxdg-basedir # compton dependency
-mpv
 man
 man-pages
+mpv
 neofetch
 neovim
 network-manager-applet
@@ -53,6 +53,7 @@ rsync
 rtv
 rustup
 scrot
+shfmt
 socat
 surf
 sxhkd

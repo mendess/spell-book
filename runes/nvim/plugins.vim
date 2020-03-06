@@ -12,7 +12,8 @@ Plug 'Mendess2526/ayu-vim'
 Plug 'scrooloose/nerdtree'
 
 " Auto close parens
-Plug 'cohama/lexima.vim'
+"Plug 'cohama/lexima.vim'
+Plug 'jiangmiao/auto-pairs'
 
 " Zen mode
 Plug 'junegunn/goyo.vim'
@@ -146,6 +147,7 @@ let g:ale_c_parse_makefile = 1
 
 " Autoformat
 map <leader>f :Neoformat<CR>
+let g:shfmt_opt="-ci"
 augroup fmt
   autocmd!
   autocmd BufWritePre *.c undojoin | Neoformat
