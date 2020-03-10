@@ -3269,3 +3269,4 @@ __git_complete git.exe __git_main
 fi
 __git_complete g __git_main
 __git_complete gco _git_checkout
+__git_complete gb _git_branch

@@ -30,6 +30,7 @@ imagemagick
 jq
 libconfig # compton dependency
 libxdg-basedir # compton dependency
+lynx
 man
 man-pages
 mpv
