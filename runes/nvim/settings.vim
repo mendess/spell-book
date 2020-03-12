@@ -78,3 +78,7 @@ if has("gui_running")
 endif
 
 set showcmd
+
+" I don't need help
+:nmap <F1> :echo<CR>
+:imap <F1> <C-o>:echo<CR>

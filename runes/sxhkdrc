@@ -198,7 +198,7 @@ super + shift + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
 
 super + control + {1-9,0}
-    bspc node -d '^{1-9,10}' --follow
+    bspc node -d '^{1-9,10}'
 
 super + alt + {h,l}
 	bspc node --to-monitor {prev,next} --follow

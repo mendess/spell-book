@@ -56,9 +56,9 @@ Plug 'andys8/vim-elm-syntax'
 
 if ! has('nvim')
     Plug 'whonore/Coqtail'
+    Plug 'let-def/vimbufsync'
 endif
 
-Plug 'let-def/vimbufsync'
 
 call plug#end()
 
