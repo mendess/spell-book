@@ -58,6 +58,7 @@ alias cnch='cargo +nightly check'
 
 alias bashrc="vim $SPELLS/runes/bash"
 alias vimrc="vim ~/.config/nvim/init.vim"
+alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
 alias py="python3"
 alias c="clear"
 alias pyenv="source .env/bin/activate"

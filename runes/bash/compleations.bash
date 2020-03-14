@@ -3,7 +3,7 @@
 _za() {
 	local curw
 	curw=${COMP_WORDS[COMP_CWORD]}
-    mapfile -t COMPREPLY < <(compgen -o plusdirs -A file -- "$curw" | grep .pdf)
+    mapfile -t COMPREPLY < <(compgen -o plusdirs -A file -- "$curw" | grep -P '(\.djvu|\.pdf)$')
 	return
 }
 
