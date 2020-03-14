@@ -100,7 +100,7 @@ then
         #shellcheck disable=2029
         ssh mirrodin "python ~/bulb/color.py \\$color"
     fi
-fi 2>&1 | color_picker -f #&
+fi 2>&1 | color_picker -f &
 
 echo "Setting:
 $files"
