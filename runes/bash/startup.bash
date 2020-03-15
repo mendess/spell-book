@@ -42,7 +42,7 @@ fi
 
 if mn -V &> /dev/null && mn list | grep -v ' 0 ' > /dev/null
 then
-    mn list
+    true #    mn list
 else
     if hash fortune &>/dev/null; then
         if [ -e /tmp ]
