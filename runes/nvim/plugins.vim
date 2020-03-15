@@ -59,6 +59,8 @@ if ! has('nvim')
     Plug 'let-def/vimbufsync'
 endif
 
+Plug 'rust-lang/rust.vim'
+
 
 call plug#end()
 
@@ -141,9 +143,12 @@ nnoremap <F12> :ALENextWrap<CR>
 nnoremap <F9> :ALEDetail<CR>
 let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
 let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
-let g:ale_linters = { 'rust' : ['cargo'] , 'c': ['clangtidy', 'clangcheck']}
+let g:ale_linters = { 'rust' : ['rls'] , 'c': ['clangtidy', 'clangcheck']}
 let g:ale_c_parse_compile_commands = 1
 let g:ale_c_parse_makefile = 1
+let g:ale_rust_cargo_check_tests = 1
+let g:ale_rust_cargo_default_feature_behavior = 'all'
+let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 " Autoformat
 map <leader>f :Neoformat<CR>
@@ -175,6 +180,7 @@ if has('python3')
         return !col || getline('.')[col - 1]  =~ '\s'
     endfunction"}}}
 endif
+call deoplete#custom#option('sources', { '_': ['ale']})
 
 "autocmd! FileType coq let mapleader='\'
 "g:coqtail_nomap = 1
