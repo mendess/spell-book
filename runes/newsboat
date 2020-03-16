@@ -33,5 +33,6 @@ macro , open-in-browser
 macro v set browser "run_disown mpv"; open-in-browser ; set browser surf
 macro c set browser "xclip -sel clip <<<" ; open-in-browser ; set browser surf
 macro x set browser "del_rss_feed"; open-in-browser ; set browser surf
+macro f set browser "firefox"; open-in-browser ; set browser surf
 macro i set show-read-feeds no
 macro I set show-read-feeds yes

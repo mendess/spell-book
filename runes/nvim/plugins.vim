@@ -188,8 +188,8 @@ if has('python3')
         let col = col('.') - 1
         return !col || getline('.')[col - 1]  =~ '\s'
     endfunction"}}}
+    call deoplete#custom#option('sources', { '_': ['ale']})
 endif
-call deoplete#custom#option('sources', { '_': ['ale']})
 
 "autocmd! FileType coq let mapleader='\'
 "g:coqtail_nomap = 1
