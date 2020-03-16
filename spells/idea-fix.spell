@@ -4,4 +4,5 @@ if ! o=$(wmname compiz 2>&1) ; then
     notify-send 'wmname failed' "$o" -a 'idea fix'
 fi
 
-PATH="$(echo "$PATH" | grep -v "$HOME/.local/bin")" idea "$@"
+#PATH="$(echo "$PATH" | grep -v "$HOME/.local/bin")" idea "$@"
+idea "$@"
