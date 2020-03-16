@@ -144,11 +144,22 @@ nnoremap <F9> :ALEDetail<CR>
 let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
 let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
 let g:ale_linters = { 'rust' : ['rls'] , 'c': ['clangtidy', 'clangcheck']}
+let g:ale_fixers = { 'rust': ['rustfmt'] }
 let g:ale_c_parse_compile_commands = 1
 let g:ale_c_parse_makefile = 1
 let g:ale_rust_cargo_check_tests = 1
 let g:ale_rust_cargo_default_feature_behavior = 'all'
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+let g:ale_rust_rls_config = {
+	\ 'rust': {
+		\ 'all_targets': 1,
+		\ 'build_on_save': 1,
+		\ 'clippy_preference': 'on'
+	\ }
+\ }
+let g:ale_rust_rls_toolchain = ''
+let g:ale_rust_rls_executable = 'rust-analyzer'
+
 
 " Autoformat
 map <leader>f :Neoformat<CR>
@@ -168,9 +179,7 @@ nmap <leader>P :FZF<CR>
 " deoplete
 if has('python3')
     let g:deoplete#enable_at_startup = 1
-    let g:deoplete#sources#rust#rust_source_path = $HOME.'/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
     set completeopt-=preview
-    let g:deoplete#enable_at_startup = 1
     inoremap <silent><expr> <TAB>
                 \ pumvisible() ? "\<C-n>" :
                 \ <SID>check_back_space() ? "\<TAB>" :
@@ -184,3 +193,6 @@ call deoplete#custom#option('sources', { '_': ['ale']})
 
 "autocmd! FileType coq let mapleader='\'
 "g:coqtail_nomap = 1
+" rust.vim
+nnoremap gt :RustTest<CR>
+nnoremap gT :RustTest!<CR>
