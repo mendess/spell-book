@@ -177,7 +177,7 @@ nmap <leader>p :FZF<CR>
 nmap <leader>P :FZF<CR>
 
 " deoplete
-if has('python3')
+if has('nvim')
     let g:deoplete#enable_at_startup = 1
     set completeopt-=preview
     inoremap <silent><expr> <TAB>
