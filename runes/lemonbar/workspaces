@@ -82,7 +82,7 @@ bspc subscribe report | while read -r line ; do
                                     # active occupied desktop
                                     FG=$COLOR_OCCUPIED_FG
                                     BG=$COLOR_OCCUPIED_BG
-                                    UL=$COLOR_FOCUSED_OCCUPIED_BG
+                                    UL=$COLOR_FOCUSED_OCCUPIED_UN
                                 fi
                                 ;;
                             u*)

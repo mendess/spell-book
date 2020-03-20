@@ -143,7 +143,7 @@ nnoremap <F12> :ALENextWrap<CR>
 nnoremap <F9> :ALEDetail<CR>
 let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
 let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
-let g:ale_linters = { 'rust' : ['rls'] , 'c': ['clangtidy', 'clangcheck']}
+let g:ale_linters = { 'rust' : ['rls'] , 'c': ['clangtidy', 'clangcheck'], 'cpp': ['g++','clangtidy','clang++']}
 let g:ale_fixers = { 'rust': ['rustfmt'] }
 let g:ale_c_parse_compile_commands = 1
 let g:ale_c_parse_makefile = 1
@@ -166,10 +166,10 @@ map <leader>f :Neoformat<CR>
 let g:shfmt_opt="-ci"
 augroup fmt
   autocmd!
-  autocmd BufWritePre *.c undojoin | Neoformat
-  autocmd BufWritePre *.h undojoin | Neoformat
-  autocmd BufWritePre *.cpp undojoin | Neoformat
-  autocmd BufWritePre *.hpp undojoin | Neoformat
+  autocmd BufWritePre *.c Neoformat
+  autocmd BufWritePre *.h Neoformat
+  autocmd BufWritePre *.cpp Neoformat
+  autocmd BufWritePre *.hpp Neoformat
 augroup END
 
 " FZZ
@@ -194,5 +194,12 @@ endif
 "autocmd! FileType coq let mapleader='\'
 "g:coqtail_nomap = 1
 " rust.vim
+
+if ! has('nvim')
+    function g:CoqtailHighlight()
+        hi def CoqtailChecked ctermbg=17 guisp=bg
+        hi def CoqtailSent ctermbg=6 guisp=bg
+    endfunction
+endif
 nnoremap gt :RustTest<CR>
 nnoremap gT :RustTest!<CR>
