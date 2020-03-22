@@ -10,6 +10,8 @@ then
     alias li='exa --git --git-ignore'
     alias lli='exa -l --git --git-ignore'
     alias lg='exa -laah --git'
+else
+    alias ls='ls --color=auto'
 fi
 alias la='ls -la'
 alias l='ls -lha'
