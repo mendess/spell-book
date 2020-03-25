@@ -51,12 +51,19 @@ function cleanRunes {
     return 1;
 }
 
+sudoHost() {
+    for h in tolaria weatherlight mirrodin; do
+        [ "$(hostname)" = "$h" ] && return 0;
+    done;
+    return 1
+}
+
 function newRunes {
     local rune link file
     for rune in "${expandedRunes[@]}"
     do
         IFS=',' read -r link file options <<< "${rune}"
-        if ! [ -h "$link" ] && [ "$options" != "check" ]; then
+        if ! [ -h "$link" ] && { [ "$options" != "check" ] || { [ "$options" = sudo ] && sudoHost ; } }; then
             return 0
         fi
     done
@@ -71,8 +78,7 @@ function linkRune {
         else
             cmd=(ln --symbolic         --verbose "$(pwd)/$1" "$2")
         fi
-        if [ "$3" = "sudo" ] &&
-            { for h in tolaria weatherlight mirrodin; do [ "$(hostname)" = "$h" ] && exit 0; done; exit 1; }; then
+        if [ "$3" = "sudo" ] && sudoHost ; then
             echo "sudo for '$2'"
             echo -en "\033[35mCasting "
             sudo "${cmd[@]}"
