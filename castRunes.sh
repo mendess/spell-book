@@ -1,5 +1,18 @@
 #!/bin/bash
 
+sudoHost() {
+    for h in tolaria weatherlight mirrodin; do
+        [ "$(hostname)" = "$h" ] && return 0;
+    done;
+    return 1
+}
+
+if ! sudoHost ; then
+    sudo() {
+        echo "sudo not available"
+    }
+fi
+
 if hash library 2>/dev/null
 then
     #shellcheck source=/home/mendess/.local/bin/library
@@ -51,13 +64,6 @@ function cleanRunes {
     return 1;
 }
 
-sudoHost() {
-    for h in tolaria weatherlight mirrodin; do
-        [ "$(hostname)" = "$h" ] && return 0;
-    done;
-    return 1
-}
-
 function newRunes {
     local rune link file
     for rune in "${expandedRunes[@]}"
@@ -78,7 +84,7 @@ function linkRune {
         else
             cmd=(ln --symbolic         --verbose "$(pwd)/$1" "$2")
         fi
-        if [ "$3" = "sudo" ] && sudoHost ; then
+        if [ "$3" = "sudo" ]; then
             echo "sudo for '$2'"
             echo -en "\033[35mCasting "
             sudo "${cmd[@]}"
