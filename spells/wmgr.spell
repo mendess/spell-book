@@ -13,7 +13,7 @@ blue() {
 
 error_selfish() {
     cat <<EOF
-    Option $1 must is selfish and can't be used with other non-selfish host options
+    Option $1 is selfish and can't be used with other non-selfish host options
 EOF
 
     exit 1
@@ -80,8 +80,9 @@ process_params() {
                 blue "Creating symlink"
                 ssh mirrodin \
                     "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
-                [[ "$(hostname)" != "tolaria" ]] &&
+                if [[ "$(hostname)" != "tolaria" ]]; then
                     cp -v "$wall" "$HOME/Pictures/Wallpapers/$name"
+                fi
                 ;;
             powerstone)
                 blue "Creating symlink"
@@ -144,6 +145,10 @@ while [ "$#" -gt 0 ]; do
         ;;
     -s | --sync)
         sync=1
+        ;;
+    -*)
+        echo "Flag $1 not valid"
+        help_message
         ;;
     *)
         wall="$1"

@@ -71,7 +71,8 @@ function linkRune {
         else
             cmd=(ln --symbolic         --verbose "$(pwd)/$1" "$2")
         fi
-        if [ "$3" = "sudo" ]; then
+        if [ "$3" = "sudo" ] &&
+            { for h in tolaria weatherlight mirrodin; do [ "$(hostname)" = "$h" ] && exit 0; done; exit 1; }; then
             echo "sudo for '$2'"
             echo -en "\033[35mCasting "
             sudo "${cmd[@]}"
