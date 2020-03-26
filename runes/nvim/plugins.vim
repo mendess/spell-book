@@ -7,6 +7,7 @@ call plug#begin()
 
 " Color scheme
 Plug 'Mendess2526/ayu-vim'
+Plug 'chriskempson/base16-vim'
 
 " File browser
 Plug 'scrooloose/nerdtree'
@@ -68,8 +69,10 @@ call plug#end()
 
 " Ayu config
 set termguicolors
+let base16colorspace=256  " Access colors present in 256 colorspace
 let ayucolor="dark"
 colorscheme ayu
+colorscheme base16-default-dark
 
 command! Bt :highlight Normal ctermbg=None
 command! Bo :highlight Normal ctermbg=000000
@@ -83,6 +86,9 @@ function! s:goyo_enter()
     :set nonumber norelativenumber
     :autocmd! numbertoggle
 endfunction
+
+" vim-commentary
+autocmd FileType coq setlocal commentstring=(*\ %s\ *)
 
 function! s:goyo_leave()
     :set number relativenumber

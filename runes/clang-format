@@ -1,5 +1,6 @@
 ﻿---
 AlignAfterOpenBracket: AlwaysBreak
+ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
 AlignConsecutiveAssignments: 'false'
 AlignConsecutiveDeclarations: 'false'
 AlignEscapedNewlines: Left
