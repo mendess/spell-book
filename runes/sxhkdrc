@@ -152,6 +152,9 @@ super + shift + BackSpace
 super + control + BackSpace
     ssh mirrodin python bulb/turn_off.py
 
+super + Pause
+    systemctl suspend
+
 ###### bspwm
 super + shift + space
     bspc node -t \~floating

@@ -82,3 +82,8 @@ set showcmd
 " I don't need help
 :nmap <F1> :echo<CR>
 :imap <F1> <C-o>:echo<CR>
+
+"pum transparency
+if has('nvim')
+    set pumblend=15
+endif
