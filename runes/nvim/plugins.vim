@@ -74,7 +74,7 @@ let ayucolor="dark"
 colorscheme ayu
 colorscheme base16-default-dark
 
-command! Bt :highlight Normal ctermbg=None
+command! Bt :highlight Normal ctermbg=None | :highlight Normal guibg=None
 command! Bo :highlight Normal ctermbg=000000
 
 " Nerdtree config
