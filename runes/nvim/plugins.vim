@@ -89,6 +89,7 @@ endfunction
 
 " vim-commentary
 autocmd FileType coq setlocal commentstring=(*\ %s\ *)
+autocmd FileType sxhkdrc setlocal commentstring=#\ %s
 
 function! s:goyo_leave()
     :set number relativenumber

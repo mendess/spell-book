@@ -182,20 +182,6 @@ super + shift + {h,j,k,l}
 
 super + {1-9,0}
 	bspc desktop -f ^{1-9,10}
-	# D={1-9,10}; \
-	# bspc query --nodes --desktop >/dev/null ; \
-	# empty=$?; \
-	# cur="$(bspc query --desktops --desktop)"; \
-	# echo "E: $empty C: $cur D: $D"; \
-	# if ! bspc desktop -f ^$D; then \
-	# 	echo "1st if"; \
-	# 	bspc monitor -a $D; \
-	# 	bspc desktop -f ^$D; \
-	# fi; \
-	# if [ $empty -eq 1 ]; then \
-	# 	echo "2nd if"; \
-	# 	bspc desktop $cur --remove; \
-	# fi
 
 super + shift + {1-9,0}
     bspc node -d '^{1-9,10}' --follow
@@ -218,8 +204,8 @@ super + {_,shift +} Tab
 super + e
 	bspc desktop --layout next
 
-super + {_,shift +} n
-	bspc desktop --bubble {next,prev}
+#super + {_,shift +} n
+#	bspc desktop --bubble {next,prev}
 
 super + g
 	bspc node -s biggest.local
@@ -250,8 +236,7 @@ super + shift + r
 
 super + control + {h,j,k,l}
 	dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
-    if ! i=$(bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} || bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}) ; then \
-		notify-send 'Error bind' "$i"; fi
+    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} || bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
 
 
 super + {h,j,k,l}
