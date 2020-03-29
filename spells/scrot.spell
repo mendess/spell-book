@@ -1,0 +1,20 @@
+#!/bin/bash
+
+while [ $# -gt 1 ]; do
+    case "$1" in
+        -s)
+            args+=(-a "$(slop -f '%x,%y,%w,%h')")
+            ;;
+        *)
+            args+=("$1")
+            ;;
+    esac
+    shift
+done
+
+
+export PATH=${PATH/:\/home\/*\/.local\/bin:/:/}
+
+echo "$PATH"
+
+scrot "${args[@]}"
