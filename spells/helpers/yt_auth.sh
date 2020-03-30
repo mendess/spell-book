@@ -18,14 +18,14 @@ then
 fi
 
 # Store our credentials in our home directory with a file called .
-my_creds=~/.ytaccess
+my_creds="$XDG_DATA_HOME"/ytaccess
 
 # create your own client id/secret
 # https://developers.google.com/identity/protocols/OAuth2InstalledApp#creatingcred
 
 if [ -s "$my_creds" ]; then
   # if we already have a token stored, use it
-  # shellcheck source=/home/mendess/.ytaccess
+  # shellcheck source=/home/mendess/.local/share/ytaccess
   . "$my_creds"
   time_now=$(date +%s)
 else
