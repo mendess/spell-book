@@ -15,5 +15,5 @@ do
 done < "$LINKS"/calendarios
 
 rm -f ~/.calcurse/apts
-calcurse -i /tmp/cal
+calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse -i /tmp/cal
 echo "========"
