@@ -57,6 +57,7 @@ export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
+hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
 
 #shellcheck source=/home/mendess/.bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc
