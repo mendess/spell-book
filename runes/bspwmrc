@@ -61,6 +61,8 @@ bspc rule -a Surf state=tiled
 bspc rule -a Wine state=pseudo_tiled
 bspc rule -a zoom state=pseudo_tiled
 bspc rule -a zoom desktop=^3
+bspc rule -a jetbrains-toolbox state=floating
+bspc rule -a jetbrains-idea state=pseudo_tiled
 
 if ! pgrep sxhkd
 then

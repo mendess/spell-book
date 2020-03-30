@@ -11,5 +11,4 @@ then
 fi
 calcurse --daemon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
 nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
-wmname compiz
 exec bspwm
