@@ -25,6 +25,7 @@ fzf
 gdb
 gimp
 glava
+giblib # scrot deps
 hyperfine
 imagemagick
 jq
@@ -53,7 +54,6 @@ ripgrep
 rsync
 rtv
 rustup
-scrot
 shfmt
 socat
 surf

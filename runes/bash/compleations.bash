@@ -30,7 +30,13 @@ _za() {
         sed 's|//|/|g')
     popd &>/dev/null || return 0
     echo "f: '$files'" >/dev/pts/9
-    mapfile -t COMPREPLY < <(compgen -o plusdirs -W "$files" -- "$curw")
+    declare -a completions
+    mapfile -t completions < <( compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$curw" )
+    local comp
+    COMPREPLY=()
+    for comp in "${completions[@]}"; do
+        COMPREPLY+=("$(printf "%q" "$comp")")
+    done
     if [ "${#COMPREPLY[@]}" = 1 ]; then
         sug="${COMPREPLY[0]}"
         echo "s: '$sug'" > /dev/pts/9
@@ -40,11 +46,17 @@ _za() {
                 grep -P '(\.djvu|\.pdf)$' |
                 sed "s|^./|$sug/|g")")
             pwd >/dev/pts/9
-            echo "f2: '${files[*]}'" >/dev/pts/9
-            COMPREPLY=()
-            mapfile -t COMPREPLY < \
-                <(compgen -o plusdirs -W "$sug/ ${files[*]}" -- "$curw")
             popd &>/dev/null || return
+            echo "f2: '${files[*]}'" >/dev/pts/9
+            unset completions
+            declare -a completions
+            mapfile -t completions < \
+                <( compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$curw" )
+            local comp
+            COMPREPLY=()
+            for comp in "${completions[@]}"; do
+                COMPREPLY+=("$(printf "%q" "$comp")")
+            done
         fi
     fi
     return

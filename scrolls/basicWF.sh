@@ -84,6 +84,16 @@ pac && { ! pacman -Q xcompmgr ; } && {
     rm -rf compton
 }
 
+pac && {
+    git clone https://github.com/BeMacized/scrot
+    cd scrot || exit 1
+    ./configure
+    make
+    sudo make install
+    cd .. || exit 1
+    rm -rf scrot
+}
+
 # Dash
 echo "$PASSWORD" | sudo -S true
 pac && sudo ln -sf /usr/bin/dash /usr/bin/sh

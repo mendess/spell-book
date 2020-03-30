@@ -1,8 +1,11 @@
 #!/bin/bash
 
-if ! [ -e ~/.links/mcserverip ]
+#shellcheck source=/home/mendess/.local/bin/library
+. library
+
+if ! [ -e "$LINKS"/mcserverip ]
 then
-    notify-send "Error:" "$HOME/.links/mcserverip No such file" -a "$(basename "$0")"
+    notify-send "Error:" "$LINKS/mcserverip No such file" -a "$(basename "$0")"
     exit
 fi
 
@@ -12,7 +15,7 @@ then
     exit 1
 fi
 
-MEMBERS=$(mcstatus "$(cat ~/.links/mcserverip)" status \
+MEMBERS=$(mcstatus "$(cat "$LINKS"/mcserverip)" status \
     | grep players \
     | cut -d' ' -f3- \
     | sed -E -e 's/.*\[(.*)\]/\1/g' -e 's/, /\n/g' -e "s/'//g" \

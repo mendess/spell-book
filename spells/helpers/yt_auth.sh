@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#shellcheck source=/home/mendess/.local/bin/library
+. library
+
 update_creds () {
   echo "
   access_token=$access_token
@@ -8,10 +11,10 @@ update_creds () {
   " > "$my_creds"
 }
 
-if [ -s "$HOME"/.links/yt ]
+if [ -s "$LINKS"/yt ]
 then
-    # shellcheck source=/home/mendess/.links/yt
-    . ~/.links/yt
+    # shellcheck source=/home/mendess/.local/share/links/yt
+    . "$LINKS"/yt
 fi
 
 # Store our credentials in our home directory with a file called .

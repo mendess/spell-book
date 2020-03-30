@@ -22,17 +22,11 @@ super + F8
 super + control + m
   	$TERMINAL --class floating-terminal -e pacmixer
 
-super + F2
-  	$BROWSER
+super + {F2, F3, F4}
+  	{$BROWSER, discord, steam}
 
 super + shift + F2
   	$BROWSER -private-window https://duckduckgo.com/
-
-super + F3
-  	discord
-
-super + F4
-  	steam
 
 super + m
   	$TERMINAL -e neomutt
