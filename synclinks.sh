@@ -10,7 +10,7 @@ mkdir -p "$LINKS"
 
 for data in "$BACKUPS"/*.data
 do
-    linkname="${LINKS}$(basename "$data" .data)"
+    linkname="${LINKS}/$(basename "$data" .data)"
     if ! [ -e "$linkname" ]
     then
         echo -en "\033[35mLinking "
