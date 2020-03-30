@@ -56,6 +56,7 @@ export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+export HISTFILE="$XDG_CACHE_HOME/bash_history"
 hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
 
@@ -63,7 +64,8 @@ hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-    $(command -v pfetch)
+    readonly pfetch="$(command -v pfetch)"
+    $pfetch
     rm -f /tmp/startx.log
     pgrep bspwm || xinit -- :0 vt1 &> /tmp/startx.log
 elif [[ "$(tty)" == *"tty"* ]] && [[ "$(tty)" != '/dev/tty2' ]] && hash tmux 2>/dev/null; then
