@@ -10,7 +10,7 @@
 ~/.config/compton.conf,compton.conf
 ~/.config/dunst/dunstrc,dunstrc
 #~/.Xdefaults,Xdefaults
-~/.xinitrc,xinitrc
+~/.config/X11/xinitrc,xinitrc
 ~/.config/tmux/tmux.conf,tmux.conf
 #~/.config/termite/config,termite
 ~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,check

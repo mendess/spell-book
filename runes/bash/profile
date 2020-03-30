@@ -55,6 +55,7 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 
 #shellcheck source=/home/mendess/.bashrc
@@ -63,7 +64,7 @@ hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calc
 if [ "$(tty)" = "/dev/tty1" ]; then
     pfecth
     rm -f /tmp/startx.log
-    pgrep bspwm || startx &> /tmp/startx.log
+    pgrep bspwm || startx "$XINITRC" &> /tmp/startx.log
 elif [[ "$(tty)" == *"tty"* ]] && [[ "$(tty)" != '/dev/tty2' ]] && hash tmux 2>/dev/null; then
     tmux new-session -s "$(basename "$(tty)")"
 fi
