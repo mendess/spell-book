@@ -13,12 +13,12 @@
 ~/.config/X11/xinitrc,xinitrc
 ~/.config/tmux/tmux.conf,tmux.conf
 #~/.config/termite/config,termite
-~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,check
-~/.Rider2018.3/config/idea.properties,idea.properties,check
+#~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,check
+#~/.Rider2018.3/config/idea.properties,idea.properties,check
 ~/.config/newsboat/config,newsboat
 ~/.config/libinput-gestures.conf,libinput-gestures.conf
 ~/.bashrc,bash/bashrc
-~/.bash_profile,bash/profile
+~/.profile,bash/profile
 ~/.config/readline/inputrc,inputrc
 ~/.config/glava,glava,force
 /etc/udev/rules.d/backlight.rules,backlight.rules,sudo
