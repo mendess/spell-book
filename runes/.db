@@ -1,4 +1,4 @@
-~/.zprofile,zprofile
+#~/.zprofile,zprofile
 ~/.config/gitignore-global,gitignore-global
 ~/.config/zathura/zathurarc,zathurarc
 ~/.config/nvim,nvim
