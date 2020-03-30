@@ -62,8 +62,8 @@ _za() {
     return
 }
 
-complete -F _za za
-complete -F _za pdf
+#complete -F _za za
+#complete -F _za pdf
 
 _svim() {
     local curw
