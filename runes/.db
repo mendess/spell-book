@@ -32,6 +32,5 @@
 ~/.mailcap,mailcap
 ~/.clang-tidy,clang-tidy
 ~/.clang-format,clang-format
-~/.calcurse/conf,conf
 ~/.config/wgetrc,wgetrc
 ~/.config/calcurse/conf,calcurse.conf
