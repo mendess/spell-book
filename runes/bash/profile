@@ -64,7 +64,7 @@ hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calc
 if [ "$(tty)" = "/dev/tty1" ]; then
     pfecth
     rm -f /tmp/startx.log
-    pgrep bspwm || startx "$XINITRC" &> /tmp/startx.log
+    pgrep bspwm || xinit -- :0 vt1 &> /tmp/startx.log
 elif [[ "$(tty)" == *"tty"* ]] && [[ "$(tty)" != '/dev/tty2' ]] && hash tmux 2>/dev/null; then
     tmux new-session -s "$(basename "$(tty)")"
 fi

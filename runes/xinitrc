@@ -9,7 +9,7 @@ then
     xrandr --output DVI-D-0 --mode 1920x1080 --rate 120  --rotate normal --primary
     xmodmap -e 'keycode  21 = plus equal plus equal'
 fi
-calcurse --deamon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
+calcurse --daemon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
 nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
 wmname compiz
 exec bspwm
