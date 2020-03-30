@@ -30,7 +30,7 @@
 ~/.config/mpv,mpv
 ~/.config/alacritty/alacritty.yml,alacritty.yml
 ~/.mailcap,mailcap
-~/.clang-tidy,clang-tidy
-~/.clang-format,clang-format
+/.clang-tidy,clang-tidy,sudo
+/.clang-format,clang-format,sudo
 ~/.config/wgetrc,wgetrc
 ~/.config/calcurse/conf,calcurse.conf
