@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if ! o=$(wmname compiz 2>&1) ; then
+    notify-send 'wmname failed' "$o" -a 'idea fix'
+fi
+
+PATH="${PATH/\/home\/*\/.local\/bin\/crafted://}"
+echo "$PATH"
+HOME="$XDG_DATA_HOME" idea "$@"

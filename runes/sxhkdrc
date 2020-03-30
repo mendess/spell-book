@@ -2,10 +2,16 @@ super + Return
   	$TERMINAL
 
 super + shift + Return
-  	termFromHere
+    if xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME WM_CLASS | grep 'JetBrains'; then \
+        $TERMINAL sh -c "cd $(xdotool search IntelliJ getwindowname | perl -ne 's/.*\[(.*)].*/\1/g and print'); bash"; \
+    else \
+  	    termFromHere
 
 super + control + Return
-  	termFromHere --class floating-terminal
+    if xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME WM_CLASS | grep 'JetBrains'; then \
+        $TERMINAL sh -c "cd $(xdotool search IntelliJ getwindowname | perl -ne 's/.*\[(.*)].*/\1/g and print'); bash"; \
+    else \
+  	    termFromHere --class floating-terminal
 
 super + d
   	dmenu_run

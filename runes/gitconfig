@@ -1,0 +1,5 @@
+[user]
+	name = mendess
+	email = pedro.mendes.26@gmail.com
+[core]
+	excludesfile = /home/mendess/.config/gitignore-global

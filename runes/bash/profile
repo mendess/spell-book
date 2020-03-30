@@ -8,7 +8,9 @@ export WWW_HOME='duckduckgo.com/lite'
 export TERMINAL='alacritty'
 export _JAVA_AWT_WM_NONREPARTENTING=1
 
-export PATH=~/.local/bin:$PATH
+local_bin=
+local_bin=$(find ~/.local/bin -type d | sed 's|/$||'| tr '\n' ':')
+export PATH="$local_bin:$PATH"
 export PATH=~/.cargo/bin:$PATH
 [ -e ~/.shortcuts ] && export PATH=~/.shortcuts:$PATH
 export PAGER="less"
@@ -49,7 +51,6 @@ export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 export WEECHAT_HOME="$XDG_CONFIG_HOME"/weechat
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
-hash weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 #echo hsts-file \= "$XDG_CACHE_HOME"/wget-hsts >> "$XDG_CONFIG_HOME/wgetrc"
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
@@ -57,6 +58,7 @@ export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
+hash weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
 hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
 

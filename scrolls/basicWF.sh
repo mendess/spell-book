@@ -122,6 +122,13 @@ aur && {
 ## NEOVIM
 pac && nvim -c PlugInstall -c qall
 
+## FIREFOX
+pac &&
+    sudo \
+    sed -i \
+    's|^Exec=/usr/lib/firefox/firefox|Exec=/home/mendess/.local/bin/crafted/firefox|' \
+    /usr/share/applications/firefox.desktop
+
 carg && {
     rustup default stable
     cargo install --force "${cargopackages[@]}"

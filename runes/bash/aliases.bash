@@ -94,3 +94,9 @@ alias tmux="tmux -2 -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias sctl='systemctl'
 alias install-occult='ssh mirrodin "cat ~/disk0/occult-book/install" | sh'
 alias oldvim='/bin/vim'
+
+# Cleanup
+hash weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
+hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
+hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
+

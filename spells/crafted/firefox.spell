@@ -1,0 +1,4 @@
+#!/bin/bash
+
+PATH="${PATH/\/home\/*\/.local\/bin\/crafted://}"
+HOME="$XDG_DATA_HOME" firefox "$@"

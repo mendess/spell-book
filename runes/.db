@@ -34,3 +34,4 @@
 /.clang-format,clang-format,sudo
 ~/.config/wgetrc,wgetrc
 ~/.config/calcurse/conf,calcurse.conf
+~/.config/git/config,gitconfig
