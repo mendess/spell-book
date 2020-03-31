@@ -12,7 +12,8 @@ function cleanSpells {
 
 function newSpells {
     for spell in spells/*.spell spells/*/*.spell; do
-        [ -h ~/.local/bin/"$(basename "$spell" .spell)" ] || return 0
+        spell_name="$(echo "$spell" | sed 's|^spells/||;s|\.spell$||')"
+        [ -h ~/.local/bin/"$spell_name" ] || return 0
     done
     return 1;
 }
