@@ -47,6 +47,9 @@ function pytho {
 
 script_dir="$(dirname "$(realpath "$0")")"
 
+#shellcheck source=/home/mendess/.bash_profile
+. "$script_dir../runes/bash/profile"
+
 packages=()
 aurpackages=()
 bloat=()
@@ -121,13 +124,6 @@ aur && {
 
 ## NEOVIM
 pac && nvim -c PlugInstall -c qall
-
-## FIREFOX
-pac &&
-    sudo \
-    sed -i \
-    's|^Exec=/usr/lib/firefox/firefox|Exec=/home/mendess/.local/bin/crafted/firefox|' \
-    /usr/share/applications/firefox.desktop
 
 carg && {
     rustup default stable
