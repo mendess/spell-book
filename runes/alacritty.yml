@@ -252,7 +252,7 @@ schemes:
       black:   '0x181818'
       red:     '0xab4642'
       green:   '0xa1b56c'
-      yellow:  '0xf7ca88'
+      yellow:  '0xe3b97d'
       blue:    '0x7cafc2'
       magenta: '0xba8baf'
       cyan:    '0x86c1b9'
@@ -261,12 +261,12 @@ schemes:
     # Bright colors
     bright:
       black:   '0x585858'
-      red:     '0xab4642'
-      green:   '0xa1b56c'
-      yellow:  '0xf7ca88'
-      blue:    '0x7cafc2'
-      magenta: '0xba8baf'
-      cyan:    '0x86c1b9'
+      red:     '0xc9514d'
+      green:   '0xbad17d'
+      yellow:  '0xffd08c'
+      blue:    '0x8cc6db'
+      magenta: '0xd19dc5'
+      cyan:    '0x96d6cd'
       white:   '0xf8f8f8'
 
     indexed_colors:

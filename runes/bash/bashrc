@@ -34,8 +34,8 @@ __rightprompt()
     [ "$1" -gt 0 ] && printf "<%s>" "$1"
 }
 __git_branch() {
-    if [[ -d .git ]] || [[ -d ../.git ]] ||[[ -d ../../.git ]]  ; then
-        echo "::$(git branch --show-current)"
+    if [[ -d .git ]] || [[ -d ../.git ]] || [[ -d ../../.git ]]  ; then
+        echo "::$(git branch --show-current | sed -r 's/^(.{10}).*/\1+/g')"
     fi
 }
 
