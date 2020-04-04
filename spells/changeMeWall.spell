@@ -5,8 +5,9 @@ BRIGHTNESS_FILTER='
 import sys
 import colorsys
 count = 1
-at_least_one = False
+outputs = 0
 last_line = ""
+last_last_line = ""
 for line in sys.stdin:
     line = line.strip()
     og_line = str(line)
@@ -19,12 +20,14 @@ for line in sys.stdin:
     if hsv[1] < 0.2 or hsv[2] < 0.3:
         print("{:02d}:".format(count), og_line, r, g, b, "s: {:.2f} v: {:.2f}".format(*hsv[1:]), file=sys.stderr)
     else:
-        at_least_one = True
+        outputs += 1
         print(og_line)
     count += 1
+    last_last_line = last_line
     last_line = og_line
 
-if not at_least_one:
+if outputs < 2:
+    print(last_last_line)
     print(last_line)
     print("resorting to most common", last_line, file=sys.stderr)
 '
@@ -86,21 +89,25 @@ is_wide && files=$(echo "$files" | sed -n -e "${wide}"p)
 first="$(echo "$files" | head -1)"
 if hash bspc &> /dev/null
 then
-    color=$(convert "$first" +dither -colors 10 histogram: \
+    mapfile -t color < <(\
+        convert "$first" +dither -colors 10 histogram: \
         | grep -aoP '[0-9][0-9][0-9]+:.*$' \
         | sort -n \
         | grep -aoP '#[^ ].....' \
         | python3 -c "$BRIGHTNESS_FILTER" \
-        | tail -1)
+        | tail -2)
 
-    bspc config normal_border_color "$color"
-    bspc config active_border_color "$color"
-    bspc config presel_feedback_color "$color"
+    echo "Picking ${color[*]}"
+
+    bspc config normal_border_color "${color[1]}"
+    bspc config active_border_color "${color[1]}"
+    bspc config presel_feedback_color "${color[1]}"
+    bspc config focused_border_color "${color[0]}"
     if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
-        ssh mirrodin "python ~/bulb/color.py \\$color"
+        ssh mirrodin "python ~/bulb/color.py \\${color[0]}"
     fi
-fi 2>&1 | color_picker -f &
+fi 2>&1 | color_picker -f
 
 echo "Setting:
 $files"
