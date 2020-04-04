@@ -1,5 +1,5 @@
 changeMeWallCicle &
-picom -b
+picom --experimental-backends -b
 dropbox start &
 battery_check_cicle &
 dunst &
