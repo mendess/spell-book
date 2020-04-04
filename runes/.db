@@ -35,3 +35,4 @@
 ~/.config/wgetrc,wgetrc
 ~/.config/calcurse/conf,calcurse.conf
 ~/.config/git/config,gitconfig
+~/.mozilla/firefox/9ow71ryu.default/user.js,firefox/user.js

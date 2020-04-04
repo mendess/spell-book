@@ -75,18 +75,6 @@ do
     fi
 done
 
-# Compton
-pac && { ! pacman -Q xcompmgr ; } && {
-    git clone https://github.com/tryone144/compton
-    cd compton || exit 1
-    make
-    make docs
-    echo "$PASSWORD" | sudo -S true
-    sudo make install
-    cd ..
-    rm -rf compton
-}
-
 pac && {
     git clone https://github.com/BeMacized/scrot
     cd scrot || exit 1

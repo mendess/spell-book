@@ -90,6 +90,7 @@ htop-vim-git
 lemonbar
 ncpamixer
 pacmixer
+picom-tryone-git
 polybar
 shellcheck-static
 toilet

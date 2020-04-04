@@ -39,3 +39,4 @@ function SetTexOpts()
 endfunction
 
 autocmd FileType coq inoremap ,for ∀
+autocmd FileType coq inoremap ,utf8 Require<Space>Import<Space>Coq.Unicode.Utf8_core.

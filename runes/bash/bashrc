@@ -37,9 +37,10 @@ __git_branch() {
     if [[ -d .git ]] || [[ -d ../.git ]] || [[ -d ../../.git ]]  ; then
         echo "::$(git branch --show-current | sed -r 's/^(.{10}).*/\1+/g')"
     fi
+    return "$1"
 }
 
-PS1='$(__git_branch)::<\[\e[33m\]$(__truncPath $?)\[\e[0m\e[1;31m\]$(__rightprompt $?)\[\e[0m\]> '
+PS1='$(__git_branch $?)::<\[\e[33m\]$(__truncPath $?)\[\e[0m\e[1;31m\]$(__rightprompt $?)\[\e[0m\]> '
 if [ -n "$SSH_CLIENT" ]
 then
     PS1='\[\e[1;31m\]\u@\h\[\e[0m\]'$PS1

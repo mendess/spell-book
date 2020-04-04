@@ -234,3 +234,9 @@ gcl() {
         git clone git@github.com:"$(git config --global user.name)"/"$1" "${@:2}"
     fi
 }
+
+nospace() {
+    for file in *; do
+        mv -vn "$file" "$(echo "$file" | sed -r "s/['&,()!]//g;s/ ([-_]) /\\1/g;s/ /_/g;s/_+/_/g")"
+    done
+}
