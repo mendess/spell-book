@@ -64,9 +64,12 @@ while [ "$#" -gt 0 ]; do
         -w)
             wide="${2:-1}"
             ;;
+        -h|--help)
+            show_help
+            exit 1
+            ;;
         -*)
             echo "Invalid option '$1'"
-            show_help
             exit 1
             ;;
         *)
