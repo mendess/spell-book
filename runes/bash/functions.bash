@@ -240,3 +240,7 @@ nospace() {
         mv -vn "$file" "$(echo "$file" | sed -r "s/['&,()!]//g;s/ ([-_]) /\\1/g;s/ /_/g;s/_+/_/g")"
     done
 }
+
+which () {
+    declare -f | command which --read-functions "$@"
+}
