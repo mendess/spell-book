@@ -10,6 +10,7 @@ export PLAYLIST_LINK='https://www.youtube.com/playlist?list='"$PLAYLIST_ID"
 export UPDATE_I3BLOCKS='__update_panel'
 alias __update_panel='pkill -10 -x lemon'
 export LINKS="$XDG_DATA_HOME"/links
+export WALLPAPERS=$XDG_DATA_HOME/wallpapers
 mpvsocket() {
     if [ -e /tmp ]
     then

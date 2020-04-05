@@ -99,4 +99,5 @@ alias oldvim='/bin/vim'
 hash weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
 hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
+hash julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
 

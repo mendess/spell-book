@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
-WALLPAPERS=~/Pictures/Wallpapers
+
+#shellcheck source=/home/mendess/.local/bin/library
+. library
+
 show_help() {
     exe="$(basename "$0")"
     echo -e "Change wallpaper to a random one

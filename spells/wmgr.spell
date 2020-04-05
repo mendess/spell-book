@@ -1,6 +1,9 @@
 #!/bin/bash
 # shellcheck disable=SC2029
 
+#shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
+. library
+
 TMPDIR=${TMPDIR:-/tmp}
 set -e
 yellow() {
@@ -81,7 +84,7 @@ process_params() {
                 ssh mirrodin \
                     "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
                 if [[ "$(hostname)" != "tolaria" ]]; then
-                    cp -v "$wall" "$HOME/Pictures/Wallpapers/$name"
+                    cp -v "$wall" "$WALLPAPERS/$name"
                 fi
                 ;;
             powerstone)
@@ -176,8 +179,8 @@ if [ -n "$sync" ]; then
         else
             echo mendess.xyz;
         fi)"
-    mkdir -p ~/Pictures/Wallpapers
-    cd ~/Pictures/Wallpapers || exit 1
+    mkdir -p "$WALLPAPERS"
+    cd "$WALLPAPERS" || exit 1
     curl --silent "$endpoint/walls" | grep '<a' | cut -d"'" -f4 | \
         while read -r f; do
             if ! [ -e "$(basename "$f")" ]; then
