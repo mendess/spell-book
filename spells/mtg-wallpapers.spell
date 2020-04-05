@@ -1,4 +1,8 @@
 #!/bin/bash
+
+#shellcheck source=/home/mendess/.local/bin/library
+. library
+
 mkdir -p /tmp/walls
 cd /tmp/walls || exit 1
 rm -f ./*
@@ -15,5 +19,6 @@ else
 fi
 
 for f in *; do
-    mv "$f" "$HOME/Pictures/Wallpapers/$(echo "$f" | sed -e 's/_1920x1080//' -e 's/_Wallpaper//')"
+    mv -v "$f" \
+        "$WALLPAPERS/$(echo "$f" | sed -e 's/_1920x1080//' -e 's/_Wallpaper//')"
 done
