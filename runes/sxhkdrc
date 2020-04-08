@@ -25,7 +25,7 @@ super + F9
   	changeMeWall
 
 super + F8
-  	feh --bg-fill --no-fehbg ~/Pictures/Wallpapers/home.png
+  	feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
 
 super + control + m
   	$TERMINAL --class floating-terminal -e pacmixer

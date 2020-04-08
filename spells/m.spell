@@ -250,7 +250,7 @@ main() {
             ;;
         cat)
             ## List all current categories
-            cut -f4- "$PLAYLIST" | tr '\t' '\n' | sort | uniq
+            cut -f4- "$PLAYLIST" | tr '\t' '\n' | grep -vP '^$' | sort | uniq
             ;;
         c|current)
             ## Show the current song
@@ -363,13 +363,13 @@ main() {
             fi
             awk 'BEGIN { in_main=0; in_case=0; inner_case=0; search='$search' }
             $0 ~ /main\(\)/                                                     {in_main=1}
-            inner_case  && $0 ~ /\w[^)]*\)$/                         {print("\t"$1)}
+            inner_case  && $0 ~ /\w[^)]*\)$/                                    {print("\t"$1)}
             inner_case  && (found || !search) && $0 ~ /^\s+##.*/                {sub(/^\s+##/, "", $0); print("\t\t"$0)}
             inner_case  && $0 ~ /esac/                                          {inner_case=0}
             !inner_case && $0 ~ /;;/                                            {found=0}
             !inner_case && in_case && $0 ~ /case/                               {inner_case=1}
             !inner_case && in_case && !search && $0 ~ /\w[^)]*\)$/              {print($1)}
-            !inner_case && in_case && search  && $0 ~ /'"$search_for"'[^)]*\)$/ {print($1" " found); found=1}
+            !inner_case && in_case && search  && $0 ~ /'"$search_for"'[^)]*\)$/ {print($1); found=1}
             !inner_case && in_case && (found || !search) && $0 ~ /^\s+##.*/     {sub(/^\s+##/, "", $0); print("\t"$0)}
             in_main     && $0 ~ /case/                                          {in_case=1}
             ' "$0"

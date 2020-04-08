@@ -81,10 +81,10 @@ alias notes='mn'
 alias rs='evcxr'
 alias sudo='sudo '
 alias ..='cd ..'
-alias ...=../..
-alias ....=../../..
-alias .....=../../../..
-alias ......=../../../../..
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 alias whoshome='cd ~/Projects/whoshome/; pyenv; py main.py; deactivate; cd - &>/dev/null'
 alias screenoff='DISPLAY=:0 xset dpms force off'
 alias spotify="LD_PRELOAD=$HOME/.local/bin/spotify-adblock.so spotify"
@@ -96,8 +96,8 @@ alias install-occult='ssh mirrodin "cat ~/disk0/occult-book/install" | sh'
 alias oldvim='/bin/vim'
 
 # Cleanup
-hash weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
-hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
-hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
-hash julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
+command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
+command -v calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
+command -v firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
+command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
 

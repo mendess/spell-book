@@ -36,6 +36,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'vim-python/python-syntax'
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'plasticboy/vim-markdown'
+Plug 'JuliaEditorSupport/julia-vim'
 
 "Plug 'lervag/vimtex'
 
