@@ -98,6 +98,5 @@ alias oldvim='/bin/vim'
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
 command -v calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
-command -v firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
 command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
 

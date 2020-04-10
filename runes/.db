@@ -36,3 +36,4 @@
 ~/.mailcap,mailcap
 ~/.mozilla/firefox/9ow71ryu.default/user.js,firefox/user.js
 ~/.vimrc,nvim/init.vim
+~/.config/user-dirs.dirs,user-dirs.dirs

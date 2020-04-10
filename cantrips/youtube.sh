@@ -3,6 +3,8 @@
 #shellcheck source=/home/mendess/.local/bin/library
 . library
 
+MUSIC_DIR="${XDG_MUSIC_DIR:-~/Media/Music}"
+
 if [[ -z "$DISPLAY" ]]; then
     if ! hash fzf; then
         echo 'Need X with dmenu or fzf to use'
@@ -113,7 +115,7 @@ fi
 final_list=()
 for v in $(echo "$vids" | shuf)
 do
-    PATTERN=(~/Music/*"$(basename "$v")"*)
+    PATTERN=("$MUSIC_DIR"/*"$(basename "$v")"*)
     echo -n "PATTERNS: ${PATTERN[*]}"
     if [ -f "${PATTERN[0]}" ]
     then
@@ -127,7 +129,7 @@ done
 
 [ -z "$clipboard" ] && \
     (
-        cd ~/Music || exit 1; \
+        cd "$MUSIC_DIR" || exit 1; \
         for i in "${final_list[@]}"; do echo "$i"; done \
             | grep '^http' \
             | xargs --no-run-if-empty -L 1 youtube-dl --add-metadata &>/tmp/youtube-dl

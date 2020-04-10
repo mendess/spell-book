@@ -156,6 +156,7 @@ nnoremap <F12> :ALENextWrap<CR>
 nnoremap <F9> :ALEDetail<CR>
 let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
 let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
+let g:ale_cpp_clangtidy_options = '-std=c++2a'
 let g:ale_linters = { 'rust' : ['rls'] , 'c': ['clangtidy', 'clangcheck'], 'cpp': ['g++','clangtidy','clang++']}
 let g:ale_fixers = { 'rust': ['rustfmt'] }
 let g:ale_c_parse_compile_commands = 1
@@ -177,13 +178,13 @@ let g:ale_rust_rls_executable = 'rust-analyzer'
 " Autoformat
 map <leader>f :Neoformat<CR>
 let g:shfmt_opt="-ci"
-augroup fmt
-  autocmd!
-  autocmd BufWritePre *.c Neoformat
-  autocmd BufWritePre *.h Neoformat
-  autocmd BufWritePre *.cpp Neoformat
-  autocmd BufWritePre *.hpp Neoformat
-augroup END
+" augroup fmt
+"   autocmd!
+"   autocmd BufWritePre *.c Neoformat
+"   autocmd BufWritePre *.h Neoformat
+"   autocmd BufWritePre *.cpp Neoformat
+"   autocmd BufWritePre *.hpp Neoformat
+" augroup END
 
 " FZZ
 nmap <leader>p :FZF<CR>

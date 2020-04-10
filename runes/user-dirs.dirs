@@ -1,0 +1,7 @@
+XDG_DOWNLOAD_DIR="${TMPDIR:-/tmp}"
+XDG_TEMPLATES_DIR="${TMPDIR:-/tmp}"
+XDG_PUBLICSHARE_DIR="${TMPDIR:-/tmp}"
+XDG_DOCUMENTS_DIR="Documents"
+XDG_MUSIC_DIR="Media/Music"
+XDG_PICTURES_DIR="Media/Pictures"
+XDG_VIDEOS_DIR="Media/Videos"
