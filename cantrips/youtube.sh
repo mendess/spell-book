@@ -3,7 +3,8 @@
 #shellcheck source=/home/mendess/.local/bin/library
 . library
 
-MUSIC_DIR="${XDG_MUSIC_DIR:-~/Media/Music}"
+echo "XDG MUSIC $XDG_MUSIC_DIR"
+MUSIC_DIR="${HOME}/${XDG_MUSIC_DIR:-Media/Music}"
 
 if [[ -z "$DISPLAY" ]]; then
     if ! hash fzf; then

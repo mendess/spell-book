@@ -1,10 +1,13 @@
 #!/bin/bash
 
+#shellcheck source=/home/mendess/.config/user-dirs.dirs
+. "$XDG_CONFIG_HOME/user-dirs.dirs"
+
 [ -n "$1" ] || exit 1
 
 rename="$(true | dmenu -p 'Select picture name' | sed 's/^\s *//; s/\s*$//; s/\s\s*/_/g').png"
 
 if [ -n "$rename" ]; then
-    mv "$1" ~/Pictures/"$rename"
+    mv "$1" "${XDG_PICTURES_DIR}/$rename"
 fi
-notify-send 'Screenshot captured' "Saved to <b>~/Pictures/$rename</b>" -i "~/Pictures/$rename" -a scrot
+notify-send 'Screenshot captured' "Saved to <b>${XDG_PICTURES_DIR}/$rename</b>" -i "${HOME}/${XDG_PICTURES_DIR}/$rename" -a scrot

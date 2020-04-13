@@ -79,12 +79,13 @@ colorscheme base16-default-dark
 if has('nvim')
     command! Bt :highlight Normal ctermbg=None | :highlight Normal guibg=None
 else
-    command! Bt :highlight Normal ctermbg=none | :highlight Normal guibg=none
+    command! Bt :highlight Normal ctermbg=NONE | :highlight Normal guibg=NONE
 endif
 command! Bo :highlight Normal ctermbg=000000
 
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
+imap <F2> :NERDTreeToggle<CR>
 
 " goyo
 map <F9> :Goyo<CR>

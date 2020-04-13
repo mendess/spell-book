@@ -44,7 +44,7 @@ if mn -V &> /dev/null && mn list | grep -v ' 0 ' > /dev/null
 then
     true #    mn list
 else
-    if hash fortune &>/dev/null; then
+    if false && hash fortune &>/dev/null; then
         if [ -e /tmp ]
         then
             fortune -c

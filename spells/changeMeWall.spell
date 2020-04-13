@@ -16,6 +16,9 @@ show_help() {
             \e[1mnote:\e[0m Overrides wallpapers passed as arguments.
         -w
             Force wide screen. Usefull when passing a wallpaper as parameter
+        -l
+            List walls instead of picking one
+
     \e[36mExamples:\e[0m
         Pick a random wallpaper
             $ $exe
@@ -67,6 +70,8 @@ while [ "$#" -gt 0 ]; do
         -w)
             wide="${2:-1}"
             ;;
+        -l) list_mode=1
+            ;;
         -h|--help)
             show_help
             exit 1
@@ -89,10 +94,16 @@ if [ -n "$sxiv" ]; then
     files="$(sxiv -to "$WALLPAPERS")"
 elif [ -z "$files" ]; then
     files="$(find "$WALLPAPERS" -type f |
-        grep -iP "$filter" |
-        shuf -n "$(xrandr --query | grep ' connected' -c)" |
-        grep -vP '^$')"
+        grep -iP "$filter")"
 fi
+
+if [ $list_mode ]; then
+    echo "$files"
+    exit 0
+fi
+files=$(echo "$files" |
+        shuf -n "$(xrandr --query | grep ' connected' -c)" |
+        grep -vP '^$')
 
 i=1
 for file in $files; do

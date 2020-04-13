@@ -316,9 +316,8 @@ main() {
                 spotify_prev
             else
                 echo 'playlist-prev' | socat - "$(mpvsocket)"
-                { sleep 2; __update_panel; } &
             fi
-            __update_panel
+            { sleep 2; __update_panel; } &
             ;;
         l|next-file)
             ## Skip to the next file
@@ -326,9 +325,8 @@ main() {
                 spotify_next
             else
                 echo 'playlist-next' | socat - "$(mpvsocket)"
-                { sleep 2; __update_panel; } &
             fi
-            __update_panel
+            { sleep 2; __update_panel; } &
             ;;
         J|back)
             ## Seek ${2:-10}s backward
