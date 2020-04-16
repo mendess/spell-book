@@ -1,0 +1,12 @@
+[
+  {
+    "expression": "*duckduckgo.com*",
+    "id": "B1ZKmh_Z8",
+    "regExp": "^.*duckduckgo\\.com.*$"
+  },
+  {
+    "expression": "duckduckgo.com*",
+    "id": "SkSG8Ei-L",
+    "regExp": "^duckduckgo\\.com.*$"
+  }
+]

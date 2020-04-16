@@ -49,24 +49,24 @@ vidlist=$(sed '/^$/ d' "$PLAYLIST")
 
 case "$mode" in
     single)
-        vidname="$(echo "$vidlist" \
-            | awk -F'\t' '{print $1}' \
-            | selector -i -p "Which video?" -l "$(echo "$vidlist" | wc -l)")"
+        vidname="$(echo "$vidlist" |
+            awk -F'\t' '{print $1}' |
+            selector -i -p "Which video?" -l "$(echo "$vidlist" | wc -l)")"
 
         if [ -z "$vidname" ]; then
             exit 1
         else
-            vids="$(echo "$vidlist" \
-                | grep -F "$vidname" \
-                | awk -F'\t' '{print $2}')"
+            vids="$(echo "$vidlist" |
+                grep -F "$vidname" |
+                awk -F'\t' '{print $2}')"
         fi
         ;;
 
     random)
-        vids="$(echo "$vidlist" \
-            | shuf \
-            | sed '1q' \
-            | awk -F'\t' '{print $2}')"
+        vids="$(echo "$vidlist" |
+            shuf |
+            sed '1q' |
+            awk -F'\t' '{print $2}')"
 
         ;;
 
@@ -76,21 +76,21 @@ case "$mode" in
         ;;
 
     Category)
-        catg=$(echo "$vidlist" \
-            | awk -F'\t' '{for(i = 4; i <= NF; i++) { print $i } }' \
-            | tr '\t' '\n' \
-            | sed '/^$/ d' \
-            | sort \
-            | uniq -c \
-            | selector -i -p "Which category?" -l 30 \
-            | sed -E 's/^[ ]*[0-9]*[ ]*//')
+        catg=$(echo "$vidlist" |
+            awk -F'\t' '{for(i = 4; i <= NF; i++) { print $i } }' |
+            tr '\t' '\n' |
+            sed '/^$/ d' |
+            sort |
+            uniq -c |
+            selector -i -p "Which category?" -l 30 |
+            sed -E 's/^[ ]*[0-9]*[ ]*//')
 
         [ -z "$catg" ] && exit
         vidlist=$(echo "$vidlist" | shuf)
-        vids="$(echo "$vidlist" \
-            | grep -P ".*\t.*\t.*\t.*$catg" \
-            | awk -F'\t' '{print $2}' \
-            | xargs)"
+        vids="$(echo "$vidlist" |
+            grep -P ".*\t.*\t.*\t.*$catg" |
+            awk -F'\t' '{print $2}' |
+            xargs)"
 
         ;;
 
@@ -114,12 +114,10 @@ yes" | selector -i -p "With video?")
 fi
 
 final_list=()
-for v in $(echo "$vids" | shuf)
-do
+for v in $(echo "$vids" | shuf); do
     PATTERN=("$MUSIC_DIR"/*"$(basename "$v")"*)
     echo -n "PATTERNS: ${PATTERN[*]}"
-    if [ -f "${PATTERN[0]}" ]
-    then
+    if [ -f "${PATTERN[0]}" ]; then
         echo '  -> ' added as file
         final_list+=("${PATTERN[0]}")
     else
@@ -128,38 +126,39 @@ do
     fi
 done
 
-[ -z "$clipboard" ] && \
+[ -z "$clipboard" ] &&
     (
-        cd "$MUSIC_DIR" || exit 1; \
-        for i in "${final_list[@]}"; do echo "$i"; done \
-            | grep '^http' \
-            | xargs --no-run-if-empty -L 1 youtube-dl --add-metadata &>/tmp/youtube-dl
+        cd "$MUSIC_DIR" || exit 1
+        for i in "${final_list[@]}"; do echo "$i"; done |
+            grep '^http' |
+            xargs --no-run-if-empty -L 1 youtube-dl --add-metadata &>/tmp/youtube-dl
     ) &
 
-if [ "$(mpvsocket)" != "/dev/null" ]
-then
-    for song in "${final_list[@]}"
-    do
-        if [[ "$song" == *playlist* ]]; then
-            for s in $(youtube-dl "$song" --get-id); do
-                m queue "https://youtu.be/$s" --notify
-            done
-        else
-            m queue "$song" --notify
-        fi
+if [ "$(mpvsocket)" != "/dev/null" ]; then
+    for song in "${final_list[@]}"; do
+        [[ "$song" == *playlist* ]] &&
+            playlist=1 &&
+            break
     done
+    if [ "$playlist" ]; then
+        for song in "${final_list[@]}"; do
+            if [[ "$song" == *playlist* ]]; then
+                for s in $(youtube-dl "$song" --get-id); do
+                    m queue "https://youtu.be/$s" --notify
+                done
+            else
+                m queue "$song" --notify
+            fi
+        done
+    else
+        m queue "${final_list[@]}" --no-move --notify
+    fi
 else
-    rm -f "$(mpvsocket new)_last_queue"
     (
         sleep 2
         __update_panel
         sleep 8
-        for file in "${final_list[@]:1}"
-        do
-            sleep 0.1
-            m queue "$file"
-        done
-        m queue --reset
+        m queue "${final_list[@]:1}" --no-move
     ) &
     case $p in
         yes)

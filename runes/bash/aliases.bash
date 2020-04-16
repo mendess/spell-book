@@ -46,6 +46,7 @@ alias gpsup='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 alias gst='git status'
 alias gcm='git checkout master'
 alias gcd='git checkout develop || git checkout dev'
+alias gfi='firefox github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*).git/\1/g")'
 # CARGO
 alias cr='cargo run'
 alias cb='cargo build'
@@ -94,6 +95,7 @@ alias tmux="tmux -2 -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias sctl='systemctl'
 alias install-occult='ssh mirrodin "cat ~/disk0/occult-book/install" | sh'
 alias oldvim='/bin/vim'
+alias matrixmap='sudo nmap -v -sS -O'
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'

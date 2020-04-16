@@ -132,6 +132,114 @@ last_queue() {
     echo "$(mpvsocket)_last_queue"
 }
 
+queue_v2() {
+    local targets=()
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            -n | --notify)
+                notify=1
+                ;;
+            -r | --reset)
+                echo "Reseting queue..."
+                rm "$(last_queue)"
+                ;;
+            -m | --no-move)
+                no_move=1
+                ;;
+            -*)
+                echo "Invalid option: '$1'"
+                return 1
+                ;;
+            http*)
+                [ "$(youtube-dl --max-downloads 1 --get-title "$1" --quiet | wc -l)" -ne 1 ] &&
+                    notify-send 'Invalid link:' "$1" -a "$(basename "$0")" &&
+                    echo "[$(date)] $1" >>/tmp/.queue_fails &&
+                    return 1
+
+                targets+=("$1")
+                ;;
+            *)
+                [ -z "$1" ] &&
+                    notify-send 'Error queueing' 'Empty file name' -a "$(basename "$0")" &&
+                    return 1
+                if [ -e "$1" ] || [ -e "$CALLING_DIR/$1" ]; then
+                    targets+=("$1")
+                else
+                    matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "${@:2}")"
+                    link="$(echo "$matches" | cut -f2)"
+                    [ -z "$link" ] && echo "No song found" && return 1
+                    [ "$(echo "$link" | wc -l)" -gt 1 ] &&
+                        echo -e "Too many matches:\n$(echo "$matches" | cut -f1)" &&
+                        return 1
+
+                    targets+=("${link}")
+                fi
+                ;;
+        esac
+        shift
+    done
+    [ "${#targets[@]}" -lt 1 ] &&
+        echo "No files to queue" &&
+        return 1
+
+    background_notifiers=0
+    for file in "${targets[@]}"; do
+        echo -n "Queueing song: '$file'... "
+        echo '{ "command": ["loadfile", "'"$file"'", "append"]}' |
+            socat - "$(mpvsocket)" |
+            jq --raw-output .error
+
+        [ "$no_move" ] || {
+            local COUNT CURRENT TARGET LAST_QUEUE
+            COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' |
+                socat - "$(mpvsocket)" |
+                jq --raw-output '.data')
+            CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' |
+                socat - "$(mpvsocket)" |
+                jq --raw-output '.data')
+
+            TARGET=$((CURRENT + 1))
+            LAST_QUEUE="$(last_queue)"
+            if [ -e "$LAST_QUEUE" ] && [ "$TARGET" -le "$(cat "$LAST_QUEUE")" ]; then
+                TARGET=$(($(cat "$LAST_QUEUE") + 1))
+            fi
+            echo -n "Moving from $COUNT -> $TARGET ... "
+            echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$TARGET']}' |
+                socat - "$(mpvsocket)" |
+                jq --raw-output .error
+            echo "$TARGET" >"$LAST_QUEUE"
+        }
+        [ "$notify" ] && {
+            IMG=$(mktemp --tmpdir tmp.XXXXXXXXXXXXXXXXX.png)
+            IMG_BACK="${IMG}_back.png"
+            if [[ "$file" == https* ]]; then
+                data=$(youtube-dl --get-title "$file" --get-thumbnail)
+                name=$(echo "$data" | head -1)
+                echo "$data" | tail -1 | xargs -r wget --quiet -O "$IMG"
+                [ -z "$name" ] && name="$file"
+            else
+                name="$(ffprobe "$file" 2>&1 | grep title | cut -d':' -f2 | xargs)"
+                ffmpeg -loglevel error -hide_banner -vsync 2 -i "$file" -frames:v 1 "$IMG" >/dev/null
+            fi
+            convert -scale x64 -- "$IMG" "$IMG_BACK" && mv "$IMG_BACK" "$IMG"
+            notify-send "Queued '$name' t:$IMG"\
+                "$([ "$CURRENT" ] && printf "Current: %s\nQueue pos: %s" "$CURRENT" "$TARGET")" \
+                -a "$(basename "$0")" \
+                -i "$IMG"
+            rm -f "$IMG"
+        } &
+        ((background_notifiers++))
+        if [ $background_notifiers -ge $(( $(nproc) * 2 )) ]; then
+            wait -n
+            ((background_notifiers--))
+        fi
+    done
+    while [ $background_notifiers -ge 0 ]; do
+        wait -n
+        ((background_notifiers--))
+    done
+}
+
 queue () {
     if [ "$#" -lt 1 ]
     then
@@ -267,6 +375,8 @@ main() {
         queue)
             ## Queue a song
             ##     --reset Resets the queue fairness
+            queue_v2 "${@:2}"
+            return "$?"
             if [ "$2" = '--reset' ]; then
                 queue "$2"
             elif [[ "$2" == http* ]]; then
