@@ -56,3 +56,5 @@ vnoremap // y/\V<C-R>"<CR>
 
 ino <C-A> <space><Esc>y^$a=<space><C-R>=<C-R>0<CR>
 vnoremap <C-M> dpa<space>=<space><C-R>=<C-R>0<CR>
+
+inoremap <S-Tab> <C-V><Tab>

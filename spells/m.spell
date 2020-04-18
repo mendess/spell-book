@@ -219,7 +219,7 @@ queue_v2() {
                 [ -z "$name" ] && name="$file"
             else
                 name="$(ffprobe "$file" 2>&1 | grep title | cut -d':' -f2 | xargs)"
-                ffmpeg -loglevel error -hide_banner -vsync 2 -i "$file" -frames:v 1 "$IMG" >/dev/null
+                ffmpeg -y -loglevel error -hide_banner -vsync 2 -i "$file" -frames:v 1 "$IMG" >/dev/null
             fi
             convert -scale x64 -- "$IMG" "$IMG_BACK" && mv "$IMG_BACK" "$IMG"
             notify-send "Queued '$name' t:$IMG"\
@@ -333,10 +333,6 @@ main() {
             ##      Usage: m add-song [options] link [category,..]
             ## Options:
             case $2 in
-                -r|--remote)
-                    ## Add it remotely [deprecated]
-                    yes no | ssh mirrodin 'zsh -c "PATH=$PATH:~/.local/bin; . ~/.zprofile; ~/.local/bin/syncspellbook; ~/.local/bin/m add_song '"${*:3}"'"; ~/.local/bin/syncspellbook'
-                    ;;
                 -q|--queue)
                     ## Queue the song too
                     shift

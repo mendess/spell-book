@@ -231,3 +231,7 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+
+" python-syntax
+let g:python_highlight_all = 1
+let g:python_highlight_space_errors = 0

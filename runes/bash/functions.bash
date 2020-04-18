@@ -256,3 +256,11 @@ xdofast() {
     alias xk='xdotool key'
     alias xt='xdotool type'
 }
+
+mpvy() {
+    mpv "ytdl://ytsearch:$*"
+}
+
+mpvys() {
+    mpvsv "ytdl://ytsearch:$*"
+}

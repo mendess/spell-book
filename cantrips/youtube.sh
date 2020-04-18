@@ -151,7 +151,7 @@ if [ "$(mpvsocket)" != "/dev/null" ]; then
             fi
         done
     else
-        m queue "${final_list[@]}" --no-move --notify
+        m queue "${final_list[@]}" --notify
     fi
 else
     (
