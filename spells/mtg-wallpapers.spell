@@ -20,5 +20,5 @@ fi
 
 for f in *; do
     mv -v "$f" \
-        "$WALLPAPERS/$(echo "$f" | sed -e 's/_1920x1080//' -e 's/_Wallpaper//')"
+        "$HOME/Pictures/Wallpapers/$(echo "$f" | sed -r -e 's/_1920x1080//' -e 's/_(W|w)allpaper//' | sed -r 's/\.(jpg|png)$/_MTG.\1/')"
 done
