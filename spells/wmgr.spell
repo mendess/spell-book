@@ -100,7 +100,7 @@ process_params() {
         ;;
     delete)
         if [ -z "$wall" ]; then
-            wall="$(find ~/Pictures/Wallpapers -type f -printf '%T@ %p\n' |
+            wall="$(find "$WALLPAPERS" -type f -printf '%T@ %p\n' |
                 sort -n |
                 cut -d' ' -f2- |
                 sxiv -i -g 1800x1000 -b -t -o)"

@@ -68,7 +68,7 @@ while [ "$#" -gt 0 ]; do
             sxiv=1
             ;;
         -w)
-            wide="${2:-1}"
+            wide=1
             ;;
         -l) list_mode=1
             ;;
@@ -94,6 +94,7 @@ if [ -n "$sxiv" ]; then
     files="$(sxiv -to "$WALLPAPERS")"
 elif [ -z "$files" ]; then
     files="$(find "$WALLPAPERS" -type f |
+        grep -v -P '_MTG.(jpg|png)$' | #'_([A-Z0-9]{3}|[a-z0-9]{3}_wallpaper)\.(jpg|png)$' |
         grep -iP "$filter")"
 fi
 
