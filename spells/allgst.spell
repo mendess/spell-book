@@ -1,12 +1,10 @@
 #!/bin/bash
 
-for dir in $(find . -mindepth 1 -maxdepth 1 -type d)
-do
-    cd "$dir" || continue
-    if ! git diff-index --quiet HEAD --
-    then
+while read -r dir; do
+    if [[ -d "$dir/.git" ]]; then
+        cd "$dir" || continue
         echo -e "\033[32m$(pwd)\033[0m"
         git status
+        cd ..
     fi
-    cd ..
-done
+done < <(find . -mindepth 1 -maxdepth 1 -type d)

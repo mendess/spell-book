@@ -10,7 +10,7 @@ num_mon=$(bspc query -M | wc -l)
 #SCROLL_CLOSE="%{A}%{A}"
 MON=${MONITOR:-0}
 echo "monitor: $MON" >&2
-bspc subscribe report | while read -r line ; do
+while read -r line ; do
     # shellcheck source=/home/mendess/Projects/spell-book/runes/lemonbar/workspaces_colors
     . "$(dirname "$0")/workspaces_colors"
     case $line in
@@ -118,5 +118,5 @@ bspc subscribe report | while read -r line ; do
             ;;
     esac
     echo "${wm}"
-done
+done < <(bspc subscribe report)
 

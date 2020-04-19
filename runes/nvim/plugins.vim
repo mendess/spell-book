@@ -16,14 +16,15 @@ Plug 'scrooloose/nerdtree'
 "Plug 'cohama/lexima.vim'
 Plug 'jiangmiao/auto-pairs'
 
-" Zen mode
-Plug 'junegunn/goyo.vim'
-
 Plug 'bitc/vim-bad-whitespace'
 
 Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-commentary'
+
+Plug 'tpope/vim-repeat'
+
+Plug 'tpope/vim-abolish'
 
 " Requires: cargo install rustfmt
 Plug 'sbdchd/neoformat'
@@ -87,32 +88,32 @@ command! Bo :highlight Normal ctermbg=000000
 map <F2> :NERDTreeToggle<CR>
 imap <F2> :NERDTreeToggle<CR>
 
-" goyo
-map <F9> :Goyo<CR>
-function! s:goyo_enter()
-    :set nonumber norelativenumber
-    :autocmd! numbertoggle
-endfunction
+" " goyo
+" map <F9> :Goyo<CR>
+" function! s:goyo_enter()
+"     :set nonumber norelativenumber
+"     :autocmd! numbertoggle
+" endfunction
 
-" vim-commentary
-autocmd FileType coq setlocal commentstring=(*\ %s\ *)
-autocmd FileType sxhkdrc setlocal commentstring=#\ %s
+" " vim-commentary
+" autocmd FileType coq setlocal commentstring=(*\ %s\ *)
+" autocmd FileType sxhkdrc setlocal commentstring=#\ %s
 
-function! s:goyo_leave()
-    :set number relativenumber
-    :augroup numbertoggle
-    :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-    :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-    :augroup END
-    :highlight ColorColumn ctermbg=Black
-    :set colorcolumn=101
-    :highlight Normal ctermbg=None
-endfunction
+" function! s:goyo_leave()
+"     :set number relativenumber
+"     :augroup numbertoggle
+"     :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+"     :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+"     :augroup END
+"     :highlight ColorColumn ctermbg=Black
+"     :set colorcolumn=101
+"     :highlight Normal ctermbg=None
+" endfunction
 
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-let g:goyo_height='90'
-let g:goyo_width='83'
+" autocmd! User GoyoEnter nested call <SID>goyo_enter()
+" autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" let g:goyo_height='90'
+" let g:goyo_width='83'
 
 " coc
 " Use tab for trigger completion with characters ahead and navigate.
