@@ -106,6 +106,7 @@ cargo-watch
 export bloat=(
 nano
 vim
+xorg-xclock
 )
 
 export pythonpackages=(
