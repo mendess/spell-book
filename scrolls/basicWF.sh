@@ -1,27 +1,25 @@
 #!/bin/bash
 
 set -e
-if [ "$#" = 0 ]
-then
+if [ "$#" = 0 ]; then
     ALL=1
 else
-    while [[ $# -gt 0 ]]
-    do
+    while [[ $# -gt 0 ]]; do
         key="$1"
         case $key in
-            -p|--pacman)
+            -p | --pacman)
                 PACMAN=1
                 shift
                 ;;
-            -a|--aur)
+            -a | --aur)
                 AUR=1
                 shift
                 ;;
-            -c|--cargo)
+            -c | --cargo)
                 CARGO=1
                 shift
                 ;;
-            -y|--python)
+            -y | --python)
                 PYTHON=1
                 shift
                 ;;
@@ -29,19 +27,19 @@ else
     done
 fi
 
-function pac {
+function pac() {
     [ "$ALL" = 1 ] || [ "$PACMAN" = 1 ]
 }
 
-function aur {
+function aur() {
     [ "$ALL" = 1 ] || [ "$AUR" = 1 ]
 }
 
-function carg {
+function carg() {
     [ "$ALL" = 1 ] || [ "$CARGO" = 1 ]
 }
 
-function pytho {
+function pytho() {
     [ "$ALL" = 1 ] || [ "$PYTHON" = 1 ]
 }
 
@@ -61,25 +59,26 @@ pythonpackages=()
 read -r -s -p "[sudo] password for $LOGNAME: " PASSWORD
 
 echo "$PASSWORD" | sudo -S true
-pac && sudo pacman -S --noconfirm --downloadonly --needed "${packages[@]}"
+pac && sudo pacman -S --quiet --noconfirm --downloadonly --needed "${packages[@]}"
 
 echo "$PASSWORD" | sudo -S true
-pac && sudo pacman -S --noconfirm --needed "${packages[@]}"
+pac && sudo pacman -S --quiet --noconfirm --needed "${packages[@]}"
 
-pac && for package in "${bloat[@]}"
-do
-    if [ "$(pacman -Q --quiet "$package")" = "$package" ]
-    then
+pac && for package in "${bloat[@]}"; do
+    if [ "$(pacman -Q --quiet "$package")" = "$package" ]; then
         echo "$PASSWORD" | sudo -S true
         sudo pacman -Rsn --noconfirm "$package"
     fi
 done
 
-pac && {
+pac && [ ! -e /usr/bin/scrot ] && {
+    echo "$PASSWORD" | sudo -S true
+    pacman -Q --quiet scrot && pacman -Rsn scrot
     git clone https://github.com/BeMacized/scrot
     cd scrot || exit 1
     ./configure
     make
+    echo "$PASSWORD" | sudo -S true
     sudo make install
     cd .. || exit 1
     rm -rf scrot
@@ -96,9 +95,8 @@ xdg-mime default org.pwmt.zathura.desktop application/pdf
 aur && {
     mkdir tmp
     cd tmp || exit 1
-    for i in "${aurpackages[@]}"
-    do
-        [ "$(pacman -Q "$i")" = "$i" ] && continue
+    for i in "${aurpackages[@]}"; do
+        [ "$(pacman -Qq "$i")" = "$i" ] && continue
         old="$(pwd)"
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
@@ -111,7 +109,9 @@ aur && {
 }
 
 # pacman
-pac && {
+pac && [ ! -e /usr/bin/surf ] && {
+    echo "$PASSWORD" | sudo -S true
+    pacman -Q --quiet surf && pacman -Rsn surf
     git clone https://github.com/mendess/surf
     cd surf || exit 1
     echo "$PASSWORD" | sudo -S true
