@@ -7,6 +7,7 @@ export HISTSIZE="INFINITY + 1"
 PROMPT_COMMAND='history -a;history -n'
 export HISTCONTROL='ignoredups'
 shopt -s histappend
+shopt -s histverify
 set -o noclobber
 
 if [ -z "$SPELLS" ]
@@ -25,29 +26,3 @@ done
 #shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
 source "$SPELLS"/spells/library.spell
 
-__truncPath() {
-    pwd | sed -r -e 's!^'"$HOME"'!~!g' -e 's|([^/])[^/]+/|\1/|g' | tr -d '\n'
-    return "$1"
-}
-__rightprompt()
-{
-    [ "$1" -gt 0 ] && printf "<%s>" "$1"
-}
-__git_branch() {
-    if [[ -d .git ]] || [[ -d ../.git ]] || [[ -d ../../.git ]] || [[ -d ../../../.git ]] || [[ -d ../../../../.git ]]; then
-        echo "::$(git symbolic-ref HEAD --short | sed -r 's/^(.{10}).*/\1+/g')"
-    fi
-    return "$1"
-}
-
-PS1='$(__git_branch $?)::<\[\e[33m\]$(__truncPath $?)\[\e[0m\e[1;31m\]$(__rightprompt $?)\[\e[0m\]> '
-if [ -n "$SSH_CLIENT" ]
-then
-    PS1='\[\e[1;31m\]\u@\h\[\e[0m\]'$PS1
-fi
-if [[ "$(tty)" == *tty* ]] && [ -f /sys/class/power_supply/BAT0/capacity ]
-then
-    #shellcheck disable=SC2154
-    #PS1='\[$(batery_color $(batery))\]$(batery)&\[\e[0m\]'$PS1
-    PS1='$(cat /sys/class/power_supply/BAT0/capacity)% $(date +%H:%M) '$PS1
-fi
