@@ -48,7 +48,7 @@ function pytho {
 script_dir="$(dirname "$(realpath "$0")")"
 
 #shellcheck source=/home/mendess/.bash_profile
-. "$script_dir../runes/bash/profile"
+. "$script_dir/../runes/bash/profile"
 
 packages=()
 aurpackages=()
@@ -58,7 +58,7 @@ pythonpackages=()
 #shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
-read -r -s -p "[sudo] password for $LOGNAME " PASSWORD
+read -r -s -p "[sudo] password for $LOGNAME: " PASSWORD
 
 echo "$PASSWORD" | sudo -S true
 pac && sudo pacman -S --noconfirm --downloadonly --needed "${packages[@]}"
@@ -68,7 +68,7 @@ pac && sudo pacman -S --noconfirm --needed "${packages[@]}"
 
 pac && for package in "${bloat[@]}"
 do
-    if pacman -Q "$package"
+    if [ "$(pacman -Q --quiet "$package")" = "$package" ]
     then
         echo "$PASSWORD" | sudo -S true
         sudo pacman -Rsn --noconfirm "$package"
