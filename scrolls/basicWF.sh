@@ -98,7 +98,7 @@ aur && {
     cd tmp || exit 1
     for i in "${aurpackages[@]}"
     do
-        pacman -Q "$i" && continue
+        [ "$(pacman -Q "$i")" = "$i" ] && continue
         old="$(pwd)"
         git clone https://aur.archlinux.org/"$i"
         cd "$i" || exit 1
