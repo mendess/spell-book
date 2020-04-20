@@ -87,7 +87,7 @@ dropbox
 dropbox-cli
 entr
 htop-vim-git
-lemonbar
+lemonbar-xft-git
 ncpamixer
 pacmixer
 picom-tryone-git
