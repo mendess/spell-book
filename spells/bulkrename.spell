@@ -1,0 +1,39 @@
+#!/bin/sh
+
+from="$(mktemp)"
+to="$(mktemp)"
+
+trap 'rm $from $to' 0 1 2 3 6 14 15
+
+find ./* -maxdepth 0 | sed 's|./||g' > "$from"
+cp "$from" "$to"
+if [ "$EDITOR" ]; then
+    ed="$EDITOR"
+elif [ "$VISUAL" ]; then
+    ed="$VISUAL"
+else
+    ed=vim
+fi
+
+"$ed" "$to"
+
+ZIP="from sys import argv
+with open(argv[1], 'r') as f:
+    f1 = [l.strip() for l in f]
+
+with open(argv[2], 'r') as f:
+    f2 = [l.strip() for l in f]
+
+for l1, l2 in zip(f1, f2):
+    print('mv -vi', l1, l2)
+"
+
+cmd=$(python -c "$ZIP" "$from" "$to")
+echo "$cmd"
+printf "Confirm [Y/n] "
+read -r c
+if [ "$c" = n ] || [ "$c" = N ]; then
+    exit
+fi
+
+eval "$cmd"

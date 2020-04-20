@@ -97,7 +97,7 @@ if [ -n "$sxiv" ]; then
     files="$(sxiv -to "$WALLPAPERS")"
 elif [ -z "$files" ]; then
     files="$(find "$WALLPAPERS" -type f |
-        grep -v -P '_MTG.(jpg|png)$' |
+        grep -v -P '_mtg.(jpg|png)$' |
         grep -iP "$filter")"
 fi
 

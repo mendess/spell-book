@@ -11,4 +11,5 @@ then
 fi
 calcurse --daemon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
 nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
+xrdb -load ~/.config/X11/Xresources
 exec bspwm

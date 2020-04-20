@@ -169,6 +169,7 @@ else
             if [ -z "$DISPLAY" ]; then
                 mpv --input-ipc-server="$(mpvsocket new)" --no-video "${final_list[0]}"
             else
+                bspc rule -a \* -o desktop=^10
                 $TERMINAL --class my-media-player -e mpv --input-ipc-server="$(mpvsocket new)" --no-video "${final_list[0]}" &
             fi
             ;;

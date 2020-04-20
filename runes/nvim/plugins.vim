@@ -180,6 +180,7 @@ let g:ale_rust_rls_executable = 'rust-analyzer'
 " Autoformat
 map <leader>f :Neoformat<CR>
 let g:shfmt_opt="-ci"
+let g:rustfmt_opt="--edition 2018"
 " augroup fmt
 "   autocmd!
 "   autocmd BufWritePre *.c Neoformat

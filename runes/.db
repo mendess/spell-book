@@ -1,6 +1,5 @@
 #~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,check
 #~/.Rider2018.3/config/idea.properties,idea.properties,check
-#~/.Xdefaults,Xdefaults
 #~/.config/i3/config,i3
 #~/.config/i3blocks,i3blocks
 #~/.config/i3status/config,i3status
@@ -31,9 +30,10 @@
 ~/.config/readline/inputrc,inputrc
 ~/.config/sxhkd/sxhkdrc,sxhkdrc
 ~/.config/tmux/tmux.conf,tmux.conf
+~/.config/user-dirs.dirs,user-dirs.dirs
 ~/.config/wgetrc,wgetrc
 ~/.config/zathura/zathurarc,zathurarc
 ~/.mailcap,mailcap
 ~/.mozilla/firefox/9ow71ryu.default/user.js,firefox/user.js
 ~/.vimrc,nvim/init.vim
-~/.config/user-dirs.dirs,user-dirs.dirs
+~/config/X11/Xresources,Xresources

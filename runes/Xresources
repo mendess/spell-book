@@ -23,6 +23,7 @@
 *color7: #a8a19f
 *color15: #f1efee
 
+background: #181A1C
 urxvt.background:       [60]#222222
 urxvt.foreground:       #FFFFFF
 urxvt.blurRadius:       1
