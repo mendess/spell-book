@@ -222,7 +222,7 @@ queue_v2() {
                 ffmpeg -y -loglevel error -hide_banner -vsync 2 -i "$file" -frames:v 1 "$IMG" >/dev/null
             fi
             convert -scale x64 -- "$IMG" "$IMG_BACK" && mv "$IMG_BACK" "$IMG"
-            notify-send "Queued '$name' t:$IMG"\
+            notify-send "Queued '$name'"\
                 "$([ "$CURRENT" ] && printf "Current: %s\nQueue pos: %s" "$CURRENT" "$TARGET")" \
                 -a "$(basename "$0")" \
                 -i "$IMG"

@@ -264,3 +264,12 @@ mpvy() {
 mpvys() {
     mpvsv "ytdl://ytsearch:$*"
 }
+
+mpv_get() {
+    #shellcheck source=/home/mendess/.local/bin/library
+    . library
+
+    echo '{ "command": ["get_property", "'"$1"'"] }' |
+        socat - "$(mpvsocket)" |
+        jq "${2:-.}"
+}

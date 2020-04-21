@@ -11,6 +11,7 @@ export UPDATE_I3BLOCKS='__update_panel'
 alias __update_panel='pkill -10 -x lemon'
 export LINKS="$XDG_DATA_HOME"/links
 export WALLPAPERS=$XDG_DATA_HOME/wallpapers
+#shellcheck disable=SC2120
 mpvsocket() {
     if [ -e /tmp ]
     then
