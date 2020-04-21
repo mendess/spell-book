@@ -27,19 +27,17 @@ spotify_prev() {
 }
 
 up_next() {
-    next_id="$(( $(echo '{ "command": ["get_property", "playlist-pos"]}' \
-        | socat - "$(mpvsocket)" \
-        | jq .data) + 1))"
+    next_id="$(($(echo '{ "command": ["get_property", "playlist-pos"]}' |
+        socat - "$(mpvsocket)" |
+        jq .data) + 1))"
 
-    videoId="$(echo '{ "command": ["get_property", "playlist"]}' \
-        | socat - "$(mpvsocket)" | jq .data["$next_id"].filename -r)"
+    videoId="$(echo '{ "command": ["get_property", "playlist"]}' |
+        socat - "$(mpvsocket)" | jq .data["$next_id"].filename -r)"
 
-    if [[ "$videoId" = *youtu* ]]
-    then
+    if [[ "$videoId" = *youtu* ]]; then
         id="$(echo "$videoId" | sed -r 's|.*/([^/]+)/?$|\1|g')"
         filename=$(awk -F '\t' '$2 ~ /'"$id"'/ {print $1}' "$PLAYLIST")
-        if [ -z "$filename" ]
-        then
+        if [ -z "$filename" ]; then
             filename=$(youtube-dl --get-title "$videoId")
         fi
     else
@@ -47,34 +45,31 @@ up_next() {
     fi
     width=40
     [ "${#filename}" -gt $width ] && width="${#filename}"
-    if [ -n "$filename" ] && [ "$filename" != null ]
-    then
+    if [ -n "$filename" ] && [ "$filename" != null ]; then
         echo "=== UP NEXT ==="
         echo "$filename"
     fi
 }
 
 current_song() {
-    filename=$(echo '{ "command": ["get_property", "media-title"] }' \
-        | socat - "$(mpvsocket)" \
-        | jq --raw-output '.data')
+    filename=$(echo '{ "command": ["get_property", "media-title"] }' |
+        socat - "$(mpvsocket)" |
+        jq --raw-output '.data')
 
-    videoId="$(echo '{ "command": ["get_property", "filename"] }' \
-        | socat - "$(mpvsocket)" \
-        | jq --raw-output '.data')"
+    videoId="$(echo '{ "command": ["get_property", "filename"] }' |
+        socat - "$(mpvsocket)" |
+        jq --raw-output '.data')"
 
-    chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' \
-            | socat - "$(mpvsocket)" \
-            | jq '.data.title' -r)
+    chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' |
+        socat - "$(mpvsocket)" |
+        jq '.data.title' -r)
 
-    if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]
-    then
+    if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]; then
         [ -z "$videoId" ] && exit 1
         filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
         [ -z "$filename" ] && filename="$videoId"
     fi
-    if [ -n "$chapter" ] && [ "$chapter" != "null" ]
-    then
+    if [ -n "$chapter" ] && [ "$chapter" != "null" ]; then
         filename="Video:  $filename
 Song:   $chapter"
     fi
@@ -85,43 +80,40 @@ Song:   $chapter"
                 acc = acc " | " $i
             };
             print("Categories:"acc" |")
-        }' "$PLAYLIST" \
-        | fold -s -w "$width")
+        }' "$PLAYLIST" |
+        fold -s -w "$width")
     case $1 in
-         -n|--notify)
-             if [ -n "$cateories" ]
-             then
-                 filename="$filename
+        -n | --notify)
+            if [ -n "$cateories" ]; then
+                filename="$filename
 $cateories"
-             fi
-             filename="$filename
+            fi
+            filename="$filename
 
 $(up_next)"
-             notify-send "Now Playing" "$filename" -a "$(basename "$0")"
-             __update_panel
-             ;;
-         -i|--link)
-             echo '{ "command": ["get_property", "filename"] }' \
-                | socat - "$(mpvsocket)" \
-                | jq --raw-output '.data'
-             ;;
-          *)
-             echo "Now Playing"
-             echo "$filename"
-             ;;
+            notify-send "Now Playing" "$filename" -a "$(basename "$0")"
+            __update_panel
+            ;;
+        -i | --link)
+            echo '{ "command": ["get_property", "filename"] }' |
+                socat - "$(mpvsocket)" |
+                jq --raw-output '.data'
+            ;;
+        *)
+            echo "Now Playing"
+            echo "$filename"
+            ;;
     esac
 }
 
-add_cat () {
+add_cat() {
     current_song=$(current_song --link | tail -1 | sed 's/"//g')
 
     [ -z "$current_song" ] && exit 2
 
-    while :
-    do
+    while :; do
         cat=$(echo | dmenu -p "Category name? (Esq to quit)")
-        if [ -z "$cat" ]
-        then
+        if [ -z "$cat" ]; then
             break
         fi
         sed -i -E "/$current_song/ s|$|	$cat|" "$PLAYLIST"
@@ -222,14 +214,14 @@ queue_v2() {
                 ffmpeg -y -loglevel error -hide_banner -vsync 2 -i "$file" -frames:v 1 "$IMG" >/dev/null
             fi
             convert -scale x64 -- "$IMG" "$IMG_BACK" && mv "$IMG_BACK" "$IMG"
-            notify-send "Queued '$name'"\
+            notify-send "Queued '$name'" \
                 "$([ "$CURRENT" ] && printf "Current: %s\nQueue pos: %s" "$CURRENT" "$TARGET")" \
                 -a "$(basename "$0")" \
                 -i "$IMG"
             rm -f "$IMG"
         } &
         ((background_notifiers++))
-        if [ $background_notifiers -ge $(( $(nproc) * 2 )) ]; then
+        if [ $background_notifiers -ge $(($(nproc) * 2)) ]; then
             wait -n
             ((background_notifiers--))
         fi
@@ -240,9 +232,8 @@ queue_v2() {
     done
 }
 
-queue () {
-    if [ "$#" -lt 1 ]
-    then
+queue() {
+    if [ "$#" -lt 1 ]; then
         echo please provide a link
         return 1
     fi
@@ -254,37 +245,35 @@ queue () {
         notify-send 'Error queueing' 'Empty file name' -a "$(basename "$0")"
         return 1
     fi
-    if [[ "$1" == http* ]] \
-        && [ "$(youtube-dl --max-downloads 1 --get-title "$1" --quiet | wc -l)" -ne 1 ]; then
+    if [[ "$1" == http* ]] &&
+        [ "$(youtube-dl --max-downloads 1 --get-title "$1" --quiet | wc -l)" -ne 1 ]; then
         notify-send 'Invalid link:' "$1" -a "$(basename "$0")"
-        echo "[$(date)] $1" >> /tmp/.queue_fails
+        echo "[$(date)] $1" >>/tmp/.queue_fails
         return 1
     fi
     echo -n "Queueing song: '$1'... "
-    echo '{ "command": ["loadfile", "'"$1"'", "append"]}' \
-        | socat - "$(mpvsocket)" \
-        | jq --raw-output .error
+    echo '{ "command": ["loadfile", "'"$1"'", "append"]}' |
+        socat - "$(mpvsocket)" |
+        jq --raw-output .error
     local COUNT CURRENT TARGET LAST_QUEUE
-    COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' \
-        | socat - "$(mpvsocket)" \
-        | jq --raw-output '.data')
-    CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' \
-        | socat - "$(mpvsocket)" \
-        | jq --raw-output '.data')
+    COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' |
+        socat - "$(mpvsocket)" |
+        jq --raw-output '.data')
+    CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' |
+        socat - "$(mpvsocket)" |
+        jq --raw-output '.data')
 
     TARGET=$((CURRENT + 1))
     LAST_QUEUE="$(last_queue)"
-    if [ -e "$LAST_QUEUE" ] && [ "$TARGET" -le "$(cat "$LAST_QUEUE")" ]
-    then
-        TARGET=$(( $(cat "$LAST_QUEUE") + 1 ))
+    if [ -e "$LAST_QUEUE" ] && [ "$TARGET" -le "$(cat "$LAST_QUEUE")" ]; then
+        TARGET=$(($(cat "$LAST_QUEUE") + 1))
     fi
     echo -n "Moving from $COUNT -> $TARGET ... "
-    echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$TARGET']}' \
-        | socat - "$(mpvsocket)" \
-        | jq --raw-output .error
-    echo "$TARGET" > "$LAST_QUEUE"
-    if [ "$2" = "--notify" ]
-    then
+    echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$TARGET']}' |
+        socat - "$(mpvsocket)" |
+        jq --raw-output .error
+    echo "$TARGET" >"$LAST_QUEUE"
+    if [ "$2" = "--notify" ]; then
         IMG=/tmp/thumb.jpg
         rm "$IMG"
         if [[ "$1" == https* ]]; then
@@ -294,7 +283,7 @@ queue () {
             [ -z "$name" ] && name="$1"
         else
             name="$(ffprobe "$1" 2>&1 | grep title | cut -d':' -f2 | xargs)"
-            ffmpeg -loglevel error -hide_banner -vsync 2 -i "$1"  -frames:v 1 "$IMG" > /dev/null
+            ffmpeg -loglevel error -hide_banner -vsync 2 -i "$1" -frames:v 1 "$IMG" >/dev/null
         fi
         convert -scale x64 -- "$IMG" "tmp" && mv tmp "$IMG"
         notify-send "Queued '$name'" "Current: $CURRENT\nQueue pos: $TARGET" \
@@ -305,7 +294,7 @@ queue () {
 
 main() {
     case $1 in
-        p|pause)
+        p | pause)
             ## Togle pause
             if pgrep spotify &>/dev/null; then
                 spotify_toggle_pause
@@ -328,12 +317,12 @@ main() {
             fi
             mpv --no-video --input-ipc-server="$(mpvsocket new)" "$2"
             ;;
-        add?song|new)
+        add?song | new)
             ## Add a new song
             ##      Usage: m add-song [options] link [category,..]
             ## Options:
             case $2 in
-                -q|--queue)
+                -q | --queue)
                     ## Queue the song too
                     shift
                     m queue "$2"
@@ -347,8 +336,7 @@ main() {
         add?playlist)
             ## Append a playlist to the personal playlist
             ##      Usage: m add-playlist [link] [category,..]
-            youtube-dl --get-id "$2" | sed 's|^|https://youtu.be/|' | while read -r l
-            do
+            youtube-dl --get-id "$2" | sed 's|^|https://youtu.be/|' | while read -r l; do
                 echo "adding $l"
                 main add_song "$l" "${@:3}"
             done
@@ -357,14 +345,14 @@ main() {
             ## List all current categories
             cut -f4- "$PLAYLIST" | tr '\t' '\n' | grep -vP '^$' | sort | uniq
             ;;
-        c|current)
+        c | current)
             ## Show the current song
             ##      -n --notify With a notification
             ##      -i --link   Print the filename / link
             ##      default:    The song's name
             current_song "${@:2}"
             ;;
-        add-cat-to-current|new-cat)
+        add-cat-to-current | new-cat)
             ## Add a category to the current song
             add_cat "${@:2}"
             ;;
@@ -394,58 +382,69 @@ main() {
             [ $# -gt 1 ] || exit 1
             ./helpers/del_link.sh "${@:2}"
             ;;
-        k|vu)
+        k | vu)
             ## Increase volume by ${2:-2}%
             echo "add volume ${2:-2}" | socat - "$(mpvsocket)"
             __update_panel
             ;;
-        j|vd)
+        j | vd)
             ## Increase volume by ${2:-2}%
             echo "add volume -${2:-2}" | socat - "$(mpvsocket)"
             __update_panel
             ;;
-        H|prev)
+        H | prev)
             ## Previous chapter in a file
             echo 'add chapter -1' | socat - "$(mpvsocket)"
             __update_panel
-            { sleep 2; __update_panel; } &
+            {
+                sleep 2
+                __update_panel
+            } &
             ;;
-        L|next)
+        L | next)
             ## Next chapter in a file
             echo 'add chapter 1' | socat - "$(mpvsocket)"
             __update_panel
-            { sleep 2; __update_panel; } &
+            {
+                sleep 2
+                __update_panel
+            } &
             ;;
-        h|prev-file)
+        h | prev-file)
             ## Go to previous file
             if pgrep spotify &>/dev/null; then
                 spotify_prev
             else
                 echo 'playlist-prev' | socat - "$(mpvsocket)"
             fi
-            { sleep 2; __update_panel; } &
+            {
+                sleep 2
+                __update_panel
+            } &
             ;;
-        l|next-file)
+        l | next-file)
             ## Skip to the next file
             if pgrep spotify &>/dev/null; then
                 spotify_next
             else
                 echo 'playlist-next' | socat - "$(mpvsocket)"
             fi
-            { sleep 2; __update_panel; } &
+            {
+                sleep 2
+                __update_panel
+            } &
             ;;
-        J|back)
+        J | back)
             ## Seek ${2:-10}s backward
             echo "seek -${2:-10}" | socat - "$(mpvsocket)"
             ;;
-        K|frwd)
+        K | frwd)
             ## Seek ${2:-10}s forward
             echo "seek ${2:-10}" | socat - "$(mpvsocket)"
             ;;
-        int|interactive)
+        int | interactive)
             ## Enter interactive mode
-            while :;
-            do
+            while :; do
                 read -r -n 1 input
                 [ "$input" = "q" ] && break
                 [ "$input" = "c" ] && echo
@@ -482,6 +481,7 @@ main() {
         *)
             echo "¯\\_(ツ)_/¯"
             echo "use r|help to see available commands"
+            ;;
     esac
 }
 
