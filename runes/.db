@@ -36,4 +36,4 @@
 ~/.mailcap,mailcap
 ~/.mozilla/firefox/9ow71ryu.default/user.js,firefox/user.js
 ~/.vimrc,nvim/init.vim
-~/config/X11/Xresources,Xresources
+~/.config/X11/Xresources,Xresources
