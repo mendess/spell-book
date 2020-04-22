@@ -72,7 +72,7 @@ if [[ "$(tty)" == *tty* ]] && [ -f /sys/class/power_supply/BAT0/capacity ]; then
     PS1_ELEMENTS+=("$BATTERY")
 fi
 if [ -n "$SSH_CLIENT" ]; then
-    PS1_ELEMENTS+=("$SSH_PROMPT")
+    PS1_ELEMENTS+=("$SSH_PROMPT" '::')
 fi
 PS1_ELEMENTS+=(
     "$G_BRANCH" '::<' "$(__c "$YELLOW" "$T_PATH")" "$(__c "$RED" "$EXIT_STATUS")" "> "
