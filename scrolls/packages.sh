@@ -23,9 +23,9 @@ firefox
 fortune-mod
 fzf
 gdb
+giblib # scrot deps
 gimp
 glava
-giblib # scrot deps
 hyperfine
 imagemagick
 jq
@@ -56,7 +56,6 @@ rtv
 rustup
 shfmt
 socat
-surf
 sxhkd
 sxiv
 tmux
@@ -66,6 +65,7 @@ ttf-hack
 unzip
 urxvt-perls
 usbutils
+vimb
 wget
 xclip
 xdg-user-dirs

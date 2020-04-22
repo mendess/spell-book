@@ -47,6 +47,8 @@ bspc config borderless_monocle   false
 bspc config gapless_monocle      false
 bspc config remove_unplugged_monitors true
 bspc config top_padding          22
+bspc config ignore_ewmh_fullscreen enter
+bspc config ignore_ewmh_focus true
 
 xsetroot -cursor_name left_ptr
 bspc rule -a floating-terminal state=floating
@@ -54,13 +56,11 @@ bspc rule -a feh state=floating
 bspc rule -a URxvt state=floating
 bspc rule -a Sxiv state=floating
 bspc rule -a my-media-player desktop=^10
-bspc rule -a Steam desktop=^3
-bspc rule -a Steam state=pseudo_tiled
+bspc rule -a Steam desktop=^3 state=pseudo_tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a Surf state=tiled
 bspc rule -a Wine state=pseudo_tiled
-bspc rule -a zoom state=tiled
-bspc rule -a zoom desktop=^3
+bspc rule -a zoom state=tiled desktop=^3
 bspc rule -a jetbrains-toolbox state=floating
 bspc rule -a jetbrains-idea state=pseudo_tiled
 

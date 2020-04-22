@@ -9,7 +9,18 @@ CURRENT="$(m current \
     | head -2 \
     | tail -1 \
     | cut -d ':' -f2 \
-    | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+    | sed '
+    s/　/  /g;
+    s/Ａ/A /g;
+    s/Ｃ/C /g;
+    s/Ｈ/H /g;
+    s/Ｉ/I /g;
+    s/Ｌ/L /g;
+    s/Ｍ/M /g;
+    s/Ｎ/N /g;
+    s/Ｔ/T /g;
+    s/Ｕ/U /g;' |
+    sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
 
 if [ -e /tmp/.bloat ]; then
     TRUNC=22

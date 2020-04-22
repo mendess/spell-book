@@ -2,8 +2,7 @@
 
 #shellcheck disable=SC2139
 # LS
-if hash exa &>/dev/null
-then
+if hash exa &>/dev/null; then
     alias exa='exa -g'
     alias ls='exa'
     alias tree='exa -T'
@@ -96,9 +95,12 @@ alias sctl='systemctl'
 alias install-occult='ssh mirrodin "cat ~/disk0/occult-book/install" | sh'
 alias oldvim='/bin/vim'
 alias matrixmap='sudo nmap -v -sS -O'
+alias mv='mv -i'
+alias rm='rm -i'
+alias cp='cp -i'
+alias alert='notify-send -i "$([ $? = 0 ] && echo "/usr/share/icons/Adwaita/48x48/emblems/emblem-ok-symbolic.symbolic.png" || echo "/usr/share/icons/Adwaita/48x48/actions/edit-delete-symbolic.symbolic.png")" "$(history 1 | sed '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
 command -v calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
-

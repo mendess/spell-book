@@ -1,7 +1,16 @@
 #!/bin/bash
 
-if mpv "$(xclip -sel clip -o)" || mpv "$(xclip -sel primary -o)"
-then
-    disown
-    exit
-fi
+for clip in "$(xclip -sel clip -o)" "$(xclip -sel primary -o)"; do
+    echo "Trying to play $clip"
+    case "$clip" in
+        *.png | *.jpg | *.jpeg)
+            feh "$clip" && exit
+            ;;
+        *.gif)
+            mpv --loop-file "$clip" && exit
+            ;;
+        *)
+            mpv "$clip" && exit
+            ;;
+    esac
+done

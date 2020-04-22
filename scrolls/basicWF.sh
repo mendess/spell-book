@@ -108,18 +108,6 @@ aur && {
     rm -rf tmp
 }
 
-# pacman
-pac && [ ! -e /usr/bin/surf ] && {
-    echo "$PASSWORD" | sudo -S true
-    pacman -Q --quiet surf && pacman -Rsn surf
-    git clone https://github.com/mendess/surf
-    cd surf || exit 1
-    echo "$PASSWORD" | sudo -S true
-    sudo make install
-    cd .. || exit
-    rm -rf surf
-}
-
 ## NEOVIM
 pac && nvim -c PlugInstall -c qall
 

@@ -81,6 +81,8 @@ move_dotfile() {
     fi
 }
 
+mkdir -vp "$SPELLS/runes/$(dirname "$alt")"
+
 if [ -d "$dotfile_exp" ]
 then
     mkdir -vp "$SPELLS/runes/$alt" || exit 1

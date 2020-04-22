@@ -27,7 +27,6 @@
 ~/.config/mutt,mutt
 ~/.config/newsboat/config,newsboat
 ~/.config/nvim,nvim
-~/.config/readline/inputrc,inputrc
 ~/.config/sxhkd/sxhkdrc,sxhkdrc
 ~/.config/tmux/tmux.conf,tmux.conf
 ~/.config/user-dirs.dirs,user-dirs.dirs
@@ -37,3 +36,5 @@
 ~/.mozilla/firefox/9ow71ryu.default/user.js,firefox/user.js
 ~/.vimrc,nvim/init.vim
 ~/.config/X11/Xresources,Xresources
+~/.config/vimb/config,vimb/config
+~/.config/vimb/style.css,vimb/style.css

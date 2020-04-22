@@ -38,7 +38,7 @@ through google's API and a lot of pain.
 ## [Cantrips](./cantrips/)
 Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 - [youtube](./cantrips/youtube.sh) Launches the music player controled using [m](./spells/m.spell)
-- [quickbrowser](./cantrips/quickbrowser.sh) Launches surf with one of the [bookmarks](./library/bookmarks)
+- [quickbrowser](./cantrips/quickbrowser.sh) Launches vimb with one of the [bookmarks](./library/bookmarks)
 - [today](./cantrips/today.sh) Show's today's apointments
 - [bspwm-rename-ws](./cantrips/bspwm-rename-ws.sh) Renames the current workspace
 

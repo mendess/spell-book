@@ -126,8 +126,8 @@ clearswap() {
     sudo swapon "$drive"
 }
 
-surfc() {
-    surf "$1" &
+vimbc() {
+    vimb "$1" &
     disown
     exit
 }
@@ -141,10 +141,10 @@ discordStream() {
 }
 
 svim() {
+    cd "$SPELLS" || exit 1
     if [ -n "$1" ]; then
-        "$EDITOR" "$SPELLS"/"$1"
+        "$EDITOR" "$1"
     else
-        cd "$SPELLS" || exit 1
         local DIR
         DIR="$(find . -type f | grep -v '.git' | sed 's|^./||g' | fzf)"
         [ -n "$DIR" ] && "$EDITOR" "$DIR"
@@ -269,7 +269,16 @@ mpv_get() {
     #shellcheck source=/home/mendess/.local/bin/library
     . library
 
+    #shellcheck disable=2119
     echo '{ "command": ["get_property", "'"$1"'"] }' |
         socat - "$(mpvsocket)" |
         jq "${2:-.}"
+}
+
+any() {
+    find . -maxdepth 1 | shuf -n 1
+}
+
+insist() {
+    until "$@"; do :; done
 }

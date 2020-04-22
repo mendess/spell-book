@@ -10,6 +10,9 @@ shopt -s histappend
 shopt -s histverify
 set -o noclobber
 
+bind "set completion-ignore-case On"
+bind "set show-all-if-unmodified on"
+
 if [ -z "$SPELLS" ]
 then
     tmp="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.bash_profile)")")")"
