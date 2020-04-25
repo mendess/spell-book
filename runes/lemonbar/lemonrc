@@ -19,7 +19,7 @@ align:left
 
 > Music
 command: ~/.config/lemonbar/media
-interval:10
+interval:120
 alignment:middle
 left-click:m prev-file
 middle-click:m pause

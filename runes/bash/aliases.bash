@@ -78,7 +78,11 @@ alias mpvs='mpv --no-video --input-ipc-server=$(mpvsocket new)'
 alias mpvsv='mpv --input-ipc-server=$(mpvsocket new)'
 alias s='sxiv'
 alias notes='mn'
-alias rs='evcxr'
+if command -v evcxr; then
+    alias rs='evcxr'
+else
+    alias rs="echo 'evcxr' command not found. Install it with 'cargo install evcxr_repl'"
+fi
 alias sudo='sudo '
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -95,9 +99,6 @@ alias sctl='systemctl'
 alias install-occult='ssh mirrodin "cat ~/disk0/occult-book/install" | sh'
 alias oldvim='/bin/vim'
 alias matrixmap='sudo nmap -v -sS -O'
-alias mv='mv -i'
-alias rm='rm -i'
-alias cp='cp -i'
 alias alert='notify-send -i "$([ $? = 0 ] && echo "/usr/share/icons/Adwaita/48x48/emblems/emblem-ok-symbolic.symbolic.png" || echo "/usr/share/icons/Adwaita/48x48/actions/edit-delete-symbolic.symbolic.png")" "$(history 1 | sed '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Cleanup
