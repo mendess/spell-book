@@ -97,7 +97,6 @@ if [ -n "$sxiv" ]; then
     files="$(sxiv -to "$WALLPAPERS")"
 elif [ -z "$files" ]; then
     files="$(find "$WALLPAPERS" -type f |
-        grep -v -P '_mtg.(jpg|png)$' |
         grep -iP "$filter")"
 fi
 
@@ -139,7 +138,7 @@ if command -v bspc &>/dev/null; then
     bspc config presel_feedback_color "${colors[2]}"
     if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
-        ssh mirrodin "python ~/bulb/color.py \\${colors[0]}"
+        : #ssh mirrodin "python ~/bulb/color.py \\${colors[0]}"
     fi
 fi 2>&1 | color_picker -f
 

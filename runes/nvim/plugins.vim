@@ -55,14 +55,17 @@ if has('nvim')
     endif
 endif
 
-Plug 'andys8/vim-elm-syntax'
-
 if ! has('nvim')
     Plug 'whonore/Coqtail'
     Plug 'let-def/vimbufsync'
 endif
 
 Plug 'rust-lang/rust.vim'
+
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 
 Plug 'godlygeek/tabular'
 
@@ -205,7 +208,7 @@ if has('nvim')
         let col = col('.') - 1
         return !col || getline('.')[col - 1]  =~ '\s'
     endfunction"}}}
-    call deoplete#custom#option('sources', { '_': ['ale']})
+    " call deoplete#custom#option('sources', { '_': ['ale']})
 endif
 
 "autocmd! FileType coq let mapleader='\'
@@ -237,3 +240,10 @@ endfunction
 " python-syntax
 let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
+
+" Language Server
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['rust-analyzer'],
+"     \ }
+
+" set completefunc=LanguageClient#complete

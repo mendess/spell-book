@@ -243,8 +243,12 @@ super + control + {h,j,k,l}
 
 
 super + {h,j,k,l}
-	dir={(west backward),(south backward),(north forward),(east forward)}; \
-	bspc node --focus $\{dir[0]\}.!floating
+	dir={(west prev),(south prev),(north next),(east next)}; \
+	if bspc query --nodes --node focused.floating; then \
+	    bspc node --focus $\{dir[1]\}.floating; \
+    else \
+	    bspc node --focus $\{dir[0]\}.!floating; \
+    fi
 
 #	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
 

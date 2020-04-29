@@ -78,7 +78,7 @@ alias mpvs='mpv --no-video --input-ipc-server=$(mpvsocket new)'
 alias mpvsv='mpv --input-ipc-server=$(mpvsocket new)'
 alias s='sxiv'
 alias notes='mn'
-if command -v evcxr; then
+if command -v evcxr &>/dev/null; then
     alias rs='evcxr'
 else
     alias rs="echo 'evcxr' command not found. Install it with 'cargo install evcxr_repl'"
