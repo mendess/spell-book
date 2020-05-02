@@ -262,3 +262,7 @@ super + shift + m
     else \
         bspc node -g marked ; \
     fi
+
+super + colon
+    bspc node --state pseudo_tiled; \
+    bspc node --resize bottom_right 50 800

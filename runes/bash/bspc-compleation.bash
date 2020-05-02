@@ -30,7 +30,6 @@ __bspc_node() {
         --insert-receptacle
         --close
         --kill)
-    echo "$1" >/dev/pts/5
     case "$1" in
         -p | --presel-dir)
             echo -n "$(__bspc_dir) $(__bspc_dir | sed 's/^/~/g') cancel"
@@ -177,6 +176,12 @@ __bspc_config() {
             ;;
         *)
             config_opts=(
+                top_padding
+                right_padding
+                bottom_padding
+                left_padding
+                window_gap
+                border_width
                 normal_border_color
                 active_border_color
                 focused_border_color

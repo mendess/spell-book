@@ -252,6 +252,9 @@ which() {
 }
 
 xdofast() {
+    echo "alias x='xdotool'"
+    echo "alias xk='xdotool key'"
+    echo "alias xt='xdotool type'"
     alias x='xdotool'
     alias xk='xdotool key'
     alias xt='xdotool type'
@@ -281,4 +284,20 @@ any() {
 
 insist() {
     until "$@"; do :; done
+}
+
+nest() {
+    tmp=..
+    [ "$PWD" = / ] && tmp=/tmp
+    dir="$tmp/$1"
+    echo "Gonna create $1 at $dir and move stuff there"
+    mkdir "$dir" || exit
+    mv "${@:2}" "$dir" || exit
+    mv "$dir" . || exit
+}
+
+lyrics() {
+    curl -s --get "https://makeitpersonal.co/lyrics" \
+        --data-urlencode "title=$1" \
+        # --data-urlencode "artist=$artist" \
 }

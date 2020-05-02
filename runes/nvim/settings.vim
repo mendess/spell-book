@@ -59,7 +59,7 @@ set undofile
 
 " syntax concealment
 set conceallevel=2
-set concealcursor=nc
+set concealcursor=nvic
 
 iabbrev ture true
 iabbrev stirng string
@@ -87,3 +87,5 @@ set showcmd
 if has('nvim')
     set pumblend=15
 endif
+
+set iskeyword-=_
