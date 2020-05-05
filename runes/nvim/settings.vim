@@ -59,7 +59,6 @@ set undofile
 
 " syntax concealment
 set conceallevel=2
-set concealcursor=nvic
 
 iabbrev ture true
 iabbrev stirng string

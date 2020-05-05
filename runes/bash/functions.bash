@@ -298,6 +298,6 @@ nest() {
 
 lyrics() {
     curl -s --get "https://makeitpersonal.co/lyrics" \
-        --data-urlencode "title=$1" \
-        # --data-urlencode "artist=$artist" \
+        --data-urlencode "title='${*:2}'" \
+        --data-urlencode "artist=$1"
 }

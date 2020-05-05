@@ -64,8 +64,11 @@ super + c
 super + x
   	$TERMINAL --class floating-terminal -e bash -c "cal -3 -s && read -s -r -n 1"
 
-super + v
+super + control + v
   	playClipboard
+
+super + v
+    clipmenu
 
 super + shift + v
   	sleep 0.5 && echo .p "https://youtu.be/$(m current -i)" | xclip -sel clip && xdotool key Ctrl+V && xdotool key Return && m next-file

@@ -9,6 +9,7 @@ bat
 bc
 bspwm
 clang
+clipmenu
 cmake
 cronie
 curl
