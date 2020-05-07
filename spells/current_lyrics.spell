@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#shellcheck source=/home/mendess/.local/bin/library
+. library
+metadata="$(echo '{ "command": ["get_property", "metadata"] }' |
+    socat - "$(mpvsocket)")"
+
+artist="$(echo "$metadata" | jq -r .data.artist)"
+title="$(echo "$metadata" | jq -r .data.title)"
+[ "$artist" != null ] || artist="$(echo "$metadata" | jq -r .data.ARTIST)"
+[ "$title" != null ] || title="$(echo "$metadata" | jq -r .data.TITLE)"
+
+echo "From: $artist"
+echo "Song: $title"
+curl -s --get 'https://makeitpersonal.co/lyrics' \
+    --data-urlencode "title=$title" \
+    --data-urlencode "artist=$artist"
+echo
