@@ -140,7 +140,7 @@ super + comma
   	show_full_bar
 
 super + z
-    current_lyrics
+    $TERMINAL -e bash -c "current_lyrics && read -s -r -n 1"
 
 super + F6
   	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness
