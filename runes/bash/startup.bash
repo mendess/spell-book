@@ -30,7 +30,8 @@ start_tmux() {
     fi
 }
 
-if [[ -z "$TMUX" ]] && [ -n "$SSH_CONNECTION" ] && hash tmux 2>/dev/null; then
+if [[ "$(hostname)" =~ tolaria|mirrodin|weatherlight ]] &&
+    [[ -z "$TMUX" ]] && [ -n "$SSH_CONNECTION" ] && hash tmux 2>/dev/null; then
     start_tmux
 fi
 

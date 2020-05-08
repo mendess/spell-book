@@ -251,7 +251,7 @@ super + control + {h,j,k,l}
 super + {h,j,k,l}
 	dir={(west prev),(south prev),(north next),(east next)}; \
 	if bspc query --nodes --node focused.floating; then \
-	    bspc node --focus $\{dir[1]\}.floating; \
+	    bspc node --focus $\{dir[1]\}.floating.local; \
     else \
 	    bspc node --focus $\{dir[0]\}.!floating; \
     fi
