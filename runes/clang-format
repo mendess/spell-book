@@ -1,6 +1,5 @@
 ﻿---
 AlignAfterOpenBracket: AlwaysBreak
-ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
 AlignConsecutiveAssignments: 'false'
 AlignConsecutiveDeclarations: 'false'
 AlignEscapedNewlines: Left
@@ -9,7 +8,6 @@ AlignTrailingComments: 'true'
 AllowAllParametersOfDeclarationOnNextLine: 'true'
 AllowShortBlocksOnASingleLine: 'false'
 AllowShortCaseLabelsOnASingleLine: 'false'
-AllowShortIfStatementsOnASingleLine: 'true'
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortLoopsOnASingleLine: 'true'
 AlwaysBreakAfterReturnType: None
@@ -21,13 +19,14 @@ BreakAfterJavaFieldAnnotations: 'true'
 BreakBeforeBraces: Custom
 ColumnLimit: '80'
 CompactNamespaces: 'false'
+ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
 Cpp11BracedListStyle: 'true'
 DerivePointerAlignment: 'false'
 IncludeBlocks: Regroup
 IndentCaseLabels: 'true'
 IndentPPDirectives: AfterHash
 IndentWidth: '4'
-KeepEmptyLinesAtTheStartOfBlocks: 'false'
+KeepEmptyLinesAtTheStartOfBlocks: 'true'
 MaxEmptyLinesToKeep: '1'
 NamespaceIndentation: Inner
 PointerAlignment: Left

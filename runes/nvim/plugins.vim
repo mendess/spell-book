@@ -90,7 +90,7 @@ command! Bo :highlight Normal ctermbg=000000
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
 imap <F2> :NERDTreeToggle<CR>
-let NERDTreeSortOrder=['src/$']
+let NERDTreeSortOrder=['include/$', 'src/$']
 
 " " goyo
 " map <F9> :Goyo<CR>
