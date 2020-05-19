@@ -52,6 +52,14 @@ endif
 
 highlight ColorColumn ctermbg=Black
 set colorcolumn=101
+autocmd! BufEnter *.c set colorcolumn=81
+autocmd! BufEnter *.h set colorcolumn=81
+autocmd! BufEnter *.cpp set colorcolumn=81
+autocmd! BufEnter *.hpp set colorcolumn=81
+autocmd! BufLeave *.c set colorcolumn=101
+autocmd! BufLeave *.h set colorcolumn=101
+autocmd! BufLeave *.cpp set colorcolumn=101
+autocmd! BufLeave *.hpp set colorcolumn=101
 highlight Normal ctermbg=None
 
 set undodir=~/.cache/vimundo

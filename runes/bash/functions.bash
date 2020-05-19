@@ -29,7 +29,7 @@ aura() {
 
 make() {
     if [ -e Makefile ] || [ -e makefile ]; then
-        bash -c "make $*"
+        bash -c "make -j$(nproc || echo 4) $*"
     else
         for i in *.c; do
             file=${i//\.c/}
@@ -261,10 +261,18 @@ xdofast() {
 }
 
 mpvy() {
-    mpv "ytdl://ytsearch:$*"
+    mpv --no-video "ytdl://ytsearch:$*"
 }
 
 mpvys() {
+    mpvs "ytdl://ytsearch:$*"
+}
+
+mpvyv() {
+    mpv "ytdl://ytsearch:$*"
+}
+
+mpvysv() {
     mpvsv "ytdl://ytsearch:$*"
 }
 

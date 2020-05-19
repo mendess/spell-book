@@ -5,6 +5,8 @@ endif
 
 call plug#begin()
 
+Plug 'salsifis/vim-transpose'
+
 " Color scheme
 Plug 'Mendess2526/ayu-vim'
 Plug 'chriskempson/base16-vim'
@@ -77,7 +79,7 @@ call plug#end()
 set termguicolors
 let base16colorspace=256  " Access colors present in 256 colorspace
 let ayucolor="dark"
-colorscheme ayu
+"colorscheme ayu
 colorscheme base16-default-dark
 
 if has('nvim')
@@ -85,7 +87,7 @@ if has('nvim')
 else
     command! Bt :highlight Normal ctermbg=NONE | :highlight Normal guibg=NONE
 endif
-command! Bo :highlight Normal ctermbg=000000
+command! Bo :colorscheme base16-default-dark
 
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>

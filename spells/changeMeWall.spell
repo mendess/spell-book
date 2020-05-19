@@ -112,7 +112,7 @@ i=1
 for file in $files; do
     [ "$wide" -gt 0 ] && break
     aspect_ratio="$(convert "$file" -format '%[fx:w/h]' info:)"
-    wide=$(echo "$aspect_ratio" | awk '$0 > (28/9) {found=1}
+    wide=$(echo "$aspect_ratio" | awk '$0 >= 2.5 {found=1}
     END {if(found) {print '$i'} else {print "0"}}')
     i=$((i + 1))
 done
@@ -138,7 +138,7 @@ if command -v bspc &>/dev/null; then
     bspc config presel_feedback_color "${colors[2]}"
     if nmcli -t dev | grep ZON2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
-        [ -e /tmp/mood_light ] &&
+        [ -e /tmp/mood_light ] ||
             ssh mirrodin "python ~/bulb/color.py \\${colors[0]}"
     fi
 fi 2>&1 | color_picker -f
