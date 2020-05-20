@@ -1,81 +1,81 @@
 bg:#aa222222
-geometry:x22
+geometry: x22
 separator:' | '
-n_clickables:32
-font:Misc Termsyn:size=12
+n_clickables: 32
+font: Misc Termsyn: size=12
 underline_width: 2
-name:bar_of_the_lemons
+name: bar_of_the_lemons
 
 > Workspaces
 persistent: ~/.config/lemonbar/workspaces
-raw:true
-align:left
-multi_monitor:true
+raw: true
+align: left
+multi_monitor: true
 
 > PID
 command: echo "$(uptime -p)"
-interval:1800
-align:left
+interval: 1800
+align: left
 
 > Music
 command: ~/.config/lemonbar/media
-interval:120
-alignment:middle
-left-click:m prev-file
-middle-click:m pause
-right-click:m next-file
-scroll-up:m vu
+interval: 120
+alignment: middle
+left-click: m prev-file
+middle-click: m pause
+right-click: m next-file
+scroll-up: m vu
 scroll-down: m vd
 underline:#e66300
-signal:true
+signal: true
 
 > Spotify
 command: python3 ~/.config/lemonbar/spotify_status.py -p ">,||"
 underline:#1db954
-left-click:m prev-file
-middle-click:m pause
-right-click:m next-file
-interval:1
-alignment:middle
-signal:true
+left-click: m prev-file
+middle-click: m pause
+right-click: m next-file
+interval: 1
+alignment: middle
+signal: true
 
 > Brightness
 command: ~/.config/lemonbar/brightness
-interval:10
-alignment:right
-signal:true
+interval: 10
+alignment: right
+signal: true
 
 > Disk
 command: ~/.config/lemonbar/disk
-alignment:right
-interval:10
-signal:true
+alignment: right
+interval: 10
+signal: true
 
 > Iface
 command: ~/.config/lemonbar/iface
-alignment:right
-interval:10
+alignment: right
+interval: 10
 fg:#0f0
-signal:true
+signal: true
 
 > Wifi
 command: ~/.config/lemonbar/wifi
-align:right
-signal:true
+align: right
+signal: true
 
 > Load Average
 cmd: ~/.config/lemonbar/load_average
-align:right
-signal:true
+align: right
+signal: true
 
 > Batery
 cmd: ~/.config/lemonbar/battery
-align:right
-signal:true
+align: right
+signal: true
 
 > Date command
 command: date +"%d/%m %H:%M"
-interval:10
-alignment:right
+interval: 10
+alignment: right
 underline:#0a6cf5
 

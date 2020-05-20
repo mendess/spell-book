@@ -309,3 +309,14 @@ lyrics() {
         --data-urlencode "title='${*:2}'" \
         --data-urlencode "artist=$1"
 }
+
+fcd() {
+    local dir
+    for i in {0..64}; do
+        dir="$(find . -maxdepth "$i" -type d | grep -i "$*" | head -1)"
+        if [ -n "$dir" ]; then
+            cd "$dir" || continue
+            break
+        fi
+    done
+}
