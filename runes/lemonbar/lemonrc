@@ -1,4 +1,4 @@
-bg:#aa222222
+bg: #aa222222
 geometry: x22
 separator:' | '
 n_clickables: 32
@@ -26,12 +26,12 @@ middle-click: m pause
 right-click: m next-file
 scroll-up: m vu
 scroll-down: m vd
-underline:#e66300
+underline: #e66300
 signal: true
 
 > Spotify
 command: python3 ~/.config/lemonbar/spotify_status.py -p ">,||"
-underline:#1db954
+underline: #1db954
 left-click: m prev-file
 middle-click: m pause
 right-click: m next-file
@@ -77,5 +77,5 @@ signal: true
 command: date +"%d/%m %H:%M"
 interval: 10
 alignment: right
-underline:#0a6cf5
+underline: #0a6cf5
 

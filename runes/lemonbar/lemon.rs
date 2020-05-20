@@ -20,6 +20,7 @@ extern "C" {
 
 type ParseError<'a> = (&'a str, &'a str);
 
+#[derive(Debug)]
 struct Color<'a>(&'a str);
 
 impl Default for Color<'static> {
@@ -50,7 +51,7 @@ impl<'a> Color<'a> {
     }
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 enum Alignment {
     Left,
     Middle,
@@ -69,6 +70,7 @@ impl FromStr for Alignment {
     }
 }
 
+#[derive(Debug)]
 enum Content<'a> {
     Static(&'a str),
     Cmd {
@@ -133,11 +135,12 @@ impl<T> OneOrMore<T> {
     fn iter(&self) -> Iter<T> {
         match self {
             Self::One(t) => Iter::One(Some(t)),
-            Self::More(m) => Iter::More(m.iter())
+            Self::More(m) => Iter::More(m.iter()),
         }
     }
 }
 
+#[derive(Debug)]
 enum Iter<'a, T> {
     One(Option<&'a T>),
     More(std::slice::Iter<'a, T>),
@@ -153,7 +156,7 @@ impl<'a, T> Iterator for Iter<'a, T> {
     }
 }
 
-
+#[derive(Debug)]
 struct DisplayContent<'a, 'b: 'a>(&'b Content<'a>, usize);
 
 impl<'a, 'b> Display for DisplayContent<'a, 'b> {
@@ -229,6 +232,7 @@ impl<'a> Content<'a> {
     }
 }
 
+#[derive(Debug)]
 struct Block<'a> {
     bg: Option<Color<'a>>,
     fg: Option<Color<'a>>,
@@ -249,7 +253,10 @@ impl<'a> Block<'a> {
         let mut block_b = BlockBuilder::default();
         for opt in block.split('\n').skip(1).filter(|s| !s.trim().is_empty()) {
             let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
-            let value = value[1..].trim().trim_end_matches('\'');
+            let value = value[1..]
+                .trim()
+                .trim_end_matches('\'')
+                .trim_start_matches('\'');
             let color = || Color::from_str(value).map_err(|e| (opt, e));
             block_b = match key
                 .trim()
@@ -293,6 +300,7 @@ impl<'a> Block<'a> {
     }
 }
 
+#[derive(Debug)]
 struct DisplayBlock<'a, 'b: 'a>(&'b Block<'a>, usize);
 
 impl<'a, 'b> Display for DisplayBlock<'a, 'b> {
@@ -601,7 +609,14 @@ impl<'a> TryFrom<&'a str> for GlobalConfig<'a> {
         let mut global_config = Self::default();
         for opt in globals.split('\n').filter(|s| !s.trim().is_empty()) {
             let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
-            let value = value[1..].trim_matches('\'');
+            let mut value = value[1..].trim();
+            if value.contains('\'') {
+                value = value
+                    .split('\'')
+                    .nth(1)
+                    .ok_or((opt, "idk man, I tried to get things inside `'`"))?
+            }
+            println!("{}: {}", key, value);
             let color = || Color::from_str(value).map_err(|e| (opt, e));
             match key
                 .trim()
@@ -680,6 +695,13 @@ fn main() -> io::Result<()> {
     };
     global_c.tray = args.tray;
     global_c.bars_geometries = args.bars;
+    println!("Staring blocks");
+    for (al, bs) in &blocks {
+        println!("{:?}", al);
+        for b in bs {
+            println!("{:?}", b);
+        }
+    }
     start_event_loop(global_c, blocks);
     // unsafe { Box::from_raw(input.as_mut_ptr()) };
     Ok(())
