@@ -320,3 +320,20 @@ fcd() {
         fi
     done
 }
+
+latex_ignore() {
+    cat <<EOF
+*.toc
+*.aux
+*.log
+*.pdf
+*.html
+*.bbl
+*.blg
+_minted-presentation/
+*.nav
+*.out
+*.snm
+*.vrb
+EOF
+}

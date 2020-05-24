@@ -28,6 +28,8 @@ Plug 'tpope/vim-repeat'
 
 Plug 'tpope/vim-abolish'
 
+Plug 'machakann/vim-highlightedyank'
+
 " Requires: cargo install rustfmt
 Plug 'sbdchd/neoformat'
 Plug 'rhysd/vim-clang-format'
@@ -94,12 +96,8 @@ map <F2> :NERDTreeToggle<CR>
 imap <F2> :NERDTreeToggle<CR>
 let NERDTreeSortOrder=['include/$', 'src/$']
 
-" " goyo
-" map <F9> :Goyo<CR>
-" function! s:goyo_enter()
-"     :set nonumber norelativenumber
-"     :autocmd! numbertoggle
-" endfunction
+" highlightedyank
+let g:highlightedyank_highlight_duration = 100
 
 " " vim-commentary
 " autocmd FileType coq setlocal commentstring=(*\ %s\ *)
