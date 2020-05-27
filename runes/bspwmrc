@@ -60,7 +60,8 @@ bspc rule -a Steam desktop=^3 state=pseudo_tiled
 bspc rule -a Zathura state=tiled
 bspc rule -a Surf state=tiled
 bspc rule -a Wine state=pseudo_tiled
-bspc rule -a zoom desktop=^3
+bspc rule -a zoom state=pseudo_tiled desktop=^3
+bspc rule -a spotify state=pseudo_tiled rectangle=803x70+0+0
 bspc rule -a jetbrains-toolbox state=floating
 bspc rule -a jetbrains-idea state=pseudo_tiled
 

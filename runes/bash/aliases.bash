@@ -55,11 +55,17 @@ alias cb='cargo build'
 alias crr='cargo run --release'
 alias cbr='cargo build --release'
 alias cch='cargo check'
+alias ct='cargo test'
+
 alias cnr='cargo +nightly run'
 alias cnb='cargo +nightly build'
 alias cnrr='cargo +nightly run --release'
 alias cnbr='cargo +nightly build --release'
 alias cnch='cargo +nightly check'
+alias cnt='cargo +nightly test'
+
+alias ca=cargo
+alias cn='cargo +nightly'
 
 alias bashrc="vim $SPELLS/runes/bash"
 alias vimrc="vim ~/.config/nvim/init.vim"
