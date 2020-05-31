@@ -1,10 +1,18 @@
 #!/bin/bash
 
-function sync {
-    localRemote="$(git log --format=%H -1)" # latest known commit
-    echo -en "\033[32m"; git add --verbose --all; echo -en "\033[0m"
+function symlinks() {
+    bash ../learnSpells.sh
+    bash ../castRunes.sh
+    bash ../synclinks.sh
+}
 
-    if ! git diff-index --quiet HEAD -- ; then
+function sync() {
+    localRemote="$(git log --format=%H -1)" # latest known commit
+    echo -en "\033[32m"
+    git add --verbose --all
+    echo -en "\033[0m"
+
+    if ! git diff-index --quiet HEAD --; then
         hasCommits="true"
         git commit -m"Backup spell book | $(uname -n)@$(date '+%d/%m/%y %H:%M')"
     elif [ -n "$(git rev-list '@{u}'..)" ]; then
@@ -22,6 +30,7 @@ function sync {
     echo -en "\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
     if ! [ "$fetch" = "0" ]; then
         echo -e "\033[31mCan't access github\033[0m"
+        symlinks
         return 2
     fi
 
@@ -32,15 +41,13 @@ function sync {
     fi
 
     if [ -n "$hasCommits" ] && [ -n "$hasPulls" ]; then
-        while true
-        do
+        while true; do
             git pull --rebase
-            git status | grep "rebase in progress" > /dev/null || break
+            git status | grep "rebase in progress" >/dev/null || break
             echo -e "\033[31mConflicts emerged, please resolve them\033[0m"
             read -r
             rebase=1
-            for file in $(git status --short | grep UU | cut -d" " -f2)
-            do
+            for file in $(git status --short | grep UU | cut -d" " -f2); do
                 nvim "$file" || vim "$file"
             done
             git add -A
@@ -55,22 +62,18 @@ function sync {
     elif [ -n "$hasPulls" ]; then
         git pull --rebase
     fi
-
-    bash ../learnSpells.sh
-    bash ../castRunes.sh
-    bash ../synclinks.sh
+    symlinks
     return 0
 }
 farrow="=======> "
 barrow=" <======="
 cd "$(dirname "$(realpath "$0")")" || exit 1
-echo -e       "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
+echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
 if sync; then
     echo -e "\033[33m\n${farrow}Back me up and save me${barrow}\033[0m"
 else
     echo -e "\033[31m\n${farrow}     Can't backup     ${barrow}\033[0m"
 fi
-if [ "$1" == '--hold' ]
-then
+if [ "$1" == '--hold' ]; then
     read -n 1 -s -r
 fi
