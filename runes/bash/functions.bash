@@ -291,7 +291,7 @@ any() {
 }
 
 insist() {
-    until "$@"; do :; done
+    until eval "$@"; do :; done
 }
 
 nest() {
@@ -346,4 +346,13 @@ sleep_now() {
     ssh mirrodin python bulb/dimmer.py 0 & disown
     sleep "${1:-40m}"
     sctl suspend
+}
+
+die_now() {
+    { while :; do
+        sleep 1m
+        m vd
+    done; } & disown
+    ssh mirrodin python bulb/dimmer.py 0 & disown
+    shutdown +"${1:-40}"
 }
