@@ -83,6 +83,7 @@ let base16colorspace=256  " Access colors present in 256 colorspace
 let ayucolor="dark"
 "colorscheme ayu
 colorscheme base16-default-dark
+"colorscheme base16-default-light
 
 if has('nvim')
     command! Bt :highlight Normal ctermbg=None | :highlight Normal guibg=None

@@ -145,8 +145,7 @@ queue_v2() {
             http*)
                 [ "$(youtube-dl --max-downloads 1 --get-title "$1" --quiet | wc -l)" -ne 1 ] &&
                     notify-send 'Invalid link:' "$1" -a "$(basename "$0")" &&
-                    echo "[$(date)] $1" >>/tmp/.queue_fails &&
-                    return 1
+                    echo "[$(date)] $1" >>/tmp/.queue_fails
 
                 targets+=("$1")
                 ;;

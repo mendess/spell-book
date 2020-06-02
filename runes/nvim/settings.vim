@@ -10,7 +10,7 @@ if exists('$SHELL')
 else
     set shell=/bin/sh
 endif
-set foldmethod=indent
+" set foldmethod=indent
 set nofoldenable
 
 syntax on

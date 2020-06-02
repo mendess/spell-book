@@ -1,8 +1,11 @@
 #!/bin/bash
 
 function symlinks() {
+    echo
     bash ../learnSpells.sh
+    echo
     bash ../castRunes.sh
+    echo
     bash ../synclinks.sh
 }
 
