@@ -5,7 +5,7 @@
 games="$(grep -n "name" ~/.local/share/Steam/steamapps/*.acf ~/.hdd/SteamLibrary/steamapps/*acf \
     | sed -E 's/.*appmanifest_([0-9]+)\.acf.*"name".*"([^"]+)"/\1\t\2/g')"
 
-id="$(echo "$games" | sed -r 's/[0-9]+\s//' | grep -v -i -E 'proton|redistributable' | \
+name="$(echo "$games" | sed -r 's/[0-9]+\s//' | grep -v -i -E 'proton|redistributable' | \
     dmenu \
     -i \
     -l "$(echo "$games" | wc -l)" \
@@ -15,4 +15,4 @@ id="$(echo "$games" | sed -r 's/[0-9]+\s//' | grep -v -i -E 'proton|redistributa
     -sb "#3e4e69" \
     -sf "#ffffff")"
 
-echo "$games" | grep "$id\t" | awk -F'\t' '{print $1}' | xargs -I{} steam 'steam://run/{}'
+echo "$games" | grep "$name" | awk -F'\t' '{print $1}' | xargs -I{} steam 'steam://run/{}'
