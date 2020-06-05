@@ -38,5 +38,33 @@ function SetTexOpts()
     inoremap ,beg \begin{<++>}<Esc>yyp0fbcwend<Esc>O<Tab><++><Esc>k0<Esc>/<++><Enter>"_c4l
 endfunction
 
+function! BlogPostModified()
+    if &modified
+        let l:save_cursor = getpos(".")
+        call cursor(1, 1)
+        let l:st = search('+++', 'c')
+        let l:end = search('+++')
+        let l:title_line = search('^#[^#]')
+        let l:title = getline(l:title_line)
+        let l:title = substitute(l:title, "^#[ ]*", "", "")
+        let l:now = strftime('%F')
+        if l:st != 1
+            call append(0, ['+++',
+                        \ 'title =',
+                        \ 'date = ',
+                        \ '#[extra]',
+                        \ '#background = ""',
+                        \ '+++'])
+            let l:st = 1
+            let l:end = 6
+        endif
+        keepjumps exe l:st . ',' . l:end . 's/^title =.*/title = "' . l:title . '"/'
+        keepjumps exe l:st . ',' . l:end . 's/^date =.*/date = ' . l:now . '/'
+        call histdel('search', -1)
+        call setpos('.', save_cursor)
+    endif
+endfun
+autocmd BufWritePre content/*.md call BlogPostModified()
+
 autocmd FileType coq inoremap ,for ∀
 autocmd FileType coq inoremap ,utf8 Require<Space>Import<Space>Coq.Unicode.Utf8_core.
