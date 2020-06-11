@@ -15,6 +15,9 @@ nnoremap <M-J> <C-w>-
 nnoremap <M-H> <C-w><
 nnoremap <M-L> <C-w>>
 
+" Fix Y
+nnoremap Y y$
+
 " Ctrl+S to save
 map <C-S> :w<CR>
 imap <C-S> <Esc>:w<CR>a

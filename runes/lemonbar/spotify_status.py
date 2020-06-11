@@ -32,6 +32,11 @@ parser.add_argument(
     metavar='the index of the font to use to display the playpause indicator',
     dest='play_pause_font'
 )
+parser.add_argument(
+    '-s',
+    dest='short',
+    action='store_true'
+)
 
 
 args = parser.parse_args()
@@ -44,7 +49,7 @@ def fix_string(string):
         return string.encode('utf-8')
 
 # Default parameters
-trunclen = 22 if path.exists("/tmp/.bloat") else None
+trunclen = 22 if args.short else None
 if trunclen:
     output = fix_string("{song} {play_pause}")
 else:

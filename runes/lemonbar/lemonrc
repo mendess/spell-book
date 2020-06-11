@@ -12,7 +12,7 @@ raw: true
 align: left
 multi_monitor: true
 
-> PID
+> Uptime
 command: echo "$(uptime -p)"
 interval: 1800
 align: left
@@ -28,6 +28,20 @@ scroll-up: m vu
 scroll-down: m vd
 underline: #e66300
 signal: true
+layer: 0
+
+> Music
+command: ~/.config/lemonbar/media small
+interval: 120
+alignment: middle
+left-click: m prev-file
+middle-click: m pause
+right-click: m next-file
+scroll-up: m vu
+scroll-down: m vd
+underline: #e66300
+signal: true
+layer: 1
 
 > Spotify
 command: python3 ~/.config/lemonbar/spotify_status.py -p ">,||"
@@ -38,44 +52,71 @@ right-click: m next-file
 interval: 1
 alignment: middle
 signal: true
+layer: 0
+
+> Spotify
+command: python3 ~/.config/lemonbar/spotify_status.py -p ">,||" -s
+underline: #1db954
+left-click: m prev-file
+middle-click: m pause
+right-click: m next-file
+interval: 1
+alignment: middle
+signal: true
+layer: 1
 
 > Brightness
 command: ~/.config/lemonbar/brightness
-interval: 10
 alignment: right
 signal: true
+interval: 1
+layer: 1
 
 > Disk
 command: ~/.config/lemonbar/disk
 alignment: right
-interval: 10
 signal: true
+layer: 1
 
 > Iface
 command: ~/.config/lemonbar/iface
 alignment: right
-interval: 10
 fg:#0f0
 signal: true
+layer: 1
 
 > Wifi
 command: ~/.config/lemonbar/wifi
 align: right
 signal: true
+interval: 1
+layer: 1
 
 > Load Average
 cmd: ~/.config/lemonbar/load_average
 align: right
 signal: true
+interval: 1
+layer: 1
 
 > Batery
 cmd: ~/.config/lemonbar/battery
 align: right
+interval: 10
+
+> Date command
+command: date
+interval: 1
+alignment: right
 signal: true
+underline: #0a6cf5
+layer: 1
 
 > Date command
 command: date +"%d/%m %H:%M"
 interval: 10
 alignment: right
+signal: true
 underline: #0a6cf5
+layer: 0
 

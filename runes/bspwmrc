@@ -78,7 +78,7 @@ fi
 # fi
 #[ -e "$PANEL_FIFO" ] && bspc subscribe report > "$PANEL_FIFO" &
 pgrep -x lemon && killall lemon
-[ -e ~/.config/lemonbar/lemon ] ||
+! [ -e ~/.config/lemonbar/lemon ] ||
     [ ~/.config/lemonbar/lemon.rs -ot ~/.config/lemonbar/lemon ] ||
     { rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon &&
         echo "compiled" | tee /tmp/compiled_bar; }

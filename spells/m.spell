@@ -138,6 +138,9 @@ queue_v2() {
             -m | --no-move)
                 no_move=1
                 ;;
+            -s | --search)
+                targets+=("ytdl://ytsearch:$1")
+                ;;
             -*)
                 echo "Invalid option: '$1'"
                 return 1

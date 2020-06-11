@@ -75,7 +75,7 @@ bindsym $mod+Left            exec --no-startup-id m back 5
 bindsym $mod+Insert          exec --no-startup-id m current --notify
 bindsym $mod+Delete          exec --no-startup-id m add-cat-to-current
 bindsym $mod+BackSpace       exec --no-startup-id sh -c "echo quit | socat - /tmp/mpvalarm"
-bindsym $mod+comma           exec --no-startup-id show_full_bar
+bindsym $mod+comma           exec --no-startup-id pkill -11 -x lemon
 
 ####### NAVIGATION
 bindsym $mod+j         focus down

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-[ -e /tmp/.bloat ] || exit 0
-
 [ -e /sys/class/backlight/intel_backlight ] || exit 0
 
 bright=$(cat /sys/class/backlight/intel_backlight/brightness)

@@ -137,7 +137,7 @@ super + BackSpace
   	echo quit | socat - /tmp/mpvalarm
 
 super + comma
-  	show_full_bar
+    pkill -11 -x lemon
 
 super + z
     $TERMINAL -e bash -c "current_lyrics && read -s -r -n 1"

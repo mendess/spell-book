@@ -83,6 +83,76 @@ enum Content<'a> {
     },
 }
 
+impl<'a> Content<'a> {
+    #![allow(dead_code)]
+    fn cmd(&self) -> &str {
+        match self {
+            Self::Static(s) => s,
+            Self::Cmd { cmd, .. } => cmd,
+            Self::Persistent { cmd, .. } => cmd,
+        }
+    }
+
+    fn update(&self) {
+        if let Self::Cmd { cmd, last_run } = self {
+            for m in 0..last_run.len() {
+                match Command::new("sh")
+                    .args(&["-c", cmd])
+                    .env("MONITOR", m.to_string())
+                    .stdout(Stdio::piped())
+                    .stderr(Stdio::inherit())
+                    .spawn()
+                    .and_then(|c| c.wait_with_output())
+                    .and_then(|o| {
+                        if o.status.success() {
+                            Ok(o.stdout)
+                        } else {
+                            Err(io::Error::from(io::ErrorKind::InvalidInput))
+                        }
+                    })
+                    .map_err(|e| e.to_string())
+                    .and_then(|o| String::from_utf8(o).map_err(|e| e.to_string()))
+                    .map(|mut l| {
+                        if let Some(i) = l.find('\n') {
+                            l.truncate(i);
+                            l
+                        } else {
+                            l
+                        }
+                    }) {
+                    Ok(o) => *(last_run.index(m).write().unwrap()) = o,
+                    Err(e) => *(last_run.index(m).write().unwrap()) = e,
+                }
+            }
+        }
+    }
+
+    fn is_empty(&self, monitor: usize) -> bool {
+        match self {
+            Self::Static(s) => s.is_empty(),
+            Self::Cmd { last_run, .. } => last_run[monitor].read().unwrap().is_empty(),
+            Self::Persistent { last_run, .. } => last_run[monitor].read().unwrap().is_empty(),
+        }
+    }
+
+    fn replicate_to_mon(mut self, n_monitor: usize) -> Self {
+        match &mut self {
+            Self::Cmd { last_run, .. } => {
+                while last_run.len() < n_monitor {
+                    last_run.push(RwLock::new(String::new()));
+                }
+            }
+            Self::Persistent { last_run, .. } => {
+                while last_run.len() < n_monitor {
+                    last_run.push(Arc::new(RwLock::new(String::new())));
+                }
+            }
+            _ => (),
+        }
+        self
+    }
+}
+
 #[derive(Debug)]
 enum OneOrMore<T> {
     One(T),
@@ -156,6 +226,50 @@ impl<'a, T> Iterator for Iter<'a, T> {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
+enum Layer {
+    All,
+    L(u16),
+}
+
+impl PartialEq for Layer {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::All, _) => true,
+            (_, Self::All) => true,
+            (Self::L(l1), Self::L(l2)) => l1 == l2,
+        }
+    }
+}
+
+impl Layer {
+    fn next(&mut self, bound: u16) {
+        *self = match self {
+            Self::L(n) => Self::L((*n + 1) % bound),
+            Self::All => panic!("Can't next an all layer"),
+        }
+    }
+}
+
+impl Default for Layer {
+    fn default() -> Self {
+        Self::All
+    }
+}
+
+impl FromStr for Layer {
+    type Err = &'static str;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "all" | "All" => Ok(Self::All),
+            s => match s.parse::<u16>() {
+                Ok(n) => Ok(Self::L(n)),
+                _ => Err("Invalid layer"),
+            },
+        }
+    }
+}
+
 #[derive(Debug)]
 struct DisplayContent<'a, 'b: 'a>(&'b Content<'a>, usize);
 
@@ -171,67 +285,6 @@ impl<'a, 'b> Display for DisplayContent<'a, 'b> {
     }
 }
 
-impl<'a> Content<'a> {
-    fn update(&self) {
-        if let Self::Cmd { cmd, last_run } = self {
-            for m in 0..last_run.len() {
-                match Command::new("sh")
-                    .args(&["-c", cmd])
-                    .env("MONITOR", m.to_string())
-                    .stdout(Stdio::piped())
-                    .stderr(Stdio::inherit())
-                    .spawn()
-                    .and_then(|c| c.wait_with_output())
-                    .and_then(|o| {
-                        if o.status.success() {
-                            Ok(o.stdout)
-                        } else {
-                            Err(io::Error::from(io::ErrorKind::InvalidInput))
-                        }
-                    })
-                    .map_err(|e| e.to_string())
-                    .and_then(|o| String::from_utf8(o).map_err(|e| e.to_string()))
-                    .map(|mut l| {
-                        if let Some(i) = l.find('\n') {
-                            l.truncate(i);
-                            l
-                        } else {
-                            l
-                        }
-                    }) {
-                    Ok(o) => *(last_run.index(m).write().unwrap()) = o,
-                    Err(e) => *(last_run.index(m).write().unwrap()) = e,
-                }
-            }
-        }
-    }
-
-    fn is_empty(&self, monitor: usize) -> bool {
-        match self {
-            Self::Static(s) => s.is_empty(),
-            Self::Cmd { last_run, .. } => last_run[monitor].read().unwrap().is_empty(),
-            Self::Persistent { last_run, .. } => last_run[monitor].read().unwrap().is_empty(),
-        }
-    }
-
-    fn replicate_to_mon(mut self, n_monitor: usize) -> Self {
-        match &mut self {
-            Self::Cmd { last_run, .. } => {
-                while last_run.len() < n_monitor {
-                    last_run.push(RwLock::new(String::new()));
-                }
-            }
-            Self::Persistent { last_run, .. } => {
-                while last_run.len() < n_monitor {
-                    last_run.push(Arc::new(RwLock::new(String::new())));
-                }
-            }
-            _ => (),
-        }
-        self
-    }
-}
-
 #[derive(Debug)]
 struct Block<'a> {
     bg: Option<Color<'a>>,
@@ -241,11 +294,11 @@ struct Block<'a> {
     offset: Option<&'a str>, // u32
     actions: [Option<&'a str>; 5],
     content: Content<'a>,
-    interval: Duration,
-    timer: RwLock<Duration>,
+    interval: Option<(Duration, RwLock<Duration>)>,
     alignment: Alignment,
     raw: bool,
     signal: bool,
+    layer: Layer,
 }
 
 impl<'a> Block<'a> {
@@ -288,6 +341,7 @@ impl<'a> Block<'a> {
                 "multi_monitor" => {
                     block_b.multi_monitor(value.parse().map_err(|_| (opt, "Invalid boolean"))?)
                 }
+                "layer" => block_b.layer(value.parse().map_err(|e| (opt, e))?),
                 s => {
                     eprintln!("Warning: unrecognised option '{}', skipping", s);
                     block_b
@@ -371,6 +425,7 @@ struct BlockBuilder<'a> {
     raw: bool,
     signal: bool,
     multi_monitor: bool,
+    layer: Layer,
 }
 
 impl<'a> BlockBuilder<'a> {
@@ -475,6 +530,10 @@ impl<'a> BlockBuilder<'a> {
         }
     }
 
+    fn layer(self, layer: Layer) -> Self {
+        Self { layer, ..self }
+    }
+
     fn build(self, n_monitor: usize) -> Result<Block<'a>, &'static str> {
         let n_monitor = if self.multi_monitor { n_monitor } else { 1 };
         if let Some(content) = self.content {
@@ -486,12 +545,12 @@ impl<'a> BlockBuilder<'a> {
                     font: self.font,
                     offset: self.offset,
                     content: content.replicate_to_mon(n_monitor),
-                    interval: self.interval.unwrap_or_else(|| Duration::from_secs(10)),
+                    interval: self.interval.map(|i| (i, Default::default())),
                     actions: self.actions,
                     alignment,
-                    timer: Default::default(),
                     raw: self.raw,
                     signal: self.signal,
+                    layer: self.layer,
                 })
             } else {
                 Err("No alignment defined")
@@ -561,6 +620,7 @@ struct GlobalConfig<'a> {
     underline: Option<Color<'a>>,
     separator: Option<&'a str>,
     tray: bool,
+    n_layers: u16,
 }
 
 impl<'a> GlobalConfig<'a> {
@@ -710,14 +770,18 @@ fn main() -> io::Result<()> {
 fn parse(config: &str, monitor: usize) -> Result<(GlobalConfig, Config), ParseError> {
     let mut blocks = HashMap::<Alignment, Vec<Block>>::with_capacity(3);
     let mut blocks_iter = config.split("\n>");
-    let global_config = blocks_iter
+    let mut global_config = blocks_iter
         .next()
         .map(GlobalConfig::try_from)
         .unwrap_or_else(|| Ok(Default::default()))?;
     for block in blocks_iter {
-        let b: Block = Block::parse(block, monitor)?;
+        let b = Block::parse(block, monitor)?;
+        if let Layer::L(n) = b.layer {
+            global_config.n_layers = global_config.n_layers.max(n);
+        }
         blocks.entry(b.alignment).or_default().push(b);
     }
+    global_config.n_layers += 1;
     Ok((global_config, blocks))
 }
 
@@ -774,18 +838,29 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
         }
     }
     let config = Arc::new(config);
+    let layer = Arc::new(RwLock::new(Layer::L(0)));
     let config_ref = Arc::downgrade(&config);
+    let layer_ref = Arc::downgrade(&layer);
     let ch = sx.clone();
     // Timer blocks
     let loop_t = thread::spawn(move || {
-        while let Some(c) = config_ref.upgrade() {
-            for block in c.values().flatten() {
-                let mut b_timer = block.timer.write().unwrap();
-                match b_timer.checked_sub(Duration::from_secs(1)) {
-                    Some(d) => *b_timer = d,
-                    None => {
-                        block.content.update();
-                        *b_timer = block.interval;
+        while let (Some(c), Some(layer_arc)) = (config_ref.upgrade(), layer_ref.upgrade()) {
+            for block in c
+                .values()
+                .flatten()
+                .filter(|b| b.layer == *layer_arc.read().unwrap())
+            {
+                if let Some((interval, mut b_timer)) = block
+                    .interval
+                    .as_ref()
+                    .map(|(i, l)| (i, l.write().unwrap()))
+                {
+                    match b_timer.checked_sub(Duration::from_secs(1)) {
+                        Some(d) => *b_timer = d,
+                        None => {
+                            block.content.update();
+                            *b_timer = *interval;
+                        }
                     }
                 }
             }
@@ -793,14 +868,14 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
             thread::sleep(Duration::from_secs(1))
         }
     });
-    let config_ref = Arc::downgrade(&config);
     if global_config.tray {
         trayer(&global_config, sx.clone());
     }
+    let config_ref = Arc::downgrade(&config);
     // Signal Capturing thread
     let signal_thread = thread::spawn(move || loop {
         unsafe {
-            signal(10, handle);
+            signal(10, force_update);
         };
         thread::park();
         if let Some(c) = config_ref.upgrade() {
@@ -808,9 +883,26 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
                 b.content.update();
             });
             sx.send(Event::Update).unwrap();
+        } else {
+            break;
         }
     });
     unsafe { SIGNAL_THREAD = Some(signal_thread.thread().clone()) };
+    let layer_ref = Arc::downgrade(&layer);
+    let n_layers = global_config.n_layers;
+    let layer_thread = thread::spawn(move || loop {
+        if let Some(layer_arc) = layer_ref.upgrade() {
+            unsafe {
+                signal(11, change_layer);
+            };
+            thread::park();
+            layer_arc.write().unwrap().next(n_layers);
+            force_update(10);
+        } else {
+            break;
+        }
+    });
+    unsafe { LAYER_THREAD = Some(layer_thread.thread().clone()) };
     let mut tray_offset = 0;
     for e in event_loop {
         if let Event::TrayResize(o) = e {
@@ -818,9 +910,10 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
         }
         for (i, le_in) in lemon_inputs.iter_mut().enumerate() {
             let line = if i == 0 {
-                build_line(&global_config, &config, tray_offset, i)
+                // trayer goes on first screen
+                build_line(&global_config, &config, &layer, tray_offset, i)
             } else {
-                build_line(&global_config, &config, 0, i)
+                build_line(&global_config, &config, &layer, 0, i)
             };
             le_in
                 .write_all(line.as_bytes())
@@ -830,11 +923,13 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
     drop(config);
     loop_t.join().unwrap();
     signal_thread.join().unwrap();
+    layer_thread.join().unwrap();
 }
 
 fn build_line(
     global_config: &GlobalConfig,
     config: &Config,
+    layer: &RwLock<Layer>,
     tray_offset: u32,
     monitor: usize,
 ) -> String {
@@ -843,6 +938,7 @@ fn build_line(
         blocks
             .iter()
             .filter(|b| !b.content.is_empty(monitor))
+            .filter(|b| b.layer == *layer.read().unwrap())
             .map(|b| DisplayBlock(b, monitor))
             .map(|db| db.to_string())
             .zip(std::iter::successors(Some(Some("")), |_| {
@@ -870,10 +966,18 @@ fn build_line(
 }
 
 static mut SIGNAL_THREAD: Option<Thread> = None;
+static mut LAYER_THREAD: Option<Thread> = None;
 
-extern "C" fn handle(x: i32) -> i32 {
+extern "C" fn force_update(x: i32) -> i32 {
     unsafe {
         SIGNAL_THREAD.as_ref().map(|s| s.unpark());
+    }
+    x
+}
+
+extern "C" fn change_layer(x: i32) -> i32 {
+    unsafe {
+        LAYER_THREAD.as_ref().map(|s| s.unpark());
     }
     x
 }

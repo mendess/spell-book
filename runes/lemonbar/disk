@@ -17,8 +17,6 @@
 #DIR="${BLOCK_INSTANCE:-$HOME}"
 #ALERT_LOW="${1:-10}" # color will turn red under this value (default: 10%)
 
-[ -e /tmp/.bloat ] || exit 0
-
 free_space () {
     df -h \
         | grep '^/dev' \
