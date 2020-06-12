@@ -111,6 +111,7 @@ alias matrixmap='sudo nmap -v -sS -O'
 alias alert='notify-send -i "$([ $? = 0 ] && echo "/usr/share/icons/Adwaita/48x48/emblems/emblem-ok-symbolic.symbolic.png" || echo "/usr/share/icons/Adwaita/48x48/actions/edit-delete-symbolic.symbolic.png")" "$(history 1 | sed '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 #shellcheck disable=2142
 alias songs='awk -F'\''\t'\'' '\''{print $1}'\'' $PLAYLIST'
+alias which='command -V'
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'

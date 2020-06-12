@@ -247,10 +247,6 @@ nospace() {
     done
 }
 
-which() {
-    declare -f | command which --read-functions "$@"
-}
-
 xdofast() {
     echo "alias x='xdotool'"
     echo "alias xk='xdotool key'"
