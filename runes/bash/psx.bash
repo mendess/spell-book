@@ -13,7 +13,10 @@ __git_branch() {
         [[ -d ../../.git ]] ||
         [[ -d ../../../.git ]] ||
         [[ -d ../../../../.git ]]; then
-        git symbolic-ref HEAD --short | sed -r 's/^(.{10}).*/\1+/g'
+        if [ -n "$SSH_CLIENT" ]; then
+            printf '::'
+        fi
+        git symbolic-ref HEAD --short 2>/dev/null | sed -r 's/^(.{10}).*/\1+/g'
     fi
     return "$1"
 }
@@ -72,7 +75,7 @@ if [[ "$(tty)" == *tty* ]] && [ -f /sys/class/power_supply/BAT0/capacity ]; then
     PS1_ELEMENTS+=("$BATTERY")
 fi
 if [ -n "$SSH_CLIENT" ]; then
-    PS1_ELEMENTS+=("$SSH_PROMPT" '::')
+    PS1_ELEMENTS+=("$SSH_PROMPT")
 fi
 PS1_ELEMENTS+=(
     "$G_BRANCH" '::<' "$(__c "$YELLOW" "$T_PATH")" "$(__c "$RED" "$EXIT_STATUS")" "> "
