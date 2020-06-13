@@ -126,18 +126,10 @@ clearswap() {
     sudo swapon "$drive"
 }
 
-vimbc() {
+vimbd() {
     vimb "$1" &
     disown
     exit
-}
-
-poolIP() {
-    docker inspect pgpool | jq '.[0].NetworkSettings.Networks.bridge.IPAddress' -r -e
-}
-
-discordStream() {
-    echo https://www.discordapp.com/channels/"$1"/"$2" | xclip -sel clip
 }
 
 svim() {
@@ -283,7 +275,7 @@ mpv_get() {
 }
 
 any() {
-    find . -maxdepth 1 | shuf -n 1
+    find "${1:-.}" -maxdepth 1 | shuf -n 1
 }
 
 insist() {
@@ -351,4 +343,8 @@ die_now() {
     done; } & disown
     ssh mirrodin python bulb/dimmer.py 0 & disown
     shutdown +"${1:-40}"
+}
+
+sshp() {
+    ssh "$1" '. $HOME/.bash_profile; '"${*:2}"
 }

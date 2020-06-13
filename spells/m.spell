@@ -139,6 +139,7 @@ queue_v2() {
                 no_move=1
                 ;;
             -s | --search)
+                shift
                 targets+=("ytdl://ytsearch:$1")
                 ;;
             -*)
