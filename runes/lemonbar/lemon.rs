@@ -15,7 +15,7 @@ use std::{
 };
 
 extern "C" {
-    fn signal(sig: i32, handler: extern "C" fn(i32) -> i32) -> extern "C" fn(i32) -> i32;
+    fn signal(sig: i32, handler: extern "C" fn(i32)) -> extern "C" fn(i32);
 }
 
 type ParseError<'a> = (&'a str, &'a str);
@@ -968,18 +968,16 @@ fn build_line(
 static mut SIGNAL_THREAD: Option<Thread> = None;
 static mut LAYER_THREAD: Option<Thread> = None;
 
-extern "C" fn force_update(x: i32) -> i32 {
+extern "C" fn force_update(_: i32) {
     unsafe {
         SIGNAL_THREAD.as_ref().map(|s| s.unpark());
     }
-    x
 }
 
-extern "C" fn change_layer(x: i32) -> i32 {
+extern "C" fn change_layer(_: i32) {
     unsafe {
         LAYER_THREAD.as_ref().map(|s| s.unpark());
     }
-    x
 }
 
 fn persistent_command(

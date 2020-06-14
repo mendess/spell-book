@@ -145,9 +145,16 @@ fi 2>&1 | color_picker -f
 
 echo "Setting:
 $files"
+#shellcheck disable=2046
 if [ "$wide" -gt 0 ]; then
-    echo "$files" | xargs feh --no-fehbg --bg-fill --no-xinerama
+    xwallpaper --zoom "$files"
 else
-    echo "$files" | xargs feh --no-fehbg --bg-fill
+    set -- $(xrandr | grep ' connected' | cut -d' ' -f1)
+    fs=()
+    for f in $files; do
+        fs+=(--output "$1" --zoom "$f")
+        shift
+    done
+    xwallpaper "${fs[@]}"
 fi
 wait

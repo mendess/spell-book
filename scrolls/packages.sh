@@ -76,6 +76,7 @@ xorg-xev
 xorg-xinit
 xorg-xrandr
 xorg-xsetroot
+xwallpaper
 xz
 youtube-dl
 zathura
