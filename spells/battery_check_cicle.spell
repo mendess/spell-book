@@ -3,6 +3,13 @@ if acpi 2>&1 | grep 'power_supply'
 then
     exit
 fi
+
+case $(hostname) in
+    tolaria)
+        exit
+        ;;
+esac
+
 while true;
 do
     battery_check
