@@ -32,7 +32,7 @@ import sys
 import colorsys
 count = 1
 outputs = 0
-last_colors = []
+last_colors = ["#FFFFFF", "#FFFFFF", "#FFFFFF"]
 last_line = ""
 last_last_line = ""
 for line in sys.stdin:
@@ -50,8 +50,7 @@ for line in sys.stdin:
         outputs += 1
         print(og_line)
     count += 1
-    if len(last_colors) > 0:
-        last_colors.pop(0)
+    last_colors.pop(0)
     last_colors.append(og_line)
 
 if outputs < 3:
@@ -147,11 +146,25 @@ echo "Setting:
 $files"
 #shellcheck disable=2046
 if [ "$wide" -gt 0 ]; then
+    echo "$files"
+    case "$files" in
+        http://* | https://*)
+            wget "$files" -O /tmp/"$(basename "$files")"
+            files="/tmp/$(basename "$files")"
+            ;;
+    esac
+    echo "$files"
     xwallpaper --zoom "$files"
 else
     set -- $(xrandr | grep ' connected' | cut -d' ' -f1)
     fs=()
     for f in $files; do
+        case "$f" in
+            http:// | https://)
+                wget "$f" -O /tmp/"$(basename "$f")"
+                f="$(basename "$f")"
+                ;;
+        esac
         fs+=(--output "$1" --zoom "$f")
         shift
     done

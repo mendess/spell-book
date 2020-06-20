@@ -1,0 +1,105 @@
+#!/bin/bash
+
+[ -n "$PICKER" ] || PICKER=dmenu
+
+# defaults
+case "$PICKER" in
+    fzf)
+        bottom=(--reverse)
+        ;;
+esac
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -b | --layout=default)
+            case "$PICKER" in
+                dmenu)
+                    bottom=(-b)
+                    ;;
+                fzf)
+                    bottom=()
+                    ;;
+            esac
+            ;;
+        -i)
+            casing=(-i)
+            ;;
+        -l|--height)
+            case "$PICKER" in
+                dmenu)
+                    lines=(-l "$2")
+                    ;;
+                fzf)
+                    lines=(--height "$(($2 + 2))")
+                    ;;
+            esac
+            shift
+            ;;
+        -p|--prompt)
+            case "$PICKER" in
+                dmenu)
+                    prompt=(-p "$2")
+                    ;;
+                fzf)
+                    prompt=(--prompt "$2> ")
+                    ;;
+            esac
+            shift
+            ;;
+        -nb)
+            case "$PICKER" in
+                dmenu)
+                    normal_bg=(-nb "$2")
+                    ;;
+                fzf)
+                    normal_bg=("--color=bg:$2")
+                    ;;
+            esac
+            shift
+            ;;
+        -nf)
+            case "$PICKER" in
+                dmenu)
+                    normal_fg=(-nf "$2")
+                    ;;
+                fzf)
+                    normal_fg=("--color=fg:$2")
+                    ;;
+            esac
+            shift
+            ;;
+        -sb)
+            case "$PICKER" in
+                dmenu)
+                    selected_bg=(-sb "$2")
+                    ;;
+                fzf)
+                    selected_bg=("--color=bg+:$2")
+                    ;;
+            esac
+            shift
+            ;;
+        -sf)
+            case "$PICKER" in
+                dmenu)
+                    selected_fg=(-sf "$2")
+                    ;;
+                fzf)
+                    selected_fg=("--color=fg+:$2")
+                    ;;
+            esac
+            shift
+            ;;
+    esac
+    shift
+done
+
+$PICKER \
+    "${bottom[@]}" \
+    "${casing[@]}" \
+    "${lines[@]}" \
+    "${prompt[@]}" \
+    "${normal_bg[@]}" \
+    "${normal_fg[@]}" \
+    "${selected_bg[@]}" \
+    "${selected_fg[@]}"
