@@ -8,7 +8,7 @@ spell_name() {
             v="${v%.spell}"
             ;;
         cantrips/*.sh)
-            v="${v%.sh}"
+            v="${1%.sh}"
             ;;
         *)
             echo "Error: Invalid spell name: $1"
