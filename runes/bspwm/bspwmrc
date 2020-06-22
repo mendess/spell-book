@@ -102,3 +102,4 @@ until systray_id=$(xdo id -N 'trayer'); do
     sleep 0.001
 done
 xdo below -t "$(xdo id -n root)" "$systray_id"
+pidof bspswallow || ~/.config/bspwm/bspswallow &

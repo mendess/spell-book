@@ -1,7 +1,6 @@
 #!/bin/bash
 
 spell_name() {
-    echo "s: $1"
     case "$1" in
         spells/*.spell)
             v="${1#spells/}"
@@ -49,7 +48,7 @@ for spell in spells/*.spell cantrips/*.sh; do
     spell_name="$(spell_name "$spell")"
     if ! [ -h ~/.local/bin/"$spell_name" ]; then
         echo -e "\033[35m\t$spell_name\033[0m"
-        # ln -s "$(pwd)/$spell" ~/.local/bin/"$spell_name"
+        ln -s "$(pwd)/$spell" ~/.local/bin/"$spell_name"
     fi
 done
 chmod +x spells/*.spell

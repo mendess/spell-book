@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# https://github.com/JopStro/bspswallow
+# acc23a4
+
+# Get class of a wid
+get_class() {
+    id=$1
+    if [ -z "$id" ]; then
+        echo ""
+    else
+        xprop -id "$id" | sed -n '/WM_CLASS\|WM_COMMAND/s/.*"\(.*\)".*/\1/p'
+    fi
+}
+
+terminals="Alacritty"
+noswallow="$terminals
+
+"
+
+swallow() {
+    addedtodesktop=$2
+    lasttermdesktop=$(bspc query -D -n last)
+
+    swallower_id=$1
+    swallowing_id=$(bspc query -N -n last)
+
+    if [ "$addedtodesktop" = "$lasttermdesktop" ]; then
+        echo "$noswallow" | grep "^$(get_class "$swallower_id")$" && return
+        echo "$terminals" | grep "^$(get_class "$swallowing_id")$" || return
+        echo "$swallower_id $swallowing_id" >>/tmp/swallow_ids
+        bspc node "$swallowing_id" --flag hidden=on
+    fi
+}
+
+spit() {
+    spitter_id=$1
+    spitterdesktop=$2
+    grep "^$spitter_id" /tmp/swallow_ids || return
+    spitting_id=$(grep "^$spitter_id" /tmp/swallow_ids | head -n1 | awk '{print $2}')
+
+    bspc node "$spitting_id" --flag hidden=off
+
+    termdesktop=$(bspc query -D -n "$spitting_id")
+    [ "$termdesktop" = "$spitterdesktop" ] ||
+        bspc node "$spitting_id" -d "$spitterdesktop"
+
+    bspc node "$spitting_id" -f
+    sed -i "/^$spitter_id/d" /tmp/swallow_ids
+}
+
+bspc subscribe node_add node_remove | while read -r event; do
+    case $(echo "$event" | awk '{ print $1 }') in
+        node_add)
+            swallow $(echo "$event" | awk '{print $5 " " $3}')
+            ;;
+        node_remove)
+            spit $(echo "$event" | awk '{print $4 " " $3}')
+            ;;
+    esac
+done

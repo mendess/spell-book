@@ -19,20 +19,18 @@ bind-key n next-unread
 bind-key N prev-unread
 bind-key D pb-download
 bind-key U show-urls
-#bind-key x pb-delete
 
-color listnormal cyan default
-color listfocus yellow default bold
-color listnormal_unread blue default
-color listfocus_unread yellow default bold
-color info red black bold
-color article cyan default
+color   listnormal          cyan     default
+color   listfocus           yellow   default
+color   listnormal_unread   blue     default
+color   listfocus_unread    yellow   default
+color   info                red      black
+color   article             white    default
 
-browser surf
+browser vimb
 macro , open-in-browser
-macro v set browser "run_disown mpv"; open-in-browser ; set browser surf
-macro y set browser "xclip -sel clip <<<" ; open-in-browser ; set browser surf
-macro x set browser "del_rss_feed"; open-in-browser ; set browser surf
-macro f set browser "firefox"; open-in-browser ; set browser surf
+macro v set browser "run_disown mpv"; open-in-browser ; set browser vimb
+macro y set browser "xclip -sel clip <<<" ; open-in-browser ; set browser vimb
+macro x set browser "del_rss_feed"; open-in-browser ; set browser vimb
 macro i set show-read-feeds no
 macro I set show-read-feeds yes
