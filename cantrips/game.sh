@@ -19,4 +19,3 @@ name="$(echo "$games" | sed -r 's/[0-9]+\s//' | grep -v -i -E 'proton|redistribu
 
 [ -n "$name" ] || exit
 echo "$games" | grep "$name" | awk -F'\t' '{print $1}' | xargs -I{} steam 'steam://run/{}'
-killall steam

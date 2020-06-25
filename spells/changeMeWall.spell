@@ -144,30 +144,10 @@ fi 2>&1 | color_picker -f
 
 echo "Setting:
 $files"
-#shellcheck disable=2046
+
 if [ "$wide" -gt 0 ]; then
-    echo "$files"
-    case "$files" in
-        http://* | https://*)
-            wget "$files" -O /tmp/"$(basename "$files")"
-            files="/tmp/$(basename "$files")"
-            ;;
-    esac
-    echo "$files"
-    xwallpaper --zoom "$files"
+    echo "$files" | xargs feh --no-fehbg --bg-fill --no-xinerama
 else
-    set -- $(xrandr | grep ' connected' | cut -d' ' -f1)
-    fs=()
-    for f in $files; do
-        case "$f" in
-            http:// | https://)
-                wget "$f" -O /tmp/"$(basename "$f")"
-                f="$(basename "$f")"
-                ;;
-        esac
-        fs+=(--output "$1" --zoom "$f")
-        shift
-    done
-    xwallpaper "${fs[@]}"
+    echo "$files" | xargs feh --no-fehbg --bg-fill
 fi
 wait

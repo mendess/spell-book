@@ -1,3 +1,6 @@
+#super + shift + minus
+#    ~/.local/bin/cpd.sh
+
 super + Return
   	$TERMINAL
 
@@ -163,6 +166,9 @@ super + control + BackSpace
 
 super + Pause
     systemctl suspend
+
+super + shift + i
+    "$BROWSER" 'https://github.com/issues?q=is%3Aopen+user%3Amendess'
 
 ###### bspwm
 super + shift + space

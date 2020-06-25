@@ -73,6 +73,8 @@ Plug 'rust-lang/rust.vim'
 
 Plug 'godlygeek/tabular'
 
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
 call plug#end()
 
 """ PLUGIN CONFIGS

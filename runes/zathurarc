@@ -6,3 +6,4 @@ map I recolor
 set recolor-lightcolor "#181A1C"
 map b toggle_statusbar
 map B toggle_statusbar
+map <Space> navigate next

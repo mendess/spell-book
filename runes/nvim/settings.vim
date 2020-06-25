@@ -80,8 +80,6 @@ iabbrev Flase False
 iabbrev slef self
 iabbrev Slef Self
 iabbrev cosnt const
-autocmd! FileType c iabbrev use #include <
-autocmd! FileType cpp iabbrev use #include <
 
 if has("gui_running")
     set tb=
@@ -98,3 +96,5 @@ set showcmd
 if has('nvim')
     set pumblend=15
 endif
+
+set mouse=n

@@ -301,7 +301,11 @@ lyrics() {
 fcd() {
     local dir
     for i in {0..64}; do
-        dir="$(find . -maxdepth "$i" -type d | grep -i "$*" | head -1)"
+        printf "depth: %d" $i
+        dir="$(find -L . -maxdepth "$i" -type d ! -path './.*' |
+            grep -i "$*" |
+            head -1)"
+        printf "\r\e[K"
         if [ -n "$dir" ]; then
             cd "$dir" || continue
             break

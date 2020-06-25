@@ -26,6 +26,7 @@ color   listnormal_unread   blue     default
 color   listfocus_unread    yellow   default
 color   info                red      black
 color   article             white    default
+feedlist-format "%3U %t %S"
 
 browser vimb
 macro , open-in-browser
