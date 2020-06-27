@@ -33,7 +33,7 @@
 #define CENTER_OFFSET_X 0
 
 /* Gravity step, override from `smooth_parameters.glsl` */
-#request setgravitystep 2.0
+#request setgravitystep 4.0
 
 /* Smoothing factor, override from `smooth_parameters.glsl` */
 #request setsmoothfactor 0.02

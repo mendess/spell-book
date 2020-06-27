@@ -1,5 +1,5 @@
-#super + shift + minus
-#    ~/.local/bin/cpd.sh
+super + shift + minus
+    ~/.local/bin/cpd.sh
 
 super + Return
   	$TERMINAL
