@@ -88,3 +88,4 @@ _ssh() {
 }
 
 complete -F _ssh ssh
+complete -F _ssh sshp
