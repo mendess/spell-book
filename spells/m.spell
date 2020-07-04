@@ -157,8 +157,10 @@ queue_v2() {
                 [ -z "$1" ] &&
                     notify-send 'Error queueing' 'Empty file name' -a "$(basename "$0")" &&
                     return 1
-                if [ -e "$1" ] || [ -e "$CALLING_DIR/$1" ]; then
+                if [ -e "$1" ]; then
                     targets+=("$1")
+                elif [ -e "$CALLING_DIR/$1" ]; then
+                    targets+=("$CALLING_DIR/$1")
                 else
                     matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "${@:2}")"
                     link="$(echo "$matches" | cut -f2)"

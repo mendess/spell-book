@@ -96,3 +96,5 @@ set showcmd
 if has('nvim')
     set pumblend=15
 endif
+
+set linebreak

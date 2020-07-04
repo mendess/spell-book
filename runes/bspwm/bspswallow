@@ -16,6 +16,7 @@ get_class() {
 terminals="Alacritty"
 noswallow="$terminals
 firefox
+feh
 
 "
 

@@ -3,7 +3,7 @@
 for clip in "$(xclip -sel clip -o)" "$(xclip -sel primary -o)"; do
     echo "Trying to play $clip"
     case "$clip" in
-        *.png | *.jpg | *.jpeg)
+        *.png | *.jpg | *.jpeg | *.PNG | *.JPG | *.JPEG)
             feh "$clip" && exit
             ;;
         *.gif)
