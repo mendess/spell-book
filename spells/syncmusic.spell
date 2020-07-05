@@ -1,0 +1,108 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+[ -d /sdcard ] || {
+    echo This is a termux only script
+    exit 1
+}
+function folder() {
+    chars=abcdefghijklmnopqruvwxyz123456789ABCDEFGHIJKLMNOPQRUVWXYZ
+    for i in {1..8} ; do
+        echo -n "${chars:RANDOM%${#chars}:1}"
+    done
+}
+
+cleanup() {
+    jobs -p | xargs --no-run-if-empty kill
+    if [ -n "$(ls -A .)" ];
+    then
+        mv --verbose *.mp3 "$MUSICFOLDER"
+    fi
+    cd
+    rm -rf "$DLFOLDER"
+
+    if [ -e .download_error ]
+    then
+        echo "These songs failed to download"
+        cat .download_error
+        rm .download_error
+    fi
+}
+
+if [ $# -lt 1 ];
+then
+    echo no args
+fi
+
+MUSICFOLDER=~/Music
+DLFOLDER=."$(folder)"
+echo '===> 'DLFOLDER $DLFOLDER
+mkdir -p "$DLFOLDER"
+
+if [ "$1" = "-l" ]
+then
+    matches="youtube link	$2"
+    n_matches=1
+else
+    matches=$(grep -i "$*" ~/spell-book/library/playlist)
+    n_matches=$(echo "$matches" | grep -c 'http')
+fi
+
+if [ "$n_matches" -lt 1 ]
+then
+    echo no matches
+    exit 1
+fi
+echo "$matches" | awk -F'\t' '{print $1}'
+if [ "$n_matches" -gt 1 ]
+then
+    echo -n Download more than one '?' '[Y/n] '
+    read -n 1 -r b
+    [ "$b" = "n" ] && exit 2
+fi
+cd "$DLFOLDER" || exit 3
+download_loop() {
+    background=0
+    while read -r song; do
+        IFS='	' read -r name link <<< "${song}"
+        link=$(echo "$link" | cut -f1)
+        if find -H "$MUSICFOLDER" \
+            | grep -F \
+                -e "$(echo $link | sed -E 's|.*/([^/]+$)|\1|g')" >/dev/null
+        then
+            output="$(echo -en "\e[33m"Already downloaded: "$name""\e[0m" \
+                | cut -c -"$(( $(tput cols) + 5))" \
+                | tr -d '\n')"
+            echo -en "\r\e[K$output"
+        else
+            echo -e "\r\e[K\e[34mDowloading $name\e[0m"
+            (
+            if ! youtube-dl \
+                --add-metadata \
+                --extract-audio \
+                --write-thumbnail \
+                --audio-format mp3 \
+                "$link" >/dev/null
+            then
+                echo "Couldn't download" "$name" >> .download_error
+                echo -e "\n\e[31mCouldn't download" "$name" "\e[0m"
+            else
+                echo -e "\e[32mDownloaded $name\e[0m"
+            fi
+            ) &
+            background=$(( background + 1 ))
+            if [ $background -eq "$(nproc)" ]; then
+                wait -n
+                background=$(( background - 1 ))
+            fi
+        fi
+    done
+    echo -en "\r\e[K"
+    wait
+}
+trap "cleanup" SIGINT
+echo "$matches" \
+    | tac \
+    | download_loop
+
+cleanup
+termux-media-scan $MUSICFOLDER/*

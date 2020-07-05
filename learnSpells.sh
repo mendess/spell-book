@@ -1,5 +1,8 @@
 #!/bin/bash
 
+test_spell() {
+    grep -v -i termux "$1" >/dev/null || [ -d /sdcard ]
+}
 spell_name() {
     case "$1" in
         spells/*.spell)
@@ -30,7 +33,7 @@ cleanSpells() {
 newSpells() {
     for spell in spells/*.spell cantrips/*.sh; do
         spell_name="$(spell_name "$spell")"
-        [ -h ~/.local/bin/"$spell_name" ] || return 0
+        test_spell "$spell" && [ -h ~/.local/bin/"$spell_name" ] || return 0
     done
     return 1
 }
@@ -46,7 +49,7 @@ echo -e "\033[33mLearning Spells...\033[0m"
 mkdir -p ~/.local/bin/cantrips
 for spell in spells/*.spell cantrips/*.sh; do
     spell_name="$(spell_name "$spell")"
-    if ! [ -h ~/.local/bin/"$spell_name" ]; then
+    if test_spell "$spell" && ! [ -h ~/.local/bin/"$spell_name" ]; then
         echo -e "\033[35m\t$spell_name\033[0m"
         ln -s "$(pwd)/$spell" ~/.local/bin/"$spell_name"
     fi
