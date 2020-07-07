@@ -131,7 +131,10 @@ done
         cd "$MUSIC_DIR" || exit 1
         for i in "${final_list[@]}"; do echo "$i"; done |
             grep '^http' |
-            xargs --no-run-if-empty -L 1 youtube-dl --add-metadata &>/tmp/youtube-dl
+            xargs \
+            --no-run-if-empty \
+            -L 1 \
+            youtube-dl --add-metadata &>/tmp/youtube-dl
     ) &
 
 if [ "$(mpvsocket)" != "/dev/null" ]; then
@@ -157,20 +160,38 @@ else
     (
         sleep 2
         __update_panel
-        sleep 8
-        m queue "${final_list[@]:1}" --no-move
+        sleep 5
+        m queue "${final_list[@]:10}" --no-move
     ) &
+    starting_queue=(
+        "${final_list[0]}"
+        "${final_list[1]}"
+        "${final_list[2]}"
+        "${final_list[3]}"
+        "${final_list[4]}"
+        "${final_list[5]}"
+        "${final_list[6]}"
+        "${final_list[7]}"
+        "${final_list[8]}"
+        "${final_list[9]}"
+    )
     case $p in
         yes)
-            mpv --input-ipc-server="$(mpvsocket new)" "${final_list[0]}"
+            mpv --input-ipc-server="$(mpvsocket new)" "${starting_queue[@]}"
             ;;
-
         no)
             if [ -z "$DISPLAY" ]; then
-                mpv --input-ipc-server="$(mpvsocket new)" --no-video "${final_list[0]}"
+                mpv \
+                    --input-ipc-server="$(mpvsocket new)" \
+                    --no-video "${starting_queue[@]}"
             else
                 bspc rule -a \* -o desktop=^10
-                $TERMINAL --class my-media-player -e mpv --input-ipc-server="$(mpvsocket new)" --no-video "${final_list[0]}" &
+                $TERMINAL \
+                    --class my-media-player \
+                    -e mpv \
+                    --input-ipc-server="$(mpvsocket new)" \
+                    --no-video \
+                    "${starting_queue[@]}" &
             fi
             ;;
     esac

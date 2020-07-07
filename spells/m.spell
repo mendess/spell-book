@@ -8,6 +8,15 @@ cd "$SPELLS"/spells || exit 1
 #shellcheck source=/home/mendess/.local/bin/library
 . library
 
+mpv_do() {
+    echo '{ "command": '"$1"' }' | socat - "$(mpvsocket)"
+}
+
+mpv_get() {
+    mpv_do '["get_property", "'"$1"'"]' |
+        if [ "$2" ]; then jq "${@:2}"; else cat; fi
+}
+
 spotify_toggle_pause() {
     dbus-send --print-reply \
         --dest=org.mpris.MediaPlayer2.spotify \
@@ -27,44 +36,37 @@ spotify_prev() {
 }
 
 up_next() {
-    next_id="$(($(echo '{ "command": ["get_property", "playlist-pos"]}' |
-        socat - "$(mpvsocket)" |
-        jq .data) + 1))"
+    next_id="$(($(mpv_get 'playlist-pos' .data) + 1))"
 
-    videoId="$(echo '{ "command": ["get_property", "playlist"]}' |
-        socat - "$(mpvsocket)" | jq .data["$next_id"].filename -r)"
+    videoId="$(mpv_get playlist .data["$next_id"].filename -r)"
 
     if [[ "$videoId" = *youtu* ]]; then
         id="$(echo "$videoId" | sed -r 's|.*/([^/]+)/?$|\1|g')"
         filename=$(awk -F '\t' '$2 ~ /'"$id"'/ {print $1}' "$PLAYLIST")
-        if [ -z "$filename" ]; then
-            filename=$(youtube-dl --get-title "$videoId")
-        fi
+        [ -z "$filename" ] && filename=$(youtube-dl --get-title "$videoId")
     else
-        filename=$(basename "$videoId" | sed -r 's/\.[^.]+$//' | sed -r 's/-[a-zA-Z\-_0-9]{11}$//')
+        filename=$(basename "$videoId" |
+            sed -r 's/\.[^.]+$//' |
+            sed -r 's/-[a-zA-Z\-_0-9]{11}$//')
     fi
     width=40
     [ "${#filename}" -gt $width ] && width="${#filename}"
-    if [ -n "$filename" ] && [ "$filename" != null ]; then
-        echo "=== UP NEXT ==="
+    [ -n "$filename" ] && [ "$filename" != null ] &&
+        echo "=== UP NEXT ===" &&
         echo "$filename"
-    fi
 }
 
 current_song() {
-    filename=$(echo '{ "command": ["get_property", "media-title"] }' |
-        socat - "$(mpvsocket)" |
-        jq --raw-output '.data')
+    filename=$(mpv_get media-title --raw-output '.data')
 
-    videoId="$(echo '{ "command": ["get_property", "filename"] }' |
-        socat - "$(mpvsocket)" |
-        jq --raw-output '.data')"
+    videoId="$(mpv_get filename --raw-output '.data')"
 
-    chapter=$(echo '{ "command": ["get_property", "chapter-metadata"] }' |
-        socat - "$(mpvsocket)" |
-        jq '.data.title' -r)
+    chapter=$(mpv_get chapter-metadata '.data.title' -r)
 
-    if [ -z "$filename" ] || [ "$filename" = "_" ] || [ "$filename" = "$videoId" ]; then
+    if [ -z "$filename" ] ||
+        [ "$filename" = "_" ] ||
+        [ "$filename" = "$videoId" ]; then
+
         [ -z "$videoId" ] && exit 1
         filename=$(grep "$videoId" "$PLAYLIST" | awk -F '\t' '{print $1}')
         [ -z "$filename" ] && filename="$videoId"
@@ -95,9 +97,7 @@ $(up_next)"
             __update_panel
             ;;
         -i | --link)
-            echo '{ "command": ["get_property", "filename"] }' |
-                socat - "$(mpvsocket)" |
-                jq --raw-output '.data'
+            mpv_get filename --raw-output '.data'
             ;;
         *)
             echo "Now Playing"
@@ -147,7 +147,8 @@ queue() {
                 return 1
                 ;;
             http*)
-                [ "$(youtube-dl --max-downloads 1 --get-title "$1" --quiet | wc -l)" -ne 1 ] &&
+                [ "$(youtube-dl --max-downloads 1 --get-title "$1" --quiet |
+                    wc -l)" -ne 1 ] &&
                     notify-send 'Invalid link:' "$1" -a "$(basename "$0")" &&
                     echo "[$(date)] $1" >>/tmp/.queue_fails
 
@@ -155,18 +156,22 @@ queue() {
                 ;;
             *)
                 [ -z "$1" ] &&
-                    notify-send 'Error queueing' 'Empty file name' -a "$(basename "$0")" &&
-                    return 1
+                    notify-send \
+                        'Error queueing' \
+                        'Empty file name' \
+                        -a "$(basename "$0")" && return 1
                 if [ -e "$1" ]; then
                     targets+=("$1")
                 elif [ -e "$CALLING_DIR/$1" ]; then
                     targets+=("$CALLING_DIR/$1")
                 else
-                    matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "$1")"
+                    matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" |
+                        grep -i "$1")"
                     link="$(echo "$matches" | cut -f2)"
                     [ -z "$link" ] && echo "No song found" && return 1
                     [ "$(echo "$link" | wc -l)" -gt 1 ] &&
-                        echo -e "Too many matches:\n$(echo "$matches" | cut -f1)" &&
+                        echo -e \
+                            "Too many matches:\n$(echo "$matches" | cut -f1)" &&
                         return 1
 
                     targets+=("${link}")
@@ -182,27 +187,20 @@ queue() {
     background_notifiers=0
     for file in "${targets[@]}"; do
         echo -n "Queueing song: '$file'... "
-        echo '{ "command": ["loadfile", "'"$file"'", "append"]}' |
-            socat - "$(mpvsocket)" |
-            jq --raw-output .error
+        mpv_do '["loadfile", "'"$file"'", "append"]' | jq --raw-output .error
 
         [ "$no_move" ] || {
             local COUNT CURRENT TARGET LAST_QUEUE
-            COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' |
-                socat - "$(mpvsocket)" |
-                jq --raw-output '.data')
-            CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' |
-                socat - "$(mpvsocket)" |
-                jq --raw-output '.data')
+            COUNT=$(mpv_get playlist-count --raw-output '.data')
+            CURRENT=$(mpv_get playlist-pos --raw-output '.data')
 
             TARGET=$((CURRENT + 1))
             LAST_QUEUE="$(last_queue)"
-            if [ -e "$LAST_QUEUE" ] && [ "$TARGET" -le "$(cat "$LAST_QUEUE")" ]; then
+            [ -e "$LAST_QUEUE" ] &&
+                [ "$TARGET" -le "$(cat "$LAST_QUEUE")" ] &&
                 TARGET=$(($(cat "$LAST_QUEUE") + 1))
-            fi
             echo -n "Moving from $COUNT -> $TARGET ... "
-            echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$TARGET']}' |
-                socat - "$(mpvsocket)" |
+            mpv_do '["playlist-move", '$((COUNT - 1))', '$TARGET']' |
                 jq --raw-output .error
             echo "$TARGET" >"$LAST_QUEUE"
         }
@@ -215,12 +213,23 @@ queue() {
                 echo "$data" | tail -1 | xargs -r wget --quiet -O "$IMG"
                 [ -z "$name" ] && name="$file"
             else
-                name="$(ffprobe "$file" 2>&1 | grep title | cut -d':' -f2 | xargs)"
-                ffmpeg -y -loglevel error -hide_banner -vsync 2 -i "$file" -frames:v 1 "$IMG" >/dev/null
+                name="$(ffprobe "$file" 2>&1 |
+                    grep title |
+                    cut -d':' -f2 |
+                    xargs)"
+                ffmpeg \
+                    -y \
+                    -loglevel error \
+                    -hide_banner \
+                    -vsync 2 \
+                    -i "$file" \
+                    -frames:v 1 \
+                    "$IMG" >/dev/null
             fi
             convert -scale x64 -- "$IMG" "$IMG_BACK" && mv "$IMG_BACK" "$IMG"
             notify-send "Queued '$name'" \
-                "$([ "$CURRENT" ] && printf "Current: %s\nQueue pos: %s" "$CURRENT" "$TARGET")" \
+                "$([ "$CURRENT" ] &&
+                    printf "Current: %s\nQueue pos: %s" "$CURRENT" "$TARGET")" \
                 -a "$(basename "$0")" \
                 -i "$IMG"
             rm -f "$IMG"
@@ -232,6 +241,25 @@ queue() {
         fi
     done
     wait
+}
+
+now() {
+    local CURRENT START END
+    CURRENT="$(mpv_get playlist-pos | jq .data)"
+    START="$((CURRENT - 1))"
+    END="$((CURRENT + 8))"
+    mpv_get playlist '.data | .[] | .filename' |
+        sed -n "${START},${END}p;$((END + 1))q;" |
+        perl -ne 's|^.*/([^/]*?)(-[A-Za-z0-9\-_-]{11})?\.[^./]*$|\1\n|; print' |
+        awk -v current="$CURRENT" -v pos="$((--START))" \
+        '{
+            if (pos != current) {
+                printf("%3d     %s\n", pos, $0)
+            } else {
+                printf("%3d ==> %s\n", pos, $0);
+            }
+            pos++
+        }'
 }
 
 main() {
@@ -278,10 +306,12 @@ main() {
         add?playlist)
             ## Append a playlist to the personal playlist
             ##      Usage: m add-playlist [link] [category,..]
-            youtube-dl --get-id "$2" | sed 's|^|https://youtu.be/|' | while read -r l; do
-                echo "adding $l"
-                main add_song "$l" "${@:3}"
-            done
+            youtube-dl --get-id "$2" |
+                sed 's|^|https://youtu.be/|' |
+                while read -r l; do
+                    echo "adding $l"
+                    main add_song "$l" "${@:3}"
+                done
             ;;
         cat)
             ## List all current categories
@@ -289,7 +319,7 @@ main() {
             ;;
         now)
             ## Shows the current playlist
-            echo "Soon :tm:"
+            now
             ;;
         c | current)
             ## Show the current song
@@ -320,7 +350,7 @@ main() {
             __update_panel
             ;;
         j | vd)
-            ## Increase volume by ${2:-2}%
+            ## Decrease volume by ${2:-2}%
             echo "add volume -${2:-2}" | socat - "$(mpvsocket)"
             __update_panel
             ;;
@@ -399,22 +429,22 @@ main() {
             fi
             awk -v search="$search" \
                 'BEGIN { in_main=0; in_case=0; inner_case=0; }
-            $0 ~ /main\(\)/                                                     {in_main=1}
-            inner_case  && $0 ~ /\w[^)]*\)$/                                    {sub(/)/, "", $0);
-                                                                                 sub(/^ */, "", $0);
-                                                                                 print("\t\t"$0)}
-            inner_case  && (found || !search) && $0 ~ /^\s+##.*/                {sub(/^\s+##/, "", $0);
-                                                                                 print("\t\t"$0)}
-            inner_case  && $0 ~ /esac/                                          {inner_case=0}
-            !inner_case && $0 ~ /;;/                                            {found=0}
-            !inner_case && in_case && $0 ~ /case/                               {inner_case=1}
-            !inner_case && in_case && !search && $0 ~ /\w[^)]*\)$/              {sub(/)/, "", $0);
-                                                                                 sub(/^ */, "", $0);
-                                                                                 print($0)}
-            !inner_case && in_case && search  && $0 ~ /'"$search_for"'[^)]*\)$/ {print($1); found=1}
-            !inner_case && in_case && (found || !search) && $0 ~ /^\s+##.*/     {sub(/^\s+##/, "", $0);
-                                                                                 print("\t"$0)}
-            in_main     && $0 ~ /case/                                          {in_case=1}
+$0 ~ /main\(\)/                                                     {in_main=1}
+inner_case  && $0 ~ /\w[^)]*\)$/                                    {sub(/)/, "", $0);
+                                                                     sub(/^ */, "", $0);
+                                                                     print("\t\t"$0)}
+inner_case  && (found || !search) && $0 ~ /^\s+##.*/                {sub(/^\s+##/, "", $0);
+                                                                     print("\t\t"$0)}
+inner_case  && $0 ~ /esac/                                          {inner_case=0}
+!inner_case && $0 ~ /;;/                                            {found=0}
+!inner_case && in_case && $0 ~ /case/                               {inner_case=1}
+!inner_case && in_case && !search && $0 ~ /\w[^)]*\)$/              {sub(/)/, "", $0);
+                                                                     sub(/^ */, "", $0);
+                                                                     print($0)}
+!inner_case && in_case && search  && $0 ~ /'"$search_for"'[^)]*\)$/ {print($1); found=1}
+!inner_case && in_case && (found || !search) && $0 ~ /^\s+##.*/     {sub(/^\s+##/, "", $0);
+                                                                     print("\t"$0)}
+in_main     && $0 ~ /case/                                          {in_case=1}
             ' "$0"
             ;;
         *)
@@ -425,5 +455,3 @@ main() {
 }
 
 main "$@"
-#TODO:
-# queue without args shows the prev 2 songs, current and the next 7 songs

@@ -6,7 +6,7 @@
 }
 function folder() {
     chars=abcdefghijklmnopqruvwxyz123456789ABCDEFGHIJKLMNOPQRUVWXYZ
-    for i in {1..8} ; do
+    for _ in {1..8} ; do
         echo -n "${chars:RANDOM%${#chars}:1}"
     done
 }
@@ -15,9 +15,9 @@ cleanup() {
     jobs -p | xargs --no-run-if-empty kill
     if [ -n "$(ls -A .)" ];
     then
-        mv --verbose *.mp3 "$MUSICFOLDER"
+        mv --verbose ./*.mp3 "$MUSICFOLDER"
     fi
-    cd
+    cd || exit
     rm -rf "$DLFOLDER"
 
     if [ -e .download_error ]
@@ -35,7 +35,7 @@ fi
 
 MUSICFOLDER=~/Music
 DLFOLDER=."$(folder)"
-echo '===> 'DLFOLDER $DLFOLDER
+echo "===> DLFOLDER $DLFOLDER"
 mkdir -p "$DLFOLDER"
 
 if [ "$1" = "-l" ]
@@ -67,7 +67,7 @@ download_loop() {
         link=$(echo "$link" | cut -f1)
         if find -H "$MUSICFOLDER" \
             | grep -F \
-                -e "$(echo $link | sed -E 's|.*/([^/]+$)|\1|g')" >/dev/null
+                -e "$(echo "$link" | sed -E 's|.*/([^/]+$)|\1|g')" >/dev/null
         then
             output="$(echo -en "\e[33m"Already downloaded: "$name""\e[0m" \
                 | cut -c -"$(( $(tput cols) + 5))" \
