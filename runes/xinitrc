@@ -10,7 +10,7 @@ calcurse --daemon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
 
 # Settings
 setxkbmap -option caps:swapescape
-if [ "$(hostname)" = tolaria ]
+if [ "$(cat /etc/hostname)" = tolaria ]
 then
     xrandr --output DVI-D-0 --mode 1920x1080 --rate 120  --rotate normal --primary
     xmodmap -e 'keycode  21 = plus equal plus equal'

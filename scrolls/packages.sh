@@ -92,6 +92,7 @@ htop-vim-git
 lemonbar-xft-git
 ncpamixer
 pacmixer
+pfetch
 picom-tryone-git
 polybar
 shellcheck-static

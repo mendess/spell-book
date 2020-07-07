@@ -124,7 +124,7 @@ last_queue() {
     echo "$(mpvsocket)_last_queue"
 }
 
-queue_v2() {
+queue() {
     local targets=()
     while [ $# -gt 0 ]; do
         case "$1" in
@@ -162,7 +162,7 @@ queue_v2() {
                 elif [ -e "$CALLING_DIR/$1" ]; then
                     targets+=("$CALLING_DIR/$1")
                 else
-                    matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "${@:2}")"
+                    matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "$1")"
                     link="$(echo "$matches" | cut -f2)"
                     [ -z "$link" ] && echo "No song found" && return 1
                     [ "$(echo "$link" | wc -l)" -gt 1 ] &&
@@ -231,70 +231,7 @@ queue_v2() {
             ((background_notifiers--))
         fi
     done
-    while [ $background_notifiers -ge 0 ]; do
-        wait -n
-        ((background_notifiers--))
-    done
-}
-
-queue() {
-    if [ "$#" -lt 1 ]; then
-        echo please provide a link
-        return 1
-    fi
-    if [ "$1" = '--reset' ]; then
-        rm "$(last_queue)"
-        return 0
-    fi
-    if [ -z "$1" ]; then
-        notify-send 'Error queueing' 'Empty file name' -a "$(basename "$0")"
-        return 1
-    fi
-    if [[ "$1" == http* ]] &&
-        [ "$(youtube-dl --max-downloads 1 --get-title "$1" --quiet | wc -l)" -ne 1 ]; then
-        notify-send 'Invalid link:' "$1" -a "$(basename "$0")" -u critical
-        echo "[$(date)] $1" >>/tmp/.queue_fails
-        return 1
-    fi
-    echo -n "Queueing song: '$1'... "
-    echo '{ "command": ["loadfile", "'"$1"'", "append"]}' |
-        socat - "$(mpvsocket)" |
-        jq --raw-output .error
-    local COUNT CURRENT TARGET LAST_QUEUE
-    COUNT=$(echo '{ "command": ["get_property", "playlist-count"]}' |
-        socat - "$(mpvsocket)" |
-        jq --raw-output '.data')
-    CURRENT=$(echo '{ "command": ["get_property", "playlist-pos"]}' |
-        socat - "$(mpvsocket)" |
-        jq --raw-output '.data')
-
-    TARGET=$((CURRENT + 1))
-    LAST_QUEUE="$(last_queue)"
-    if [ -e "$LAST_QUEUE" ] && [ "$TARGET" -le "$(cat "$LAST_QUEUE")" ]; then
-        TARGET=$(($(cat "$LAST_QUEUE") + 1))
-    fi
-    echo -n "Moving from $COUNT -> $TARGET ... "
-    echo '{ "command": ["playlist-move", '$((COUNT - 1))', '$TARGET']}' |
-        socat - "$(mpvsocket)" |
-        jq --raw-output .error
-    echo "$TARGET" >"$LAST_QUEUE"
-    if [ "$2" = "--notify" ]; then
-        IMG=/tmp/thumb.jpg
-        rm "$IMG"
-        if [[ "$1" == https* ]]; then
-            data=$(youtube-dl --get-title "$1" --get-thumbnail)
-            name=$(echo "$data" | head -1)
-            echo "$data" | tail -1 | xargs -r wget --quiet -O "$IMG"
-            [ -z "$name" ] && name="$1"
-        else
-            name="$(ffprobe "$1" 2>&1 | grep title | cut -d':' -f2 | xargs)"
-            ffmpeg -loglevel error -hide_banner -vsync 2 -i "$1" -frames:v 1 "$IMG" >/dev/null
-        fi
-        convert -scale x64 -- "$IMG" "tmp" && mv tmp "$IMG"
-        notify-send "Queued '$name'" "Current: $CURRENT\nQueue pos: $TARGET" \
-            -a "$(basename "$0")" \
-            -i $IMG
-    fi
+    wait
 }
 
 main() {
@@ -350,6 +287,10 @@ main() {
             ## List all current categories
             cut -f4- "$PLAYLIST" | tr '\t' '\n' | grep -vP '^$' | sort | uniq
             ;;
+        now)
+            ## Shows the current playlist
+            echo "Soon :tm:"
+            ;;
         c | current)
             ## Show the current song
             ##      -n --notify With a notification
@@ -363,24 +304,10 @@ main() {
             ;;
         queue)
             ## Queue a song
-            ##     --reset Resets the queue fairness
-            queue_v2 "${@:2}"
-            return "$?"
-            if [ "$2" = '--reset' ]; then
-                queue "$2"
-            elif [[ "$2" == http* ]]; then
-                queue "$2" "$3"
-            elif [ -e "$2" ] || [ -e "$CALLING_DIR/$2" ]; then
-                queue "$2" "$3"
-            else
-                matches="$(awk -F'\t' '{print($1"\t"$2)}' "$PLAYLIST" | grep -i "${@:2}")"
-                link="$(echo "$matches" | cut -f2)"
-                if [ -z "$link" ]; then echo "No song found" && exit 1; fi
-                if [ "$(echo "$link" | wc -l)" -gt 1 ]; then
-                    echo -e "Too many matches:\n$(echo "$matches" | cut -f1)" && exit 1
-                fi
-                queue "$link" "$3"
-            fi
+            ##     --reset         Resets the queue fairness
+            ##     --seach STRING  Searches youtube for the STRING
+            ##     --notify        Send a notification
+            queue "${@:2}"
             ;;
         delete?song)
             ## Delete a passed song
@@ -460,26 +387,33 @@ main() {
         r)
             ## Get help for interactive mode
             echo -en "\b"
-            grep -Po ' \w\|\w[^)]+\)' "$0"
+            grep -Po ' \w\|\w[^)]+\)' "$(command -v "$0")"
             ;;
         help)
             ## Get help
-            if [ $# -gt 0 ]; then
+            if [ $# -gt 1 ]; then
                 search_for="$2"
                 search=1
             else
                 search=0
             fi
-            awk 'BEGIN { in_main=0; in_case=0; inner_case=0; search='$search' }
+            awk -v search="$search" \
+                'BEGIN { in_main=0; in_case=0; inner_case=0; }
             $0 ~ /main\(\)/                                                     {in_main=1}
-            inner_case  && $0 ~ /\w[^)]*\)$/                                    {print("\t"$1)}
-            inner_case  && (found || !search) && $0 ~ /^\s+##.*/                {sub(/^\s+##/, "", $0); print("\t\t"$0)}
+            inner_case  && $0 ~ /\w[^)]*\)$/                                    {sub(/)/, "", $0);
+                                                                                 sub(/^ */, "", $0);
+                                                                                 print("\t\t"$0)}
+            inner_case  && (found || !search) && $0 ~ /^\s+##.*/                {sub(/^\s+##/, "", $0);
+                                                                                 print("\t\t"$0)}
             inner_case  && $0 ~ /esac/                                          {inner_case=0}
             !inner_case && $0 ~ /;;/                                            {found=0}
             !inner_case && in_case && $0 ~ /case/                               {inner_case=1}
-            !inner_case && in_case && !search && $0 ~ /\w[^)]*\)$/              {print($1)}
+            !inner_case && in_case && !search && $0 ~ /\w[^)]*\)$/              {sub(/)/, "", $0);
+                                                                                 sub(/^ */, "", $0);
+                                                                                 print($0)}
             !inner_case && in_case && search  && $0 ~ /'"$search_for"'[^)]*\)$/ {print($1); found=1}
-            !inner_case && in_case && (found || !search) && $0 ~ /^\s+##.*/     {sub(/^\s+##/, "", $0); print("\t"$0)}
+            !inner_case && in_case && (found || !search) && $0 ~ /^\s+##.*/     {sub(/^\s+##/, "", $0);
+                                                                                 print("\t"$0)}
             in_main     && $0 ~ /case/                                          {in_case=1}
             ' "$0"
             ;;
@@ -491,3 +425,5 @@ main() {
 }
 
 main "$@"
+#TODO:
+# queue without args shows the prev 2 songs, current and the next 7 songs
