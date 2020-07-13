@@ -352,3 +352,10 @@ die_now() {
 sshp() {
     ssh "$1" '. $HOME/.bash_profile; '"${*:2}"
 }
+
+torrent() {
+    while read -r -t 5 -p "Quit?" quit ; do
+        [[ "$quit" =~ y|Y ]] && break
+        transmission-cli "$1" "${@:2}"
+    done
+}
