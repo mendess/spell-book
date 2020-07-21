@@ -47,7 +47,6 @@ bspc config borderless_monocle false
 bspc config gapless_monocle false
 bspc config remove_unplugged_monitors true
 bspc config top_padding 22
-bspc config ignore_ewmh_fullscreen enter
 bspc config ignore_ewmh_focus true
 
 xsetroot -cursor_name left_ptr

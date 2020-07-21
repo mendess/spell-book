@@ -334,8 +334,10 @@ sleep_now() {
     { while :; do
         sleep 1m
         m vd
-    done; } & disown
-    ssh mirrodin python bulb/dimmer.py 0 & disown
+    done; } &
+    disown
+    ssh mirrodin python bulb/dimmer.py 0 &
+    disown
     sleep "${1:-40m}"
     sctl suspend
 }
@@ -344,8 +346,10 @@ die_now() {
     { while :; do
         sleep 1m
         m vd
-    done; } & disown
-    ssh mirrodin python bulb/dimmer.py 0 & disown
+    done; } &
+    disown
+    ssh mirrodin python bulb/dimmer.py 0 &
+    disown
     shutdown +"${1:-40}"
 }
 
@@ -354,8 +358,8 @@ sshp() {
 }
 
 torrent() {
-    while read -r -t 5 -p "Quit?" quit ; do
-        [[ "$quit" =~ y|Y ]] && break
+    while
         transmission-cli "$1" "${@:2}"
-    done
+        ! read -r -t 2 -p "Quit?"
+    do :; done
 }

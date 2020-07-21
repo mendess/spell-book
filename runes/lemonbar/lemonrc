@@ -17,6 +17,11 @@ command: echo "$(uptime -p)"
 interval: 1800
 align: left
 
+> Room Temperature
+command: echo "$(ssh 192.168.1.27 grep -oE '[0-9]{5}' /sys/bus/w1/devices/28-00000bc20d86/w1_slave) / 1000" | bc
+interval: 60
+align: left
+
 > Music
 command: ~/.config/lemonbar/media
 interval: 120

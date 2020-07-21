@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 help() {
     cat <<EOF
@@ -11,6 +11,7 @@ EOF
 exit 42
 }
 
+tags=()
 while [ "$#" -gt 0 ]; do
     case "$1" in
         -u|--url)
@@ -22,8 +23,7 @@ while [ "$#" -gt 0 ]; do
             shift
             ;;
         *)
-            echo 'Invalid argument'
-            help
+            tags+=("$1")
     esac
     shift
 done
@@ -34,9 +34,8 @@ if grep "$id" ~/.config/newsboat/urls >/dev/null ; then
     exit 1
 fi
 
-feed="https://www.youtube.com/feeds/videos.xml?channel_id=$id \"YouTube Subscriptions\""
+feed="https://www.youtube.com/feeds/videos.xml?channel_id=$id yt ${tags[*]}"
 
 printf "Adding this feed:\n\t%s\n" "$feed"
 
 echo "$feed" >> ~/.config/newsboat/urls
-newsboat --version #>/dev/null
