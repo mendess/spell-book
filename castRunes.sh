@@ -57,9 +57,7 @@ expand() {
 while IFS=',' read -r -a args; do
     link="${args[0]}"
     file="${args[1]}"
-    echo -n "${args[0]} -> "
     args[0]="${args[0]/#\~/$HOME}"
-    echo "${args[0]}"
     if [ -d "$file" ]; then
         expand "${args[@]}"
     else
@@ -109,7 +107,6 @@ linkRune() {
     local link_name="$2"
     if [ ! -h "$2" ] || { [ "$generated" ] && [ "$target" -ot "$link_name" ]; }; then
         if [ "$generated" ]; then
-            echo "generated"
             cmd=("python3" "$(pwd)/../generate_config.py" "$target" "$link_name")
         elif [ "$force" ]; then
             cmd=(ln --symbolic --force --verbose "$target" "$link_name")
