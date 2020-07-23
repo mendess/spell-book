@@ -1,20 +1,38 @@
 #!/bin/bash
+#shellcheck disable=2155
 
-sudoHost() {
-    for h in tolaria weatherlight mirrodin; do
-        [ "$(hostname)" = "$h" ] && return 0;
-    done;
+## Option docs:
+## - sudo: Require sudo to install the dotfiles
+## - generated: Dotfile is generated based on host
+## - ifdir: Only install if it's directory already exists
+
+any_match() {
+    for i in "${@:2}"; do
+        [ "$i" = "$1" ] && return
+    done
     return 1
 }
 
-if ! sudoHost ; then
+join_by() {
+    local IFS="$1"
+    shift
+    echo "$*"
+}
+
+sudoHost() {
+    for h in tolaria weatherlight mirrodin; do
+        [ "$(hostname)" = "$h" ] && return 0
+    done
+    return 1
+}
+
+if ! sudoHost; then
     sudo() {
         echo "sudo not available"
     }
 fi
 
-if hash library 2>/dev/null
-then
+if hash library 2>/dev/null; then
     #shellcheck source=/home/mendess/.local/bin/library
     . library
 
@@ -25,12 +43,10 @@ fi
 
 expandedRunes=()
 
-function expand {
-    for file in "$2"/*
-    do
+expand() {
+    for file in "$2"/*; do
         f="$(basename "$file")"
-        if [ -d "$file" ]
-        then
+        if [ -d "$file" ]; then
             expand "$1/$f" "$2/$f" "$3"
         else
             expandedRunes+=("$1/$f,$2/$f,$3")
@@ -38,54 +54,70 @@ function expand {
     done
 }
 
-while IFS=',' read -r link file options
-do
-    options="${options:-none}"
-    link="${link/#\~/$HOME}"
-    if [ -d "$file" ]
-    then
-        expand "$link" "$file" "$options"
+while IFS=',' read -r -a args; do
+    link="${args[0]}"
+    file="${args[1]}"
+    echo -n "${args[0]} -> "
+    args[0]="${args[0]/#\~/$HOME}"
+    echo "${args[0]}"
+    if [ -d "$file" ]; then
+        expand "${args[@]}"
     else
-        expandedRunes+=("$link,$file,$options")
+        expandedRunes+=("$(join_by ',' "${args[@]}")")
     fi
 done < <(sed '/^#/d' ../runes/.db)
 
-function cleanRunes {
+cleanRunes() {
     local rune link file
-    for rune in "${expandedRunes[@]}"
-    do
-        IFS=',' read -r link file <<< "${rune}"
-        if [ -h "$link" ] && ! [ -e "$link" ]
-        then
+    for rune in "${expandedRunes[@]}"; do
+        local link file
+        IFS=',' read -r link file <<<"${rune}"
+        if [ -h "$link" ] && ! [ -e "$link" ]; then
             echo -e "\033[31mRemoving broken rune: $(basename "$link")\033[0m"
             rm "$link"
-        fi
-    done
-    return 1;
-}
-
-function newRunes {
-    local rune link file
-    for rune in "${expandedRunes[@]}"
-    do
-        IFS=',' read -r link file options <<< "${rune}"
-        if ! [ -h "$link" ] && { [ "$options" != "check" ] || { [ "$options" = sudo ] && sudoHost ; } }; then
-            return 0
         fi
     done
     return 1
 }
 
-function linkRune {
-    if ! [ -h "$2" ]
-    then
-        if [ "$3" = "force" ]; then
-            cmd=(ln --symbolic --force --verbose "$(pwd)/$1" "$2")
+newRunes() {
+    local rune link file
+    for rune in "${expandedRunes[@]}"; do
+        local args link
+        IFS=',' read -r -a args <<<"${rune}"
+        link="${args[0]}"
+        any_match sudo "${args[@]:2}" && ! sudoHost && continue
+        any_match ifdir "${args[@]:2}" && ifdir=1
+        any_match generated "${args[@]:2}" && generated=1
+        [ "$ifdir" ] && [ ! -e  "$(dirname "$link")" ] && continue
+        if [ "$generated" ]; then
+            [ ! -e "$link" ]
         else
-            cmd=(ln --symbolic         --verbose "$(pwd)/$1" "$2")
+            [ ! -h "$link" ]
+        fi && return 0
+    done
+    return 1
+}
+
+linkRune() {
+    local generated
+    any_match generated "${@:3}" && generated=1
+    any_match force "${@:3}" && force=1
+    [ "$generated" ] && [ "$force" ] &&
+        echo -e '\e[33mWarning:\e[0m Forced does nothing when combined with generated'
+    local target="$(pwd)/$1"
+    local link_name="$2"
+    if [ ! -h "$2" ] || { [ "$generated" ] && [ "$target" -ot "$link_name" ]; }; then
+        if [ "$generated" ]; then
+            echo "generated"
+            cmd=("python3" "$(pwd)/../generate_config.py" "$target" "$link_name")
+        elif [ "$force" ]; then
+            cmd=(ln --symbolic --force --verbose "$target" "$link_name")
+        else
+            cmd=(ln --symbolic --verbose "$target" "$link_name")
         fi
-        if [ "$3" = "sudo" ]; then
-            echo "sudo for '$2'"
+        if any_match sudo "${@:3}"; then
+            echo "sudo for '$link_name'"
             echo -en "\033[35mCasting "
             sudo "${cmd[@]}"
         else
@@ -96,10 +128,9 @@ function linkRune {
     fi
 }
 
-function makeIfAbsent {
-    if ! [ -e "$1" ]
-    then
-        [ "$2" == "check" ] && return 1
+makeIfAbsent() {
+    if [ ! -e "$1" ]; then
+        any_match ifdir "${@:2}" && return 1
         echo -e "\033[31mMissing \033[36m$1\033[31m directory, creating....\033[0m"
         mkdir --parent "$1"
     fi
@@ -111,11 +142,12 @@ newRunes || exit 0
 
 echo -e "\033[33mCasting Runes...\033[0m"
 
-for rune in "${expandedRunes[@]}";
-do
-    IFS=',' read -r link file options <<< "${rune}"
-    if makeIfAbsent "$(dirname "$link")" "$options"; then
-        linkRune "$file" "$link" "$options"
+for rune in "${expandedRunes[@]}"; do
+    IFS=',' read -r -a args <<<"${rune}"
+    link="${args[0]}"
+    file="${args[1]}"
+    if makeIfAbsent "$(dirname "$link")" "${args[@]:2}"; then
+        linkRune "$file" "$link" "${args[@]:2}"
     fi
 done
 echo -e "\033[33mDone!\033[0m"

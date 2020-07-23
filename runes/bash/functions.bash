@@ -5,6 +5,10 @@
 
 aura() {
     case "$1" in
+        -e)
+            edit=1
+            aura "$2"
+            ;;
         -R*)
             sudo pacman -Rsn "$2"
             # pacman "$1" "$2"
@@ -21,6 +25,7 @@ aura() {
             cd /tmp || exit 1
             git clone https://aur.archlinux.org/"$1"
             cd "$1" || exit 1
+            [ $edit ] && $EDITOR PKGBUILD
             makepkg -si --clean "${@:2}"
             cd "$old" || exit 1
             ;;

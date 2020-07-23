@@ -1,5 +1,5 @@
-#~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,check
-#~/.Rider2018.3/config/idea.properties,idea.properties,check
+#~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,ifdir
+#~/.Rider2018.3/config/idea.properties,idea.properties,ifdir
 #~/.config/i3/config,i3
 #~/.config/i3blocks,i3blocks
 #~/.config/i3status/config,i3status
@@ -12,11 +12,11 @@
 ~/.bash_profile,bash/profile
 ~/.bashrc,bash/bashrc
 ~/.config/X11/xinitrc,xinitrc
-~/.config/alacritty/alacritty.yml,alacritty.yml
+~/.config/alacritty/alacritty.yml,alacritty.yml,generated
 ~/.config/bspwm,bspwm
 ~/.config/calcurse/conf,calcurse.conf
 ~/.config/compton.conf,compton.conf
-~/.config/dunst/dunstrc,dunstrc
+~/.config/dunst/dunstrc,dunstrc,generated
 ~/.config/git/config,gitconfig
 ~/.config/gitignore-global,gitignore-global
 ~/.config/glava,glava,force
