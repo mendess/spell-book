@@ -1,10 +1,9 @@
 #!/bin/bash
 shopt -s expand_aliases 2>/dev/null
 
-library="$SPELLS"/library
-export PLAYLIST="$library"/playlist
-export EMOJIS="$library"/emojis
-export BOOKMARKS="$library"/bookmarks
+export PLAYLIST="$XDG_CONFIG_HOME/m/playlist"
+export EMOJIS="$XDG_CONFIG_HOME/emojis"
+export BOOKMARKS="$XDG_CONFIG_HOME/quickbrowser/bookmarks"
 export PLAYLIST_ID='PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3'
 export PLAYLIST_LINK='https://www.youtube.com/playlist?list='"$PLAYLIST_ID"
 export UPDATE_I3BLOCKS='__update_panel'

@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
 from sys import argv
 from typing import List
 import re
 import subprocess
+import os
 
 PERCENTS = re.compile(r'^%%', flags=re.M)
 SWITCH_REGEX = re.compile(r'^(switch on ([A-Za-z]\w*))')
@@ -211,12 +213,17 @@ def parse(s: str) -> List[Part]:
 
 
 
-
-print(f"'{argv[1]}' x-> '{argv[2]}'")
-with open(argv[1], 'r') as template:
-    s = template.read()
-    with open(argv[2], 'w') as generated:
-        for p in parse(s):
-            p.write(generated)
+if len(argv) < 3:
+    print(f'Usage: {os.path.basename(__file__)} template target')
+else:
+    print(f"'{argv[1]}' x-> '{argv[2]}'")
+    try:
+        with open(argv[1], 'r') as template:
+            s = template.read()
+            with open(argv[2], 'w') as generated:
+                for p in parse(s):
+                    p.write(generated)
+    except Exception as e:
+        print(e)
 
 

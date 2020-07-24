@@ -38,3 +38,6 @@
 ~/.config/X11/Xresources,Xresources
 ~/.config/vimb/config,vimb/config
 ~/.config/vimb/style.css,vimb/style.css
+~/.config/emojis,emojis
+~/.config/quickbrowser/bookmarks,bookmarks
+~/.config/m,m
