@@ -29,7 +29,7 @@
 ~/.config/nvim,nvim
 ~/.config/sxhkd/sxhkdrc,sxhkdrc
 ~/.config/tmux/tmux.conf,tmux.conf
-~/.config/user-dirs.dirs,user-dirs.dirs
+~/.config/user-dirs.dirs,user-dirs.dirs,force
 ~/.config/wgetrc,wgetrc
 ~/.config/zathura/zathurarc,zathurarc
 ~/.mailcap,mailcap
