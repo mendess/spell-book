@@ -71,7 +71,7 @@ PS0=$(
 export PS0
 
 PS1_ELEMENTS=()
-if [[ "$(tty)" == *tty* ]] && [ -f /sys/class/power_supply/BAT0/capacity ]; then
+if { [[ "$(tty)" == *tty* ]] || [ "$TTY_TMUX" ]; } && [ -f /sys/class/power_supply/BAT0/capacity ]; then
     PS1_ELEMENTS+=("$BATTERY")
 fi
 if [ -n "$SSH_CLIENT" ]; then

@@ -7,6 +7,7 @@
 ## - ifdir: Only install if it's directory already exists
 
 any_match() {
+    local i
     for i in "${@:2}"; do
         [ "$i" = "$1" ] && return
     done
@@ -20,6 +21,7 @@ join_by() {
 }
 
 sudoHost() {
+    local h
     for h in tolaria weatherlight mirrodin; do
         [ "$(hostname)" = "$h" ] && return 0
     done
@@ -44,6 +46,7 @@ fi
 expandedRunes=()
 
 expand() {
+    local file f
     for file in "$2"/*; do
         f="$(basename "$file")"
         if [ -d "$file" ]; then
@@ -66,7 +69,7 @@ while IFS=',' read -r -a args; do
 done < <(sed '/^#/d' ../runes/.db)
 
 cleanRunes() {
-    local rune link file
+    local rune
     for rune in "${expandedRunes[@]}"; do
         local link file
         IFS=',' read -r link file <<<"${rune}"
@@ -79,14 +82,16 @@ cleanRunes() {
 }
 
 newRunes() {
-    local rune link file
+    local rune
     for rune in "${expandedRunes[@]}"; do
         local args link
         IFS=',' read -r -a args <<<"${rune}"
         link="${args[0]}"
+        local ifdir=""
+        local generated=""
         any_match sudo "${args[@]:2}" && ! sudoHost && continue
         any_match ifdir "${args[@]:2}" && ifdir=1
-        any_match generated "${args[@]:2}" && generated=1
+        any_match generated "${args[@]:2}" && echo "generated for $link" && generated=1
         [ "$ifdir" ] && [ ! -e  "$(dirname "$link")" ] && continue
         if [ "$generated" ]; then
             [ ! -e "$link" ]
@@ -98,7 +103,7 @@ newRunes() {
 }
 
 linkRune() {
-    local generated
+    local generated force
     any_match generated "${@:3}" && generated=1
     any_match force "${@:3}" && force=1
     [ "$generated" ] && [ "$force" ] &&
@@ -107,11 +112,11 @@ linkRune() {
     local link_name="$2"
     if [ ! -h "$2" ] || { [ "$generated" ] && [ "$target" -ot "$link_name" ]; }; then
         if [ "$generated" ]; then
-            cmd=("python3" "$(pwd)/../generate_config.py" "$target" "$link_name")
+            local cmd=("python3" "$(pwd)/../generate_config.py" "$target" "$link_name")
         elif [ "$force" ]; then
-            cmd=(ln --symbolic --force --verbose "$target" "$link_name")
+            local cmd=(ln --symbolic --force --verbose "$target" "$link_name")
         else
-            cmd=(ln --symbolic --verbose "$target" "$link_name")
+            local cmd=(ln --symbolic --verbose "$target" "$link_name")
         fi
         if any_match sudo "${@:3}"; then
             echo "sudo for '$link_name'"
