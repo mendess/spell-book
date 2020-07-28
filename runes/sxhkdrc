@@ -70,9 +70,6 @@ super + control + v
 super + v
     clipmenu
 
-super + shift + v
-  	sleep 0.5 && echo .p "https://youtu.be/$(m current -i)" | xclip -sel clip && xdotool key Ctrl+V && xdotool key Return && m next-file
-
 super + shift + control + i
   	echo -n INACEITAVEL e INACREDITAVEL | xclip -sel clip && sleep 0.5 && xdotool key Ctrl+V
 
@@ -92,46 +89,46 @@ XF86AudioMicMute
 	pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
 
 super + backslash
-  	m pause
+  	m gui pause
 
 super + shift + bar
-  	m quit
+  	m gui quit
 
 super + minus
-  	m vd 2
+  	m gui vd 2
 
 super + plus
-  	m vu 2
+  	m gui vu 2
 
 super + Next
-  	m next
+  	m gui next
 
 super + Prior
-  	m prev
+  	m gui prev
 
 super + End
-  	m next-file
+  	m gui next-file
 
 super + Home
-  	m prev-file
+  	m gui prev-file
 
 super + Up
-  	m frwd 60
+  	m gui frwd 60
 
 super + Down
-  	m back 60
+  	m gui back 60
 
 super + Right
-  	m frwd 5
+  	m gui frwd 5
 
 super + Left
-  	m back 5
+  	m gui back 5
 
 super + Insert
-  	m current --notify
+  	m gui current
 
 super + Delete
-  	m add-cat-to-current
+  	m gui add-cat-to-current
 
 super + BackSpace
   	echo quit | socat - /tmp/mpvalarm
