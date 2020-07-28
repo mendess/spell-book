@@ -91,7 +91,7 @@ newRunes() {
         local generated=""
         any_match sudo "${args[@]:2}" && ! sudoHost && continue
         any_match ifdir "${args[@]:2}" && ifdir=1
-        any_match generated "${args[@]:2}" && echo "generated for $link" && generated=1
+        any_match generated "${args[@]:2}" && generated=1
         [ "$ifdir" ] && [ ! -e  "$(dirname "$link")" ] && continue
         if [ "$generated" ]; then
             [ ! -e "$link" ]
