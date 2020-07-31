@@ -43,7 +43,7 @@ then
     matches="youtube link	$2"
     n_matches=1
 else
-    matches=$(grep -i "$*" ~/spell-book/library/playlist)
+    matches=$(grep -i "$*" "${PLAYLIST:-~/.config/m/playlist}")
     n_matches=$(echo "$matches" | grep -c 'http')
 fi
 
@@ -61,7 +61,6 @@ then
 fi
 cd "$DLFOLDER" || exit 3
 download_loop() {
-    background=0
     while read -r song; do
         IFS='	' read -r name link <<< "${song}"
         link=$(echo "$link" | cut -f1)
@@ -89,10 +88,8 @@ download_loop() {
                 echo -e "\e[32mDownloaded $name\e[0m"
             fi
             ) &
-            background=$(( background + 1 ))
-            if [ $background -eq "$(nproc)" ]; then
+            if [ $(jobs | wc -l) -ge "$(nproc)" ]; then
                 wait -n
-                background=$(( background - 1 ))
             fi
         fi
     done
