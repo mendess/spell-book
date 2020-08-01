@@ -78,7 +78,7 @@ alias :q=exit
 if hash nvim &>/dev/null; then
     alias vim=nvim
 fi
-alias bc="bc -l"
+alias bc="bc -lq"
 alias :r="source ~/.bashrc"
 alias i3config="vim ~/.config/i3/config"
 alias i3statusconfig="vim ~/.config/i3status/config"

@@ -59,7 +59,7 @@ super + t
   	$TERMINAL -e htop
 
 super + c
-  	$TERMINAL --class floating-terminal --title floating-terminal -e bc -l
+  	$TERMINAL --class floating-terminal --title floating-terminal -e bc -lq
 
 super + x
   	$TERMINAL --class floating-terminal -e bash -c "cal -3 -s && read -s -r -n 1"

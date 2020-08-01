@@ -98,3 +98,4 @@ if has('nvim')
 endif
 
 set linebreak
+au BufEnter,BufRead *.rs set nolinebreak
