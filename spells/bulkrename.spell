@@ -5,7 +5,8 @@ to="$(mktemp)"
 
 trap 'rm $from $to' 0 1 2 3 6 14 15
 
-find ./* -maxdepth 0 | sed 's|./||g' > "$from"
+echo "# use # to skip renaming a file" > "$from"
+find ./* -maxdepth 0 | sed 's|./||g' >> "$from"
 cp "$from" "$to"
 if [ "$EDITOR" ]; then
     ed="$EDITOR"
@@ -17,23 +18,23 @@ fi
 
 "$ed" "$to"
 
-ZIP="from sys import argv
-with open(argv[1], 'r') as f:
+python -c "from sys import argv
+import subprocess
+
+with open('$from', 'r') as f:
     f1 = [l.strip() for l in f]
 
-with open(argv[2], 'r') as f:
+with open('$to', 'r') as f:
     f2 = [l.strip() for l in f]
 
-for l1, l2 in filter(lambda x: x[0] != x[1], zip(f1, f2)):
-    print('mv -vi', l1, l2)
+filt = lambda x: x[0] != x[1] and not x[1].startswith('#')
+
+for l1, l2 in filter(filt, zip(f1, f2)):
+    print(f\"mv -vi '{l1}' '{l2}'\")
+
+c = input('Confirm [Y/n] ')
+
+if c != 'n' and c != 'N':
+    for l1, l2 in filter(filt, zip(f1, f2)):
+        subprocess.run(['mv', '-vi', l1, l2])
 "
-
-cmd=$(python -c "$ZIP" "$from" "$to")
-echo "$cmd"
-printf "Confirm [Y/n] "
-read -r c
-if [ "$c" = n ] || [ "$c" = N ]; then
-    exit
-fi
-
-eval "$cmd"

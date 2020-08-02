@@ -88,3 +88,4 @@ fi
 if [ "$1" == '--hold' ]; then
     read -n 1 -s -r
 fi
+git diff-index --quiet HEAD ./runes/m/playlist && m clean-downloads
