@@ -71,7 +71,11 @@ farrow="=======> "
 barrow=" <======="
 echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
 
+echo -n "PWD: "; pwd
 cd "$(dirname "$(realpath "$0")")" || exit 1
+
+echo -n "PWD: "; pwd
+
 git diff-index --quiet HEAD -- ./runes/m/playlist && m clean-downloads
 
 find library/ -maxdepth 1 -mindepth 1 -type d |
@@ -81,7 +85,9 @@ find library/ -maxdepth 1 -mindepth 1 -type d |
         sync
         popd >/dev/null || continue
     done
+echo -n "PWD: "; pwd
 cd "$(dirname "$(realpath "$0")")" || exit 1
+echo -n "PWD: "; pwd
 
 echo -e "\e[36mBacking up spell-book\e[0m"
 if sync; then
