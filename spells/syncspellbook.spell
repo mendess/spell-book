@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function symlinks() {
+symlinks() {
     pushd .. >/dev/null
     bash ./learnSpells.sh
     bash ./castRunes.sh
@@ -9,7 +9,7 @@ function symlinks() {
     popd >/dev/null || exit 1
 }
 
-function sync() {
+sync() {
     localRemote="$(git log --format=%H -1)" # latest known commit
     echo -en "\033[32m"
     git add --verbose --all
@@ -57,9 +57,7 @@ function sync() {
             git rebase --continue
         done
 
-        if [[ $rebase != 0 ]]; then
-            git push --quiet
-        fi
+        [[ $rebase != 0 ]] && git push --quiet
     elif [ -n "$hasCommits" ]; then
         git push --quiet
     elif [ -n "$hasPulls" ]; then
@@ -68,6 +66,16 @@ function sync() {
     symlinks
     return 0
 }
+
+find library/ -maxdepth 1 -mindepth 1 -type d |
+    while read -r l; do
+        pushd "$l" >/dev/null || continue
+        echo "Backing up book '$(basename "$l")'"
+        sync
+        popd >/dev/null || continue
+    done
+sync
+
 farrow="=======> "
 barrow=" <======="
 cd "$(dirname "$(realpath "$0")")" || exit 1
