@@ -63,7 +63,7 @@ sync() {
     elif [ -n "$hasPulls" ]; then
         git pull --rebase
     fi
-    symlinks
+    [ -e ./castRunes.sh ] && symlinks
     return 0
 }
 
