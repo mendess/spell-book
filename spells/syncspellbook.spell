@@ -1,12 +1,10 @@
 #!/bin/bash
 
 symlinks() {
-    pushd .. >/dev/null
     bash ./learnSpells.sh
     bash ./castRunes.sh
     bash ./synclinks.sh
     bash ./readBooks.sh
-    popd >/dev/null || exit 1
 }
 
 sync() {
