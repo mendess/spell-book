@@ -71,7 +71,7 @@ echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
 
 cd "$(dirname "$(realpath "$0")")/.." || exit 1
 
-git diff-index --quiet HEAD -- ./runes/m/playlist &&
+git diff-index --quiet HEAD -- ./runes/m/playlist ||
     echo "cleaning downloads" &&
     m clean-downloads
 
