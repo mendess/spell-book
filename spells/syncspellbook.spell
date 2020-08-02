@@ -67,6 +67,9 @@ sync() {
     return 0
 }
 
+farrow="=======> "
+barrow=" <======="
+echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
 find library/ -maxdepth 1 -mindepth 1 -type d |
     while read -r l; do
         pushd "$l" || continue
@@ -75,11 +78,8 @@ find library/ -maxdepth 1 -mindepth 1 -type d |
         sync
         popd || continue
     done
-
-farrow="=======> "
-barrow=" <======="
 cd "$(dirname "$(realpath "$0")")" || exit 1
-echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
+
 if sync; then
     echo -e "\033[33m\n${farrow}Back me up and save me${barrow}\033[0m"
 else
