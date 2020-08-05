@@ -69,7 +69,7 @@ farrow="=======> "
 barrow=" <======="
 echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
 
-cd "$(dirname "$(realpath "$0")")/.." || exit 1
+[ -n "$SPELLS" ] && cd "$SPELLS" || exit 1
 
 m clean-downloads
 
