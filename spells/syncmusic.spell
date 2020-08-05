@@ -33,7 +33,7 @@ then
     echo no args
 fi
 
-MUSICFOLDER=~/Music
+MUSICFOLDER=~/Media/Music
 DLFOLDER=."$(folder)"
 echo "===> DLFOLDER $DLFOLDER"
 mkdir -p "$DLFOLDER"
