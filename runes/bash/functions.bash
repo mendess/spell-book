@@ -150,11 +150,11 @@ svim() {
 }
 
 k() {
-    if lsusb | grep 'Mechanical' | grep 'Keyboard' &>/dev/null; then
-        setxkbmap us
+    if lsusb | grep -E 'Mechanical|Keyboard|Kingston' &>/dev/null; then
+        setxkbmap us -option caps:swapescape
         xmodmap -e 'keycode  21 = plus equal plus equal'
     else
-        setxkbmap pt
+        setxkbmap pt -option caps:swapescape
     fi
 }
 
@@ -240,6 +240,7 @@ gcl() {
 
 nospace() {
     for file in *; do
+        grep ' ' <(echo "$file") || continue
         mv -vn "$file" "$(echo "$file" | sed -r "s/['&,()!]//g;s/ ([-_]) /\\1/g;s/ /_/g;s/_+/_/g")"
     done
 }
