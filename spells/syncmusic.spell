@@ -88,9 +88,9 @@ download_loop() {
                 echo -e "\e[32mDownloaded $name\e[0m"
             fi
             ) &
-            if [ $(jobs | wc -l) -ge "$(nproc)" ]; then
+            while [ $(jobs -p | wc -l) -ge "$(nproc)" ]; do
                 wait -n
-            fi
+            done
         fi
     done
     echo -en "\r\e[K"
