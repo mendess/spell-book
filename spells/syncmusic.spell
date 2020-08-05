@@ -28,37 +28,39 @@ cleanup() {
     fi
 }
 
-if [ $# -lt 1 ];
-then
-    echo no args
-fi
-
 MUSICFOLDER=~/Media/Music
-DLFOLDER=."$(folder)"
-echo "===> DLFOLDER $DLFOLDER"
-mkdir -p "$DLFOLDER"
 
 if [ "$1" = "-l" ]
 then
     matches="youtube link	$2"
     n_matches=1
+elif [ -z "$1" ]; then
+    matches="$(cat "${PLAYLIST:-~/.config/m/playlist}")"
+    n_matches=all
 else
     matches=$(grep -i "$*" "${PLAYLIST:-~/.config/m/playlist}")
     n_matches=$(echo "$matches" | grep -c 'http')
 fi
 
-if [ "$n_matches" -lt 1 ]
-then
-    echo no matches
-    exit 1
-fi
-echo "$matches" | awk -F'\t' '{print $1}'
-if [ "$n_matches" -gt 1 ]
-then
-    echo -n Download more than one '?' '[Y/n] '
+if [ "$n_matches" = all ]; then
+    echo -n Download all missing songs '?' '[Y/n] '
     read -n 1 -r b
     [ "$b" = "n" ] && exit 2
+elif [ "$n_matches" -lt 1 ]; then
+    echo no matches
+    exit 1
+else
+    echo "$matches" | awk -F'\t' '{print $1}'
+    if [ "$n_matches" -gt 1 ]
+    then
+        echo -n Download more than one '?' '[Y/n] '
+        read -n 1 -r b
+        [ "$b" = "n" ] && exit 2
+    fi
 fi
+DLFOLDER=."$(folder)"
+echo "===> DLFOLDER $DLFOLDER"
+mkdir -p "$DLFOLDER"
 cd "$DLFOLDER" || exit 3
 download_loop() {
     while read -r song; do
@@ -79,6 +81,7 @@ download_loop() {
                 --add-metadata \
                 --extract-audio \
                 --write-thumbnail \
+                --output '%(title)s-%(id)s=m.%(ext)s' \
                 --audio-format mp3 \
                 "$link" >/dev/null
             then

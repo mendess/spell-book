@@ -71,8 +71,6 @@ echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
 
 [ -n "$SPELLS" ] && cd "$SPELLS" || exit 1
 
-m clean-downloads
-
 find library/ -maxdepth 1 -mindepth 1 -type d |
     while read -r l; do
         pushd "$l" >/dev/null || continue
@@ -87,6 +85,9 @@ if sync 'spell book'; then
 else
     echo -e "\033[31m\n${farrow}     Can't backup     ${barrow}\033[0m"
 fi
+
+m clean-downloads
+
 if [ "$1" == '--hold' ]; then
     read -n 1 -s -r
 fi
