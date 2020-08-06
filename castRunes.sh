@@ -94,7 +94,7 @@ newRunes() {
         any_match generated "${args[@]:2}" && generated=1
         [ "$ifdir" ] && [ ! -e  "$(dirname "$link")" ] && continue
         if [ "$generated" ]; then
-            [ ! -e "$link" ]
+            [ ! -e "$link" ] || [ "$(pwd)/${args[1]}" -ot "$link" ]
         else
             [ ! -h "$link" ]
         fi && return 0
