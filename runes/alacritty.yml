@@ -782,11 +782,11 @@ key_bindings:
   #- { key: F,      mods: Command,            action: SearchForward    }
   #- { key: B,      mods: Command,            action: SearchBackward   }
 
-  - { key: Insert,   mods: Control,         action: Paste   }
-  - { key: PageUp,    mods: Control,   action: ScrollPageUp,   mode: ~Alt       }
-  - { key: PageDown,  mods: Control,   action: ScrollPageDown, mode: ~Alt       }
-  - { key: K,         mods: Control,   action: ScrollLineUp,   mode: ~Alt       }
-  - { key: J,         mods: Control,   action: ScrollLineDown, mode: ~Alt       }
+  - { key: Insert,    mods: Control,   action: Paste                      }
+  - { key: PageUp,    mods: Control,   action: ScrollPageUp,   mode: ~Alt }
+  - { key: PageDown,  mods: Control,   action: ScrollPageDown, mode: ~Alt }
+  - { key: K,         mods: Control,   action: ScrollLineUp,   mode: ~Alt }
+  - { key: J,         mods: Control,   action: ScrollLineDown, mode: ~Alt }
 
 #debug:
   # Display the time it takes to redraw each frame.
