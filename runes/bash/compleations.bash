@@ -22,7 +22,7 @@ _za() {
     else
         find_target="."
     fi
-    echo "ft: '$find_target'" > /dev/pts/9
+    echo "ft: '$find_target'" >/dev/pts/9
     pushd "$find_target" &>/dev/null || return 0
     files=$(find . -maxdepth 1 -type f 2>/dev/null |
         grep -P '(\.djvu|\.pdf)$' |
@@ -31,7 +31,7 @@ _za() {
     popd &>/dev/null || return 0
     echo "f: '$files'" >/dev/pts/9
     declare -a completions
-    mapfile -t completions < <( compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$curw" )
+    mapfile -t completions < <(compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$curw")
     local comp
     COMPREPLY=()
     for comp in "${completions[@]}"; do
@@ -39,7 +39,7 @@ _za() {
     done
     if [ "${#COMPREPLY[@]}" = 1 ]; then
         sug="${COMPREPLY[0]}"
-        echo "s: '$sug'" > /dev/pts/9
+        echo "s: '$sug'" >/dev/pts/9
         if [ -d "$(readlink "$sug")" ]; then
             pushd "$sug" &>/dev/null || return 0
             files=("$(find . -type f -maxdepth 1 2>/dev/null |
@@ -51,7 +51,7 @@ _za() {
             unset completions
             declare -a completions
             mapfile -t completions < \
-                <( compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$curw" )
+                <(compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$curw")
             local comp
             COMPREPLY=()
             for comp in "${completions[@]}"; do
@@ -89,3 +89,34 @@ _ssh() {
 
 complete -F _ssh ssh
 complete -F _ssh sshp
+
+_m() {
+    local opts cur
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD - 1]}"
+    case "$prev" in
+        m | help)
+            opts="$(m help |
+                grep -Pv '^\t' |
+                sed -E 's/([^ ]+) | ([^ ]+)/\2/g' |
+                sed 's/?/-/g' |
+                grep -v '^.$')"
+            ;;
+        *)
+            local docs
+            docs="$(m help "$prev")"
+            if grep 'Options' <(echo "$docs") &>/dev/null; then
+                opts="$(awk '
+                        /Options/         { opts=1 }
+                        opts && /|/       { print $3 }
+                        opts && $0 !~ /|/ { print $1 }
+                        ' <(echo "$docs"))"
+            fi
+            ;;
+
+    esac
+    mapfile -t COMPREPLY < <(compgen -W "$opts" -- "$cur")
+}
+
+complete -F _m m
