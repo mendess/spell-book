@@ -70,6 +70,9 @@ super + control + v
 super + v
     clipmenu
 
+alt + @Insert
+    xclip -o && xdotool type "$(xclip -o)"
+
 super + shift + control + i
   	echo -n INACEITAVEL e INACREDITAVEL | xclip -sel clip && sleep 0.5 && xdotool key Ctrl+V
 

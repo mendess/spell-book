@@ -9,7 +9,7 @@ nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
 calcurse --daemon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
 
 # Settings
-setxkbmap -option caps:swapescape
+setxkbmap -option caps:escape
 if [ "$(cat /etc/hostname)" = tolaria ]
 then
     xrandr --output DVI-D-0 --mode 1920x1080 --rate 120  --rotate normal --primary
