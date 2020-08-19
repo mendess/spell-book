@@ -208,7 +208,11 @@ share() {
     fi
     scp "$FILE" mirrodin:~/disk0/Mirrodin/serve
     url="http://mendess.xyz/file/$(basename "$FILE")"
-    echo "$url" | xclip -sel clip
+    if command -v termux-clipboard-set; then
+        echo "$url" | termux-clipboard-set
+    else
+        echo "$url" | xclip -sel clip
+    fi
     echo "$url"
 }
 
