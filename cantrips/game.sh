@@ -19,6 +19,4 @@ name="$(echo "$games" | sed -r 's/[0-9]+\s//' | grep -v -i -E 'proton|redistribu
 
 [ -n "$name" ] || exit
 
-setxkbmap -option caps:escape
 echo "$games" | grep "$name" | awk -F'\t' '{print $1}' | xargs -I{} steam 'steam://run/{}'
-setxkbmap -option caps:swapescape
