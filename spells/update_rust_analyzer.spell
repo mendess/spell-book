@@ -1,0 +1,5 @@
+curl -s https://api.github.com/repos/rust-analyzer/rust-analyzer/releases/latest |
+    jq -r '.assets[] | select(.name == "rust-analyzer-linux") | .browser_download_url' |
+    wget -i -
+chmod +x rust-analyzer-linux
+mv rust-analyzer-linux ~/.local/bin/rust-analyzer
