@@ -5,8 +5,8 @@ m_installed() {
         f="$(readlink ~/.local/bin/mpvsocket)" && [ -e "$f" ]
 }
 m() {
-    ln -svf "$1"/m.sh ~/.local/bin/
-    ln -svf "$1"/mpvsocket.sh ~/.local/bin/
+    ln -svf "$1"/m.sh ~/.local/bin/m
+    ln -svf "$1"/mpvsocket.sh ~/.local/bin/mpvsocket
 }
 
 all_installed() {
