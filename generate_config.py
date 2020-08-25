@@ -9,7 +9,7 @@ PERCENTS = re.compile(r'^%%', flags=re.M)
 SWITCH_REGEX = re.compile(r'^(switch on ([A-Za-z]\w*))')
 CASE_REGEX = re.compile(r'^((\w+)\s*{[^ \t]*)')
 CASE_END_REGEX = re.compile(r'%%\s*}')
-DEFAULT_REGEX = re.compile(r'^default\s*{')
+DEFAULT_REGEX = re.compile(r'^(default\s*{)')
 SWITCH_END_REGEX = re.compile(r'^(\s*end[^ \t]*)')
 ENDLINE = re.compile(r'\s*\n')
 
@@ -142,6 +142,8 @@ def parse_switch(original_s: str) -> (Switch, str):
 
 def parse_case(original_s: str) -> (Case, str):
     (_, s) = parse_percents(original_s)
+    if DEFAULT_REGEX.match(s):
+        raise ParseError(original_s, 'is a default case')
     match = CASE_REGEX.match(s)
     if match:
         full = match.group(1)
@@ -167,8 +169,11 @@ def parse_cases(s: str) -> (List[Case], str):
 def parse_default(original_s: str) -> (str, str):
     try:
         (_, s) = parse_percents(original_s)
-        if DEFAULT_REGEX.match(s):
-            return skip_past(CASE_END_REGEX, s)
+        match = DEFAULT_REGEX.match(s)
+        if match:
+            (default, s) = skip_past(CASE_END_REGEX, s[len(match.group(1)):])
+            (_, s) = parse_endline(s)
+            return (default, s)
         else:
             raise ParseError(original_s)
     except ParseError as pe:
