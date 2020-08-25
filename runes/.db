@@ -41,3 +41,4 @@
 ~/.config/emojis,emojis
 ~/.config/quickbrowser/bookmarks,bookmarks
 ~/.config/m,m
+~/.config/m/update_panel.sh,m/update_panel.sh,generated
