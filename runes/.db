@@ -40,5 +40,5 @@
 ~/.config/vimb/style.css,vimb/style.css
 ~/.config/emojis,emojis
 ~/.config/quickbrowser/bookmarks,bookmarks
-~/.config/m,m
 ~/.config/m/update_panel.sh,m/update_panel.sh,generated
+~/.config/m,m
