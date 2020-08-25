@@ -1,7 +1,13 @@
 #!/bin/sh
 git submodule update --init --recursive
-m_installed() { f="$(readlink ~/.local/bin/m)" && [ -e "$f" ]; }
-m() { ln -svf "$1"/m.sh ~/.local/bin/m; }
+m_installed() {
+    f="$(readlink ~/.local/bin/m)" && [ -e "$f" ] &&
+        f="$(readlink ~/.local/bin/mpvsocket)" && [ -e "$f" ]
+}
+m() {
+    ln -svf "$1"/m.sh ~/.local/bin/
+    ln -svf "$1"/mpvsocket.sh ~/.local/bin/
+}
 
 all_installed() {
     find library/ -mindepth 1 -maxdepth 1 -type d |
