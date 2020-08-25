@@ -1,6 +1,6 @@
 #!/bin/sh
 %% switch on hostname
-%% localhost {
+%% tolaria {
 CURRENT="$(m current \
     | head -2 \
     | tail -1 \

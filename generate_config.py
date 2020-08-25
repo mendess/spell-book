@@ -7,7 +7,7 @@ import os
 
 PERCENTS = re.compile(r'^%%', flags=re.M)
 SWITCH_REGEX = re.compile(r'^(switch on ([A-Za-z]\w*))')
-CASE_REGEX = re.compile(r'^((\w+)\s*{[^ \t]*)')
+CASE_REGEX = re.compile(r'^((\w+)\s*{[ \t]*)')
 CASE_END_REGEX = re.compile(r'%%\s*}')
 DEFAULT_REGEX = re.compile(r'^(default\s*{)')
 SWITCH_END_REGEX = re.compile(r'^(\s*end[^ \t]*)')
