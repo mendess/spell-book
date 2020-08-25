@@ -10,30 +10,3 @@ export UPDATE_I3BLOCKS='__update_panel'
 alias __update_panel='pkill -10 -x lemon'
 export LINKS="$XDG_DATA_HOME"/links
 export WALLPAPERS=$XDG_DATA_HOME/wallpapers
-#shellcheck disable=SC2120
-mpvsocket() {
-    if [ -e /tmp ]
-    then
-        prefix=/tmp
-    else
-        prefix="$HOME"
-    fi
-    #shellcheck disable=SC2009
-    last=$(ps -ef | grep -v grep | grep -oP '\.mpvsocket[0-9]*' | sort -V | uniq | tail -1)
-    if [ -z "$last" ]
-    then
-        if [ $# -gt 0 ] && [ "$1" = new ]
-        then
-            echo "$prefix/.mpvsocket0"
-        else
-            echo "/dev/null"
-        fi
-    else
-        if [ $# -gt 0 ] && [ "$1" = new ]
-        then
-            echo "$prefix/.mpvsocket$(( $(echo "$last" | grep -oP '[0-9]+$') + 1 ))"
-        else
-            echo "$prefix/$last"
-        fi
-    fi
-}
