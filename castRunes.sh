@@ -106,6 +106,7 @@ linkRune() {
     local generated force
     any_match generated "${@:3}" && generated=1
     any_match force "${@:3}" && force=1
+    any_match exe "${@:3}" && exe=1
     [ "$generated" ] && [ "$force" ] &&
         echo -e '\e[33mWarning:\e[0m Forced does nothing when combined with generated'
     local target="$(pwd)/$1"
@@ -117,6 +118,9 @@ linkRune() {
             local cmd=(ln --symbolic --force --verbose "$target" "$link_name")
         else
             local cmd=(ln --symbolic --verbose "$target" "$link_name")
+        fi
+        if [ "$exe" ] && [ ! -x "$link_name" ]; then
+            chmod -v +x "$link_name"
         fi
         if any_match sudo "${@:3}"; then
             echo "sudo for '$link_name'"
