@@ -119,9 +119,6 @@ linkRune() {
         else
             local cmd=(ln --symbolic --verbose "$target" "$link_name")
         fi
-        if [ "$exe" ] && [ ! -x "$link_name" ]; then
-            chmod -v +x "$link_name"
-        fi
         if any_match sudo "${@:3}"; then
             echo "sudo for '$link_name'"
             echo -en "\033[35mCasting "
@@ -129,6 +126,9 @@ linkRune() {
         else
             echo -en "\033[35mCasting "
             "${cmd[@]}"
+        fi
+        if [ "$exe" ] && [ ! -x "$link_name" ]; then
+            chmod -v +x "$link_name"
         fi
         echo -en "\033[0m"
     fi
