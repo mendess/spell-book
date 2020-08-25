@@ -127,9 +127,7 @@ linkRune() {
             echo -en "\033[35mCasting "
             "${cmd[@]}"
         fi
-        if [ "$exe" ] && [ ! -x "$link_name" ]; then
-            chmod -v +x "$link_name"
-        fi
+        [ "$exe" ] && [ ! -x "$link_name" ] && chmod -v +x "$link_name"
         echo -en "\033[0m"
     fi
 }

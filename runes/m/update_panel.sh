@@ -22,10 +22,10 @@ termux-notification --type media \
     --alert-once \
     --id 1 \
     --title "$CURRENT" \
-    --media-next "echo playlist-next | socat - '$SOCKET'"\
-    --media-pause "echo cycle pause | socat - '$SOCKET'"\
-    --media-play "echo cycle pause | socat - '$SOCKET'"\
-    --media-previous "echo playlist-prev | socat - '$SOCKET'"
+    --media-next "echo playlist-next | socat - ~/.cache/mpvsocket_cache"\
+    --media-pause "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\
+    --media-play "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\
+    --media-previous "echo playlist-prev | socat - ~/.cache/mpvsocket_cache"
 %% }
 %% default {
 pkill -10 -x lemon
