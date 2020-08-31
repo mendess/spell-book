@@ -112,6 +112,7 @@ alias alert='notify-send -i "$([ $? = 0 ] && echo "/usr/share/icons/Adwaita/48x4
 #shellcheck disable=2142
 alias songs='awk -F'\''\t'\'' '\''{print $1}'\'' $PLAYLIST'
 alias which='command -V'
+alias fix_divinity="cd $HOME/.steam/steam/steamapps/common/Divinity\ Original\ Sin\ 2/ && mv ./bin ./bin.bak && ln -s DefEd/bin bin && cd bin && mv ./SupportTool.exe ./SupportTool.bak && ln -s EoCApp.exe SupportTool.exe"
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
