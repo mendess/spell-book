@@ -133,6 +133,11 @@ super + Insert
 super + Delete
   	m gui add-cat-to-current
 
+super + shift + underscore
+    bspc rule -a '*' -o state=pseudo_tiled rectangle=200x466; \
+    m gui toggle-video
+
+
 super + BackSpace
   	echo quit | socat - /tmp/mpvalarm
 
