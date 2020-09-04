@@ -297,9 +297,9 @@ nest() {
     [ "$PWD" = / ] && tmp=/tmp
     dir="$tmp/$1"
     echo "Gonna create $1 at $dir and move stuff there"
-    mkdir "$dir" || exit
-    mv "${@:2}" "$dir" || exit
-    mv "$dir" . || exit
+    mkdir "$dir" || return
+    mv "${@:2}" "$dir" || return
+    mv "$dir" . || return
 }
 
 lyrics() {
