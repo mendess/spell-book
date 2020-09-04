@@ -201,17 +201,18 @@ record() {
 }
 
 share() {
-    FILE="$*"
+    FILE="$1"
+    [ "$2" ] && filename="$2" || filename="$(basename "$FILE")"
     if [ -d "$FILE" ]; then
-        zip -r "/tmp/$(basename "$FILE").zip" "$FILE"
-        FILE="/tmp/$(basename "$FILE").zip"
+        zip -r "/tmp/$filename.zip" "$FILE"
+        FILE="/tmp/$filename.zip"
     fi
-    scp "$FILE" mirrodin:~/disk0/Mirrodin/serve
-    url="http://mendess.xyz/file/$(basename "$FILE")"
+    scp "$FILE" "mirrodin:~/disk0/Mirrodin/serve/$filename"
+    url="http://mendess.xyz/file/$filename"
     if command -v termux-clipboard-set; then
-        echo "$url" | termux-clipboard-set
+        echo -n "$url" | termux-clipboard-set
     else
-        echo "$url" | xclip -sel clip
+        echo -n "$url" | xclip -sel clip
     fi
     echo "$url"
 }
