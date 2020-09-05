@@ -5,37 +5,4 @@
 . library
 
 
-CURRENT="$(m current \
-    | head -2 \
-    | tail -1 \
-    | cut -d ':' -f2 \
-    | sed '
-    s/　/  /g;
-    s/Ａ/A /g;
-    s/Ｃ/C /g;
-    s/Ｈ/H /g;
-    s/Ｉ/I /g;
-    s/Ｌ/L /g;
-    s/Ｍ/M /g;
-    s/Ｎ/N /g;
-    s/Ｔ/T /g;
-    s/Ｕ/U /g;' |
-    sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
-
-if [ "$1" = small ]; then
-    TRUNC=22
-    CURRENT="$(echo "$CURRENT" | sed -r 's/^(.{'"$TRUNC"'}).*/\1.../')"
-fi
-
-[ -z "$CURRENT" ] && echo && exit 0
-
-case $(echo '{"command":["get_property","pause"]}' | socat - "$(mpvsocket)" | jq .data -r) in
-    true) SIGIL='||' ;;
-    false) SIGIL='>' ;;
-esac
-
-VOL="$(echo '{ "command": ["get_property", "volume"] }' \
-    | socat - "$(mpvsocket)" \
-    | jq -r .data)"
-
-echo "♪" "$CURRENT" "$SIGIL" "$VOL%" "♪"
+echo "♪" "$(m current --short)" "♪"
