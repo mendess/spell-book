@@ -374,3 +374,8 @@ torrent() {
         ! read -r -t 2 -p "Quit?"
     do :; done
 }
+
+songs() {
+    grep "$1" $PLAYLIST | awk -F'\t' '{print $2" :: "$1}'
+}
+
