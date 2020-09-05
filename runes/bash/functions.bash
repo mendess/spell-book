@@ -376,7 +376,7 @@ torrent() {
 }
 
 function songs {
-    grep "$1" "$PLAYLIST" |
+    grep -P '.+\t.+\t[0-9]+\t.*'"$1" "$PLAYLIST" |
         awk -F'\t' '{print $2" :: "$1}'
 }
 
