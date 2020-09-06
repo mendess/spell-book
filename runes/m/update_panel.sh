@@ -1,34 +1,21 @@
 #!/bin/sh
-%% switch on hostname
-%% localhost {
-CURRENT="$(m current \
-    | head -2 \
-    | tail -1 \
-    | cut -d ':' -f2 \
-    | sed '
-    s/　/  /g;
-    s/Ａ/A /g;
-    s/Ｃ/C /g;
-    s/Ｈ/H /g;
-    s/Ｉ/I /g;
-    s/Ｌ/L /g;
-    s/Ｍ/M /g;
-    s/Ｎ/N /g;
-    s/Ｔ/T /g;
-    s/Ｕ/U /g;' |
-    sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+case "$(hostname)" in
+    localhost)
+        termux-notification \
+            --title "$(m current --short)" \
+            --content "Up next: $(m c | tail -1)" \
+            --type media \
+            --alert-once \
+            --id 1 \
+            --on-delete "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\
+            --media-next "echo playlist-next | socat - ~/.cache/mpvsocket_cache"\
+            --media-pause "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\
+            --media-play "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\
+            --media-previous "echo playlist-prev | socat - ~/.cache/mpvsocket_cache"
 
-termux-notification --type media \
-    --alert-once \
-    --id 1 \
-    --title "$CURRENT" \
-    --media-next "echo playlist-next | socat - ~/.cache/mpvsocket_cache"\
-    --media-pause "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\
-    --media-play "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\
-    --media-previous "echo playlist-prev | socat - ~/.cache/mpvsocket_cache"
-%% }
-%% default {
-pkill -10 -x lemon
-%% }
-%% end
+        ;;
+    *)
+        pkill -10 -x lemon
+        ;;
+esac
 :
