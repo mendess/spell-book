@@ -4,5 +4,5 @@
 # shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
 . library
 
-
-echo "♪" "$(m current --short)" "♪"
+t="$(m current --short)"
+if [ "$t" ]; then echo "♪" "$t" "♪"; fi

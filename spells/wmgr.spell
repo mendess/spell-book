@@ -110,7 +110,7 @@ process_params() {
             ssh mirrodin \
                 "find Pictures/ -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'mirrodin:/"
 
-            [ "$(hostname)" = tolaria ] || rm -v "$w"
+            [ "$(hostname)" = tolaria ] || [ -e "$w" ] && rm -v "$w"
         done
         ;;
     esac
