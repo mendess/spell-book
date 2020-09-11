@@ -4,5 +4,15 @@
 # shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
 . library
 
-t="$(m current --short)"
+t="$(m current --short | sed '
+s/Ｓ/S /g;
+s/Ｕ/U /g;
+s/Ｎ/N /g;
+s/Ｄ/D /g;
+s/Ａ/A /g;
+s/Ｙ/Y /g;
+s/Ｃ/C /g;
+s/Ｈ/H /g;
+s/Ｏ/O /g;
+s/Ｌ/L /g')"
 if [ "$t" ]; then echo "♪" "$t" "♪"; fi
