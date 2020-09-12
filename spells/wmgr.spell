@@ -180,17 +180,12 @@ fi
 
 process_params
 if [ -n "$sync" ]; then
-    endpoint="$(if nmcli dev wifi 2>/dev/null \
-        | grep -P 'ZON2010|TP-LINK_BBBCCC' >/dev/null; then
-            echo mirrodin;
-        else
-            echo mendess.xyz;
-        fi)"
+    endpoint="mendess.xyz"
     mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
     curl --silent "$endpoint/walls" | grep '<a' | cut -d"'" -f4 | \
         while read -r f; do
-            if ! [ -e "$(basename "$f")" ]; then
+            if [ ! -e "$(basename "$f")" ]; then
                 echo -n "Downloading $endpoint$f ..."
                 wget --quiet "http://$endpoint/$f"
                 echo 'Done'
