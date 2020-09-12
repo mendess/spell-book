@@ -32,6 +32,8 @@ Usage
 Options
     -d
         Delete instead of adding
+    -r
+        Replace an existing one
     -w
         Add wallpaper to the weatherlight collection
     -T
@@ -61,22 +63,24 @@ process_params() {
             ;;
         esac
         if [[ "${host[0]}" = Powerstone ]]; then
-            yellow "Sending $name to PhoneCollection"
-            if ssh mirrodin test -e "Pictures/PhoneCollection/$name"; then
-                echo 'A wallpaper with that name already exists'
-                exit 1
-            fi
-            scp "$wall" "mirrodin:Pictures/PhoneCollection/$name"
-            return 0
+            wall_dir=PhoneCollection
         else
-            yellow "Sending $name to Wallpapers"
-            if ssh mirrodin test -e "Pictures/Wallpapers/$name"; then
-                echo 'A wallpaper with that name already exists'
+            wall_dir=Wallpapers
+        fi
+        yellow "Sending $name to $wall_dir"
+        if [[ "$replace" ]]; then
+            if ssh mirrodin test '!' -e "Pictures/$wall_dir/$name"; then
+                echo 'A wallpaper with that name doesn'\'' exist'
                 exit 1
             fi
-            scp "$wall" "mirrodin:Pictures/Wallpapers/$name"
-            [[ "${host[0]}" = Tolaria ]] && return 0
+        else
+            if ssh mirrodin test -e "Pictures/$wall_dir/$name"; then
+                echo 'A wallpaper with that name doesn'\''t exist'
+                exit 1
+            fi
         fi
+        scp "$wall" "mirrodin:Pictures/$wall_dir/$name"
+        case "${host[0]}" in Powerstone | Tolaria) return 0 ;; esac
         for h in "${host[@]}"; do
             case "$h" in
             weatherlight)
@@ -89,8 +93,8 @@ process_params() {
                 ;;
             powerstone)
                 blue "Creating symlink"
-                if ssh mirrodin test -e "Pictures/PhoneCollection/$name"; then
-                    echo -e "A wallpaper \e[34mlink\e[0m with that name already exists"
+                if ssh mirrodin "[ -e Pictures/PhoneCollection/$name ] && [ ! -h Pictures/PhoneCollection/$name ]"; then
+                    echo -e "A \e[34mnon link\e[0m wallpaper with that name already exists"
                     exit 1
                 fi
                 ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/PhoneCollection"
@@ -148,6 +152,9 @@ while [ "$#" -gt 0 ]; do
         ;;
     -s | --sync)
         sync=1
+        ;;
+    -r | --replace)
+        replace=1
         ;;
     -*)
         echo "Flag $1 not valid"

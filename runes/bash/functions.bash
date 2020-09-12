@@ -151,10 +151,10 @@ svim() {
 
 k() {
     if lsusb | grep -E 'Mechanical|Keyboard|Kingston' &>/dev/null; then
-        setxkbmap us -option caps:swapescape
+        setxkbmap us -option caps:escape
         xmodmap -e 'keycode  21 = plus equal plus equal'
     else
-        setxkbmap pt -option caps:swapescape
+        setxkbmap pt -option caps:escape
     fi
 }
 
@@ -380,3 +380,16 @@ function songs {
         awk -F'\t' '{print $2" :: "$1}'
 }
 
+3_simple() {
+    l1="$1"
+    r1="$2"
+    l2="$3"
+    r2="${4:-x}"
+    if [ "$l2" = x ]; then
+        echo "($r2 * $l1) / $r1" | bc -l
+    elif [ "$r2" = x ]; then
+        echo "($l2 * $r1) / $l1" | bc -l
+    else
+        echo "Error needs at least one x"
+    fi
+}

@@ -5,14 +5,28 @@
 . library
 
 t="$(m current --short | sed '
+s/　/  /g;
+s/Ａ/A /g;
+s/Ｃ/C /g;
+s/Ｄ/D /g;
+s/Ｈ/H /g;
+s/Ｌ/L /g;
+s/Ｎ/N /g;
+s/Ｏ/O /g;
 s/Ｓ/S /g;
 s/Ｕ/U /g;
-s/Ｎ/N /g;
-s/Ｄ/D /g;
-s/Ａ/A /g;
 s/Ｙ/Y /g;
-s/Ｃ/C /g;
-s/Ｈ/H /g;
-s/Ｏ/O /g;
-s/Ｌ/L /g')"
+s/ａ/a /g;
+s/ｃ/c /g;
+s/ｅ/e /g;
+s/ｆ/f /g;
+s/ｉ/i /g;
+s/ｋ/k /g;
+s/ｌ/l /g;
+s/ｍ/m /g;
+s/ｏ/o /g;
+s/ｐ/p /g;
+s/ｒ/r /g;
+s/ｓ/s /g;
+')"
 if [ "$t" ]; then echo "♪" "$t" "♪"; fi

@@ -7,16 +7,12 @@ mkdir -p /tmp/walls
 cd /tmp/walls || exit 1
 rm -f ./*
 
-if [ "$1" = "" ]; then
-    curl --silent https://magic.wizards.com/en/articles/media/wallpapers |
-        grep '1920x1080' |
-        cut -d'=' -f2 |
-        cut -d'"' -f2 |
-        xargs wget ||
-        exit 1
-else
-    wget "$1" || exit
-fi
+curl --silent https://magic.wizards.com/en/articles/media/wallpapers |
+    grep '1920x1080' |
+    cut -d'=' -f2 |
+    cut -d'"' -f2 |
+    xargs wget ||
+    exit 1
 
 for f in *; do
     mv -v "$f" \
