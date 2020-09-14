@@ -166,7 +166,7 @@ nnoremap <F9> :ALEDetail<CR>
 let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
 let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
 let g:ale_cpp_clangtidy_options = '-std=c++2a'
-let g:ale_linters = { 'rust' : ['rls'] , 'c': ['ccls', 'clangtidy', 'clangcheck'], 'cpp': ['ccls','g++','clangtidy','clang++']}
+let g:ale_linters = { 'rust' : ['analyzer'] , 'c': ['ccls', 'clangtidy', 'clangcheck'], 'cpp': ['ccls','g++','clangtidy','clang++']}
 let g:ale_fixers = { 'rust': ['rustfmt'] }
 let g:ale_c_parse_compile_commands = 1
 let g:ale_c_parse_makefile = 1

@@ -96,7 +96,7 @@ if [ -n "$sxiv" ]; then
     files="$(sxiv -to "$WALLPAPERS")"
 elif [ -z "$files" ]; then
     files="$(find "$WALLPAPERS" -type f |
-        grep -iP "/([^/]+/)*${filter}[^/]*$")"
+        grep -iP "/[^/]*${filter}[^/]*$")"
 fi
 
 if [ $list_mode ]; then
@@ -110,10 +110,18 @@ files=$(echo "$files" |
 i=1
 for file in $files; do
     [ "$wide" -gt 0 ] && break
-    aspect_ratio="$(convert "$file" -format '%[fx:w/h]' info:)"
-    wide=$(echo "$aspect_ratio" | awk '$0 >= 2.5 {found=1}
-    END {if(found) {print '$i'} else {print "0"}}')
-    i=$((i + 1))
+    if [[ "$file" = *wide* ]]; then
+        wide=$i
+    else
+        aspect_ratio="$(convert "$file" -format '%[fx:w/h]' info:)"
+        wide=$(echo "$aspect_ratio" | awk '$0 >= 2.5 {found=1}
+                        END {if(found) {print '$i'} else {print "0"}}')
+        [ "$wide" -gt 0 ] &&
+            [[ "$file" != *wide* ]] &&
+            echo "not wide set as wide: $file" >>~/CHANGE_WALL_WIDE_ERROR
+        i=$((i + 1))
+    fi
+    set +x
 done
 unset i
 
