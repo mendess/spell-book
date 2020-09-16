@@ -82,11 +82,8 @@ super + shift + t
 XF86AudioMute
     pactl 'set-sink-mute' @DEFAULT_SINK@ toggle
 
-XF86AudioRaiseVolume
-	pactl 'set-sink-volume' @DEFAULT_SINK@ '+5%'
-
-XF86AudioLowerVolume
-    pactl 'set-sink-volume' @DEFAULT_SINK@ '-5%'
+XF86Audio{Raise,Lower}Volume
+	pactl 'set-sink-volume' @DEFAULT_SINK@ {+,-}5%
 
 XF86AudioMicMute
 	pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
@@ -97,41 +94,20 @@ super + backslash
 super + shift + bar
   	m gui quit
 
-super + minus
-  	m gui vd 2
+super + {minus,plus}
+  	m gui {vd,vu} 2
 
-super + plus
-  	m gui vu 2
+super + {Next,Prior,End,Home}
+    m gui {next,prev,next-file,prev-file}
 
-super + Next
-  	m gui next
+super + {Up,Down}
+  	m gui {frwd,back} 60
 
-super + Prior
-  	m gui prev
+super + {Right,Left}
+  	m gui {frwd,back} 5
 
-super + End
-  	m gui next-file
-
-super + Home
-  	m gui prev-file
-
-super + Up
-  	m gui frwd 60
-
-super + Down
-  	m gui back 60
-
-super + Right
-  	m gui frwd 5
-
-super + Left
-  	m gui back 5
-
-super + Insert
-  	m gui current
-
-super + Delete
-  	m gui add-cat-to-current
+super + {Insert,Delete}
+  	m gui {current,new-cat}
 
 super + shift + underscore
     bspc rule -a mpv -o state=pseudo_tiled rectangle=820x466; \
@@ -147,18 +123,11 @@ super + comma
 super + z
     $TERMINAL -e bash -c "current_lyrics && read -s -r -n 1"
 
-super + F6
-  	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness
+super + F{6,5}
+  	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) {+,-} 10 )) > /sys/class/backlight/intel_backlight/brightness
 
-super + F5
-  	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness
-
-XF86MonBrightnessUp
-	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) + 10 )) > /sys/class/backlight/intel_backlight/brightness
-
-XF86MonBrightnessDown
-	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) - 10 )) > /sys/class/backlight/intel_backlight/brightness
-
+XF86MonBrightness{Up,Down}
+	echo $(( $(cat /sys/class/backlight/intel_backlight/brightness) {+,-} 10 )) > /sys/class/backlight/intel_backlight/brightness
 
 super + shift + BackSpace
     ssh mirrodin python bulb/let_there_be_light.py

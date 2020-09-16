@@ -75,20 +75,15 @@ alias c="clear"
 alias pyenv="source .env/bin/activate"
 alias makeclean="find . -maxdepth 1 -type f -executable -delete"
 alias :q=exit
-if hash nvim &>/dev/null; then
-    alias vim=nvim
-fi
+hash nvim &>/dev/null && alias vim=nvim
 alias bc="bc -lq"
 alias cat='bat -p'
 alias bat='bat -p'
 alias :r="source ~/.bashrc"
-alias i3config="vim ~/.config/i3/config"
-alias i3statusconfig="vim ~/.config/i3status/config"
 alias db="dropbox-cli"
 alias mpvs='mpv --no-video --input-ipc-server=$(mpvsocket new)'
 alias mpvsv='mpv --input-ipc-server=$(mpvsocket new)'
 alias s='sxiv'
-alias notes='mn'
 if command -v evcxr &>/dev/null; then
     alias rs='evcxr'
 else
