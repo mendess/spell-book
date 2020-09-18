@@ -5,8 +5,28 @@
     "regExp": "^.*duckduckgo\\.com.*$"
   },
   {
+    "expression": "*searx.pofilo.fr*",
+    "id": "rJle6fdGaU",
+    "regExp": "^.*searx\\.pofilo\\.fr.*$"
+  },
+  {
+    "expression": "*searx.privatenet.cf*",
+    "id": "HyUTwCb1w",
+    "regExp": "^.*searx\\.privatenet\\.cf.*$"
+  },
+  {
     "expression": "duckduckgo.com*",
     "id": "SkSG8Ei-L",
     "regExp": "^duckduckgo\\.com.*$"
+  },
+  {
+    "expression": "searx.pofilo.fr*",
+    "id": "HkeaM_MpU",
+    "regExp": "^searx\\.pofilo\\.fr.*$"
+  },
+  {
+    "expression": "searx.privatenet.cf*",
+    "id": "BJrTv0WJv",
+    "regExp": "^searx\\.privatenet\\.cf.*$"
   }
 ]
