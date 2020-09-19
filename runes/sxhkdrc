@@ -124,10 +124,10 @@ super + z
     $TERMINAL -e bash -c "current_lyrics && read -s -r -n 1"
 
 super + F{6,5}
-    brightnessctl set $(($(brightnessctl get) {+,-} 10))
+    brightnessctl set {+,-}10
 
 XF86MonBrightness{Up,Down}
-    brightnessctl set $(($(brightnessctl get) {+,-} 10))
+    brightnessctl set {+,-}10
 
 super + shift + BackSpace
     ssh mirrodin python bulb/let_there_be_light.py
