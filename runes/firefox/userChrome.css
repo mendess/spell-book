@@ -157,8 +157,7 @@
 	--bf-tab-font-weight: 500;
 	--bf-tab-color: var(--bf-color);
 	--bf-tab-selected-bg: var(--bf-bg);
-
-	--bf-tab-height: 32px;
+	--bf-tab-height: 24px;
 	--bf-tab-border-radius: 6px;
 	--bf-tab-soundplaying-bg: #985EFFCC;
 
@@ -419,7 +418,7 @@ The tabs container
 }
 
 .tab-background {
-	border: none !important;
+	border: white !important;
 	background: transparent !important;
 }
 
@@ -436,6 +435,21 @@ The tabs container
 .tabbrowser-tab::before {
 	/* Remove the "lines" in tabs */
 	border-left: none !important;
+}
+
+.tabbrowser-tab {
+ 	border-radius: var(--bf-tab-border-radius) !important;
+ 	/* border-width: 0; */
+ 	height: var(--bf-tab-height) !important;
+ 	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	margin-inline-start: 2px !important;
+	margin-inline-end: 2px !important;
+}
+
+.tabbrowser-tab[soundplaying="true"] {
+  /* 	Audio playing background */
+	background-color: var(--bf-tab-soundplaying-bg) !important;
 }
 
 .tabbrowser-arrowscrollbox {
@@ -479,11 +493,6 @@ The tabs container
 	margin-left: 0 !important;
 }
 
-.tab-close-button {
-  /* 	Hide close tab button */
-	display: none !important;
-}
-
 hbox.tab-content .tab-icon-image {
 	/* Tab icon */
 	display: initial !important;
@@ -501,21 +510,6 @@ hbox.tab-content[pinned=true] .tab-text {
 .tab-line, .tab-bottom-line {
   /* 	Hide the tab line */
 	display: none !important;
-}
-
-.tabbrowser-tab {
- 	border-radius: var(--bf-tab-border-radius) !important;
- 	border-width: 0;
- 	height: var(--bf-tab-height) !important;
- 	margin-top: 0 !important;
-	margin-bottom: 0 !important;
-	margin-inline-start: 2px !important;
-	margin-inline-end: 2px !important;
-}
-
-.tabbrowser-tab[soundplaying="true"] {
-  /* 	Audio playing background */
-	background-color: var(--bf-tab-soundplaying-bg) !important;
 }
 
 .tab-icon-sound {
