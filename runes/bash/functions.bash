@@ -143,7 +143,10 @@ svim() {
         "$EDITOR" "$1"
     else
         local DIR
-        DIR="$(find . -type f | grep -v '.git' | sed 's|^./||g' | fzf)"
+        DIR="$(find . -type f  |
+            grep -vP '\.git|library' |
+            sed 's|^./||g' |
+            fzf)"
         [ -n "$DIR" ] && "$EDITOR" "$DIR"
         cd - &>/dev/null || exit 1
     fi
