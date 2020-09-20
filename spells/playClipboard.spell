@@ -4,13 +4,16 @@ for clip in "$(xclip -sel clip -o)" "$(xclip -sel primary -o)"; do
     echo "Trying to play $clip"
     case "$clip" in
         *.png | *.jpg | *.jpeg | *.PNG | *.JPG | *.JPEG)
-            feh "$clip" && exit
+            feh "$clip"
             ;;
         *.gif)
-            mpv --loop-file "$clip" && exit
+            mpv --loop-file "$clip"
+            ;;
+        *.pdf)
+            curl "$clip" | zathura -
             ;;
         *)
-            mpv "$clip" && exit
+            mpv "$clip"
             ;;
-    esac
+    esac && exit
 done

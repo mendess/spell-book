@@ -63,6 +63,7 @@ bspc rule -a zoom state=pseudo_tiled desktop=^3
 bspc rule -a spotify state=pseudo_tiled rectangle=803x70+0+0
 bspc rule -a jetbrains-toolbox state=floating
 bspc rule -a jetbrains-idea state=pseudo_tiled
+bspc rule -a discord desktop=^1 state=pseudo_tiled
 
 if ! pgrep sxhkd; then
     sxhkd &

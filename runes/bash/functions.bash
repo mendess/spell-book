@@ -345,13 +345,19 @@ EOF
 }
 
 sleep_now() {
-    { while :; do
-        sleep 1m
-        m vd
-    done; } &
+    {
+        while ! m c | grep '0%'; do
+            sleep 1m
+            m vd
+        done
+    } &
     disown
     ssh mirrodin python bulb/dimmer.py 0 &
     disown
+    (
+        sleep 2m
+        DISPLAY=:0 xset dpms force off
+    ) &
     sleep "${1:-40m}"
     sctl suspend
 }
@@ -364,6 +370,10 @@ die_now() {
     disown
     ssh mirrodin python bulb/dimmer.py 0 &
     disown
+    (
+        sleep 2m
+        DISPLAY=:0 xset dpms force off
+    ) &
     shutdown +"${1:-40}"
 }
 
@@ -378,7 +388,7 @@ torrent() {
     do :; done
 }
 
-function songs {
+function songs() {
     grep -P '.+\t.+\t[0-9]+\t.*'"$1" "$PLAYLIST" |
         awk -F'\t' '{print $2" :: "$1}'
 }

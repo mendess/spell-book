@@ -1,4 +1,4 @@
 #!/bin/bash
 
 m gui play-interactive
-pgrep jukebox || jukebox --room tolaria jukebox
+pgrep jukebox || while :; do jukebox --room tolaria jukebox; done
