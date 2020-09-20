@@ -50,17 +50,42 @@ expand() {
     for file in "$2"/*; do
         f="$(basename "$file")"
         if [ -d "$file" ]; then
-            expand "$1/$f" "$2/$f" "$3"
+            expand "$1/$f" "$2/$f" "${@:3}"
         else
-            expandedRunes+=("$1/$f,$2/$f,$3")
+            expandedRunes+=("$1/$f,$2/$f,${@:3}")
         fi
     done
 }
 
 while IFS=',' read -r -a args; do
-    link="${args[0]}"
     file="${args[1]}"
-    args[0]="${args[0]/#\~/$HOME}"
+    link="${args[0]/#\~/$HOME}"
+    [[ $link =~ .*\*.* ]] && {
+        path="${link%%/*}"
+        rest="${link#*/}"
+        while [ "$rest" ]; do
+            case "$rest" in
+                */*)
+                    seg="${rest%%/*}"
+                    rest="${rest#*/}"
+                    ;;
+                *)
+                    seg="$rest"
+                    rest=""
+                    ;;
+            esac
+            path="$path/$seg"
+            #shellcheck disable=2206
+            a=($path)
+            [[ "${#a[@]}" -gt 1 ]] &&
+                echo "too many matches: '${a[*]}'" &&
+                break
+            path="${a[0]}"
+        done
+        [[ $path =~ .*\*.* ]] && continue
+        link="$path"
+    }
+    args[0]="$link"
     if [ -d "$file" ]; then
         expand "${args[@]}"
     else
@@ -92,7 +117,7 @@ newRunes() {
         any_match sudo "${args[@]:2}" && ! sudoHost && continue
         any_match ifdir "${args[@]:2}" && ifdir=1
         any_match generated "${args[@]:2}" && generated=1
-        [ "$ifdir" ] && [ ! -e  "$(dirname "$link")" ] && continue
+        [ "$ifdir" ] && [ ! -e "$(dirname "$link")" ] && continue
         if [ "$generated" ]; then
             [ ! -e "$link" ] || [ "$(pwd)/${args[1]}" -ot "$link" ]
         else

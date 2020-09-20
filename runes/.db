@@ -33,7 +33,9 @@
 ~/.config/wgetrc,wgetrc
 ~/.config/zathura/zathurarc,zathurarc
 ~/.mailcap,mailcap
-~/.mozilla/firefox/9ow71ryu.default/user.js,firefox/user.js
+~/.mozilla/firefox/*.default/chrome/userChrome.css,firefox/userChrome.css
+~/.mozilla/firefox/*.default/chrome/userContent.css,firefox/userContent.css
+~/.mozilla/firefox/*.default/user.js,firefox/user.js
 ~/.vimrc,nvim/init.vim
 ~/.config/X11/Xresources,Xresources
 ~/.config/vimb/config,vimb/config
