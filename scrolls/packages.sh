@@ -95,7 +95,7 @@ lemonbar-xft-git
 ncpamixer
 pacmixer
 pfetch
-picom-tryone-git
+picom-git
 polybar
 shellcheck-static
 toilet
