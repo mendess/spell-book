@@ -424,6 +424,7 @@ The tabs container
 
 .tab-background[selected="true"] {
 	background: var(--bf-tab-selected-bg) !important;
+	border-bottom: solid white 1px !important;
 }
 
 .tab-background:not[visuallyselected] {
