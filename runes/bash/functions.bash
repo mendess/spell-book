@@ -22,12 +22,12 @@ aura() {
             ;;
         *)
             old="$(pwd)"
-            cd /tmp || exit 1
+            cd /tmp || return 1
             git clone https://aur.archlinux.org/"$1"
-            cd "$1" || exit 1
+            cd "$1" || return 1
             [ $edit ] && $EDITOR PKGBUILD
             makepkg -si --clean "${@:2}"
-            cd "$old" || exit 1
+            cd "$old" || return 1
             ;;
     esac
 }
@@ -138,7 +138,7 @@ vimbd() {
 }
 
 svim() {
-    cd "$SPELLS" || exit 1
+    cd "$SPELLS" || return 1
     if [ -n "$1" ]; then
         "$EDITOR" "$1"
     else
@@ -148,7 +148,7 @@ svim() {
             sed 's|^./||g' |
             fzf)"
         [ -n "$DIR" ] && "$EDITOR" "$DIR"
-        cd - &>/dev/null || exit 1
+        cd - &>/dev/null || return 1
     fi
 }
 
@@ -164,10 +164,10 @@ k() {
 advent-of-code() {
     if [[ "$1" != day* ]]; then
         echo "bad input: '$1'"
-        exit 1
+        return 1
     fi
-    cargo new "$1" || exit 1
-    cd "$1" || exit 1
+    cargo new "$1" || return 1
+    cd "$1" || return 1
     echo '
 [[bin]]
 name = "one"
