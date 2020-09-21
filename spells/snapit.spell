@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#shellcheck source=/home/mendess/.config/user-dirs.dirs
+. "$XDG_CONFIG_HOME/user-dirs.dirs"
+
+read -r -a geo <<<"$(hacksaw -f "- %i -g %g")"
+case "$1" in
+    save)
+        shotgun "${geo[@]}" /tmp/screenshot.png
+        rename="$(: | dmenu -p 'Select picture name' |
+            sed 's/^\s *//; s/\s*$//; s/\s\s*/_/g').png"
+        [[ -z "$rename" ]] && exit 1
+        if mv /tmp/screenshot.png "${XDG_PICTURES_DIR}/$rename"; then
+            notify-send 'Screenshot captured' \
+                "Saved to <b>${XDG_PICTURES_DIR}/$rename</b>" \
+                -i "${HOME}/${XDG_PICTURES_DIR}/$rename" \
+                -a "$(basename "$0")"
+        fi
+        ;;
+    floating)
+        a="${geo[3]%%+*}"
+        shotgun "${geo[@]}" /tmp/floating_print.png
+  	    sxiv -b -g "$a" -p /tmp/floating_print.png
+        rm /tmp/floating_print.png
+        ;;
+    *)
+        shotgun "${geo[@]}" - | xclip -sel clip -t image/png
+        ;;
+esac
