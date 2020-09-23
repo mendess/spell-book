@@ -3,35 +3,6 @@
 #shellcheck source=/home/mendess/.local/bin/library
 . library
 
-aura() {
-    case "$1" in
-        -e)
-            edit=1
-            aura "$2"
-            ;;
-        -R*)
-            sudo pacman -Rsn "$2"
-            # pacman "$1" "$2"
-            ;;
-        -Ss)
-            curl -s "https://aur.archlinux.org/rpc/?v=5&type=search&by=name&arg=$1" |
-                jq '.results[] | "\(.Name) -> \(.Description)"'
-            ;;
-        -S)
-            aura "${@:2}"
-            ;;
-        *)
-            old="$(pwd)"
-            cd /tmp || return 1
-            git clone https://aur.archlinux.org/"$1"
-            cd "$1" || return 1
-            [ $edit ] && $EDITOR PKGBUILD
-            makepkg -si --clean "${@:2}"
-            cd "$old" || return 1
-            ;;
-    esac
-}
-
 make() {
     if [ -e Makefile ] || [ -e makefile ]; then
         bash -c "make -j$(nproc || echo 4) $*"
@@ -143,7 +114,7 @@ svim() {
         "$EDITOR" "$1"
     else
         local DIR
-        DIR="$(find . -type f  |
+        DIR="$(find . -type f |
             grep -vP '\.git|library' |
             sed 's|^./||g' |
             fzf)"
@@ -254,6 +225,7 @@ nospace() {
 }
 
 xdofast() {
+    export DISPLAY=:0
     echo "alias x='xdotool'"
     echo "alias xk='xdotool key'"
     echo "alias xt='xdotool type'"

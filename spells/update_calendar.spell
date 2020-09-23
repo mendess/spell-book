@@ -14,6 +14,6 @@ do
     curl --silent "$cal" >> /tmp/cal || exit 2
 done < "$LINKS"/calendarios
 
-rm -f "$XDG_DATA_HOME"/calcurse/apts
-calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse -i /tmp/cal
+rm -f "$XDG_DATA_HOME/calcurse/apts"
+calcurse -C "$XDG_CONFIG_HOME/calcurse" -D "$XDG_DATA_HOME/calcurse" -i /tmp/cal
 echo "========"

@@ -3,7 +3,7 @@
 #shellcheck source=/home/mendess/.config/user-dirs.dirs
 . "$XDG_CONFIG_HOME/user-dirs.dirs"
 
-read -r -a geo <<<"$(hacksaw -f "- %i -g %g")"
+read -r -a geo <<<"$(hacksaw -f "-i %i -g %g")"
 case "$1" in
     save)
         shotgun "${geo[@]}" /tmp/screenshot.png

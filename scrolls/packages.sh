@@ -24,15 +24,14 @@ firefox
 fortune-mod
 fzf
 gdb
-giblib # scrot deps
 gimp
 glava
+hacksaw shotgun
 hyperfine
 imagemagick
 jq
 libconfig # compton dependency
 libxdg-basedir # compton dependency
-lynx
 man
 man-pages
 mpv
@@ -105,7 +104,6 @@ xdo-git
 export cargopackages=(
 #tealdeer
 cargo-watch
-#racer
 )
 
 export bloat=(
@@ -117,4 +115,5 @@ xorg-xclock
 export pythonpackages=(
 dbus-python
 yeelight
+pynvim
 )
