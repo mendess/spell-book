@@ -159,7 +159,7 @@
 	--bf-tab-selected-bg: var(--bf-bg);
 	--bf-tab-height: 24px;
 	--bf-tab-border-radius: 6px;
-	--bf-tab-soundplaying-bg: #985EFFCC;
+	--bf-tab-soundplaying-bg: #2180de;
 
 	--bf-navbar-padding: 4px;
 
@@ -422,6 +422,15 @@ The tabs container
 	background: transparent !important;
 }
 
+.tabbrowser-tab[soundplaying="true"] {
+  /* 	Audio playing background */
+	/*border-top: solid var(--bf-tab-soundplaying-bg) 1px !important;*/
+}
+
+.tab-background[soundplaying="true"] {
+	border-top: solid var(--bf-tab-soundplaying-bg) 1px !important;
+}
+
 .tab-background[selected="true"] {
 	background: var(--bf-tab-selected-bg) !important;
 	border-bottom: solid white 1px !important;
@@ -442,15 +451,10 @@ The tabs container
  	border-radius: var(--bf-tab-border-radius) !important;
  	/* border-width: 0; */
  	height: var(--bf-tab-height) !important;
- 	margin-top: 0 !important;
-	margin-bottom: 0 !important;
+ 	/*margin-top: 0 !important;*/
+	/*margin-bottom: 0 !important;*/
 	margin-inline-start: 2px !important;
 	margin-inline-end: 2px !important;
-}
-
-.tabbrowser-tab[soundplaying="true"] {
-  /* 	Audio playing background */
-	background-color: var(--bf-tab-soundplaying-bg) !important;
 }
 
 .tabbrowser-arrowscrollbox {
@@ -524,7 +528,6 @@ hbox.tab-content[pinned=true] .tab-text {
 }
 
 .private-browsing-indicator {
-	display: none;
 	background: var(--bf-bg);
 }
 
