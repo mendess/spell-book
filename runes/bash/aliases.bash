@@ -81,8 +81,8 @@ alias cat='bat -p'
 alias bat='bat -p'
 alias :r="source ~/.bashrc"
 alias db="dropbox-cli"
-alias mpvs='mpv --no-video --input-ipc-server=$(mpvsocket new)'
-alias mpvsv='mpv --input-ipc-server=$(mpvsocket new)'
+alias mpvs='mpv --no-video --input-ipc-server=$(m socket new)'
+alias mpvsv='mpv --input-ipc-server=$(m socket new)'
 alias s='sxiv'
 if command -v evcxr &>/dev/null; then
     alias rs='evcxr'

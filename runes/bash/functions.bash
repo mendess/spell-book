@@ -256,7 +256,7 @@ mpv_get() {
 
     #shellcheck disable=2119
     echo '{ "command": ["get_property", "'"$1"'"] }' |
-        socat - "$(mpvsocket)" |
+        socat - "$(m socket)" |
         jq "${2:-.}"
 }
 

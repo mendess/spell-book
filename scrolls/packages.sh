@@ -116,4 +116,5 @@ export pythonpackages=(
 dbus-python
 yeelight
 pynvim
+yapf
 )

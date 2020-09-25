@@ -24,13 +24,13 @@ case $BLOCK_BUTTON in
     5) m vd 5 ;;
 esac
 
-case $(echo '{"command":["get_property","pause"]}' | socat - "$(mpvsocket)" | jq .data -r) in
+case $(echo '{"command":["get_property","pause"]}' | socat - "$(m socket)" | jq .data -r) in
     true) SIGIL='││' ;;
     false) SIGIL='⊳' ;;
 esac
 
 VOL="$(echo '{ "command": ["get_property", "volume"] }' \
-    | socat - "$(mpvsocket)" \
+    | socat - "$(m socket)" \
     | jq -r .data)"
 
 echo "♪" "$CURRENT" "$SIGIL" "$VOL%"
