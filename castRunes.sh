@@ -22,7 +22,7 @@ join_by() {
 
 sudoHost() {
     local h
-    for h in tolaria weatherlight mirrodin archive; do
+    for h in tolaria weatherlight mirrodin matess; do
         [ "$(hostname)" = "$h" ] && return 0
     done
     return 1
