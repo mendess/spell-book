@@ -89,6 +89,9 @@
 %% weatherlight {
     font = Hack 7
 %% }
+%% archive {
+    font = Hack 7
+%% }
 %% tolaria {
     font = Hack 9
 %% }

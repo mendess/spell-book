@@ -83,7 +83,7 @@ process_params() {
         case "${host[0]}" in Powerstone | Tolaria) return 0 ;; esac
         for h in "${host[@]}"; do
             case "$h" in
-            weatherlight)
+            weatherlight | archive)
                 blue "Creating symlink"
                 ssh mirrodin \
                     "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"

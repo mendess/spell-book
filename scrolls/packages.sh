@@ -83,7 +83,7 @@ zathura-pdf-poppler
 zip
 )
 
-[ "$(hostname)" = weatherlight ] && packages+=(brightnessctl)
+[[ "$(hostname)" =~ weatherlight|archive ]] && packages+=(brightnessctl)
 
 export aurpackages=(
 dropbox
