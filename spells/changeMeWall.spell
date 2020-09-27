@@ -44,7 +44,7 @@ for line in sys.stdin:
     g = int(line[2:4], 16)
     b = int(line[4:6], 16)
     hsv = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
-    if False and (hsv[1] < 0.2 or hsv[2] < 0.3):
+    if True and (hsv[1] < 0.2 or hsv[2] < 0.3):
         print("{:02d}:".format(count), og_line, r, g, b, "s: {:.2f} v: {:.2f}".format(*hsv[1:]), file=sys.stderr)
     else:
         outputs += 1

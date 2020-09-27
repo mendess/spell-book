@@ -53,116 +53,114 @@ EOF
 
 process_params() {
     [ -z "$name" ] && name="$(basename "$wall")"
+    ext="${wall##*.}"
+    [[ ! "$name" =~ .*$ext$ ]] && name="$name.$ext"
 
     case "$mode" in
-    add)
-        case "$wall" in
-        http*)
-            wget --no-verbose "$wall" -O "$TMPDIR/$name"
-            wall="$TMPDIR/$name"
-            ;;
-        esac
-        if [[ "${host[0]}" = Powerstone ]]; then
-            wall_dir=PhoneCollection
-        else
-            wall_dir=Wallpapers
-        fi
-        yellow "Sending $name to $wall_dir"
-        if [[ "$replace" ]]; then
-            if ssh mirrodin test '!' -e "Pictures/$wall_dir/$name"; then
-                echo 'A wallpaper with that name doesn'\'' exist'
-                exit 1
-            fi
-        else
-            if ssh mirrodin test -e "Pictures/$wall_dir/$name"; then
-                echo 'A wallpaper with that name doesn'\''t exist'
-                exit 1
-            fi
-        fi
-        scp "$wall" "mirrodin:Pictures/$wall_dir/$name"
-        case "${host[0]}" in Powerstone | Tolaria) return 0 ;; esac
-        for h in "${host[@]}"; do
-            case "$h" in
-            weatherlight | matess)
-                blue "Creating symlink"
-                ssh mirrodin \
-                    "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
-                if [[ "$(hostname)" != "tolaria" ]]; then
-                    cp -v "$wall" "$WALLPAPERS/$name"
-                fi
-                ;;
-            powerstone)
-                blue "Creating symlink"
-                if ssh mirrodin "[ -e Pictures/PhoneCollection/$name ] && [ ! -h Pictures/PhoneCollection/$name ]"; then
-                    echo -e "A \e[34mnon link\e[0m wallpaper with that name already exists"
-                    exit 1
-                fi
-                ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/PhoneCollection"
-                ;;
+        add)
+            case "$wall" in
+                http*)
+                    wget --no-verbose "$wall" -O "$TMPDIR/$name"
+                    wall="$TMPDIR/$name"
+                    ;;
             esac
-        done
-        ;;
-    delete)
-        if [ -z "$wall" ]; then
-            wall="$(find "$WALLPAPERS" -type f -printf '%T@ %p\n' |
+            if [[ "${host[0]}" = Powerstone ]]; then
+                wall_dir=PhoneCollection
+            else
+                wall_dir=Wallpapers
+            fi
+            yellow "Sending $name to $wall_dir"
+            if [[ "$replace" ]]; then
+                ssh mirrodin test '!' -e "Pictures/$wall_dir/$name" &&
+                    echo 'A wallpaper with that name doesn'\'' exist' &&
+                    return 1
+            else
+                ssh mirrodin test -e "Pictures/$wall_dir/$name" &&
+                    echo 'A wallpaper with that name doesn'\''t exist' &&
+                    return 1
+            fi
+            scp "$wall" "mirrodin:Pictures/$wall_dir/$name"
+            case "${host[0]}" in Powerstone | Tolaria) return 0 ;; esac
+            for h in "${host[@]}"; do
+                case "$h" in
+                    weatherlight | matess)
+                        blue "Creating symlink"
+                        ssh mirrodin \
+                            "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
+                        [[ "$(hostname)" != "tolaria" ]] && cp -v "$wall" "$WALLPAPERS/$name"
+                        ;;
+                    powerstone)
+                        blue "Creating symlink"
+                        ssh mirrodin \
+                            "[ -e Pictures/PhoneCollection/$name ] && \
+                             [ ! -h Pictures/PhoneCollection/$name ]" &&
+                            echo -e "A \e[34mnon link\e[0m wallpaper with that name already exists" &&
+                            return 1
+                        ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/PhoneCollection"
+                        ;;
+                esac
+            done
+            ;;
+        delete)
+            [ -z "$wall" ] && wall="$(find "$WALLPAPERS" -type f -printf '%T@ %p\n' |
                 sort -n |
                 cut -d' ' -f2- |
                 sxiv -i -g 1800x1000 -b -t -o)"
+            for w in $wall; do
+                ssh mirrodin \
+                    "find Pictures/ -type l,f -name '$(basename "$w")' | xargs -r rm -v" |
+                    sed "s/'/'mirrodin:/"
 
-        fi
-        for w in $wall; do
-            ssh mirrodin \
-                "find Pictures/ -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'mirrodin:/"
-
-            [ "$(hostname)" = tolaria ] || [ -e "$w" ] && rm -v "$w"
-        done
-        ;;
+                [ "$(hostname)" = tolaria ] || { [ -e "$w" ] && rm -v "$w"; }
+            done
+            ;;
     esac
+    :
 }
 
 mode=add
 while [ "$#" -gt 0 ]; do
     case "$1" in
-    -w)
-        [ -n "$selfish" ] && error_selfish "$selfish"
-        host+=(weatherlight)
-        ;;
-    -T)
-        host=(Tolaria)
-        selfish=-T
-        ;;
-    -p)
-        [ -n "$selfish" ] && error_selfish "$selfish"
-        host+=(powerstone)
-        ;;
-    -P)
-        host=(Powerstone)
-        selfish=-P
-        ;;
-    -d)
-        mode=delete
-        ;;
-    -h)
-        wall=""
-        break
-        ;;
-    -n)
-        shift
-        name="$1"
-        ;;
-    -s | --sync)
-        sync=1
-        ;;
-    -r | --replace)
-        replace=1
-        ;;
-    -*)
-        echo "Flag $1 not valid"
-        help_message
-        ;;
-    *)
-        wall="$1"
-        ;;
+        -w)
+            [ -n "$selfish" ] && error_selfish "$selfish"
+            host+=(weatherlight)
+            ;;
+        -T)
+            host=(Tolaria)
+            selfish=-T
+            ;;
+        -p)
+            [ -n "$selfish" ] && error_selfish "$selfish"
+            host+=(powerstone)
+            ;;
+        -P)
+            host=(Powerstone)
+            selfish=-P
+            ;;
+        -d)
+            mode=delete
+            ;;
+        -h)
+            wall=""
+            break
+            ;;
+        -n)
+            shift
+            name="$1"
+            ;;
+        -s | --sync)
+            sync=1
+            ;;
+        -r | --replace)
+            replace=1
+            ;;
+        -*)
+            echo "Flag $1 not valid"
+            help_message
+            ;;
+        *)
+            wall="$1"
+            ;;
     esac
     shift
 done
@@ -178,12 +176,12 @@ if [ "$mode" != delete ] && [ -z "$wall" ]; then
     fi
 fi
 
-process_params
+process_params || exit 1
 if [ -n "$sync" ]; then
     endpoint="mendess.xyz"
     mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
-    curl --silent "$endpoint/walls" | grep '<a' | cut -d"'" -f4 | \
+    curl --silent "$endpoint/walls" | grep '<a' | cut -d"'" -f4 |
         while read -r f; do
             if [ ! -e "$(basename "$f")" ]; then
                 echo -n "Downloading $endpoint$f ..."
