@@ -6,7 +6,6 @@ symlinks() {
     bash ./synclinks.sh
 }
 
-bash ./readBooks.sh
 
 sync() {
     localRemote="$(git log --format=%H -1)" # latest known commit
@@ -70,7 +69,13 @@ farrow="=======> "
 barrow=" <======="
 echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
 
-[ -n "$SPELLS" ] && cd "$SPELLS" || exit 1
+if [[ "$SPELLS" ]]; then
+    cd "$SPELLS" || exit 1
+else
+    cd "$(dirname "$(dirname "$0")")" || exit 1
+fi
+
+bash ./readBooks.sh
 
 find library/ -maxdepth 1 -mindepth 1 -type d |
     while read -r l; do
