@@ -74,8 +74,11 @@ echo -e "\033[33m${farrow}  Back me up inside!  ${barrow}\n\033[0m"
 find library/ -maxdepth 1 -mindepth 1 -type d |
     while read -r l; do
         pushd "$l" >/dev/null || continue
-        echo -e "\e[36mBacking up book '$(basename "$l")'\e[0m"
-        sync "$(basename "$l")"
+        if [ "$(git status --porcelain)" ]; then
+            echo "library $l is dirty, please clean it"
+        else
+            git pull
+        fi
         popd >/dev/null || continue
     done
 
