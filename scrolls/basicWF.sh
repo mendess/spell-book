@@ -1,29 +1,25 @@
 #!/bin/bash
 
-set -e
 if [ "$#" = 0 ]; then
     ALL=1
 else
     while [[ $# -gt 0 ]]; do
         key="$1"
         case $key in
-            -p | --pacman)
+            pacman | -p | --pacman)
                 PACMAN=1
-                shift
                 ;;
-            -a | --aur)
+            aur | -a | --aur)
                 AUR=1
-                shift
                 ;;
-            -c | --cargo)
+            cargo | -c | --cargo)
                 CARGO=1
-                shift
                 ;;
-            -y | --python)
+            python | -y | --python)
                 PYTHON=1
-                shift
                 ;;
         esac
+        shift
     done
 fi
 
@@ -67,7 +63,7 @@ aur && {
     mkdir tmp
     (
         cd tmp || exit 1
-        git clone https://github.com/jtexeira/aura.git
+        git clone https://github.com/jtexeira/tiny-aura.git
         ( cd tiny-aura || exit 1 && sudo make )
         for i in "${aurpackages[@]}"; do
             [ "$(pacman -Qq "$i")" = "$i" ] && continue

@@ -79,15 +79,15 @@ xwallpaper
 xz
 youtube-dl
 zathura
-zathura-pdf-poppler
+zathura-pdf-mupdf
 zip
 )
 
 [[ "$(hostname)" =~ weatherlight|matess ]] && packages+=(brightnessctl)
 
 export aurpackages=(
-dropbox
-dropbox-cli
+#dropbox
+#dropbox-cli
 entr
 htop-vim-git
 lemonbar-xft-git
