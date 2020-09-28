@@ -91,19 +91,18 @@ export aurpackages=(
 entr
 htop-vim-git
 lemonbar-xft-git
-ncpamixer
 pacmixer
 pfetch
 picom-git
-polybar
 shellcheck-static
-toilet
 xdo-git
+termsyn-font
 )
 
 export cargopackages=(
 #tealdeer
 cargo-watch
+color_picker
 )
 
 export bloat=(

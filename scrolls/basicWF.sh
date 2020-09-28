@@ -64,10 +64,9 @@ aur && {
     (
         cd tmp || exit 1
         git clone https://github.com/jtexeira/tiny-aura.git
-        ( cd tiny-aura || exit 1 && sudo make )
+        (cd tiny-aura || exit 1 && sudo make)
         for i in "${aurpackages[@]}"; do
-            [ "$(pacman -Qq "$i")" = "$i" ] && continue
-            (
+            pacman -Qq "$i" || (
                 git clone https://aur.archlinux.org/"$i"
                 cd "$i" || exit 1
                 echo "$PASSWORD" | command sudo -S true
@@ -90,4 +89,5 @@ pytho && {
     sudo pip install "${pythonpackages[@]}"
 }
 cd "$script_dir" || exit 1
-../spells/syncspellbook.spell
+../spells/update_rust_analyzer.spell
+../spells/syncspellbook.spell --nocommit

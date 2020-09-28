@@ -79,10 +79,16 @@ fi
 # fi
 #[ -e "$PANEL_FIFO" ] && bspc subscribe report > "$PANEL_FIFO" &
 pgrep -x lemon && killall lemon
-! [ -e ~/.config/lemonbar/lemon ] ||
-    [ ~/.config/lemonbar/lemon.rs -ot ~/.config/lemonbar/lemon ] ||
-    { rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon &&
-        echo "compiled" | tee /tmp/compiled_bar; }
+if [ ! -e ~/.config/lemonbar/lemon ] ||
+    [ ~/.config/lemonbar/lemon.rs -ot ~/.config/lemonbar/lemon ]; then
+    if rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon > /tmp/compiled_bar 2>&1; then
+        echo "compiled"
+    else
+        echo "failed to compile"
+        notify-send 'Failed to compile' -u critical -a bspwmrc
+        exit
+    fi
+fi
 bar_args=()
 for mon in $(bspc query -M); do
     l() {
