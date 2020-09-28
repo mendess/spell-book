@@ -1,5 +1,9 @@
 #!/bin/bash
+set -x
+exec &> ~/lmao
+echo "$0"
 cd "$(dirname "$(realpath "$0")")" || exit 1
+pwd
 
 [ "$1" = GUI ] && picker=dmenu || picker=fzf
 

@@ -20,7 +20,7 @@ super + d
   	dmenu_run
 
 super + shift + d
-  	~/Projects/spell-book/cantrips/menu.sh GUI
+  	menu GUI
 
 super + F9
   	changeMeWall
