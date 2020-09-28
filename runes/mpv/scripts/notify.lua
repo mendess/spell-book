@@ -171,6 +171,7 @@ end
 function update_panel()
     local update_panel = (os.getenv("HOME") .. "/.config/m/update_panel.sh")
     print("executing command: " .. update_panel)
+    os.execute("pwd")
     os.execute(update_panel)
 end
 

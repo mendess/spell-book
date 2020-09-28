@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 case "$(hostname)" in
     localhost)
         m="$(m c | awk 'NR > 1 && NR < 4 {print} {last=$0} END {print last}')"
