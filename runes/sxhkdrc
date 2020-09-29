@@ -121,10 +121,10 @@ super + comma
     pkill -11 -x lemon
 
 super + F{6,5}
-    brightnessctl set {+,-}10
+    brightnessctl set {+10,10-}
 
 XF86MonBrightness{Up,Down}
-    brightnessctl set {+,-}10
+    brightnessctl set {+10,10-}
 
 super + shift + BackSpace
     ssh mirrodin python bulb/let_there_be_light.py
@@ -227,7 +227,7 @@ super + {h,j,k,l}
 	if bspc query --nodes --node focused.floating; then \
 	    bspc node --focus $\{dir[1]\}.floating.local; \
     else \
-	    bspc node --focus $\{dir[0]\}.!floating; \
+	    bspc node --focus $\{dir[0]\}".!floating"; \
     fi
 
 #	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
