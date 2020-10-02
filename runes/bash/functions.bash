@@ -316,39 +316,6 @@ _minted-presentation/
 EOF
 }
 
-sleep_now() {
-    {
-        while ! m c | grep '0%'; do
-            sleep 1m
-            m vd
-        done
-    } &
-    disown
-    ssh mirrodin python bulb/dimmer.py 0 &
-    disown
-    (
-        sleep 2m
-        DISPLAY=:0 xset dpms force off
-    ) &
-    sleep "${1:-40m}"
-    sctl suspend
-}
-
-die_now() {
-    { while :; do
-        sleep 1m
-        m vd
-    done; } &
-    disown
-    ssh mirrodin python bulb/dimmer.py 0 &
-    disown
-    (
-        sleep 2m
-        DISPLAY=:0 xset dpms force off
-    ) &
-    shutdown +"${1:-40}"
-}
-
 sshp() {
     ssh "$1" '. $HOME/.bash_profile; '"${*:2}"
 }
