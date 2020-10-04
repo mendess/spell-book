@@ -17,16 +17,11 @@
 #DIR="${BLOCK_INSTANCE:-$HOME}"
 #ALERT_LOW="${1:-10}" # color will turn red under this value (default: 10%)
 
-free_space () {
-    df -h \
-        | grep '^/dev' \
-        | grep -v '/boot$' \
-        | awk '{print $4" "$NF}' \
-        | awk -F'/' '{if (NF > 2) {print $1" "$NF} else { print $0 }}' \
-        | sed 's|/home|~|g' \
-        | awk '{print ""$2" "$1""}' \
-        | tr '\n' ' '
-}
-
-SPACE="$(free_space)"
-echo "$SPACE"
+df -h |
+    grep '^/dev' |
+    grep -vP '/(boot|efi)$' |
+    awk '{print $4" "$NF}' |
+    awk -F'/' '{if (NF > 2) {print $1" "$NF} else { print $0 }}' |
+    sed 's|/home|~|g' |
+    awk '{print $2" "$1}' |
+    tr '\n' ' '

@@ -65,11 +65,8 @@ bspc rule -a jetbrains-toolbox state=floating
 bspc rule -a jetbrains-idea state=pseudo_tiled
 # bspc rule -a discord desktop=^1 state=pseudo_tiled
 
-if ! pgrep sxhkd; then
-    sxhkd &
-else
-    pkill -USR1 -x sxhkd
-fi
+pkill sxhkd
+sxhkd
 
 # if ! pgrep polybar
 # then
