@@ -1,11 +1,13 @@
 #!/bin/bash
 
+{ command -v jq && command -v hostname && command -v python; } ||
+    { echo "please make sure jq, hostname and python are installed" && exit 1; }
+
 symlinks() {
     bash ./learnSpells.sh
     bash ./castRunes.sh
     bash ./synclinks.sh
 }
-
 
 sync() {
     localRemote="$(git log --format=%H -1)" # latest known commit

@@ -15,7 +15,7 @@ sleep_now() {
         DISPLAY=:0 xset dpms force off
     ) &
     sleep "${1:-40m}"
-    sctl suspend
+    systemctl suspend
 }
 
 die_now() {
