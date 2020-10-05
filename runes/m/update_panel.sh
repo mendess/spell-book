@@ -1,17 +1,26 @@
 #!/bin/bash
 case "$(hostname)" in
     localhost)
-        m="$(m c | awk 'NR > 1 && NR < 4 {print} {last=$0} END {print last}')"
-        title="$(echo "$m" | sed 2q)"
-        content="$(echo "$m" | tail -1)"
+        get() {
+            echo '{ "command": ["get_property", "'"$1"'"] }' |
+                socat - ~/.cache/mpvsocket_cache |
+                jq .data -r
+            }
+        # export PATH=~/.local/bin:$PATH
+        title="$(get media-title)"
+        vol="$(get volume)"
+        case "$(get pause)" in
+            true) status="||" ;;
+            false) status=">" ;;
+        esac
         termux-notification \
             --title "$title" \
-            --content "Up next: $content" \
+            --content "$status @ $vol%" \
             --type media \
             --alert-once \
             --id 1 \
             --on-delete "echo '{ \"command\": [\"set_property\", \"pause\", true] }' |\
-                socat - ~/.cache/mpvsocket_cache" \
+            socat - ~/.cache/mpvsocket_cache" \
             --media-next "echo playlist-next | socat - ~/.cache/mpvsocket_cache"\
             --media-pause "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\
             --media-play "echo cycle pause | socat - ~/.cache/mpvsocket_cache"\

@@ -169,9 +169,8 @@ function notify_metadata_updated(name, data)
 end
 
 function update_panel()
-    local update_panel = (os.getenv("HOME") .. "/.config/m/update_panel.sh")
+    local update_panel = ("bash " .. os.getenv("HOME") .. "/.config/m/update_panel.sh")
     print("executing command: " .. update_panel)
-    os.execute("pwd")
     os.execute(update_panel)
 end
 

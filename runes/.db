@@ -43,4 +43,4 @@
 ~/.config/emojis,emojis
 ~/.config/quickbrowser/bookmarks,bookmarks
 ~/.config/m,m
-~/.config/readline/inputrc,inputrc
+~/.inputrc,inputrc

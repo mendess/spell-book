@@ -3,7 +3,7 @@
 
 [[ $- != *i* ]] && return
 
-export HISTSIZE="INFINITY + 1"
+export HISTSIZE=""
 PROMPT_COMMAND='history -a;history -n'
 export HISTCONTROL='ignoredups'
 shopt -s histappend
