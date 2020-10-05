@@ -1,6 +1,6 @@
 #!/bin/bash
 
-{ command -v jq && command -v hostname && command -v python; } ||
+{ command -v jq && command -v hostname && command -v python; } &>/dev/null ||
     { echo "please make sure jq, hostname and python are installed" && exit 1; }
 
 symlinks() {
