@@ -28,6 +28,9 @@ super + F9
 super + F8
   	feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
 
+super + F10
+    dunstctl set-paused toggle ; pkill -10 -x lemon
+
 super + control + m
   	$TERMINAL --class floating-terminal -e pacmixer
 

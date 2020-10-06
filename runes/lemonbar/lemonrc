@@ -22,7 +22,7 @@ command: echo "$(ssh goblinww grep -oE '[0-9]{5}' /sys/bus/w1/devices/28-00000bc
 interval: 60
 align: left
 
-> Music
+> Music long
 command: ~/.config/lemonbar/media
 interval: 120
 alignment: middle
@@ -35,7 +35,7 @@ underline: #e66300
 signal: true
 layer: 0
 
-> Music
+> Music short
 command: ~/.config/lemonbar/media small
 interval: 120
 alignment: middle
@@ -103,6 +103,11 @@ align: right
 signal: true
 interval: 1
 layer: 1
+
+> Dnd
+cmd: [ $(dunstctl is-paused) = true ] && echo "dnd" || :
+align: right
+signal: true
 
 > Batery
 cmd: ~/.config/lemonbar/battery
