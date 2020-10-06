@@ -16,4 +16,5 @@ then
     xrandr --output DVI-D-0 --mode 1920x1080 --rate 120  --rotate normal --primary
     xmodmap -e 'keycode  21 = plus equal plus equal'
 fi
-exec bspwm
+rm -f /tmp/bspwm_log
+exec bspwm > /tmp/bspwm_log
