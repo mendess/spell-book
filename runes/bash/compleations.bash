@@ -105,20 +105,20 @@ _m() {
                 grep -v '^.$')"
             ;;
         *)
-            local docs
-            docs="$(m help "$prev")"
-            if grep 'Options' <(echo "$docs") &>/dev/null; then
-                opts="$(awk '
-                        /Options/         { opts=1 }
-                        opts && /|/       { print $1" "$3 }
-                        opts && $0 !~ /|/ { print $1 }
-                        ' <(echo "$docs"))"
+            local sub_command="${COMP_WORDS[1]}"
+            if [[ "$sub_command" =~ q|queue|play ]] && [[ "$3" =~ -c|--category ]]; then
+                opts="$(m cat | awk '{print $2}')"
+            else
+                opts="$(m help "$sub_command" | awk '
+                            opts && /|/       { print $1" "$3 }
+                            opts && $0 !~ /|/ { print $1 }
+                            /Options/         { opts=1 }')"
+                case "$sub_command" in
+                    q | queue | play)
+                        opts="$opts $(compgen -f)"
+                        ;;
+                esac
             fi
-            case "${COMP_WORDS[1]}" in
-                q | queue | play)
-                    opts="$opts $(compgen -f)"
-                    ;;
-            esac
             ;;
 
     esac
