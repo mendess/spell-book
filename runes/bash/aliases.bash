@@ -107,7 +107,6 @@ alias oldvim='/bin/vim'
 alias matrixmap='sudo nmap -v -sS -O'
 alias alert='notify-send -i "$([ $? = 0 ] && echo "/usr/share/icons/Adwaita/48x48/emblems/emblem-ok-symbolic.symbolic.png" || echo "/usr/share/icons/Adwaita/48x48/actions/edit-delete-symbolic.symbolic.png")" "$(history 1 | sed '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 #shellcheck disable=2142
-alias which='command -V'
 alias fix_divinity="cd $HOME/.steam/steam/steamapps/common/Divinity\ Original\ Sin\ 2/ && mv ./bin ./bin.bak && ln -s DefEd/bin bin && cd bin && mv ./SupportTool.exe ./SupportTool.bak && ln -s EoCApp.exe SupportTool.exe"
 command -v neofetch &>/dev/null ||
     alias neofetch="curl --silent mendess.xyz/file/neofetch | bash"

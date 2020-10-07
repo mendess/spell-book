@@ -78,7 +78,7 @@ while IFS=',' read -r -a args; do
             #shellcheck disable=2206
             a=($path)
             [[ "${#a[@]}" -gt 1 ]] &&
-                echo "too many matches: '${a[*]}'" &&
+                echo -e "too many matches: \n$(join_by "\n\t" "${a[@]}")" &&
                 break
             path="${a[0]}"
         done

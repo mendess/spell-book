@@ -1,24 +1,24 @@
 #!/bin/bash
 
 _za() {
-    local curw
-    curw=${COMP_WORDS[COMP_CWORD]}
+    local cur
+    cur="${COMP_WORDS[COMP_CWORD]}"
     mapfile -t COMPREPLY < \
-        <(compgen -o plusdirs -A file -- "$curw" | grep -P '(\.djvu|\.pdf)$')
+        <(compgen -o plusdirs -A file -- "$cur" | grep -P '(\.djvu|\.pdf)$')
     return
 }
 
 _za() {
-    local curw files
-    curw=${COMP_WORDS[COMP_CWORD]}
-    if [ -d "$curw" ]; then
-        find_target="$curw"
-    elif [ -d "$(readlink "${curw/\/$/}")" ]; then
-        find_target="$(readlink "${curw/\/$/}")"
-    elif [ -d "$(dirname "$curw")" ]; then
-        find_target="$(dirname "$curw")"
-    elif [ -d "$(readlink "$(dirname "$curw")")" ]; then
-        find_target="$(readlink "$(dirname "$curw")")"
+    local cur files
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    if [ -d "$cur" ]; then
+        find_target="$cur"
+    elif [ -d "$(readlink "${cur/\/$/}")" ]; then
+        find_target="$(readlink "${cur/\/$/}")"
+    elif [ -d "$(dirname "$cur")" ]; then
+        find_target="$(dirname "$cur")"
+    elif [ -d "$(readlink "$(dirname "$cur")")" ]; then
+        find_target="$(readlink "$(dirname "$cur")")"
     else
         find_target="."
     fi
@@ -31,7 +31,7 @@ _za() {
     popd &>/dev/null || return 0
     echo "f: '$files'" >/dev/pts/9
     declare -a completions
-    mapfile -t completions < <(compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$curw")
+    mapfile -t completions < <(compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$cur")
     local comp
     COMPREPLY=()
     for comp in "${completions[@]}"; do
@@ -51,7 +51,7 @@ _za() {
             unset completions
             declare -a completions
             mapfile -t completions < \
-                <(compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$curw")
+                <(compgen -o plusdirs -W "$(printf '%q ' "${files[@]}")" -- "$cur")
             local comp
             COMPREPLY=()
             for comp in "${completions[@]}"; do
@@ -66,23 +66,23 @@ _za() {
 #complete -F _za pdf
 
 _svim() {
-    local curw
     local files
-    curw=${COMP_WORDS[COMP_CWORD]}
+    local cur="${COMP_WORDS[COMP_CWORD]}"
     files=$(find "$SPELLS" -type f | sed '/\.git/d ; s|'"$SPELLS"'/||g')
-    mapfile -t COMPREPLY < <(compgen -W "$files" -- "$curw")
+    mapfile -t COMPREPLY < <(compgen -W "$files" -- "$cur")
     return
 }
 
 complete -F _svim svim
 
 _ssh() {
-    local cur opts
+    local opts
     # local prev
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
+    local cur="${COMP_WORDS[COMP_CWORD]}"
     #prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts=$(grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null | grep -v '[?*]' | cut -d ' ' -f 2-)
+    opts=$(grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null |
+        grep -v '[?*]' |
+        cut -d ' ' -f 2-)
     mapfile -t COMPREPLY < <(compgen -W "$opts" -- "$cur")
     return 0
 }
@@ -91,15 +91,16 @@ complete -F _ssh ssh
 complete -F _ssh sshp
 
 _m() {
-    local opts cur
+    local opts
     COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    prev="${COMP_WORDS[COMP_CWORD - 1]}"
+    local cur="$2"
+    local prev="$3"
     case "$prev" in
         m | help)
             opts="$(m help |
                 grep -Pv '^\t' |
-                sed -E 's/([^ ]+) | ([^ ]+)/\2/g' |
+                sed -E 's/([^ ]+) | ([^ ]+)/\1\n\2/g' |
+                sed -E 's/(^.\s|\s.$|^.$)//g' |
                 sed 's/?/-/g' |
                 grep -v '^.$')"
             ;;
@@ -109,10 +110,15 @@ _m() {
             if grep 'Options' <(echo "$docs") &>/dev/null; then
                 opts="$(awk '
                         /Options/         { opts=1 }
-                        opts && /|/       { print $3 }
+                        opts && /|/       { print $1" "$3 }
                         opts && $0 !~ /|/ { print $1 }
                         ' <(echo "$docs"))"
             fi
+            case "${COMP_WORDS[1]}" in
+                q | queue | play)
+                    opts="$opts $(compgen -f)"
+                    ;;
+            esac
             ;;
 
     esac
@@ -120,3 +126,27 @@ _m() {
 }
 
 complete -F _m m
+
+_path_compleation() {
+    [[ $COMP_CWORD = 1 ]] &&
+        mapfile -t COMPREPLY < <(compgen -A function -ac -- "$2")
+}
+
+complete -o default -F _path_compleation sudo
+
+_cd() {
+    case "$2" in
+        \$*/*)
+            mapfile -t COMPREPLY < <(compgen -d "$(eval "echo ${2%%/*}")/${2#*/}")
+            ;;
+        *)
+            local vars
+            vars="$(compgen -e | while read -r v; do
+                eval "test -d \"\$$v\"" && echo "\\\$$v/"
+            done)"
+            mapfile -t COMPREPLY < <(compgen -d -W "$vars" -- "$2")
+            ;;
+    esac
+}
+
+complete -o nospace -o plusdirs -F _cd cd

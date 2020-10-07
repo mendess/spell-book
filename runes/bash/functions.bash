@@ -345,3 +345,20 @@ function songs() {
         echo "Error needs at least one x"
     fi
 }
+
+function which() {
+    local w
+    w="$(command -V "$1")"
+    case "$w" in
+        *'is a function'*)
+            echo "$w" | tail -n +2
+            ;;
+        *'is aliasaed to'*)
+            w="${w#*\`}"
+            echo "${w%\'*}"
+            ;;
+        *)
+            echo "${w##* }"
+            ;;
+    esac
+}
