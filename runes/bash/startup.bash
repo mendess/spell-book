@@ -14,17 +14,7 @@ if [[ -n $TMUX ]]; then
     }
 fi
 
-if mn -V &>/dev/null && mn list | grep -v ' 0 ' >/dev/null; then
-    mn list
-else
-    if command -v fortune &>/dev/null; then
-        if [[ -e /tmp ]]; then
-            fortune -c
-        else
-            fortune
-        fi
-    fi
+if [[ -e /tmp/todo ]]; then
+    cat /tmp/todo
 fi
-if command -v calcurse &>/dev/null; then
-    calcurse --todo
-fi
+rsync mirrodin:todo /tmp/ & disown
