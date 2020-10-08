@@ -1,5 +1,6 @@
 show-read-feeds no
 auto-reload yes
+reload-threads 100
 feed-sort-order lastupdated-desc
 
 bind-key j down

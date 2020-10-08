@@ -22,8 +22,14 @@ super + d
 super + shift + d
   	menu GUI
 
+super + shift + t
+    todo
+
 super + F9
   	changeMeWall
+
+super + shift + F9
+  	ssh mirrodin bulb/flow.py -s ; changeMeWall
 
 super + F8
   	feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
