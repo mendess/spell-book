@@ -86,13 +86,14 @@ layer: 1
 > Iface
 command: ~/.config/lemonbar/iface
 alignment: right
-fg:#0f0
+un: #0f0
 signal: true
 layer: 1
 
 > Wifi
 command: ~/.config/lemonbar/wifi
 align: right
+un: #0f0
 signal: true
 interval: 1
 layer: 1
@@ -106,6 +107,8 @@ layer: 1
 
 > Dnd
 cmd: [ $(dunstctl is-paused) = true ] && echo "dnd" || :
+un: #f00
+fg: #f11
 align: right
 signal: true
 
