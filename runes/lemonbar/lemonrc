@@ -16,6 +16,7 @@ multi_monitor: true
 command: echo "$(uptime -p)"
 interval: 1800
 align: left
+layer: 1
 
 > Room Temperature
 command: echo "$(ssh goblinww grep -oE '[0-9]{5}' /sys/bus/w1/devices/28-00000bc20d86/w1_slave) / 1000" | bc
