@@ -4,24 +4,45 @@
 # Select an existing entry to remove it from the file, or type a new entry to
 # add it.
 
-rsync -v mirrodin:todo /tmp/
-file="/tmp/todo"
+TMPDIR=${TMPDIR:-/tmp}
+rsync -v mirrodin:todo $TMPDIR
+file="$TMPDIR/todo"
 touch "$file"
 height=$(wc -l <$file)
 prompt="Add/delete a task: "
 
-cmd=$(dmenu -l "$height" -p "$prompt" "$@" <"$file")
+if [ "$DISPLAY" ]; then
+    PROMPT_PROG=dmenu
+else
+    PROMPT_PROG=fzf
+fi
+
+selector() {
+    while [ "$#" -gt 0 ]; do
+        case "$1" in
+            -l) local listsize="$2" ;;
+            -p) local prompt="$2" ;;
+        esac
+        shift
+    done
+    case "$PROMPT_PROG" in
+        fzf) fzf -i --prompt "$prompt " ;;
+        dmenu) dmenu -i -p "$prompt" -l "$listsize" ;;
+    esac
+}
+
+
+cmd=$(selector -l "$height" -p "$prompt" "$@" <"$file")
 while [ -n "$cmd" ]; do
     if grep -q "^$cmd\$" "$file"; then
         grep -v "^$cmd\$" "$file" >"$file.$$"
-        mv "$file.$$" "$file"
-        height=$((height - 1))
+        mv "$file.$$" "$file" height=$((height - 1))
     else
         echo "$cmd" >>"$file"
         height=$((height + 1))
     fi
 
-    cmd=$(dmenu -l "$height" -p "$prompt" "$@" <"$file")
+    cmd=$(selector -l "$height" -p "$prompt" "$@" <"$file")
 done
 
-rsync -v /tmp/todo mirrodin:
+rsync -v $TMPDIR/todo mirrodin:
