@@ -17,7 +17,9 @@ super + control + Return
     fi
 
 super + d
-  	dmenu_run
+    bspc rule -a \* -o state=floating; \
+    $TERMINAL --dimensions 40 30 \
+        -e bash -c "TERMINAL_COMMAND='$TERMINAL -e' sway-launcher-desktop"
 
 super + shift + d
   	menu GUI
@@ -83,15 +85,6 @@ super + control + v
 
 super + v
     clipmenu
-
-alt + @Insert
-    xclip -o && xdotool type "$(xclip -o)"
-
-super + shift + control + i
-  	echo -n INACEITAVEL e INACREDITAVEL | xclip -sel clip && sleep 0.5 && xdotool key Ctrl+V
-
-super + shift + t
- 	echo -n '🤔' | xclip -sel clip
 
 XF86AudioMute
     pactl 'set-sink-mute' @DEFAULT_SINK@ toggle

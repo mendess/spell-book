@@ -1,7 +1,7 @@
 #!/bin/sh
 # shellcheck disable=SC2119
 
-# shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
+# shellcheck source=/home/mendess/projects/spell-book/spells/library.spell
 . library
 
 t="$(m current --short | sed '
@@ -29,4 +29,7 @@ s/ｐ/p /g;
 s/ｒ/r /g;
 s/ｓ/s /g;
 ')"
+
+[ "$1" = small ] &&
+    t="$(echo "$t" | sed -r 's/^(.{52}).*/\1.../')"
 if [ "$t" ]; then echo "♪" "$t" "♪"; fi
