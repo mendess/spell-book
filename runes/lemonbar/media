@@ -31,5 +31,7 @@ s/ｓ/s /g;
 ')"
 
 [ "$1" = small ] &&
-    t="$(echo "$t" | sed -r 's/^(.{52}).*/\1.../')"
+    name="$(echo "$t" | sed -E 's/(.*)(>|\|\|).*/\1/')" &&
+    rest="$(echo "$t" | sed -E 's/.*((>|\|\|).*)/\1/')" &&
+    t="$(echo "$name" | sed -r 's/^(.{22}).*/\1... /')$rest"
 if [ "$t" ]; then echo "♪" "$t" "♪"; fi
