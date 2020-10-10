@@ -1,0 +1,27 @@
+#!/bin/bash
+
+readonly DAEMONS="light,mood_light
+battery,use_the_juice
+walls,stop_wall"
+
+readonly NUM_DAEMONS="$(echo "$DAEMONS" | wc -l)"
+
+i=1
+for d in $DAEMONS; do
+    if [[ -e "/tmp/${d#*,}" ]]; then
+        printf "%d) \e[31mOFFLINE\e[0m %s\n" $i "${d%,*}"
+    else
+        printf "%d) \e[32mONLINE \e[0m %s\n" $i "${d%,*}"
+    fi
+    ((i++))
+done
+read -r -p "${PS3:-#?} "
+if [[ "$REPLY" -le "$NUM_DAEMONS" ]] && [[ "$REPLY" -gt 0 ]]; then
+    dfile="$(echo "$DAEMONS" | sed -n "${REPLY}p")"
+    dfile="/tmp/${dfile#*,}"
+    if [[ -e "$dfile" ]]; then
+        rm "$dfile"
+    else
+        touch "$dfile"
+    fi
+fi

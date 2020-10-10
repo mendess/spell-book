@@ -28,6 +28,5 @@ do
     source "$f"
 done
 
-#shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
+#shellcheck source=/home/mendess/projects/spell-book/spells/library.spell
 source "$SPELLS"/spells/library.spell
-
