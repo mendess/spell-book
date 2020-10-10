@@ -62,16 +62,21 @@ super + @Print
     snapit floating
 
 super + control + s
+    bspc rule -a \* -o state=floating; \
   	$TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
 
 super + t
   	$TERMINAL -e htop
 
 super + c
+    bspc rule -a \* -o state=floating; \
   	$TERMINAL --class floating-terminal --title floating-terminal -e bc -lq
 
 super + x
-  	$TERMINAL --class floating-terminal -e bash -c "cal -3 -s && read -s -r -n 1"
+    bspc rule -a \* -o state=floating; \
+  	$TERMINAL --dimensions 20 8 \
+        --class floating-terminal \
+        -e bash -c 'cal -s | grep -vP "^\s+$" ; read -s -r -n 1'
 
 super + control + v
   	playClipboard

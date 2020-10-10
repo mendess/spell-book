@@ -78,9 +78,10 @@ sxhkd & disown
 #[ -e "$PANEL_FIFO" ] && bspc subscribe report > "$PANEL_FIFO" &
 pgrep -x lemon && killall lemon
 if [ ! -e ~/.config/lemonbar/lemon ] ||
-    [ ~/.config/lemonbar/lemon.rs -ot ~/.config/lemonbar/lemon ]; then
+    [ ~/.config/lemonbar/lemon -ot ~/.config/lemonbar/lemon.rs ]; then
     if rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon > /tmp/compiled_bar 2>&1; then
         echo "compiled"
+        notify-send 'Recompiled wrapper' -a bspwmrc
     else
         echo "failed to compile"
         notify-send 'Failed to compile' -u critical -a bspwmrc

@@ -362,3 +362,30 @@ function which() {
             ;;
     esac
 }
+
+t() {
+    pgrep -f transmission-daemon >/dev/null || {
+        transmission-daemon --download-dir ~/dl/
+        echo -n "waiting for deamon to start"
+        sleep 5
+        echo -en "\r\e[K"
+    }
+    case "$1" in
+        a | add)
+            transmission-remote -a "${@:2}"
+            ;;
+        d | del)
+            local t
+            t="$(transmission-remote -l |
+                grep -vP '^(\s+ID)|Sum:' |
+                fzf --height="$(transmission-remote -l | wc -l)" \
+                    --layout=reverse |
+                awk '{print $1}')"
+            [[ "$t" ]] || return 0
+            transmission-remote -t "$t" --remove
+            ;;
+        '' | l | list)
+            transmission-remote -l
+            ;;
+    esac
+}
