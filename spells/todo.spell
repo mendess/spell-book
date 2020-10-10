@@ -5,23 +5,23 @@
 # add it.
 
 TMPDIR=${TMPDIR:-/tmp}
-rsync -v mirrodin:todo $TMPDIR
+rsync mirrodin:todo "$TMPDIR"
 file="$TMPDIR/todo"
 touch "$file"
-height=$(wc -l <$file)
+height=$(wc -l <"$file")
 prompt="Add/delete a task: "
 
-if [ "$DISPLAY" ]; then
-    PROMPT_PROG=dmenu
-else
+if [ -z "$DISPLAY" ] || [ "$1" != gui ]; then
     PROMPT_PROG=fzf
+else
+    PROMPT_PROG=dmenu
 fi
 
 selector() {
     while [ "$#" -gt 0 ]; do
         case "$1" in
-            -l) local listsize="$2" ;;
-            -p) local prompt="$2" ;;
+            -l) listsize="$2" ;;
+            -p) prompt="$2" ;;
         esac
         shift
     done
@@ -31,18 +31,17 @@ selector() {
     esac
 }
 
-
-cmd=$(selector -l "$height" -p "$prompt" "$@" <"$file")
-while [ -n "$cmd" ]; do
+while :; do
+    cmd=$(selector -l "$height" -p "$prompt" <"$file")
+    [ "$cmd" ] || break
     if grep -q "^$cmd\$" "$file"; then
         grep -v "^$cmd\$" "$file" >"$file.$$"
-        mv "$file.$$" "$file" height=$((height - 1))
+        mv "$file.$$" "$file"
+        height=$((height - 1))
     else
         echo "$cmd" >>"$file"
         height=$((height + 1))
     fi
-
-    cmd=$(selector -l "$height" -p "$prompt" "$@" <"$file")
 done
 
-rsync -v $TMPDIR/todo mirrodin:
+rsync "$TMPDIR/todo" mirrodin:
