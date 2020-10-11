@@ -75,6 +75,8 @@ Plug 'godlygeek/tabular'
 
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
+Plug 'tclem/vim-arduino'
+
 call plug#end()
 
 """ PLUGIN CONFIGS
