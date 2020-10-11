@@ -14,8 +14,12 @@ sleep_now() {
         sleep 2m
         DISPLAY=:0 xset dpms force off
     ) &
-    sleep "${1:-40m}"
-    systemctl suspend
+    if [[ "$SSH_CONNECTION" ]]; then
+        sudo bash -c "sleep ${1:-40m}; systemctl suspend"
+    else
+        sleep "${1:-40m}"
+        systemctl suspend
+    fi
 }
 
 die_now() {
