@@ -25,7 +25,7 @@ super + shift + d
   	menu GUI
 
 super + shift + t
-    todo
+    todo gui
 
 super + F9
   	changeMeWall

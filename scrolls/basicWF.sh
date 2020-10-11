@@ -38,7 +38,7 @@ aurpackages=()
 bloat=()
 cargopackages=()
 pythonpackages=()
-#shellcheck source=/home/mendess/Projects/spell-book/scrolls/packages.sh
+#shellcheck source=/home/mendess/projects/spell-book/scrolls/packages.sh
 . "$script_dir"/packages.sh
 
 sudo() { echo "$PASSWORD" | command sudo -S true && command sudo "$@"; }
@@ -54,9 +54,6 @@ done
 
 # Dash
 pac && sudo ln -sf /usr/bin/dash /usr/bin/sh
-
-# Zathura as default pdf reader
-xdg-mime default org.pwmt.zathura.desktop application/pdf
 
 # (AUR manager)
 aur && {
