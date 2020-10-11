@@ -96,11 +96,17 @@ done < <(sed '/^#/d' ../runes/.db)
 cleanRunes() {
     local rune
     for rune in "${expandedRunes[@]}"; do
-        local link file
-        IFS=',' read -r link file <<<"${rune}"
+        local link file args
+        IFS=',' read -ra args <<<"${rune}"
+        link=${args[0]}
+        file=${args[1]}
         if [ -h "$link" ] && ! [ -e "$link" ]; then
             echo -e "\033[31mRemoving broken rune: $(basename "$link")\033[0m"
-            rm "$link"
+            if any_match sudo "${args[@]:2}"; then
+                sudo rm "$link"
+            else
+                rm "$link"
+            fi
         fi
     done
     return 1
