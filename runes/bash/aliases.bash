@@ -114,6 +114,7 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
 alias ytdl='youtube-dl'
+alias ard='arduino-cli'
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
