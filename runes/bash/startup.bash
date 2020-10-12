@@ -13,6 +13,6 @@ fi
     exit
 
 TMPDIR="${TMPDIR:-/tmp}"
-[[ -e "$TMPDIR/todo" ]] && cat "$TMPDIR/todo"
+[[ -e "$TMPDIR/todo" ]] && command cat "$TMPDIR/todo"
 rsync mirrodin:todo "$TMPDIR" &>/dev/null &
 disown

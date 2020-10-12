@@ -77,8 +77,9 @@ alias makeclean="find . -maxdepth 1 -type f -executable -delete"
 alias :q=exit
 hash nvim &>/dev/null && alias vim=nvim
 alias bc="bc -lq"
-alias cat='bat -p'
-alias bat='bat -p'
+command -V bat &>/dev/null &&
+    alias cat='bat -p' &&
+    alias bat=cat
 alias :r="source ~/.bashrc"
 alias db="dropbox-cli"
 alias mpvs='mpv --no-video --input-ipc-server=$(m socket new)'
