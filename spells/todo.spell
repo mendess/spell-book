@@ -26,7 +26,7 @@ selector() {
         shift
     done
     case "$PROMPT_PROG" in
-        fzf) fzf -i --prompt "$prompt " ;;
+        fzf) fzf -i --prompt "$prompt " --print-query | tail -1 ;;
         dmenu) dmenu -i -p "$prompt" -l "$listsize" ;;
     esac
 }
