@@ -150,3 +150,8 @@ _cd() {
 }
 
 complete -o nospace -o plusdirs -F _cd cd
+
+#shellcheck disable=SC1090
+command -V arduino-cli &>/dev/null &&
+    . <(arduino-cli completion bash) &&
+    complete -o default -F __start_arduino-cli ard

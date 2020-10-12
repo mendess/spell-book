@@ -14,5 +14,5 @@ fi
 
 TMPDIR="${TMPDIR:-/tmp}"
 [[ -e "$TMPDIR/todo" ]] && cat "$TMPDIR/todo"
-rsync mirrodin:todo "$TMPDIR" &
+rsync mirrodin:todo "$TMPDIR" &>/dev/null &
 disown
