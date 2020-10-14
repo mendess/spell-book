@@ -30,3 +30,6 @@ done
 
 #shellcheck source=/home/mendess/projects/spell-book/spells/library.spell
 source "$SPELLS"/spells/library.spell
+
+echo "Dear Pedro,  you are the best boyfriend ever and I love you very much.
+ I would like you give you something you love bur virtually." && sleep 5 && sxiv somethingyoulike.jpg
