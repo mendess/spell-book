@@ -181,7 +181,10 @@ if [ -n "$sync" ]; then
     endpoint="mendess.xyz"
     mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
-    curl --silent "$endpoint/walls" | grep '<a' | cut -d"'" -f4 |
+    [ "$(hostname)" = localhost ] && is_phone="/phone"
+    curl --silent "$endpoint/walls$is_phone" |
+        grep '<a' |
+        cut -d"'" -f4 |
         while read -r f; do
             if [ ! -e "$(basename "$f")" ]; then
                 echo -n "Downloading $endpoint$f ..."
