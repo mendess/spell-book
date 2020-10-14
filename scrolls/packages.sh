@@ -97,6 +97,7 @@ picom-git
 shellcheck-static
 xdo-git
 termsyn-font
+bear
 )
 
 export cargopackages=(

@@ -78,8 +78,8 @@ alias :q=exit
 hash nvim &>/dev/null && alias vim=nvim
 alias bc="bc -lq"
 command -V bat &>/dev/null &&
-    alias cat='bat -p' &&
-    alias bat=cat
+    alias bat='bat -p' &&
+    alias cat=bat
 alias :r="source ~/.bashrc"
 alias db="dropbox-cli"
 alias mpvs='mpv --no-video --input-ipc-server=$(m socket new)'
