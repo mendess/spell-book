@@ -106,9 +106,12 @@ process_params() {
                 sort -n |
                 cut -d' ' -f2- |
                 sxiv -i -g 1800x1000 -b -t -o)"
+            case "${host[0]}" in
+                Powerstone) local filter=PhoneCollection
+            esac
             for w in $wall; do
                 ssh mirrodin \
-                    "find Pictures/ -type l,f -name '$(basename "$w")' | xargs -r rm -v" |
+                    "find Pictures/$filter -type l,f -name '$(basename "$w")' | xargs -r rm -v" |
                     sed "s/'/'mirrodin:/"
 
                 [ "$(hostname)" = tolaria ] || { [ -e "$w" ] && rm -v "$w"; }
