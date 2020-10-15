@@ -215,6 +215,12 @@ super + {_,shift +} apostrophe
 super + i
 	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
 
+super + control + i
+	bspc node -g hidden
+
+super + alt + i
+    bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
+
 # super + shift + i
 #     for n in $(bspc query --nodes); do bspc node $n -g hidden; done
 

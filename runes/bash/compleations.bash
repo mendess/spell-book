@@ -155,3 +155,18 @@ complete -o nospace -o plusdirs -F _cd cd
 command -V arduino-cli &>/dev/null &&
     . <(arduino-cli completion bash) &&
     complete -o default -F __start_arduino-cli ard
+
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
+    . /usr/share/bash-completion/bash_completion
+
+__load_completion git && {
+    __git_complete g __git_main
+    __git_complete gco _git_checkout
+    __git_complete gb _git_branch
+    __git_complete gd _git_diff
+}
+
+__load_completion herbsclient &&
+    eval "$(sed 's/herbsclient/hc/' < <(complete -p herbsclient 2>/dev/null))"
+__load_completion youtube-dl &&
+    eval "$(sed 's/youtube-dl/ytdl/' < <(complete -p youtube-dl 2>/dev/null))"

@@ -1,7 +1,7 @@
 #!/bin/bash
 # shellcheck disable=SC2029
 
-#shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
+#shellcheck source=/home/mendess/projects/spell-book/spells/library.spell
 . library
 
 TMPDIR=${TMPDIR:-/tmp}
@@ -114,7 +114,7 @@ process_params() {
                     "find Pictures/$filter -type l,f -name '$(basename "$w")' | xargs -r rm -v" |
                     sed "s/'/'mirrodin:/"
 
-                [ "$(hostname)" = tolaria ] || { [ -e "$w" ] && rm -v "$w"; }
+                [ "$(hostname)" = tolaria ] || { [ -w "$w" ] && rm -v "$w"; }
             done
             ;;
     esac
@@ -149,7 +149,7 @@ while [ "$#" -gt 0 ]; do
             ;;
         -n)
             shift
-            name="$1"
+            name="$(basename "$1")"
             ;;
         -s | --sync)
             sync=1
@@ -158,7 +158,7 @@ while [ "$#" -gt 0 ]; do
             replace=1
             ;;
         -*)
-            echo "Flag $1 not valid"
+            echo "$0: $1: not a valid option"
             help_message
             ;;
         *)
@@ -180,7 +180,7 @@ if [ "$mode" != delete ] && [ -z "$wall" ]; then
 fi
 
 process_params || exit 1
-if [ -n "$sync" ]; then
+if [ "$sync" ]; then
     endpoint="mendess.xyz"
     mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1

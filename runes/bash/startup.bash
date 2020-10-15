@@ -8,10 +8,6 @@ if [[ -n $TMUX ]]; then
     }
 fi
 
-[[ -z "$TMUX" ]] && [[ "$SSH_CONNECTION" ]] && command -v tmux &>/dev/null &&
-    tmux -2 new -A -s default &&
-    exit
-
 TMPDIR="${TMPDIR:-/tmp}"
 [[ -e "$TMPDIR/todo" ]] && command cat "$TMPDIR/todo"
 rsync mirrodin:todo "$TMPDIR" &>/dev/null &

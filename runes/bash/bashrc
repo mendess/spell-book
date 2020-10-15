@@ -8,6 +8,8 @@ PROMPT_COMMAND='history -a;history -n'
 export HISTCONTROL='ignoredups'
 shopt -s histappend
 shopt -s histverify
+shopt -s autocd
+shopt -s checkwinsize
 set -o noclobber
 
 bind "set completion-ignore-case On"
