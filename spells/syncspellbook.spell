@@ -79,15 +79,6 @@ fi
 
 bash ./readBooks.sh
 
-echo -e "\e[36mBacking up spell-book\e[0m"
-[[ "$1" != --nocommit ]] && {
-    if sync 'spell book'; then
-        echo -e "\033[33m\n${farrow}Back me up and save me${barrow}\033[0m"
-    else
-        echo -e "\033[31m\n${farrow}     Can't backup     ${barrow}\033[0m"
-    fi
-}
-
 find library/ -maxdepth 1 -mindepth 1 -type d |
     while read -r l; do
         pushd "$l" >/dev/null || continue
@@ -98,6 +89,15 @@ find library/ -maxdepth 1 -mindepth 1 -type d |
         fi
         popd >/dev/null || continue
     done
+
+echo -e "\e[36mBacking up spell-book\e[0m"
+[[ "$1" != --nocommit ]] && {
+    if sync 'spell book'; then
+        echo -e "\033[33m\n${farrow}Back me up and save me${barrow}\033[0m"
+    else
+        echo -e "\033[31m\n${farrow}     Can't backup     ${barrow}\033[0m"
+    fi
+}
 
 symlinks
 
