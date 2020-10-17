@@ -23,8 +23,9 @@ endfunction
 
 autocmd FileType tex call SetTexOpts()
 function SetTexOpts()
-    map <leader>r :silent !pdflatex --shell-escape %:p > /dev/null &<Return>
+    map <leader>s :silent !pdflatex --shell-escape %:p > /dev/null &<Return>
     command! Re !pdflatex --shell-escape %:p
+    map <leader>r :silent !test -e %:r.pdf && exec zathura %:r.pdf > /dev/null &<Return>
 
     inoremap ,tt \texttt{}<Space><++><Esc>T{i
     inoremap ,ve \verb!!<Space><++><Esc>T!i

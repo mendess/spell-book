@@ -21,6 +21,10 @@ super + d
     $TERMINAL --dimensions 40 30 \
         -e bash -c "TERMINAL_COMMAND='$TERMINAL -e' sway-launcher-desktop"
 
+super + shift + f
+    bspc rule -a \* -o state=floating; \
+    $TERMINAL -e f launcher
+
 super + shift + d
   	menu GUI
 

@@ -353,12 +353,12 @@ function which() {
         *'is a function'*)
             echo "$w" | tail -n +2
             ;;
-        *'is aliasaed to'*)
+        *'is aliased to'*)
             w="${w#*\`}"
             echo "${w%\'*}"
             ;;
         *)
-            echo "${w##* }"
+            echo "${w##* }" | tr -d '()'
             ;;
     esac
 }

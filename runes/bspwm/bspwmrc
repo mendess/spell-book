@@ -1,6 +1,18 @@
 #!/bin/bash
 set -x
-case "$(bspc query -M | wc -l)" in
+monitors=()
+while read -r mon; do
+    read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
+    echo "${geometry[@]}"
+    echo "${geometry[@]}"
+    monitors+=("${geometry[0]}x0+${geometry[2]}+${geometry[3]}")
+done < <(xrandr --listactivemonitors |
+    sed 1d |
+    cut -d' ' -f4 |
+    sed -E 's|/[0-9]+||g' |
+    sort -n)
+
+case "${#monitors[@]}" in
     1)
         bspc monitor -d 1 2 3 4 5 6 7 8 9 0
         ;;
@@ -45,7 +57,7 @@ fi
 bspc config split_ratio 0.5
 bspc config borderless_monocle false
 bspc config gapless_monocle false
-bspc config remove_unplugged_monitors true
+# bspc config remove_unplugged_monitors true
 bspc config top_padding 22
 bspc config ignore_ewmh_focus true
 
@@ -67,7 +79,8 @@ bspc rule -a jetbrains-idea state=pseudo_tiled
 # bspc rule -a discord desktop=^1 state=pseudo_tiled
 
 pkill sxhkd
-sxhkd & disown
+sxhkd &
+disown
 
 # if ! pgrep polybar
 # then
@@ -79,7 +92,7 @@ sxhkd & disown
 pgrep -x lemon && killall lemon
 if [ ! -e ~/.config/lemonbar/lemon ] ||
     [ ~/.config/lemonbar/lemon -ot ~/.config/lemonbar/lemon.rs ]; then
-    if rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon > /tmp/compiled_bar 2>&1; then
+    if rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon >/tmp/compiled_bar 2>&1; then
         echo "compiled"
         notify-send 'Recompiled wrapper' -a bspwmrc
     else
@@ -88,12 +101,11 @@ if [ ! -e ~/.config/lemonbar/lemon ] ||
         exit
     fi
 fi
+
 bar_args=()
-for mon in $(bspc query -M); do
-    l() {
-        bspc query -T -m "$mon" | jq .rectangle."$1"
-    }
-    bar_args+=('--bar' "$(l width)x0+$(l x)+$(l y)")
+for mon in "${monitors[@]}"; do
+    echo "$mon"
+    bar_args+=('--bar' "${mon}")
 done
 ~/.config/lemonbar/lemon --tray "${bar_args[@]}" &
 

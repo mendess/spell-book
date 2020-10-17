@@ -58,6 +58,7 @@ local_bin=
 local_bin=$(find ~/.local/bin -type d | sed 's|/$||' | tr '\n' ':')
 export PATH="$local_bin:$PATH"
 export PATH="$CARGO_HOME/bin":$PATH
+export PATH="$HOME/.gem/ruby/2.7.0/bin/:$PATH"
 [ -e ~/.shortcuts ] && export PATH=~/.shortcuts:$PATH
 # hash weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
 # hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
