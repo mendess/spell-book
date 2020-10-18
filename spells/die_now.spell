@@ -8,7 +8,7 @@ sleep_now() {
         done
     } &
     disown
-    ssh mendess@mirrodin python bulb/dimmer.py 0 &
+    ssh mendess@mirrodin bulb/flow sunset &
     disown
     (
         sleep 2m
@@ -28,16 +28,20 @@ die_now() {
         m vd
     done; } &
     disown
-    ssh mendess@mirrodin python bulb/dimmer.py 0 &
+    ssh mendess@mirrodin bulb/flow sunset &
     disown
     (
         sleep 2m
         DISPLAY=:0 xset dpms force off
     ) &
-    shutdown +"${1:-40}"
+    if [[ "$SSH_CONNECTION" ]]; then
+        sudo shutdown +"${1:-40}"
+    else
+        shutdown +"${1:-40}"
+    fi
 }
 
 case "$1" in
-    sleep) sleep_now "$2" ;;
+    s | slep | sleep) sleep_now "$2" ;;
     *) die_now "$1" ;;
 esac

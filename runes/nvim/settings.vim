@@ -80,6 +80,8 @@ iabbrev Flase False
 iabbrev slef self
 iabbrev Slef Self
 iabbrev cosnt const
+iabbrev lable label
+iabbrev Lable Label
 
 if has("gui_running")
     set tb=
