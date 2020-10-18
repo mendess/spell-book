@@ -8,7 +8,7 @@ sleep_now() {
         done
     } &
     disown
-    ssh mendess@mirrodin bulb/flow sunset &
+    ssh mendess@mirrodin bulb/flow.py sunset &
     disown
     (
         sleep 2m
@@ -28,7 +28,7 @@ die_now() {
         m vd
     done; } &
     disown
-    ssh mendess@mirrodin bulb/flow sunset &
+    ssh mendess@mirrodin bulb/flow.py sunset &
     disown
     (
         sleep 2m
