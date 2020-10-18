@@ -104,3 +104,5 @@ au BufEnter,BufRead *.rs set nolinebreak
 
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
+
+au BufReadPre *.pdf execute '!exec zathura "%" &' | :q!
