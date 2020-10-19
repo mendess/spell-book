@@ -41,14 +41,16 @@ alias gf='git fetch'
 alias gl='git pull'
 alias gp='git push'
 alias gpf='git push --force-with-lease'
-alias gpsup='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
-alias gpsupr='git push --set-upstream origin $(git symbolic-ref --short HEAD) &&
-    xdg-open https://github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*)(.git)?/\1/g")/pull/new/$(git symbolic-ref --short HEAD)'
-alias gpr='git push & xdg-open https://github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*)\.git/\1/g")/pull/new/$(git symbolic-ref --short HEAD)'
 alias gst='git status'
 alias gcm='git checkout master'
 alias gcd='git checkout develop || git checkout dev'
-alias gfi='xdg-open https://github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*)\.git/\1/g")'
+__guri() {
+    echo "https://github.com/$(git remote get-url --push origin | sed -r 's|.*[:/](.*)/(.*)(.git)?|\1/\2|g')"
+}
+alias gfi='xdg-open "$(__guri)"'
+alias gpr='xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
+alias gpsup='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
+alias gpsupr='git push --set-upstream origin $(git symbolic-ref --short HEAD) && xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
 # CARGO
 alias cr='cargo run'
 alias cb='cargo build'

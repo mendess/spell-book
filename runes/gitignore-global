@@ -3,3 +3,4 @@ compile_commands.json
 tags
 startdb.sh
 wwwroot
+.ccls-cache/
