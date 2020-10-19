@@ -8,3 +8,7 @@ text/x-script.python=nvim.desktop
 image/png=sxiv.desktop
 image/jpg=sxiv.desktop
 image/jpeg=sxiv.desktop
+image/webp=sxiv.desktop
+
+[Added Associations]
+application/octet-stream=gvim.desktop;

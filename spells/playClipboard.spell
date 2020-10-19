@@ -1,19 +1,5 @@
 #!/bin/bash
 
 for clip in "$(xclip -sel clip -o)" "$(xclip -sel primary -o)"; do
-    echo "Trying to play $clip"
-    case "$clip" in
-        *.png | *.jpg | *.jpeg | *.PNG | *.JPG | *.JPEG)
-            feh "$clip"
-            ;;
-        *.gif)
-            mpv --loop-file "$clip"
-            ;;
-        *.pdf)
-            curl "$clip" | zathura -
-            ;;
-        *)
-            mpv "$clip"
-            ;;
-    esac && exit
+    xdg-open "$clip" && exit
 done

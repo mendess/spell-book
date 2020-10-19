@@ -10,7 +10,7 @@ SWITCH_REGEX = re.compile(r'^(switch on ([A-Za-z]\w*))')
 CASE_REGEX = re.compile(r'^((\w+)\s*{[ \t]*)')
 CASE_END_REGEX = re.compile(r'%%\s*}')
 DEFAULT_REGEX = re.compile(r'^(default\s*{)')
-SWITCH_END_REGEX = re.compile(r'^(\s*end[^ \t]*)')
+SWITCH_END_REGEX = re.compile(r'^(\s*end[ \t]*)')
 ENDLINE = re.compile(r'\s*\n')
 
 def dbg(s):
@@ -43,6 +43,9 @@ class Part:
     def write(self, stream):
         raise NotImplementedError('Not overriden')
 
+    def __str__(self):
+        raise NotImplementedError('Not overriden')
+
 
 class Text(Part):
     def __init__(self, text):
@@ -51,16 +54,25 @@ class Text(Part):
     def write(self, stream):
         stream.write(self.text)
 
+    def __str__(self):
+        return f'Text {{ text: "{self.text}" }}'
+
 
 class Switch:
     def __init__(self, on):
         self.on = on
+
+    def __str__(self):
+        return f'Switch {{ on: "{self.on}" }}'
 
 
 class Case:
     def __init__(self, case, content):
         self.case = case
         self.content = content
+
+    def __str__(self):
+        return f'Case {{ case: "{self.case}", content: "{self.content}" }}'
 
 
 class SwitchCase(Part):
@@ -76,6 +88,11 @@ class SwitchCase(Part):
                 stream.write(c.content)
                 return
         if self.default: stream.write(self.default)
+
+    def __str__(self):
+        default = f'"{self.default}"' if self.default else "None"
+        cases = ','.join(map(lambda x: x.__str__(), self.cases))
+        return f'SwitchCase {{ switch: {self.switch}, cases: [{cases}], default: {default} }}'
 
 
 def reflect_call(method_name: str) -> str:
@@ -201,21 +218,20 @@ def parse(s: str) -> List[Part]:
     parts = []
     while len(s) > 0:
         try:
-            (text, s) = skip_up_to(PERCENTS, s)
+            text, s = skip_up_to(PERCENTS, s)
             parts.append(Text(text))
         except:
             parts.append(Text(s))
             break
 
         try:
-            (sc, s) = parse_switch_case(s)
+            sc, s = parse_switch_case(s)
             parts.append(sc)
         except ParseError as pe:
             if len(pe.s) != 0:
                 raise pe
 
     return parts
-
 
 
 if len(argv) < 3:

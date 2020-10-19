@@ -7,6 +7,7 @@ __truncPath() {
 __rightprompt() {
     [ "$1" -gt 0 ] && printf "<%s>" "$1"
 }
+
 __git_branch() {
     if [[ -d .git ]] ||
         [[ -d ../.git ]] ||

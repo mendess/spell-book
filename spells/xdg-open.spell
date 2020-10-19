@@ -1,0 +1,30 @@
+#!/bin/bash
+
+case "$1" in
+    http*)
+        clean_link=${1,,}
+        clean_link=${clean_link%\?*}
+        case "$clean_link" in
+            *.png | *.jpg | *.jpeg)
+                feh "$1"
+                ;;
+            *.gif)
+                notify-send 'Playing in mpv' "$1" -u low
+                mpv --loop-file "$1"
+                ;;
+            *.pdf)
+                curl "$1" | zathura -
+                ;;
+            *youtube* | *youtu.be* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a)
+                notify-send 'Playing in mpv' "$1" -u low
+                mpv "$1"
+                ;;
+            *)
+                $BROWSER "$1"
+                ;;
+        esac || /usr/bin/xdg-open "$1"
+        ;;
+    *)
+        /usr/bin/xdg-open "$1"
+        ;;
+esac
