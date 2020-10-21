@@ -82,6 +82,8 @@ iabbrev Slef Self
 iabbrev cosnt const
 iabbrev lable label
 iabbrev Lable Label
+iabbrev tiem item
+iabbrev Tiem item
 
 if has("gui_running")
     set tb=
