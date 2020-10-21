@@ -166,6 +166,9 @@ super + f
 super + shift + q
     bspc node -c
 
+super + shift + control + q
+    bspc node -k
+
 super + shift + {h,j,k,l}
     d='{west:-10 0,south:0 10,north:0 -10,east:10 0}'; \
     if [ -n "$(bspc query -N -n focused.floating)" ]; then \
