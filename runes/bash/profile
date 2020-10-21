@@ -33,6 +33,12 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 
+export PLAYLIST="$XDG_CONFIG_HOME/m/playlist"
+export EMOJIS="$XDG_CONFIG_HOME/emojis"
+export BOOKMARKS="$XDG_CONFIG_HOME/quickbrowser/bookmarks"
+export LINKS="$XDG_DATA_HOME"/links
+export WALLPAPERS=$XDG_DATA_HOME/wallpapers
+
 #shellcheck source=/home/mendess/.config/user-dirs.dirs
 . ~/.config/user-dirs.dirs
 
@@ -59,7 +65,9 @@ local_bin=$(find ~/.local/bin -type d | sed 's|/$||' | tr '\n' ':')
 export PATH="$local_bin:$PATH"
 export PATH="$CARGO_HOME/bin":$PATH
 export PATH="$HOME/.gem/ruby/2.7.0/bin/:$PATH"
-[ -e ~/.shortcuts ] && export PATH=~/.shortcuts:$PATH
+[ -e ~/.shortcuts ] &&
+    export PATH=~/.shortcuts:$PATH &&
+    export PATH=~/.shortcuts/tasks:$PATH
 # hash weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
 # hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 # hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
@@ -71,11 +79,12 @@ if [ "$tty" = "/dev/tty1" ]; then
     pfetch
     rm -f /tmp/startx.log
     pgrep bspwm || xinit -- :0 vt1 &>/tmp/startx.log
-elif command -V tmux &>/dev/null; then
+elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
     if [[ "$tty" =~ tty[3-9] ]]; then
         export TTY_TMUX=1
-        tmux new-session -s "$(basename "$(tty)")"
+        tmux new-session -A -s "$(basename "$(tty)")"
     elif [[ "$SSH_CONNECTION" ]]; then
+        exit() { tmux detach ; }
         tmux -2 new -A -s default
         exit
     fi

@@ -5,7 +5,7 @@ case "$1" in
         clean_link=${1,,}
         clean_link=${clean_link%\?*}
         case "$clean_link" in
-            *.png | *.jpg | *.jpeg)
+            *.png | *.jpg | *.jpeg | *.bmp | *.tiff | *.svg | *.ico | *.img)
                 feh "$1"
                 ;;
             *.gif)
@@ -15,7 +15,7 @@ case "$1" in
             *.pdf)
                 curl "$1" | zathura -
                 ;;
-            *youtube* | *youtu.be* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a)
+            *youtube* | *youtu.be* | *clips.twitch.tv* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a)
                 notify-send 'Playing in mpv' "$1" -u low
                 mpv "$1"
                 ;;

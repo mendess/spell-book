@@ -4,9 +4,5 @@ shopt -s expand_aliases 2>/dev/null
 export PLAYLIST="$XDG_CONFIG_HOME/m/playlist"
 export EMOJIS="$XDG_CONFIG_HOME/emojis"
 export BOOKMARKS="$XDG_CONFIG_HOME/quickbrowser/bookmarks"
-export PLAYLIST_ID='PLMlpz9TVZoe-T8GsEJwWC9DyBPWso-TU3'
-export PLAYLIST_LINK='https://www.youtube.com/playlist?list='"$PLAYLIST_ID"
-export UPDATE_I3BLOCKS='__update_panel'
-alias __update_panel='pkill -10 -x lemon'
 export LINKS="$XDG_DATA_HOME"/links
 export WALLPAPERS=$XDG_DATA_HOME/wallpapers
