@@ -12,3 +12,4 @@ image/webp=sxiv.desktop
 
 [Added Associations]
 application/octet-stream=gvim.desktop;
+text/markdown=gvim.desktop;
