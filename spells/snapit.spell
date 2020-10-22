@@ -33,6 +33,6 @@ case "$1" in
         rm "$name"
         ;;
     *)
-        shotgun "${geo[@]}" - | xclip -sel clip -t image/png
+        shotgun "${geo[@]}" - | tee "$name" | xclip -sel clip -t image/png
         ;;
 esac
