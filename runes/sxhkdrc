@@ -41,10 +41,15 @@ super + F8
   	feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
 
 super + F10
-    dunstctl set-paused toggle ; pkill -10 -x lemon ; case "$(dunstctl is-paused)" in \
-        true) ssh mirrodin automation/discord/busy ;; \
-        false) ssh mirrodin automation/discord/online ;; \
-    esac &>/dev/null
+    if [ -e /tmp/.dnd ]; then \
+        ssh mirrodin automation/discord/online ; \
+        rm /tmp/.dnd ; \
+    else \
+        dunstctl close-all ; \
+        ssh mirrodin automation/discord/online ;\
+        touch /tmp/.dnd ; \
+    fi &>/dev/null ; \
+    pkill -10 -x lemon
 
 super + control + m
   	$TERMINAL --class floating-terminal -e pacmixer

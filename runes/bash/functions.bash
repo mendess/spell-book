@@ -168,7 +168,7 @@ record() {
     fi
     ffmpeg \
         -video_size 1920x1080 \
-        -framerate 60 \
+        -framerate 30 \
         -f x11grab \
         -i :0.0+$i,0 \
         "output-$(date +"%d_%m_%Y_%H_%M").mp4"

@@ -1,0 +1,6 @@
+xclip -sel clip -o |
+    sed -E 's/online/dnd/g;s/,\s*br//g' |
+    ssh mirrodin 'cat > automation/discord/busy'
+xclip -sel clip -o |
+    sed -E 's/dnd/online/g;s/,\s*br//g' |
+    ssh mirrodin 'cat > automation/discord/online'
