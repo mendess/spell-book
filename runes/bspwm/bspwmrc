@@ -79,7 +79,7 @@ bspc rule -a jetbrains-idea state=pseudo_tiled
 # bspc rule -a discord desktop=^1 state=pseudo_tiled
 
 pkill sxhkd
-sxhkd &
+sxhkd &>/dev/null &
 disown
 
 # if ! pgrep polybar

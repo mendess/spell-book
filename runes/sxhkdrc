@@ -1,3 +1,6 @@
+F1
+    : # fuck help pages
+
 super + Return
   	$TERMINAL
 
@@ -42,11 +45,11 @@ super + F8
 
 super + F10
     if [ -e /tmp/.dnd ]; then \
-        ssh mirrodin automation/discord/online ; \
+        ssh mirrodin automation/discord/online & \
         rm /tmp/.dnd ; \
     else \
         dunstctl close-all ; \
-        ssh mirrodin automation/discord/online ;\
+        ssh mirrodin automation/discord/busy & \
         touch /tmp/.dnd ; \
     fi &>/dev/null ; \
     pkill -10 -x lemon

@@ -77,8 +77,6 @@ Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 Plug 'tclem/vim-arduino'
 
-Plug 'skammer/vim-css-color'
-
 Plug 'chrisbra/unicode.vim'
 
 call plug#end()
