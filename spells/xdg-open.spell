@@ -18,7 +18,9 @@ case "$1" in
                 $TERMINAL -e bash -c "vim '$t'"
                 ;;
             *.png | *.jpg | *.jpeg | *.bmp | *.tiff | *.svg | *.ico | *.img)
-                feh "$1"
+                t=$(mktemp)
+                curl "$1" > "$t"
+                sxiv "$t"
                 ;;
             *.gif)
                 notify-send 'Playing in mpv' "$1" -u low
