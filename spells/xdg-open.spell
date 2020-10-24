@@ -20,7 +20,7 @@ case "$target" in
                     /usr/bin/xdg-open "$file"
                 fi
                 ;;
-            *.txt | *.sh | *.c | *.cpp | *.h | *.hpp | *.rs | *.spell | *.tool | *.hs | *.conf | *.tex | *.log | *.lhs | *.java | *.py | *.awk | *.pl | *.cs | *.css | *.js | *.html | *.scss)
+            *.txt | *.sh | *.c | *.cpp | *.h | *.hpp | *.rs | *.spell | *.tool | *.hs | *.conf | *.tex | *.log | *.lhs | *.java | *.py | *.awk | *.pl | *.cs | *.css | *.js | *.html | *.scss | *.lua | *.bash)
                 t=$(mktemp)
                 curl --silent "$target" > "$t"
                 $TERMINAL -e bash -c "nvim '$t'"
@@ -34,10 +34,10 @@ case "$target" in
                 notify-send 'Playing in mpv' "$target" -u low
                 mpv --loop-file "$target"
                 ;;
-            *.pdf)
+            *.pdf | *.djvu)
                 curl --silent "$target" | zathura -
                 ;;
-            *youtube* | *youtu.be* | *clips.twitch.tv* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a)
+            *youtube* | *youtu.be* | *clips.twitch.tv* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a | *.ogg | *.wma | *.amv)
                 notify-send 'Playing in mpv' "$target" -u low
                 mpv "$target"
                 ;;
