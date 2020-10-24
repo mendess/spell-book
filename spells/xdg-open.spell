@@ -1,33 +1,36 @@
 #!/bin/bash
 
 target="$1"
+
+fallback() {
+    /usr/bin/xdg-open "$1"
+    exit
+}
+
 case "$target" in
     http*)
         clean_link=${target,,}
         clean_link=${clean_link%\?*}
         case "$clean_link" in
             *github*blob*)
+                [[ $(curl -s -o /dev/null -w "%{http_code}" "$target") != 200 ]] && fallback "$target"
                 git_link="${target//github/raw.githubusercontent}"
                 git_link="${git_link//blob\//}"
                 file=/tmp/$(basename "$git_link")
-                curl --silent "$git_link" > "$file"
-                filetype=$(xdg-mime query filetype "$file")
-                app=$(xdg-mime query default "$filetype")
-                if [[ "$app" = *vim.desktop ]]; then
-                    $TERMINAL -e bash -c "nvim '$file'"
-                    exit
-                else
-                    /usr/bin/xdg-open "$file"
-                fi
+                notify-send 'opening from github' "$git_link" -u low
+                curl --silent "$git_link" >"$file"
+                app=$(xdg-mime query default "$(xdg-mime query filetype "$file")")
+                # if the app is not vim, then the fallback at the end of the case will be used
+                [[ "$app" = *vim.desktop ]] && $TERMINAL -e bash -c "nvim '$file'"
                 ;;
-            *.txt | *.sh | *.c | *.cpp | *.h | *.hpp | *.rs | *.spell | *.tool | *.hs | *.conf | *.tex | *.log | *.lhs | *.java | *.py | *.awk | *.pl | *.cs | *.css | *.js | *.html | *.scss | *.lua | *.bash)
+            *.txt | *.sh | *.c | *.cpp | *.h | *.hpp | *.rs | *.spell | *.tool | *.hs | *.conf | *.tex | *.log | *.lhs | *.java | *.py | *.awk | *.pl | *.cs | *.css | *.js | *.html | *.scss | *.lua | *.bash | *makefile)
                 t=$(mktemp)
-                curl --silent "$target" > "$t"
+                curl --silent "$target" >"$t"
                 $TERMINAL -e bash -c "nvim '$t'"
                 ;;
             *.png | *.jpg | *.jpeg | *.bmp | *.tiff | *.svg | *.ico | *.img)
                 t=$(mktemp)
-                curl --silent "$target" > "$t"
+                curl --silent "$target" >"$t"
                 sxiv "$t"
                 ;;
             *.gif)
@@ -42,11 +45,11 @@ case "$target" in
                 mpv "$target"
                 ;;
             *)
-                $BROWSER "$target"
+                fallback "$target"
                 ;;
-        esac || /usr/bin/xdg-open "$target"
+        esac || fallback "$target"
         ;;
     *)
-        /usr/bin/xdg-open "$target"
+        fallback "$target"
         ;;
 esac
