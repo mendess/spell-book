@@ -10,7 +10,7 @@ case "$target" in
                 git_link="${target//github/raw.githubusercontent}"
                 git_link="${git_link//blob\//}"
                 file=/tmp/$(basename "$git_link")
-                curl "$git_link" > "$file"
+                curl --silent "$git_link" > "$file"
                 filetype=$(xdg-mime query filetype "$file")
                 app=$(xdg-mime query default "$filetype")
                 if [[ "$app" = *vim.desktop ]]; then
@@ -22,12 +22,12 @@ case "$target" in
                 ;;
             *.txt | *.sh | *.c | *.cpp | *.h | *.hpp | *.rs | *.spell | *.tool | *.hs | *.conf | *.tex | *.log | *.lhs | *.java | *.py | *.awk | *.pl | *.cs | *.css | *.js | *.html | *.scss)
                 t=$(mktemp)
-                curl "$target" > "$t"
-                $TERMINAL -e bash -c "vim '$t'"
+                curl --silent "$target" > "$t"
+                $TERMINAL -e bash -c "nvim '$t'"
                 ;;
             *.png | *.jpg | *.jpeg | *.bmp | *.tiff | *.svg | *.ico | *.img)
                 t=$(mktemp)
-                curl "$target" > "$t"
+                curl --silent "$target" > "$t"
                 sxiv "$t"
                 ;;
             *.gif)
@@ -35,7 +35,7 @@ case "$target" in
                 mpv --loop-file "$target"
                 ;;
             *.pdf)
-                curl "$target" | zathura -
+                curl --silent "$target" | zathura -
                 ;;
             *youtube* | *youtu.be* | *clips.twitch.tv* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a)
                 notify-send 'Playing in mpv' "$target" -u low
