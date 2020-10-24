@@ -1,44 +1,53 @@
 #!/bin/bash
 
-case "$1" in
+target="$1"
+case "$target" in
     http*)
-        clean_link=${1,,}
+        clean_link=${target,,}
         clean_link=${clean_link%\?*}
+        set -x
         case "$clean_link" in
             *github*blob*)
-                git_link="${1//github/raw.githubusercontent}"
+                git_link="${target//github/raw.githubusercontent}"
                 git_link="${git_link//blob\//}"
-                t=/tmp/$(basename "$git_link")
-                curl "$git_link" > "$t"
-                $0 "$t"
+                file=/tmp/$(basename "$git_link")
+                curl "$git_link" > "$file"
+                filetype=$(xdg-mime query filetype "$file")
+                app=$(xdg-mime query default "$filetype")
+                if [[ "$app" = *vim.desktop ]]; then
+                    $TERMINAL -e bash -c "nvim '$file'"
+                    exit
+                else
+                    /usr/bin/xdg-open "$file"
+                fi
                 ;;
-            *.txt | *.sh | *.c | *.cpp | *.h | *hpp | *.rs | *.spell)
+            *.txt | *.sh | *.c | *.cpp | *.h | *.hpp | *.rs | *.spell | *.tool | *.hs | *.conf | *.tex | *.log | *.lhs | *.java | *.py | *.awk | *.pl | *.cs | *.css | *.js | *.html | *.scss)
                 t=$(mktemp)
-                curl "$1" > "$t"
+                curl "$target" > "$t"
                 $TERMINAL -e bash -c "vim '$t'"
                 ;;
             *.png | *.jpg | *.jpeg | *.bmp | *.tiff | *.svg | *.ico | *.img)
                 t=$(mktemp)
-                curl "$1" > "$t"
+                curl "$target" > "$t"
                 sxiv "$t"
                 ;;
             *.gif)
-                notify-send 'Playing in mpv' "$1" -u low
-                mpv --loop-file "$1"
+                notify-send 'Playing in mpv' "$target" -u low
+                mpv --loop-file "$target"
                 ;;
             *.pdf)
-                curl "$1" | zathura -
+                curl "$target" | zathura -
                 ;;
             *youtube* | *youtu.be* | *clips.twitch.tv* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a)
-                notify-send 'Playing in mpv' "$1" -u low
-                mpv "$1"
+                notify-send 'Playing in mpv' "$target" -u low
+                mpv "$target"
                 ;;
             *)
-                $BROWSER "$1"
+                $BROWSER "$target"
                 ;;
-        esac || /usr/bin/xdg-open "$1"
+        esac || /usr/bin/xdg-open "$target"
         ;;
     *)
-        /usr/bin/xdg-open "$1"
+        /usr/bin/xdg-open "$target"
         ;;
 esac
