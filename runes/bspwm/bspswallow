@@ -17,7 +17,6 @@ terminals="Alacritty"
 noswallow="$terminals
 firefox
 feh
-Sxiv
 Zathura
 
 "

@@ -95,7 +95,7 @@ super + x
         --class floating-terminal \
         -e bash -c 'cal -s | grep -vP "^\s+$" ; read -s -r -n 1'
 
-super + control + v
+super + p
   	playClipboard
 
 super + v
