@@ -79,6 +79,8 @@ Plug 'tclem/vim-arduino'
 
 Plug 'chrisbra/unicode.vim'
 
+Plug 'chrisbra/csv.vim'
+
 call plug#end()
 
 """ PLUGIN CONFIGS
