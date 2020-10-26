@@ -1,19 +1,20 @@
 #!/bin/bash
 
-sleep_now() {
-    {
-        while ! m c | grep '0%'; do
-            sleep 1m
-            m vd
-        done
-    } &
-    disown
+common() {
+    while ! m c | grep '0%'; do
+        sleep 5m
+        m vd
+    done &
     ssh mendess@mirrodin bulb/flow.py sunset &
-    disown
-    (
+    {
         sleep 2m
         DISPLAY=:0 xset dpms force off
-    ) &
+    } &
+    disown
+}
+
+sleep_now() {
+    common
     if [[ "$SSH_CONNECTION" ]]; then
         sudo bash -c "sleep ${1:-40m}; systemctl suspend"
     else
@@ -23,17 +24,7 @@ sleep_now() {
 }
 
 die_now() {
-    { while :; do
-        sleep 1m
-        m vd
-    done; } &
-    disown
-    ssh mendess@mirrodin bulb/flow.py sunset &
-    disown
-    (
-        sleep 2m
-        DISPLAY=:0 xset dpms force off
-    ) &
+    common
     if [[ "$SSH_CONNECTION" ]]; then
         sudo shutdown +"${1:-40}"
     else
