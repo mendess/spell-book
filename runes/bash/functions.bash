@@ -203,10 +203,10 @@ gcl() {
     case "$1" in
         http://*)
             echo '============================> using http'
-            git clone "$1" "${@:2}"
+            git clone "$@"
             ;;
         git@* | https://*)
-            git clone "$1" "${@:2}"
+            git clone "$@"
             ;;
         */*)
             git clone git@github.com:"$1" "${@:2}"
