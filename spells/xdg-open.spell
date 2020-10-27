@@ -24,7 +24,7 @@ case "$target" in
                 [[ "$app" = *vim.desktop ]] && $TERMINAL -e bash -c "nvim '$file'"
                 rm "$file"
                 ;;
-            *.txt | *.sh | *.c | *.cpp | *.h | *.hpp | *.rs | *.spell | *.tool | *.hs | *.conf | *.tex | *.log | *.lhs | *.java | *.py | *.awk | *.pl | *.cs | *.css | *.js | *.html | *.scss | *.lua | *.bash | *makefile)
+            *.txt | *.sh | *.c | *.cpp | *.h | *.hpp | *.rs | *.spell | *.tool | *.hs | *.conf | *.tex | *.log | *.lhs | *.java | *.py | *.awk | *.pl | *.cs | *.css | *.js | *.scss | *.lua | *.bash | *makefile)
                 t=$(mktemp)
                 curl --silent "$target" >"$t"
                 $TERMINAL -e bash -c "nvim '$t'"
