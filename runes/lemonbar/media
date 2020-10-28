@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # shellcheck disable=SC2119
 
 # shellcheck source=/home/mendess/projects/spell-book/spells/library.spell
@@ -28,7 +28,13 @@ s/ｏ/o /g;
 s/ｐ/p /g;
 s/ｒ/r /g;
 s/ｓ/s /g;
-')"
+' | tr -d '\n')"
+
+case "$t" in
+    Video:*Song:*)
+        t="${t/Video:/\%\{\#0ff\}Video:\%\{-\}}"
+        ;;
+esac
 
 [ "$1" = small ] &&
     name="$(printf "%s" "$t" | sed -E 's/(.*)(>|\|\|).*/\1/')" &&

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 file=$(fzf --preview-window=right:60% --preview='bat --color "always" {}')
+[[ "$file" ]] || exit 0
 filetype=$(xdg-mime query filetype "$file")
 app=$(xdg-mime query default "$filetype")
 
