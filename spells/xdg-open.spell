@@ -48,7 +48,7 @@ case "$target" in
             *.pdf | *.djvu)
                 curl --silent "$target" | zathura -
                 ;;
-            *youtube* | *youtu.be* | *clips.twitch.tv* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a | *.ogg | *.wma | *.amv)
+            *youtube* | *youtu.be* | *clips.twitch.tv* | https://v.redd.it* | https://t.co* | *.avi | *.webm | *.mp4 | *.mp3 | *.wav | *.flac | *.midi | *.dvdrip | *.cam | *.mkv | *.mov | *.mpeg | *.flv | *.mpg | *.mp2 | *.mpv | *.m4p | *.m4v | *.wmv | *.qt | *.swf | *.avchd | *.m4a | *.ogg | *.wma | *.amv | *.mpa | *.ra | *.rax | *.raw | *.smf | *.snd | *.sng | *.swa | *.hma | *.aac | *.ac3 | *.eac3 | *.Vorbis | *.pcm)
                 notify-send 'Playing in mpv' "$target" -u low
                 mpv "$target" || {
                     notify-send 'Retrying in mpv' "$target" -u low

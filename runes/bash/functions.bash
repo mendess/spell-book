@@ -389,3 +389,7 @@ t() {
             ;;
     esac
 }
+
+mvim() {
+    nvim scp://mirrodin/"$1"
+}

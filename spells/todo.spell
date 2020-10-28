@@ -4,19 +4,6 @@
 # Select an existing entry to remove it from the file, or type a new entry to
 # add it.
 
-TMPDIR=${TMPDIR:-/tmp}
-rsync mirrodin:todo "$TMPDIR"
-file="$TMPDIR/todo"
-touch "$file"
-height=$(wc -l <"$file")
-prompt="Add/delete a task: "
-
-if [ -z "$DISPLAY" ] || [ "$1" != gui ]; then
-    PROMPT_PROG=fzf
-else
-    PROMPT_PROG=dmenu
-fi
-
 selector() {
     while [ "$#" -gt 0 ]; do
         case "$1" in
@@ -31,6 +18,28 @@ selector() {
     esac
 }
 
+error() {
+    title=$1
+    shift
+    case "$PROMPT_PROG" in
+        fzf) printf "[1;31mError:[0m[1m %s[0m\n%s\n" "$title" "$*" ;;
+        dmenu) notify-send "Error: $title" "$*" -u critical ;;
+    esac
+}
+
+TMPDIR=${TMPDIR:-/tmp}
+o="$(rsync mirrodin:todo "$TMPDIR" 2>&1)" || error "Download failed" "$o"
+file="$TMPDIR/todo"
+touch "$file"
+height=$(wc -l <"$file")
+prompt="Add/delete a task: "
+
+if [ -z "$DISPLAY" ] || [ "$1" != gui ]; then
+    PROMPT_PROG=fzf
+else
+    PROMPT_PROG=dmenu
+fi
+
 while :; do
     cmd=$(selector -l "$height" -p "$prompt" <"$file")
     [ "$cmd" ] || break
@@ -44,4 +53,4 @@ while :; do
     fi
 done
 
-rsync "$TMPDIR/todo" mirrodin:
+o="$(rsync "$TMPDIR/todo" mirrodin: 2>&1)" || error "Upload failed" "$o"

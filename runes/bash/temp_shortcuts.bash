@@ -25,7 +25,7 @@ l1csf() {
 
     mkdir -vp tools
     cd tools || exit
-    : >tool_list
+    rm -f tool_list
     curl -s "http://localhost:8080/advisory?id=$1" |
         grep -oP '/tool_report\?id=[0-9]+&tool=[^"]+' |
         cut -d= -f3 |
