@@ -11,9 +11,9 @@ case "$target" in
     http*)
         clean_link=${target,,}
         clean_link=${clean_link%\?*}
+        [[ $(curl -s -o /dev/null -w "%{http_code}" "$target") != 200 ]] && fallback "$target"
         case "$clean_link" in
             *github*blob*)
-                [[ $(curl -s -o /dev/null -w "%{http_code}" "$target") != 200 ]] && fallback "$target"
                 git_link="${target//github/raw.githubusercontent}"
                 git_link="${git_link//blob\//}"
                 file=/tmp/$(basename "$git_link")

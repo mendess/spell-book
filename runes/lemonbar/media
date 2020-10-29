@@ -32,7 +32,12 @@ s/ｓ/s /g;
 
 case "$t" in
     Video:*Song:*)
-        t="${t/Video:/\%\{\#0ff\}Video:\%\{-\}}"
+        if [[ "$1" = small ]]; then
+            t=${t/Video:*Song: /}
+        else
+            t="${t/Video:/\%\{F\#5498f8\}Video:\%\{F-\}}"
+            t="${t/Song:/| \%\{F\#5498f8\}Song:\%\{F-\}}"
+        fi
         ;;
 esac
 
