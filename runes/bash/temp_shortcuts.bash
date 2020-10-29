@@ -2,13 +2,14 @@
 l1csf() {
     [ $# -lt 1 ] && {
         echo "provide the report number"
-        exit 1
+        return 1
     }
+    curl http://localhost:8080 >/dev/null || return
     mkdir -vp ~/projects/csf/lab1/mendess_work_dir/
-    cd ~/projects/csf/lab1/mendess_work_dir/ || exit
+    cd ~/projects/csf/lab1/mendess_work_dir/ || return
 
     mkdir -vp "$1"
-    cd "$1" || exit
+    cd "$1" || return
 
     firefox "http://localhost:8080/advisory?id=$1"
 
@@ -24,7 +25,7 @@ l1csf() {
     }
 
     mkdir -vp tools
-    cd tools || exit
+    cd tools || return
     rm -f tool_list
     curl -s "http://localhost:8080/advisory?id=$1" |
         grep -oP '/tool_report\?id=[0-9]+&tool=[^"]+' |

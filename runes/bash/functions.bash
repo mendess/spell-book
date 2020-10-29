@@ -108,7 +108,7 @@ vimbd() {
     exit
 }
 
-svim() {
+svim() {(
     cd "$SPELLS" || return 1
     if [ -n "$1" ]; then
         "$EDITOR" "$1"
@@ -119,9 +119,8 @@ svim() {
             sed 's|^./||g' |
             fzf)"
         [ -n "$DIR" ] && "$EDITOR" "$DIR"
-        cd - &>/dev/null || return 1
     fi
-}
+)}
 
 k() {
     if lsusb | grep -E 'Mechanical|Keyboard|Kingston' &>/dev/null; then

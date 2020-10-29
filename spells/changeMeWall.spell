@@ -30,11 +30,10 @@ show_help() {
 BRIGHTNESS_FILTER='
 import sys
 import colorsys
-count = 1
+count = 0
 outputs = 0
-last_colors = ["#FFFFFF", "#FFFFFF", "#FFFFFF"]
-last_line = ""
-last_last_line = ""
+last_colors = ["#000000", "#000000", "#000000"]
+print("Rejecting colours with s < 0.20 or v < 0.30", file=sys.stderr)
 for line in sys.stdin:
     line = line.strip()
     og_line = str(line)
@@ -44,19 +43,30 @@ for line in sys.stdin:
     g = int(line[2:4], 16)
     b = int(line[4:6], 16)
     hsv = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
-    if True and (hsv[1] < 0.2 or hsv[2] < 0.3):
-        print("{:02d}:".format(count), og_line, r, g, b, "s: {:.2f} v: {:.2f}".format(*hsv[1:]), file=sys.stderr)
+    count += 1
+    if hsv[1] < 0.2 or hsv[2] < 0.3:
+        print(
+            "{:02d}:".format(count),
+            og_line,
+            f"r: {r}",
+            f"g: {g}",
+            f"b: {b}",
+            "h: {:.2f} s: {:.2f} v: {:.2f}".format(*hsv),
+            file=sys.stderr
+        )
     else:
         outputs += 1
         print(og_line)
-    count += 1
     last_colors.pop(0)
     last_colors.append(og_line)
 
 if outputs < 3:
-    for i in last_colors:
+    for i in reversed(last_colors):
         print(i)
-    print("resorting to most common", last_line, file=sys.stderr)
+    print(
+        "Not enough colors picked, resorting to most common",
+        file=sys.stderr
+    )
 '
 wide=0
 while [ "$#" -gt 0 ]; do
