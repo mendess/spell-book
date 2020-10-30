@@ -4,7 +4,7 @@ l1csf() {
         echo "provide the report number"
         return 1
     }
-    curl http://localhost:8080 >/dev/null || return
+    curl -# http://localhost:8080 >/dev/null || return
     mkdir -vp ~/projects/csf/lab1/mendess_work_dir/
     cd ~/projects/csf/lab1/mendess_work_dir/ || return
 

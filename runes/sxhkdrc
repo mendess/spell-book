@@ -69,6 +69,13 @@ super + m
 super + shift + c
   	$TERMINAL -e calcurse
 
+super + control + i
+    mkdir -p /tmp/vim-anywhere ; \
+    file=$(mktemp --tmpdir=/tmp/vim-anywhere) ; \
+    bspc rule -a \* -o state=floating; \
+    "$TERMINAL" -e nvim -c startinsert "$file" ; \
+    [ "$(cat "$file")" ] && xclip -selection c < "$file"
+
 @Print
     snapit
 

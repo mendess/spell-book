@@ -55,6 +55,10 @@ case "$target" in
                     mpv "$target"
                 }
                 ;;
+            *.pub)
+                notify-send 'Key coppied to clipboard'
+                curl -s "$target" | xclip
+                ;;
             *)
                 fallback "$target"
                 ;;

@@ -41,7 +41,7 @@ else
 fi
 
 while :; do
-    cmd=$(selector -l "$height" -p "$prompt" <"$file")
+    cmd=$(LC_ALL=C sort "$file" | selector -l "$height" -p "$prompt")
     [ "$cmd" ] || break
     if grep -q "^$cmd\$" "$file"; then
         grep -v "^$cmd\$" "$file" >"$file.$$"
