@@ -56,7 +56,7 @@ case "$target" in
                 }
                 ;;
             *.pub)
-                notify-send 'Key coppied to clipboard'
+                notify-send 'Key coppied to clipboard' -u low
                 curl -s "$target" | xclip
                 ;;
             *)
