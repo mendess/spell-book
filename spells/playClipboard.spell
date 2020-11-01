@@ -1,4 +1,5 @@
 #!/bin/bash
+# Plays whatever is in the clipboard with xdg-open
 
 for clip in "$(xclip -sel clip -o)" "$(xclip -sel primary -o)"; do
     xdg-open "$clip" && exit

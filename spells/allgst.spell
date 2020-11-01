@@ -1,4 +1,5 @@
 #!/bin/bash
+# Performs `git status` on every folder in the `cwd`.
 
 while read -r dir; do
     if [[ -d "$dir/.git" ]]; then

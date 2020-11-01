@@ -35,11 +35,19 @@ case "$target" in
                 t=$(mktemp)
                 curl --silent "$target" >"$t"
                 size="$(file "$t" | sed -E 's/.* ([0-9]+)\s*x\s*([0-9]+).*/\1x\2/')"
+                set -x
                 w=${size%x*}
                 h=${size#*x}
-                [[ $w -gt 1800 ]] && w=1800
-                [[ $h -gt 1000 ]] && h=1000
+                if [[ $h -gt 1000 ]]; then
+                    w=$(((w * 1000) / h))
+                    h=1000
+                fi
+                if [[ $w -gt 1800 ]]; then
+                    h=$(((h * 1800) / w))
+                    w=1800
+                fi
                 sxiv -b -g "${w}x${h}" "$t"
+                set +x
                 rm "$t"
                 ;;
             *.gif)

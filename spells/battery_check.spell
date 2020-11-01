@@ -1,22 +1,27 @@
 #!/bin/sh
-if acpi | grep 'rate information unavailable';
-then
-    exit 0
-fi
-battery_level=$(acpi -b | cut -d ' ' -f 4 | grep -o '[0-9]*')
-battery_state=$(acpi | grep 'Battery' | sed 's/Battery\s[0-9]*: //' | sed 's/, [0-9][0-9]*\%.*//')
-battery_remaining=$(acpi | grep -oh '[0-9:]* remaining' | sed 's/:\w\w remaining$/ Minutes/'  | sed 's/00://' | sed 's/:/h /')
+# Checks battery life and suspends if it's too low.
 
-if [ ! -f "/tmp/.battery" ]; then
-    echo "$battery_level" > /tmp/.battery
-    echo "$battery_state" >> /tmp/.battery
+if acpi 2>&1 | grep 'power_supply'; then
     exit
 fi
+case "$(hostname)" in tolaria) exit ;; esac
 
-previous_battery_level=$(head -n 1 /tmp/.battery)
-previous_battery_state=$(tail -n 1 /tmp/.battery)
-echo "$battery_level" > /tmp/.battery
-echo "$battery_state" >> /tmp/.battery
+setup() {
+    battery_level=$(acpi -b | cut -d ' ' -f 4 | grep -o '[0-9]*')
+    battery_state=$(acpi | grep 'Battery' | sed 's/Battery\s[0-9]*: //' | sed 's/, [0-9][0-9]*\%.*//')
+    battery_remaining=$(acpi | grep -oh '[0-9:]* remaining' | sed 's/:\w\w remaining$/ Minutes/' | sed 's/00://' | sed 's/:/h /')
+
+    if [ ! -f "/tmp/.battery" ]; then
+        echo "$battery_level" >/tmp/.battery
+        echo "$battery_state" >>/tmp/.battery
+        exit
+    fi
+
+    previous_battery_level=$(head -n 1 /tmp/.battery)
+    previous_battery_state=$(tail -n 1 /tmp/.battery)
+    echo "$battery_level" >/tmp/.battery
+    echo "$battery_state" >>/tmp/.battery
+}
 
 checkBatteryLevel() {
     [ "$battery_level" = "$previous_battery_level" ] && exit
@@ -47,5 +52,9 @@ checkBatteryStateChange() {
     fi
 }
 
-checkBatteryStateChange
-checkBatteryLevel
+while :; do
+    setup
+    checkBatteryStateChange
+    checkBatteryLevel
+    sleep 1m
+done

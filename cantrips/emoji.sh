@@ -5,9 +5,6 @@
 # Must have xclip installed to even show menu.
 xclip -h >/dev/null || exit
 
-# shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
-. library
-
 chosen=$(grep -v "#" "$EMOJIS" | dmenu -i -l 20 -fn Monospace-18)
 
 [ "$chosen" != "" ] || exit

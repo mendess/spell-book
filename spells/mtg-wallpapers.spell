@@ -1,7 +1,6 @@
 #!/bin/bash
-
-#shellcheck source=/home/mendess/.local/bin/library
-. library
+# Downloads the last 6 wallpapers uploaded to
+# https://magic.wizards.com/en/articles/media/wallpapers.
 
 mkdir -p /tmp/walls
 cd /tmp/walls || exit 1

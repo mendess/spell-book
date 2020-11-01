@@ -1,9 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2029
 
-#shellcheck source=/home/mendess/projects/spell-book/spells/library.spell
-. library
-
 TMPDIR=${TMPDIR:-/tmp}
 set -e
 yellow() {

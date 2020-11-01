@@ -1,5 +1,7 @@
 #!/bin/bash
 #shellcheck disable=2155
+# Creates a sym-link for every rune in [runes](runes/). The location of the
+# sym-link depends on the rune and is defined in the script.
 
 ## Option docs:
 ## - sudo: Require sudo to install the dotfiles
@@ -34,10 +36,7 @@ if ! sudoHost; then
     }
 fi
 
-if hash library 2>/dev/null; then
-    #shellcheck source=/home/mendess/.local/bin/library
-    . library
-
+if [[ "$SPELLS" ]]; then
     cd "$SPELLS/runes" || exit 1
 else
     cd "$(dirname "$0")"/runes || exit 1

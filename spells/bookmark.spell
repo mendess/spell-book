@@ -1,11 +1,10 @@
 #!/bin/bash
+# Adds a bookmark to the [bookmarks](./runes/bookmarks)
 
 if [ "$#" -lt 1 ]; then
     echo "Usage: $0 <link>"
     exit 1
 fi
 
-cd "$(dirname "$(realpath "$0")")" || exit 1
-
 echo adding "$1"
-echo "$1" | sed 's;https://;;g' >> ../library/bookmarks
+echo "${1//https:\/\//}" >> "$SPELLS/runes/bookmarks"

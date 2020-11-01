@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 [[ $- != *i* ]] && return
 
 export HISTSIZE=""
@@ -29,6 +28,3 @@ do
     #shellcheck disable=SC1090
     source "$f"
 done
-
-#shellcheck source=/home/mendess/projects/spell-book/spells/library.spell
-source "$SPELLS"/spells/library.spell

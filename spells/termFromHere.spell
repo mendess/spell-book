@@ -1,4 +1,6 @@
 #!/bin/bash
+# Opens a terminal in the same `cwd` as the focused `X` program.
+
 # depends: xorg-xdpyinfo xorg-xprop
 CWD=''
 

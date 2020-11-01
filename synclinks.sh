@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#shellcheck source=/home/mendess/.local/bin/library
-. library
 BACKUPS=~/Dropbox/backups
 
 [ -e "$BACKUPS" ] || exit 1

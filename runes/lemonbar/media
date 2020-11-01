@@ -1,9 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2119
 
-# shellcheck source=/home/mendess/projects/spell-book/spells/library.spell
-. library
-
 t="$(m current --short | sed '
 s/　/  /g;
 s/Ａ/A /g;

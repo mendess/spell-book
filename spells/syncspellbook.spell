@@ -1,4 +1,7 @@
 #!/bin/bash
+# Tries to synchronise with changes to the
+# remote repository. Also runs [learnSpells](./learnSpells.sh)
+# and [castRunes](./castRunes.sh)
 
 { command -v jq && command -v hostname && command -v python; } &>/dev/null ||
     { echo "please make sure jq, hostname and python are installed" && exit 1; }

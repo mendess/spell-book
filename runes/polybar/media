@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
-. library
-
 CURRENT="$(m current \
     | head -2 \
     | tail -1 \

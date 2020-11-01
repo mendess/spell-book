@@ -1,4 +1,6 @@
 #!/bin/bash
+# Runs `changeMeWall` every 5 minutes
+
 changeMeWall
 while true;
 do

@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#shellcheck source=/home/mendess/.local/bin/library
-. library
-
 make() {
     if [ -e Makefile ] || [ -e makefile ]; then
         bash -c "make -j$(nproc || echo 4) $*"
@@ -250,9 +247,6 @@ mpvysv() {
 }
 
 mpv_get() {
-    #shellcheck source=/home/mendess/.local/bin/library
-    . library
-
     #shellcheck disable=2119
     echo '{ "command": ["get_property", "'"$1"'"] }' |
         socat - "$(m socket)" |

@@ -1,6 +1,5 @@
 #!/bin/bash
-# shellcheck source=/home/mendess/.local/bin/library
-. library
+# Launches vimb with one of the [bookmarks](./library/bookmarks)
 
 nlines="$(wc -l < "$BOOKMARKS")"
 link="$(cut -d',' -f1  "$BOOKMARKS" | dmenu -i -p "Where should I go?" -l "$nlines")"

@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# shellcheck source=/home/mendess/Projects/spell-book/spells/library.spell
-. library
-
 TRUNC=$(if [ -e /tmp/.bloat ]; then echo '47'; else echo '32'; fi)
 
 

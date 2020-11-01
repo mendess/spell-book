@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#shellcheck source=/home/mendess/.local/bin/library
-. library
-
 if ! [ -e "$LINKS"/mcserverip ]
 then
     notify-send "Error:" "$LINKS/mcserverip No such file" -a "$(basename "$0")"
