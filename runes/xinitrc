@@ -6,7 +6,7 @@ case "$(hostname)" in
     *) picom --experimental-backends --daemon ;;
 esac
 dropbox start &
-battery_check_cicle &
+battery_check &
 dunst &
 clipmenud &
 nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &

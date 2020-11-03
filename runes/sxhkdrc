@@ -69,7 +69,7 @@ super + m
 super + shift + c
   	$TERMINAL -e calcurse
 
-super + control + i
+super + alt + v
     mkdir -p /tmp/vim-anywhere ; \
     file=$(mktemp --tmpdir=/tmp/vim-anywhere) ; \
     bspc rule -a \* -o state=floating; \
@@ -284,3 +284,6 @@ super + shift + m
 super + colon
     bspc node --state pseudo_tiled; \
     bspc node --resize bottom_right 50 800
+
+#m
+#    case "$((RANDOM % 10))" in 0) mpv ~/.out.mp3 ;; esac ; xdotool key m

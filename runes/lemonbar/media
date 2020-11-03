@@ -42,4 +42,4 @@ esac
     name="$(printf "%s" "$t" | sed -E 's/(.*)(>|\|\|).*/\1/')" &&
     rest="$(printf "%s" "$t" | sed -E 's/.*((>|\|\|).*)/\1/')" &&
     t="$(printf "%s" "$name" | sed -r 's/^(.{22}).*/\1... /')$rest"
-if [ "$t" ]; then echo "♪" "$t" "♪"; fi
+if [ "$t" ]; then echo "$t"; fi
