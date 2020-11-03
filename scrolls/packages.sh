@@ -56,6 +56,7 @@ rtv
 rustup
 shfmt
 socat
+ttf-nerd-fonts-symbols # sway-launcher-desktop dependency
 sxhkd
 sxiv
 tmux
