@@ -23,34 +23,60 @@ error() {
     shift
     case "$PROMPT_PROG" in
         fzf) printf "[1;31mError:[0m[1m %s[0m\n%s\n" "$title" "$*" ;;
-        dmenu) notify-send "Error: $title" "$*" -u critical ;;
+        dmenu) notify-send "Error: $title" "$*" -u critical -a todo ;;
     esac
 }
 
+todo() { LC_ALL=C sort "$file"; }
+
+pull() {
+    o="$(rsync mirrodin:todo "$TMPDIR" 2>&1)" || error "Download failed" "$o"
+}
+
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        gui) gui=1 ;;
+        -l | --list) list=1 ;;
+        -b | --bg-pull) bg_pull=1 ;;
+    esac
+    shift
+done
+
 TMPDIR=${TMPDIR:-/tmp}
-o="$(rsync mirrodin:todo "$TMPDIR" 2>&1)" || error "Download failed" "$o"
 file="$TMPDIR/todo"
+if [ "$bg_pull" ]; then
+    pull &
+    [ -e "$file" ] || exit
+else
+    pull
+fi
 touch "$file"
 height=$(wc -l <"$file")
 prompt="Add/delete a task: "
 
-if [ -z "$DISPLAY" ] || [ "$1" != gui ]; then
+if [ ! "$DISPLAY" ] || [ ! "$gui" ]; then
     PROMPT_PROG=fzf
 else
     PROMPT_PROG=dmenu
 fi
 
-while :; do
-    cmd=$(LC_ALL=C sort "$file" | selector -l "$height" -p "$prompt")
-    [ "$cmd" ] || break
-    if grep -q "^$cmd\$" "$file"; then
-        grep -v "^$cmd\$" "$file" >"$file.$$"
-        mv "$file.$$" "$file"
-        height=$((height - 1))
-    else
-        echo "$cmd" >>"$file"
-        height=$((height + 1))
-    fi
-done
-
-o="$(rsync "$TMPDIR/todo" mirrodin: 2>&1)" || error "Upload failed" "$o"
+if [ "$list" ]; then
+    case "$PROMPT_PROG" in
+        fzf) todo ;;
+        dmenu) notify-send 'Todo list' "$(todo)" -a todo ;;
+    esac
+else
+    while :; do
+        cmd=$(todo | selector -l "$height" -p "$prompt")
+        [ "$cmd" ] || break
+        if grep -q "^$cmd\$" "$file"; then
+            grep -v "^$cmd\$" "$file" >"$file.$$"
+            mv "$file.$$" "$file"
+            height=$((height - 1))
+        else
+            echo "$cmd" >>"$file"
+            height=$((height + 1))
+        fi
+    done
+    o="$(rsync "$TMPDIR/todo" mirrodin: 2>&1)" || error "Upload failed" "$o"
+fi
