@@ -11,13 +11,14 @@ num_mon=$(bspc query -M | wc -l)
 MON=${MONITOR:-0}
 echo "monitor: $MON" >&2
 while read -r line ; do
-    # shellcheck source=/home/mendess/Projects/spell-book/runes/lemonbar/workspaces_colors
+    # shellcheck source=/home/mendess/projects/spell-book/runes/lemonbar/workspaces_colors
     . "$(dirname "$0")/workspaces_colors"
     case $line in
         W*)
             # bspwm's state
             wm=
             IFS=':'
+            #shellcheck disable=2086
             set -- ${line#?}
             cur_mon=0
             while [ $# -gt 0 ] ; do
@@ -56,56 +57,56 @@ while read -r line ; do
                             F*)
                                 if [ "$on_focused_monitor" ] ; then
                                     # focused free desktop
-                                    FG=$COLOR_FOCUSED_FREE_FG
-                                    BG=$COLOR_FOCUSED_FREE_BG
-                                    UL=$BG
-                                else
-                                    # active free desktop
                                     FG=$COLOR_FREE_FG
                                     BG=$COLOR_FREE_BG
-                                    UL=$COLOR_FOCUSED_FREE_BG
+                                    UL=$COLOR_FREE_UL
+                                else
+                                    # active free desktop
+                                    FG=$COLOR_FOCUSED_FREE_FG
+                                    BG=$COLOR_FOCUSED_FREE_BG
+                                    UL=$COLOR_FOCUSED_FREE_UL
                                 fi
                                 ;;
                             o*)
                                 # occupied desktop
                                 FG=$COLOR_OCCUPIED_FG
                                 BG=$COLOR_OCCUPIED_BG
-                                UL=$BG
+                                UL=$COLOR_OCCUPIED_UL
                                 ;;
                             O*)
                                 if [ "$on_focused_monitor" ] ; then
                                     # focused occupied desktop
                                     FG=$COLOR_FOCUSED_OCCUPIED_FG
                                     BG=$COLOR_FOCUSED_OCCUPIED_BG
-                                    UL=$COLOR_FOCUSED_OCCUPIED_UN
+                                    UL=$COLOR_FOCUSED_OCCUPIED_UL
                                 else
                                     # active occupied desktop
-                                    FG=$COLOR_OCCUPIED_FG
-                                    BG=$COLOR_OCCUPIED_BG
-                                    UL=$COLOR_FOCUSED_OCCUPIED_UN
+                                    FG=$COLOR_ACTIVE_OCCUPIED_FG
+                                    BG=$COLOR_ACTIVE_OCCUPIED_BG
+                                    UL=$COLOR_ACTIVE_OCCUPIED_UL
                                 fi
                                 ;;
                             u*)
                                 # urgent desktop
                                 FG=$COLOR_URGENT_FG
                                 BG=$COLOR_URGENT_BG
-                                UL=$BG
+                                UL=$COLOR_URGENT_UL
                                 ;;
                             U*)
                                 if [ "$on_focused_monitor" ] ; then
                                     # focused urgent desktop
                                     FG=$COLOR_FOCUSED_URGENT_FG
                                     BG=$COLOR_FOCUSED_URGENT_BG
-                                    UL=$BG
+                                    UL=$COLOR_FOCUSED_URGENT_UL
                                 else
                                     # active urgent desktop
                                     FG=$COLOR_URGENT_FG
                                     BG=$COLOR_URGENT_BG
-                                    UL=$COLOR_FOCUSED_URGENT_BG
+                                    UL=$COLOR_URGENT_UL
                                 fi
                                 ;;
                         esac
-                        wm="${wm}%{F${FG}}%{B${BG}}%{U${UL}}%{+u}%{A1:bspc desktop -f '${name}':}%{A2:bspc desktop -f '${name}':} ${name} %{A}%{A}%{B-}%{F-}%{-u}"
+                        wm="${wm}%{F${FG}}%{B${BG}}%{U${UL}}%{+u}%{A1:bspc desktop -f '${name}':}%{A2:bspc desktop -f '${name}':} ${name} %{A}%{A}%{U-}%{B-}%{F-}%{-u}"
                         ;;
                     LT) ;;
                     [LG]?) # [LTG]
