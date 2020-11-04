@@ -1,5 +1,6 @@
 #!/bin/bash
 
 echo -e "\e[1;31m"
-todo --list --bg-pull
+command -V todo >/dev/null &&
+    todo --list --bg-pull
 echo -e "\e[0m"
