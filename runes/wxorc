@@ -1,15 +1,19 @@
 #!/bin/bash
 image() {
-    temp_file "$1"
-    dl "$1" >"$TEMPFILE"
+    dl "$1" >"$TEMPFILE" || return
+    [[ "$TEMPFILE" = *svg ]] &&
+        convert "$TEMPFILE" "${TEMPFILE%.svg}.png" &&
+        rm -f "$TEMPFILE" &&
+        TEMPFILE="${TEMPFILE%.svg}.png" ||
+        return
     size="$(file "$TEMPFILE" | sed -E 's/.* ([0-9]+)\s*x\s*([0-9]+).*/\1x\2/')"
     w=${size%x*}
     h=${size#*x}
-    if [[ $h -gt 1000 ]]; then
+    if [[ "$h" -gt 1000 ]]; then
         w=$(((w * 1000) / h))
         h=1000
     fi
-    if [[ $w -gt 1800 ]]; then
+    if [[ "$w" -gt 1800 ]]; then
         h=$(((h * 1800) / w))
         w=1800
     fi
@@ -42,5 +46,9 @@ git() {
     dl "$1" >"$TEMPFILE" || return
     app=$(xdg-mime query default "$(xdg-mime query filetype "$TEMPFILE")")
     # if the app is not vim, then the fallback at the end of the case will be used
-    [[ "$app" = *vim.desktop ]] && $TERMINAL -e bash -c "$EDITOR '$TEMPFILE'"
+    if [[ "$app" = *vim.desktop ]]; then
+        $TERMINAL -e bash -c "$EDITOR '$TEMPFILE'"
+    else
+        xdg-open "$TEMPFILE"
+    fi
 }
