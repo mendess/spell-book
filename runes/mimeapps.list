@@ -1,7 +1,7 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop
-x-scheme-handler/http=firefox.desktop
-x-scheme-handler/https=firefox.desktop
+x-scheme-handler/http=web-xdg-open.desktop
+x-scheme-handler/https=web-xdg-open.desktop
 text/plain=nvim.desktop
 text/x-shellscript=nvim.desktop
 text/x-script.python=nvim.desktop
