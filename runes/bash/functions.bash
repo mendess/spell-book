@@ -1,12 +1,12 @@
 #!/bin/bash
 
 make() {
-    if [ -e Makefile ] || [ -e makefile ]; then
-        bash -c "make -j$(nproc || echo 4) $*"
+    if [[ -e Makefile ]] || [[ -e makefile ]] || [[ "$1" ]]; then
+        command make -j"$(nproc || echo 4)" "$@"
     else
         for i in *.c; do
             file=${i//\.c/}
-            bash -c "make $file"
+            command make "$file"
         done
     fi
 }

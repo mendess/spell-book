@@ -6,12 +6,10 @@ else
     # num_screens="$(xrandr --listactivemonitors | wc -l)"
     #    width=$(( num_screens * 1920 ))
     width=1920
-    glava \
+    setsid /bin/sh -c "glava \
         --request='setgeometry 0 0 '$width' 1080' \
-        --request='setopacity "xroot"' \
-        -d \
-        "$@" \
-        ;
+        --request='setopacity \"xroot\"' \
+        -d $*" &
 
-    disown
+    sleep 0.01
 fi
