@@ -7,10 +7,15 @@ fi
 case "$(hostname)" in tolaria) exit ;; esac
 
 setup() {
-    battery_level=$(acpi -b | cut -d ' ' -f 4 | grep -o '[0-9]*')
-    battery_state=$(acpi | grep 'Battery' | sed 's/Battery\s[0-9]*: //' | sed 's/, [0-9][0-9]*\%.*//')
+    batteries_levels=$(acpi -b | cut -d ' ' -f 4 | grep -o '[0-9]*')
+    batteries_state=$(acpi | grep 'Battery' | sed 's/Battery\s[0-9]*: //' | sed 's/, [0-9][0-9]*\%.*//')
     battery_remaining=$(acpi | grep -oh '[0-9:]* remaining' | sed 's/:\w\w remaining$/ Minutes/' | sed 's/00://' | sed 's/:/h /')
 
+    num_batteries=$(echo "$batteries_levels" | wc -l)
+    battery_level=$(echo "$batteries_levels" | awk -v n="$num_batteries" '{s+=$1} END {printf "%.0f\n", s/n}')
+    # Battery state selection (priority for 'Charging')
+    battery_state=$(echo "$batteries_state" | awk '{ if($0=="Charging") {r=$0} else {s=$0} } END{if(r=="") {print s} else {print r}}')
+    
     if [ ! -f "/tmp/.battery" ]; then
         echo "$battery_level" >/tmp/.battery
         echo "$battery_state" >>/tmp/.battery
