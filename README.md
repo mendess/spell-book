@@ -32,7 +32,6 @@
  - [update_discord_dnd](./spells/update_discord_dnd.spell)
  - [update_rust_analyzer](./spells/update_rust_analyzer.spell)
  - [wmgr](./spells/wmgr.spell)
- - [xdg-open](./spells/xdg-open.spell)
  - [xls_to_csv](./spells/xls_to_csv.spell)
 
 ## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the
