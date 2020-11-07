@@ -64,6 +64,7 @@ move_cursor_to_start_of_ps1() {
 PS0_ELEMENTS=(
     "$SAVE_CURSOR_POSITION" "\$(move_cursor_to_start_of_ps1)"
     "$(__c "$YELLOW" "$TIMESTAMP ")" "$RESTORE_CURSOR_POSITION"
+    "\$(stty susp ^z)"
 )
 PS0=$(
     IFS=

@@ -3,7 +3,7 @@
 [[ $- != *i* ]] && return
 
 export HISTSIZE=""
-PROMPT_COMMAND='history -a;history -n'
+PROMPT_COMMAND='history -a;history -n;stty susp ^@'
 export HISTCONTROL='ignoredups'
 shopt -s histappend
 shopt -s histverify
@@ -13,6 +13,7 @@ set -o noclobber
 
 bind "set completion-ignore-case On"
 bind "set show-all-if-unmodified on"
+bind -x '"\C-z":"fg"'
 GPG_TTY="$(tty)"
 export GPG_TTY
 
