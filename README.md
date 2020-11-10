@@ -15,6 +15,7 @@
  - [daemons](./spells/daemons.spell)
  - [del_rss_feed](./spells/del_rss_feed.spell)
  - [die_now](./spells/die_now.spell)
+ - [ex](./spells/ex.spell)
  - [f](./spells/f.spell)
  - [glavad](./spells/glavad.spell)
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
