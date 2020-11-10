@@ -1,12 +1,15 @@
 #!/bin/bash
 image() {
+    echo "$1 -> $TEMPFILE"
     dl "$1" >"$TEMPFILE" || return
-    if [[ "$TEMPFILE" = *svg ]]; then
-        convert "$TEMPFILE" "${TEMPFILE%.svg}.png" &&
-            rm -f "$TEMPFILE" &&
-            TEMPFILE="${TEMPFILE%.svg}.png" ||
-            return
-    fi
+    case "$(file "$TEMPFILE")" in
+        *Web/P* | *SVG*)
+            convert "$TEMPFILE" "$TEMPFILE.png" &&
+                rm -f "$TEMPFILE" &&
+                TEMPFILE="$TEMPFILE.png" ||
+                return
+            ;;
+    esac
     size="$(file "$TEMPFILE" | sed -E 's/.* ([0-9]+)\s*x\s*([0-9]+).*/\1x\2/')"
     w=${size%x*}
     h=${size#*x}
@@ -55,7 +58,7 @@ git() {
 }
 
 archive() {
-    dl "$1" > "$TEMPFILE" || return
+    dl "$1" >"$TEMPFILE" || return
     $TERMINAL -e bash -c "
     select open in $EDITOR extract; do
         case \$open in
