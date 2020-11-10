@@ -52,3 +52,29 @@ git() {
         xdg-open "$TEMPFILE"
     fi
 }
+
+archive() {
+    dl "$1" > "$TEMPFILE" || return
+    $TERMINAL -e bash -c "
+    select open in $EDITOR extract; do
+        case \$open in
+            $EDITOR)
+                $EDITOR $TEMPFILE
+                ;;
+            extract)
+                read -r -e -p 'Where to extract? '
+                target=\"\${REPLY:-.}\"
+                if [ -e \"\$target\" ]; then
+                    if [ ! -d \"\$target\" ]; then
+                        target=\"\$(basename \"\$target\")\"
+                    fi
+                else
+                    mkdir -p \"\$target\" || exit
+                fi
+                mv \"\$target\" '$TEMPFILE'
+                cd \"\$target\"
+                ex '$TEMPFILE'
+                ;;
+        esac
+    done"
+}
