@@ -1,11 +1,12 @@
 #!/bin/bash
 image() {
     dl "$1" >"$TEMPFILE" || return
-    [[ "$TEMPFILE" = *svg ]] &&
+    if [[ "$TEMPFILE" = *svg ]]; then
         convert "$TEMPFILE" "${TEMPFILE%.svg}.png" &&
-        rm -f "$TEMPFILE" &&
-        TEMPFILE="${TEMPFILE%.svg}.png" ||
-        return
+            rm -f "$TEMPFILE" &&
+            TEMPFILE="${TEMPFILE%.svg}.png" ||
+            return
+    fi
     size="$(file "$TEMPFILE" | sed -E 's/.* ([0-9]+)\s*x\s*([0-9]+).*/\1x\2/')"
     w=${size%x*}
     h=${size#*x}

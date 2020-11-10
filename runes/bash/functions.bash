@@ -170,7 +170,8 @@ record() {
         "output-$(date +"%d_%m_%Y_%H_%M").mp4"
 }
 
-share() {
+share() {(
+    set -e
     FILE="$1"
     [ "$2" ] && filename="$2" || filename="$(basename "$FILE")"
     if [ -d "$FILE" ]; then
@@ -179,13 +180,13 @@ share() {
     fi
     scp "$FILE" "mirrodin:~/disk0/Mirrodin/serve/$filename"
     url="http://mendess.xyz/file/$filename"
-    if command -v termux-clipboard-set; then
+    if command -v termux-clipboard-set &>/dev/null; then
         echo -n "$url" | termux-clipboard-set
     else
         echo -n "$url" | xclip -sel clip
     fi
     echo "$url"
-}
+)}
 
 connect() {
     if [ $# -lt 2 ]; then
