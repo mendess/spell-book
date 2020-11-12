@@ -86,6 +86,5 @@ elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
     elif [[ "$SSH_CONNECTION" ]]; then
         exit() { tmux detach ; }
         tmux -2 new -A -s default
-        exit
     fi
 fi
