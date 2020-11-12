@@ -1,6 +1,5 @@
 #!/bin/bash
 image() {
-    echo "$1 -> $TEMPFILE"
     dl "$1" >"$TEMPFILE" || return
     case "$(file "$TEMPFILE")" in
         *Web/P* | *SVG*)
@@ -60,12 +59,13 @@ git() {
 archive() {
     dl "$1" >"$TEMPFILE" || return
     $TERMINAL -e bash -c "
-    select open in $EDITOR extract; do
+    select open in $EDITOR extract mv; do
         case \$open in
             $EDITOR)
                 $EDITOR $TEMPFILE
                 ;;
-            extract)
+            mv | extract)
+                cd ~
                 read -r -e -p 'Where to extract? '
                 target=\"\${REPLY:-.}\"
                 if [ -e \"\$target\" ]; then
@@ -75,9 +75,12 @@ archive() {
                 else
                     mkdir -p \"\$target\" || exit
                 fi
-                mv \"\$target\" '$TEMPFILE'
+                mv -v '$TEMPFILE' \"\$target\"
                 cd \"\$target\"
-                ex '$TEMPFILE'
+                if [ \"\$open\" = extract ]; then
+                    ex '$(basename "$TEMPFILE")'
+                fi
+                exit
                 ;;
         esac
     done"

@@ -277,3 +277,6 @@ let g:python_highlight_space_errors = 0
 "     \ }
 
 " set completefunc=LanguageClient#complete
+
+" unicode.vim
+inoremap <C-G> <C-X><C-G>

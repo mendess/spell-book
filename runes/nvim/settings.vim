@@ -3,6 +3,7 @@ set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 autocmd! BufEnter *.css set tabstop=2 shiftwidth=2
 autocmd! BufEnter *.scss set tabstop=2 shiftwidth=2
 autocmd! BufEnter *.html set tabstop=2 shiftwidth=2
+autocmd! BufEnter *.hbs set tabstop=2 shiftwidth=2
 " splitbelow and right
 set splitbelow splitright
 " make path recursive
