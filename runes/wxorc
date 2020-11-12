@@ -77,13 +77,19 @@ archive() {
                 else
                     mkdir -p \"\$target\" || exit
                 fi
-                mv -v '$TEMPFILE' \"\$target\"
+                [[ \"\$target\" == */ ]] || target=\"\$target/\"
+                mv -v '$TEMPFILE' \"\${target}$(basename "$1")\"
                 cd \"\$target\"
                 if [ \"\$open\" = extract ]; then
                     ex '$(basename "$TEMPFILE")'
                 fi
-                exit
+                break
                 ;;
         esac
-    done"
+    done
+    read -r -p 'Keep the shell? [Y/n] '
+    case \$REPLY in
+        n | N) exit ;;
+        *) exec bash -i ;;
+    esac"
 }
