@@ -9,7 +9,9 @@ image() {
                 return
             ;;
     esac
+    # time convert "$TEMPFILE" -auto-orient "$TEMPFILE"
     size="$(file "$TEMPFILE" | sed -E 's/.* ([0-9]+)\s*x\s*([0-9]+).*/\1x\2/')"
+    set -x
     w=${size%x*}
     h=${size#*x}
     if [[ "$h" -gt 1000 ]]; then
