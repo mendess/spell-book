@@ -30,6 +30,7 @@ hacksaw shotgun
 hyperfine
 imagemagick
 jq
+khal
 libconfig # compton dependency
 libxdg-basedir # compton dependency
 man
@@ -56,16 +57,17 @@ rtv
 rustup
 shfmt
 socat
-ttf-nerd-fonts-symbols # sway-launcher-desktop dependency
 sxhkd
 sxiv
 tmux
 tree
 ttf-dejavu
 ttf-hack
+ttf-nerd-fonts-symbols # sway-launcher-desktop dependency
 unzip
 urxvt-perls
 usbutils
+vdirsyncer
 vimb
 wget
 xclip
