@@ -80,7 +80,7 @@ archive() {
                 mv -v '$TEMPFILE' \"\${target}$(basename "$1")\"
                 cd \"\$target\"
                 if [ \"\$open\" = extract ]; then
-                    ex '$(basename "$TEMPFILE")'
+                    ex '$(basename "$1")'
                 fi
                 break
                 ;;
