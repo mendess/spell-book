@@ -189,7 +189,7 @@ if [ "$sync" ]; then
             if [ ! -e "$(basename "$f")" ]; then
                 echo -n "Downloading $endpoint$f ..."
                 wget --quiet "http://$endpoint/$f"
-                echo 'Done'
+                echo ' Done'
             fi
         done
     echo 'Synced'
