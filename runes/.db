@@ -49,3 +49,5 @@
 ~/.inputrc,inputrc
 ~/.config/mimeapps.list,mimeapps.list
 ~/.config/wxorc,wxorc
+~/.config/khal/config,khal
+~/.config/vdirsyncer/config,vdirsyncer

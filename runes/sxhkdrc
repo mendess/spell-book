@@ -68,7 +68,7 @@ super + m
   	$TERMINAL -e neomutt
 
 super + shift + c
-  	$TERMINAL -e calcurse
+  	$TERMINAL -e ikhal
 
 super + alt + v
     mkdir -p /tmp/vim-anywhere ; \
@@ -99,9 +99,11 @@ super + c
 
 super + x
     bspc rule -a \* -o state=floating; \
-  	$TERMINAL --dimensions 20 8 \
+  	$TERMINAL --dimensions 80 20 \
         --class floating-terminal \
-        -e bash -c 'cal -s | grep -vP "^\s+$" ; read -s -r -n 1'
+        -e bash -c 'echo -e "\e[1m\t\t   C A L E N D A R\e[0m" ;\
+                    khal calendar -o -d Horário ;\
+                    read -s -r -n 1'
 
 super + p
   	playClipboard

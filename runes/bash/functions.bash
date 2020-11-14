@@ -172,13 +172,29 @@ record() {
 
 share() {(
     set -e
-    FILE="$1"
-    [ "$2" ] && filename="$2" || filename="$(basename "$FILE")"
+    while [[ "$#" -gt 0 ]]; do
+        case "$1" in
+            -u | --unlisted)
+                unlisted=1
+                ;;
+            *)
+                if [[ "$FILE" ]]; then
+                    filename="$1"
+                else
+                    FILE="$1"
+                fi
+                ;;
+        esac
+        shift
+    done
+    [ "$filename" ] || filename="$(basename "$FILE")"
     if [ -d "$FILE" ]; then
         zip -r "/tmp/$filename.zip" "$FILE"
         FILE="/tmp/$filename.zip"
+        filename="$filename.zip"
     fi
-    scp "$FILE" "mirrodin:~/disk0/Mirrodin/serve/$filename"
+    [[ "$unlisted" ]] && filename="unlisted/$filename"
+    scp "$FILE" "mirrodin:~/disk0/Mirrodin/share/$filename"
     url="http://mendess.xyz/file/$filename"
     if command -v termux-clipboard-set &>/dev/null; then
         echo -n "$url" | termux-clipboard-set
@@ -386,4 +402,8 @@ t() {
 
 mvim() {
     nvim scp://mirrodin/"$1"
+}
+
+google_fotos() {
+    convert -limit memory 64 -delay 50 -loop 0 -dispose previous "$@"
 }

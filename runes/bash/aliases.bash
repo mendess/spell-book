@@ -120,6 +120,7 @@ alias rm='rm -v'
 alias ytdl='youtube-dl'
 alias ard='arduino-cli'
 alias hc=herbstclient
+alias ikhal='ikhal; clear'
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'

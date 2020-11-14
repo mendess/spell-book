@@ -1,0 +1,19 @@
+[calendars]
+    [[local_calendar]]
+        path = ~/.local/share/vdirsyncer/*
+        type = discover
+
+[default]
+    highlight_event_days = True
+    timedelta = 70d
+
+[highlight_days]
+    default_color = yellow
+    method= fg
+
+[locale]
+    timeformat = %H:%M
+    dateformat = %d/%m/%Y
+    longdateformat = %d/%m/%Y
+    datetimeformat = %d/%m/%Y %H:%M
+    longdatetimeformat = %d/%m/%Y %H:%M
