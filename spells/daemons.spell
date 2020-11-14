@@ -17,8 +17,13 @@ while :; do
         ((i++))
     done
     unset i
-    read -r -p "${PS3:-#?} "
-    [ ! "$REPLY" ] && echo && break
+    while :; do
+        read -r -p "${PS3:-#?} " || {
+            echo
+            exit
+        }
+        [[ "$REPLY" ]] && break
+    done
     if [[ "$REPLY" -le "$NUM_DAEMONS" ]] && [[ "$REPLY" -gt 0 ]]; then
         dfile="$(echo "$DAEMONS" | sed -n "${REPLY}p")"
         dfile="/tmp/${dfile#*,}"
