@@ -68,7 +68,7 @@ process_params() {
             fi
             yellow "Sending $name to $wall_dir"
             if [[ "$replace" ]]; then
-                ssh mirrodin test '!' -e "Pictures/$wall_dir/$name" &&
+                ssh mirrodin test '!' -e "Pictures/$wall_dir/$(basename "$wall")" &&
                     echo 'A wallpaper with that name doesn'\'' exist' &&
                     return 1
             else

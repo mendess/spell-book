@@ -121,10 +121,10 @@ svim() {(
 
 k() {
     if lsusb | grep -E 'Mechanical|Keyboard|Kingston' &>/dev/null; then
-        setxkbmap us -option caps:escape
+        setxkbmap us -option caps:escape -option altwin:menu_win
         xmodmap -e 'keycode  21 = plus equal plus equal'
     else
-        setxkbmap pt -option caps:escape
+        setxkbmap pt -option caps:escape -option altwin:menu_win
     fi
 }
 
