@@ -167,6 +167,7 @@ record() {
         -framerate 30 \
         -f x11grab \
         -i :0.0+$i,0 \
+        -vcodec nvenc \
         "output-$(date +"%d_%m_%Y_%H_%M").mp4"
 }
 
