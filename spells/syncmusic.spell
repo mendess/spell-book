@@ -28,7 +28,7 @@ cleanup() {
     fi
 }
 
-MUSICFOLDER=~/Media/Music
+MUSICFOLDER=~/media/music
 
 if [ "$1" = "-l" ]
 then

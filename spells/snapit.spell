@@ -3,7 +3,11 @@
 #shellcheck source=/home/mendess/.config/user-dirs.dirs
 . "$XDG_CONFIG_HOME/user-dirs.dirs"
 
-read -r -a geo <<<"$(hacksaw -f "-i %i -g %g")"
+if [[ "$1" == fullscreen ]]; then
+    geo="$"
+else
+    read -r -a geo <<<"$(hacksaw -f "-i %i -g %g")"
+fi
 screenshot_dir="${XDG_PICTURES_DIR}/screenshots"
 mkdir -p "$screenshot_dir" || echo "can't create screenshot dir"
 name="/tmp/screenshot_$(date +'%Y_%m_%d_%H_%M_%S').png"
@@ -31,6 +35,9 @@ case "$1" in
         shotgun "${geo[@]}" "$name"
   	    sxiv -b -g "$a" -p "$name"
         rm "$name"
+        ;;
+    fullscreen)
+        shotgun --id 0 "$name"
         ;;
     *)
         shotgun "${geo[@]}" - | tee "$name" | xclip -sel clip -t image/png

@@ -99,10 +99,10 @@ super + c
 
 super + x
     bspc rule -a \* -o state=floating; \
-  	$TERMINAL --dimensions 80 20 \
+  	$TERMINAL --dimensions 80 25 \
         --class floating-terminal \
         -e bash -c 'echo -e "\e[1m\t\t   C A L E N D A R\e[0m" ;\
-                    khal calendar -o -d Horário ;\
+                    khal calendar -o ;\
                     read -s -r -n 1'
 
 super + p

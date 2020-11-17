@@ -331,13 +331,6 @@ sshp() {
     ssh "$1" '. $HOME/.bash_profile; '"${*:2}"
 }
 
-torrent() {
-    while
-        transmission-cli "$1" "${@:2}"
-        ! read -r -t 2 -p "Quit?"
-    do :; done
-}
-
 function songs() {
     grep -P '.+\t.+\t[0-9]+\t.*'"$1" "$PLAYLIST" |
         awk -F'\t' '{print $2" :: "$1}'
@@ -398,6 +391,18 @@ t() {
         '' | l | list)
             transmission-remote -l
             ;;
+        *)
+            cat <<EOF
+Usage: $0 COMMAND
+
+Commands:
+    l | list
+        List running torrents
+    a | add
+        Add a torrent to the list
+    d | del
+        Remove a torrent
+EOF
     esac
 }
 
