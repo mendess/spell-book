@@ -102,6 +102,16 @@ echo -e "\e[36mBacking up spell-book\e[0m"
     fi
 }
 
+if command -V termux-fix-shebang &>/dev/null; then
+    find ~/.local/bin/ | while read -r spell; do
+        real_path=$(readlink "$spell")
+        if [[ "$real_path" != "$spell" ]]; then
+            cp "$real_path" "$spell"
+            termux-fix-shebang "$real_path"
+        fi &
+    done
+fi
+
 if [ "$1" == '--hold' ]; then
     read -n 1 -s -r
 fi

@@ -31,7 +31,6 @@ cleanSpells() {
 }
 
 newSpells() {
-    command -V termux-fix-shebang &>/dev/null && return 0
     for spell in spells/*.spell cantrips/*.sh; do
         spell_name="$(spell_name "$spell")"
         test_spell "$spell" && [ -h ~/.local/bin/"$spell_name" ] || return 0
@@ -52,12 +51,7 @@ for spell in spells/*.spell cantrips/*.sh; do
     spell_name="$(spell_name "$spell")"
     if test_spell "$spell" && [ ! -h ~/.local/bin/"$spell_name" ]; then
         echo -e "\033[35m\t$spell_name\033[0m"
-        if command -V termux-fix-shebang &>/dev/null; then
-            cp "$(pwd)/$spell" ~/.local/bin/"$spell_name"
-            termux-fix-shebang ~/.local/bin/"$spell_name" &
-        else
-            ln -s "$(pwd)/$spell" ~/.local/bin/"$spell_name"
-        fi
+        ln -s "$(pwd)/$spell" ~/.local/bin/"$spell_name"
     fi
 done
 chmod +x spells/*.spell
