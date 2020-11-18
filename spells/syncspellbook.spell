@@ -106,9 +106,9 @@ if command -V termux-fix-shebang &>/dev/null; then
     find ~/.local/bin/ | while read -r spell; do
         real_path=$(readlink "$spell")
         if [[ "$real_path" != "$spell" ]]; then
-            rm "$spell"
-            cp "$real_path" "$spell"
-            termux-fix-shebang "$real_path"
+            echo rm "$spell"
+            echo cp "$real_path" "$spell"
+            echo termux-fix-shebang "$real_path"
         fi &
     done
 fi
