@@ -102,8 +102,6 @@ echo -e "\e[36mBacking up spell-book\e[0m"
     fi
 }
 
-symlinks
-
 if [ "$1" == '--hold' ]; then
     read -n 1 -s -r
 fi
