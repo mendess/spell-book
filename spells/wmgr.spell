@@ -68,15 +68,17 @@ process_params() {
             fi
             yellow "Sending $name to $wall_dir"
             if [[ "$replace" ]]; then
-                ssh mirrodin test '!' -e "Pictures/$wall_dir/$(basename "$wall")" &&
+                ssh mirrodin test '!' -e "'Pictures/$wall_dir/$name'" &&
                     echo 'A wallpaper with that name doesn'\'' exist' &&
                     return 1
+                ssh mirrodin touch -r "'Pictures/$wall_dir/$name'" "/tmp/reference"
             else
-                ssh mirrodin test -e "Pictures/$wall_dir/$name" &&
+                ssh mirrodin test -e "'Pictures/$wall_dir/$name'" &&
                     echo 'A wallpaper with that name doesn'\''t exist' &&
                     return 1
             fi
             scp "$wall" "mirrodin:Pictures/$wall_dir/$name"
+            [[ "$replace" ]] && ssh mirrodin touch -r /tmp/reference "'Pictures/$wall_dir/$name'"
             case "${host[0]}" in Powerstone | Tolaria) return 0 ;; esac
             for h in "${host[@]}"; do
                 case "$h" in

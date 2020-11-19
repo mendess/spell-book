@@ -92,33 +92,30 @@ while [ "$#" -gt 0 ]; do
             exit 1
             ;;
         *)
-            if [ -z "$files" ]; then
-                files="$1"
-            else
-                files="$files $1"
-            fi
+            files+=("$1")
             ;;
     esac
     shift
 done
 if [ -n "$sxiv" ]; then
-    files="$(sxiv -to "$WALLPAPERS")"
-elif [ -z "$files" ]; then
-    files="$(find "$WALLPAPERS" -type f |
+    mapfile -t files < <(sxiv -to "$WALLPAPERS")
+elif [ "${#files[@]}" = 0 ]; then
+    mapfile -t files < <(find "$WALLPAPERS" -type f |
         grep -v mtg |
-        grep -iP "/[^/]*${filter}[^/]*$")"
+        grep -iP "/[^/]*${filter}[^/]*$")
 fi
 
 if [ $list_mode ]; then
-    echo "$files"
+    printf "%s\n" "${files[@]}"
     exit 0
 fi
-files=$(echo "$files" |
+mapfile -t files < <(printf "%s\n" "${files[@]}" |
     shuf -n "$(xrandr --query | grep ' connected' -c)" |
-    grep -vP '^$')
+    grep -vP '^$'
+)
 
 i=1
-for file in $files; do
+for file in "${files[@]}"; do
     [ "$wide" -gt 0 ] && break
     if [[ "$file" = *wide* ]]; then
         wide=$i
@@ -135,12 +132,11 @@ for file in $files; do
 done
 unset i
 
-[ "$wide" -gt 0 ] && files=$(echo "$files" | sed -n -e "${wide}"p)
+[ "$wide" -gt 0 ] && files=("${files[$(( wide - 1 ))]}")
 
-first="$(echo "$files" | head -1)"
 if command -v bspc &>/dev/null; then
     mapfile -t colors < <(
-        convert "$first" +dither -colors 10 histogram: |
+    convert "${files[0]}" +dither -colors 10 histogram: |
             grep -aoP '[0-9][0-9][0-9]+:.*$' |
             sort -n |
             grep -aoP '#[^ ].....' |
@@ -161,12 +157,11 @@ if command -v bspc &>/dev/null; then
     fi
 fi 2>&1 | color_picker -f
 
-echo "Setting:
-$files"
+printf "Setting: %s\n" "${files[@]}"
 
 if [ "$wide" -gt 0 ]; then
-    echo "$files" | xargs feh --no-fehbg --bg-fill --no-xinerama
+    feh --no-fehbg --bg-fill --no-xinerama "${files[@]}"
 else
-    echo "$files" | xargs feh --no-fehbg --bg-fill
+    feh --no-fehbg --bg-fill "${files[@]}"
 fi
 wait

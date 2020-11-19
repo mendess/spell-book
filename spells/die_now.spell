@@ -1,7 +1,7 @@
 #!/bin/bash
 
 common() {
-    while ! m c | grep '0%'; do
+    while [[ "$(m c | grep -Eo '[0-9]+%' | tr -d '%')" -gt 30 ]]; do
         sleep 5m
         m vd
     done &

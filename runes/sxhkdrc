@@ -39,6 +39,9 @@ super + F9
   	changeMeWall
 
 super + shift + F9
+    changeMeWall "$(xclip -sel clip -o)"
+
+super + shift + F9
   	ssh mirrodin bulb/flow.py -s ; changeMeWall
 
 super + F8
