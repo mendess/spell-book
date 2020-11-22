@@ -121,6 +121,7 @@ alias ytdl='youtube-dl'
 alias ard='arduino-cli'
 alias hc=herbstclient
 alias ikhal='ikhal; clear'
+alias love='ssh berrygood -t tmux a -t chat'
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'

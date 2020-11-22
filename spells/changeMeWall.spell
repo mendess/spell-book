@@ -138,7 +138,6 @@ if command -v bspc &>/dev/null; then
     mapfile -t colors < <(
     convert "${files[0]}" +dither -colors 10 histogram: |
             grep -aoP '[0-9][0-9][0-9]+:.*$' |
-            sort -n |
             grep -aoP '#[^ ].....' |
             python3 -c "$BRIGHTNESS_FILTER" |
             head -3
@@ -150,6 +149,8 @@ if command -v bspc &>/dev/null; then
     bspc config normal_border_color "${colors[2]}"
     bspc config presel_feedback_color "${colors[2]}"
     printf "%s\n" "${colors[@]}" >| /tmp/wall_colors
+    command -V colo &>/dev/null &&
+        printf "%s\n" "${colors[@]}" | colo textcolor >> /tmp/wall_colors
     if nmcli -t dev | grep ZON-2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
         [ -e /tmp/mood_light ] ||

@@ -40,7 +40,7 @@ nmap <leader><leader> :noh<CR>
 nnoremap <leader>L :silent !i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png<CR>
 
 " Ctrl C and V to clipboard
-inoremap <C-v> <ESC>"+pa
+" inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 vnoremap <C-x> "+d
 

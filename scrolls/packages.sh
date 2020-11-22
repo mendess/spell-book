@@ -101,12 +101,15 @@ shellcheck-static
 xdo-git
 termsyn-font
 bear
+web-xdg-open-git
+delta-git-bin
 )
 
 export cargopackages=(
 #tealdeer
 cargo-watch
 color_picker
+colo
 )
 
 export bloat=(

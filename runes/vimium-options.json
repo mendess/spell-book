@@ -56,6 +56,18 @@
     {
       "pattern": "https?://bruno-simon.com/*",
       "passKeys": ""
+    },
+    {
+      "pattern": "file:///*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "file:///*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://git.mendess.xyz/*",
+      "passKeys": ""
     }
   ],
   "filterLinkHints": false,
