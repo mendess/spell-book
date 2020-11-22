@@ -109,9 +109,10 @@ if [ $list_mode ]; then
     printf "%s\n" "${files[@]}"
     exit 0
 fi
-mapfile -t files < <(printf "%s\n" "${files[@]}" |
-    shuf -n "$(xrandr --query | grep ' connected' -c)" |
-    grep -vP '^$'
+mapfile -t files < <(
+    printf "%s\n" "${files[@]}" |
+        shuf -n "$(xrandr --query | grep ' connected' -c)" |
+        grep -vP '^$'
 )
 
 i=1
@@ -132,11 +133,11 @@ for file in "${files[@]}"; do
 done
 unset i
 
-[ "$wide" -gt 0 ] && files=("${files[$(( wide - 1 ))]}")
+[ "$wide" -gt 0 ] && files=("${files[$((wide - 1))]}")
 
 if command -v bspc &>/dev/null; then
     mapfile -t colors < <(
-    convert "${files[0]}" +dither -colors 10 histogram: |
+        convert "${files[0]}" +dither -colors 10 histogram: |
             grep -aoP '[0-9][0-9][0-9]+:.*$' |
             grep -aoP '#[^ ].....' |
             python3 -c "$BRIGHTNESS_FILTER" |
@@ -148,13 +149,14 @@ if command -v bspc &>/dev/null; then
     bspc config active_border_color "${colors[1]}"
     bspc config normal_border_color "${colors[2]}"
     bspc config presel_feedback_color "${colors[2]}"
-    printf "%s\n" "${colors[@]}" >| /tmp/wall_colors
+    printf "%s\n" "${colors[@]}" >|/tmp/wall_colors
     command -V colo &>/dev/null &&
-        printf "%s\n" "${colors[@]}" | colo textcolor >> /tmp/wall_colors
+        printf "%s\n" "${colors[@]}" | colo textcolor >>/tmp/wall_colors
     if nmcli -t dev | grep ZON-2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
         [ -e /tmp/mood_light ] ||
-            ssh mirrodin -o StrictHostKeyChecking=no "python ~/bulb/color.py \\${colors[0]} check_flow"
+            ssh mirrodin -o StrictHostKeyChecking=no \
+                "python ~/bulb/color.py \\${colors[0]} check_flow"
     fi
 fi 2>&1 | color_picker -f
 
