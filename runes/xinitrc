@@ -19,6 +19,5 @@ if [ "$(cat /etc/hostname)" = tolaria ]; then
     xmodmap -e 'keycode  21 = plus equal plus equal'
 fi
 rm -f /tmp/bspwm_log
-firefox &
 exec bspwm >/tmp/bspwm_log
 # exec dbus-launch leftwm
