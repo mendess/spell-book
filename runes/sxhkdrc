@@ -21,9 +21,7 @@ super + control + Return
     fi
 
 super + d
-    bspc rule -a \* -o state=floating; \
-    $TERMINAL --dimensions 40 30 \
-        -e bash -c "TERMINAL_COMMAND='$TERMINAL -e' sway-launcher-desktop"
+    dmenu_run -l 20
 
 super + shift + f
     bspc rule -a \* -o state=floating; \
@@ -256,7 +254,7 @@ super + alt + i
 #     for n in $(bspc query --nodes); do bspc node $n -g hidden; done
 
 super + shift + o
-	echo -e 'i3lock -t -e --image=$HOME/.local/share/wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now\nssh mirrodin python bulb/turn_off.py;poweroff' | dmenu -nb '#6b0213' -sb '#a8031e' -l 5 | sh
+	echo -e 'i3lock -t -e --image=$HOME/.local/share/wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now\nssh mirrodin python bulb/turn_off.py;poweroff' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 5 | sh
 
 super + shift + r
 	bspc node @parent -R 90
