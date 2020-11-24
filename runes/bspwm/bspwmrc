@@ -47,7 +47,7 @@ case "${#monitors[@]}" in
 esac
 
 if [[ "$(hostname)" = tolaria ]]; then
-    bspc config window_gap 10
+    bspc config window_gap 7
     bspc config border_width 5
 else
     bspc config window_gap 4

@@ -78,6 +78,23 @@ super + alt + v
     "$TERMINAL" -e nvim -c startinsert "$file" ; \
     [ "$(cat "$file")" ] && xclip -selection c < "$file"
 
+super + w
+    desktop="$(xdotool get_desktop)"; \
+    win_name="$(xdotool search --desktop "$desktop" . | \
+            grep -v "$(xdotool getwindowfocus)" | \
+            xargs -L 1 xdotool getwindowname | \
+            dmenu -i -l 10 -p focus)"; \
+    [ "$win_name" ] && xdotool windowactivate "$(xdotool search --desktop "$desktop" "$win_name")"
+
+super + shift + w
+    desktop="$(xdotool get_desktop)"; \
+    win_name="$(xdotool search --name . | \
+            grep -v "$(xdotool getwindowfocus)" | \
+            xargs -L 1 xdotool getwindowname | \
+            dmenu -i -l 40 -p focus)"; \
+    [ "$win_name" ] && xdotool windowactivate "$(xdotool search --name "$win_name")"
+
+
 @Print
     snapit
 

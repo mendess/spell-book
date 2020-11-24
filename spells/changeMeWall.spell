@@ -31,7 +31,7 @@ import sys
 import colorsys
 count = 0
 outputs = 0
-last_colors = ["#000000", "#000000", "#000000"]
+last_colors = []
 print("Rejecting colours with s < 0.20 or v < 0.30", file=sys.stderr)
 for line in sys.stdin:
     line = line.strip()
@@ -53,14 +53,16 @@ for line in sys.stdin:
             "h: {:.2f} s: {:.2f} v: {:.2f}".format(*hsv),
             file=sys.stderr
         )
+        last_colors.append(og_line)
     else:
         outputs += 1
         print(og_line)
-    last_colors.pop(0)
-    last_colors.append(og_line)
+
+while len(last_colors) < 3:
+    last_colors.append("#000000")
 
 if outputs < 3:
-    for i in reversed(last_colors):
+    for i in last_colors[:(3 - outputs)]:
         print(i)
     print(
         "Not enough colors picked, resorting to most common",
