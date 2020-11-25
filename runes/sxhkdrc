@@ -82,17 +82,11 @@ super + w
     desktop="$(xdotool get_desktop)"; \
     win_name="$(xdotool search --desktop "$desktop" . | \
             grep -v "$(xdotool getwindowfocus)" | \
-            xargs -L 1 xdotool getwindowname | \
-            dmenu -i -l 10 -p focus)"; \
-    [ "$win_name" ] && xdotool windowactivate "$(xdotool search --desktop "$desktop" "$win_name")"
-
-super + shift + w
-    desktop="$(xdotool get_desktop)"; \
-    win_name="$(xdotool search --name . | \
-            grep -v "$(xdotool getwindowfocus)" | \
-            xargs -L 1 xdotool getwindowname | \
-            dmenu -i -l 40 -p focus)"; \
-    [ "$win_name" ] && xdotool windowactivate "$(xdotool search --name "$win_name")"
+            xargs -I 'X' bash -c "printf '%d	%s\\n' 'X' \"\$(xdotool getwindowname 'X')\"" | \
+            column -t -s'	' | \
+            dmenu -i -l 10 -p focus | \
+            awk -F'	' '\{print $1\}')"; \
+    [ "$win_name" ] && xdotool windowactivate "$win_name"
 
 
 @Print
