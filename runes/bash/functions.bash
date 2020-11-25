@@ -351,6 +351,10 @@ function songs() {
 }
 
 function which() {
+    if [[ "$1" = gaja ]]; then
+        echo /matilde/oliveira/pizarro/bravo
+        return
+    fi
     local w
     w="$(command -V "$1")"
     case "$w" in
