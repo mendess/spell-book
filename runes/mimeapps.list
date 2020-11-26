@@ -9,7 +9,6 @@ image/png=sxiv.desktop
 image/jpg=sxiv.desktop
 image/jpeg=sxiv.desktop
 image/webp=sxiv.desktop
-x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
 
 [Added Associations]
 application/octet-stream=gvim.desktop;
