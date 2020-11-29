@@ -5,6 +5,7 @@ x-scheme-handler/https=web-xdg-open.desktop
 text/plain=nvim.desktop
 text/x-shellscript=nvim.desktop
 text/x-script.python=nvim.desktop
+text/html=firefox.desktop
 image/png=sxiv.desktop
 image/jpg=sxiv.desktop
 image/jpeg=sxiv.desktop
