@@ -13,9 +13,8 @@ super + Return
 #    fi
 
 super + control + Return
-    bspc rule -a \* -o state=floating; \
     if xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME WM_CLASS | grep -i jetbrains; then \
-        $TERMINAL -e sh -c "cd $(xdotool search JetBrains getwindowname | perl -ne 's/[^\[]*\[([^\]]*)].*$/\1/g and print'); bash"; \
+        $TERMINAL --class floating-terminal -e sh -c "cd $(xdotool search JetBrains getwindowname | perl -ne 's/[^\[]*\[([^\]]*)].*$/\1/g and print'); bash"; \
     else \
   	    termFromHere --class floating-terminal; \
     fi
@@ -24,8 +23,7 @@ super + d
     dmenu_run -l 20
 
 super + shift + f
-    bspc rule -a \* -o state=floating; \
-    $TERMINAL -e f launcher
+    $TERMINAL --class floating-terminal,floating-terminal -e f launcher
 
 super + shift + d
   	menu GUI

@@ -1,10 +1,7 @@
 xrdb -merge ~/.config/X11/Xresources
 # deamons
 changeMeWallCicle &
-case "$(hostname)" in
-    tolaria) picom --daemon ;;
-    *) picom --experimental-backends --daemon ;;
-esac
+picom --experimental-backends --daemon
 dropbox start &
 battery_check &
 dunst &

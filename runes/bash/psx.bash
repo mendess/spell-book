@@ -65,6 +65,7 @@ PS0_ELEMENTS=(
     "$SAVE_CURSOR_POSITION" "\$(move_cursor_to_start_of_ps1)"
     "$(__c "$YELLOW" "$TIMESTAMP ")" "$RESTORE_CURSOR_POSITION"
     "\$(stty susp ^z)"
+    "\\e]2;::<\$(dirs +0)> \$(history 1 | awk '{print \$2}')\\a"
 )
 PS0=$(
     IFS=

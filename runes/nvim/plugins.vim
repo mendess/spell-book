@@ -42,6 +42,7 @@ Plug 'vim-python/python-syntax'
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'plasticboy/vim-markdown'
 Plug 'JuliaEditorSupport/julia-vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 "Plug 'lervag/vimtex'
 
