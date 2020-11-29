@@ -160,7 +160,7 @@ if command -v bspc &>/dev/null; then
             ssh mirrodin -o StrictHostKeyChecking=no \
                 "python ~/bulb/color.py \\${colors[0]} check_flow"
     fi
-fi 2>&1 | color_picker -f
+fi 2>&1 | color_picker -f &
 
 printf "Setting: %s\n" "${files[@]}"
 
