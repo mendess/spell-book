@@ -29,6 +29,7 @@ text() {
 }
 
 pdf() {
+    [[ "$1" == *elearning* ]] && return 1
     dl "$1" | zathura -
 }
 
