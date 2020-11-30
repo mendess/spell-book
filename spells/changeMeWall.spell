@@ -38,10 +38,12 @@ for line in sys.stdin:
     og_line = str(line)
     if line.startswith("#"):
         line = line[1:]
-    r = int(line[0:2], 16)
-    g = int(line[2:4], 16)
-    b = int(line[4:6], 16)
-    hsv = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+    r = int(line[0:2], 16) / 255
+    g = int(line[2:4], 16) / 255
+    b = int(line[4:6], 16) / 255
+    hsv = colorsys.rgb_to_hsv(r, g, b)
+    hsl = colorsys.rgb_to_hls(r, g, b)
+    text = "#000000" if hsl[1] > .5 else "#FFFFFF"
     count += 1
     if hsv[1] < 0.2 or hsv[2] < 0.3:
         print(
@@ -53,17 +55,17 @@ for line in sys.stdin:
             "h: {:.2f} s: {:.2f} v: {:.2f}".format(*hsv),
             file=sys.stderr
         )
-        last_colors.append(og_line)
+        last_colors.append([og_line, text])
     else:
         outputs += 1
-        print(og_line)
+        print(og_line, text)
 
 while len(last_colors) < 3:
-    last_colors.append("#000000")
+    last_colors.append(["#000000", "#FFFFFF"])
 
 if outputs < 3:
     for i in last_colors[:(3 - outputs)]:
-        print(i)
+        print(*i)
     print(
         "Not enough colors picked, resorting to most common",
         file=sys.stderr
@@ -147,13 +149,11 @@ if command -v bspc &>/dev/null; then
     )
     echo "Picking ${colors[*]}"
 
-    bspc config focused_border_color "${colors[0]}"
-    bspc config active_border_color "${colors[1]}"
-    bspc config normal_border_color "${colors[2]}"
-    bspc config presel_feedback_color "${colors[2]}"
+    bspc config focused_border_color "${colors[0]% *}"
+    bspc config active_border_color "${colors[1]% *}"
+    bspc config normal_border_color "${colors[2]% *}"
+    bspc config presel_feedback_color "${colors[2]% *}"
     printf "%s\n" "${colors[@]}" >|/tmp/wall_colors
-    command -V colo &>/dev/null &&
-        printf "%s\n" "${colors[@]}" | colo textcolor >>/tmp/wall_colors
     if nmcli -t dev | grep ZON-2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
         [ -e /tmp/mood_light ] ||

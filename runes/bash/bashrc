@@ -9,6 +9,7 @@ shopt -s histappend
 shopt -s histverify
 shopt -s autocd
 shopt -s checkwinsize
+stty -ixon
 set -o noclobber
 
 bind "set completion-ignore-case On"
