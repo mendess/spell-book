@@ -30,9 +30,28 @@ __c() {
         "$PRINTING_OFF" "$1" "$PRINTING_ON" "$2" "$PRINTING_OFF" "$NO_COLOUR" "$PRINTING_ON"
 }
 
+__has_1_job() {
+    if [[ "$(jobs | grep -c 'Stopped')" -eq 1 ]]; then
+        printf ::
+    fi
+}
+
+__has_0_job() {
+    if ! jobs | grep -q 'Stopped'; then
+        printf ::
+    fi
+}
+
+__has_lots_job() {
+    if [[ "$(jobs | grep -c 'Stopped')" -gt 1 ]]; then
+        printf ::
+    fi
+}
+
 YELLOW="\e[0;33m"
 RED="\e[1;31m"
 BLUE="\e[0;34m"
+MAGENTA="\e[0;35m"
 PS1_PROMPT="> "
 PS2_PROMPT="| "
 PS4_PROMPT="\$0.\$LINENO+ "
@@ -44,6 +63,10 @@ SSH_PROMPT="$(__c "$RED" '\u@\h')"
 G_BRANCH="\$(__git_branch \$?)"
 T_PATH="\$(__truncPath \$?)"
 EXIT_STATUS="\$(__rightprompt \$?)"
+ONE_JOB="\$(__has_1_job)"
+LOTS_JOB="\$(__has_lots_job)"
+NO_JOB="\$(__has_0_job)"
+
 #TIMESTAMP_PLACEHOLDER="--:--"
 
 move_cursor_to_start_of_ps1() {
@@ -59,14 +82,6 @@ move_cursor_to_start_of_ps1() {
         ((vertical_movement = lines + 1))
     fi
     tput cuu $vertical_movement
-}
-
-__job_color() {
-    if [[ "$(jobs)" ]]; then
-        __c "$BLUE" "$1"
-    else
-        printf "%s" "$1"
-    fi
 }
 
 PS0_ELEMENTS=(
@@ -89,8 +104,11 @@ if [ -n "$SSH_CLIENT" ]; then
     PS1_ELEMENTS+=("$SSH_PROMPT")
 fi
 PS1_ELEMENTS+=(
-    "$G_BRANCH" '::' "$(__job_color '<')" "$(__c "$YELLOW" "$T_PATH")"
-    "$(__c "$RED" "$EXIT_STATUS")" "$(__job_color '> ')"
+    "$G_BRANCH"
+    "$NO_JOB" "$(__c "$BLUE" "$ONE_JOB")" "$(__c "$MAGENTA" "$LOTS_JOB")"
+    '<'
+    "$(__c "$YELLOW" "$T_PATH")" "$(__c "$RED" "$EXIT_STATUS")"
+    '> '
 )
 PS1=$(
     IFS=
