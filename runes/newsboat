@@ -29,7 +29,7 @@ color   info                red      black
 color   article             white    default
 feedlist-format "%3U %t %S"
 
-browser vimb
+browser xdg-open
 macro , open-in-browser
 macro v set browser "run_disown mpv"; open-in-browser ; set browser vimb
 macro y set browser "xclip -sel clip <<<" ; open-in-browser ; set browser vimb

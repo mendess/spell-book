@@ -30,14 +30,14 @@ __c() {
         "$PRINTING_OFF" "$1" "$PRINTING_ON" "$2" "$PRINTING_OFF" "$NO_COLOUR" "$PRINTING_ON"
 }
 
-__has_1_job() {
-    if [[ "$(jobs | grep -c 'Stopped')" -eq 1 ]]; then
+__has_0_job() {
+    if ! jobs | grep -q 'Stopped'; then
         printf ::
     fi
 }
 
-__has_0_job() {
-    if ! jobs | grep -q 'Stopped'; then
+__has_1_job() {
+    if [[ "$(jobs | grep -c 'Stopped')" -eq 1 ]]; then
         printf ::
     fi
 }
@@ -63,9 +63,9 @@ SSH_PROMPT="$(__c "$RED" '\u@\h')"
 G_BRANCH="\$(__git_branch \$?)"
 T_PATH="\$(__truncPath \$?)"
 EXIT_STATUS="\$(__rightprompt \$?)"
+NO_JOB="\$(__has_0_job)"
 ONE_JOB="\$(__has_1_job)"
 LOTS_JOB="\$(__has_lots_job)"
-NO_JOB="\$(__has_0_job)"
 
 #TIMESTAMP_PLACEHOLDER="--:--"
 
