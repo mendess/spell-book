@@ -61,6 +61,14 @@ move_cursor_to_start_of_ps1() {
     tput cuu $vertical_movement
 }
 
+__job_color() {
+    if [[ "$(jobs)" ]]; then
+        __c "$BLUE" "$1"
+    else
+        printf "%s" "$1"
+    fi
+}
+
 PS0_ELEMENTS=(
     "$SAVE_CURSOR_POSITION" "\$(move_cursor_to_start_of_ps1)"
     "$(__c "$YELLOW" "$TIMESTAMP ")" "$RESTORE_CURSOR_POSITION"
@@ -81,7 +89,8 @@ if [ -n "$SSH_CLIENT" ]; then
     PS1_ELEMENTS+=("$SSH_PROMPT")
 fi
 PS1_ELEMENTS+=(
-    "$G_BRANCH" '::<' "$(__c "$YELLOW" "$T_PATH")" "$(__c "$RED" "$EXIT_STATUS")" "> "
+    "$G_BRANCH" '::' "$(__job_color '<')" "$(__c "$YELLOW" "$T_PATH")"
+    "$(__c "$RED" "$EXIT_STATUS")" "$(__job_color '> ')"
 )
 PS1=$(
     IFS=

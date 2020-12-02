@@ -13,7 +13,7 @@ name="$(echo "$games" | sed -r 's/[0-9]+\s//' | grep -v -i -E 'proton|redistribu
     -l "$(echo "$games" | wc -l)" \
     -p "dsteam" \
     -nb "#2c323b" \
-    -sb "#c5cbd8" \
+    -nf "#c5cbd8" \
     -sb "#3e4e69" \
     -sf "#ffffff")"
 

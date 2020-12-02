@@ -188,7 +188,7 @@ super + space
 	if bspc query --nodes --node focused.floating; then \
 		bspc node last.local.\!floating -f; \
 	else \
-		bspc node last.floating -f; \
+		bspc node last.local.floating -f; \
 	fi
 
 super + f
