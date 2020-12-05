@@ -1,11 +1,16 @@
 #!/bin/bash
 
+mpv_get ()
+{
+    echo '{ "command": ["get_property", "'"$1"'"] }' | socat - "$(m socket)" | jq "${2:-.}"
+}
+
 common() {
-    while [[ "$(m c | grep -Eo '[0-9]+%' | tr -d '%')" -gt 30 ]]; do
+    while [[ "$(mpv_get volume .data)" -gt 30 ]]; do
         sleep 5m
         m vd
     done &
-    ssh mendess@mirrodin bulb/flow.py sunset &
+    ssh mendess@mirrodin -i ~/.ssh/id_rsa bulb/flow.py sunset &
     {
         sleep 2m
         DISPLAY=:0 xset dpms force off
