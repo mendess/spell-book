@@ -21,8 +21,10 @@ common() {
 sleep_now() {
     common
     if [[ "$SSH_CONNECTION" ]]; then
+        echo "requesting sudo for suspend"
         sudo bash -c "sleep ${1:-40m}; systemctl suspend"
     else
+        echo "suspending as normal user"
         sleep "${1:-40m}"
         systemctl suspend
     fi
