@@ -94,11 +94,7 @@ let ayucolor="dark"
 colorscheme base16-default-dark
 "colorscheme base16-default-light
 
-if has('nvim')
-    command! Bt :highlight Normal ctermbg=None | :highlight Normal guibg=None
-else
-    command! Bt :highlight Normal ctermbg=NONE | :highlight Normal guibg=NONE
-endif
+command! Bt :highlight Normal ctermbg=NONE | :highlight Normal guibg=NONE
 command! Bo :colorscheme base16-default-dark
 
 " Nerdtree config
