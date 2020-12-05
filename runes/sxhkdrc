@@ -151,10 +151,12 @@ super + {Right,Left}
 super + {Insert,Delete}
   	m gui {current,new-cat}
 
+super + shift + Insert
+    $TERMINAL -e m lyrics
+
 super + shift + underscore
     bspc rule -a mpv -o state=pseudo_tiled rectangle=820x466; \
     m gui toggle-video
-
 
 super + BackSpace
   	echo quit | socat - /tmp/mpvalarm
