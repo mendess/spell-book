@@ -141,12 +141,15 @@ _cd() {
         \$*/*)
             mapfile -t COMPREPLY < <(compgen -d "$(eval "echo ${2%%/*}")/${2#*/}")
             ;;
-        *)
+        \$*)
             local vars
             vars="$(compgen -e | while read -r v; do
                 eval "test -d \"\$$v\"" && echo "\\\$$v/"
             done)"
             mapfile -t COMPREPLY < <(compgen -d -W "$vars" -- "$2")
+            ;;
+        *)
+            mapfile -t COMPREPLY < <(compgen -d -- "$2")
             ;;
     esac
 }

@@ -30,31 +30,31 @@ __c() {
         "$PRINTING_OFF" "$1" "$PRINTING_ON" "$2" "$PRINTING_OFF" "$NO_COLOUR" "$PRINTING_ON"
 }
 
-__has_0_job() {
-    if ! jobs | grep -q 'Stopped'; then
+__has_n_job() {
+    if [[ "$(jobs | grep -c 'Stopped')" -eq "$1" ]]; then
         printf ::
     fi
-    return "$1"
+    return "$2"
 }
 
-__has_1_job() {
-    if [[ "$(jobs | grep -c 'Stopped')" -eq 1 ]]; then
+__has_more_than_job() {
+    if [[ "$(jobs | grep -c 'Stopped')" -gt $1 ]]; then
         printf ::
     fi
-    return "$1"
+    return "$2"
 }
 
-__has_lots_job() {
-    if [[ "$(jobs | grep -c 'Stopped')" -gt 1 ]]; then
-        printf ::
-    fi
-    return "$1"
-}
-
+BOLD_RED="\e[1;31m"
+BOLD_GREEN="\e[1;32m"
+# BOLD_YELLOW="\e[1;33m"
+BOLD_BLUE="\e[1;34m"
+BOLD_MAGENTA="\e[1;35m"
+RED="\e[0;31m"
+GREEN="\e[0;32m"
 YELLOW="\e[0;33m"
-RED="\e[1;31m"
 BLUE="\e[0;34m"
 MAGENTA="\e[0;35m"
+
 PS1_PROMPT="> "
 PS2_PROMPT="| "
 PS4_PROMPT="\$0.\$LINENO+ "
@@ -62,13 +62,30 @@ RESTORE_CURSOR_POSITION="\e[u"
 SAVE_CURSOR_POSITION="\e[s"
 TIMESTAMP="\A"
 BATTERY="\$(cat /sys/class/power_supply/BAT0/capacity)% "
-SSH_PROMPT="$(__c "$RED" '\u@\h')"
+SSH_PROMPT="$(__c "$BOLD_RED" '\u@')"
+case "$(hostname)" in
+    tolaria)
+        SSH_PROMPT="$SSH_PROMPT$(__c "$BOLD_BLUE" '\h')"
+        ;;
+    matess)
+        SSH_PROMPT="$SSH_PROMPT$(__c "$BOLD_MAGENTA" '\h')"
+        ;;
+    weatherlight)
+        SSH_PROMPT="$SSH_PROMPT$(__c "$BOLD_GREEN" '\h')"
+        ;;
+    *)
+        ;;
+esac
 G_BRANCH="\$(__git_branch \$?)"
 T_PATH="\$(__truncPath \$?)"
 EXIT_STATUS="\$(__rightprompt \$?)"
-NO_JOB="\$(__has_0_job \$?)"
-ONE_JOB="\$(__has_1_job \$?)"
-LOTS_JOB="\$(__has_lots_job \$?)"
+NO_JOB="\$(__has_n_job 0 \$?)"
+ONE_JOB=$(__c "$MAGENTA" "\$(__has_n_job 1 \$?)")
+TWO_JOB=$(__c "$BLUE" "\$(__has_n_job 2 \$?)")
+THREE_JOB=$(__c "$YELLOW" "\$(__has_n_job 3 \$?)")
+FOUR_JOB=$(__c "$GREEN" "\$(__has_n_job 4 \$?)")
+LOTS_JOB=$(__c "$RED" "\$(__has_more_than_job 4 \$?)")
+JOBS=("$NO_JOB" "$ONE_JOB" "$TWO_JOB" "$THREE_JOB" "$FOUR_JOB" "$LOTS_JOB")
 
 #TIMESTAMP_PLACEHOLDER="--:--"
 
@@ -103,14 +120,12 @@ PS1_ELEMENTS=()
 if { [[ "$(tty)" == *tty* ]] || [ "$TTY_TMUX" ]; } && [ -f /sys/class/power_supply/BAT0/capacity ]; then
     PS1_ELEMENTS+=("$BATTERY")
 fi
-if [ -n "$SSH_CLIENT" ]; then
+if [[ -n "$SSH_CLIENT" ]]; then
     PS1_ELEMENTS+=("$SSH_PROMPT")
 fi
 PS1_ELEMENTS+=(
-    "$G_BRANCH"
-    "$NO_JOB" "$(__c "$BLUE" "$ONE_JOB")" "$(__c "$MAGENTA" "$LOTS_JOB")"
-    '<'
-    "$(__c "$YELLOW" "$T_PATH")" "$(__c "$RED" "$EXIT_STATUS")"
+    "$G_BRANCH" "${JOBS[@]}" '<'
+    "$(__c "$YELLOW" "$T_PATH")" "$(__c "$BOLD_RED" "$EXIT_STATUS")"
     '> '
 )
 PS1=$(
