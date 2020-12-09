@@ -149,7 +149,7 @@ super + {Right,Left}
   	m gui {frwd,back} 5
 
 super + {Insert,Delete}
-  	m gui {current,new-cat}
+  	m gui {current,ch-cat}
 
 super + shift + Insert
     $TERMINAL -e m lyrics
