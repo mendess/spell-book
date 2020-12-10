@@ -1,6 +1,6 @@
 # TODO: Disable keybinds in certain programs
-F1
-    : # fuck help pages
+# F1
+#     : # fuck help pages
 
 super + Return
   	$TERMINAL

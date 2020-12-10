@@ -38,15 +38,21 @@ set smartcase
 autocmd! BufLeave,BufHidden ~/.config/nvim/init.vim :so ~/.config/nvim/init.vim
 " clear trailling whitespace
 autocmd! BufWritePre * %s/\s\+$//e
-autocmd! BufNewFile,BufRead *.spell set syntax=sh
+autocmd! BufReadPre *.spell set filetype=sh
 autocmd! BufEnter *xinitrc set syntax=sh
-autocmd! BufNewFile,BufRead *.glsl set syntax=c
-autocmd! BufNewFile,BufRead *.hbs set syntax=html
+autocmd! BufReadPre *.glsl set filetype=c
+autocmd! BufReadPre *.hbs set filetype=html
+autocmd! BufReadPost,BufWritePost *.h set filetype=c
 
-autocmd! BufEnter *.sh    inoremap ,bb #!/bin/sh<Esc>o
-autocmd! BufEnter *.spell inoremap ,bb #!/bin/sh<Esc>o
+autocmd! BufReadPre *.sh    inoremap ,bb #!/bin/sh<Esc>o
+autocmd! BufReadPre *.spell inoremap ,bb #!/bin/sh<Esc>o
 
 autocmd! BufEnter *.js set shiftwidth=2
+autocmd! BufEnter *.html set shiftwidth=2
+autocmd! BufEnter *.css set shiftwidth=2
+autocmd! BufLeave *.js set shiftwidth=4
+autocmd! BufLeave *.html set shiftwidth=4
+autocmd! BufLeave *.css set shiftwidth=4
 
 if has("nvim")
     autocmd! TermEnter * setlocal nonumber
