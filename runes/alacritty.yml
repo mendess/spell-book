@@ -142,14 +142,11 @@ font:
 
   # Point size
 %% switch on hostname
-%% weatherlight {
-  size: 8.0
-%% }
-%% matess {
-  size: 8.0
-%% }
 %% tolaria {
   size: 12.0
+%% }
+%% default {
+  size: 8.0
 %% }
 %% end
   # Offset is the extra space around each character. `offset.y` can be thought of
@@ -422,14 +419,7 @@ colors: *base16
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-%% switch on hostname
-%% tolaria {
-background_opacity: 0.9
-%% }
-%% default {
-background_opacity: 0.6
-%% }
-%% end
+background_opacity: 0.7
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

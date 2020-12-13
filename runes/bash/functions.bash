@@ -431,15 +431,3 @@ rga-fzf() {
         echo "opening $file" &&
         xdg-open "$file"
 }
-
-vim() {
-    set +e
-    if [[ -d "$1" ]]; then
-        cd "$1"
-        command nvim .
-    elif [[ "$1" ]]; then
-    	command nvim "$1"
-    else
-        command nvim
-    fi
-}

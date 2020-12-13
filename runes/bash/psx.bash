@@ -74,7 +74,9 @@ case "$(hostname)" in
         SSH_PROMPT="$SSH_PROMPT$(__c "$BOLD_GREEN" '\h')"
         ;;
     *)
+        SSH_PROMPT="$SSH_PROMPT$(__c "$BOLD_RED" '\h')"
         ;;
+
 esac
 G_BRANCH="\$(__git_branch \$?)"
 T_PATH="\$(__truncPath \$?)"

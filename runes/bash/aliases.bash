@@ -122,6 +122,7 @@ alias ard='arduino-cli'
 alias hc=herbstclient
 alias ikhal='ikhal; clear'
 alias love='ssh berrygood -t tmux a -t chat'
+alias rustfmttoml='cp -v $SPELLS/runes/rustfmt.toml .'
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
