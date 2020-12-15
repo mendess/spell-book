@@ -472,7 +472,7 @@ shell:
   program: /bin/bash
   args:
       - -c
-      - echo 'I love you' && exec bash
+      - echo 'I love you' && exec $SHELL
 
 # Startup directory
 #

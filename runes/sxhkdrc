@@ -58,7 +58,7 @@ super + control + m
   	$TERMINAL --class floating-terminal -e pacmixer
 
 super + {F2, F3, F4}
-  	{$BROWSER, lightcord, steam}
+  	{$BROWSER, discord, steam}
 
 super + shift + F2
   	$BROWSER -private-window https://duckduckgo.com/
