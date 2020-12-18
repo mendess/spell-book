@@ -3,10 +3,17 @@
 if pgrep -a -o glava | grep -v 'glavad'; then
     pkill glava
 else
-    num_screens="$(xrandr --listactivemonitors | awk -F: '{print($2 - 1); exit}')"
-    offset=$(( num_screens * 1920 ))
+    num_screens="$(xrandr --listactivemonitors | awk -F: '{print($2); exit}')"
+    if [[ "$num_screens" -gt 1 ]]; then
+        offsets="$(xrandr --listactivemonitors | grep -F '*' | grep -oE '[0-9]+\+[0-9]+\s' | tr -d ' ')"
+        x=${offsets%+*}
+        y=$(( ${offsets#*+} + 22 ))
+    else
+        x=0
+        y=22
+    fi
     setsid /bin/sh -c "glava \
-        --request='setgeometry $offset 22 1920 1058' \
+        --request='setgeometry $x $y 1920 1058' \
         --request='setopacity \"xroot\"' \
         -d $*" &
 
