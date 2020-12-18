@@ -39,7 +39,7 @@
 [menu](./cantrips/menu.sh).
 
  - [bspwm-rename-ws](./cantrips/bspwm-rename-ws.sh) - Renames the current workspace
- - [displayselect](./cantrips/displayselect.sh) - A UI for detecting and selecting all displays. Probes xrandr for connected displays and lets user select one to use. User may also select "manual selection" which opens arandr.
+ - [displayselect](./cantrips/displayselect.sh)
  - [draw](./cantrips/draw.sh) - draw terminals
  - [emoji](./cantrips/emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
  - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu

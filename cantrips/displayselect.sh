@@ -1,10 +1,19 @@
 #!/bin/bash
 
+directions() {
+    cat <<EOF
+left-of
+right-of
+above
+below
+EOF
+}
+
 # A UI for detecting and selecting all displays.
 # Probes xrandr for connected displays and lets user select one to use.
 # User may also select "manual selection" which opens arandr.
 
-function twoscreen() { # If multi-monitor is selected and there are two screens.
+twoscreen() { # If multi-monitor is selected and there are two screens.
 
     mirror=$(printf "no\\nyes" | dmenu -i -l 10 -p "Mirror displays?")
     # Mirror displays using native resolution of external display and a scaled
@@ -16,33 +25,55 @@ function twoscreen() { # If multi-monitor is selected and there are two screens.
         res_external=$(xrandr --query | sed -n "/^$external/,/\+/p" | tail -n 1 | awk '{print $1}')
         res_internal=$(xrandr --query | sed -n "/^$internal/,/\+/p" | tail -n 1 | awk '{print $1}')
 
-        res_ext_x=$(echo $res_external | sed 's/x.*//')
-        res_ext_y=$(echo $res_external | sed 's/.*x//')
-        res_int_x=$(echo $res_internal | sed 's/x.*//')
-        res_int_y=$(echo $res_internal | sed 's/.*x//')
+        res_ext_x=${res_external/x*//} # $(echo $res_external | sed 's/x.*//')
+        res_ext_y=${res_external/*x//} # $(echo $res_external | sed 's/.*x//')
+        res_int_x=${res_internal/x*//} # $(echo $res_internal | sed 's/x.*//')
+        res_int_y=${res_internal/*x//} # $(echo $res_internal | sed 's/.*x//')
 
         scale_x=$(echo "$res_ext_x / $res_int_x" | bc -l)
         scale_y=$(echo "$res_ext_y / $res_int_y" | bc -l)
 
-        xrandr --output "$external" --auto --scale 1.0x1.0 --output "$internal" --auto --same-as "$external" --scale "$scale_x"x"$scale_y"
+        xrandr \
+            --output "$external" \
+            --auto \
+            --scale 1.0x1.0 \
+            --output "$internal" \
+            --auto \
+            --same-as "$external" \
+            --scale "$scale_x"x"$scale_y"
     else
 
         primary=$(echo "$screens" | dmenu -l 10 -i -p "Select primary display:")
         secondary=$(echo "$screens" | grep -v "$primary")
-        direction=$(printf "left\\nright" | dmenu -l 10 -i -p "What side of $primary should $secondary be on?")
-        xrandr --output "$primary" --auto --scale 1.0x1.0 --output "$secondary" --"$direction"-of "$primary" --auto --scale 1.0x1.0
+        direction=$(directions | dmenu -l 10 -i -p "${secondary} should be _____ ${primary}?")
+        xrandr \
+            --output "$primary" \
+            --auto \
+            --scale 1.0x1.0 \
+            --output "$secondary" \
+            --"$direction" "$primary" \
+            --auto \
+            --scale 1.0x1.0
     fi
 }
 
-function morescreen() { # If multi-monitor is selected and there are more than two screens.
+morescreen() { # If multi-monitor is selected and there are more than two screens.
     primary=$(echo "$screens" | dmenu -l 10 -i -p "Select primary display:")
     secondary=$(echo "$screens" | grep -v "$primary" | dmenu -l 10 -i -p "Select secondary display:")
-    direction=$(printf "left\\nright" | dmenu -l 10 -i -p "What side of $primary should $secondary be on?")
+    direction=$(directions | dmenu -l 10 -i -p "What side of $primary should $secondary be on?")
     tertiary=$(echo "$screens" | grep -v "$primary" | grep -v "$secondary" | dmenu -l 10 -i -p "Select third display:")
-    xrandr --output "$primary" --auto --output "$secondary" --"$direction"-of "$primary" --auto --output "$tertiary" --"$(printf "left\\nright" | grep -v "$direction")"-of "$primary" --auto
+    xrandr \
+        --output "$primary" \
+        --auto \
+        --output "$secondary" \
+        --"$direction" "$primary" \
+        --auto \
+        --output "$tertiary" \
+        --"$(directions | grep -v "$direction" | head -1)" "$primary" \
+        --auto
 }
 
-function multimon() { # Multi-monitor handler.
+multimon() { # Multi-monitor handler.
     case "$(echo "$screens" | wc -l)" in
         1) xrandr $(echo "$allposs" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
         2) twoscreen ;;
@@ -64,7 +95,14 @@ chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -l 10
             exit
             ;;
         "multi-monitor") multimon ;;
-        *) xrandr --output "$chosen" --auto --scale 1.0x1.0 $(echo "$screens" | grep -v "$chosen" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
+        *) xrandr \
+            --output "$chosen" \
+            --auto \
+            --scale 1.0x1.0 \
+            $(echo "$screens" |
+                grep -v "$chosen" |
+                awk '{print "--output", $1, "--off"}' |
+                tr '\n' ' ') ;;
     esac
 
 # Fix background if screen size/arangement has changed.

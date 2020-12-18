@@ -22,6 +22,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'bitc/vim-bad-whitespace'
 
 Plug 'tpope/vim-surround'
+Plug 'alvan/vim-closetag'
 
 Plug 'tpope/vim-commentary'
 
