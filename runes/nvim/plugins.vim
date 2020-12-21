@@ -182,6 +182,7 @@ if has('nvim')
     endfunction"}}}
     " call deoplete#custom#option('sources', { '_': ['ale']})
 endif
+call deoplete#custom#source('_', 'max_menu_width', 0)
 
 "autocmd! FileType coq let mapleader='\'
 "g:coqtail_nomap = 1
