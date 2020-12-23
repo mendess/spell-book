@@ -15,6 +15,10 @@ set -o noclobber
 bind "set completion-ignore-case On"
 bind "set show-all-if-unmodified on"
 bind -x '"\C-z":"fg"'
+for i in - {0..9} ; do
+    bind -r '\e'$i
+done
+
 GPG_TTY="$(tty)"
 export GPG_TTY
 
