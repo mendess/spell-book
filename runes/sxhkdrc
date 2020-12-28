@@ -63,6 +63,17 @@ super + {F2, F3, F4}
 super + shift + F2
   	$BROWSER -private-window https://duckduckgo.com/
 
+super + shift + F3
+    d="$(xdotool search --name "Discord" | \
+         xargs -L1 xdotool get_desktop_for_window "$d" | \
+         grep '^[0-9]' | \
+         head -1)" ; \
+    while pgrep -i discord; do pkill Discord; done ; \
+    bspc rule -a '*:*:Discord Updater' -o desktop=^$(( d + 1 )); \
+    bspc rule -a '*:*:Discord' -o desktop=^$(( d + 1 )); \
+    discord
+
+
 super + m
   	$TERMINAL -e neomutt
 
