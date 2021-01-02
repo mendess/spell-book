@@ -1,5 +1,5 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,-clang-diagnostic-c++17-extensions,-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,-clang-analyzer-valist.Uninitialized'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,-clang-diagnostic-c++17-extensions,-clang-analyzer-security.insecureAPI.*,-clang-analyzer-valist.Uninitialized'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false

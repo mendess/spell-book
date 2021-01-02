@@ -128,15 +128,15 @@ let g:ale_c_parse_makefile = 1
 let g:ale_rust_cargo_check_tests = 1
 let g:ale_rust_cargo_default_feature_behavior = 'all'
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
-let g:ale_rust_rls_config = {
-	\ 'rust': {
-		\ 'all_targets': 1,
-		\ 'build_on_save': 1,
-		\ 'clippy_preference': 'on'
-	\ }
+" this doesn't work
+let g:ale_rust_analyzer_config = {
+    \ 'rust': {
+    \   'clippy_preference': 'on',
+    \   'procMacro': { 'enable': v:true },
+    \ },
+    \ 'procMacro': { 'enable': v:true },
+    \ 'cargo': { 'loadOutDirsFromCheck': v:true },
 \ }
-let g:ale_rust_rls_toolchain = ''
-let g:ale_rust_rls_executable = 'rust-analyzer'
 
 
 " Autoformat
