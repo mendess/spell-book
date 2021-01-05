@@ -235,6 +235,19 @@ schemes:
     cursor:
       text: '0x181818'
       cursor: '0xd8d8d8'
+    # Search colors
+    #
+    # Colors used for the search bar and match highlighting.
+    search:
+       # Allowed values are CellForeground and CellBackground, which reference the
+       # affected cell, or hexadecimal colors like #ff00ff.
+      matches:
+        foreground: '#d8d8d8'
+        background: '#181818'
+
+      bar:
+        foreground: '#d8d8d8'
+        background: '#181818'
 
     # Normal colors
     normal:
@@ -751,7 +764,7 @@ key_bindings:
   # (Windows, Linux, and BSD only)
   #- { key: V,        mods: Control|Shift,           action: Paste            }
   #- { key: C,        mods: Control|Shift,           action: Copy             }
-  - { key: F,        mods: Control|Shift,           action: SearchForward    }
+  - { key: F,        mods: Control,           action: SearchForward    }
   #- { key: B,        mods: Control|Shift,           action: SearchBackward   }
   #- { key: C,        mods: Control|Shift, mode: Vi, action: ClearSelection   }
   #- { key: Insert,   mods: Shift,                   action: PasteSelection   }
