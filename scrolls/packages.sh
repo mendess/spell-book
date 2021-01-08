@@ -5,6 +5,8 @@ acpi
 alacritty
 alsa-utils
 asciidoc # compton dependency
+base
+base-devel
 bat
 bc
 bspwm
@@ -19,6 +21,7 @@ dmenu
 dunst
 entr
 exa
+fakeroot
 feh
 firefox
 fortune-mod
@@ -97,12 +100,12 @@ lemonbar-xft-git
 pacmixer
 pfetch
 picom-git
-shellcheck-static
+shellcheck-bin
 xdo-git
 termsyn-font
 bear
 web-xdg-open-git
-delta-git-bin
+git-delta-bin
 )
 
 export cargopackages=(

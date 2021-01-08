@@ -389,7 +389,7 @@ impl<'a, 'b> Display for DisplayBlock<'a, 'b> {
             write!(f, "%{{A{index}:{cmd}:}}", index = i + 1, cmd = a)?;
             num_cmds += 1;
         }
-        write!(f, "{}", DisplayContent(&b.content, *mon))?;
+        write!(f, "{} ", DisplayContent(&b.content, *mon))?;
         (0..num_cmds).try_for_each(|_| f.write_str("%{A}"))?;
         if let Some(_) = &b.offset {
             f.lemon('O', "0")?;
@@ -940,13 +940,15 @@ fn build_line(
             .filter(|b| !b.content.is_empty(monitor))
             .filter(|b| b.layer == *layer.read().unwrap())
             .map(|b| DisplayBlock(b, monitor))
-            .map(|db| db.to_string())
             .zip(std::iter::successors(Some(Some("")), |_| {
                 Some(global_config.separator)
             }))
             .for_each(|(b, s)| {
                 s.map(|s| l.push_str(s));
-                l.push_str(&b)
+                if let Content::Cmd { cmd: "~/.config/lemonbar/media", .. } = b.0.content {
+                    eprintln!("{}", b);
+                }
+                write!(l, "{}", b).unwrap();
             })
     };
     if let Some(blocks) = config.get(&Alignment::Left) {

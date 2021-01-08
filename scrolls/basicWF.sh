@@ -64,6 +64,7 @@ aur && {
         (cd tiny-aura || exit 1 && sudo make)
         for i in "${aurpackages[@]}"; do
             pacman -Qq "$i" || (
+                echo "INSTALLING AUR PKG: $i"
                 git clone https://aur.archlinux.org/"$i"
                 cd "$i" || exit 1
                 echo "$PASSWORD" | command sudo -S true
