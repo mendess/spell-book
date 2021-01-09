@@ -12,7 +12,8 @@ calcurse --daemon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
 # Settings
 setxkbmap -option caps:escape
 if [ "$(cat /etc/hostname)" = tolaria ]; then
-    xrandr --output DVI-D-0 --mode 1920x1080 --rate 120 --rotate normal --primary
+    xrandr --output DVI-D-1 --mode 1920x1080 --rate 120 --rotate normal --primary \
+        --output HDMI-0 --auto --left-of DVI-I-1
     xmodmap -e 'keycode  21 = plus equal plus equal'
 fi
 rm -f /tmp/bspwm_log
