@@ -86,14 +86,11 @@
     ### Text ###
 
 %% switch on hostname
-%% weatherlight {
-    font = Hack 7
-%% }
-%% matess {
-    font = Hack 7
-%% }
 %% tolaria {
     font = Hack 9
+%% }
+%% default {
+    font = Hack 7
 %% }
 %% end
 

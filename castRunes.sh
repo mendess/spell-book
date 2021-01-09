@@ -24,7 +24,7 @@ join_by() {
 
 sudoHost() {
     local h
-    for h in tolaria weatherlight mirrodin matess; do
+    for h in tolaria weatherlight mirrodin matess kaladesh; do
         [ "$(hostname)" = "$h" ] && return 0
     done
     return 1
