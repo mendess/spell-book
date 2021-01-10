@@ -56,9 +56,9 @@
 ## [Scrolls](./scrolls/): Instalation scripts *Mostly untested*
 
  - [basicWF](./scrolls/basicWF.sh)
+ - [dmenu](./scrolls/dmenu.sh)
  - [gestures](./scrolls/gestures.sh)
  - [lutris](./scrolls/lutris.sh)
- - [mpvrs](./scrolls/mpvrs.sh)
  - [packages](./scrolls/packages.sh)
  - [spotify-adblock](./scrolls/spotify-adblock.sh)
  - [theme](./scrolls/theme.sh)

@@ -29,7 +29,8 @@ fzf
 gdb
 gimp
 glava
-hacksaw shotgun
+hacksaw
+htop
 hyperfine
 imagemagick
 jq
@@ -59,6 +60,7 @@ rsync
 rtv
 rustup
 shfmt
+shotgun
 socat
 sxhkd
 sxiv
@@ -66,7 +68,6 @@ tmux
 tree
 ttf-dejavu
 ttf-hack
-ttf-nerd-fonts-symbols # sway-launcher-desktop dependency
 unzip
 urxvt-perls
 usbutils
@@ -95,7 +96,6 @@ export aurpackages=(
 #dropbox
 #dropbox-cli
 entr
-htop-vim-git
 lemonbar-xft-git
 pacmixer
 pfetch
@@ -112,7 +112,6 @@ export cargopackages=(
 #tealdeer
 cargo-watch
 color_picker
-colo
 )
 
 export bloat=(
@@ -123,7 +122,6 @@ xorg-xclock
 
 export pythonpackages=(
 dbus-python
-yeelight
 pynvim
 yapf
 )
