@@ -2,4 +2,4 @@
 # Launches the music player controled using [m](./spells/m.spell)
 
 m gui play-interactive
-command -v jukebox && { pgrep jukebox || while :; do jukebox --room tolaria jukebox; done; }
+command -v jukebox && { pgrep jukebox || while :; do jukebox --room "$(hostname)" jukebox; done; }

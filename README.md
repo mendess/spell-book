@@ -56,6 +56,7 @@
 ## [Scrolls](./scrolls/): Instalation scripts *Mostly untested*
 
  - [basicWF](./scrolls/basicWF.sh)
+ - [calendar](./scrolls/calendar.sh)
  - [dmenu](./scrolls/dmenu.sh)
  - [gestures](./scrolls/gestures.sh)
  - [lutris](./scrolls/lutris.sh)

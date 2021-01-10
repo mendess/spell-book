@@ -88,8 +88,6 @@ pytho && {
 }
 
 
-(crontab -l ; echo "0 * * * * vdirsyncer sync calendar") | awk '!a[$0]++' | crontab -
-
 cd "$script_dir" || exit 1
 ../spells/update_rust_analyzer.spell
 ../spells/syncspellbook.spell --nocommit

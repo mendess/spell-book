@@ -3,7 +3,7 @@
 #     : # fuck help pages
 
 super + F5
-    $TERMINAL -o font.size=8 -e bash -c '~/scraping/all.sh; read'
+    $TERMINAL -o font.size=8 -e bash -c 'ssh mirrodin cat scraping/all.sh | bash; read'
 
 super + Return
   	$TERMINAL
