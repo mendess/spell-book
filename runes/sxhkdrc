@@ -23,7 +23,11 @@ super + control + Return
     fi
 
 super + d
-    dmenu_run -l 20
+    cmd=$(dmenu_path | dmenu -i -l 20); \
+    case $cmd in \
+    *\; ) "$TERMINAL" --hold -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";; \
+    * ) ${cmd} ;; \
+    esac
 
 super + shift + f
     $TERMINAL --class floating-terminal,floating-terminal -e f launcher
