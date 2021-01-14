@@ -72,7 +72,7 @@ super + shift + F2
 
 super + shift + F3
     d="$(xdotool search --name "Discord" | \
-         xargs -L1 xdotool get_desktop_for_window "$d" | \
+         xargs -L1 xdotool get_desktop_for_window | \
          grep '^[0-9]' | \
          head -1)" ; \
     while pgrep -i discord; do pkill Discord; done ; \
