@@ -15,14 +15,14 @@ case "$1" in
         service='
 [Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin mendess --noclear %I $TERM
+ExecStart=-/usr/bin/agetty --autologin '"$LOGNAME"' --noclear %I $TERM
 Type=simple'
         ;;
     username)
         service='
 [Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --skip-login --login-options mendess --noclear %I $TERM'
+ExecStart=-/usr/bin/agetty --skip-login --login-options '"$LOGNAME"' --noclear %I $TERM'
         ;;
 esac
 
