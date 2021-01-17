@@ -945,9 +945,6 @@ fn build_line(
             }))
             .for_each(|(b, s)| {
                 s.map(|s| l.push_str(s));
-                if let Content::Cmd { cmd: "~/.config/lemonbar/media", .. } = b.0.content {
-                    eprintln!("{}", b);
-                }
                 write!(l, "{}", b).unwrap();
             })
     };
@@ -1040,7 +1037,9 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
             .unwrap()
             .wait()
             .unwrap();
-        trayer.spawn().expect("Couldn't start trayer");
+        if let Err(e) = trayer.spawn() {
+            return eprintln!("Couldn't start trayer: {}", e);
+        }
         thread::sleep(Duration::from_millis(500));
         let o = Command::new("xprop")
             .args(&[

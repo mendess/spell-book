@@ -49,7 +49,7 @@ spit() {
     [ "$termdesktop" = "$spitterdesktop" ] ||
         bspc node "$spitting_id" -d "$spitterdesktop"
 
-    bspc node "$spitting_id" -f
+    # bspc node "$spitting_id" -f
     sed -i "/^$spitter_id/d" /tmp/swallow_ids
 }
 

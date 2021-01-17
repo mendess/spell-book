@@ -109,15 +109,23 @@ for mon in "${monitors[@]}"; do
 done
 ~/.config/lemonbar/lemon --tray "${bar_args[@]}" &
 
-sleep 1.5
-until bar_id=$(xdo id -a 'bar_of_the_lemons'); do
-    sleep 0.001
-done
-for bar in $bar_id; do
-    xdo below -t "$(xdo id -n root)" "$bar"
-done
-until systray_id=$(xdo id -N 'trayer'); do
-    sleep 0.001
-done
-xdo below -t "$(xdo id -n root)" "$systray_id"
+(
+    set +x
+    retries=0
+    sleep 1.5
+    until bar_id=$(xdo id -a 'bar_of_the_lemons') || [[ "$retries" = 1000 ]]; do
+        sleep 0.001
+        ((retries++))
+    done
+    for bar in $bar_id; do
+        xdo below -t "$(xdo id -n root)" "$bar"
+    done
+    retries=0
+    until systray_id=$(xdo id -N 'trayer') || [[ "$retries" = 1000 ]]; do
+        sleep 0.001
+        ((retries++))
+    done
+    [[ "$systray_id" ]] && xdo below -t "$(xdo id -n root)" "$systray_id"
+) &
 pkill bspswallow || ~/.config/bspwm/bspswallow &
+disown
