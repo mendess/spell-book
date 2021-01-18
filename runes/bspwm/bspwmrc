@@ -23,7 +23,7 @@ case "${#monitors[@]}" in
                 bspc monitor ^1 -d 1 2 3 4
                 bspc monitor ^2 -d 5 6 7 8 9 0
                 ;;
-            weatherlight | matess)
+            weatherlight | matess | kaladesh)
                 bspc monitor ^1 -d 1 2 3 4 5
                 bspc monitor ^2 -d 6 7 8 9 0
                 ;;

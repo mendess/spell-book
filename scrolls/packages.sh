@@ -32,6 +32,7 @@ glava
 hacksaw
 htop
 hyperfine
+i3lock
 imagemagick
 jq
 khal
