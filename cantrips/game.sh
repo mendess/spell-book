@@ -1,16 +1,27 @@
-#!/bin/sh
+#!/bin/bash
 
 # Launch steam games from /comfy/ dmenu
 
 [ "$1" = GUI ] && picker=dmenu || picker=fzf
 
-games="$(grep -n "name" ~/.local/share/Steam/steamapps/*.acf ~/.hdd/SteamLibrary/steamapps/*acf |
-    sed -E 's/.*appmanifest_([0-9]+)\.acf.*"name".*"([^"]+)"/\1\t\2/g' |
+steam_libraries=(
+    ~/.local/share/Steam
+    ~/.disks/ssd/media/games/Steam
+    ~/.disks/hdd/SteamLibrary
+)
+acfs=()
+for path in "${steam_libraries[@]}"; do
+    acfs+=("$path/steamapps/"*acf)
+done
+
+games="$(grep -Hn "name" "${acfs[@]}" |
+    sed -E 's|'"$HOME"'/?(.*)/[^/]+/steamapps/appmanifest_([0-9]+)\.acf.*"name".*"([^"]+)"|~/\1\t\2\t\3|g' |
     sed 's/Counter.*/Dust II/')"
 
 name="$(echo "$games" |
     sed -r 's/[0-9]+\s//' |
-    grep -v -i -E 'proton|redistributable' |
+    grep -viE 'proton|redistributable|linux' |
+    column -ts$'\t' |
     PICKER="$picker" picker \
     -i \
     -l "$(echo "$games" | wc -l)" \
@@ -18,8 +29,10 @@ name="$(echo "$games" |
     -nb "#2c323b" \
     -nf "#c5cbd8" \
     -sb "#3e4e69" \
-    -sf "#ffffff")"
+    -sf "#ffffff" |
+    cut -d' ' -f2- |
+    xargs)"
 
 [ -n "$name" ] || exit
 
-echo "$games" | grep "$name" | awk -F'\t' '{print $1}' | xargs -I{} steam 'steam://run/{}'
+echo "$games" | grep "$name" | cut -d$'\t' -f2 | xargs -I{} steam 'steam://run/{}'

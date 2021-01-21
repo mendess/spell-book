@@ -54,6 +54,7 @@ pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
 pygmentize
+python-dbus
 python-pip
 python-pygments
 ripgrep
@@ -122,7 +123,6 @@ xorg-xclock
 )
 
 export pythonpackages=(
-dbus-python
 pynvim
 yapf
 )
