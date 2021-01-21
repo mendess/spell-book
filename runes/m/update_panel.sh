@@ -6,7 +6,7 @@ case "$(hostname)" in
                 socat - ~/.cache/mpvsocket_cache |
                 jq .data -r
             }
-        # export PATH=~/.local/bin:$PATH
+        # export PATH=$PATH:~/.local/bin
         title="$(get media-title)"
         vol="$(get volume)"
         case "$(get pause)" in
