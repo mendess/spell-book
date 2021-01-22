@@ -1,4 +1,20 @@
 #!/bin/bash
+daemonise() { (
+    # Close all but stdio
+    local self=$BASHPID
+    [[ "$1" = sxhkd ]] && find /proc/$self/fd -type l -printf '%f\n'
+    # The following will even try to close the fd for the find sub
+    # shell although it is already closed. (0: stdin, 1: stdout, 2:
+    # stderr, 3: find)
+    while read -r n; do
+        if ((n > 2)); then
+            [[ "$1" = sxhkd ]] && echo "closing $n"
+            eval "exec $n>&-"
+        fi
+    done < <(find /proc/$self/fd -type l -printf '%f\n')
+    "$@" &
+); }
+
 set -x
 wmname LG3D
 monitors=()
@@ -80,8 +96,7 @@ bspc rule -a jetbrains-idea state=pseudo_tiled
 # bspc rule -a discord desktop=^1 state=pseudo_tiled
 
 pkill sxhkd
-sxhkd &>/tmp/sxhkd.log &
-disown
+daemonise sxhkd &>/tmp/sxhkd.log
 
 # if ! pgrep polybar
 # then
@@ -90,7 +105,6 @@ disown
 #     done
 # fi
 #[ -e "$PANEL_FIFO" ] && bspc subscribe report > "$PANEL_FIFO" &
-pgrep -x lemon && killall lemon
 if [ ! -e ~/.config/lemonbar/lemon ] ||
     [ ~/.config/lemonbar/lemon -ot ~/.config/lemonbar/lemon.rs ]; then
     if rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon >/tmp/compiled_bar 2>&1; then
@@ -108,25 +122,24 @@ for mon in "${monitors[@]}"; do
     echo "$mon"
     bar_args+=('--bar' "${mon}")
 done
-~/.config/lemonbar/lemon --tray "${bar_args[@]}" &
+pkill lemon
+daemonise ~/.config/lemonbar/lemon --tray "${bar_args[@]}"
+pkill bspswallow
+daemonise ~/.config/bspwm/bspswallow
 
-(
-    set +x
-    retries=0
-    sleep 1.5
-    until bar_id=$(xdo id -a 'bar_of_the_lemons') || [[ "$retries" = 1000 ]]; do
-        sleep 0.001
-        ((retries++))
-    done
-    for bar in $bar_id; do
-        xdo below -t "$(xdo id -n root)" "$bar"
-    done
-    retries=0
-    until systray_id=$(xdo id -N 'trayer') || [[ "$retries" = 1000 ]]; do
-        sleep 0.001
-        ((retries++))
-    done
-    [[ "$systray_id" ]] && xdo below -t "$(xdo id -n root)" "$systray_id"
-) &
-pkill bspswallow || ~/.config/bspwm/bspswallow &
-disown
+set +x
+retries=0
+sleep 1.5
+until bar_id=$(xdo id -a 'bar_of_the_lemons') || [[ "$retries" = 1000 ]]; do
+    sleep 0.001
+    ((retries++))
+done
+for bar in $bar_id; do
+    xdo below -t "$(xdo id -n root)" "$bar"
+done
+retries=0
+until systray_id=$(xdo id -N 'trayer') || [[ "$retries" = 1000 ]]; do
+    sleep 0.001
+    ((retries++))
+done
+[[ "$systray_id" ]] && xdo below -t "$(xdo id -n root)" "$systray_id"
