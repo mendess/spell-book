@@ -17,7 +17,8 @@ __git_branch() {
         if [ -n "$SSH_CLIENT" ]; then
             printf '::'
         fi
-        git symbolic-ref HEAD --short 2>/dev/null | sed -r 's/^(.{10}).*/\1+/g'
+        git symbolic-ref HEAD --short 2>/dev/null |
+            sed -r -e 's|([^/][^/]?)[^/]+/|\1/|g' -e 's/^(.{10}).*/\1+/'
     fi
     return "$1"
 }

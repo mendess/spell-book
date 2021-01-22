@@ -4,7 +4,7 @@ if pgrep -a -o glava | grep -v 'glavad'; then
     pkill glava
 else
     num_screens="$(xrandr --listactivemonitors | awk -F: '{print($2); exit}')"
-    if [[ "$num_screens" -gt 1 ]]; then
+    if [[ ! "$1" ]] && [[ "$num_screens" -gt 1 ]]; then
         offsets="$(xrandr --listactivemonitors | grep -F '*' | grep -oE '[0-9]+\+[0-9]+\s' | tr -d ' ')"
         x=${offsets%+*}
         y=$(( ${offsets#*+} + 22 ))

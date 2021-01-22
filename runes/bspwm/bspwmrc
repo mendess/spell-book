@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+wmname LG3D
 monitors=()
 while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')

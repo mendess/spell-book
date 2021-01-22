@@ -51,15 +51,19 @@ Plug 'sheerun/vim-polyglot'
 
 Plug '/usr/bin/fzf'
 
-Plug 'dense-analysis/ale'
+if work_pc
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+else
+    Plug 'dense-analysis/ale'
 
-if has('nvim')
-    if has('python3')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    else
-        Plug 'Shougo/deoplete.nvim'
-        Plug 'roxma/nvim-yarp'
-        Plug 'roxma/vim-hug-neovim-rpc'
+    if has('nvim')
+        if has('python3')
+            Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        else
+            Plug 'Shougo/deoplete.nvim'
+            Plug 'roxma/nvim-yarp'
+            Plug 'roxma/vim-hug-neovim-rpc'
+        endif
     endif
 endif
 
@@ -105,44 +109,109 @@ let NERDTreeSortOrder=['include/$', 'src/$']
 let g:highlightedyank_highlight_duration = 100
 
 " Ale
-nnoremap gd :ALEGoToDefinition<CR>
-nnoremap <F10> :ALEPreviousWrap<CR>
-nnoremap <F12> :ALENextWrap<CR>
-nnoremap <F9> :ALEDetail<CR>
-let g:ale_echo_msg_format = '%linter%: %s'
-let g:ale_linters = {
-    \ 'rust' : ['analyzer'],
-    \ 'c': ['ccls', 'clangtidy', 'clangcheck'],
-    \ 'cpp': ['ccls','g++','clangtidy','clang++'],
-    \ 'tex': ['alex', 'chktex', 'proselint', 'redpen',
-    \         'texlab', 'textlint', 'vale', 'writegood']
-    \ }
-let g:ale_fixers = { 'rust': ['rustfmt'] }
+if work_pc
 
-let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
-let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
-let g:ale_cpp_clangtidy_options = '-std=c++2a'
-let g:ale_c_clangtidy_options = '-x c'
-let g:ale_c_parse_compile_commands = 1
-let g:ale_c_parse_makefile = 1
-let g:ale_rust_cargo_check_tests = 1
-let g:ale_rust_cargo_default_feature_behavior = 'all'
-let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
-" this doesn't work
-let g:ale_rust_analyzer_config = {
-    \ 'rust': {
-    \   'clippy_preference': 'on',
-    \   'procMacro': { 'enable': v:true },
-    \ },
-    \ 'procMacro': { 'enable': v:true },
-    \ 'cargo': { 'loadOutDirsFromCheck': v:true },
-\ }
+    " Use tab for trigger completion with characters ahead and navigate.
+    " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+    " other plugin before putting this into your config.
+    inoremap <silent><expr> <TAB>
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <c-space> to trigger completion.
+    if has('nvim')
+        inoremap <silent><expr> <c-space> coc#refresh()
+    else
+        inoremap <silent><expr> <c-@> coc#refresh()
+    endif
+
+    " Make <CR> auto-select the first completion item and notify coc.nvim to
+    " format on enter, <cr> could be remapped by other vim plugin
+    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+    " Use `[g` and `]g` to navigate diagnostics
+    " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+    nmap <silent> <F10> <Plug>(coc-diagnostic-prev)
+    nmap <silent> <F12> <Plug>(coc-diagnostic-next)
+
+    " GoTo code navigation.
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Use K to show documentation in preview window.
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        elseif (coc#rpc#ready())
+            call CocActionAsync('doHover')
+        else
+            execute '!' . &keywordprg . " " . expand('<cword>')
+        endif
+    endfunction
+
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Symbol renaming.
+    nmap <leader>rn <Plug>(coc-rename)
+else
+    nnoremap gd :ALEGoToDefinition<CR>
+    nnoremap <F10> :ALEPreviousWrap<CR>
+    nnoremap <F12> :ALENextWrap<CR>
+    nnoremap <F9> :ALEDetail<CR>
+    let g:ale_echo_msg_format = '%linter%: %s'
+    let g:ale_linters = {
+                \ 'rust' : ['analyzer'],
+                \ 'c': ['ccls', 'clangtidy', 'clangcheck'],
+                \ 'cpp': ['ccls','g++','clangtidy','clang++'],
+                \ 'tex': ['alex', 'chktex', 'proselint', 'redpen',
+                \         'texlab', 'textlint', 'vale', 'writegood']
+                \ }
+    let g:ale_fixers = { 'rust': ['rustfmt'] }
+
+    let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
+    let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
+    let g:ale_cpp_clangtidy_options = '-std=c++2a'
+    let g:ale_c_clangtidy_options = '-x c'
+    let g:ale_c_parse_compile_commands = 1
+    let g:ale_c_parse_makefile = 1
+    let g:ale_rust_cargo_check_tests = 1
+    let g:ale_rust_cargo_default_feature_behavior = 'all'
+    let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+    " this doesn't work
+    let g:ale_rust_analyzer_config = {
+                \ 'rust': {
+                \   'clippy_preference': 'on',
+                \   'procMacro': { 'enable': v:true },
+                \ },
+                \ 'procMacro': { 'enable': v:true },
+                \ 'cargo': { 'loadOutDirsFromCheck': v:true },
+                \ }
+endif
 
 
 " Autoformat
 map <leader>f :Neoformat<CR>
 let g:shfmt_opt="-ci"
 let g:rustfmt_opt="--edition 2018"
+let g:neoformat_python_yapf = {
+            \ 'exe': 'yapf',
+            \ 'args': ['--style="{based_on_style: pep8, dedent_closing_brackets: True}"'],
+            \ 'stdin': 1,
+            \ }
+let g:neoformat_enabled_python = ['yapf']
 
 " FZF
 nmap <leader>p :FZF<CR>
@@ -150,39 +219,42 @@ nmap <leader>P :FZF<CR>
 
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+            \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " Make fzf match the vim colorscheme colors
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
 
 " deoplete
-if has('nvim')
-    let g:deoplete#enable_at_startup = 1
-    set completeopt-=preview
-    inoremap <silent><expr> <TAB>
-                \ pumvisible() ? "\<C-n>" :
-                \ <SID>check_back_space() ? "\<TAB>" :
-                \ deoplete#manual_complete()
-    function! s:check_back_space() abort "{{{
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction"}}}
-    " call deoplete#custom#option('sources', { '_': ['ale']})
+if work_pc
+else
+    if has('nvim')
+        let g:deoplete#enable_at_startup = 1
+        set completeopt-=preview
+        inoremap <silent><expr> <TAB>
+                    \ pumvisible() ? "\<C-n>" :
+                    \ <SID>check_back_space() ? "\<TAB>" :
+                    \ deoplete#manual_complete()
+        function! s:check_back_space() abort "{{{
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~ '\s'
+        endfunction"}}}
+        " call deoplete#custom#option('sources', { '_': ['ale']})
+    endif
+    call deoplete#custom#source('_', 'max_menu_width', 0)
 endif
-call deoplete#custom#source('_', 'max_menu_width', 0)
 
 "autocmd! FileType coq let mapleader='\'
 "g:coqtail_nomap = 1
@@ -200,14 +272,14 @@ nnoremap gT :RustTest!<CR>
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
+    let p = '^\s*|\s.*\s|\s*$'
+    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+        Tabularize/|/l1
+        normal! 0
+        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+    endif
 endfunction
 
 " python-syntax

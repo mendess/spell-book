@@ -41,3 +41,5 @@ l1csf() {
         done
     cd ..
 }
+alias r='nvm use 8 && npm run tsc && npm start'
+alias rd='nvm use 8 && npm run tsc && NODE_DEBUG=fs npm start'
