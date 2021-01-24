@@ -123,8 +123,10 @@ alias hc=herbstclient
 alias ikhal='ikhal; clear'
 alias love='ssh berrygood -t tmux a -t chat'
 alias rustfmttoml='cp -v $SPELLS/runes/rustfmt.toml .'
+alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
 command -v calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
+
