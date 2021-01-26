@@ -19,8 +19,14 @@ super + Return
 #    fi
 
 super + control + Return
-    if xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME WM_CLASS | grep -i jetbrains; then \
-        $TERMINAL --class floating-terminal -e sh -c "cd $(xdotool search JetBrains getwindowname | perl -ne 's/[^\[]*\[([^\]]*)].*$/\1/g and print'); bash"; \
+    id=$(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5); \
+    if ide=$(xprop -id $id WM_CLASS | grep -ioE 'jetbrains[^ ]+'); then \
+        filename="$(xprop -id $id _NET_WM_NAME | cut -d '"' -f2 | grep -Eo '[^ ]+\.java')"; \
+        dirpath="$(find -name "$filename" | xargs dirname)"; \
+        while [ ! -e "$dirpath/.idea" ] && [ "$dirpath" != '.' ] && [ "$dirpath" != '/' ]; do \
+            dirpath="$(dirname "$dirpath")"; \
+        done; \
+        $TERMINAL --class floating-terminal -e sh -c "cd $dirpath; bash"; \
     else \
   	    termFromHere --class floating-terminal; \
     fi

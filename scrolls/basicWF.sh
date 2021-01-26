@@ -87,6 +87,8 @@ pytho && {
     sudo pip install "${pythonpackages[@]}"
 }
 
+sudo systemctl enable cronie
+sudo systemctl enable NetworkManager
 
 cd "$script_dir" || exit 1
 ../spells/update_rust_analyzer.spell

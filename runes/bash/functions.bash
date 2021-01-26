@@ -431,3 +431,10 @@ rga-fzf() {
         echo "opening $file" &&
         xdg-open "$file"
 }
+
+sshfs() {
+    if [[ ! -d "$2" ]]; then
+        mkdir -p "$2" || return
+    fi
+    command sshfs "$@"
+}

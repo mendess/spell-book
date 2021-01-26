@@ -7,8 +7,7 @@ import re
 
 acpi = check_output(['acpi', '-b'], stderr=STDOUT).decode('utf-8').strip()
 
-if 'rate information unavailable' in acpi \
-    or 'support for device type' in acpi:
+if '%' not in acpi:
     exit(0)
 
 p = re.compile(r": (\w+), (\d+)%")
