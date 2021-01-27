@@ -71,7 +71,7 @@ super + F10
     pkill -10 -x lemon
 
 super + control + m
-  	$TERMINAL --class floating-terminal -e pacmixer
+  	$TERMINAL -e pacmixer
 
 super + {F2, F3, F4}
   	{$BROWSER, discord, steam}
