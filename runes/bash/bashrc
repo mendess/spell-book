@@ -34,4 +34,4 @@ do
     #shellcheck disable=SC1090
     source "$f"
 done
-[ -e /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
+[ -e /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh || :

@@ -29,10 +29,8 @@ show_help() {
 BRIGHTNESS_FILTER='
 import sys
 import colorsys
-count = 0
-outputs = 0
-last_colors = []
-print("Rejecting colours with s < 0.20 or v < 0.30", file=sys.stderr)
+
+colours = []
 for line in sys.stdin:
     line = line.strip()
     og_line = str(line)
@@ -41,36 +39,55 @@ for line in sys.stdin:
     r = int(line[0:2], 16) / 255
     g = int(line[2:4], 16) / 255
     b = int(line[4:6], 16) / 255
-    hsv = colorsys.rgb_to_hsv(r, g, b)
     hsl = colorsys.rgb_to_hls(r, g, b)
     text = "#000000" if hsl[1] > .5 else "#FFFFFF"
-    count += 1
+    colours.append([og_line, (r, g, b), text])
+
+chosen_colours = []
+regected_colors = []
+print("Rejecting colours with s < 0.20 or v < 0.30", file=sys.stderr)
+for colour in colours:
+    og_line, (r, g, b), __ = colour
+    hsv = colorsys.rgb_to_hsv(r, g, b)
     if hsv[1] < 0.2 or hsv[2] < 0.3:
+        regected_colors.append(colour)
         print(
-            "{:02d}:".format(count),
+            "{:02d}:".format(len(regected_colors)),
             og_line,
-            f"r: {r}",
-            f"g: {g}",
-            f"b: {b}",
+            "r: {:03}".format(r * 255),
+            "g: {:03}".format(g * 255),
+            "b: {:03}".format(b * 255),
             "h: {:.2f} s: {:.2f} v: {:.2f}".format(*hsv),
             file=sys.stderr
         )
-        last_colors.append([og_line, text])
     else:
-        outputs += 1
-        print(og_line, text)
+        chosen_colours.append(colour)
 
-while len(last_colors) < 3:
-    last_colors.append(["#000000", "#FFFFFF"])
+def rgb_distance(c0, c1):
+    _, rgb0, _ = c0
+    _, rgb1, _ = c1
+    return ((rgb0[0] - rgb1[0]) * (rgb0[0] - rgb1[0])
+        + (rgb0[1] - rgb1[1]) * (rgb0[1] - rgb1[1])
+        + (rgb0[2] - rgb1[2]) * (rgb0[2] - rgb1[2]))
 
-if outputs < 3:
-    for i in last_colors[:(3 - outputs)]:
-        print(*i)
-    print(
-        "Not enough colors picked, resorting to most common",
-        file=sys.stderr
-    )
+final_picks = []
+if len(chosen_colours) < 3:
+    final_picks = chosen_colours + regected_colors[:(3 - len(chosen_colours))]
+else:
+    first = chosen_colours[0]
+    second = chosen_colours[1]
+    contrast = chosen_colours[2]
+    max_distance = rgb_distance(first, contrast)
+    for c in chosen_colours[3:]:
+        d = rgb_distance(first, c)
+        if d > max_distance:
+            max_distance = d
+            contrast = c
+    final_picks = [first, second, contrast]
+
+for c, _, t in final_picks: print(c, t)
 '
+
 wide=0
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -144,6 +161,7 @@ unset i
     mapfile -t colors < <(
         convert "${files[0]}" +dither -colors 10 histogram: |
             grep -aoP '[0-9][0-9][0-9]+:.*$' |
+            sort -nr |
             grep -aoP '#[^ ].....' |
             python3 -c "$BRIGHTNESS_FILTER" |
             head -3
