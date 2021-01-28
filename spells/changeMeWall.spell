@@ -69,22 +69,20 @@ def rgb_distance(c0, c1):
         + (rgb0[1] - rgb1[1]) * (rgb0[1] - rgb1[1])
         + (rgb0[2] - rgb1[2]) * (rgb0[2] - rgb1[2]))
 
-final_picks = []
 if len(chosen_colours) < 3:
-    final_picks = chosen_colours + regected_colors[:(3 - len(chosen_colours))]
-else:
-    first = chosen_colours[0]
-    second = chosen_colours[1]
-    contrast = chosen_colours[2]
-    max_distance = rgb_distance(first, contrast)
-    for c in chosen_colours[3:]:
-        d = rgb_distance(first, c)
-        if d > max_distance:
-            max_distance = d
-            contrast = c
-    final_picks = [first, second, contrast]
+    chosen_colours = chosen_colours + regected_colors
 
-for c, _, t in final_picks: print(c, t)
+first = chosen_colours[0]
+second = chosen_colours[1]
+contrast = chosen_colours[2]
+max_distance = rgb_distance(first, contrast)
+for c in chosen_colours[3:]:
+    d = rgb_distance(first, c)
+    if d > max_distance:
+        max_distance = d
+        contrast = c
+
+for c, _, t in [first, second, contrast]: print(c, t)
 '
 
 wide=0
@@ -159,7 +157,10 @@ unset i
 {
     mapfile -t colors < <(
         convert "${files[0]}" +dither -colors 10 histogram: |
-            grep -aoP '[0-9][0-9][0-9]+:.*$' |
+            sed -n '/comment={/,/^}/p' |
+            grep -aoP '([0-9][0-9][0-9]+|[0-9]\.[0-9]+e\+[0-9]+):.*$' |
+            awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
+                 $0 !~ /[0-9]e\+[0-9]/ {print}' |
             sort -nr |
             grep -aoP '#[^ ].....' |
             python3 -c "$BRIGHTNESS_FILTER" |
