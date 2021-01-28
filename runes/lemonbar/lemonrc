@@ -50,7 +50,7 @@ signal: true
 layer: 1
 
 > Spotify
-command: python3 ~/.config/lemonbar/spotify_status.py -p ">,||"
+command: pgrep spotify >/dev/null && python3 ~/.config/lemonbar/spotify_status.py -p ">,||" || :
 underline: #1db954
 left-click: m prev-file
 middle-click: m pause

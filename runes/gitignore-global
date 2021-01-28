@@ -5,3 +5,4 @@ startdb.sh
 wwwroot
 .ccls-cache/
 mendess_work_dir/
+*manage_db*

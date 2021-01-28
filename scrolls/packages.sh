@@ -78,6 +78,7 @@ vimb
 wget
 xclip
 xdg-user-dirs
+xdotool
 xorg-server
 xorg-xdpyinfo
 xorg-xev

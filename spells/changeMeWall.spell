@@ -49,19 +49,17 @@ print("Rejecting colours with s < 0.20 or v < 0.30", file=sys.stderr)
 for colour in colours:
     og_line, (r, g, b), __ = colour
     hsv = colorsys.rgb_to_hsv(r, g, b)
-    if hsv[1] < 0.2 or hsv[2] < 0.3:
-        regected_colors.append(colour)
-        print(
-            "{:02d}:".format(len(regected_colors)),
-            og_line,
-            "r: {:03}".format(r * 255),
-            "g: {:03}".format(g * 255),
-            "b: {:03}".format(b * 255),
-            "h: {:.2f} s: {:.2f} v: {:.2f}".format(*hsv),
-            file=sys.stderr
-        )
-    else:
-        chosen_colours.append(colour)
+    l, m = (regected_colors, "\033[31mR\033[0m") if hsv[1] < 0.2 or hsv[2] < 0.3 else (chosen_colours, "\033[32mC\033[0m")
+    l.append(colour)
+    print(
+        "{} {:02d}:".format(m, len(regected_colors) + len(chosen_colours)),
+        og_line,
+        "r: {:03}".format(r * 255),
+        "g: {:03}".format(g * 255),
+        "b: {:03}".format(b * 255),
+        "h: {:.2f} s: {:.2f} v: {:.2f}".format(*hsv),
+        file=sys.stderr
+    )
 
 def rgb_distance(c0, c1):
     _, rgb0, _ = c0
