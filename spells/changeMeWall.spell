@@ -1,6 +1,7 @@
 #!/bin/bash
 # Changes the wallpaper to a random one in the `$WALLPAPERS` folder.
-# (requires `feh`).
+# (requires `feh`). Thanks [pasok](https://github.com/matildeopbravo) for the idea and help
+# finding the more contrasting colors for dmenu
 set -e
 
 show_help() {

@@ -55,11 +55,13 @@
 
 ## [Scrolls](./scrolls/): Instalation scripts *Mostly untested*
 
+ - [autologin](./scrolls/autologin.sh)
  - [basicWF](./scrolls/basicWF.sh)
  - [calendar](./scrolls/calendar.sh)
  - [dmenu](./scrolls/dmenu.sh)
  - [gestures](./scrolls/gestures.sh)
  - [lutris](./scrolls/lutris.sh)
+ - [nfs_walls](./scrolls/nfs_walls.sh)
  - [packages](./scrolls/packages.sh)
  - [spotify-adblock](./scrolls/spotify-adblock.sh)
  - [theme](./scrolls/theme.sh)
