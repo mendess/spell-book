@@ -7,11 +7,13 @@ import os
 
 PERCENTS = re.compile(r'^%%', flags=re.M)
 SWITCH_REGEX = re.compile(r'^(switch on ([A-Za-z]\w*))')
-CASE_REGEX = re.compile(r'^((\w+)\s*{[ \t]*)')
+CASE_REGEX = re.compile(r'^(([^ {]+)\s*{[ \t]*)')
 CASE_END_REGEX = re.compile(r'%%\s*}')
 DEFAULT_REGEX = re.compile(r'^(default\s*{)')
 SWITCH_END_REGEX = re.compile(r'^(\s*end[ \t]*)')
 ENDLINE = re.compile(r'\s*\n')
+IS_REGEX = re.compile(r'/([^/]*)/')
+
 
 def dbg(s):
     print(f"DEBUG: '{s}'")
@@ -20,12 +22,10 @@ def dbg(s):
 
 def hostname():
     return (
-            subprocess
-            .run(['hostname'], capture_output=True)
-            .stdout
-            .decode('utf-8')
-            .strip()
-        )
+        subprocess.run(['hostname'],
+                       capture_output=True).stdout.decode('utf-8').strip()
+    )
+
 
 class ParseError(Exception):
     def __init__(self, s, message='does not match'):
@@ -35,6 +35,7 @@ class ParseError(Exception):
 
 class Unit:
     pass
+
 
 UNIT = Unit()
 
@@ -84,7 +85,8 @@ class SwitchCase(Part):
     def write(self, stream):
         value = reflect_call(self.switch.on)
         for c in self.cases:
-            if value == c.case:
+            m = IS_REGEX.match(c.case)
+            if (m and re.match(m.group(1), value)) or value == c.case:
                 stream.write(c.content)
                 return
         if self.default: stream.write(self.default)
@@ -100,7 +102,7 @@ def reflect_call(method_name: str) -> str:
     possibles.update(locals())
     method = possibles.get(method_name)
     if not method:
-         raise NotImplementedError("Method %s not implemented" % method_name)
+        raise NotImplementedError("Method %s not implemented" % method_name)
     return method()
 
 
@@ -246,5 +248,3 @@ else:
                     p.write(generated)
     except Exception as e:
         print(e)
-
-
