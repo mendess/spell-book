@@ -1,0 +1,5 @@
+#!/bin/bash
+# A gift from the love of my life [matilde](https://github.com/matildeopbravo)
+
+host=$(grep -w 'Host' .ssh/config | cut -d ' ' -f2 | dmenu -l 20 -p "ssh")
+alacritty --class 'floating-term' -e bash -c "ssh $host"
