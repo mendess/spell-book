@@ -1,4 +1,6 @@
 #!/bin/bash
+# A fzf file finder I stole from
+# [matilde](https://github.com/matildeopbravo)
 
 if [ "$1" == "a" ]; then
     find_type='find . -type f ! \( -name "*.aux" -o -name "*.log" -o -name "*dvi" -o -name "*.hi" -o -name "*.o" \)'

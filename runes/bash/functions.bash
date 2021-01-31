@@ -33,23 +33,28 @@ ex() {
     fi
 }
 
-__append_to_recents() { # $1 line, $2 recents file
-    mkdir -p ~/.cache/my_recents
-    touch ~/.cache/my_recents/"$2"
-    echo "$1" | cat - ~/.cache/my_recents/"$2" | awk '!seen[$0]++' | head -10 >temp && mv temp ~/.cache/my_recents/"$2"
-}
-
-__run_disown() {
+__run_disown() { # $1 program, $2 file
+    local filesize=10
     local file="$2"
-    if [ "$file" = "" ] && [ -f ~/.cache/my_recents/"$1" ]; then
-        file=$(sed -e 's/\/home\/mendess/~/' ~/.cache/my_recents/"$1" | dmenu -i -l "$(wc -l ~/.cache/my_recents/"$1")")
-        [ "$file" = "" ] && return 1
+    if [[ ! "$file" ]] && [[ -f ~/.cache/my_recents/"$1" ]]; then
+        file=$(sed -e "s|$HOME|~|" ~/.cache/my_recents/"$1" | dmenu -i -l "$filesize")
+        [[ "$file" ]] || return
         file=$HOME${file//\~//}
     fi
     file="$(realpath "$file")"
     "$1" "$file" &>/dev/null &
     disown
-    [ -e "$file" ] && __append_to_recents "$file" "$1"
+    [[ -e "$file" ]] && {
+        mkdir -p ~/.cache/my_recents
+        touch ~/.cache/my_recents/"$1"
+        local temp
+        temp=$(mktemp)
+        echo "$file" |
+            cat - ~/.cache/my_recents/"$1" |
+            awk '!seen[$0]++' |
+            head -$filesize >|"$temp"
+        mv "$temp" ~/.cache/my_recents/"$1"
+    }
 }
 
 pdf() {
@@ -105,7 +110,7 @@ vimbd() {
     exit
 }
 
-svim() {(
+svim() { (
     cd "$SPELLS" || return 1
     if [ -n "$1" ]; then
         "$EDITOR" "$1"
@@ -117,7 +122,7 @@ svim() {(
             fzf)"
         [ -n "$DIR" ] && "$EDITOR" "$DIR"
     fi
-)}
+); }
 
 k() {
     if lsusb | grep -E 'Mechanical|Keyboard|Kingston' &>/dev/null; then
@@ -171,7 +176,7 @@ record() {
         "output-$(date +"%d_%m_%Y_%H_%M").mp4"
 }
 
-share() {(
+share() { (
     set -e
     while [[ "$#" -gt 0 ]]; do
         case "$1" in
@@ -203,7 +208,7 @@ share() {(
         echo -n "$url" | xclip -sel clip
     fi
     echo "$url"
-)}
+); }
 
 connect() {
     if [ $# -lt 2 ]; then
@@ -407,6 +412,7 @@ Commands:
     d | del
         Remove a torrent
 EOF
+            ;;
     esac
 }
 
@@ -419,15 +425,15 @@ google_fotos() {
 }
 
 rga-fzf() {
-        RG_PREFIX="rga --files-with-matches"
-        local file
-        file="$(
-                FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
-                        fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
-                                --phony -q "$1" \
-                                --bind "change:reload:$RG_PREFIX {q}" \
-                                --preview-window="70%:wrap"
-        )" &&
+    RG_PREFIX="rga --files-with-matches"
+    local file
+    file="$(
+        FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
+            fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+            --phony -q "$1" \
+            --bind "change:reload:$RG_PREFIX {q}" \
+            --preview-window="70%:wrap"
+    )" &&
         echo "opening $file" &&
         xdg-open "$file"
 }

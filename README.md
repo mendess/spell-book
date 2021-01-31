@@ -16,7 +16,7 @@
  - [del_rss_feed](./spells/del_rss_feed.spell)
  - [die_now](./spells/die_now.spell)
  - [ex](./spells/ex.spell)
- - [f](./spells/f.spell)
+ - [f](./spells/f.spell) - A fzf file finder I stole from [matilde](https://github.com/matildeopbravo)
  - [glavad](./spells/glavad.spell)
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [naoseioquefaco](./spells/naoseioquefaco.spell) - A gift from the love of my life [matilde](https://github.com/matildeopbravo)
