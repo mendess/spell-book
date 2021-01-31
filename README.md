@@ -11,7 +11,7 @@
  - [bookmark](./spells/bookmark.spell) - Adds a bookmark to the [bookmarks](./runes/bookmarks)
  - [bulkrename](./spells/bulkrename.spell)
  - [changeMeWallCicle](./spells/changeMeWallCicle.spell) - Runs `changeMeWall` every 5 minutes
- - [changeMeWall](./spells/changeMeWall.spell) - Changes the wallpaper to a random one in the `$WALLPAPERS` folder. (requires `feh`).
+ - [changeMeWall](./spells/changeMeWall.spell) - Changes the wallpaper to a random one in the `$WALLPAPERS` folder. (requires `feh`).  Thanks [matilde](https://github.com/matildeopbravo) for the idea and help finding the more contrasting colors for dmenu
  - [daemons](./spells/daemons.spell)
  - [del_rss_feed](./spells/del_rss_feed.spell)
  - [die_now](./spells/die_now.spell)
@@ -19,6 +19,7 @@
  - [f](./spells/f.spell)
  - [glavad](./spells/glavad.spell)
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
+ - [naoseioquefaco](./spells/naoseioquefaco.spell) - A gift from the love of my life [matilde](https://github.com/matildeopbravo)
  - [picker](./spells/picker.spell)
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
  - [reload_newsboat](./spells/reload_newsboat.spell)

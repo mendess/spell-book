@@ -1,7 +1,10 @@
 #!/bin/bash
 # Changes the wallpaper to a random one in the `$WALLPAPERS` folder.
-# (requires `feh`). Thanks [pasok](https://github.com/matildeopbravo) for the idea and help
-# finding the more contrasting colors for dmenu
+# (requires `feh`).
+#
+# Thanks [matilde](https://github.com/matildeopbravo) for the
+# idea and help finding the more contrasting colors for dmenu
+
 set -e
 
 show_help() {
@@ -41,7 +44,7 @@ for line in sys.stdin:
     g = int(line[2:4], 16) / 255
     b = int(line[4:6], 16) / 255
     hsl = colorsys.rgb_to_hls(r, g, b)
-    text = "#000000" if hsl[1] > .5 else "#FFFFFF"
+    text = "#000000" if hsl[1] >= .49 else "#FFFFFF"
     colours.append([og_line, (r, g, b), text])
 
 chosen_colours = []

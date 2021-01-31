@@ -29,7 +29,7 @@ super + control + Return
     fi
 
 super + d
-    cmd=$(dmenu_path | dmenu -i -l 20); \
+    cmd=$(echo "$(pacman -Qqe ; ls ~/.local/bin ; ls ~/.local/share/cargo/bin;)" | dmenu -i -l 20); \
     case $cmd in \
     *\; ) "$TERMINAL" --hold -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";; \
     * ) ${cmd} ;; \
@@ -43,6 +43,9 @@ super + shift + d
 
 super + shift + t
     todo gui
+
+super + s
+    naoseioquefaco
 
 super + F9
   	changeMeWall
