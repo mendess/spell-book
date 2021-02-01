@@ -1,0 +1,4 @@
+#!/bin/sh
+
+WID=$(xdotool search --name "Mozilla Firefox")
+xdotool key --window "$WID" F5
