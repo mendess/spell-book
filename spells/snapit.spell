@@ -33,7 +33,7 @@ case "$1" in
     floating)
         a="${geo[3]%%+*}"
         shotgun "${geo[@]}" "$name"
-  	    sxiv -b -g "$a" -p "$name"
+        sxiv -b -g "$a" -p "$name"
         rm "$name"
         ;;
     fullscreen)
