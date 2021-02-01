@@ -5,57 +5,56 @@ from subprocess import check_output, STDOUT
 from os import path
 import re
 
-acpi = check_output(['acpi', '-b'], stderr=STDOUT).decode('utf-8').strip()
+acpi = filter(
+    lambda x: 'rate information unavailable' not in x,
+    check_output(['acpi', '-b'],
+                 stderr=STDOUT).decode('utf-8').strip().split('\n')
+)
 
-if '%' not in acpi:
-    exit(0)
+for i in acpi:
+    p = re.compile(r": (\w+), (\d+)%")
+    m = p.search(i)
+    status = m.group(1)
+    percent = m.group(2)
 
-p = re.compile(r": (\w+), (\d+)%")
-m = p.search(acpi)
-status = m.group(1)
-percent = m.group(2)
-
-if status == 'Discharging':
-    print_status = 'v' #'▽'
-elif status == 'Charging':
-    print_status = '^' #'△'
-else:
-    print_status = ' -' #'⬙'
-
-if 'harging' not in status: #or not path.exists('/tmp/.bloat'):
-    time = ""
-else:
-    try:
-        time = " {}".format(re.compile(r', (\d\d:\d\d)').search(acpi).group(1))
-    except: # sometimes acpi bugs out and says "Charging" but doesn't give time cause it's @ 100%
-        time = ""
-
-if status == 'Discharging':
-    percent = int(percent)
-    if percent < 20:
-        c = r"#FF0000"
-    elif percent < 40:
-        c = r"#FFAE00"
-    elif percent < 60:
-        c = r"#FFF600"
-    elif percent < 85:
-        c = r"#A8DD00"
+    if status == 'Discharging':
+        print_status = 'v'  #'▽'
+    elif status == 'Charging':
+        print_status = '^'  #'△'
     else:
-        c = r"#A8FF00"
-else:
-    c = '-'
+        print_status = ' -'  #'⬙'
 
-if c != '-':
-    clear = '%{F-}'
-else:
-    clear = ''
+    if 'harging' not in status:  #or not path.exists('/tmp/.bloat'):
+        time = ""
+    else:
+        try:
+            time = " {}".format(re.compile(r', (\d\d:\d\d)').search(i).group(1))
+        except:  # sometimes acpi bugs out and says "Charging" but doesn't give time cause it's @ 100%
+            time = ""
 
-fore = '%{F' + c + '}'
-under = '%{U' + c + '}'
-print("{under}%{{+u}}%{{F#FFFF00}}⚡%{{F-}}{fore}{percent}{status}{time}{clear}%{{U-}}%{{-u}}".format(
-    under = under,
-    fore = fore,
-    percent = percent,
-    status = print_status,
-    time = time,
-    clear = clear))
+    if status == 'Discharging':
+        percent = int(percent)
+        if percent < 20:
+            c = r"#FF0000"
+        elif percent < 40:
+            c = r"#FFAE00"
+        elif percent < 60:
+            c = r"#FFF600"
+        elif percent < 85:
+            c = r"#A8DD00"
+        else:
+            c = r"#A8FF00"
+    else:
+        c = '-'
+
+    if c != '-':
+        clear = '%{F-}'
+    else:
+        clear = ''
+
+    fore = '%{F' + c + '}'
+    under = '%{U' + c + '}'
+    print(
+        f"{under}%{{+u}}%{{F#FFFF00}}⚡%{{F-}}{fore}{percent}{print_status}{time}{clear}%{{U-}}%{{-u}}",
+        end=''
+    )
