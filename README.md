@@ -22,6 +22,7 @@
  - [naoseioquefaco](./spells/naoseioquefaco.spell) - A gift from the love of my life [matilde](https://github.com/matildeopbravo)
  - [picker](./spells/picker.spell) - Wrapper around dmenu and fzf to unify their options, it's not very good
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
+ - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
  - [snapit](./spells/snapit.spell) - A printscreen script, supports crop to clipboard, crop to file, fullscreen print and floating print
  - [subscribe](./spells/subscribe.spell) - Subscribe to a youtube channel as an rss feed
  - [syncmusic](./spells/syncmusic.spell) - A termux only script that predownloads all music from $PLAYLIST
