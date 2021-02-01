@@ -76,14 +76,15 @@ if len(chosen_colours) < 3:
     chosen_colours = chosen_colours + regected_colors
 
 first = chosen_colours[0]
-second = chosen_colours[1]
-contrast = chosen_colours[2]
-max_distance = rgb_distance(first, contrast)
-for c in chosen_colours[3:]:
+contrast = chosen_colours[1]
+max_distance = rgb_distance(first, chosen_colours[1])
+for c in chosen_colours[2:]:
     d = rgb_distance(first, c)
     if d > max_distance:
         max_distance = d
         contrast = c
+
+second = chosen_colours[1 if contrast != chosen_colours[1] else 2]
 
 for c, _, t in [first, second, contrast]: print(c, t)
 '
@@ -104,6 +105,9 @@ while [ "$#" -gt 0 ]; do
         -l)
             list_mode=1
             ;;
+        -d | --different)
+            different=1
+            ;;
         -h | --help)
             show_help
             exit 1
@@ -118,24 +122,26 @@ while [ "$#" -gt 0 ]; do
     esac
     shift
 done
-if [ -n "$sxiv" ]; then
+if [[ "$sxiv" ]]; then
     mapfile -t files < <(sxiv -to "$WALLPAPERS")
-elif [ "${#files[@]}" = 0 ]; then
+elif [[ "${#files[@]}" = 0 ]]; then
     mapfile -t files < <(find "$WALLPAPERS" -type f |
         grep -v mtg |
         grep -iP "/[^/]*${filter}[^/]*$")
 fi
 [[ "${#files[@]}" = 0 ]] && exit
 
-if [ $list_mode ]; then
+if [[ $list_mode ]]; then
     printf "%s\n" "${files[@]}"
     exit 0
 fi
-mapfile -t files < <(
-    printf "%s\n" "${files[@]}" |
-        shuf -n "$(xrandr --query | grep ' connected' -c)" |
-        grep -vP '^$'
-)
+n_screens=$(xrandr --query | grep ' connected' -c)
+if [[ "$different" ]]; then
+    size=$n_screens
+else
+    size=1
+fi
+mapfile -t files < <(printf "%s\n" "${files[@]}" | shuf -n "$size")
 
 i=1
 for file in "${files[@]}"; do
@@ -161,11 +167,11 @@ unset i
     mapfile -t colors < <(
         convert "${files[0]}" +dither -colors 10 histogram: |
             sed -n '/comment={/,/^}/p' |
-            grep -aoP '([0-9][0-9][0-9]+|[0-9]\.[0-9]+e\+[0-9]+):.*$' |
+            sed -E 's/comment=\{\s*|\}|^\s*//g' |
             awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
                  $0 !~ /[0-9]e\+[0-9]/ {print}' |
             sort -nr |
-            grep -aoP '#[^ ].....' |
+            grep -aoP '#[a-fA-F0-9]{6}' |
             python3 -c "$BRIGHTNESS_FILTER" |
             head -3
     )
@@ -183,7 +189,7 @@ unset i
     fi
 
     # Lamp colors
-    if nmcli -t dev | grep ZON-2010 || [[ "$(hostname)" = tolaria ]]; then
+    if nmcli -t dev | grep -q ZON-2010 || [[ "$(hostname)" = tolaria ]]; then
         #shellcheck disable=2029
         [ -e /tmp/mood_light ] ||
             ssh mirrodin -o BatchMode=yes \
