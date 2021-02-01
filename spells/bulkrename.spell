@@ -1,4 +1,6 @@
 #!/bin/sh
+# Bulk rename every file in the current directory using your default editor
+# (Editor defined by $EDITOR or $VISUAL)
 
 from="$(mktemp)"
 to="$(mktemp)"

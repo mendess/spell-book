@@ -1,4 +1,5 @@
 #!/bin/bash
+# Subscribe to a youtube channel as an rss feed
 
 help() {
     cat <<EOF

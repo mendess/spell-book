@@ -1,4 +1,5 @@
 #!/bin/bash
+# Send a notification with the list of online players in a minecraft server
 
 if ! [ -e "$LINKS"/mcserverip ]
 then

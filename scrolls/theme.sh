@@ -1,4 +1,5 @@
 #!/bin/sh
+# Setup the artim-dark theme
 
 wget https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip
 unzip master.zip

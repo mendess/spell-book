@@ -1,3 +1,7 @@
+#!/bin/sh
+# Configure khal using vdirsyncer
+
+
 sudo pacman -Sy vdirsyncer --needed --noconfirm
 
 vdirsyncer discover calendar

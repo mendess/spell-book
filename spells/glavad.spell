@@ -1,4 +1,5 @@
 #!/bin/bash
+# Open glava in the background, suports multiple screens_ish_
 
 if pgrep -a -o glava | grep -v 'glavad'; then
     pkill glava

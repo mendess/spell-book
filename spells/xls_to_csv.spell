@@ -1,4 +1,6 @@
 #!/bin/python3
+# Python script that converts a xls file to a csv
+
 import xlrd
 from os import path
 import csv

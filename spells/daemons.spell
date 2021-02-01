@@ -1,4 +1,5 @@
 #!/bin/bash
+# Enable/disable my custom daemons
 
 readonly DAEMONS="light,mood_light
 battery,use_the_juice

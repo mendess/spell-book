@@ -1,4 +1,5 @@
 #!/bin/bash
+# List of important packages
 
 export packages=(
 acpi

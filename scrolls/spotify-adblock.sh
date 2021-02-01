@@ -1,4 +1,5 @@
 #!/bin/sh
+# Install a hacky addblock for spotify
 
 cwd="$(pwd)"
 cd /tmp

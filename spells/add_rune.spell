@@ -1,4 +1,6 @@
 #!/bin/bash
+# Add a new [rune](#runes-static-configuration-files) to the dotfiles, supports
+# some customization options
 
 set -e
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 #shellcheck disable=2016
+# Setup auto login with or without password
 
 case "$1" in
     username | full) ;;

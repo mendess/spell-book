@@ -1,4 +1,6 @@
 #!/bin/bash
+# The menu used to find and launch the cantrips
+
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
 ./"$(find . -name '*.sh' -executable |

@@ -31,7 +31,10 @@ super + control + Return
     fi
 
 super + d
-    cmd=$(echo "$(pacman -Qqe ; ls ~/.local/bin ; ls ~/.local/share/cargo/bin;)" | dmenu -i -l 20); \
+    cmd=$( (pacman -Qqe | while read -r cmd; do command -v "$cmd" 2>/dev/null; done; \
+                  game spit; \
+                  ls ~/.local/bin; \
+                  ls ~/.local/share/cargo/bin) | xargs -L1 basename | dmenu -i -l 20); \
     case $cmd in \
     *\; ) "$TERMINAL" --hold -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";; \
     * ) ${cmd} ;; \

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Wrapper around dmenu and fzf to unify their options, it's not very good
 
 [ -n "$PICKER" ] || PICKER=dmenu
 

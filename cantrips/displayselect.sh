@@ -1,4 +1,5 @@
 #!/bin/bash
+# Configure multi monitors
 
 directions() {
     cat <<EOF

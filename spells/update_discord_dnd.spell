@@ -1,3 +1,7 @@
+#!/bin/sh
+# Using a "copied as curl" request to change discord status to or front dnd,
+# update the remote to use the new request
+
 xclip -sel clip -o |
     sed -E 's/online/dnd/g;s/,\s*br//g' |
     ssh mirrodin 'cat > automation/discord/busy'

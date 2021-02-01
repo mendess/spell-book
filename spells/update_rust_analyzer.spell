@@ -1,3 +1,6 @@
+#!/bin/sh
+# Update rust_analyzer from the latest github release
+
 curl -s https://api.github.com/repos/rust-analyzer/rust-analyzer/releases/latest |
     jq -r '.assets[] | select(.name == "rust-analyzer-linux") | .browser_download_url' |
     wget -i -

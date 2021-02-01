@@ -1,4 +1,6 @@
 #!/bin/bash
+# Auto shutdown that sets slowly dims the light, slowly lowers the song volume,
+# and turns of the monitor(s)
 
 mpv_get ()
 {

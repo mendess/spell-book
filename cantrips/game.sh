@@ -2,6 +2,17 @@
 
 # Launch steam games from /comfy/ dmenu
 
+case "$1" in
+    GUI)
+        picker=dmenu
+        ;;
+    spit)
+        spit=1
+        ;;
+    *)
+        picker=fzf
+        ;;
+esac
 [ "$1" = GUI ] && picker=dmenu || picker=fzf
 
 steam_libraries=(
@@ -16,11 +27,13 @@ done
 
 games="$(grep -Hn "name" "${acfs[@]}" |
     sed -E 's|'"$HOME"'/?(.*)/[^/]+/steamapps/appmanifest_([0-9]+)\.acf.*"name".*"([^"]+)"|~/\1\t\2\t\3|g' |
-    sed 's/Counter.*/Dust II/')"
+    sed 's/Counter.*/Dust II/' |
+    sed -r 's/[0-9]+\s//' |
+    grep -viE 'proton|redistributable|linux')"
+
+[[ "$spit" ]] && echo "$games" && exit
 
 name="$(echo "$games" |
-    sed -r 's/[0-9]+\s//' |
-    grep -viE 'proton|redistributable|linux' |
     column -ts$'\t' |
     PICKER="$picker" picker \
     -i \

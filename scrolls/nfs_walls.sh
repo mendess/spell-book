@@ -1,4 +1,5 @@
 #!/bin/bash
+# Create a network mounted filesystem for my wallpapers
 
 sudo pacman -S --needed --noconfirm nfs-utils
 

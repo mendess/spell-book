@@ -1,4 +1,6 @@
 #!/bin/bash
+# Wallpaper manager
+
 # shellcheck disable=SC2029
 
 TMPDIR=${TMPDIR:-/tmp}

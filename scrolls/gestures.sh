@@ -1,13 +1,13 @@
 #!/bin/sh
+# Enable gestures to switch workspace
 
-if ! hash yay 2>/dev/null
+if ! hash aura 2>/dev/null
 then
-    echo Requires yay
+    echo Requires aura
     exit 1
 fi
 
-echo '1
-n' | yay -S libinput-gestures
+aura -S libinput-gestures
 sudo gpasswd -a "$USER" input
 libinput-gestures-setup autostart
 

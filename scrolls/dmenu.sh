@@ -1,10 +1,10 @@
 #!/bin/bash
+# Install my custom build of dmenu
 
-sudo pacman -Rdd dmenu
+set -e
 
-cd /tmp || exit
+cd /tmp
+rm -rf dmenu
 git clone https://github.com/mendess/dmenu
-cd dmenu || exit
-sudo make install
-cd /tmp || exit
+(cd dmenu && make arch_install)
 rm -rf dmenu

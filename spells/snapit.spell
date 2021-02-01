@@ -1,34 +1,37 @@
 #!/bin/bash
+# A printscreen script, supports crop to clipboard, crop to file, fullscreen
+# print and floating print
 
 #shellcheck source=/home/mendess/.config/user-dirs.dirs
 . "$XDG_CONFIG_HOME/user-dirs.dirs"
 
-if [[ "$1" == fullscreen ]]; then
-    geo="$"
-else
+if [[ "$1" != fullscreen ]]; then
     read -r -a geo <<<"$(hacksaw -f "-i %i -g %g")"
 fi
 screenshot_dir="${XDG_PICTURES_DIR}/screenshots"
 mkdir -p "$screenshot_dir" || echo "can't create screenshot dir"
 name="/tmp/screenshot_$(date +'%Y_%m_%d_%H_%M_%S').png"
+
+rename() {
+    rename="$(: | dmenu -p 'Select picture name' |
+        sed -E 's/^\s *//; s/\s*$//; s/\s+/_/g')"
+    [[ -z "$rename" ]] && exit 1
+    while [[ -e "$screenshot_dir/${rename}${i}" ]]; do
+        ((i++))
+    done
+    rename="${rename}${i}.png"
+    if mv "$name" "$screenshot_dir/$rename"; then
+        notify-send 'Screenshot captured' \
+            "Saved to <b>$screenshot_dir/$rename</b>" \
+            -i "${HOME}/$screenshot_dir/$rename" \
+            -a "$(basename "$0")"
+    fi
+}
+
 case "$1" in
     save)
         shotgun "${geo[@]}" "$name"
-        rename="$(: | dmenu -p 'Select picture name' |
-            sed -E 's/^\s *//; s/\s*$//; s/\s+/_/g')"
-        [[ -z "$rename" ]] && exit 1
-        i=
-        while [[ -e "$screenshot_dir/${rename}${i}" ]]; do
-            [[ -z "$i" ]] && i=0
-            ((i++))
-        done
-        rename="${rename}${i}.png"
-        if mv "$name" "$screenshot_dir/$rename"; then
-            notify-send 'Screenshot captured' \
-                "Saved to <b>$screenshot_dir/$rename</b>" \
-                -i "${HOME}/$screenshot_dir/$rename" \
-                -a "$(basename "$0")"
-        fi
+        rename
         ;;
     floating)
         a="${geo[3]%%+*}"
@@ -38,6 +41,7 @@ case "$1" in
         ;;
     fullscreen)
         shotgun --id 0 "$name"
+        rename
         ;;
     *)
         shotgun "${geo[@]}" - | tee "$name" | xclip -sel clip -t image/png

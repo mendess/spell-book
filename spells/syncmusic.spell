@@ -1,4 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
+# A termux only script that predownloads all music from $PLAYLIST
 
 [ -d /sdcard ] || {
     echo This is a termux only script
