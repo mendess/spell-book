@@ -33,7 +33,7 @@ super + d
     case $cmd in \
     *\; ) "$TERMINAL" --hold -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";; \
     * ) ${cmd} ;; \
-    esac
+    esac & disown
 
 super + shift + f
     $TERMINAL --class floating-terminal,floating-terminal -e f launcher
