@@ -28,7 +28,7 @@ au FileType sh map <leader>s :!clear && shellcheck --color=never -x %<CR>
 map <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
 map <leader>O :setlocal spell! spelllang=en_gb<CR>
 " Open spelling suggestions
-nnoremap <A-Enter> z=
+nnoremap <C-Enter> z=
 
 " Alt-Tab
 map <leader><Tab> <C-^>

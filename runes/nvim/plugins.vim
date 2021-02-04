@@ -147,6 +147,7 @@ if work_pc
     nmap <silent> gy <Plug>(coc-type-definition)
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
+    nmap <silent> <A-Enter> :CocFix<CR>
 
     " Use K to show documentation in preview window.
     nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -165,7 +166,7 @@ if work_pc
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Symbol renaming.
-    nmap <leader>rn <Plug>(coc-rename)
+    nmap <leader>r <Plug>(coc-rename)
 else
     nnoremap gd :ALEGoToDefinition<CR>
     nnoremap <F10> :ALEPreviousWrap<CR>

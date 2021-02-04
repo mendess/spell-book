@@ -32,7 +32,7 @@ super + control + Return
     fi
 
 super + d
-    cmd=$( (pacman -Qqe | while read -r cmd; do command -v "$cmd" 2>/dev/null; done; \
+    cmd=$( (pacman -Qqe | sed -E 's/-(git|bin|desktop)//g' | while read -r cmd; do command -v "$cmd" 2>/dev/null; done; \
                   game spit; \
                   ls ~/.local/bin; \
                   ls ~/.local/share/cargo/bin) | xargs -L1 basename | dmenu -i -l 20); \
