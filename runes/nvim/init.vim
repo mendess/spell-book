@@ -16,6 +16,7 @@ source ~/.config/nvim/settings.vim
 source ~/.config/nvim/commands.vim
 source ~/.config/nvim/keybindings.vim
 source ~/.config/nvim/writing.vim
+source ~/.config/nvim/boilerplate.vim
 
 highlight Normal ctermbg=NONE
 highlight Normal guibg=NONE
