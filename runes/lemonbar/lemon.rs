@@ -826,18 +826,24 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
     };
     let (sx, event_loop) = mpsc::channel();
     // Persistent blocks
-    for blocks in config.values() {
-        for b in blocks {
+    let persistent_block_threads = config
+        .values()
+        .flat_map(|blocks| blocks.iter())
+        .filter_map(|b| {
             if let Content::Persistent { cmd, last_run } = &b.content {
-                for (m, r) in last_run.iter().enumerate() {
-                    let cmd = cmd.to_string();
-                    let ch = sx.clone();
-                    let r = Arc::clone(&r);
-                    thread::spawn(move || persistent_command(cmd, ch, r, m));
-                }
+                Some((cmd, last_run))
+            } else {
+                None
             }
-        }
-    }
+        })
+        .flat_map(|(cmd, last_run)| last_run.iter().enumerate().map(move |(m, r)| (m, cmd, r)))
+        .map(|(m, cmd, r)| {
+            let cmd = cmd.to_string();
+            let ch = sx.clone();
+            let r = Arc::clone(&r);
+            thread::spawn(move || persistent_command(cmd, ch, r, m))
+        })
+        .collect::<Vec<_>>();
     let config = Arc::new(config);
     let layer = Arc::new(RwLock::new(Layer::L(0)));
     let config_ref = Arc::downgrade(&config);
@@ -937,11 +943,18 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
         }
     }
     drop(config);
-    loop_t.join().unwrap();
-    signal_thread.thread().unpark();
-    signal_thread.join().unwrap();
+    eprintln!("Waiting on layer thread");
     layer_thread.thread().unpark();
     layer_thread.join().unwrap();
+    eprintln!("Waiting on signal thread");
+    signal_thread.thread().unpark();
+    signal_thread.join().unwrap();
+    eprintln!("Waiting on loop_t thread");
+    loop_t.join().unwrap();
+    eprintln!("Waiting on persistent block threads");
+    persistent_block_threads
+        .into_iter()
+        .for_each(|t| t.join().unwrap());
 }
 
 fn build_line(
@@ -1003,22 +1016,26 @@ fn persistent_command(
     last_run: Arc<RwLock<String>>,
     monitor: usize,
 ) {
-    BufReader::new(
-        Command::new("sh")
-            .args(&["-c", &cmd])
-            .stdout(Stdio::piped())
-            .env("MONITOR", &monitor.to_string())
-            .spawn()
-            .expect("Couldn't start persistent cmd")
+    let mut persistent_cmd = Command::new("sh")
+        .args(&["-c", &cmd])
+        .stdout(Stdio::piped())
+        .env("MONITOR", &monitor.to_string())
+        .spawn()
+        .expect("Couldn't start persistent cmd");
+    let _ = BufReader::new(
+        persistent_cmd
             .stdout
+            .take()
             .expect("Couldn't get persistent cmd stdout"),
     )
     .lines()
     .map(Result::unwrap)
-    .for_each(|l| {
+    .try_for_each(|l| {
         *last_run.write().unwrap() = l;
-        ch.send(Event::Update).unwrap();
-    })
+        ch.send(Event::Update)
+    });
+    let _ = persistent_cmd.kill();
+    let _ = persistent_cmd.wait();
 }
 
 fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
@@ -1055,11 +1072,12 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
             .unwrap()
             .wait()
             .unwrap();
-        if let Err(e) = trayer.spawn() {
-            return eprintln!("Couldn't start trayer: {}", e);
-        }
+        let mut trayer = match trayer.spawn() {
+            Err(e) => return eprintln!("Couldn't start trayer: {}", e),
+            Ok(t) => t,
+        };
         thread::sleep(Duration::from_millis(500));
-        let o = Command::new("xprop")
+        let mut xprop = Command::new("xprop")
             .args(&[
                 "-name",
                 "panel",
@@ -1072,13 +1090,15 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
             ])
             .stdout(Stdio::piped())
             .spawn()
-            .expect("Couldn't spy tray size")
+            .expect("Couldn't spy tray size");
+        let xprop_output = xprop
             .stdout
+            .take()
             .expect("Couldn't read tray size spy output");
-        BufReader::new(o)
+        let _ = BufReader::new(xprop_output)
             .lines()
             .filter_map(Result::ok)
-            .for_each(|l| {
+            .try_for_each(|l| {
                 l.split(" ")
                     .nth(1)
                     .and_then(|x| {
@@ -1086,8 +1106,12 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
                             .map_err(|_| eprintln!("Failed to parse size: '{}' from '{}'", x, l))
                             .ok()
                     })
-                    .and_then(|o: u32| ch.send(Event::TrayResize(o + 5)).ok());
-            })
+                    .and_then(|o: u32| ch.send(Event::TrayResize(o + 5)).ok())
+            });
+        let _ = xprop.kill();
+        let _ = trayer.kill();
+        let _ = xprop.wait();
+        let _ = trayer.wait();
     });
 }
 
