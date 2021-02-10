@@ -22,9 +22,10 @@ while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
     echo "${geometry[@]}"
     if [[ "${geometry[2]}" != 0 ]]; then
-        monitors+=("${geometry[0]}x0+$(( ( (${geometry[2]} / 1920) + 1) * 1920))+${geometry[3]}")
+        steps="$(( ( (${geometry[2]} - 1) / 1920) + 1 ))"
+        monitors+=("${geometry[0]}x0+$(( steps * 1920))+0")
     else
-        monitors+=("${geometry[0]}x0+${geometry[2]}+0")
+        monitors+=("${geometry[0]}x0+0+0")
     fi
 done < <(xrandr --listactivemonitors |
     sed 1d |
