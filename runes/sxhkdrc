@@ -127,6 +127,9 @@ super + w
 @Print
     snapit
 
+alt + @Print
+    snapit fullscreen
+
 shift + @Print
   	snapit save
 

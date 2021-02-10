@@ -14,6 +14,8 @@ acpi = filter(
 for i in acpi:
     p = re.compile(r": (\w+), (\d+)%")
     m = p.search(i)
+    if not m:
+        continue
     status = m.group(1)
     percent = m.group(2)
 
