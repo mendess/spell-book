@@ -49,7 +49,7 @@ Plug 'sheerun/vim-polyglot'
 
 "Plug 'lervag/vimtex'
 
-Plug '/usr/bin/fzf'
+Plug 'junegunn/fzf.vim'
 
 if work_pc
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -215,8 +215,8 @@ let g:neoformat_python_yapf = {
 let g:neoformat_enabled_python = ['yapf']
 
 " FZF
-nmap <leader>p :FZF<CR>
-nmap <leader>P :FZF<CR>
+nmap <leader>p :GFiles --exclude-standard --others --cached<CR>
+nmap <leader>P :Buffers<CR>
 
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler

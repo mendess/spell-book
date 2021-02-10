@@ -7,7 +7,7 @@ use std::{
     fs,
     io::{self, BufRead, BufReader, Write as _},
     ops::{Index, IndexMut},
-    process::{ChildStdin, Command, Stdio},
+    process::{Child, ChildStdin, Command, Stdio},
     str::{self, FromStr},
     sync::{mpsc, Arc, RwLock},
     thread::{self, Thread},
@@ -137,16 +137,8 @@ impl<'a> Content<'a> {
 
     fn replicate_to_mon(mut self, n_monitor: usize) -> Self {
         match &mut self {
-            Self::Cmd { last_run, .. } => {
-                while last_run.len() < n_monitor {
-                    last_run.push(RwLock::new(String::new()));
-                }
-            }
-            Self::Persistent { last_run, .. } => {
-                while last_run.len() < n_monitor {
-                    last_run.push(Arc::new(RwLock::new(String::new())));
-                }
-            }
+            Self::Cmd { last_run, .. } => last_run.resize_with(n_monitor, Default::default),
+            Self::Persistent { last_run, .. } => last_run.resize_with(n_monitor, Default::default),
             _ => (),
         }
         self
@@ -185,16 +177,6 @@ impl<T> IndexMut<usize> for OneOrMore<T> {
 }
 
 impl<T> OneOrMore<T> {
-    fn push(&mut self, t: T) {
-        match std::mem::replace(self, OneOrMore::More(vec![])) {
-            Self::One(o) => *self = Self::More(vec![o, t]),
-            Self::More(mut m) => {
-                m.push(t);
-                *self = OneOrMore::More(m)
-            }
-        }
-    }
-
     fn len(&self) -> usize {
         match self {
             Self::One(_) => 1,
@@ -206,6 +188,20 @@ impl<T> OneOrMore<T> {
         match self {
             Self::One(t) => Iter::One(Some(t)),
             Self::More(m) => Iter::More(m.iter()),
+        }
+    }
+
+    fn resize_with<F>(&mut self, new_len: usize, f: F)
+    where
+        F: FnMut() -> T,
+    {
+        if new_len > 1 {
+            let mut to_resize = match std::mem::replace(self, OneOrMore::More(vec![])) {
+                Self::One(o) => vec![o],
+                Self::More(m) => m,
+            };
+            to_resize.resize_with(new_len, f);
+            *self = Self::More(to_resize);
         }
     }
 }
@@ -589,16 +585,21 @@ fn arg_parse() -> io::Result<Args> {
     while let Some(arg) = argv.next() {
         match arg.as_str() {
             "-c" | "--config" => {
-                args.config = Some(fs::read_to_string(
-                    argv.next().expect("Expected argument to config parameter"),
-                )?);
+                args.config = Some(fs::read_to_string(argv.next().ok_or_else(|| {
+                    io::Error::new(
+                        io::ErrorKind::Other,
+                        "Expected argument to geometry parameter",
+                    )
+                })?)?);
             }
             "-t" | "--tray" => args.tray = true,
             "-b" | "--bar" => {
-                args.bars.push(
-                    argv.next()
-                        .expect("Expected argument to geometry parameter"),
-                );
+                args.bars.push(argv.next().ok_or_else(|| {
+                    io::Error::new(
+                        io::ErrorKind::Other,
+                        "Expected argument to geometry parameter",
+                    )
+                })?);
             }
             _ => (),
         }
@@ -790,26 +791,26 @@ enum Event {
     TrayResize(u32),
 }
 
-fn spawn_bar<A, S>(args: A) -> ChildStdin
+fn spawn_bar<A, S>(args: A) -> ([Child; 2], ChildStdin)
 where
     A: IntoIterator<Item = S> + std::fmt::Debug,
     S: AsRef<OsStr>,
 {
-    let lemonbar = Command::new("lemonbar")
+    let mut lemonbar = Command::new("lemonbar")
         .args(args)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .spawn()
         .expect("Couldn't start lemonbar");
     let (le_in, le_out) = (
-        lemonbar.stdin.expect("Failed to find lemon stdin"),
-        lemonbar.stdout.expect("Failed to find lemon stdout"),
+        lemonbar.stdin.take().expect("Failed to find lemon stdin"),
+        lemonbar.stdout.take().expect("Failed to find lemon stdout"),
     );
-    Command::new("sh")
+    let shell = Command::new("sh")
         .stdin(Stdio::from(le_out))
         .spawn()
         .expect("Couldn't start action shell");
-    le_in
+    ([lemonbar, shell], le_in)
 }
 
 fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
@@ -908,21 +909,38 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
         if let Event::TrayResize(o) = e {
             tray_offset = o;
         }
-        for (i, le_in) in lemon_inputs.iter_mut().enumerate() {
+        for (i, child) in lemon_inputs.iter_mut().enumerate() {
             let line = if i == 0 {
                 // trayer goes on first screen
                 build_line(&global_config, &config, &layer, tray_offset, i)
             } else {
                 build_line(&global_config, &config, &layer, 0, i)
             };
-            le_in
-                .write_all(line.as_bytes())
-                .expect("Couldn't talk to lemon bar :(");
+            if let Err(e) = child.1.write_all(line.as_bytes()) {
+                eprintln!("Couldn't talk to lemon bar :( {:?}", e);
+            }
+        }
+        let mut i = 0;
+        while i < lemon_inputs.len() {
+            if lemon_inputs[i]
+                .0
+                .iter_mut()
+                .all(|c| matches!(c.try_wait(), Ok(Some(_))))
+            {
+                lemon_inputs.remove(i);
+            } else {
+                i += 1;
+            }
+        }
+        if lemon_inputs.is_empty() {
+            break;
         }
     }
     drop(config);
     loop_t.join().unwrap();
+    signal_thread.thread().unpark();
     signal_thread.join().unwrap();
+    layer_thread.thread().unpark();
     layer_thread.join().unwrap();
 }
 

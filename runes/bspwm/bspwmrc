@@ -21,13 +21,12 @@ monitors=()
 while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
     echo "${geometry[@]}"
-    echo "${geometry[@]}"
     monitors+=("${geometry[0]}x0+${geometry[2]}+${geometry[3]}")
 done < <(xrandr --listactivemonitors |
     sed 1d |
     cut -d' ' -f4 |
     sed -E 's|/[0-9]+||g' |
-    sort -n)
+    sort -nt+ -k3)
 
 case "${#monitors[@]}" in
     1)
@@ -74,7 +73,8 @@ fi
 bspc config split_ratio 0.5
 bspc config borderless_monocle false
 bspc config gapless_monocle false
-# bspc config remove_unplugged_monitors true
+bspc config remove_unplugged_monitors true
+bspc config remove_disabled_monitors true
 bspc config top_padding 22
 bspc config ignore_ewmh_focus true
 
