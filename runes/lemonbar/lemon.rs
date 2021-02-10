@@ -10,7 +10,7 @@ use std::{
     process::{Child, ChildStdin, Command, Stdio},
     str::{self, FromStr},
     sync::{mpsc, Arc, RwLock},
-    thread::{self, Thread},
+    thread::{self, JoinHandle, Thread},
     time::Duration,
 };
 
@@ -871,13 +871,18 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
                     }
                 }
             }
-            ch.send(Event::Update).unwrap();
+            if let Err(_) = ch.send(Event::Update) {
+                eprintln!("Exiting timer blocks thread");
+                return;
+            }
             thread::sleep(Duration::from_secs(1))
         }
     });
-    if global_config.tray {
-        trayer(&global_config, sx.clone());
-    }
+    let trayer_thread = if global_config.tray {
+        Some(trayer(&global_config, sx.clone()))
+    } else {
+        None
+    };
     let config_ref = Arc::downgrade(&config);
     // Signal Capturing thread
     let signal_thread = thread::spawn(move || loop {
@@ -889,7 +894,10 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
             c.values().flatten().filter(|b| b.signal).for_each(|b| {
                 b.content.update();
             });
-            sx.send(Event::Update).unwrap();
+            if let Err(_) = sx.send(Event::Update) {
+                eprintln!("Exiting signal thread");
+                return;
+            }
         } else {
             break;
         }
@@ -898,11 +906,11 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
     let layer_ref = Arc::downgrade(&layer);
     let n_layers = global_config.n_layers;
     let layer_thread = thread::spawn(move || loop {
+        unsafe {
+            signal(11, change_layer);
+        };
+        thread::park();
         if let Some(layer_arc) = layer_ref.upgrade() {
-            unsafe {
-                signal(11, change_layer);
-            };
-            thread::park();
             layer_arc.write().unwrap().next(n_layers);
             force_update(10);
         } else {
@@ -943,12 +951,17 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
         }
     }
     drop(config);
+    drop(layer);
     eprintln!("Waiting on layer thread");
     layer_thread.thread().unpark();
     layer_thread.join().unwrap();
     eprintln!("Waiting on signal thread");
     signal_thread.thread().unpark();
     signal_thread.join().unwrap();
+    if let Some(tt) = trayer_thread {
+        eprintln!("Waiting on trayer thread");
+        tt.join().unwrap();
+    }
     eprintln!("Waiting on loop_t thread");
     loop_t.join().unwrap();
     eprintln!("Waiting on persistent block threads");
@@ -1038,7 +1051,7 @@ fn persistent_command(
     let _ = persistent_cmd.wait();
 }
 
-fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
+fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) -> JoinHandle<()> {
     let mut trayer = Command::new("trayer");
     trayer.args(&[
         "--edge",
@@ -1066,18 +1079,16 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
         "0",
     ]);
     thread::spawn(move || {
-        Command::new("killall")
+        let _ = Command::new("killall")
             .arg("trayer")
             .spawn()
-            .unwrap()
-            .wait()
-            .unwrap();
+            .and_then(|mut ch| ch.wait());
         let mut trayer = match trayer.spawn() {
             Err(e) => return eprintln!("Couldn't start trayer: {}", e),
             Ok(t) => t,
         };
         thread::sleep(Duration::from_millis(500));
-        let mut xprop = Command::new("xprop")
+        let xprop = Command::new("xprop")
             .args(&[
                 "-name",
                 "panel",
@@ -1089,12 +1100,15 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
                 "WM_NORMAL_HINTS",
             ])
             .stdout(Stdio::piped())
-            .spawn()
-            .expect("Couldn't spy tray size");
-        let xprop_output = xprop
-            .stdout
-            .take()
-            .expect("Couldn't read tray size spy output");
+            .spawn();
+        let mut xprop = match xprop {
+            Err(e) => return eprintln!("Couldn't spy tray size: {:?}", e),
+            Ok(x) => x,
+        };
+        let xprop_output = match xprop.stdout.take() {
+            None => return eprintln!("Couldn't read tray size spy output"),
+            Some(o) => o,
+        };
         let _ = BufReader::new(xprop_output)
             .lines()
             .filter_map(Result::ok)
@@ -1112,7 +1126,7 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) {
         let _ = trayer.kill();
         let _ = xprop.wait();
         let _ = trayer.wait();
-    });
+    })
 }
 
 fn merge_geometries(geo1: &str, geo2: &str) -> String {
