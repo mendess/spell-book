@@ -45,11 +45,11 @@ fu! BoilerplateHtml()
     if line("$") == 1
         call append(0, "<!DOCTYPE html>")
         call append(1, "<html>")
-        call append(2, "<head>")
-        call append(3, "	<title>".expand('%:r')."</title>")
-        call append(4, "</head>")
-        call append(5, "<body>")
-        call append(6, "</body>")
+        call append(2, "    <head>")
+        call append(3, "        <title>".expand('%:r')."</title>")
+        call append(4, "    </head>")
+        call append(5, "    <body>")
+        call append(6, "    </body>")
         call append(7, "</html>")
     endif
 endfu

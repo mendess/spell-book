@@ -19,22 +19,22 @@ nnoremap <M-L> <C-w>>
 nnoremap Y y$
 
 " Ctrl+S to save
-map <C-S> :w<CR>
-imap <C-S> <Esc>:w<CR>a
+noremap <C-S> :w<CR>
+inoremap <C-S> <Esc>:w<CR>a
 
 " shell script linting
 au FileType sh map <leader>s :!clear && shellcheck --color=never -x %<CR>
 " toggle spelling
-map <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
-map <leader>O :setlocal spell! spelllang=en_gb<CR>
+noremap <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
+noremap <leader>O :setlocal spell! spelllang=en_gb<CR>
 " Open spelling suggestions
 nnoremap <C-Enter> z=
 
 " Alt-Tab
-map <leader><Tab> <C-^>
+noremap <leader><Tab> <C-^>
 
 " clear search register
-nmap <leader><leader> :noh<CR>
+nnoremap <leader><leader> :noh<CR>
 
 " Lock
 nnoremap <leader>L :silent !i3lock -t -e --image=/home/mendess/Pictures/Wallpapers/home.png<CR>
@@ -57,12 +57,24 @@ inoremap ,, <Esc>/<++><Enter>"_c4l
 "
 vnoremap // y/\V<C-R>"<CR>
 
-ino <C-A> <space><Esc>y^$a=<space><C-R>=<C-R>0<CR>
-vnoremap <C-M> dpa<space>=<space><C-R>=<C-R>0<CR>
+inoremap <C-A> <Esc>$a<space><Esc>y^$a=<space><C-R>=<C-R>0<CR>
+vnoremap <C-M> y`>a<space>=<space><C-R>=<C-R>"<CR>
 
 inoremap <S-Tab> <C-V><Tab>
 
 " Fast replace
-nnoremap s :s//g<Left><Left>
-nnoremap S :%s//g<Left><Left>
-vnoremap s :s//g<Left><Left>
+nnoremap s :%s//<Left>
+nnoremap S :%s/\<<C-r><C-w>\>/
+vnoremap s :s//<Left>
+
+" Save, compile and run
+au FileType c nnoremap <leader>r :call CompileC()<CR>
+fu! CompileC()
+    write
+    if filereadable('makefile') || filereadable('Makefile')
+        make
+    else
+        make %:r
+        !./%:r
+    endif
+endfu
