@@ -15,7 +15,7 @@ else
     set shell=/bin/sh
 endif
 " set foldmethod=indent
-set nofoldenable
+" set nofoldenable
 
 syntax on
 filetype plugin indent on

@@ -78,3 +78,4 @@ fu! CompileC()
         !./%:r
     endif
 endfu
+nnoremap <leader>z :set foldmethod=indent<CR>
