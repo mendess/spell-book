@@ -20,7 +20,7 @@ extern "C" {
 
 type ParseError<'a> = (&'a str, &'a str);
 
-#[derive(Debug)]
+#[derive(Clone, Copy, Debug)]
 struct Color<'a>(&'a str);
 
 impl Default for Color<'static> {
@@ -48,6 +48,17 @@ impl<'a> Color<'a> {
         } else {
             Err("Invalid character in colour")
         }
+    }
+}
+
+impl<'a> Color<'a> {
+    fn tint(&self) -> &str {
+        &self.0[3..]
+    }
+
+    fn transparency(&self) -> u8 {
+        dbg!(self.0);
+        u8::from_str_radix(&self.0[1..3], 16).unwrap()
     }
 }
 
@@ -1067,16 +1078,30 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) -> JoinHandle<(
             .and_then(|x| x.split("x").nth(1))
             .and_then(|x| x.split("+").next())
             .unwrap_or("18"),
-        "--tint",
-        "#FFFFFF",
         "--transparent",
         "true",
         "--expand",
         "true",
         "--SetDockType",
         "true",
+        "--monitor",
+        "primary",
         "--alpha",
-        "0",
+        &global_config
+            .background
+            .as_ref()
+            .map(|c| 255 - c.transparency())
+            .unwrap_or(0)
+            .to_string(),
+        "--tint",
+        &format!(
+            "0x{}",
+            global_config
+                .background
+                .as_ref()
+                .map(|c| c.tint())
+                .unwrap_or("FFFFFF")
+        ),
     ]);
     thread::spawn(move || {
         let _ = Command::new("killall")
