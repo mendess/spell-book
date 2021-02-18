@@ -118,7 +118,10 @@ impl<'a> Content<'a> {
                         if o.status.success() {
                             Ok(o.stdout)
                         } else {
-                            Err(io::Error::from(io::ErrorKind::InvalidInput))
+                            Err(io::Error::new(
+                                io::ErrorKind::InvalidInput,
+                                String::from_utf8_lossy(&o.stdout),
+                            ))
                         }
                     })
                     .map_err(|e| e.to_string())
@@ -1016,6 +1019,7 @@ fn build_line(
         add_blocks(blocks, &mut line);
     }
     line.lemon('O', tray_offset).unwrap();
+    dbg!(&line);
     line + "\n"
 }
 

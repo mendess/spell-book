@@ -16,9 +16,9 @@ multi_monitor: true
 command: ~/.config/lemonbar/github_notifs.py
 interval: 300
 align: left
-left-click: firefox https://github.com/notifications?query=is%3Aunread
-middle-click: firefox https://github.com/notifications?query=is%3Aunread
-right-click: firefox https://github.com/notifications?query=is%3Aunread
+left-click: firefox "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"
+middle-click: firefox "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"
+right-click: firefox "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"
 fg: #ff2222
 underline: #ff0000
 signal: true
