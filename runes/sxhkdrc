@@ -225,7 +225,7 @@ super + Pause
     systemctl suspend
 
 super + shift + i
-    "$BROWSER" 'https://github.com/issues?q=is%3Aopen+user%3Amendess'
+    "$BROWSER" 'https://github.com/notifications?query=is%3Aunread'
 
 ###### bspwm
 super + shift + space
