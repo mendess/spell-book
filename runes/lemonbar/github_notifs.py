@@ -65,10 +65,7 @@ def fetch_notifs() -> int:
         with open(last_notifs, 'w') as notifs:
             for notif in response:
                 owner, name = notif["repository"]["full_name"].split('/')
-                try:
-                    url = notif['html_url']
-                except:
-                    print(json.dumps(notif))
+                url = notif['url']
                 if filter(owner):
                     n_notifications += 1
                     notifs.write(

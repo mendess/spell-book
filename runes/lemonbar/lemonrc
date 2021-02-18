@@ -12,6 +12,17 @@ raw: true
 align: left
 multi_monitor: true
 
+> Github notifications
+command: ~/.config/lemonbar/github_notifs.py
+interval: 300
+align: left
+left-click: firefox "https://github.com/notifications?query=is%3Aunread"
+middle-click: firefox "https://github.com/notifications?query=is%3Aunread"
+right-click: firefox "https://github.com/notifications?query=is%3Aunread"
+fg: #ff2222
+underline: #ff0000
+signal: true
+
 > Uptime
 command: echo "$(uptime -p)"
 interval: 1800
