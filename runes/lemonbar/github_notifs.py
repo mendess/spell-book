@@ -59,7 +59,7 @@ def filter(owner):
 
 def fetch_notifs() -> int:
     raw_response = requests.get(endpoint, headers=headers, params=params)
-    if raw_response.status_code == requests.codes.ok:
+    if raw_response.status_code == 200:
         response = raw_response.json()
         n_notifications = 0
         with open(last_notifs, 'w') as notifs:
@@ -84,7 +84,7 @@ elif argv[1] == 'dmenu':
     threading.Thread(target=fetch_notifs)
     with open(last_notifs) as notifs:
         subprocess.Popen(
-            f"""
+            fr"""
 grep -F "$(dmenu -i -l 20 < {last_notifs})" {last_notifs} | \
         sed -E 's/.*\[([^]]+)]$/\\1/' | xargs -L 1 xdg-open
 """,
@@ -96,5 +96,5 @@ elif argv[1] == 'show':
         print(n)
     else:
         subprocess.run(
-            f'cat {last_notifs} | sed -E \'s/\[[^]]+\]$//\'', shell=True
+            fr"""cat {last_notifs} | sed -E 's/\[[^]]+\]$//'""", shell=True
         )

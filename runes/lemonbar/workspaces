@@ -57,14 +57,14 @@ while read -r line ; do
                             F*)
                                 if [ "$on_focused_monitor" ] ; then
                                     # focused free desktop
-                                    FG=$COLOR_FREE_FG
-                                    BG=$COLOR_FREE_BG
-                                    UL=$COLOR_FREE_UL
-                                else
-                                    # active free desktop
                                     FG=$COLOR_FOCUSED_FREE_FG
                                     BG=$COLOR_FOCUSED_FREE_BG
                                     UL=$COLOR_FOCUSED_FREE_UL
+                                else
+                                    # active free desktop
+                                    FG=$COLOR_ACTIVE_FREE_FG
+                                    BG=$COLOR_ACTIVE_FREE_BG
+                                    UL=$COLOR_ACTIVE_FREE_UL
                                 fi
                                 ;;
                             o*)

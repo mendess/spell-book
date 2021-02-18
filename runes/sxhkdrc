@@ -22,7 +22,7 @@ super + control + Return
                     cut -d '"' -f2 | \
                     grep -Eo '[^ ]+\.[^ ]+' | \
                     head -1)"; \
-        dirpath="$(find -name "$filename" | xargs dirname)"; \
+        dirpath="$(find ~/projects/ -name "$filename" | xargs dirname)"; \
         while [ ! -e "$dirpath/.idea" ] && [ "$dirpath" != '.' ] && [ "$dirpath" != '/' ]; do \
             dirpath="$(dirname "$dirpath")"; \
         done; \
