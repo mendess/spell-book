@@ -1,3 +1,6 @@
 [submodule "library/m"]
 	path = library/m
 	url = https://github.com/mendess/m
+[submodule "library/lemons"]
+	path = library/lemons
+	url = https://github.com/mendess/lemons
