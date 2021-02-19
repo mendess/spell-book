@@ -42,7 +42,7 @@ impl<'a> Color<'a> {
         }
         if s[1..]
             .bytes()
-            .all(|b| (b'0' <= b && b <= b'F' && b != b'@') || (b'a' <= b && b <= b'f'))
+            .all(|b| ((b'0'..=b'F').contains(&b) && b != b'@') || (b'a'..=b'f').contains(&b))
         {
             Ok(Color(s))
         } else {
@@ -52,13 +52,18 @@ impl<'a> Color<'a> {
 }
 
 impl<'a> Color<'a> {
-    fn tint(&self) -> &str {
-        &self.0[3..]
+    fn has_transparency(&self) -> bool {
+        self.0.len() == "#aaFFFFFF".len()
     }
 
-    fn transparency(&self) -> u8 {
-        dbg!(self.0);
-        u8::from_str_radix(&self.0[1..3], 16).unwrap()
+    fn tint(&self) -> &str {
+        let start = self.has_transparency() as usize * 2 + 1;
+        &self.0[start..]
+    }
+
+    fn transparency(&self) -> Option<u8> {
+        self.has_transparency()
+            .then(|| u8::from_str_radix(&self.0[1..3], 16).unwrap())
     }
 }
 
@@ -312,15 +317,22 @@ struct Block<'a> {
 }
 
 impl<'a> Block<'a> {
-    fn parse(block: &'a str, n_monitor: usize) -> Result<Self, ParseError> {
+    fn parse(
+        block: &'a str,
+        n_monitor: usize,
+        colors: &HashMap<&'a str, Color<'a>>,
+    ) -> Result<Self, ParseError<'a>> {
         let mut block_b = BlockBuilder::default();
         for opt in block.split('\n').skip(1).filter(|s| !s.trim().is_empty()) {
-            let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
-            let value = value[1..]
-                .trim()
-                .trim_end_matches('\'')
-                .trim_start_matches('\'');
-            let color = || Color::from_str(value).map_err(|e| (opt, e));
+            let (key, value) = parse_key_value(opt)?;
+            eprintln!("{}: {}", key, value);
+            let color = || {
+                colors
+                    .get(value)
+                    .map(|&c| c)
+                    .ok_or(("", ""))
+                    .or_else(|_| Color::from_str(value).map_err(|e| (opt, e)))
+            };
             block_b = match key
                 .trim()
                 .trim_start_matches('*')
@@ -636,6 +648,7 @@ struct GlobalConfig<'a> {
     separator: Option<&'a str>,
     tray: bool,
     n_layers: u16,
+    colors: HashMap<&'a str, Color<'a>>,
 }
 
 impl<'a> GlobalConfig<'a> {
@@ -678,20 +691,19 @@ impl<'a> GlobalConfig<'a> {
     }
 }
 
+fn parse_key_value(s: &str) -> Result<(&str, &str), ParseError<'_>> {
+    let (a, b) = s.split_at(s.find(':').ok_or((s, "missing :"))?);
+    Ok((a, b[1..].trim().trim_matches('\'')))
+}
+
 impl<'a> TryFrom<&'a str> for GlobalConfig<'a> {
     type Error = ParseError<'a>;
     fn try_from(globals: &'a str) -> Result<Self, Self::Error> {
         let mut global_config = Self::default();
-        for opt in globals.split('\n').filter(|s| !s.trim().is_empty()) {
-            let (key, value) = opt.split_at(opt.find(':').ok_or((opt, "missing :"))?);
-            let mut value = value[1..].trim();
-            if value.contains('\'') {
-                value = value
-                    .split('\'')
-                    .nth(1)
-                    .ok_or((opt, "idk man, I tried to get things inside `'`"))?
-            }
-            println!("{}: {}", key, value);
+        let mut opts = globals.split('\n').filter(|s| !s.trim().is_empty());
+        while let Some(opt) = opts.next() {
+            let (key, value) = parse_key_value(opt)?;
+            eprintln!("{}: {}", key, value);
             let color = || Color::from_str(value).map_err(|e| (opt, e));
             match key
                 .trim()
@@ -728,6 +740,23 @@ impl<'a> TryFrom<&'a str> for GlobalConfig<'a> {
                 "separator" => global_config.separator = Some(value),
                 "geometry" | "g" => global_config.base_geometry = Some(value.into()),
                 "name" | "n" => global_config.name = Some(value),
+                "colors" | "colours" | "c" if value.trim() == "{" => {
+                    let mut failed = true;
+                    while let Some(color) = opts.next().map(str::trim) {
+                        if color == "}" {
+                            failed = false;
+                            break;
+                        }
+                        let (key, value) = parse_key_value(color)?;
+                        eprintln!("{}: {}", key, value);
+                        global_config
+                            .colors
+                            .insert(key, Color::from_str(value).map_err(|e| (value, e))?);
+                    }
+                    if failed {
+                        return Err(("", "expected a '}' at the end of the colors definition"));
+                    }
+                }
                 s => {
                     eprintln!("Warning: unrecognised option '{}', skipping", s);
                 }
@@ -790,7 +819,7 @@ fn parse(config: &str, monitor: usize) -> Result<(GlobalConfig, Config), ParseEr
         .map(GlobalConfig::try_from)
         .unwrap_or_else(|| Ok(Default::default()))?;
     for block in blocks_iter {
-        let b = Block::parse(block, monitor)?;
+        let b = Block::parse(block, monitor, &global_config.colors)?;
         if let Layer::L(n) = b.layer {
             global_config.n_layers = global_config.n_layers.max(n);
         }
@@ -827,7 +856,7 @@ where
     ([lemonbar, shell], le_in)
 }
 
-fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
+fn start_event_loop(global_config: GlobalConfig<'static>, config: Config<'static>) {
     let mut lemon_inputs = if global_config.bars_geometries.is_empty() {
         vec![spawn_bar(&global_config.to_arg_list(None))]
     } else {
@@ -855,7 +884,8 @@ fn start_event_loop(global_config: GlobalConfig, config: Config<'static>) {
             let cmd = cmd.to_string();
             let ch = sx.clone();
             let r = Arc::clone(&r);
-            thread::spawn(move || persistent_command(cmd, ch, r, m))
+            let colors = global_config.colors.clone();
+            thread::spawn(move || persistent_command(cmd, ch, r, m, colors))
         })
         .collect::<Vec<_>>();
     let config = Arc::new(config);
@@ -1038,16 +1068,18 @@ extern "C" fn change_layer(_: i32) {
     }
 }
 
-fn persistent_command(
+fn persistent_command<'a>(
     cmd: String,
     ch: mpsc::Sender<Event>,
     last_run: Arc<RwLock<String>>,
     monitor: usize,
+    colors: HashMap<&'a str, Color<'a>>,
 ) {
     let mut persistent_cmd = Command::new("sh")
         .args(&["-c", &cmd])
         .stdout(Stdio::piped())
         .env("MONITOR", &monitor.to_string())
+        .envs(colors.iter().map(|(k, v)| (k, v.0)))
         .spawn()
         .expect("Couldn't start persistent cmd");
     let _ = BufReader::new(
@@ -1094,7 +1126,8 @@ fn trayer(global_config: &GlobalConfig, ch: mpsc::Sender<Event>) -> JoinHandle<(
         &global_config
             .background
             .as_ref()
-            .map(|c| 255 - c.transparency())
+            .and_then(Color::transparency)
+            .map(|a| 255 - a)
             .unwrap_or(0)
             .to_string(),
         "--tint",

@@ -22,7 +22,7 @@ while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
     echo "${geometry[@]}"
     if [[ "${geometry[2]}" != 0 ]]; then
-        steps="$(( ( (${geometry[2]} - 1) / 1920) + 1 ))"
+        steps="$(( ( (geometry[2] - 1) / 1920) + 1 ))"
         monitors+=("${geometry[0]}x0+$(( steps * 1920))+0")
     else
         monitors+=("${geometry[0]}x0+0+0")
@@ -103,32 +103,14 @@ bspc rule -a jetbrains-idea state=pseudo_tiled
 pkill sxhkd
 daemonise sxhkd &>/tmp/sxhkd.log
 
-# if ! pgrep polybar
-# then
-#     for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-#         MONITOR=$m polybar --reload example &
-#     done
-# fi
-#[ -e "$PANEL_FIFO" ] && bspc subscribe report > "$PANEL_FIFO" &
-if [ ! -e ~/.config/lemonbar/lemon ] ||
-    [ ~/.config/lemonbar/lemon -ot ~/.config/lemonbar/lemon.rs ]; then
-    if rustc ~/.config/lemonbar/lemon.rs -o ~/.config/lemonbar/lemon >/tmp/compiled_bar 2>&1; then
-        echo "compiled"
-        notify-send 'Recompiled wrapper' -a bspwmrc
-    else
-        echo "failed to compile"
-        notify-send 'Failed to compile' -u critical -a bspwmrc
-        exit
-    fi
-fi
-
 bar_args=()
 for mon in "${monitors[@]}"; do
     echo "$mon"
     bar_args+=('--bar' "${mon}")
 done
+
 pkill lemon
-daemonise ~/.config/lemonbar/lemon --tray "${bar_args[@]}"
+daemonise lemon --tray "${bar_args[@]}"
 pkill bspswallow
 daemonise ~/.config/bspwm/bspswallow
 

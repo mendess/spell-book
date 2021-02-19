@@ -28,6 +28,6 @@ case "$(hostname)" in
 
         ;;
     *)
-        pkill -10 -x lemon
+        pkill -SIGUSR1 -x lemon
         ;;
 esac

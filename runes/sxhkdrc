@@ -204,7 +204,7 @@ super + BackSpace
   	echo quit | socat - /tmp/mpvalarm
 
 super + comma
-    pkill -11 -x lemon
+    pkill -SIGUSR2 -x lemon
 
 super + F{6,5}
     brightnessctl set {+10,10-}
