@@ -10,7 +10,7 @@ m() {
 lemons_installed() { (
     cd "$1" &&
         cargo build --release --quiet &&
-        cmp "$1/target/release/lemon" "${CARGO_HOME:-~/.cargo}/bin/lemon" >/dev/null
+        cmp "$1/target/release/lemon" "${CARGO_HOME:-~/.cargo}/bin/lemon" >/dev/null 2>/dev/null
 ); }
 
 lemons() { (
