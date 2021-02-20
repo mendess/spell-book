@@ -130,3 +130,4 @@ command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/wee
 command -v calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
 
+alias sunrisemor='ssh berrygood bulb/flow.py sunrise'
