@@ -27,7 +27,13 @@ error() {
     esac
 }
 
-todo() { LC_ALL=C sort "$file"; }
+todo() {
+    case "$(hostname)" in
+        kaladesh) f=-E ;;
+        *) f=-Ev ;;
+    esac
+    LC_ALL=C sort "$file" | grep $f '^work'
+}
 
 pull() {
     o="$(rsync mirrodin:todo "$TMPDIR" 2>&1)" || error "Download failed" "$o"
