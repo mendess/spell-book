@@ -30,6 +30,7 @@ error() {
 todo() {
     case "$(hostname)" in
         kaladesh) f=-E ;;
+        localhost) f=-F ;;
         *) f=-Ev ;;
     esac
     LC_ALL=C sort "$file" | grep $f '^work'
