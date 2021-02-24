@@ -43,7 +43,7 @@ alias gl='git pull'
 alias gp='git push'
 alias gpf='git push --force-with-lease'
 alias gst='git status'
-alias gcm='git checkout master'
+alias gcm='git checkout master || git checkout main'
 alias gcd='git checkout develop || git checkout dev'
 __guri() {
     echo "https://github.com/$(git remote get-url --push origin | sed -r 's|.*[:/](.*)/(.*)(.git)?|\1/\2|g')"
