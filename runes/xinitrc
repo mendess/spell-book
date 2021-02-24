@@ -1,6 +1,7 @@
 xrdb -merge ~/.config/X11/Xresources
 # deamons
 changeMeWallCicle &
+clean_ws_names.spell &
 picom --experimental-backends --daemon
 dropbox start &
 battery_check &
