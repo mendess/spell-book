@@ -12,6 +12,7 @@
  - [bulkrename](./spells/bulkrename.spell) - Bulk rename every file in the current directory using your default editor (Editor defined by $EDITOR or $VISUAL)
  - [changeMeWallCicle](./spells/changeMeWallCicle.spell) - Runs `changeMeWall` every 5 minutes
  - [changeMeWall](./spells/changeMeWall.spell) - Changes the wallpaper to a random one in the `$WALLPAPERS` folder. (requires `feh`).  Thanks [matilde](https://github.com/matildeopbravo) for the idea and help finding the more contrasting colors for dmenu
+ - [check_repos](./spells/check_repos.spell)
  - [clean_ws_names](./spells/clean_ws_names.spell)
  - [daemons](./spells/daemons.spell) - Enable/disable my custom daemons
  - [del_rss_feed](./spells/del_rss_feed.spell) - Script to be used by newsboat to delete the selected rss feed

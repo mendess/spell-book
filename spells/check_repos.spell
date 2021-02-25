@@ -2,14 +2,17 @@
 
 branch_status() {
     git fetch &>/dev/null
-    local a="$(git branch --show-current)"
+    [[ "$(git config -l | grep remote | cut -d'=' -f2)" ]] || return 0
+    local a
+    a="$(git branch --show-current)"
     local b="origin/$a"
     if [[ "$(git diff-index --name-only --ignore-submodules HEAD --)" ]]; then
         printf x
     else
-        local base=$(git merge-base "$a" "$b")
-        local aref=$(git rev-parse "$a")
-        local bref=$(git rev-parse "$b")
+        local base aref bref
+        base=$(git merge-base "$a" "$b")
+        aref=$(git rev-parse "$a")
+        bref=$(git rev-parse "$b")
 
         if [[ $aref == "$bref" ]]; then
             :
@@ -23,12 +26,13 @@ branch_status() {
     fi
 }
 
-for p in ~/projects/*; do
+for p in ${1:-~/projects/*}; do
     [[ "$(basename "$p")" = spell-book ]] && continue
     [[ ! -d "$p/.git" ]] && continue
     (
-        cd "$p"
+        cd "$p" || exit
         s="$(branch_status)"
         [[ "$s" ]] && printf "%s[%s] " "$(basename "$p" | tr '[:upper:]' '[:lower:]')" "$s"
     )
 done
+:
