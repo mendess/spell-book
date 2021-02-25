@@ -117,3 +117,4 @@ au BufRead,BufNewFile *.ino set filetype=arduino
 au BufReadPre *.pdf execute '!exec zathura "%" &' | :q!
 
 set icm=nosplit
+

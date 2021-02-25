@@ -1,6 +1,7 @@
 #!/bin/bash
 
 branch_status() {
+    git fetch &>/dev/null
     local a="$(git branch --show-current)"
     local b="origin/$a"
     if [[ "$(git diff-index --name-only --ignore-submodules HEAD --)" ]]; then

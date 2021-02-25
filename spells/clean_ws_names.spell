@@ -1,5 +1,7 @@
 #!/bin/bash
 
+while ! pgrep bspwm &>/dev/null; do sleep 1m; done
+
 bspc subscribe desktop_focus |
     while read -r _; do
         bspc wm -d |

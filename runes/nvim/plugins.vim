@@ -267,8 +267,8 @@ if ! has('nvim')
         hi def CoqtailSent ctermbg=6 guisp=bg
     endfunction
 endif
-nnoremap gt :RustTest<CR>
-nnoremap gT :RustTest!<CR>
+nnoremap <leader>t :RustTest<CR>
+nnoremap <leader>T :RustTest!<CR>
 
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
