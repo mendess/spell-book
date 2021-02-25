@@ -33,6 +33,11 @@ fg: red
 underline: red
 signal: true
 
+> Repo statuses
+command: [ "$(hostname)" = kaladesh ] && check_repos
+interval: 300
+align: left
+
 > Uptime
 command: echo "$(uptime -p)"
 interval: 1800

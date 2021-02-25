@@ -6,7 +6,7 @@ bspc subscribe desktop_focus |
             jq '.monitors | map(.desktops) | flatten | map(select(.root == null)) | map([.id, .name]) | .[] | @csv' -r |
             sed -E 's/,"([0-9]+).*"/,\1/' |
             while IFS=',' read -r id name; do
-                bspc desktop "$id" --rename "$name"
+                bspc desktop "$id" --rename "$name" --layout tiled
             done
 
     done

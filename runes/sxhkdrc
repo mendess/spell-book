@@ -225,7 +225,10 @@ super + Pause
     systemctl suspend
 
 super + shift + i
-    "$BROWSER" 'https://github.com/notifications?query=is%3Aunread'
+    printf "%s\n" pulls issues notifications | \
+        dmenu -l 20 | \
+        sed 's|^|https://github.com/|' | \
+        xargs --no-run-if-empty $BROWSER
 
 ###### bspwm
 super + shift + space
