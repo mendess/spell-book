@@ -141,7 +141,10 @@ linkRune() {
         echo -e '\e[33mWarning:\e[0m Forced does nothing when combined with generated'
     local target="$(pwd)/$1"
     local link_name="$2"
-    if [ ! -h "$2" ] || { [ "$generated" ] && [ "$target" -ot "$link_name" ]; }; then
+    [[ "$generated" ]] && {
+        set -x
+    }
+    if [ ! -h "$2" ] || { [ "$generated" ] && [ "$link_name" -ot "$target" ]; }; then
         if [ "$generated" ]; then
             local cmd=("python3" "$(pwd)/../generate_config.py" "$target" "$link_name")
         elif [ "$force" ]; then
@@ -160,6 +163,7 @@ linkRune() {
         [ "$exe" ] && [ ! -x "$link_name" ] && chmod -v +x "$link_name"
         echo -en "\033[0m"
     fi
+    set +x
 }
 
 makeIfAbsent() {
