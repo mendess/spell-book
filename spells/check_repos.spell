@@ -1,13 +1,19 @@
 #!/bin/bash
 
+[[ "$(hostname)" = kaladesh ]] || exit 0
+
 branch_status() {
-    git fetch &>/dev/null
+    timeout 30s git fetch &>/dev/null || return 0
     [[ "$(git config -l | grep remote | cut -d'=' -f2)" ]] || return 0
     local a
     a="$(git branch --show-current)"
     local b="origin/$a"
+    git status &>/dev/null # if I don't do this I get false positives
+    local o
+    local c
     if [[ "$(git diff-index --name-only --ignore-submodules HEAD --)" ]]; then
-        printf x
+        o=x
+        c="$LEMON_RED"
     else
         local base aref bref
         base=$(git merge-base "$a" "$b")
@@ -17,13 +23,21 @@ branch_status() {
         if [[ $aref == "$bref" ]]; then
             :
         elif [[ $aref == "$base" ]]; then
-            printf b
+            o=b
+            c="$LEMON_YELLOW"
         elif [[ $bref == "$base" ]]; then
-            printf a
+            o=a
+            c="$LEMON_GREEN"
         else
-            printf a
+            o='<>'
+            c="$LEMON_BLUE"
         fi
     fi
+    [[ "$o" ]] && {
+        local name=
+        [[ "$LAYER" = 0 ]] && name="$(basename "$p" | tr '[:upper:]' '[:lower:]')"
+        echo "${name}[%{F$c}$o%{F-}]"
+    }
 }
 
 for p in ${1:-~/projects/*}; do
@@ -31,8 +45,6 @@ for p in ${1:-~/projects/*}; do
     [[ ! -d "$p/.git" ]] && continue
     (
         cd "$p" || exit
-        s="$(branch_status)"
-        [[ "$s" ]] && printf "%s[%s] " "$(basename "$p" | tr '[:upper:]' '[:lower:]')" "$s"
-    )
-done
-:
+        branch_status
+    ) &
+done | sort | tr '\n' ' '

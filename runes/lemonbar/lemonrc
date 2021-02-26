@@ -7,7 +7,7 @@ underline_width: 2
 name: bar_of_the_lemons
 colors: {
   black: #181818
-  red: #ab4642
+  red: #F07178
   green: #a1b56c
   yellow: #e3b97d
   blue: #7cafc2
@@ -34,9 +34,11 @@ underline: red
 signal: true
 
 > Repo statuses
-command: [ "$(hostname)" = kaladesh ] && check_repos
+command: check_repos
 interval: 300
 align: left
+raw: true
+signal: true
 
 > Uptime
 command: echo "$(uptime -p)"
