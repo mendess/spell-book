@@ -9,8 +9,8 @@ m() {
 
 lemons_installed() { (
     cd "$1" &&
-        cargo build --release --quiet &&
-        cmp "$1/target/release/lemon" "${CARGO_HOME:-~/.cargo}/bin/lemon" >/dev/null 2>/dev/null
+        command -V lemon >/dev/null &&
+        [ "$(awk -F'"' '/version/ {print $2}' Cargo.toml)" = "$(lemon --version | awk '{print $2}')" ]
 ); }
 
 lemons() { (
