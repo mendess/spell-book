@@ -29,10 +29,10 @@ color   info                red      black
 color   article             white    default
 feedlist-format "%3U %t %S"
 
-browser xdg-open
+browser web-xdg-open
 macro , open-in-browser
-macro v set browser "run_disown mpv"; open-in-browser ; set browser vimb
-macro y set browser "xclip -sel clip <<<" ; open-in-browser ; set browser vimb
-macro x set browser "del_rss_feed"; open-in-browser ; set browser vimb
+macro v set browser "mpv"; open-in-browser ; set browser web-xdg-open
+macro y set browser "xclip -sel clip <<<" ; open-in-browser ; set browser web-xdg-open
+macro x set browser "del_rss_feed"; open-in-browser ; set browser web-xdg-open
 macro i set show-read-feeds no
 macro I set show-read-feeds yes

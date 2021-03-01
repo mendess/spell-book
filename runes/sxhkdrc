@@ -80,7 +80,7 @@ super + control + m
   	$TERMINAL -e pacmixer
 
 super + {F2, F3, F4}
-  	{$BROWSER, discord, steam}
+  	{$BROWSER, discord --no-sandbox, steam}
 
 super + shift + F2
   	$BROWSER -private-window https://duckduckgo.com/
@@ -93,7 +93,7 @@ super + shift + F3
     while pgrep -i discord; do pkill Discord; done ; \
     bspc rule -a '*:*:Discord Updater' -o desktop=^$(( d + 1 )); \
     bspc rule -a '*:*:Discord' -o desktop=^$(( d + 1 )); \
-    discord
+    discord --no-sandbox
 
 
 super + m

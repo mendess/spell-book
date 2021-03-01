@@ -141,9 +141,6 @@ linkRune() {
         echo -e '\e[33mWarning:\e[0m Forced does nothing when combined with generated'
     local target="$(pwd)/$1"
     local link_name="$2"
-    [[ "$generated" ]] && {
-        set -x
-    }
     if [ ! -h "$2" ] || { [ "$generated" ] && [ "$link_name" -ot "$target" ]; }; then
         if [ "$generated" ]; then
             local cmd=("python3" "$(pwd)/../generate_config.py" "$target" "$link_name")
