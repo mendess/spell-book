@@ -12,6 +12,7 @@ image/png=sxiv.desktop
 image/jpg=sxiv.desktop
 image/jpeg=sxiv.desktop
 image/webp=sxiv.desktop
+x-scheme-handler/msteams=teams.desktop
 
 [Added Associations]
 application/octet-stream=gvim.desktop;
