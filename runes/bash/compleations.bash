@@ -89,6 +89,7 @@ _ssh() {
 
 complete -F _ssh ssh
 complete -F _ssh sshp
+complete -F _ssh deploy_to
 
 _m() {
     local opts

@@ -76,8 +76,8 @@ else
     while :; do
         cmd=$(todo | selector -l "$height" -p "$prompt")
         [ "$cmd" ] || break
-        if grep -q "^$cmd\$" "$file"; then
-            grep -v "^$cmd\$" "$file" >"$file.$$"
+        if [ "$(s="$cmd" awk 'substr($0, 1, length(ENVIRON["s"])) == ENVIRON["s"] { print }' "$file")" ]; then
+            s="$cmd" awk 'substr($0, 1, length(ENVIRON["s"])) != ENVIRON["s"] { print }' "$file" >"$file.$$"
             mv "$file.$$" "$file"
             height=$((height - 1))
         else

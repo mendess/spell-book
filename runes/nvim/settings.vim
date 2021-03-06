@@ -91,6 +91,9 @@ iabbrev lable label
 iabbrev Lable Label
 iabbrev tiem item
 iabbrev Tiem item
+iabbrev deamon daemon
+iabbrev Deamon Daemon
+iabbrev reutrn return
 
 if has("gui_running")
     set tb=
