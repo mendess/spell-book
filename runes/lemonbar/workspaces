@@ -11,7 +11,7 @@ num_mon=$(bspc query -M | wc -l)
 MON=${MONITOR:-0}
 echo "monitor: $MON" >&2
 while read -r line ; do
-    # shellcheck source=/home/mendess/projects/spell-book/runes/lemonbar/workspaces_colors
+    # shellcheck disable=1090
     . "$(dirname "$0")/workspaces_colors"
     case $line in
         W*)
