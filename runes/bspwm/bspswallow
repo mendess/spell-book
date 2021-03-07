@@ -54,6 +54,7 @@ spit() {
 }
 
 bspc subscribe node_add node_remove | while read -r event; do
+    #shellcheck disable=2046
     case $(echo "$event" | awk '{ print $1 }') in
         node_add)
             swallow $(echo "$event" | awk '{print $5 " " $3}')
