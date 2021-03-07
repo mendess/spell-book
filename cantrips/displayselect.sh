@@ -75,6 +75,7 @@ morescreen() { # If multi-monitor is selected and there are more than two screen
 }
 
 multimon() { # Multi-monitor handler.
+    #shellcheck disable=2046
     case "$(echo "$screens" | wc -l)" in
         1) xrandr $(echo "$allposs" | awk '{print "--output", $1, "--off"}' | tr '\n' ' ') ;;
         2) twoscreen ;;
@@ -89,6 +90,7 @@ allposs=$(xrandr -q | grep "connected")
 screens=$(echo "$allposs" | grep " connected" | awk '{print $1}')
 
 # Get user choice including multi-monitor and manual selection:
+#shellcheck disable=2046
 chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -l 10 -i -p "Select display arangement:") &&
     case "$chosen" in
         "manual selection")

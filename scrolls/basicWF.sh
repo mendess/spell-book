@@ -1,4 +1,5 @@
 #!/bin/bash
+#shellcheck disable=1090
 
 if [ "$#" = 0 ]; then
     ALL=1
@@ -30,7 +31,6 @@ pytho() { [ "$ALL" = 1 ] || [ "$PYTHON" = 1 ]; }
 
 script_dir="$(dirname "$(realpath "$0")")"
 
-#shellcheck source=/home/mendess/.bash_profile
 . "$script_dir/../runes/bash/profile"
 
 packages=()
@@ -38,7 +38,7 @@ aurpackages=()
 bloat=()
 cargopackages=()
 pythonpackages=()
-#shellcheck source=/home/mendess/projects/spell-book/scrolls/packages.sh
+
 . "$script_dir"/packages.sh
 
 sudo() { echo "$PASSWORD" | command sudo -S true && command sudo "$@"; }

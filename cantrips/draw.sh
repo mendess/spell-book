@@ -13,5 +13,5 @@ hacksaw              \
         rectangle="$((w - 2 * b))x$((h - 2 * b))+$x+$y"
 }
 
-cd
+cd || :
 alacritty &

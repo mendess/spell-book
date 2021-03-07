@@ -2,7 +2,7 @@
 # Install a hacky addblock for spotify
 
 cwd="$(pwd)"
-cd /tmp
+cd /tmp || exit
 git clone https://github.com/abba23/spotify-adblock-linux.git
 cd spotify-adblock-linux || exit
 grep wget README.md | sed 's/\$//g' | sh

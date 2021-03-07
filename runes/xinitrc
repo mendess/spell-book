@@ -9,6 +9,7 @@ dunst &
 clipmenud &
 nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
 calcurse --daemon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
+command -V espanso && espanso -v worker &
 
 # Settings
 setxkbmap -option caps:escape

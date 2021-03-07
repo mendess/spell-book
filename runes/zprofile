@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 export RTV_EDITOR='nvim'
 export VISUAL='nvim'
 export EDITOR='nvim'
