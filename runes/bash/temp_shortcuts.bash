@@ -21,6 +21,8 @@ deploy_to() {
         --exclude=tmp \
         --exclude=log \
         --exclude=settings.json \
+        --exclude=__pycache__ \
+        --exclude=.vim \
         "$@"
 }
 alias deploy='deploy_to master_image'
