@@ -1,6 +1,6 @@
 #!/bin/bash
-alias r='nvm use 8 && npm run tsc && npm start'
-alias rd='nvm use 8 && npm run tsc && NODE_DEBUG=fs npm start'
+alias r='nvm use 8 && npm run index-generate && npm run tsc && npm start'
+alias rd='nvm use 8 && npm run index-generate && npm run tsc && NODE_DEBUG=fs npm start'
 deploy_to() {
     local host="$1"
     shift
