@@ -30,6 +30,7 @@ alias gdd='git difftool --tool=vimdiff'
 alias g=git
 alias ga='git add'
 alias gaa='git add --all'
+alias gau='git add --update'
 alias gbD='git branch -D'
 alias gbl='git blame -b -w'
 alias gc='git commit -v'
