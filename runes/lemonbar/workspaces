@@ -8,7 +8,7 @@ num_mon=$(bspc query -M | wc -l)
 
 #SCROLL_ACTIONS="%{A4:bspc desktop -f prev.local.occupied:}%{A5:bspc desktop -f next.local.occupied:}"
 #SCROLL_CLOSE="%{A}%{A}"
-MON=${MONITOR:-0}
+MON=${LEMON_MONITOR:-0}
 echo "monitor: $MON" >&2
 while read -r line ; do
     # shellcheck disable=1090

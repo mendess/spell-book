@@ -75,6 +75,7 @@ done
 # cycle through tags
 hc keybind $Mod-Tab use_index +1 --skip-visible
 hc keybind $Mod-Shift-Tab use_index -1 --skip-visible
+hc keybind Mod1-Tab use_previous
 
 # layouting
 hc keybind $Mod-Shift-space floating toggle
@@ -173,3 +174,36 @@ hc detect_monitors
 pkill sxhkd
 daemonise sxhkd -c ~/tmp-wm-swap/sxhkdrc -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
 
+# bar_args=()
+# for mon in "${monitors[@]}"; do
+#     echo "$mon"
+#     bar_args+=('--bar' "${mon}")
+# done
+sleep 10
+echo "Panel bros"
+panel=~/.config/herbstluftwm/panel.sh
+[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
+for monitor in $(hc list_monitors | cut -d: -f1) ; do
+    # start it on each monitor
+    "$panel" "$monitor" &
+done
+
+
+# pkill lemon
+# daemonise lemon --tray "${bar_args[@]}"
+# set +x
+# retries=0
+# sleep 1.5
+# until bar_id=$(xdo id -a 'bar_of_the_lemons') || [[ "$retries" = 1000 ]]; do
+#     sleep 0.001
+#     ((retries++))
+# done
+# for bar in $bar_id; do
+#     xdo below -t "$(xdo id -n root)" "$bar"
+# done
+# retries=0
+# until systray_id=$(xdo id -N 'trayer') || [[ "$retries" = 1000 ]]; do
+#     sleep 0.001
+#     ((retries++))
+# done
+# [[ "$systray_id" ]] && xdo below -t "$(xdo id -n root)" "$systray_id"
