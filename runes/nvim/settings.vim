@@ -94,6 +94,7 @@ iabbrev Tiem item
 iabbrev deamon daemon
 iabbrev Deamon Daemon
 iabbrev reutrn return
+iabbrev brian brain
 
 if has("gui_running")
     set tb=
