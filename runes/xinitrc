@@ -16,6 +16,9 @@ if [ "$(cat /etc/hostname)" = tolaria ]; then
         --output HDMI-0 --auto --left-of DP-5
     xmodmap -e 'keycode  21 = plus equal plus equal'
 fi
-#exec bspwm
-exec herbstluftwm --locked
+if command herbstluftwm; then
+    exec herbstluftwm --locked
+else
+    exec bspwm
+fi
 # exec dbus-launch leftwm
