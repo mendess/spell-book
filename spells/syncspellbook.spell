@@ -80,6 +80,8 @@ else
     cd "$(dirname "$(dirname "$0")")" || exit 1
 fi
 
+bash ./readBooks.sh
+
 find library/ -maxdepth 1 -mindepth 1 -type d |
     while read -r l; do
         pushd "$l" >/dev/null || continue
@@ -90,8 +92,6 @@ find library/ -maxdepth 1 -mindepth 1 -type d |
         fi
         popd >/dev/null || continue
     done
-
-bash ./readBooks.sh
 
 echo -e "\e[36mBacking up spell-book\e[0m"
 [[ "$1" != --nocommit ]] && {
