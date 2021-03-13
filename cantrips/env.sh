@@ -7,9 +7,8 @@ if [ ! -f "$env_file" ]; then
     exit 1
 fi
 
-var="$(cat "$env_file" | cut -d= -f1 | dmenu -i -l $(wc -l < "$env_file"))"
+var="$(cut -d= -f1 "$env_file" | dmenu -i -l "$(wc -l <"$env_file")")"
 
 [ "$var" ] || exit 0
 
-
-cat "$env_file" | grep "$var" | cut -d= -f2 | xclip -sel clip -r
+grep "$var" <"$env_file" | cut -d= -f2 | xclip -sel clip -r
