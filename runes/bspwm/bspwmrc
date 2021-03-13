@@ -101,7 +101,7 @@ bspc rule -a jetbrains-idea state=pseudo_tiled
 # bspc rule -a discord desktop=^1 state=pseudo_tiled
 
 pkill sxhkd
-daemonise sxhkd &>/tmp/sxhkd.log
+daemonise sxhkd -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
 
 bar_args=()
 for mon in "${monitors[@]}"; do

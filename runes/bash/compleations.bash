@@ -137,26 +137,6 @@ complete -o default -F _path_compleation sudo
 complete -o default -F _path_compleation which
 complete -o default -F _path_compleation command
 
-_cd() {
-    case "$2" in
-        \$*/*)
-            mapfile -t COMPREPLY < <(compgen -d "$(eval "echo ${2%%/*}")/${2#*/}")
-            ;;
-        \$*)
-            local vars
-            vars="$(compgen -e | while read -r v; do
-                eval "test -d \"\$$v\"" && echo "\\\$$v/"
-            done)"
-            mapfile -t COMPREPLY < <(compgen -d -W "$vars" -- "$2")
-            ;;
-        *)
-            mapfile -t COMPREPLY < <(compgen -d -- "$2")
-            ;;
-    esac
-}
-
-complete -o nospace -o plusdirs -F _cd cd
-
 #shellcheck disable=SC1090
 command -V arduino-cli &>/dev/null &&
     . <(arduino-cli completion bash) &&

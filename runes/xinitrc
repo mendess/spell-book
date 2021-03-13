@@ -3,12 +3,10 @@ xrdb -merge ~/.config/X11/Xresources
 changeMeWallCicle &
 clean_ws_names.spell &
 picom --experimental-backends --daemon
-dropbox start &
 battery_check &
 dunst &
 clipmenud &
 nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
-calcurse --daemon -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse
 command -V espanso && espanso -v worker &
 
 # Settings
@@ -18,6 +16,6 @@ if [ "$(cat /etc/hostname)" = tolaria ]; then
         --output HDMI-0 --auto --left-of DP-5
     xmodmap -e 'keycode  21 = plus equal plus equal'
 fi
-rm -f /tmp/bspwm_log
-exec bspwm
+#exec bspwm
+exec herbstluftwm --locked
 # exec dbus-launch leftwm

@@ -43,6 +43,8 @@
  - [displayselect](./cantrips/displayselect.sh) - Configure multi monitors
  - [draw](./cantrips/draw.sh) - draw terminals
  - [emoji](./cantrips/emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
+ - [empty_monitor](./cantrips/empty_monitor.sh)
+ - [env](./cantrips/env.sh)
  - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu
  - [i3-rename-ws](./cantrips/i3-rename-ws.sh) - Dynamic i3 workspace renamer
  - [mconlinelist](./cantrips/mconlinelist.sh) - Send a notification with the list of online players in a minecraft server

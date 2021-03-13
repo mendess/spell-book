@@ -1,3 +1,4 @@
+#!/bin/bash
 # bash completion for herbstclient
 
 _herbstclient_complete() {
