@@ -35,7 +35,7 @@ branch_status() {
     fi
     [[ "$o" ]] && {
         local name=
-        [[ "$LAYER" = 0 ]] && name="$(basename "$p" | tr '[:upper:]' '[:lower:]')"
+        [[ "$LEMON_LAYER" = 0 ]] && name="$(basename "$p" | tr '[:upper:]' '[:lower:]')"
         echo "${name}[%{F$c}$o%{F-}]"
     }
 }

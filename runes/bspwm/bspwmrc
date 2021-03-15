@@ -47,9 +47,10 @@ is_taken() {
 }
 
 for m in "${new_monitors[@]}"; do
-    if ! is_taken "$m" "${monitors[@]}"; then
-        monitors+=("$m")
-    fi
+    # if ! is_taken "$m" "${monitors[@]}"; then
+    #     monitors+=("$m")
+    # fi
+    monitors+=("$m")
 done
 
 case "${#monitors[@]}" in

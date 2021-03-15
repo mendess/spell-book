@@ -36,6 +36,7 @@ do
 done
 #shellcheck disable=1091
 [ -e /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
-:
 
-source /home/mendess/.config/broot/launcher/bash/br
+#shellcheck disable=1091
+[ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
+:
