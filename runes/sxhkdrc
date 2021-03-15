@@ -230,6 +230,9 @@ super + shift + i
         sed 's|^|https://github.com/|' | \
         xargs --no-run-if-empty $BROWSER
 
+super + shift + o
+	echo -e 'i3lock -t -e --image=$HOME/.local/share/wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now\nssh mirrodin python bulb/turn_off.py;poweroff' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 5 | sh
+
 ###### bspwm
 super + shift + space
     bspc node -t \~floating
@@ -311,9 +314,6 @@ super + alt + i
 
 # super + shift + i
 #     for n in $(bspc query --nodes); do bspc node $n -g hidden; done
-
-super + shift + o
-	echo -e 'i3lock -t -e --image=$HOME/.local/share/wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now\nssh mirrodin python bulb/turn_off.py;poweroff' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 5 | sh
 
 super + shift + r
 	bspc node @parent -R 90
