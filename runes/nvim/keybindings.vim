@@ -78,8 +78,13 @@ fu! CompileC()
         !./%:r
     endif
 endfu
-nnoremap <leader>z :set foldmethod=indent<CR>
+nnoremap <leader>r :call Run()<CR>
+fu! Run()
+    write
+    exec '!' &filetype '%'
+endfu
 
+nnoremap <leader>z :set foldmethod=indent<CR>
 " tabs
 noremap <A-1> 1gt
 noremap <A-2> 2gt

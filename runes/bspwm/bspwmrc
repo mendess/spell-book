@@ -22,8 +22,8 @@ while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
     echo "${geometry[@]}"
     if [[ "${geometry[2]}" != 0 ]]; then
-        steps="$(( ( (geometry[2] - 1) / 1920) + 1 ))"
-        new_monitors+=("${geometry[0]}x0+$(( steps * 1920))+0")
+        steps="$((((geometry[2] - 1) / 1920) + 1))"
+        new_monitors+=("${geometry[0]}x0+$((steps * 1920))+0")
     else
         new_monitors+=("${geometry[0]}x0+0+0")
     fi
@@ -75,9 +75,18 @@ case "${#monitors[@]}" in
         esac
         ;;
     3)
-        bspc monitor ^1 -d 1 2 3
-        bspc monitor ^2 -d 4 5 6
-        bspc monitor ^3 -d 7 8 9 0
+        case "$(hostname)" in
+            kaladesh)
+                bspc monitor ^1 -d 1 2 3 4
+                bspc monitor ^2 -d 5 6 7 8
+                bspc monitor ^3 -d 9 0
+                ;;
+            *)
+                bspc monitor ^1 -d 1 2 3
+                bspc monitor ^2 -d 4 5 6
+                bspc monitor ^3 -d 7 8 9 0
+                ;;
+        esac
         ;;
     4)
         bspc monitor ^1 -d 1
