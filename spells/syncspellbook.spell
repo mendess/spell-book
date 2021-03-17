@@ -22,7 +22,9 @@ sync() {
             awk '{print $2}' |
             xargs -L1 dirname |
             xargs -L1 basename |
-            sort -u)
+            sort |
+            uniq -c |
+            sed -E 's/^\s+//g')
     fi
     if [[ "${#files[@]}" -gt 0 ]]; then
         file_str=$(printf "[%s]" "${files[@]}")
