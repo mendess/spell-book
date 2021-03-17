@@ -293,7 +293,7 @@ bar_args=()
 i=0
 for mon in "${monitors[@]}"; do
     echo "$mon"
-    hc pad "$((i++))" 22
+    hc pad "$((i++))" 22 0 0 0
     bar_args+=('--bar' "${mon}")
 done
 unset i
