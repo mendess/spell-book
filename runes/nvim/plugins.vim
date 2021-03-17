@@ -166,7 +166,7 @@ if work_pc
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Symbol renaming.
-    nmap <leader>r <Plug>(coc-rename)
+    nmap <leader>c <Plug>(coc-rename)
 else
     nnoremap gd :ALEGoToDefinition<CR>
     nnoremap <F10> :ALEPreviousWrap<CR>

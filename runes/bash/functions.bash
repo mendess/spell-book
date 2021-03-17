@@ -204,7 +204,7 @@ share() { (
     url="http://mendess.xyz/file/$filename"
     if command -v termux-clipboard-set &>/dev/null; then
         echo -n "$url" | termux-clipboard-set
-    else
+    elif [[ "$DISPLAY" ]]; then
         echo -n "$url" | xclip -sel clip
     fi
     echo "$url"

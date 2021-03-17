@@ -1,4 +1,6 @@
 #!/bin/bash
+#shellcheck disable=1091
+#shellcheck disable=1090
 
 [[ $- != *i* ]] && return
 
@@ -31,12 +33,9 @@ fi
 
 for f in "$SPELLS"/runes/bash/*.bash
 do
-    #shellcheck disable=SC1090
     source "$f"
 done
-#shellcheck disable=1091
 [ -e /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 
-#shellcheck disable=1091
 [ -f ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
 :

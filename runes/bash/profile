@@ -1,4 +1,6 @@
 #!/bin/bash
+#shellcheck disable=SC1090
+#shellcheck disable=SC1091
 
 export RTV_EDITOR='nvim'
 export VISUAL='nvim'
@@ -37,7 +39,6 @@ export BOOKMARKS="$XDG_CONFIG_HOME/quickbrowser/bookmarks"
 export LINKS="$XDG_DATA_HOME"/links
 export WALLPAPERS=$XDG_DATA_HOME/wallpapers
 
-#shellcheck disable=1090
 . ~/.config/user-dirs.dirs
 
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
@@ -69,7 +70,6 @@ export PATH="$PATH:$CARGO_HOME/bin"
 # hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 # hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
 
-#shellcheck disable=1090
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
 if [ "$tty" = "/dev/tty1" ]; then

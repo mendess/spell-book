@@ -85,9 +85,6 @@ hc keybind $Mod-apostrophe or \
             . split left 0.25 \
             . focus_edge -i right \
             . split right 0.67 \
-            . focus right \
-            . focus left \
-            . focus left \
     ^ and \
         + remove_attr tags.focus.my_pseudo_tiled \
         + chain \
@@ -290,7 +287,7 @@ hc unlock
 hc detect_monitors
 
 pkill sxhkd
-daemonise sxhkd -c ~/tmp-wm-swap/sxhkdrc -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
+daemonise sxhkd -m -1 -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
 
 bar_args=()
 i=0
@@ -302,7 +299,7 @@ done
 unset i
 
 pkill lemon
-daemonise lemon -c ~/tmp-wm-swap/lemonrc.md --tray "${bar_args[@]}"
+daemonise lemon --tray "${bar_args[@]}"
 set +x
 retries=0
 sleep 1.5

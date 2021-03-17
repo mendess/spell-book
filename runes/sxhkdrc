@@ -2,38 +2,21 @@
 # F1
 #     : # fuck help pages
 
-super + F5
-    $TERMINAL -o font.size=8 -e bash -c 'ssh mirrodin cat scraping/all.sh | bash; read -n1'
-
 super + Return
   	$TERMINAL
 
-#super + shift + Return
-#    if xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME WM_CLASS | grep -i jetbrains; then \
-#        $TERMINAL -e sh -c "cd $(xdotool search JetBrains getwindowname | perl -ne 's/[^\[]*\[([^\]]*)].*$/\1/g and print'); bash"; \
-#    else \
-#  	    termFromHere; \
-#    fi
+super + shift + Return
+    if xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME WM_CLASS | grep -i jetbrains; then \
+        $TERMINAL -e sh -c "cd $(xdotool search JetBrains getwindowname | perl -ne 's/[^\[]*\[([^\]]*)].*$/\1/g and print'); bash"; \
+    else \
+  	    termFromHere; \
+    fi
 
 super + control + Return
-    id=$(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5); \
-    if xprop -id $id WM_CLASS | grep -ioEq 'jetbrains[^ ]+'; then \
-        filename="$(xprop -id $id _NET_WM_NAME |\
-                    cut -d '"' -f2 | \
-                    grep -Eo '[^ ]+\.[^ ]+' | \
-                    head -1)"; \
-        dirpath="$(find ~/projects/ -name "$filename" | xargs dirname)"; \
-        while [ ! -e "$dirpath/.idea" ] && [ "$dirpath" != '.' ] && [ "$dirpath" != '/' ]; do \
-            dirpath="$(dirname "$dirpath")"; \
-        done; \
-        $TERMINAL --class floating-terminal -e sh -c "cd $dirpath; bash"; \
-    else \
-  	    termFromHere --class floating-terminal; \
-    fi
+    termFromHere --class floating-terminal
 
 super + d
     cmd=$( (pacman -Qqe | sed -E 's/-(git|bin|desktop)//g' | while read -r cmd; do command -v "$cmd" 2>/dev/null; done & \
-                  game spit & \
                   find ~/.local/bin ! -type d & \
                   find ~/.local/share/cargo/bin ! -type d) | xargs -L1 basename | dmenu -i -l 20); \
     case $cmd in \
@@ -41,8 +24,8 @@ super + d
     * ) ${cmd} ;; \
     esac & disown
 
-super + shift + f
-    $TERMINAL --class floating-terminal,floating-terminal -e f launcher
+# super + shift + f
+#     $TERMINAL --class floating-terminal,floating-terminal -e f launcher
 
 super + shift + d
   	menu GUI
@@ -105,8 +88,7 @@ super + shift + c
 super + alt + v
     mkdir -p /tmp/vim-anywhere ; \
     file=$(mktemp --tmpdir=/tmp/vim-anywhere) ; \
-    bspc rule -a \* -o state=floating; \
-    "$TERMINAL" -e nvim -c startinsert "$file" ; \
+    "$TERMINAL" --class floating-terminal -e nvim -c startinsert "$file" ; \
     [ "$(cat "$file")" ] && xclip -selection c < "$file"
 
 super + w
@@ -137,18 +119,15 @@ super + @Print
     snapit floating
 
 super + control + s
-    bspc rule -a \* -o state=floating; \
   	$TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
 
 super + t
   	$TERMINAL -e htop
 
 super + c
-    bspc rule -a \* -o state=floating; \
   	$TERMINAL --class floating-terminal --title floating-terminal -e bc -lq
 
 super + x
-    bspc rule -a \* -o state=floating; \
   	$TERMINAL \
         --option window.dimensions.columns=80 \
         --option window.dimensions.lines=25 \
@@ -234,119 +213,67 @@ super + shift + o
 	echo -e 'i3lock -t -e --image=$HOME/.local/share/wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now\nssh mirrodin python bulb/turn_off.py;poweroff' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 5 | sh
 
 ###### bspwm
-super + shift + space
-    bspc node -t \~floating
+#super + space
+#	if bspc query --nodes --node focused.floating; then \
+#		bspc node last.local.\!floating -f; \
+#	else \
+#		bspc node last.local.floating -f; \
+#	fi
 
-super + space
-	if bspc query --nodes --node focused.floating; then \
-		bspc node last.local.\!floating -f; \
-	else \
-		bspc node last.local.floating -f; \
-	fi
+#super + shift + control + q
+#    bspc node -k
 
-super + f
-    bspc node -t \~fullscreen
+#super + {_,shift +} Tab
+#	bspc desktop -f {next,prev}.local.occupied
 
-super + shift + q
-    bspc node -c
+#super + e
+#	bspc desktop --layout next
 
-super + shift + control + q
-    bspc node -k
+##super + {_,shift +} n
+##	bspc desktop --bubble {next,prev}
 
-super + shift + {h,j,k,l}
-    d='{west:-10 0,south:0 10,north:0 -10,east:10 0}'; \
-    if [ -n "$(bspc query -N -n focused.floating)" ]; then \
-        bspc node --move $(echo "$d" | cut -d: -f2); \
-    else \
-        bspc node --swap $(echo "$d" | cut -d: -f1); \
-    fi
+#super + g
+#	bspc node -s biggest.local
 
-super + {1-9,0}
-	bspc desktop -f ^{1-9,10}
+#super + shift + e
+#	bspc node $(bspc query --nodes --desktop | head -1) --equalize
 
-super + shift + {1-9,0}
-    bspc node -d '^{1-9,10}' --follow
+#super + r
+#	bspc node $(bspc query --nodes --desktop | head -1) --circulate forward
 
-super + control + {1-9,0}
-    bspc node -d '^{1-9,10}'
+#super + i
+#	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
 
-super + alt + {h,l}
-	bspc node --to-monitor {prev,next} --follow
+#super + control + i
+#	bspc node -g hidden
 
-super + shift + F5
-    bspc wm --restart ; notify-send -t 500 -u low 'reset done' -a bspwm
+#super + alt + i
+#    bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
 
-alt + Tab
-	bspc desktop -f last.occupied
+## super + shift + i
+##     for n in $(bspc query --nodes); do bspc node $n -g hidden; done
 
-super + {_,shift +} Tab
-	bspc desktop -f {next,prev}.local.occupied
+#super + shift + r
+#	bspc node @parent -R 90
 
-super + e
-	bspc desktop --layout next
-
-#super + {_,shift +} n
-#	bspc desktop --bubble {next,prev}
-
-super + g
-	bspc node -s biggest.local
-
-super + shift + e
-	bspc node $(bspc query --nodes --desktop | head -1) --equalize
-
-super + r
-	bspc node $(bspc query --nodes --desktop | head -1) --circulate forward
-
-super + q ; {h,j,k,l}
-	bspc node --presel-dir \~{west,south,north,east}
-
-super + {_,shift +} apostrophe
-	bspc node -t {\~pseudo_tiled,tiled}
-
-super + i
-	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
-
-super + control + i
-	bspc node -g hidden
-
-super + alt + i
-    bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
-
-# super + shift + i
-#     for n in $(bspc query --nodes); do bspc node $n -g hidden; done
-
-super + shift + r
-	bspc node @parent -R 90
-
-super + control + {h,j,k,l}
-	dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
-    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} || bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
+#super + control + {h,j,k,l}
+#	dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
+#    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} || bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
 
 
-super + {h,j,k,l}
-	dir={(west prev),(south prev),(north next),(east next)}; \
-	if bspc query --nodes --node focused.floating; then \
-	    bspc node --focus $\{dir[1]\}.floating.local; \
-    else \
-	    bspc node --focus $\{dir[0]\}".!floating"; \
-    fi
+##	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
 
-#	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
+#super + shift + s
+#    bspc node -g sticky
 
-super + shift + s
-    bspc node -g sticky
+#super + shift + m
+#    if marked=$(bspc query -N -n .marked); then \
+#        bspc node --swap $marked ; \
+#        bspc node $marked -g 'marked=off' ; \
+#    else \
+#        bspc node -g marked ; \
+#    fi
 
-super + shift + m
-    if marked=$(bspc query -N -n .marked); then \
-        bspc node --swap $marked ; \
-        bspc node $marked -g 'marked=off' ; \
-    else \
-        bspc node -g marked ; \
-    fi
-
-super + colon
-    bspc node --state pseudo_tiled; \
-    bspc node --resize bottom_right 50 800
-
-#m
-#    case "$((RANDOM % 10))" in 0) mpv ~/.out.mp3 ;; esac ; xdotool key m
+#super + colon
+#    bspc node --state pseudo_tiled; \
+#    bspc node --resize bottom_right 50 800

@@ -1,123 +1,58 @@
 #!/bin/bash
-
-# COLOR_DEFAULT_FG="#a7a5a5"
-# COLOR_DEFAULT_BG="#333232"
-
-num_mon=$(bspc query -M | wc -l)
-
-
-#SCROLL_ACTIONS="%{A4:bspc desktop -f prev.local.occupied:}%{A5:bspc desktop -f next.local.occupied:}"
-#SCROLL_CLOSE="%{A}%{A}"
-MON=${LEMON_MONITOR:-0}
-echo "monitor: $MON" >&2
-while read -r line ; do
+get_cmd() {
+    echo "$1" >&2
+    herbstclient list_keybinds | grep -F "Mod4+$1" | cut -f2- | tee /dev/stderr
+}
+hc=herbstclient
+set -x
+while
     # shellcheck disable=1090
     . "$(dirname "$0")/workspaces_colors"
-    case $line in
-        W*)
-            # bspwm's state
-            wm=
-            IFS=':'
-            #shellcheck disable=2086
-            set -- ${line#?}
-            cur_mon=0
-            while [ $# -gt 0 ] ; do
-                item=$1
-                name=${item#?}
-                case $item in
-                    [mM]*)
-                        case $item in
-                            m*)
-                                # monitor
-                                FG=$COLOR_MONITOR_FG
-                                BG=$COLOR_MONITOR_BG
-                                on_focused_monitor=
-                                ;;
-                            M*)
-                                # focused monitor
-                                FG=$COLOR_FOCUSED_MONITOR_FG
-                                BG=$COLOR_FOCUSED_MONITOR_BG
-                                on_focused_monitor=1
-                                ;;
-                        esac
-                        [ "$num_mon" -lt 2 ] && shift && continue
-                        shift
-                        if [ "$cur_mon" != "$MON" ]; then
-                            while [ $# -gt 0 ] && [[ "$1" != [mM]* ]]; do shift; done
-                        fi
-                        cur_mon=$(( cur_mon + 1 ))
-                        continue
-                        ;;
-                    [fFoOuU]*)
-                        case $item in
-                            f*)
-                                shift
-                                continue
-                                ;;
-                            F*)
-                                if [ "$on_focused_monitor" ] ; then
-                                    # focused free desktop
-                                    FG=$COLOR_FOCUSED_FREE_FG
-                                    BG=$COLOR_FOCUSED_FREE_BG
-                                    UL=$COLOR_FOCUSED_FREE_UL
-                                else
-                                    # active free desktop
-                                    FG=$COLOR_ACTIVE_FREE_FG
-                                    BG=$COLOR_ACTIVE_FREE_BG
-                                    UL=$COLOR_ACTIVE_FREE_UL
-                                fi
-                                ;;
-                            o*)
-                                # occupied desktop
-                                FG=$COLOR_OCCUPIED_FG
-                                BG=$COLOR_OCCUPIED_BG
-                                UL=$COLOR_OCCUPIED_UL
-                                ;;
-                            O*)
-                                if [ "$on_focused_monitor" ] ; then
-                                    # focused occupied desktop
-                                    FG=$COLOR_FOCUSED_OCCUPIED_FG
-                                    BG=$COLOR_FOCUSED_OCCUPIED_BG
-                                    UL=$COLOR_FOCUSED_OCCUPIED_UL
-                                else
-                                    # active occupied desktop
-                                    FG=$COLOR_ACTIVE_OCCUPIED_FG
-                                    BG=$COLOR_ACTIVE_OCCUPIED_BG
-                                    UL=$COLOR_ACTIVE_OCCUPIED_UL
-                                fi
-                                ;;
-                            u*)
-                                # urgent desktop
-                                FG=$COLOR_URGENT_FG
-                                BG=$COLOR_URGENT_BG
-                                UL=$COLOR_URGENT_UL
-                                ;;
-                            U*)
-                                if [ "$on_focused_monitor" ] ; then
-                                    # focused urgent desktop
-                                    FG=$COLOR_FOCUSED_URGENT_FG
-                                    BG=$COLOR_FOCUSED_URGENT_BG
-                                    UL=$COLOR_FOCUSED_URGENT_UL
-                                else
-                                    # active urgent desktop
-                                    FG=$COLOR_URGENT_FG
-                                    BG=$COLOR_URGENT_BG
-                                    UL=$COLOR_URGENT_UL
-                                fi
-                                ;;
-                        esac
-                        wm="${wm}%{F${FG}}%{B${BG}}%{U${UL}}%{+u}%{A1:bspc desktop -f '${name}':}%{A2:bspc desktop -f '${name}':} ${name} %{A}%{A}%{U-}%{B-}%{F-}%{-u}"
-                        ;;
-                    LT) ;;
-                    [LG]?) # [LTG]
-                        # layout, state and flags
-                        wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
-                        ;;
-                esac
-                shift
-            done
-            ;;
-    esac
-    echo "${wm}"
-done < <(bspc subscribe report)
+    wm=
+    i=0
+    while IFS=$'\n' read -r t; do
+        [[ "$t" ]] || continue
+        i=$(( (i + 1) % 10 ))
+        name=${t:1:${#t}}
+        case "$t" in
+            .*) # empty unfocused
+                continue
+                ;;
+            -* | %*) # not on this monitor
+                continue
+                ;;
+            :*) # occupied unfocused
+                FG=$COLOR_OCCUPIED_FG
+                BG=$COLOR_OCCUPIED_BG
+                UL=$COLOR_OCCUPIED_UL
+                ;;
+            +*) # occupied active
+                FG=$COLOR_ACTIVE_OCCUPIED_FG
+                BG=$COLOR_ACTIVE_OCCUPIED_BG
+                UL=$COLOR_ACTIVE_OCCUPIED_UL
+                ;;
 
+            \#*) # focused
+                FG=$COLOR_FOCUSED_OCCUPIED_FG
+                BG=$COLOR_FOCUSED_OCCUPIED_BG
+                UL=$COLOR_FOCUSED_OCCUPIED_UL
+                ;;
+            !*) # urgent
+                FG=$COLOR_URGENT_FG
+                BG=$COLOR_URGENT_BG
+                UL=$COLOR_URGENT_UL
+                ;;
+        esac
+        [[ "$($hc attr tags.by-name."$name".my_monitor)" != "$LEMON_MONITOR" ]] &&
+            continue
+        colors="%{F${FG}}%{B${BG}}%{U${UL}}%{+u}"
+        focus_cmd=$(get_cmd "$i")
+        actions="%{A1:$hc $focus_cmd:}%{A2:$hc $focus_cmd:}"
+        end="%{A}%{A}%{U-}%{B-}%{F-}%{-u}"
+        wm="${wm}${colors}${actions} $name ${end}"
+    done < <(herbstclient tag_status "$LEMON_MONITOR" | tr '\t' '\n')
+    echo "${wm}"
+    read -r _
+do
+    :
+done < <(herbstclient -i 'tag_changed|tag_flags|tag_added|tag_removed|tag_renamed')
