@@ -14,13 +14,28 @@ symlinks() {
 
 sync() {
     localRemote="$(git log --format=%H -1)" # latest known commit
+    mapfile -t files < <(git status --porcelain |
+        awk '{print $2}' |
+        xargs -L1 basename)
+    if [[ "${#files[@]}" -gt 4 ]]; then
+        mapfile -t files < <(git status --porcelain |
+            awk '{print $2}' |
+            xargs -L1 dirname |
+            xargs -L1 basename |
+            sort -u)
+    fi
+    if [[ "${#files[@]}" -gt 0 ]]; then
+        file_str=$(printf "[%s]" "${files[@]}")
+    fi
     echo -en "\033[32m"
     git add --verbose --all
     echo -en "\033[0m"
 
     if ! git diff-index --quiet HEAD --; then
         hasCommits="true"
-        git commit -m"Backup $1 | $(uname -n | sed 's/localhost/powerstone/g')@$(date '+%d/%m/%y %H:%M')"
+        name=$(uname -n | sed 's/localhost/powerstone/g')
+        now=$(date '+%d/%m/%y %H:%M')
+        git commit -m"Backup $1 | $name@$now $file_str"
     elif [ -n "$(git rev-list '@{u}'..)" ]; then
         hasCommits="true"
     else
