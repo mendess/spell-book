@@ -80,25 +80,25 @@ hc keybind $Mod-f fullscreen toggle
 #hc keybind $Mod-apostrophe pseudotile toggle
 hc keybind $Mod-apostrophe or \
     ^ and \
-        + new_attr bool tags.focus.my_pseudo_tiled \
-        + chain \
-            . split left 0.25 \
-            . focus_edge -i right \
-            . split right 0.67 \
+    + new_attr bool tags.focus.my_pseudo_tiled \
+    + chain \
+    . split left 0.25 \
+    . focus_edge -i right \
+    . split right 0.67 \
     ^ and \
-        + remove_attr tags.focus.my_pseudo_tiled \
-        + chain \
-            . focus_edge -i right \
-            . remove \
-            . focus_edge -i left \
-            . remove
+    + remove_attr tags.focus.my_pseudo_tiled \
+    + chain \
+    . focus_edge -i right \
+    . remove \
+    . focus_edge -i left \
+    . remove
 
 hc keybind $Mod-F7 chain \
     + lock \
     + or , \
-           and . compare settings.frame_normal_opacity = 0 \
-               . attr settings.frame_normal_opacity 1 \
-         , attr settings.frame_normal_opacity 0 \
+    and . compare settings.frame_normal_opacity = 0 \
+    . attr settings.frame_normal_opacity 1 \
+    , attr settings.frame_normal_opacity 0 \
     + unlock
 hc keybind $Mod-i spawn "$(dirname "$0")/scratchpad"
 # The following cycles through the available layouts within a frame, but skips
@@ -106,8 +106,8 @@ hc keybind $Mod-i spawn "$(dirname "$0")/scratchpad"
 # I.e. if there are two windows within a frame, the grid layout is skipped.
 hc keybind $Mod-e or \
     , and \
-        . compare tags.focus.curframe_wcount = 2 \
-        . cycle_layout +1 vertical horizontal max vertical grid \
+    . compare tags.focus.curframe_wcount = 2 \
+    . cycle_layout +1 vertical horizontal max vertical grid \
     , cycle_layout +1
 hc keybind $Mod-Shift-r rotate
 
@@ -266,9 +266,18 @@ case "${#monitors[@]}" in
         esac
         ;;
     3)
-        lock_tag_to_monitor 0 "${tag_names[@]::3}"
-        lock_tag_to_monitor 1 "${tag_names[@]:3:3}"
-        lock_tag_to_monitor 2 "${tag_names[@]:6}"
+        case "$(hostname)" in
+            kaladesh)
+                lock_tag_to_monitor 0 "${tag_names[@]::4}"
+                lock_tag_to_monitor 1 "${tag_names[@]:8}"
+                lock_tag_to_monitor 2 "${tag_names[@]:4:4}"
+                ;;
+            *)
+                lock_tag_to_monitor 0 "${tag_names[@]::3}"
+                lock_tag_to_monitor 1 "${tag_names[@]:3:3}"
+                lock_tag_to_monitor 2 "${tag_names[@]:6}"
+                ;;
+        esac
         ;;
     4)
         lock_tag_to_monitor 0 "${tag_names[0]}"
