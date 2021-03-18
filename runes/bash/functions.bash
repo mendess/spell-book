@@ -110,19 +110,19 @@ vimbd() {
     exit
 }
 
-svim() { (
-    cd "$SPELLS" || return 1
-    if [ -n "$1" ]; then
-        "$EDITOR" "$1"
-    else
-        local DIR
-        DIR="$(find . -type f |
-            grep -vP '\.git|library' |
-            sed 's|^./||g' |
-            fzf)"
-        [ -n "$DIR" ] && "$EDITOR" "$DIR"
-    fi
-); }
+# svim() { (
+#     cd "$SPELLS" || return 1
+#     if [ -n "$1" ]; then
+#         "$EDITOR" "$1"
+#     else
+#         local DIR
+#         DIR="$(find . -type f |
+#             grep -vP '\.git|library' |
+#             sed 's|^./||g' |
+#             fzf)"
+#         [ -n "$DIR" ] && "$EDITOR" "$DIR"
+#     fi
+# ); }
 
 k() {
     if lsusb | grep -E 'Mechanical|Keyboard|Kingston' &>/dev/null; then

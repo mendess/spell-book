@@ -18,7 +18,7 @@
  - [del_rss_feed](./spells/del_rss_feed.spell) - Script to be used by newsboat to delete the selected rss feed
  - [die_now](./spells/die_now.spell) - Auto shutdown that sets slowly dims the light, slowly lowers the song volume, and turns of the monitor(s)
  - [ex](./spells/ex.spell) - Extract anything
- - [f](./spells/f.spell) - A fzf file finder I stole from [matilde](https://github.com/matildeopbravo)
+ - [f](./spells/f.spell)
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [naoseioquefaco](./spells/naoseioquefaco.spell) - A gift from the love of my life [matilde](https://github.com/matildeopbravo)

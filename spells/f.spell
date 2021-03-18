@@ -1,14 +1,18 @@
 #!/bin/bash
-# A fzf file finder I stole from
-# [matilde](https://github.com/matildeopbravo)
 
-if [ "$1" == "a" ]; then
-    find_type='find . -type f ! \( -name "*.aux" -o -name "*.log" -o -name "*dvi" -o -name "*.hi" -o -name "*.o" \)'
-else
-    find_type='find . -type f -not -path "*/\.*" ! \( -name "*.aux" -o -name "*.log" -o -name "*dvi" -o -name "*.hi" -o -name "*.o" \)'
-fi
-
-file=$(FZF_DEFAULT_COMMAND="$find_type" fzf --preview-window=right:60% --preview='bat --color "always" {}')
+dir="."
+exclude_hidden='-not -path "*/\.*"'
+[ "$#" -gt 2 ] && exit
+for arg in "$@";do
+    case "$arg" in
+        --hidden|-h) unset exclude_hidden
+            ;;
+        *) dir="$arg"
+    esac
+done
+find_type='find '$dir' -type f '"$exclude_hidden"' ! \( -name "*.aux" -o -name "*.log" -o -name "*dvi" -o -name "*.hi" -o -name "*.o" \)""'
+export FZF_DEFAULT_COMMAND="$find_type"
+file=$(fzf --preview-window=right:60% --preview='bat --color "always" {}')
 if [ -z "$file" ]; then
     exit
 fi
@@ -16,12 +20,14 @@ fi
 filetype=$(xdg-mime query filetype "$file")
 app=$(xdg-mime query default "$filetype")
 
-if [ "$app" == "nvim.desktop" ]; then
+
+if [ "$app" == "nvim.desktop" ]
+then
     nvim "$file"
-elif [ "$1" == "launcher" ]; then
+elif [ "$1" == "launcher" ]
+then
     setsid /bin/sh -c "xdg-open $file" &>/dev/null </dev/null &
     sleep 0.01
 else
-    xdg-open "$file" &
-    disown
+    xdg-open "$file" & disown
 fi
