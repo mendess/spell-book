@@ -303,7 +303,7 @@ lyrics() {
 fcd() {
     local dir
     for i in {0..64}; do
-        printf "depth: %d" $i
+        printf "depth: %d" "$i"
         dir="$(find -L . -maxdepth "$i" -type d ! -path './.*' |
             grep -i "$*" |
             head -1)"
@@ -443,4 +443,12 @@ sshfs() {
         mkdir -p "$2" || return
     fi
     command sshfs "$@"
+}
+
+bak() {
+    if [[ "$1" = *bak ]]; then
+        cp "$1" "${1%.bak}"
+    else
+        cp "$1" "$1.bak"
+    fi
 }

@@ -16,7 +16,7 @@ sync() {
     localRemote="$(git log --format=%H -1)" # latest known commit
     mapfile -t files < <(git status --porcelain |
         awk '{print $2}' |
-        xargs -L1 basename)
+        xargs --no-run-if-empty -L1 basename)
     if [[ "${#files[@]}" -gt 4 ]]; then
         mapfile -t files < <(git status --porcelain |
             awk '{print $2}' |
