@@ -52,4 +52,4 @@
 ~/.config/khal/config,khal
 ~/.config/vdirsyncer/config,vdirsyncer
 ~/.config/htop/htoprc,htoprc,generated
-~/.config/herbstluftwm/autostart,herbstluftwm
+~/.config/herbstluftwm,herbstluftwm
