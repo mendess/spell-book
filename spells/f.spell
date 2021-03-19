@@ -10,7 +10,7 @@ for arg in "$@";do
         *) dir="$arg"
     esac
 done
-find_type='find '$dir' -type f '"$exclude_hidden"' ! \( -name "*.aux" -o -name "*.log" -o -name "*dvi" -o -name "*.hi" -o -name "*.o" \)""'
+find_type='find '$dir' -maxdepth 7 -type f '"$exclude_hidden"' ! \( -name "*.aux" -o -name "*.log" -o -name "*dvi" -o -name "*.hi" -o -name "*.o" \)""'
 export FZF_DEFAULT_COMMAND="$find_type"
 file=$(fzf --preview-window=right:60% --preview='bat --color "always" {}')
 if [ -z "$file" ]; then
