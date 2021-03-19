@@ -1,6 +1,6 @@
 autocmd FileType c call BoilerplateC()
 fu! BoilerplateC()
-    if len(getline(1)) == 0
+    if line('$') == 1
         if expand("%:e") == "h" || expand("%:e") == "hpp"
             call BoilerplateHeader()
         else
@@ -17,7 +17,7 @@ endfu
 
 autocmd FileType cpp call BoilerplateCPP()
 fu! BoilerplateCPP()
-    if len(getline(1)) == 0
+    if line('$') == 1
         if expand("%:e") == "h" || expand("%:e") == "hpp"
             call BoilerplateHeader()
         else
@@ -45,7 +45,7 @@ endfu
 
 autocmd FileType rust call BoilerplateRS()
 fu! BoilerplateRS()
-    if len(getline(1)) == 0
+    if line('$') == 1
         call append(0, "fn main() {")
         call append(1, "")
         call append(2, "}")
@@ -55,7 +55,7 @@ endfu
 
 autocmd FileType java call BoilerplateJava()
 fu! BoilerplateJava()
-    if len(getline(1)) == 0
+    if line('$') == 1
         call append(0, "import java.util.*;")
         call append(1, "")
         call append(2, "public class ".expand('%:r')." {")
@@ -68,7 +68,7 @@ fu! BoilerplateJava()
 endfu
 autocmd FileType html call BoilerplateHtml()
 fu! BoilerplateHtml()
-    if len(getline(1)) == 0
+    if line('$') == 1
         call append(0, "<!DOCTYPE html>")
         call append(1, "<html>")
         call append(2, "    <head>")
