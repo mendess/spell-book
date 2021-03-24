@@ -78,6 +78,12 @@ fu! CompileC()
         !./%:r
     endif
 endfu
+au FileType rust nnoremap <leader>r :call RunRust()<CR>
+fu! RunRust()
+    write
+    !rustc %
+    !./%:r
+endfu
 nnoremap <leader>r :call Run()<CR>
 fu! Run()
     write

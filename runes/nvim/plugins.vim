@@ -150,6 +150,7 @@ if work_pc
     nmap <silent> <A-Enter> :CocFix<CR>
 
     " Use K to show documentation in preview window.
+    au FileType c,sh nnoremap K :Man<CR>
     nnoremap <silent> K :call <SID>show_documentation()<CR>
 
     function! s:show_documentation()
