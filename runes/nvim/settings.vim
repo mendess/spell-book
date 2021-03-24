@@ -128,3 +128,6 @@ augroup Mkdir
   autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
 augroup END
 autocmd! BufNewFile,BufRead,BufReadPost,BufWritePost *.h set filetype=c
+
+" show me the tabs
+set listchars=tab:>-
