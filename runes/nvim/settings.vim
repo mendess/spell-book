@@ -94,6 +94,7 @@ iabbrev Tiem item
 iabbrev deamon daemon
 iabbrev Deamon Daemon
 iabbrev reutrn return
+iabbrev retunr return
 iabbrev reutnr return
 iabbrev brian brain
 
@@ -130,4 +131,5 @@ augroup END
 autocmd! BufNewFile,BufRead,BufReadPost,BufWritePost *.h set filetype=c
 
 " show me the tabs
+set list
 set listchars=tab:>-

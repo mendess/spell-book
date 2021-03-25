@@ -201,6 +201,17 @@ else
                 \ 'procMacro': { 'enable': v:true },
                 \ 'cargo': { 'loadOutDirsFromCheck': v:true },
                 \ }
+
+    au FileType c,sh nnoremap K :Man<CR>
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        else
+            execute :ALEHover
+        endif
+    endfunction
 endif
 
 
