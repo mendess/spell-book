@@ -1,12 +1,14 @@
 #!/bin/bash
 exec 2>&1
 set -x
+trap EXIT 'herbstclient unlock'
 
 hc() {
     herbstclient "$@"
 }
 
 daemonise() { (
+    set +x
     # Close all but stdio
     local self=$BASHPID
     [[ "$1" = sxhkd ]] && find /proc/$self/fd -type l -printf '%f\n'
@@ -197,17 +199,9 @@ is_taken() {
 while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
     echo "${geometry[@]}"
-    if [[ "${geometry[2]}" != 0 ]]; then
-        steps="$((((geometry[2] - 1) / 1920) + 1))"
-        monitors+=("${geometry[0]}x0+$((steps * 1920))+0")
-    else
-        monitors+=("${geometry[0]}x0+0+0")
-    fi
-done < <(xrandr --listactivemonitors |
-    sed 1d |
-    cut -d' ' -f4 |
-    sed -E 's|/[0-9]+||g' |
-    sort -nt+ -k3)
+    monitors+=("${geometry[0]}x0+$((steps * 1920))+0")
+    ((steps++))
+done < <(hc list_monitors | awk '{print $2}')
 
 # tags
 tag_names=({1..9} 0)
@@ -269,8 +263,8 @@ case "${#monitors[@]}" in
         case "$(hostname)" in
             kaladesh)
                 lock_tag_to_monitor 0 "${tag_names[@]::4}"
-                lock_tag_to_monitor 1 "${tag_names[@]:8}"
-                lock_tag_to_monitor 2 "${tag_names[@]:4:4}"
+                lock_tag_to_monitor 1 "${tag_names[@]:4:4}"
+                lock_tag_to_monitor 2 "${tag_names[@]:8}"
                 ;;
             *)
                 lock_tag_to_monitor 0 "${tag_names[@]::3}"
@@ -308,7 +302,7 @@ done
 unset i
 
 pkill lemon
-daemonise lemon --tray "${bar_args[@]}"
+daemonise lemon --tray "${bar_args[@]}" &>/tmp/lemonbar.log
 set +x
 retries=0
 sleep 1.5

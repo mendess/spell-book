@@ -58,7 +58,7 @@ fu! BoilerplateJava()
     if line('$') == 1
         call append(0, "import java.util.*;")
         call append(1, "")
-        call append(2, "public class ".expand('%:r')." {")
+        call append(2, "public class ".expand('%:t:r')." {")
         call append(3, "    public static void main(String[] args) {")
         call append(4, "        System.out.println(\"Hello world\");")
         call append(5, "    }")

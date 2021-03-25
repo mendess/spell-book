@@ -27,6 +27,9 @@ rect=(
     $((${mrect[1]}+(height/4)))
 )
 
+trap EXIT "herbstclient unlock"
+hc lock
+
 hc add "$tag"
 
 monitor=scratchpad
@@ -43,11 +46,11 @@ else
             set_attr monitors.by-name."$monitor".my_prev_focus M
 fi
 
+hc pad $(hc attr monitors.focus.index) 22 0 0 0
+
 show() {
-    hc lock
     hc raise_monitor "$monitor"
     hc focus_monitor "$monitor"
-    hc unlock
     hc lock_tag "$monitor"
 }
 
@@ -66,3 +69,4 @@ else
     show
 fi
 
+hc unlock

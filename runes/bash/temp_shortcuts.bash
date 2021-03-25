@@ -24,6 +24,7 @@ deploy_to() {
         --exclude=__pycache__ \
         --exclude=.vim \
         --exclude=.mypy_cache \
+        --exclude=.env \
         "$@"
 }
 alias deploy='deploy_to master_image'

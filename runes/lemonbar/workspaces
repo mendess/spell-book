@@ -4,7 +4,6 @@ get_cmd() {
     herbstclient list_keybinds | grep -F "Mod4+$1" | cut -f2- | tee /dev/stderr
 }
 hc=herbstclient
-set -x
 while
     # shellcheck disable=1090
     . "$(dirname "$0")/workspaces_colors"

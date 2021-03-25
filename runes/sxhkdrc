@@ -86,9 +86,11 @@ super + shift + c
   	$TERMINAL -e ikhal
 
 super + alt + v
-    mkdir -p /tmp/vim-anywhere ; \
-    file=$(mktemp --tmpdir=/tmp/vim-anywhere) ; \
-    "$TERMINAL" --class floating-terminal -e nvim -c startinsert "$file" ; \
+    extension=$(dmenu -p "Enter extension"); \
+    [[ "$extension" ]] || extension=txt; \
+    mkdir -p /tmp/vim-anywhere; \
+    file=$(mktemp "/tmp/vim-anywhere/cenasXXXXXX.$extension"); \
+    "$TERMINAL" -e nvim  "$file"; \
     [ "$(cat "$file")" ] && xclip -selection c < "$file"
 
 super + w
