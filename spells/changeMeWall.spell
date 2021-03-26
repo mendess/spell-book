@@ -200,7 +200,7 @@ unset i
         #shellcheck disable=2029
         [ -e /tmp/mood_light ] ||
             ssh mirrodin -o BatchMode=yes \
-                "python ~/bulb/color.py \\${colors[0]% *} --flow"
+                "python ~/bulb/color.py \\${colors[0]% *} --flow --sleep"
     fi
 } 2>&1 | color_picker -f &
 
