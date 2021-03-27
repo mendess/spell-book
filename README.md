@@ -61,6 +61,7 @@
  - [basicWF](./scrolls/basicWF.sh)
  - [calendar](./scrolls/calendar.sh) - Configure khal using vdirsyncer
  - [dmenu](./scrolls/dmenu.sh) - Install my custom build of dmenu
+ - [fix-dns-home](./scrolls/fix-dns-home.sh)
  - [gestures](./scrolls/gestures.sh) - Enable gestures to switch workspace
  - [lutris](./scrolls/lutris.sh) - Install lutris and all the dependencies needed for battle net, assuming nvidia
  - [nfs_walls](./scrolls/nfs_walls.sh) - Create a network mounted filesystem for my wallpapers
