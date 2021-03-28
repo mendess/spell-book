@@ -142,7 +142,7 @@ linkRune() {
 
     if [[ "$generated" ]]; then
         [[ "$force" ]] &&
-            echo -e '\e[33mWarning:\e[0m `forced` does nothing when combined with `generated`'
+            echo -e "\e[33mWarning:\e[0m 'forced' does nothing when combined with 'generated'"
         [[ "$link_name" -ot "$target" ]] &&
             cmd=(python3 "$(pwd)/../generate_config.py" "$target" "$link_name")
     elif [[ ! -L "$link_name" ]]; then
