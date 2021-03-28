@@ -85,5 +85,3 @@ elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
         tmux -2 new -A -s default
     fi
 fi
-
-source /home/mendess/.config/broot/launcher/bash/br
