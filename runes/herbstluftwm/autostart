@@ -97,10 +97,14 @@ hc keybind $Mod-apostrophe or \
 
 hc keybind $Mod-F7 chain \
     + lock \
-    + or , \
-    and . compare settings.frame_border_width = 0 \
-    . attr settings.frame_border_width 1 \
-    , attr settings.frame_border_width 0 \
+    + or \
+    , and \
+        . compare settings.frame_border_width = 0 \
+        . attr settings.frame_border_width 1 \
+        . attr settings.frame_gap 1 \
+    , chain \
+        . attr settings.frame_border_width 0 \
+        . attr settings.frame_gap 2 \
     + unlock
 hc keybind $Mod-i spawn "$(dirname "$0")/scratchpad"
 # The following cycles through the available layouts within a frame, but skips
@@ -136,13 +140,13 @@ hc attr settings.frame_border_active_color "${colors[0]}"
 hc attr settings.frame_border_normal_color "${colors[1]}"
 hc attr settings.frame_bg_normal_color '#565656'
 hc attr settings.frame_bg_active_color '#345F0C'
-hc attr settings.frame_border_width 1
+hc attr settings.frame_border_width 0
 hc attr settings.always_show_frame on
 hc attr settings.frame_bg_transparent on
 hc attr settings.frame_active_opacity 0
 hc attr settings.frame_normal_opacity 100
 hc attr settings.frame_transparent_width 0
-hc attr settings.frame_gap 0
+hc attr settings.frame_gap 2
 if [[ "$(hostname)" = tolaria ]]; then
     hc attr settings.window_gap 7
     hc attr theme.border_width 5
