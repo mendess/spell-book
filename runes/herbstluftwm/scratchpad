@@ -46,8 +46,6 @@ else
             set_attr monitors.by-name."$monitor".my_prev_focus M
 fi
 
-hc pad $(hc attr monitors.focus.index) 22 0 0 0
-
 show() {
     hc raise_monitor "$monitor"
     hc focus_monitor "$monitor"

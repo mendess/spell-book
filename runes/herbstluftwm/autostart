@@ -25,7 +25,7 @@ daemonise() { (
 ); }
 
 hc emit_hook reload
-hc lock
+#hc lock
 
 # remove all existing keybindings
 hc keyunbind --all
@@ -200,6 +200,12 @@ is_taken() {
     return 1
 }
 
+# do multi monitor setup here, e.g.:
+# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
+# or simply:
+xrandr --auto
+hc detect_monitors
+
 while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
     echo "${geometry[@]}"
@@ -285,16 +291,11 @@ case "${#monitors[@]}" in
         ;;
 esac
 
-# unlock, just to be sure
-hc unlock
-
-# do multi monitor setup here, e.g.:
-# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
-# or simply:
-hc detect_monitors
-
 pkill sxhkd
 daemonise sxhkd -m -1 -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
+
+pkill lemon
+daemonise lemon "${bar_args[@]}" &>/tmp/lemonbar.log
 
 bar_args=()
 i=0
@@ -305,8 +306,9 @@ for mon in "${monitors[@]}"; do
 done
 unset i
 
-pkill lemon
-daemonise lemon --tray "${bar_args[@]}" &>/tmp/lemonbar.log
+# unlock, just to be sure
+hc unlock
+
 set +x
 retries=0
 sleep 1.5
@@ -323,3 +325,4 @@ until systray_id=$(xdo id -N 'trayer') || [[ "$retries" = 1000 ]]; do
     ((retries++))
 done
 [[ "$systray_id" ]] && xdo below -t "$(xdo id -n root)" "$systray_id"
+
