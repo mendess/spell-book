@@ -32,7 +32,7 @@ hc keyunbind --all
 
 Mod=Mod4 # Use the super key as the main modifier
 
-hc keybind $Mod-Shift-q close_and_remove
+hc keybind $Mod-Shift-q close_or_remove
 hc keybind $Mod-Control-q remove
 hc keybind $Mod-Shift-F5 reload
 
