@@ -25,7 +25,7 @@ daemonise() { (
 ); }
 
 hc emit_hook reload
-#hc lock
+hc lock
 
 # remove all existing keybindings
 hc keyunbind --all
