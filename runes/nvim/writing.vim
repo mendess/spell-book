@@ -40,10 +40,10 @@ function SetTexOpts()
 endfunction
 
 function! BlogPostModified()
-    if &modified
-        let l:save_cursor = getpos(".")
+    let l:save_cursor = getpos(".")
+    let l:st = search('+++', 'c')
+    if &modified || l:st == 0
         call cursor(1, 1)
-        let l:st = search('+++', 'c')
         let l:end = search('+++')
         let l:title_line = search('^#[^#]')
         let l:title = getline(l:title_line)
@@ -62,10 +62,10 @@ function! BlogPostModified()
         keepjumps exe l:st . ',' . l:end . 's/^title =.*/title = "' . l:title . '"/'
         keepjumps exe l:st . ',' . l:end . 's/^date =.*/date = ' . l:now . '/'
         call histdel('search', -1)
-        call setpos('.', save_cursor)
     endif
+    call setpos('.', save_cursor)
 endfun
-autocmd BufWritePre content/*.md call BlogPostModified()
+autocmd BufWritePre content/[^p][^a][^g][^e][^s]*.md call BlogPostModified()
 
 autocmd FileType coq inoremap ,for ∀
 autocmd FileType coq inoremap ,utf8 Require<Space>Import<Space>Coq.Unicode.Utf8_core.
