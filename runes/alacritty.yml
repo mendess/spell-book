@@ -275,7 +275,7 @@ schemes:
 
 
 
-# Colors (Tomorrow Night Bright)
+# Colors
 colors: *base16
   # Default colors
   # primary:

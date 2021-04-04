@@ -219,6 +219,14 @@ endif
 map <leader>f :Neoformat<CR>
 let g:shfmt_opt="-ci"
 let g:rustfmt_opt="--edition 2018"
+let g:neoformat_rust_rustfmt = {
+            \ 'exe': 'rustfmt',
+            \ 'args': [
+                \ '--edition', '2018',
+                \ '--config', 'hard_tabs=false,tab_spaces=4,max_width=99'
+            \],
+            \ 'stdin': 1,
+            \ }
 let g:neoformat_python_yapf = {
             \ 'exe': 'yapf',
             \ 'args': ['--style="{based_on_style: pep8, dedent_closing_brackets: True}"'],

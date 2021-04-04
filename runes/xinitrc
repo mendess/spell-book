@@ -21,4 +21,3 @@ if command herbstluftwm; then
 else
     exec bspwm
 fi
-# exec dbus-launch leftwm

@@ -7,7 +7,7 @@ xclip -h >/dev/null || exit
 
 chosen=$(grep -v "#" "$EMOJIS" | dmenu -i -l 20 -fn Monospace-18)
 
-[ "$chosen" != "" ] || exit
+[ "$chosen" ] || exit
 
 c=$(echo "$chosen" | sed "s/ .*//")
 echo "$c" | tr -d '\n' | xclip -selection clipboard
