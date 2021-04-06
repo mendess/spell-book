@@ -3,9 +3,9 @@
 [ -e /sys/class/backlight/intel_backlight ] || exit 0
 
 bright=$(cat /sys/class/backlight/intel_backlight/brightness)
-#max_b=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+max_b=$(cat /sys/class/backlight/intel_backlight/max_brightness)
 
-#percent=$(echo "100 * ($bright / $max_b)" | bc -l | grep -oP '[^.]+\..?.?')
+percent=$(echo "100 * ($bright / $max_b)" | bc -l | grep -oP '[^.]+\..?.?')
 
 #color=$(python3 -c "print('#' + '{:x}'.format(int((0xFFFF00 - 0xAAAAAA) * ($percent / 100.0) + 0xAAAAAA)).upper().rjust(6,'0'))")
-echo "*$bright"
+echo "*$percent"

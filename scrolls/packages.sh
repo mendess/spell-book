@@ -15,6 +15,7 @@ clang
 clipmenu
 cmake
 cronie
+brightnessctl
 curl
 dash
 discord

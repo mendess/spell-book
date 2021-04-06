@@ -235,6 +235,7 @@ for i in "${!tag_names[@]}"; do
             , move_index "$i" \
             , silent substitute M tags."$i".my_monitor focus_monitor M \
             , use_index "$i"
+        hc keybind "$Mod-Control-$key" move_index "$i"
     fi
 done
 

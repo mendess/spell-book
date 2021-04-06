@@ -188,10 +188,10 @@ super + comma
     pkill -SIGUSR2 -x lemon
 
 super + F{6,5}
-    brightnessctl set {+10,10-}
+    brightnessctl set 2{+,-}%
 
 XF86MonBrightness{Up,Down}
-    brightnessctl set {+10,10-}
+    brightnessctl set 2{+,-}%
 
 super + shift + BackSpace
     ssh mirrodin python bulb/let_there_be_light.py
