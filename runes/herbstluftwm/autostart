@@ -295,9 +295,6 @@ esac
 pkill sxhkd
 daemonise sxhkd -m -1 -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
 
-pkill lemon
-daemonise lemon "${bar_args[@]}" &>/tmp/lemonbar.log
-
 bar_args=()
 i=0
 for mon in "${monitors[@]}"; do
@@ -306,6 +303,10 @@ for mon in "${monitors[@]}"; do
     bar_args+=('--bar' "${mon}")
 done
 unset i
+
+pkill lemon
+daemonise lemon "${bar_args[@]}" &>/tmp/lemonbar.log
+
 
 # unlock, just to be sure
 hc unlock
