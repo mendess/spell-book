@@ -6,7 +6,6 @@ picom --experimental-backends --daemon
 battery_check &
 dunst &
 clipmenud &
-nmcli -t dev | grep 'ethernet:unavailable' && nm-applet &
 command -V espanso && espanso -v worker &
 
 # Settings
