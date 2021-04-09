@@ -95,6 +95,24 @@ let base16colorspace=256  " Access colors present in 256 colorspace
 let ayucolor="dark"
 "colorscheme ayu
 colorscheme base16-default-dark
+
+function! s:base16_customize() abort
+    call Base16hi("MatchParen", "", "", "", "", "bold", "")
+    call Base16hi("Comment", g:base16_gui04, "", g:base16_cterm04, "", "", "")
+endfunction
+
+function CommentsWhite()
+    call Base16hi("Comment", g:base16_gui04, "", g:base16_cterm04, "", "", "")
+endfunction
+function CommentsBrown()
+    call Base16hi("Comment", g:base16_gui0F, "", g:base16_cterm0F, "", "", "")
+endfunction
+
+augroup on_change_colorschema
+  autocmd!
+  autocmd ColorScheme * call s:base16_customize()
+augroup END
+
 "colorscheme base16-default-light
 
 command! Bt :highlight Normal ctermbg=NONE | :highlight Normal guibg=NONE
