@@ -11,17 +11,17 @@ primary=$(
 )
 
 
-pad=$($hc attr monitors.$primary.pad_up)
+pad=$($hc attr monitors."$primary".pad_up)
 
 if pgrep -x trayer >/dev/null; then
     killall -q trayer nm-applet
-    $hc attr monitors.$primary.pad_up "$(( pad - 22 ))"
+    $hc attr monitors."$primary".pad_up "$(( pad - 22 ))"
 else
-    $hc attr monitors.$primary.pad_up "$(( pad + 22 ))"
+    $hc attr monitors."$primary".pad_up "$(( pad + 22 ))"
 
     trayer \
         --edge top \
-        --distance $pad \
+        --distance "$pad" \
         --align right \
         --height 22 \
         --transparent true \
