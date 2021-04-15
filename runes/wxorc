@@ -34,11 +34,18 @@ pdf() {
 }
 
 video() {
-    notify 'Playing in mpv' "$1" -u low
-    mpv "$1" || {
-        notify 'Retrying in mpv' "$1" -u low
-        mpv "$1"
-    }
+    case "$1" in
+        *wav | *mp3 | *m4a)
+            $TERMINAL -e mpv "$1"
+            ;;
+        *)
+            notify 'Playing in mpv' "$1" -u low
+            mpv "$1" || {
+                notify 'Retrying in mpv' "$1" -u low
+                mpv "$1"
+            }
+            ;;
+    esac
 }
 
 gif() {

@@ -204,6 +204,7 @@ else
     let g:ale_cpp_clang_options = '-std=c++2a -Wall -pedantic'
     let g:ale_cpp_gcc_options = '-std=c++2a -Wall -pedantic'
     let g:ale_cpp_clangtidy_options = '-std=c++2a'
+    let g:ale_cpp_cc_options = '-std=c++2a -Wall -pedantic'
     let g:ale_c_clangtidy_options = '-x c'
     let g:ale_c_parse_compile_commands = 1
     let g:ale_c_parse_makefile = 1
