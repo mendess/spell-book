@@ -7,6 +7,10 @@
 case "$PICKER" in
     fzf)
         bottom=(--reverse)
+        other=(--print-query)
+        ;;
+    *)
+        other=()
         ;;
 esac
 
@@ -103,4 +107,5 @@ $PICKER \
     "${normal_bg[@]}" \
     "${normal_fg[@]}" \
     "${selected_bg[@]}" \
-    "${selected_fg[@]}"
+    "${selected_fg[@]}" \
+    "${other[@]}" | tail -1

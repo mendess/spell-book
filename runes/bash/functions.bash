@@ -452,3 +452,11 @@ bak() {
         cp "$1" "$1.bak"
     fi
 }
+
+function gb {
+    if [[ "$1" ]]; then
+        git branch "$@"
+    else
+        git --no-pager branch --color=always -vv | cut -b-$(tput cols)
+    fi
+}

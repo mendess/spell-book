@@ -12,3 +12,5 @@
     syntax-theme = base16
 [interactive]
     diffFilter = delta --color-only
+[init]
+	defaultBranch = master

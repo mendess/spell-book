@@ -245,50 +245,50 @@ lock_tag_to_monitor() {
     shift
     for t in "$@"; do
         herbstclient chain \
-            , new_attr string tags.by-name."$t".my_monitor \
-            , set_attr tags.by-name."$t".my_monitor "$mon"
+            , new_attr string tags."$t".my_monitor \
+            , set_attr tags."$t".my_monitor "$mon"
     done
 }
 
 case "${#monitors[@]}" in
     1)
-        lock_tag_to_monitor 0 "${tag_names[@]}"
+        lock_tag_to_monitor 0 "${tag_keys[@]}"
         ;;
     2)
         case "$(hostname)" in
             tolaria)
-                lock_tag_to_monitor 0 "${tag_names[@]::4}"
-                lock_tag_to_monitor 1 "${tag_names[@]:4}"
+                lock_tag_to_monitor 0 "${tag_keys[@]::4}"
+                lock_tag_to_monitor 1 "${tag_keys[@]:4}"
                 ;;
             weatherlight | matess | kaladesh)
-                lock_tag_to_monitor 0 "${tag_names[@]::5}"
-                lock_tag_to_monitor 1 "${tag_names[@]:5}"
+                lock_tag_to_monitor 0 "${tag_keys[@]::5}"
+                lock_tag_to_monitor 1 "${tag_keys[@]:5}"
                 ;;
             *)
-                lock_tag_to_monitor 0 "${tag_names[@]::8}"
-                lock_tag_to_monitor 1 "${tag_names[@]:8}"
+                lock_tag_to_monitor 0 "${tag_keys[@]::8}"
+                lock_tag_to_monitor 1 "${tag_keys[@]:8}"
                 ;;
         esac
         ;;
     3)
         case "$(hostname)" in
             kaladesh)
-                lock_tag_to_monitor 0 "${tag_names[@]::4}"
-                lock_tag_to_monitor 1 "${tag_names[@]:4:4}"
-                lock_tag_to_monitor 2 "${tag_names[@]:8}"
+                lock_tag_to_monitor 0 "${tag_keys[@]::4}"
+                lock_tag_to_monitor 1 "${tag_keys[@]:4:4}"
+                lock_tag_to_monitor 2 "${tag_keys[@]:8}"
                 ;;
             *)
-                lock_tag_to_monitor 0 "${tag_names[@]::3}"
-                lock_tag_to_monitor 1 "${tag_names[@]:3:3}"
-                lock_tag_to_monitor 2 "${tag_names[@]:6}"
+                lock_tag_to_monitor 0 "${tag_keys[@]::3}"
+                lock_tag_to_monitor 1 "${tag_keys[@]:3:3}"
+                lock_tag_to_monitor 2 "${tag_keys[@]:6}"
                 ;;
         esac
         ;;
     4)
-        lock_tag_to_monitor 0 "${tag_names[0]}"
-        lock_tag_to_monitor 1 "${tag_names[@]:1:3}"
-        lock_tag_to_monitor 2 "${tag_names[@]:4:3}"
-        lock_tag_to_monitor 3 "${tag_names[@]:7}"
+        lock_tag_to_monitor 0 "${tag_keys[0]}"
+        lock_tag_to_monitor 1 "${tag_keys[@]:1:3}"
+        lock_tag_to_monitor 2 "${tag_keys[@]:4:3}"
+        lock_tag_to_monitor 3 "${tag_keys[@]:7}"
         ;;
 esac
 
