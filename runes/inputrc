@@ -14,6 +14,39 @@ set keymap vi-command
 Control-l: clear-screen
 Control-p: previous-history
 Control-n: next-history
+"di\"": "T\"dt\""
+"ci\"": "T\"dt\"i"
+"di'": "T'dt'"
+"ci'": "T'dt'i"
+"di`": "T`dt`"
+"ci`": "T`dt`i"
+"di(": "T(dt)"
+"ci(": "T(dt)i"
+"di)": "T(dt)"
+"ci)": "T(dt)i"
+"di{": "T{dt}"
+"ci{": "T{dt}i"
+"di}": "T{dt}"
+"ci}": "T{dt}i"
+"diw": "lbdw"
+"ciw": "lbdwa"
+"diW": "lBdW"
+"ciW": "lBdWa"
+"da\"": "F\"df\""
+"ca\"": "F\"df\"a"
+"da'": "F'df'"
+"ca'": "F'df'a"
+"da`": "F`df`"
+"ca`": "F`df`a"
+"da(": "F(df)"
+"ca(": "F(df)a"
+"da)": "F(df)"
+"ca)": "F(df)a"
+"da{": "F{df}"
+"ca{": "F{df}a"
+"da}": "F{df}"
+"ca}": "F{df}a"
+
 
 set keymap vi-insert
 # these are for vi-insert mode

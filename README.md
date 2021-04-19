@@ -50,6 +50,7 @@
  - [mconlinelist](./cantrips/mconlinelist.sh) - Send a notification with the list of online players in a minecraft server
  - [menu](./cantrips/menu.sh) - The menu used to find and launch the cantrips
  - [quickbrowser](./cantrips/quickbrowser.sh) - Launches vimb with one of the [bookmarks](./library/bookmarks)
+ - [trayer](./cantrips/trayer.sh) - trayer launcher
  - [youtube](./cantrips/youtube.sh) - Launches the music player controled using [m](./spells/m.spell)
 
 ## [Runes](./runes/): Static configuration files
