@@ -1,7 +1,12 @@
 #!/bin/bash
+declare -A focus_cmds
 get_cmd() {
-    echo "$1" >&2
-    herbstclient list_keybinds | grep -F "Mod4+$1" | cut -f2- | tee /dev/stderr
+    [[ "${focus_cmds}" ]] ||
+        focus_cmds["$1"]="$(herbstclient list_keybinds |
+            grep -F "Mod4+$1" |
+            cut -f2- |
+            tee /dev/stderr)"
+    echo "${focus_cmds["$1"]}"
 }
 hc=herbstclient
 while
@@ -11,7 +16,7 @@ while
     i=0
     while IFS=$'\n' read -r t; do
         [[ "$t" ]] || continue
-        i=$(( (i + 1) % 10 ))
+        i=$(((i + 1) % 10))
         name=${t:1:${#t}}
         case "$t" in
             .*) # empty unfocused
