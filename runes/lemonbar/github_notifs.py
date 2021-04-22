@@ -33,7 +33,7 @@ def at_work_computer():
 
 filters = {
     'work': {
-        'owners': ['EmituCom'],
+        'owners': ['EmituCom', 'yWorks'],
         'checks': [at_work_computer]
     },
     'blacklist': {
