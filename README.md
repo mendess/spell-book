@@ -39,17 +39,16 @@
 ## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the
 [menu](./cantrips/menu.sh).
 
- - [bspwm-rename-ws](./cantrips/bspwm-rename-ws.sh) - Renames the current workspace
  - [displayselect](./cantrips/displayselect.sh) - Configure multi monitors
  - [draw](./cantrips/draw.sh) - draw terminals
  - [emoji](./cantrips/emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
  - [empty_monitor](./cantrips/empty_monitor.sh)
  - [env](./cantrips/env.sh)
  - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu
- - [i3-rename-ws](./cantrips/i3-rename-ws.sh) - Dynamic i3 workspace renamer
  - [mconlinelist](./cantrips/mconlinelist.sh) - Send a notification with the list of online players in a minecraft server
  - [menu](./cantrips/menu.sh) - The menu used to find and launch the cantrips
  - [quickbrowser](./cantrips/quickbrowser.sh) - Launches vimb with one of the [bookmarks](./library/bookmarks)
+ - [rename-ws](./cantrips/rename-ws.sh) - Dynamic [i3|bspwm] workspace renamer
  - [trayer](./cantrips/trayer.sh) - trayer launcher
  - [youtube](./cantrips/youtube.sh) - Launches the music player controled using [m](./spells/m.spell)
 

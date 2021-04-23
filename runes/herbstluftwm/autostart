@@ -245,7 +245,7 @@ lock_tag_to_monitor() {
     shift
     for t in "$@"; do
         herbstclient chain \
-            , new_attr string tags."$t".my_monitor \
+            , try new_attr string tags."$t".my_monitor \
             , set_attr tags."$t".my_monitor "$mon"
     done
 }
@@ -257,8 +257,8 @@ case "${#monitors[@]}" in
     2)
         case "$(hostname)" in
             tolaria)
-                lock_tag_to_monitor 0 {0..4}
-                lock_tag_to_monitor 1 {5..9}
+                lock_tag_to_monitor 0 {0..3}
+                lock_tag_to_monitor 1 {6..9}
                 ;;
             weatherlight | matess | kaladesh)
                 lock_tag_to_monitor 0 {0..5}
