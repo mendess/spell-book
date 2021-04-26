@@ -23,6 +23,11 @@
 - align: `left`
 - multi_monitor: `true`
 
+## wscount
+- command: herbstclient tag_status | tr '\t' '\n' | grep -v '^$' -c
+- interval: 300
+- align: left
+
 ## Github notifications
 - command: `~/.config/lemonbar/github_notifs.py`
 - interval: `300`

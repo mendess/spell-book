@@ -18,9 +18,9 @@ elif pgrep bspwm; then
 elif pgrep herbstluftwm; then
     if [[ "$NEW" ]]; then
         herbstclient attr tags.focus.name \
-            "$(($(herbstclient attr tags.focus.index) + 1)): $NEW"
+            "$((($(herbstclient attr tags.focus.index) + 1) % 10)): $NEW"
     else
         herbstclient attr tags.focus.name \
-            "$(($(herbstclient attr tags.focus.index) + 1))"
+            "$((($(herbstclient attr tags.focus.index) + 1) % 10))"
     fi
 fi
