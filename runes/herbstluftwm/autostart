@@ -1,11 +1,9 @@
 #!/bin/bash
 exec 2>&1
 set -x
-trap EXIT 'herbstclient unlock'
+trap 0 'herbstclient unlock'
 
-hc() {
-    herbstclient "$@"
-}
+hc=herbstclient
 
 daemonise() { (
     set +x
@@ -24,63 +22,63 @@ daemonise() { (
     "$@" &
 ); }
 
-hc emit_hook reload
-hc lock
+$hc emit_hook reload
+$hc lock
 
 # remove all existing keybindings
-hc keyunbind --all
+$hc keyunbind --all
 
 Mod=Mod4 # Use the super key as the main modifier
 
-hc keybind $Mod-Shift-q close_or_remove
-hc keybind $Mod-Control-q remove
-hc keybind $Mod-Shift-F5 reload
+$hc keybind $Mod-Shift-q close_or_remove
+$hc keybind $Mod-Control-q remove
+$hc keybind $Mod-Shift-F5 reload
 
 # basic movement in tiling and floating mode
 # focusing clients
-hc keybind $Mod-h focus left
-hc keybind $Mod-j focus down
-hc keybind $Mod-k focus up
-hc keybind $Mod-l focus right
+$hc keybind $Mod-h focus left
+$hc keybind $Mod-j focus down
+$hc keybind $Mod-k focus up
+$hc keybind $Mod-l focus right
 
 # moving clients in tiling and floating mode
-hc keybind $Mod-Shift-h shift left
-hc keybind $Mod-Shift-j shift down
-hc keybind $Mod-Shift-k shift up
-hc keybind $Mod-Shift-l shift right
+$hc keybind $Mod-Shift-h shift left
+$hc keybind $Mod-Shift-j shift down
+$hc keybind $Mod-Shift-k shift up
+$hc keybind $Mod-Shift-l shift right
 
 # splitting frames
 # create an empty frame at the specified direction
-hc keybind $Mod-u chain , split bottom 0.5 , focus down
-hc keybind $Mod-o chain , split right 0.5 , focus right
+$hc keybind $Mod-u chain , split bottom 0.5 , focus down
+$hc keybind $Mod-o chain , split right 0.5 , focus right
 # let the current frame explode into subframes
-hc keybind $Mod-Control-space split explode
+$hc keybind $Mod-Control-space split explode
 
 # resizing frames and floating clients
 resizestep=0.02
-hc keybind $Mod-Control-h resize left +$resizestep
-hc keybind $Mod-Control-j resize down +$resizestep
-hc keybind $Mod-Control-k resize up +$resizestep
-hc keybind $Mod-Control-l resize right +$resizestep
+$hc keybind $Mod-Control-h resize left +$resizestep
+$hc keybind $Mod-Control-j resize down +$resizestep
+$hc keybind $Mod-Control-k resize up +$resizestep
+$hc keybind $Mod-Control-l resize right +$resizestep
 
 # cycle through tags
-hc keybind $Mod-Tab use_index +1 --skip-visible
-hc keybind $Mod-Shift-Tab use_index -1 --skip-visible
-hc keybind Mod1-Tab use_previous
+$hc keybind $Mod-Tab use_index +1 --skip-visible
+$hc keybind $Mod-Shift-Tab use_index -1 --skip-visible
+$hc keybind Mod1-Tab use_previous
 
 # layouting
-hc keybind $Mod-Shift-space set_attr clients.focus.floating toggle
-hc keybind $Mod-f fullscreen toggle
-# hc keybind $Mod-Shift-m set_attr clients.focus.minimized true
+$hc keybind $Mod-Shift-space set_attr clients.focus.floating toggle
+$hc keybind $Mod-f fullscreen toggle
+# $hc keybind $Mod-Shift-m set_attr clients.focus.minimized true
 # # restore all minimized windows of the focused tag
-# hc keybind $Mod-Ctrl-m foreach CLIENT clients. \
+# $hc keybind $Mod-Ctrl-m foreach CLIENT clients. \
 #     sprintf MINATT "%c.minimized" CLIENT \
 #     sprintf TAGATT "%c.tag" CLIENT and \
 #     , compare MINATT "=" "true" \
 #     , substitute FOCUS "tags.focus.name" compare TAGATT "=" FOCUS \
 #     , set_attr MINATT false
-#hc keybind $Mod-apostrophe pseudotile toggle
-hc keybind $Mod-apostrophe or \
+#$hc keybind $Mod-apostrophe pseudotile toggle
+$hc keybind $Mod-apostrophe or \
     ^ and \
         + new_attr bool tags.focus.my_pseudo_tiled \
         + chain \
@@ -95,7 +93,7 @@ hc keybind $Mod-apostrophe or \
             . focus_edge -i left \
             . remove
 
-hc keybind $Mod-F7 chain \
+$hc keybind $Mod-F7 chain \
     + lock \
     + or \
         , and \
@@ -106,86 +104,86 @@ hc keybind $Mod-F7 chain \
             . attr settings.frame_border_width 0 \
             . attr settings.frame_gap 2 \
     + unlock
-hc keybind $Mod-i spawn "$(dirname "$0")/scratchpad"
+$hc keybind $Mod-i spawn "$(dirname "$0")/scratchpad"
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
-hc keybind $Mod-e or \
+$hc keybind $Mod-e or \
     , and \
         . compare tags.focus.curframe_wcount = 2 \
         . cycle_layout +1 vertical horizontal max vertical grid \
     , cycle_layout +1
-hc keybind $Mod-Shift-r rotate
+$hc keybind $Mod-Shift-r rotate
 
 # mouse
-hc mouseunbind --all
-hc mousebind $Mod-Button1 move
-hc mousebind $Mod-Button2 resize
-hc mousebind $Mod-Button3 zoom
+$hc mouseunbind --all
+$hc mousebind $Mod-Button1 move
+$hc mousebind $Mod-Button2 resize
+$hc mousebind $Mod-Button3 zoom
 
 # focus
-# hc keybind $Mod-BackSpace cycle_monitor
-# hc keybind $Mod-Tab cycle_all +1
-# hc keybind $Mod-Shift-Tab cycle_all -1
-hc keybind $Mod-r cycle
-# hc keybind $Mod-i jumpto urgent
+# $hc keybind $Mod-BackSpace cycle_monitor
+# $hc keybind $Mod-Tab cycle_all +1
+# $hc keybind $Mod-Shift-Tab cycle_all -1
+$hc keybind $Mod-r cycle
+# $hc keybind $Mod-i jumpto urgent
 
 # theme
-hc attr theme.tiling.reset 1
-hc attr theme.floating.reset 1
+$hc attr theme.tiling.reset 1
+$hc attr theme.floating.reset 1
 mapfile -t colors < <(awk '{print $1}' /tmp/wall_colors)
-hc attr theme.active.color "${colors[0]}"
-hc attr theme.normal.color "${colors[2]}"
-hc attr settings.frame_border_active_color "${colors[0]}"
-hc attr settings.frame_border_normal_color "${colors[1]}"
-hc attr settings.frame_bg_normal_color '#565656'
-hc attr settings.frame_bg_active_color '#345F0C'
-hc attr settings.frame_border_width 0
-hc attr settings.always_show_frame on
-hc attr settings.frame_bg_transparent on
-hc attr settings.frame_active_opacity 0
-hc attr settings.frame_normal_opacity 100
-hc attr settings.frame_transparent_width 0
-hc attr settings.frame_gap 2
+$hc attr theme.active.color "${colors[0]}"
+$hc attr theme.normal.color "${colors[2]}"
+$hc attr settings.frame_border_active_color "${colors[0]}"
+$hc attr settings.frame_border_normal_color "${colors[1]}"
+$hc attr settings.frame_bg_normal_color '#565656'
+$hc attr settings.frame_bg_active_color '#345F0C'
+$hc attr settings.frame_border_width 0
+$hc attr settings.always_show_frame on
+$hc attr settings.frame_bg_transparent on
+$hc attr settings.frame_active_opacity 0
+$hc attr settings.frame_normal_opacity 100
+$hc attr settings.frame_transparent_width 0
+$hc attr settings.frame_gap 2
 if [[ "$(hostname)" = tolaria ]]; then
-    hc attr settings.window_gap 7
-    hc attr theme.border_width 5
+    $hc attr settings.window_gap 7
+    $hc attr theme.border_width 5
 else
-    hc attr settings.window_gap 4
-    hc attr theme.border_width 3
+    $hc attr settings.window_gap 4
+    $hc attr theme.border_width 3
 fi
-hc attr settings.frame_padding 0
-hc attr settings.smart_window_surroundings off
-hc attr settings.smart_frame_surroundings on
-hc attr settings.mouse_recenter_gap 0
-#hc attr settings.swap_monitors_to_get_tag false
-hc attr settings.swap_monitors_to_get_tag true
+$hc attr settings.frame_padding 0
+$hc attr settings.smart_window_surroundings off
+$hc attr settings.smart_frame_surroundings on
+$hc attr settings.mouse_recenter_gap 0
+#$hc attr settings.swap_monitors_to_get_tag false
+$hc attr settings.swap_monitors_to_get_tag true
 
-hc attr theme.title_height 0
+$hc attr theme.title_height 0
 
-#hc attr theme.padding_top 0 # space below the title's baseline (i.e. text depth)
-#hc attr theme.active.color '#9fbc00'
-#hc attr theme.normal.color '#454545'
-hc attr theme.urgent.color orange
-hc attr theme.inner_width 0
-hc attr theme.outer_width 0
+#$hc attr theme.padding_top 0 # space below the title's baseline (i.e. text depth)
+#$hc attr theme.active.color '#9fbc00'
+#$hc attr theme.normal.color '#454545'
+$hc attr theme.urgent.color orange
+$hc attr theme.inner_width 0
+$hc attr theme.outer_width 0
 
 # rules
-hc unrule -F
-#hc rule class=XTerm tag=3 # move all xterms to tag 3
-hc rule focus=on # normally focus new clients
-hc rule floatplacement=center
-#hc rule focus=off # normally do not focus new clients
+$hc unrule -F
+#$hc rule class=XTerm tag=3 # move all xterms to tag 3
+$hc rule focus=on # normally focus new clients
+$hc rule floatplacement=center
+#$hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
-#hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
-hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
-hc rule instance='scratchpad' floating=on
-hc rule instance='floating-terminal' floating=on
-hc rule instance='sxiv' floating=on
+#$hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+$hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
+$hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+$hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+$hc rule instance='scratchpad' floating=on
+$hc rule instance='floating-terminal' floating=on
+$hc rule instance='sxiv' floating=on
 
-hc set tree_style '╾│ ├└╼─┐'
+$hc set tree_style '╾│ ├└╼─┐'
 
 monitors=()
 
@@ -200,19 +198,6 @@ is_taken() {
     return 1
 }
 
-# do multi monitor setup here, e.g.:
-# hc set_monitors 1280x1024+0+0 1280x1024+1280+0
-# or simply:
-xrandr --auto
-hc detect_monitors
-
-while read -r mon; do
-    read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
-    echo "${geometry[@]}"
-    monitors+=("${geometry[0]}x0+$((steps * 1920))+0")
-    ((steps++))
-done < <(hc list_monitors | awk '{print $2}')
-
 # tags
 tag_names=({1..9} 0)
 tag_keys=({1..9} 0)
@@ -221,23 +206,36 @@ tag_keys=({1..9} 0)
 # This is the default tag section of the autostart, with a single change:
 # In the use_index keybinding, check the presence of the my_monitor attribute,
 # before focusing the desired tag.
-hc rename default "${tag_names[0]}" || true
+$hc rename default "${tag_names[0]}" || true
 for i in "${!tag_names[@]}"; do
-    hc add "${tag_names[$i]}"
+    $hc add "${tag_names[$i]}"
     key="${tag_keys[$i]}"
     if [[ "$key" ]]; then
         # first check if the tag is locked to some monitor.
         # if so, first focus the monitor
-        hc keybind "$Mod-$key" chain \
+        $hc keybind "$Mod-$key" chain \
             , silent substitute M tags."$i".my_monitor focus_monitor M \
             , use_index "$i"
-        hc keybind "$Mod-Shift-$key" chain \
+        $hc keybind "$Mod-Shift-$key" chain \
             , move_index "$i" \
             , silent substitute M tags."$i".my_monitor focus_monitor M \
             , use_index "$i"
-        hc keybind "$Mod-Control-$key" move_index "$i"
+        $hc keybind "$Mod-Control-$key" move_index "$i"
     fi
 done
+
+# do multi monitor setup here, e.g.:
+# $hc set_monitors 1280x1024+0+0 1280x1024+1280+0
+# or simply:
+xrandr --auto
+$hc detect_monitors
+
+while read -r mon; do
+    read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
+    echo "${geometry[@]}"
+    monitors+=("${geometry[0]}x0+$((steps * 1920))+0")
+    ((steps++))
+done < <($hc list_monitors | awk '{print $2}')
 
 # Statically define which tag should be send to which monitor
 lock_tag_to_monitor() {
@@ -258,7 +256,7 @@ case "${#monitors[@]}" in
         case "$(hostname)" in
             tolaria)
                 lock_tag_to_monitor 0 {0..3}
-                lock_tag_to_monitor 1 {6..9}
+                lock_tag_to_monitor 1 {4..9}
                 ;;
             weatherlight | matess | kaladesh)
                 lock_tag_to_monitor 0 {0..5}
@@ -299,7 +297,7 @@ bar_args=()
 i=0
 for mon in "${monitors[@]}"; do
     echo "$mon"
-    hc pad "$((i++))" 22 0 0 0
+    $hc pad "$((i++))" 22 0 0 0
     bar_args+=('--bar' "${mon}")
 done
 unset i
@@ -309,7 +307,7 @@ daemonise lemon "${bar_args[@]}" &>/tmp/lemonbar.log
 
 
 # unlock, just to be sure
-hc unlock
+$hc unlock
 
 set +x
 retries=0
