@@ -258,8 +258,8 @@ case "${#monitors[@]}" in
                 lock_tag_to_monitor 1 {4..9}
                 ;;
             weatherlight | matess | kaladesh)
-                lock_tag_to_monitor 0 {0..4}
-                lock_tag_to_monitor 1 {5..9}
+                lock_tag_to_monitor 0 {0..3}
+                lock_tag_to_monitor 1 {4..9}
                 ;;
             *)
                 lock_tag_to_monitor 0 {0..7}
