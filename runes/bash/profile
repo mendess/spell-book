@@ -19,6 +19,7 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
+export JQ_COLORS='1;31:0;33:0;33:0;39:0;32:1;39:1;39'
 SPELLS=""
 # tem de existir para existir, e existe por acaso
 SPELLS="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.bash_profile)")")")"

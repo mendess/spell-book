@@ -181,6 +181,11 @@ if [ "$mode" != delete ] && [ -z "$wall" ]; then
 fi
 
 process_params || exit 1
+
+urldecode() {
+    sed 's@+@ @g;s@%@\\x@g' | xargs -0 printf "%b"
+}
+
 if [ "$sync" ]; then
     endpoint="mendess.xyz"
     mkdir -p "$WALLPAPERS"
@@ -190,7 +195,7 @@ if [ "$sync" ]; then
         grep '<a' |
         cut -d"'" -f4 |
         while read -r f; do
-            if [ ! -e "$(basename "$f")" ]; then
+            if [ ! -e "$(basename "$f" | urldecode)" ]; then
                 echo -n "Downloading $endpoint$f ..."
                 wget --quiet "http://$endpoint/$f"
                 echo ' Done'

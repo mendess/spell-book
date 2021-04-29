@@ -1,0 +1,39 @@
+#!/bin/sh
+# Change discord voice channel with dmenu
+
+die() {
+    notify-send -u critical "$1"
+    printf "\033[1;31m%s\033[0m\n" "$1"
+    exit 1
+}
+
+list="
+🍵 O meu chá
+💦 ~~ 𝒜𝑔𝓊𝒾𝓃𝒽𝒶 ~~
+✔ General ~
+📽Movie Tiiiim
+Disconnect
+"
+list="$(echo "$list" | grep -v '^$')"
+if [ "$DISPLAY" ]; then
+    ch=$(echo "$list" | dmenu -p channel -i -l "$(echo "$list" | wc -l)")
+else
+    export DISPLAY=:0
+    echo "$list" | nl
+    printf "channel number? "
+    read -r REPLY
+    ch=$(echo "$list" | sed -n "${REPLY}p")
+fi
+
+[ "$ch" ] || exit
+
+current=$(xdotool getwindowfocus)
+WID=$(xdotool search --class discord | tail -n 1)
+[ "$WID" ] || die 'Discord not running'
+xdotool windowfocus --sync "$WID"
+xdotool key --window "$WID" "ctrl+k"
+sleep 0.5
+xdotool type --window "$WID" "!$ch"
+sleep 0.5
+xdotool key Return
+xdotool windowfocus "$current"
