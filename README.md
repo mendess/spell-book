@@ -17,6 +17,7 @@
  - [daemons](./spells/daemons.spell) - Enable/disable my custom daemons
  - [del_rss_feed](./spells/del_rss_feed.spell) - Script to be used by newsboat to delete the selected rss feed
  - [die_now](./spells/die_now.spell) - Auto shutdown that sets slowly dims the light, slowly lowers the song volume, and turns of the monitor(s)
+ - [discord_voice](./spells/discord_voice.spell) - Change discord voice channel with dmenu
  - [ex](./spells/ex.spell) - Extract anything
  - [f](./spells/f.spell)
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
