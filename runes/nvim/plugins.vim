@@ -85,6 +85,8 @@ Plug 'chrisbra/unicode.vim'
 
 Plug 'chrisbra/csv.vim'
 
+Plug 'airblade/vim-gitgutter'
+
 call plug#end()
 
 """ PLUGIN CONFIGS
@@ -335,3 +337,9 @@ let g:python_highlight_space_errors = 0
 
 " unicode.vim
 inoremap <C-G> <C-X><C-G>
+
+" gitgutter
+nnoremap <leader>g :GitGutterToggle<CR>
+command! Gd :GitGutterPreviewHunk
+command! Gco :GitGutterUndoHunk
+let g:gitgutter_enabled = 0
