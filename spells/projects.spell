@@ -1,0 +1,8 @@
+#!/bin/sh
+
+dir="$(
+    find ~/projects -mindepth 1 -maxdepth 1 -type d -print0 |
+        xargs -0 -L1 basename |
+        dmenu -l 50 -i -p project
+)"
+[ "$dir" ] && $TERMINAL --working-directory "$HOME/projects/$dir"

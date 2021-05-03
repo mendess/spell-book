@@ -3,13 +3,13 @@
 #     : # fuck help pages
 
 super + Return
-  	$TERMINAL
+    $TERMINAL
 
 super + shift + Return
     if xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME WM_CLASS | grep -i jetbrains; then \
         $TERMINAL -e sh -c "cd $(xdotool search JetBrains getwindowname | perl -ne 's/[^\[]*\[([^\]]*)].*$/\1/g and print'); bash"; \
     else \
-  	    termFromHere; \
+        termFromHere; \
     fi
 
 super + control + Return
@@ -28,7 +28,7 @@ super + d
 #     $TERMINAL --class floating-terminal,floating-terminal -e f launcher
 
 super + shift + d
-  	menu GUI
+    menu GUI
 
 super + shift + t
     todo gui
@@ -36,17 +36,20 @@ super + shift + t
 super + s
     naoseioquefaco
 
+super + p
+    projects
+
 super + F9
-  	changeMeWall
+    changeMeWall
 
 super + shift + F9
     changeMeWall "$(xclip -sel clip -o)"
 
 super + shift + F9
-  	ssh mirrodin bulb/flow.py -s ; changeMeWall
+    ssh mirrodin bulb/flow.py -s ; changeMeWall
 
 super + F8
-  	feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
+    feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
 
 super + F10
     if [ -e /tmp/.dnd ]; then \
@@ -60,13 +63,13 @@ super + F10
     pkill -10 -x lemon
 
 super + control + m
-  	$TERMINAL -e pacmixer
+    $TERMINAL -e pacmixer
 
 super + {F2, F3, F4}
-  	{$BROWSER, discord --no-sandbox, steam}
+    {$BROWSER, discord --no-sandbox, steam}
 
 super + shift + F2
-  	$BROWSER -private-window https://duckduckgo.com/
+    $BROWSER -private-window https://duckduckgo.com/
 
 super + shift + F3
     d="$(xdotool search --name "Discord" | \
@@ -80,10 +83,10 @@ super + shift + F3
 
 
 super + m
-  	$TERMINAL -e neomutt
+    $TERMINAL -e neomutt
 
 super + shift + c
-  	$TERMINAL -e ikhal
+    $TERMINAL -e ikhal
 
 super + alt + v
     extension=$(dmenu -p "Enter extension"); \
@@ -99,10 +102,10 @@ super + w
     date +%F_%T-%N >>/tmp/.super-w-time ;\
     win_name="$(xdotool search --desktop "$desktop" . | \
             grep -v "$(xdotool getwindowfocus)" | \
-            xargs -I 'X' bash -c "printf '%d	%s\\n' 'X' \"\$(xdotool getwindowname 'X')\"" | \
-            column -t -s'	' | \
+            xargs -I 'X' bash -c "printf '%d    %s\\n' 'X' \"\$(xdotool getwindowname 'X')\"" | \
+            column -t -s'   ' | \
             dmenu -i -l 10 -p focus | \
-            awk -F'	' '\{print $1\}')"; \
+            awk -F' ' '\{print $1\}')"; \
     date +%F_%T-%N >>/tmp/.super-w-time ;\
     [ "$win_name" ] && xdotool windowactivate "$win_name" ;\
     date +%F_%T-%N >>/tmp/.super-w-time
@@ -115,22 +118,22 @@ alt + @Print
     snapit fullscreen
 
 shift + @Print
-  	snapit save
+    snapit save
 
 super + @Print
     snapit floating
 
 super + control + s
-  	$TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
+    $TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
 
 super + t
-  	$TERMINAL -e htop
+    $TERMINAL -e htop
 
 super + c
-  	$TERMINAL --class floating-terminal --title floating-terminal -e bc -lq
+    $TERMINAL --class floating-terminal --title floating-terminal -e bc -lq
 
 super + x
-  	$TERMINAL \
+    $TERMINAL \
         --option window.dimensions.columns=80 \
         --option window.dimensions.lines=25 \
         --class floating-terminal \
@@ -139,7 +142,7 @@ super + x
                     read -s -r -n 1'
 
 super + p
-  	playClipboard
+    playClipboard
 
 super + v
     clipmenu
@@ -148,31 +151,31 @@ XF86AudioMute
     pactl 'set-sink-mute' @DEFAULT_SINK@ toggle
 
 XF86Audio{Raise,Lower}Volume
-	pactl 'set-sink-volume' @DEFAULT_SINK@ {+,-}5%
+    pactl 'set-sink-volume' @DEFAULT_SINK@ {+,-}5%
 
 XF86AudioMicMute
-	pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
+    pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
 
 super + backslash
-  	m gui pause
+    m gui pause
 
 super + shift + bar
-  	m gui quit
+    m gui quit
 
 super + {minus,plus}
-  	m gui {vd,vu} 2
+    m gui {vd,vu} 2
 
 super + {Next,Prior,End,Home}
     m gui {next,prev,next-file,prev-file}
 
 super + {Up,Down}
-  	m gui {frwd,back} 60
+    m gui {frwd,back} 60
 
 super + {Right,Left}
-  	m gui {frwd,back} 5
+    m gui {frwd,back} 5
 
 super + {Insert,Delete}
-  	m gui {current,ch-cat}
+    m gui {current,ch-cat}
 
 super + shift + Insert
     $TERMINAL -e m lyrics
@@ -182,7 +185,7 @@ super + shift + underscore
     m gui toggle-video
 
 super + BackSpace
-  	echo quit | socat - /tmp/mpvalarm
+    echo quit | socat - /tmp/mpvalarm
 
 super + comma
     pkill -SIGUSR2 -x lemon
@@ -212,42 +215,42 @@ super + shift + i
         xargs --no-run-if-empty $BROWSER
 
 super + shift + o
-	echo -e 'i3lock -t -e --image=$HOME/.local/share/wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now\nssh mirrodin python bulb/turn_off.py;poweroff' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 5 | sh
+    echo -e 'i3lock -t -e --image=$HOME/.local/share/wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now\nssh mirrodin python bulb/turn_off.py;poweroff' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 5 | sh
 
 ###### bspwm
 #super + space
-#	if bspc query --nodes --node focused.floating; then \
-#		bspc node last.local.\!floating -f; \
-#	else \
-#		bspc node last.local.floating -f; \
-#	fi
+#   if bspc query --nodes --node focused.floating; then \
+#       bspc node last.local.\!floating -f; \
+#   else \
+#       bspc node last.local.floating -f; \
+#   fi
 
 #super + shift + control + q
 #    bspc node -k
 
 #super + {_,shift +} Tab
-#	bspc desktop -f {next,prev}.local.occupied
+#   bspc desktop -f {next,prev}.local.occupied
 
 #super + e
-#	bspc desktop --layout next
+#   bspc desktop --layout next
 
 ##super + {_,shift +} n
-##	bspc desktop --bubble {next,prev}
+##  bspc desktop --bubble {next,prev}
 
 #super + g
-#	bspc node -s biggest.local
+#   bspc node -s biggest.local
 
 #super + shift + e
-#	bspc node $(bspc query --nodes --desktop | head -1) --equalize
+#   bspc node $(bspc query --nodes --desktop | head -1) --equalize
 
 #super + r
-#	bspc node $(bspc query --nodes --desktop | head -1) --circulate forward
+#   bspc node $(bspc query --nodes --desktop | head -1) --circulate forward
 
 #super + i
-#	bspc node $(bspc query --nodes --desktop | head -1) -g hidden
+#   bspc node $(bspc query --nodes --desktop | head -1) -g hidden
 
 #super + control + i
-#	bspc node -g hidden
+#   bspc node -g hidden
 
 #super + alt + i
 #    bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
@@ -256,14 +259,14 @@ super + shift + o
 ##     for n in $(bspc query --nodes); do bspc node $n -g hidden; done
 
 #super + shift + r
-#	bspc node @parent -R 90
+#   bspc node @parent -R 90
 
 #super + control + {h,j,k,l}
-#	dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
+#   dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
 #    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} || bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
 
 
-##	|| bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
+##  || bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
 
 #super + shift + s
 #    bspc node -g sticky
