@@ -19,10 +19,14 @@ if [ "$DISPLAY" ]; then
     ch=$(echo "$list" | dmenu -p channel -i -l "$(echo "$list" | wc -l)")
 else
     export DISPLAY=:0
-    echo "$list" | nl
+    printf "%s\nOther" "$list" | nl
     printf "channel number? "
     read -r REPLY
     ch=$(echo "$list" | sed -n "${REPLY}p")
+    if [ -z "$ch" ]; then
+        printf "channel name: "
+        read -r ch
+    fi
 fi
 
 [ "$ch" ] || exit

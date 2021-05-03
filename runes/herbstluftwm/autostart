@@ -182,6 +182,11 @@ $hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 $hc rule instance='scratchpad' floating=on
 $hc rule instance='floating-terminal' floating=on
 $hc rule instance='sxiv' floating=on
+$hc rule title~'.* Steam' instance=Steam floating=on
+$hc rule title~'Steam .*' instance=Steam floating=on
+$hc rule title~'.* Steam .*' instance=Steam floating=on
+$hc rule title~'Properties .*' instance=Steam floating=on
+$hc rule class='steam_app_782330' tag=9
 
 $hc set tree_style '╾│ ├└╼─┐'
 
