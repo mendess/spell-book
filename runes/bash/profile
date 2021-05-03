@@ -82,7 +82,6 @@ elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
         export TTY_TMUX=1
         tmux new-session -A -s "$(basename "$(tty)")"
     elif [[ "$SSH_CONNECTION" ]]; then
-        exit() { tmux detach ; }
         tmux -2 new -A -s default
     fi
 fi
