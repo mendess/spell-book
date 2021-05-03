@@ -45,6 +45,8 @@ Options
         Specifiy the wallpaper's name
     -s --sync
         Download missing wallpapers
+    -a | --all
+        Add to all collections
 EOF
 
     exit 1
@@ -122,6 +124,17 @@ process_params() {
     :
 }
 
+aliases() {
+    case "$1" in
+        matess | kaladesh)
+            echo weatherlight
+            ;;
+        localhost)
+            echo powerstone
+            ;;
+    esac
+}
+
 mode=add
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -158,6 +171,10 @@ while [ "$#" -gt 0 ]; do
         -r | --replace)
             replace=1
             ;;
+        -a | --all)
+            [ -n "$selfish" ] && error_selfish "$selfish"
+            host=(weatherlight powerstone)
+            ;;
         -*)
             echo "$0: $1: not a valid option"
             help_message
@@ -169,7 +186,7 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 if [ ${#host} -lt 1 ]; then
-    host=("$(hostname)")
+    host=("$(aliases "$(hostname)")")
 fi
 
 if [ "$mode" != delete ] && [ -z "$wall" ]; then

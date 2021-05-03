@@ -133,3 +133,6 @@ autocmd! BufNewFile,BufRead,BufReadPost,BufWritePost *.h set filetype=c
 " show me the tabs
 set list
 set listchars=tab:>-
+
+" java
+iabbrev sout System.out.println
