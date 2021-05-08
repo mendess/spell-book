@@ -57,6 +57,7 @@ if [ "$bg_pull" ]; then
 else
     pull
 fi
+[ -f "$file" ] || exit 1
 touch "$file"
 height=$(wc -l <"$file")
 prompt="Add/delete a task: "

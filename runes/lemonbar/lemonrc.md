@@ -3,7 +3,7 @@
 - geometry: `x22`
 - separator: ` | `
 - n_clickables: `32`
-- font: `Misc Termsyn: size=12`
+- font: `Misc Termsynu: size=12`
 - underline_width: `2`
 - name: `bar_of_the_lemons`
 - colors:

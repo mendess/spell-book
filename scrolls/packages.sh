@@ -10,7 +10,7 @@ base
 base-devel
 bat
 bc
-bspwm
+herbstluftwm
 clang
 clipmenu
 cmake
