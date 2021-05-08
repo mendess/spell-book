@@ -141,7 +141,7 @@ super + x
                     khal calendar -o ;\
                     read -s -r -n 1'
 
-super + p
+super + shift + p
     playClipboard
 
 super + v
