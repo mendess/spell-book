@@ -124,15 +124,6 @@ vimbd() {
 #     fi
 # ); }
 
-k() {
-    if lsusb | grep -E 'Mechanical|Keyboard|Kingston' &>/dev/null; then
-        setxkbmap us -option caps:escape -option altwin:menu_win
-        xmodmap -e 'keycode  21 = plus equal plus equal'
-    else
-        setxkbmap pt -option caps:escape -option altwin:menu_win
-    fi
-}
-
 advent-of-code() {
     if [[ "$1" != day* ]]; then
         echo "bad input: '$1'"
