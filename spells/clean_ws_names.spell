@@ -1,6 +1,7 @@
 #!/bin/bash
 
 until pgrep bspwm || pgrep herbstluftwm &>/dev/null; do sleep 1m; done
+sleep 1m
 
 bspc subscribe desktop_focus |
     while read -r _; do
@@ -14,12 +15,15 @@ bspc subscribe desktop_focus |
     done
 
 hc=herbstclient
-herbstclient -i focus_changed |
+$hc -i focus_changed |
     while read -r _; do
         focused="tags.$($hc attr tags.focus.index)"
         for t in $($hc foreach T tags. echo T | grep -P 'tags.[0-9]+'); do
+            name="$(("$($hc attr "$t.index")" + 1))"
             [[ "$t" != "$focused" ]] &&
                 [[ "$($hc attr "$t.client_count")" -eq 0 ]] &&
-                $hc attr "$t.name" $(("$($hc attr "$t.index")" + 1))
+                [[ "$($hc attr "$t.name")" != "$name" ]] &&
+                echo "Cleaning $t" &&
+                $hc attr "$t.name" "$name"
         done
     done

@@ -213,7 +213,9 @@ tag_keys=({1..9} 0)
 # before focusing the desired tag.
 $hc rename default "${tag_names[0]}" || true
 for i in "${!tag_names[@]}"; do
-    $hc add "${tag_names[$i]}"
+    if ! $hc attr tags.$i 2>/dev/null; then
+        $hc add "${tag_names[$i]}"
+    fi
     key="${tag_keys[$i]}"
     if [[ "$key" ]]; then
         # first check if the tag is locked to some monitor.
