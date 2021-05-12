@@ -16,21 +16,25 @@ branch_status() {
         c="$LEMON_RED"
     else
         local base aref bref
-        base=$(git merge-base "$a" "$b")
-        aref=$(git rev-parse "$a")
-        bref=$(git rev-parse "$b")
-
-        if [[ $aref == "$bref" ]]; then
-            :
-        elif [[ $aref == "$base" ]]; then
-            o=b
-            c="$LEMON_YELLOW"
-        elif [[ $bref == "$base" ]]; then
-            o=a
-            c="$LEMON_GREEN"
+        if ! base=$(git merge-base "$a" "$b"); then
+            o="v"
+            c="$LEMON_CYAN"
         else
-            o='<>'
-            c="$LEMON_BLUE"
+            aref=$(git rev-parse "$a")
+            bref=$(git rev-parse "$b")
+
+            if [[ $aref == "$bref" ]]; then
+                :
+            elif [[ $aref == "$base" ]]; then
+                o=b
+                c="$LEMON_YELLOW"
+            elif [[ $bref == "$base" ]]; then
+                o=a
+                c="$LEMON_GREEN"
+            else
+                o='<>'
+                c="$LEMON_BLUE"
+            fi
         fi
     fi
     [[ "$o" ]] && {
