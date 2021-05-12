@@ -6,10 +6,8 @@ command -V todo &>/dev/null &&
 echo -en "\e[0m"
 
 {
-    cat /tmp/memo
-    {
-        nmcli -t --fields NAME connection show --active | grep -q 'ZON.*2010' &&
-            scp -q mirrodin:memo /tmp/memo
-    } &
+    nmcli -t --fields NAME connection show --active | grep -q 'ZON.*2010' &&
+        {cat /tmp/memo || :} &&
+        scp -q mirrodin:memo /tmp/memo &
     disown
 } 2>/dev/null

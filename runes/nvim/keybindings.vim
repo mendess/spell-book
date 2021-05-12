@@ -79,11 +79,15 @@ fu! CompileC()
     endif
 endfu
 
-au FileType rust nnoremap <leader>r :call RunRust()<CR>
+au! FileType rust nnoremap <leader>r :call RunRust()<CR>
 fu! RunRust()
     write
-    !rustc %
-    !./%:r
+    !rustc % -o %:r
+    if expand('%') =~ '/'
+        !%:r
+    else
+        !./%:r
+    end
 endfu
 
 au FileType go nnoremap <leader>r :call RunGo()<CR>
