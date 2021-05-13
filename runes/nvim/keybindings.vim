@@ -82,7 +82,7 @@ endfu
 au! FileType rust nnoremap <leader>r :call RunRust()<CR>
 fu! RunRust()
     write
-    !rustc % -o %:r
+    !rustc % --allow dead_code --allow unused_variables -o %:r
     if expand('%') =~ '/'
         !%:r
     else
