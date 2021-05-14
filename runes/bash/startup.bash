@@ -7,7 +7,7 @@ echo -en "\e[0m"
 
 {
     nmcli -t --fields NAME connection show --active | grep -q 'ZON.*2010' &&
-        {cat /tmp/memo || :} &&
+        { cat /tmp/memo || : ; } &&
         scp -q mirrodin:memo /tmp/memo &
     disown
-} 2>/dev/null
+}

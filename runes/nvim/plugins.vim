@@ -72,6 +72,8 @@ if ! has('nvim')
     Plug 'let-def/vimbufsync'
 endif
 
+Plug 'Shougo/echodoc.vim'
+
 Plug 'rust-lang/rust.vim'
 
 " Plug 'autozimu/LanguageClient-neovim', {
@@ -343,3 +345,8 @@ nnoremap <leader>g :GitGutterToggle<CR>
 command! Gd :GitGutterPreviewHunk
 command! Gco :GitGutterUndoHunk
 let g:gitgutter_enabled = 0
+
+"echodoc
+
+set noshowmode
+let g:echodoc#enable_at_startup = 1

@@ -52,7 +52,11 @@ __guri() {
 alias gfi='xdg-open "$(__guri)"'
 alias gpr='xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
 alias gpsup='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
-alias gpsupr='git push --set-upstream origin $(git symbolic-ref --short HEAD) && xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
+if hash gh &>/dev/null; then
+    alias gpsupr='gpsup ; gh pr create -a @me'
+else
+    alias gpsupr='git push --set-upstream origin $(git symbolic-ref --short HEAD) && xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
+fi
 # CARGO
 alias cr='cargo run'
 alias cb='cargo build'
