@@ -129,6 +129,8 @@ alias ikhal='ikhal; clear'
 alias love='ssh berrygood -t tmux a -t chat'
 alias rustfmttoml='cp -v $SPELLS/runes/rustfmt.toml .'
 alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
+alias queres='echo queres'
+
 
 # Cleanup
 command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
