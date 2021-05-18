@@ -51,7 +51,7 @@
 - layer: `1`
 
 ## Room Temperature
-- command: `echo "$(ssh goblinww grep -oE '[0-9]{5}' /sys/bus/w1/devices/28-00000bc20d86/w1_slave) / 1000" | bc`
+- command: `echo "$(ssh goblinww grep -oE '[0-9]{5}' /sys/bus/w1/devices/28-00000bc20d86/w1_slave 2>/dev/null) / 1000" | bc 2>/dev/null`
 - interval: `60`
 - align: `left`
 
