@@ -89,15 +89,26 @@ allposs=$(xrandr -q | grep "connected")
 # Get all connected screens.
 screens=$(echo "$allposs" | grep " connected" | awk '{print $1}')
 
+LAYOUTS_DIR="${XDG_CONFIG_HOME:-~/.config}/screenlayouts"
+preset_layouts="$(
+    cd "$LAYOUTS_DIR" || exit
+    find . ! -type d -exec basename {} \; | sed -E 's/^/l:/g'
+)"
+
 # Get user choice including multi-monitor and manual selection:
 #shellcheck disable=2046
-chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -l 10 -i -p "Select display arangement:") &&
+chosen=$(printf "%s\\nmulti-monitor\\nmanual selection\\n%s" "$screens" "$preset_layouts" |
+    dmenu -l 20 -i -p "Select display arangement:") &&
     case "$chosen" in
         "manual selection")
             arandr
             exit
             ;;
         "multi-monitor") multimon ;;
+        l:*)
+            sh "$LAYOUTS_DIR/${chosen#l:}"
+            ;;
+        '') false ;;
         *) xrandr \
             --output "$chosen" \
             --auto \
@@ -106,9 +117,8 @@ chosen=$(printf "%s\\nmulti-monitor\\nmanual selection" "$screens" | dmenu -l 10
                 grep -v "$chosen" |
                 awk '{print "--output", $1, "--off"}' |
                 tr '\n' ' ') ;;
-    esac
-
-# Fix background if screen size/arangement has changed.
-changeMeWall
+    esac &&
+    # Fix background if screen size/arangement has changed.
+    changeMeWall
 # Re-remap keys if keyboard added (for laptop bases)
 #remaps

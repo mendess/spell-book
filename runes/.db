@@ -53,3 +53,4 @@
 ~/.config/vdirsyncer/config,vdirsyncer
 ~/.config/htop/htoprc,htoprc,generated
 ~/.config/herbstluftwm,herbstluftwm
+~/.config/screenlayouts,screenlayouts
