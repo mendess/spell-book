@@ -1,2 +1,2 @@
-command -V gh >/dev/null &&
+command -V gh &>/dev/null &&
     . <(gh completion -s bash)

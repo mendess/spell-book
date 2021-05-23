@@ -32,8 +32,8 @@ case "$t" in
         if [[ "$1" = small ]]; then
             t=${t/Video:*Song: /}
         else
-            t="${t/Video:/\%\{F\#5498f8\}Video:\%\{F-\}}"
-            t="${t/Song:/| \%\{F\#5498f8\}Song:\%\{F-\}}"
+            t="${t/Video:/\%\{F$LEMON_BLUE\}Video:\%\{F-\}}"
+            t="${t/Song:/| \%\{F$LEMON_BLUE\}Song:\%\{F-\}}"
         fi
         ;;
 esac

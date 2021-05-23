@@ -5,7 +5,7 @@ command -V todo &>/dev/null &&
     todo --list --bg-pull
 echo -en "\e[0m"
 
-{
+command -V nmcli &>/dev/null && {
     nmcli -t --fields NAME connection show --active | grep -q 'ZON.*2010' &&
         { cat /tmp/memo || : ; } &&
         scp -q mirrodin:memo /tmp/memo &
