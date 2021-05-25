@@ -72,7 +72,7 @@ if ! has('nvim')
     Plug 'let-def/vimbufsync'
 endif
 
-Plug 'Shougo/echodoc.vim'
+" Plug 'Shougo/echodoc.vim'
 
 Plug 'rust-lang/rust.vim'
 
