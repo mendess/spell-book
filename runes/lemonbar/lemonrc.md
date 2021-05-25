@@ -61,6 +61,29 @@
 - underline: `yellow`
 - signal: `1`
 
+
+## Spotify
+- command: `pgrep spotify >/dev/null && python3 ~/.config/lemonbar/spotify_status.py -p ">,||" || :`
+- underline: `green`
+- left-click: `m prev-file`
+- middle-click: `m pause`
+- right-click: `m next-file`
+- interval: `1`
+- alignment: `middle`
+- signal: `true`
+- layer: `0`
+
+## Spotify
+- command: `python3 ~/.config/lemonbar/spotify_status.py -p ">,||" -s`
+- underline: `green`
+- left-click: `m prev-file`
+- middle-click: `m pause`
+- right-click: `m next-file`
+- interval: `1`
+- alignment: `middle`
+- signal: `true`
+- layer: `1`
+
 ## Brightness
 - command: `~/.config/lemonbar/brightness`
 - alignment: `right`
