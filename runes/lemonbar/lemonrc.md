@@ -50,9 +50,8 @@
 - interval: `60`
 - align: `left`
 
-## Music long
-- command: `~/.config/lemonbar/media`
-- interval: `120`
+## Music
+- native: `m`
 - alignment: `middle`
 - left-click: `m prev-file`
 - middle-click: `m pause`
@@ -60,21 +59,7 @@
 - scroll-up: `m vu`
 - scroll-down: `m vd`
 - underline: `yellow`
-- signal: `true`
-- layer: `0`
-
-## Music short
-- command: `~/.config/lemonbar/media small`
-- interval: `120`
-- alignment: `middle`
-- left-click: `m prev-file`
-- middle-click: `m pause`
-- right-click: `m next-file`
-- scroll-up: `m vu`
-- scroll-down: `m vd`
-- underline: `yellow`
-- signal: `true`
-- layer: `1`
+- signal: `1`
 
 ## Brightness
 - command: `~/.config/lemonbar/brightness`
