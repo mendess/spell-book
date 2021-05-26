@@ -3,7 +3,8 @@
 con="${1:-$(nmcli -t --fields NAME connection show --active)}"
 read -rp "Change dns for network $con [Y/n]? "
 [[ "${REPLY,,}" = n ]] && exit
-gateway=$(nmcli -t --fields IP4.GATEWAY connection show "$con" | cut -d: -f2)
+[[ "$gateway" ]] ||
+    gateway=$(nmcli -t --fields IP4.GATEWAY connection show "$con" | cut -d: -f2)
 echo "Using gateway: $gateway"
 old_dns=$(nmcli -t --fields ipv4.dns connection show "$con" | cut -d: -f2 | tr ',' ' ')
 new_dns="$gateway 1.1.1.1"
