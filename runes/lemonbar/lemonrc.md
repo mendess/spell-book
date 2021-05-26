@@ -106,7 +106,7 @@
 - layer: `1`
 
 ## Wifi
-- command: `~/.config/lemonbar/wifi`
+- command: `~/.config/lemonbar/wifi | head -1`
 - align: `right`
 - un: `green`
 - signal: `true`
