@@ -50,6 +50,11 @@
 - interval: `60`
 - align: `left`
 
+## Package
+- command: `[ -f ~/.package.sh ] || bash ~/.package.sh`
+- interval: `3600`
+- align: `left`
+
 ## Music
 - native: `m`
 - alignment: `middle`
