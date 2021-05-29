@@ -15,7 +15,7 @@ lemons_installed() { (
 
 lemons() { (
     cd "$1" &&
-        cargo install --path .
+        cargo install --path . --bin lemon
 ); }
 
 all_installed() {
