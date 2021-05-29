@@ -4,8 +4,7 @@ get_cmd() {
     [[ "${focus_cmds[$1]}" ]] ||
         focus_cmds["$1"]="$(herbstclient list_keybinds |
             grep -F "Mod4+$1" |
-            cut -f2- |
-            tee /dev/stderr)"
+            cut -f2-)"
     echo "${focus_cmds[$1]}"
 }
 hc=herbstclient

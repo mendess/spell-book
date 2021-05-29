@@ -54,6 +54,7 @@
 - command: `[ ! -f ~/.package.sh ] || bash ~/.package.sh`
 - interval: `3600`
 - align: `left`
+- left-click: `bash ~/.package.sh click`
 
 ## Music
 - native: `m`
@@ -73,7 +74,7 @@
 - left-click: `m prev-file`
 - middle-click: `m pause`
 - right-click: `m next-file`
-- interval: `1`
+- interval: `30`
 - alignment: `middle`
 - signal: `true`
 - layer: `0`
