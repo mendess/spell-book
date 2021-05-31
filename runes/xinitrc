@@ -1,7 +1,7 @@
 xrdb -merge ~/.config/X11/Xresources
 # deamons
 changeMeWallCicle &
-clean_ws_names.spell &
+clean_ws_names &
 picom --experimental-backends --daemon
 battery_check &
 dunst &
