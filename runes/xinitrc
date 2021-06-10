@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 xrdb -merge ~/.config/X11/Xresources
 
 # deamons
@@ -10,7 +11,7 @@ clipmenud &
 command -V espanso && espanso -v worker &
 
 # Settings
-k
+k # keyboard settings
 if command -V herbstluftwm >/dev/null 2>/dev/null; then
     exec herbstluftwm --locked
 else
