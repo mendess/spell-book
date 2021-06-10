@@ -1,4 +1,5 @@
 xrdb -merge ~/.config/X11/Xresources
+
 # deamons
 changeMeWallCicle &
 clean_ws_names &
@@ -9,13 +10,8 @@ clipmenud &
 command -V espanso && espanso -v worker &
 
 # Settings
-setxkbmap -option caps:escape
-if [ "$(cat /etc/hostname)" = tolaria ]; then
-    xrandr --output DP-5 --mode 1920x1080  --primary \
-        --output HDMI-0 --auto --left-of DP-5
-    xmodmap -e 'keycode  21 = plus equal plus equal'
-fi
-if command herbstluftwm; then
+k
+if command -V herbstluftwm >/dev/null 2>/dev/null; then
     exec herbstluftwm --locked
 else
     exec bspwm
