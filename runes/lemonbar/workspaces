@@ -55,7 +55,7 @@ while
     done < <($hc tag_status "$LEMON_MONITOR" | tr '\t' '\n')
     printf '%s' "${wm[@]}"
     echo
-    read -r change
+    read -r _
 do
     :
 done < <("$hc" -i 'tag_changed|tag_flags|tag_added|tag_removed|tag_renamed')
