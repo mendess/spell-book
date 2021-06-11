@@ -35,7 +35,7 @@ pdf() {
 
 video() {
     case "$1" in
-        *wav | *mp3 | *m4a)
+        *soundcloud* | *wav | *mp3 | *m4a)
             $TERMINAL -e mpv "$1"
             ;;
         *)
