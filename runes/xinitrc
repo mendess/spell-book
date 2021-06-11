@@ -13,7 +13,7 @@ command -V espanso && espanso -v worker &
 # Settings
 k # keyboard settings
 if command -V herbstluftwm >/dev/null 2>/dev/null; then
-    exec herbstluftwm --locked
+    exec herbstluftwm
 else
     exec bspwm
 fi
