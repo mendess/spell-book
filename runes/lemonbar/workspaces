@@ -2,9 +2,7 @@
 declare -A focus_cmds
 get_cmd() {
     [[ "${focus_cmds[$1]}" ]] ||
-        focus_cmds["$1"]="$(herbstclient list_keybinds |
-            grep -F "Mod4+$1" |
-            cut -f2-)"
+        focus_cmds["$1"]="$(herbstclient list_keybinds | grep -F "Mod4+$1" | cut -f2- | tr '\t' ' ')"
     echo "${focus_cmds[$1]}"
 }
 hc=herbstclient
@@ -12,7 +10,7 @@ while
     # shellcheck disable=1091
     # shellcheck disable=1090
     . "$(dirname "$0")/workspaces_colors"
-    wm=
+    wm=()
     i=0
     while IFS=$'\n' read -r t; do
         [[ "$t" ]] || continue
@@ -47,16 +45,17 @@ while
                 UL=$COLOR_URGENT_UL
                 ;;
         esac
-        [[ "$($hc attr tags.by-name."$name".my_monitor)" != "$LEMON_MONITOR" ]] &&
+        [[ "$($hc attr tags.by-name."$name".my_monitor 2>/dev/null)" != "$LEMON_MONITOR" ]] &&
             continue
         colors="%{F${FG}}%{B${BG}}%{U${UL}}%{+u}"
         focus_cmd=$(get_cmd "$i")
         actions="%{A1:$hc $focus_cmd:}%{A2:$hc $focus_cmd:}"
         end="%{A}%{A}%{U-}%{B-}%{F-}%{-u}"
-        wm="${wm}${colors}${actions} $name ${end}"
-    done < <(herbstclient tag_status "$LEMON_MONITOR" | tr '\t' '\n')
-    echo "${wm}"
-    read -r _
+        wm+=("${colors}${actions} $name ${end}")
+    done < <($hc tag_status "$LEMON_MONITOR" | tr '\t' '\n')
+    printf '%s' "${wm[@]}"
+    echo
+    read -r change
 do
     :
-done < <(herbstclient -i 'tag_changed|tag_flags|tag_added|tag_removed|tag_renamed')
+done < <("$hc" -i 'tag_changed|tag_flags|tag_added|tag_removed|tag_renamed')
