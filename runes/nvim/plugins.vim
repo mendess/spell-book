@@ -192,7 +192,7 @@ if work_pc
     nmap <leader>c <Plug>(coc-rename)
 
     " java
-    let $JAVA_TOOL_OPTIONS = '-javaagent:/home/mendess/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar -Xbootclasspath/p:/home/mendess/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar'
+    " let $JAVA_TOOL_OPTIONS = '-javaagent:/home/mendess/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar -Xbootclasspath/p:/home/mendess/.m2/repository/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar'
 else
     nnoremap gd :ALEGoToDefinition<CR>
     nnoremap <F10> :ALEPreviousWrap<CR>
