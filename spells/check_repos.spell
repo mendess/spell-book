@@ -51,4 +51,4 @@ for p in ${1:-~/projects/*}; do
         cd "$p" || exit
         branch_status
     ) &
-done | sort | tr '\n' ' '
+done | sort | tr -d '\n'
