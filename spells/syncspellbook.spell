@@ -129,6 +129,8 @@ if command -V termux-fix-shebang &>/dev/null; then
     done
 fi
 
+bash ./readBooks.sh
+
 if [ "$1" == '--hold' ]; then
     read -n 1 -s -r
 fi
