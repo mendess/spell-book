@@ -38,6 +38,7 @@
 - command: `check_repos`
 - interval: `300`
 - align: `left`
+- raw: `true`
 
 ## Uptime
 - command: `echo "$(uptime -p)"`
@@ -128,7 +129,7 @@
 - underline: `magenta`
 
 ## Dnd
-- cmd: `[ -e /tmp/.dnd ] && echo "dnd" || :`
+- cmd: `[ -e /tmp/.dnd ] && printf "dnd" || :`
 - un: `red`
 - fg: `red`
 - align: `right`
@@ -138,6 +139,7 @@
 - cmd: `~/.config/lemonbar/battery`
 - align: `right`
 - interval: `10`
+- raw: `true`
 
 ## Date command long
 - command: `date`
