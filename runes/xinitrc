@@ -12,6 +12,10 @@ command -V espanso && espanso -v worker &
 
 # Settings
 k # keyboard settings
+[ "$(uname -n)" = tolaria ] &&
+    xrandr --output DP-5 --mode 1920x1080 --primary \
+        --output HDMI-0 --auto --left-of DP-5
+
 if command -V herbstluftwm >/dev/null 2>/dev/null; then
     exec herbstluftwm
 else
