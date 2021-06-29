@@ -475,11 +475,19 @@ background_opacity: 0.7
 #  program: /bin/bash
 #  args:
 #    - --login
+%% switch on hostname
+%% kaladesh {
+shell:
+  program: /bin/bash
+%% }
+%% default {
 shell:
   program: /bin/bash
   args:
       - -c
       - echo 'I love you' && exec $SHELL
+%% }
+%% end
 
 # Startup directory
 #

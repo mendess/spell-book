@@ -12,7 +12,7 @@
 ~/.bash_profile,bash/profile
 ~/.bashrc,bash/bashrc
 ~/.config/X11/xinitrc,xinitrc
-~/.config/alacritty/alacritty.yml,alacritty.yml
+~/.config/alacritty/alacritty.yml,alacritty.yml,generated
 ~/.config/bspwm,bspwm
 ~/.config/calcurse/conf,calcurse.conf
 ~/.config/compton.conf,compton.conf
