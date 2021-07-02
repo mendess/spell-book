@@ -8,3 +8,4 @@ mendess_work_dir/
 *manage_db*
 .vim/
 .env/
+src/main/resources/application-test.properties
