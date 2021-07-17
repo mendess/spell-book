@@ -21,6 +21,7 @@
  - [ex](./spells/ex.spell) - Extract anything
  - [f](./spells/f.spell)
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
+ - [health_check](./spells/health_check.spell)
  - [k](./spells/k.spell)
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [naoseioquefaco](./spells/naoseioquefaco.spell) - A gift from the love of my life [matilde](https://github.com/matildeopbravo)

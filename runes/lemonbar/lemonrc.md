@@ -57,6 +57,12 @@
 - align: `left`
 - left-click: `bash ~/.package.sh click`
 
+## Vacinacao
+- command: `echo vacinacao acima de "$(curl https://www.sns24.gov.pt/alerta/pedido-de-agendamento-vacina-covid-19/ | tr -d '\n' | sed -E 's/.*Tem ([0-9]+).*/\1/')"`
+- interval: `3600`
+- align: `left`
+- left-click: `firefox https://www.sns24.gov.pt/alerta/pedido-de-agendamento-vacina-covid-19/`
+
 ## Music
 - native: `m`
 - alignment: `middle`
