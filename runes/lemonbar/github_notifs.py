@@ -4,13 +4,14 @@ import threading
 import subprocess
 from sys import argv
 import os
-import json
 import socket
+import json
+from typing import List
 
 try:
     with open(os.path.expanduser('~/.config/github/api_key')) as key:
         token = key.read().strip()
-except:
+except Exception:
     exit(0)
 
 endpoint = "https://api.github.com/notifications"
@@ -19,82 +20,126 @@ headers = {
     "Accept": "application/vnd.github.v3+json"
 }
 params = {"all": "false"}  # only unread notifications
-last_notifs = '/tmp/last_github_notifs'
+LAST_NOTIFS_FILENAME = '/tmp/last_github_notifs'
 
 
 class Wildcard:
-    def __contains__(self, other):
+    def __contains__(self, other) -> bool:
         return True
 
 
-def at_work_computer():
+class Notification(dict):
+    def __init__(self, owner, name, title, url):
+        dict.__init__(self, owner=owner, name=name, title=title, url=url)
+        self.owner = owner
+        self.name = name
+        self.title = title
+        self.url = url
+
+    @staticmethod
+    def from_dictionary(d) -> 'Notification':
+        Notification(**d)
+
+    def toJson(self) -> str:
+        return json.dumps(self.__dict__())
+
+
+try:
+    with open(LAST_NOTIFS_FILENAME) as notifs:
+        LAST_NOTIFS = {}
+        for k, v in json.load(notifs).items():
+            LAST_NOTIFS[k] = Notification.from_dictionary(v)
+except FileNotFoundError:
+    LAST_NOTIFS = {}
+except json.decoder.JSONDecodeError:
+    LAST_NOTIFS = {}
+
+
+def at_work_computer() -> bool:
     return socket.gethostname() == 'kaladesh'
 
 
+class Filter:
+    def __init__(self, owners, checks):
+        self.owners = owners
+        self.checks = checks
+
+
 filters = {
-    'work': {
-        'owners': ['EmituCom', 'yWorks'],
-        'checks': [at_work_computer]
-    },
-    'blacklist': {
-        'owners': ['cesium'],
-        'checks': [lambda: False]
-    },
-    'else': {
-        'owners': Wildcard(),
-        'checks': [lambda: not at_work_computer()]
-    }
+    'work': Filter(
+        owners=['EmituCom'],
+        checks=[at_work_computer]
+    ),
+    'blacklist': Filter(
+        owners=['cesium'],
+        checks=[lambda: False]
+    ),
+    'else': Filter(
+        owners=Wildcard(),
+        checks=[lambda: not at_work_computer()]
+    )
 }
 
 
-def filter(owner):
+def owner_allowed(owner) -> bool:
     for v in filters.values():
-        if owner in v['owners']:
-            if all([x() for x in v['checks']]):
-                return True
-            else:
-                return False
+        if owner in v.owners:
+            return all([x() for x in v.checks])
     return False
 
 
-def fetch_notifs() -> int:
+def fetch_notifs() -> List[tuple[Notification, bool]]:
+    global LAST_NOTIFS
+
     raw_response = requests.get(endpoint, headers=headers, params=params)
-    if raw_response.status_code == 200:
-        response = raw_response.json()
-        n_notifications = 0
-        with open(last_notifs, 'w') as notifs:
-            for notif in response:
-                owner, name = notif["repository"]["full_name"].split('/')
-                url = notif['url']
-                if filter(owner):
-                    n_notifications += 1
-                    notifs.write(
-                        f'[{owner}/{name}] {notif["subject"]["title"]} [{url}]\n'
-                    )
-        return n_notifications
-    return 'Error fetching notifs'
+    if raw_response.status_code != 200:
+        return 'Error fetching notifs'
+
+    response = raw_response.json()
+    notifications = []
+    for notif in response:
+        owner, name = notif["repository"]["full_name"].split('/')
+        if not owner_allowed(owner):
+            continue
+
+        notification = Notification(
+            owner=owner,
+            name=name,
+            title=notif["subject"]["title"],
+            url=notif['url']
+        )
+        notifications.append(
+            (notification, notification.url not in LAST_NOTIFS)
+        )
+    LAST_NOTIFS = {n.url: n for n, _ in notifications}
+    with open(LAST_NOTIFS_FILENAME, 'w') as notifs:
+        json.dump(LAST_NOTIFS, notifs)
+    return notifications
 
 
 if len(argv) == 1:
-    n = fetch_notifs()
-    if n != 0:
-        print(f'gh[{n}]')
+    notifications = fetch_notifs()
+    if type(notifications) != str and len(notifications) != 0:
+        print(f'gh[{len(notifications)}]')
+        for n, _ in filter(lambda x: x[1], notifications):
+            subprocess.run(['notify-send', f'{n.owner}/{n.name}', n.title])
+
 elif argv[1] == 'dmenu':
     # Currently doesn't work as one would expect
     threading.Thread(target=fetch_notifs)
-    with open(last_notifs) as notifs:
-        subprocess.Popen(
-            fr"""
-grep -F "$(dmenu -i -l 20 < {last_notifs})" {last_notifs} | \
-        sed -E 's/.*\[([^]]+)]$/\\1/' | xargs -L 1 xdg-open
+    subprocess.Popen(
+        fr"""
+grep -F "$(dmenu -i -l 20 < {LAST_NOTIFS_FILENAME})" {LAST_NOTIFS_FILENAME} | \
+    sed -E 's/.*\[([^]]+)]$/\\1/' | xargs -L 1 firefox
 """,
-            shell=True
-        )
+        shell=True
+    )
 elif argv[1] == 'show':
     n = fetch_notifs()
     if type(n) == str:
         print(n)
     else:
         subprocess.run(
-            fr"""cat {last_notifs} | sed -E 's/\[[^]]+\]$//'""", shell=True
+            fr"""cat {LAST_NOTIFS_FILENAME} | sed -E 's/\[[^]]+\]$//'""",
+            shell=True
         )

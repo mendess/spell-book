@@ -81,3 +81,13 @@ fu! BoilerplateHtml()
         call cursor(7, 1)
     endif
 endfu
+
+autocmd FileType kt call BoilerplateKt()
+fu! BoilerplateKt()
+    if line('$') == 1
+        call append(0, "fun main() {")
+        call append(1, "    println(\"Hello world\")")
+        call append(2, "}")
+        call cursor(1, 1)
+    endif
+endfu

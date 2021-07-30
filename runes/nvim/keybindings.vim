@@ -96,6 +96,17 @@ fu! RunGo()
     !go run %
 endfu
 
+au FileType kotlin nnoremap <leader>r :call RunKt()<CR>
+fu! RunKt()
+    write
+    !kotlinc -d %:h %
+    let l:filename = expand('%:t:r')
+    let l:byteidx = byteidx(l:filename, 1)
+    let l:first_letter = toupper(strpart(l:filename, 0, l:byteidx))
+    let l:rest = strpart(l:filename, l:byteidx)
+    execute '!kotlin -cp %:h ' . l:first_letter . l:rest . 'Kt'
+endfu
+
 nnoremap <leader>r :call Run()<CR>
 fu! Run()
     write
