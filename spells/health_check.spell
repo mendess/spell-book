@@ -1,4 +1,4 @@
 while :; do
-    sleep 45m
+    sleep "${1:-45}"m
     mpv /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga --loop
 done
