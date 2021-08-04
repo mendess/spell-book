@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if lsusb | grep -qE 'Mechanical|Keyboard|Kingston'; then
+    if lsusb | grep -qE 'Mechanical|Keyboard'; then
     setxkbmap us -option caps:escape #-option altwin:menu_win
     xmodmap -e 'keycode  21 = plus equal plus equal'
 else
