@@ -1,4 +1,5 @@
 #!/bin/bash
+alias b='nvm use 8 && npm run index-generate && npm run tsc ; nvm use system'
 alias r='nvm use 8 && npm run index-generate && npm run tsc && npm start | ./paint_logs.sh ; nvm use system'
 alias rd='nvm use 8 && npm run index-generate && npm run tsc && NODE_DEBUG=fs npm start ; nvm use system'
 deploy_to() {

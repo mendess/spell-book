@@ -9,3 +9,4 @@ mendess_work_dir/
 .vim/
 .env/
 src/main/resources/application-test.properties
+.typos.toml

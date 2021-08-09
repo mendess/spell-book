@@ -14,3 +14,4 @@
     diffFilter = delta --color-only
 [init]
 	defaultBranch = master
+	templateDir = ~/.config/git/template
