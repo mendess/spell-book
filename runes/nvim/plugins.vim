@@ -16,7 +16,8 @@ Plug 'ntk148v/vim-horizon'
 Plug 'scrooloose/nerdtree'
 
 " Auto close parens
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'Raimondi/delimitMate'
 
 Plug 'bitc/vim-bad-whitespace'
 
