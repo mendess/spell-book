@@ -18,10 +18,13 @@ alias ll='ls -lh'
 alias cl="clear; ls -lh"
 alias clg="clear; ls -lh --git"
 # DOCKER
-alias doc='docker'
-alias dor='docker run'
-alias dob='docker build'
-alias dos='docker stop'
+alias d=docker
+alias dr='docker run'
+alias db='docker build'
+alias ds='docker stop'
+alias drm='docker rm'
+alias drmi='docker rmi'
+function dsr() { docker stop "$@" | sed 's/^/stopping/' && docker rm "$@" | sed 's/^/removing/'; }
 alias dop='yes | docker container prune'
 ## GIT
 alias gs=gst # fuck ghost script
