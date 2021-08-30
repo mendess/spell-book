@@ -92,7 +92,7 @@
 - layer: `1`
 
 ## Spotify-Tui
-- command: `spt pb | tr -d '🔀🔁' | sed 's/^ *//;s/▶/> /;s/⏸ /|| /'`
+- command: `spt pb --format '%s (%d) %t - %a %v%' | sed 's/▶/>/;s/⏸ /||/'`
 - underline: `green`
 - left-click: `spt pb --previous`
 - middle-click: `spt pb --toggle`
@@ -100,6 +100,18 @@
 - interval: `1`
 - alignment: `middle`
 - signal: `true`
+- layer: `0`
+
+## Spotify-Tui
+- command: `spt pb --format '%s %t - %a' | sed 's/▶/>/;s/⏸ /||/'`
+- underline: `green`
+- left-click: `spt pb --previous`
+- middle-click: `spt pb --toggle`
+- right-click: `spt pb --next`
+- interval: `1`
+- alignment: `middle`
+- signal: `true`
+- layer: `1`
 
 ## Brightness
 - command: `~/.config/lemonbar/brightness`
