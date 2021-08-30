@@ -37,7 +37,7 @@ alias gau='git add --update'
 alias gbD='git branch -D'
 alias gbl='git blame -b -w'
 alias gc='git commit -v'
-alias glog='git log --pretty=format:'\''%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s'\'' --date=short --graph'
+alias glog="git log --pretty=format:'%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s' --date=short --graph"
 alias glogn='git --no-pager log --oneline --decorate --graph'
 alias 'gc!'='git commit -v --amend'
 alias gco='git checkout'
