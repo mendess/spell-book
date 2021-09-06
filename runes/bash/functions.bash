@@ -458,3 +458,13 @@ function connect_bluetooth {
     bluetoothctl power on &> /dev/null
     bluetoothctl devices | grep -i "$1" | cut -d " " -f 2 | xargs bluetoothctl connect
 }
+
+function file-swap {
+    [ "$#" -eq 2 ] && { echo "Usage: $0 path/to/file1 path/to/file2"; return 1; }
+    [ -e "$1" ] || { echo "file-swap: $1 No such file or directory"; return 1; }
+    [ -e "$2" ] || { echo "file-swap: $2 No such file or directory"; return 1; }
+    tmpfile=$(mktemp --tmpdir="$(dirname "$1")")
+    mv "$1" "$tmpfile" || return 1
+    mv "$2" "$1"       || return 1
+    mv "$tmpfile" "$2" || return 1
+}
