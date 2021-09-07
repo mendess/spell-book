@@ -367,7 +367,7 @@ function which() {
     esac
 }
 
-t() {
+function t() {
     pgrep -f transmission-daemon >/dev/null || {
         transmission-daemon --download-dir ~/dl/
         echo -n "waiting for deamon to start"
@@ -412,6 +412,13 @@ mvim() {
 }
 
 google_fotos() {
+    if [ $# -lt 2 ]; then
+        cat <<EOF
+Make a cute foto montage
+
+Usage: $0 image1 image2 output.gif
+EOF
+    fi
     convert -limit memory 64 -delay 50 -loop 0 -dispose previous "$@"
 }
 
@@ -433,7 +440,7 @@ sshfs() {
     if [[ ! -d "$2" ]]; then
         mkdir -p "$2" || return
     fi
-    command sshfs "$@"
+    command sshfs --reconnect "$@"
 }
 
 bak() {

@@ -10,28 +10,30 @@ base
 base-devel
 bat
 bc
-herbstluftwm
+bottom
 clang
 clipmenu
 cmake
 cronie
-brightnessctl
 curl
 dash
 discord
 dmenu
+duf
 dunst
+dust
 entr
 exa
 fakeroot
 feh
 firefox
-fortune-mod
 fzf
 gdb
 gimp
+git-delta
 glava
 hacksaw
+herbstluftwm
 htop
 hyperfine
 i3lock
@@ -43,9 +45,7 @@ libxdg-basedir # compton dependency
 man
 man-pages
 mpv
-neofetch
 neovim
-network-manager-applet
 nmap
 noto-fonts-cjk
 noto-fonts-emoji
@@ -55,13 +55,11 @@ pkgconf
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
-pygmentize
 python-dbus
 python-pip
 python-pygments
 ripgrep
 rsync
-rtv
 rustup
 shfmt
 shotgun
@@ -73,7 +71,6 @@ tree
 ttf-dejavu
 ttf-hack
 unzip
-urxvt-perls
 usbutils
 vdirsyncer
 vimb
@@ -81,13 +78,12 @@ wget
 xclip
 xdg-user-dirs
 xdotool
+xh
 xorg-server
 xorg-xdpyinfo
 xorg-xev
 xorg-xinit
 xorg-xrandr
-xorg-xsetroot
-xwallpaper
 xz
 youtube-dl
 zathura
@@ -95,26 +91,21 @@ zathura-pdf-mupdf
 zip
 )
 
-[[ "$(hostname)" =~ weatherlight|matess ]] && packages+=(brightnessctl)
+[[ "$(hostname)" = tolaria ]] || packages+=(brightnessctl)
 
 export aurpackages=(
-#dropbox
-#dropbox-cli
-entr
 lemonbar-xft-git
 pacmixer
 pfetch
 picom-git
 shellcheck-bin
-xdo-git
+xdo-git # herbstluftwm and bspwm
 termsyn-font
 bear
 web-xdg-open-git
-git-delta-bin
 )
 
 export cargopackages=(
-#tealdeer
 cargo-watch
 color_picker
 )

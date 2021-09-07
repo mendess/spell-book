@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #shellcheck disable=SC2139
-# LS
+# COREUTILS
+## ls
 if hash exa &>/dev/null; then
     alias exa='exa -g'
     alias ls='exa'
@@ -17,6 +18,17 @@ alias l='ls -lha'
 alias ll='ls -lh'
 alias cl="clear; ls -lh"
 alias clg="clear; ls -lh --git"
+
+## df
+if hash duf &>/dev/null; then
+    alias df=duf
+fi
+
+# du
+if hash du &>/dev/null; then
+    alias du=dust
+fi
+
 # DOCKER
 alias d=docker
 alias dr='docker run'
