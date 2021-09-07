@@ -440,7 +440,7 @@ sshfs() {
     if [[ ! -d "$2" ]]; then
         mkdir -p "$2" || return
     fi
-    command sshfs --reconnect "$@"
+    command sshfs -o reconnect "$@"
 }
 
 bak() {
