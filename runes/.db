@@ -17,7 +17,6 @@
 ~/.config/calcurse/conf,calcurse.conf
 ~/.config/compton.conf,compton.conf
 ~/.config/dunst/dunstrc,dunstrc,generated
-~/.config/git/config,gitconfig
 ~/.config/gitignore-global,gitignore-global
 ~/.config/glava,glava,force
 ~/.config/gtk-3.0,gtk-3.0
@@ -56,3 +55,4 @@
 ~/.config/screenlayouts,screenlayouts
 ~/.config/free-nitro-list,free-nitro-list
 ~/.config/desmume,desmume
+~/.config/git,git
