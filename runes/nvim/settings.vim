@@ -97,6 +97,9 @@ iabbrev reutrn return
 iabbrev retunr return
 iabbrev reutnr return
 iabbrev brian brain
+iabbrev nao não
+iabbrev tb também
+iabbrev tambem também
 
 if has("gui_running")
     set tb=

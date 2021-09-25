@@ -131,7 +131,13 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "rust_analyzer", "tsserver", "clangd", "pylsp", "bashls" }
+local servers = {
+    "rust_analyzer", -- I know this one
+    "tsserver", -- npm -g i typescript-language-server
+    "clangd", -- ¯\_(ツ)_/¯
+    "pylsp", -- ¯\_(ツ)_/¯
+    "bashls" -- npm -g i bash-language-server
+}
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
         on_attach = on_attach,

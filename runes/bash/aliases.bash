@@ -42,7 +42,14 @@ alias dop='yes | docker container prune'
 alias gs=gst # fuck ghost script
 alias gbr='gb -r'
 alias gdd='git difftool --tool=vimdiff'
-alias g=git
+g() {
+    if [[ $# -eq 0 ]]; then
+        git status --short --branch
+    else
+        git "$@"
+    fi
+
+}
 alias ga='git add'
 alias gaa='git add --all'
 alias gau='git add --update'
@@ -73,7 +80,7 @@ alias gpsup='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 if hash gh &>/dev/null; then
     alias gpsupr='gpsup ; gh pr create -a @me'
 else
-    alias gpsupr='git push --set-upstream origin $(git symbolic-ref --short HEAD) && xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
+    alias gpsupr='gpsup && xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
 fi
 # CARGO
 alias cr='cargo run'

@@ -92,6 +92,9 @@ complete -F _ssh sshp
 complete -F _ssh deploy_to
 
 _m() {
+    for a in "$@"; do
+        echo "a: $a"
+    done
     local opts
     COMPREPLY=()
     local cur="$2"
