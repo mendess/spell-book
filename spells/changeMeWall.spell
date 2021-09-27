@@ -201,7 +201,7 @@ unset i
     fi &
 
     # Lamp colors
-    if [[ "$(hostname)" = tolaria ]] || nmcli -t dev | grep -q ZON-2010 ; then
+    if [[ "$(hostname)" = tolaria ]] || nmcli -t dev | grep -q 'ZON.*2010' ; then
         #shellcheck disable=2029
         [ -e /tmp/mood_light ] ||
             ssh mirrodin -o BatchMode=yes \
