@@ -65,8 +65,17 @@ process_params() {
                     wall="$TMPDIR/$name"
                     ;;
             esac
+            [[ -e "$wall" ]] || {
+                echo "wmgr: $wall no such file or directory"
+                exit 1
+            }
             if [[ "${host[0]}" = Powerstone ]]; then
                 wall_dir=PhoneCollection
+                if [[ ! "$wall" =~ *vertical* ]]; then
+                    n_wall="$(basename "$wall" ."$ext")-vertical.$ext"
+                    mv "$wall" "$n_wall"
+                    wall="$n_wall"
+                fi
             else
                 wall_dir=Wallpapers
             fi

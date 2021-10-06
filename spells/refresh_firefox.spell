@@ -1,5 +1,6 @@
 #!/bin/sh
 # Refreshes firefox
 
-WID=$(xdotool search --name "Mozilla Firefox")
-xdotool key --window "$WID" F5
+while read -r wid ; do
+    xdotool key --window "$wid" F5
+done < <(xdotool search --name "${1:-Mozilla Firefox}")
