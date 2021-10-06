@@ -1,4 +1,5 @@
 #!/bin/bash
+# Script for my bar, shows repository status as little icons
 
 [[ "$(hostname)" = kaladesh ]] || exit 0
 

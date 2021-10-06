@@ -1,4 +1,6 @@
 #!/bin/bash
+# I sometimes rename my workspaces, this resets the name when the ws is empty.
+# Supports bspwm and herbstluftwm
 
 until pgrep bspwm || pgrep herbstluftwm &>/dev/null; do sleep 1m; done
 sleep 1m

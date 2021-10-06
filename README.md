@@ -12,8 +12,8 @@
  - [bulkrename](./spells/bulkrename.spell) - Bulk rename every file in the current directory using your default editor (Editor defined by $EDITOR or $VISUAL)
  - [changeMeWallCicle](./spells/changeMeWallCicle.spell) - Runs `changeMeWall` every 5 minutes
  - [changeMeWall](./spells/changeMeWall.spell) - Changes the wallpaper to a random one in the `$WALLPAPERS` folder. (requires `feh`).  Thanks [matilde](https://github.com/matildeopbravo) for the idea and help finding the more contrasting colors for dmenu
- - [check_repos](./spells/check_repos.spell)
- - [clean_ws_names](./spells/clean_ws_names.spell)
+ - [check_repos](./spells/check_repos.spell) - Script for my bar, shows repository status as little icons
+ - [clean_ws_names](./spells/clean_ws_names.spell) - I sometimes rename my workspaces, this resets the name when the ws is empty. Supports bspwm and herbstluftwm
  - [daemons](./spells/daemons.spell) - Enable/disable my custom daemons
  - [del_rss_feed](./spells/del_rss_feed.spell) - Script to be used by newsboat to delete the selected rss feed
  - [die_now](./spells/die_now.spell) - Auto shutdown that sets slowly dims the light, slowly lowers the song volume, and turns of the monitor(s)
@@ -21,13 +21,12 @@
  - [ex](./spells/ex.spell) - Extract anything
  - [f](./spells/f.spell) - Fuzzy find a file and open it with the default program configured in xdg.  Made and maintained by the genius [matilde](https://github.com/matildeopbravo) ❤️
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
- - [health_check](./spells/health_check.spell)
- - [k](./spells/k.spell)
+ - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [naoseioquefaco](./spells/naoseioquefaco.spell) - A gift from the love of my life [matilde](https://github.com/matildeopbravo)
  - [picker](./spells/picker.spell) - Wrapper around dmenu and fzf to unify their options, it's not very good
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
- - [projects](./spells/projects.spell)
+ - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
  - [snapit](./spells/snapit.spell) - A printscreen script, supports crop to clipboard, crop to file, fullscreen print and floating print
  - [subscribe](./spells/subscribe.spell) - Subscribe to a youtube channel as an rss feed
