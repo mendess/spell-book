@@ -68,13 +68,24 @@ nnoremap S :%s/\<<C-r><C-w>\>/
 vnoremap s :s//<Left>
 
 " Save, compile and run
-au FileType c,cpp nnoremap <leader>r :call CompileC()<CR>
+au FileType c nnoremap <leader>r :call CompileC()<CR>
 fu! CompileC()
     write
     if filereadable('makefile') || filereadable('Makefile')
         make
     else
         make %:r
+        !./%:r
+    endif
+endfu
+
+au FileType cpp nnoremap <leader>r :call CompileCpp()<CR>
+fu! CompileCpp()
+    write
+    if filereadable('makefile') || filereadable('Makefile')
+        make
+    else
+        !clang++ -std=c++20 % -o %:r
         !./%:r
     endif
 endfu
