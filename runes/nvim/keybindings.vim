@@ -75,7 +75,11 @@ fu! CompileC()
         make
     else
         make %:r
-        !./%:r
+        if expand('%') =~ '/'
+            !%:r
+        else
+            !./%:r
+        end
     endif
 endfu
 
@@ -86,7 +90,11 @@ fu! CompileCpp()
         make
     else
         !clang++ -std=c++20 % -o %:r
-        !./%:r
+        if expand('%') =~ '/'
+            !%:r
+        else
+            !./%:r
+        end
     endif
 endfu
 
