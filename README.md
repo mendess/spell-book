@@ -19,7 +19,6 @@
  - [die_now](./spells/die_now.spell) - Auto shutdown that sets slowly dims the light, slowly lowers the song volume, and turns of the monitor(s)
  - [discord_voice](./spells/discord_voice.spell) - Change discord voice channel with dmenu
  - [ex](./spells/ex.spell) - Extract anything
- - [f](./spells/f.spell) - Fuzzy find a file and open it with the default program configured in xdg.  Made and maintained by the genius [matilde](https://github.com/matildeopbravo) ❤️
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.

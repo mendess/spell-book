@@ -89,12 +89,7 @@ super + shift + c
     $TERMINAL -e ikhal
 
 super + alt + v
-    extension=$(dmenu -p "Enter extension"); \
-    [[ "$extension" ]] || extension=txt; \
-    mkdir -p /tmp/vim-anywhere; \
-    file=$(mktemp "/tmp/vim-anywhere/cenasXXXXXX.$extension"); \
-    "$TERMINAL" -e nvim  "$file"; \
-    [ "$(cat "$file")" ] && xclip -selection c < "$file"
+    vim-anywhere
 
 super + w
     date +%F_%T-%N >/tmp/.super-w-time ;\
