@@ -126,6 +126,12 @@ fu! RunKt()
     execute '!kotlin -cp %:h ' . l:first_letter . l:rest . 'Kt'
 endfu
 
+au FileType javascript nnoremap <leader>r :call RunJs()<CR>
+fu! RunJs()
+    write
+    !node %
+endfu
+
 nnoremap <leader>r :call Run()<CR>
 fu! Run()
     write
