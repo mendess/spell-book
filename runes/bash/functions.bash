@@ -67,13 +67,12 @@ za() {
 
 alarm() {
     if [ $# -lt 1 ]; then
-        echo provide a time string
+        echo "provide a time string"
         return 1
     fi
     {
-        link="https://www.youtube.com/watch?v=4iC-7aJ6LDY"
         sleep "$1"
-        mpv --no-video "$link" --input-ipc-server=/tmp/mpvalarm &
+        mpv --no-video /usr/share/sounds/freedesktop/stereo/alarm*
         notify-send -u critical "Alarm" "$2" -a "$(basename "$0")"
     } &
     disown
@@ -229,8 +228,13 @@ gcl() {
 
 nospace() {
     for file in *; do
-        grep ' ' <(echo "$file") || continue
-        mv -vn "$file" "$(echo "$file" | sed -r "s/['&,()!]//g;s/ ([-_]) /\\1/g;s/ /_/g;s/_+/_/g")"
+        grep ' ' <<<"$file" || continue
+	new_name=$(sed -r "s/['&,()!]//g;s/ ([-_]) /\\1/g;s/ /-/g;s/_+/-/g" <<<"$file")
+	if [ -e "$new_name" ]; then
+	    echo "can't rename $file to $new_name. A file with that name already exists"
+	else
+            mv -vn "$file" "$new_name"
+	fi
     done
 }
 
@@ -440,7 +444,7 @@ sshfs() {
     if [[ ! -d "$2" ]]; then
         mkdir -p "$2" || return
     fi
-    command sshfs -o reconnect "$@"
+    command sshfs -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 "$@"
 }
 
 bak() {
