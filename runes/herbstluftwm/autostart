@@ -296,8 +296,11 @@ case "${#monitors[@]}" in
         ;;
 esac
 
-pkill sxhkd
-daemonise sxhkd -m -1 -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
+if pgrep sxhkd; then
+    pkill -SIGUSR1 sxhkd
+else
+    daemonise sxhkd -m -1 -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
+fi
 
 bar_args=()
 i=0

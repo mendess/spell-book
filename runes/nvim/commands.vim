@@ -8,7 +8,7 @@ command! Vte :vsplit | terminal
 
 command! Json set syntax=json
 
-command! -bang -nargs=1 Rename call RenameFunc(<q-args>, <bang>0)
+command! -bang -nargs=1 -complete=file Rename call RenameFunc(<q-args>, <bang>0)
 fu! RenameFunc(new_name, bang)
     let l:aux=expand('%')
     execute 'saveas'.(a:bang?'! ':' ').a:new_name

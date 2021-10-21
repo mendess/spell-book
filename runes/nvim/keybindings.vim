@@ -23,7 +23,7 @@ noremap <C-S> :w<CR>
 inoremap <C-S> <Esc>:w<CR>a
 
 " shell script linting
-au FileType sh map <leader>s :!clear && shellcheck --color=never -x %<CR>
+au FileType sh nnoremap <leader>s :sp | term shellcheck -x %<CR>
 " toggle spelling
 noremap <leader>o :setlocal spell! spelllang=en_gb,pt_pt<CR>
 noremap <leader>O :setlocal spell! spelllang=en_gb<CR>
