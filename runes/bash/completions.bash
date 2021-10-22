@@ -155,7 +155,7 @@ completions_dir=/usr/share/bash-completion/completions/
 command -V youtube-dl &>/dev/null &&
     eval "$(sed 's/youtube-dl/ytdl/' < <(complete -p youtube-dl 2>/dev/null))"
 
-for c in "$SPELLS"/runes/bash/compleations/*; do
+for c in "$SPELLS"/runes/bash/completions/*; do
     #shellcheck disable=1090
     . "$c"
 done
