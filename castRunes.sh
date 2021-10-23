@@ -8,7 +8,7 @@
 ## - generated: Dotfile is generated based on host
 ## - ifdir: Only install if it's directory already exists
 
-any_match() {
+any-match() {
     local i
     for i in "${@:2}"; do
         [ "$i" = "$1" ] && return
@@ -16,13 +16,13 @@ any_match() {
     return 1
 }
 
-join_by() {
+join-by() {
     local IFS="$1"
     shift
     echo "$*"
 }
 
-sudoHost() {
+sudo_host() {
     local h
     for h in tolaria weatherlight mirrodin matess kaladesh; do
         [ "$(hostname)" = "$h" ] && return 0
@@ -30,7 +30,7 @@ sudoHost() {
     return 1
 }
 
-if ! sudoHost; then
+if ! sudo_host; then
     sudo() {
         echo "sudo not available"
     }
@@ -42,16 +42,18 @@ else
     cd "$(dirname "$0")"/runes || exit 1
 fi
 
-expandedRunes=()
+expanded_runes=()
+rune_dir=()
 
 expand() {
     local file f
     for file in "$2"/*; do
         f="$(basename "$file")"
         if [ -d "$file" ]; then
+            rune_dir+=("$(join-by ',' "$1" "${args[@]:2}")")
             expand "$1/$f" "$2/$f" "${@:3}"
         else
-            expandedRunes+=("$1/$f,$2/$f,${@:3}")
+            expanded_runes+=("$1/$f,$2/$f,${@:3}")
         fi
     done
 }
@@ -77,7 +79,7 @@ while IFS=',' read -r -a args; do
             #shellcheck disable=2206
             a=($path)
             [[ "${#a[@]}" -gt 1 ]] &&
-                echo -e "too many matches: \n$(join_by "\n\t" "${a[@]}")" &&
+                echo -e "too many matches: \n$(join-by "\n\t" "${a[@]}")" &&
                 break
             path="${a[0]}"
         done
@@ -86,42 +88,57 @@ while IFS=',' read -r -a args; do
     }
     args[0]="$link"
     if [ -d "$file" ]; then
+        rune_dir+=("$(join-by ',' "$link" "${args[@]:2}")")
         expand "${args[@]}"
     else
-        expandedRunes+=("$(join_by ',' "${args[@]}")")
+        expanded_runes+=("$(join-by ',' "${args[@]}")")
     fi
 done < <(sed '/^#/d' ../runes/.db)
 
-cleanRunes() {
+clean-runes() {
     local rune
-    for rune in "${expandedRunes[@]}"; do
+    for rune in "${expanded_runes[@]}"; do
         local link file args
         IFS=',' read -ra args <<<"${rune}"
         link=${args[0]}
         file=${args[1]}
         if [ -h "$link" ] && ! [ -e "$link" ]; then
             echo -e "\033[31mRemoving broken rune: $(basename "$link")\033[0m"
-            if any_match sudo "${args[@]:2}"; then
+            if any-match sudo "${args[@]:2}"; then
                 sudo rm "$link"
             else
                 rm "$link"
             fi
         fi
     done
+    while read -r d ; do
+        local dir args
+        IFS=',' read -ra args <<<"$d"
+        dir=${args[0]}
+        args=("${args[@]:1}")
+        while read -r link_to_rm; do
+            echo -e "\033[31mRemoving broken rune: $(basename "$link_to_rm")\033[0m"
+            if any-match sudo "${args[@]}"; then
+                sudo rm "$link_to_rm"
+            else
+                rm "$link_to_rm"
+            fi
+        done < <(find -L "$dir" -type l)
+    done < <(printf "%s\n" "${rune_dir[@]}" | sort -u)
     return 1
 }
 
-newRunes() {
+new-runes() {
     local rune
-    for rune in "${expandedRunes[@]}"; do
+    for rune in "${expanded_runes[@]}"; do
         local args link
         IFS=',' read -r -a args <<<"${rune}"
         link="${args[0]}"
         local ifdir=""
         local generated=""
-        any_match sudo "${args[@]:2}" && ! sudoHost && continue
-        any_match ifdir "${args[@]:2}" && ifdir=1
-        any_match generated "${args[@]:2}" && generated=1
+        any-match sudo "${args[@]:2}" && ! sudo_host && continue
+        any-match ifdir "${args[@]:2}" && ifdir=1
+        any-match generated "${args[@]:2}" && generated=1
         [ "$ifdir" ] && [ ! -e "$(dirname "$link")" ] && continue
         if [ "$generated" ]; then
             [ ! -e "$link" ] || [ "$link" -ot "$(pwd)/${args[1]}" ]
@@ -132,11 +149,11 @@ newRunes() {
     return 1
 }
 
-linkRune() {
+link-rune() {
     local generated force exe cmd
-    any_match generated "${@:3}" && generated=1
-    any_match force "${@:3}" && force=1
-    any_match exe "${@:3}" && exe=1
+    any-match generated "${@:3}" && generated=1
+    any-match force "${@:3}" && force=1
+    any-match exe "${@:3}" && exe=1
     local target="$(pwd)/$1"
     local link_name="$2"
 
@@ -153,7 +170,7 @@ linkRune() {
         cmd=()
     fi
     if [[ "${#cmd[@]}" -gt 0 ]]; then
-        if any_match sudo "${@:3}"; then
+        if any-match sudo "${@:3}"; then
             echo "sudo for '$link_name'"
             echo -en "\033[35mCasting "
             sudo "${cmd[@]}"
@@ -169,26 +186,26 @@ linkRune() {
     fi
 }
 
-makeIfAbsent() {
+make-if-absent() {
     if [ ! -e "$1" ]; then
-        any_match ifdir "${@:2}" && return 1
+        any-match ifdir "${@:2}" && return 1
         echo -e "\033[31mMissing \033[36m$1\033[31m directory, creating....\033[0m"
         mkdir --parent "$1"
     fi
     return 0
 }
 
-cleanRunes
-newRunes || exit 0
+clean-runes
+new-runes || exit 0
 
 echo -e "\033[33mCasting Runes...\033[0m"
 
-for rune in "${expandedRunes[@]}"; do
+for rune in "${expanded_runes[@]}"; do
     IFS=',' read -r -a args <<<"${rune}"
     link="${args[0]}"
     file="${args[1]}"
-    if makeIfAbsent "$(dirname "$link")" "${args[@]:2}"; then
-        linkRune "$file" "$link" "${args[@]:2}"
+    if make-if-absent "$(dirname "$link")" "${args[@]:2}"; then
+        link-rune "$file" "$link" "${args[@]:2}"
     fi
 done
 echo -e "\033[33mDone!\033[0m"
