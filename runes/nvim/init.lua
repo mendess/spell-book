@@ -4,7 +4,7 @@ local function load_mapx()
     end
     local ok, m = pcall(f)
     if ok then
-	mapx = m
+    mapx = m
     end
 end
 

@@ -3,12 +3,12 @@ local set = vim.opt
 
 -- theme.lua
 
-vim.opt.termguicolors = true
-vim.g.base16colorsspace = 256
+-- vim.opt.termguicolors = true
+-- vim.g.base16colorsspace = 256
 
 local base16_costumize = function()
-    vim.call('Base16hi', 'MatchParen', '', '', '', '', 'bold', '')
-    vim.call('Base16hi', 'Comment', vim.g.base16_gui04, '', vim.g.base16_cterm04, '', '', '')
+    -- vim.call('Base16hi', 'MatchParen', '', '', '', '', 'bold', '')
+    -- vim.call('Base16hi', 'Comment', vim.g.base16_gui04, '', vim.g.base16_cterm04, '', '', '')
 end
 
 au.group('on-change-colorscheme', function(g)
@@ -16,7 +16,17 @@ au.group('on-change-colorscheme', function(g)
     g.ColorScheme = { '*',  'highlight Normal guibg=NONE' }
 end)
 
-vim.cmd 'colorscheme base16-default-dark'
+local base16 = require('base16')
+base16(base16.themes['default-dark'], true, {
+    transparent_bg = true,
+    Comment = function(theme, cterm)
+        return theme.base04, nil, cterm.cterm04, nil, nil, nil
+    end,
+    MatchParen = function(theme, cterm)
+        return nil, nil, nil, nil, 'bold', nil
+    end,
+})
+--vim.cmd 'colorscheme base16-default-dark'
 
 -- assign syntax to some special files
 au.group('syntax-fix', function(g)

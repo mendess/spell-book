@@ -24,3 +24,11 @@ inoremap('<F2>', ':NERDTreeToggle<CR>')
 nnoremap('<leader>g', ':GitGutterToggle<CR>')
 command.Gd = ':GitGutterPreviewHunk'
 command.Gco = ':GitGutterUndoHunk'
+
+-- telescope
+mapx.group({ silent = true }, function()
+    nnoremap('<leader>p', function() require('telescope.builtin').find_files() end)
+    nnoremap('<leader>b', function() require('telescope.builtin').buffers() end)
+    command.Rg = function() require('telescope.builtin').grep_string() end
+end)
+

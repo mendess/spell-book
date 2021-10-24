@@ -17,11 +17,13 @@ return require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
     -- mappings api
     use 'b0o/mapx.nvim'
+    -- profiling
+    use 'tweekmonster/startuptime.vim'
     ------ ============================= ------
 
 
     ------ ======  COLOR SCHEMES  ====== ------
-    use 'chriskempson/base16-vim'
+    use 'mendess/nvim-base16.lua'
     use 'mendess/ayu-vim'
     use 'ntk148v/vim-horizon'
     ------ ============================= ------
@@ -85,25 +87,28 @@ return require('packer').startup({function(use)
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
         config = function() require('plugins.tree-sitter') end,
+        event = "BufRead",
     }
     -- pweatty lsp frontend
     use {
         'tami5/lspsaga.nvim',
         branch = "nvim51",
         config = function() require('plugins.lspsaga') end,
+        after = "nvim-lspconfig"
     }
     -- completion
     use {
         'hrsh7th/nvim-cmp',
         requires = {
             'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-nvim-lua',
-            'hrsh7th/vim-vsnip',
-            'hrsh7th/cmp-vsnip',
+            {'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+            {'hrsh7th/cmp-path', after = 'nvim-cmp' },
+            {'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+            {'hrsh7th/vim-vsnip', after = 'nvim-cmp' },
+            {'hrsh7th/cmp-vsnip', after = 'vim-vsnip' },
         },
         config = function() require('plugins.cmp') end,
+        event = "VimEnter *"
     }
     -- fuzzy finder
     use {
@@ -113,12 +118,23 @@ return require('packer').startup({function(use)
             'nvim-lua/plenary.nvim',
         },
         config = function() require('plugins.telescope') end,
+        module = {'telescope', 'telescope.builtin'},
     }
     ------ ============================= ------
 
-    ------ ======      OTHER      ====== ------
+    ------ ======  EXTRA SINTAX   ====== ------
     -- Rust
-    use 'rust-lang/rust.vim'
+    use {
+        'rust-lang/rust.vim',
+        ft = { 'rust' }
+    }
+    use {
+        'lukas-reineke/headlines.nvim',
+        config = function()
+            require('headlines').setup()
+        end,
+        disable = true,
+    }
     ------ ============================= ------
 end,
 config = {

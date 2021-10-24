@@ -100,9 +100,9 @@ alias cnt='cargo +nightly test'
 alias ca=cargo
 alias cn='cargo +nightly'
 
-alias bashrc="vim $SPELLS/runes/bash"
-alias vimrc="vim ~/.config/nvim/init.vim"
-alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
+alias bashrc="cd $SPELLS/runes/bash && vim bashrc"
+alias vimrc='cd $SPELLS/runes/nvim/; vim init.*'
+alias viminstall="vim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; echo"
 alias py="python3"
 alias c="clear"
 alias pyenv="source .env/bin/activate"
