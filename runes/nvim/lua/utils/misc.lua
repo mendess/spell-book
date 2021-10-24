@@ -24,5 +24,19 @@ M.iabbrev = function(ab, full)
     vim.cmd('ia ' .. ab .. ' ' .. full)
 end
 
+M.safe_require = function(mod)
+    local ok, m = pcall(require, mod)
+    if ok then return m else return nil end
+end
+
+M.if_require_do = function(mod, f)
+    local m = M.safe_require(mod)
+    if m then
+	f(m)
+	return m
+    else
+	return nil
+    end
+end
 
 return M
