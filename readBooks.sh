@@ -9,14 +9,14 @@ m() {
 }
 
 lemons_installed() { (
+    rustup show | grep -q 'no active toolchain' &&
+        return 0
     cd "$1" &&
         command -V lemon 2>/dev/null >/dev/null &&
         [ "$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)" = "$(lemon --version | awk '{print $2}')" ]
 ); }
 
 lemons() { (
-    rustup show | grep -q 'no active toolchain' &&
-        return
     cd "$1" &&
         cargo install --path . --bin lemon
 ); }
