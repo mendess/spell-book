@@ -7,6 +7,7 @@
 ## - sudo: Require sudo to install the dotfiles
 ## - generated: Dotfile is generated based on host
 ## - ifdir: Only install if it's directory already exists
+## - copy: Copy instead symlinking
 
 any-match() {
     local i
@@ -139,8 +140,11 @@ new-runes() {
         any-match sudo "${args[@]:2}" && ! sudo_host && continue
         any-match ifdir "${args[@]:2}" && ifdir=1
         any-match generated "${args[@]:2}" && generated=1
+        any-match copy "${args[@]:2}" && copy=1
+
         [ "$ifdir" ] && [ ! -e "$(dirname "$link")" ] && continue
-        if [ "$generated" ]; then
+
+        if [ "$generated" ] || [ "$copy" ]; then
             [ ! -e "$link" ] || [ "$link" -ot "$(pwd)/${args[1]}" ]
         else
             [ ! -h "$link" ]
@@ -150,29 +154,33 @@ new-runes() {
 }
 
 link-rune() {
-    local generated force exe cmd
+    local generated force exe cmd copy
     any-match generated "${@:3}" && generated=1
     any-match force "${@:3}" && force=1
     any-match exe "${@:3}" && exe=1
+    any-match copy "${@:3}" && copy=1
+
     local target="$(pwd)/$1"
     local link_name="$2"
 
+    cmd=()
     if [[ "$generated" ]]; then
         [[ "$force" ]] &&
             echo -e "\e[33mWarning:\e[0m 'forced' does nothing when combined with 'generated'"
         [[ "$link_name" -ot "$target" ]] &&
             cmd=(python3 "$(pwd)/../generate_config.py" "$target" "$link_name")
+    elif [[ "$copy" ]]; then
+        if [[ "$force" ]] || ! cmp -s "$target" "$link_name"; then
+            cmd=(cp --verbose "$target" "$link_name")
+        fi
     elif [[ ! -L "$link_name" ]]; then
         cmd=(ln --symbolic --verbose)
         [[ "$force" ]] && cmd+=(--force)
         cmd+=("$target" "$link_name")
-    else
-        cmd=()
     fi
     if [[ "${#cmd[@]}" -gt 0 ]]; then
         if any-match sudo "${@:3}"; then
-            echo "sudo for '$link_name'"
-            echo -en "\033[35mCasting "
+            echo -en "\033[31mHard \033[35mCasting "
             sudo "${cmd[@]}"
         else
             echo -en "\033[35mCasting "

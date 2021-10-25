@@ -64,7 +64,7 @@ au.group('writing-opts', function(g)
                 vim.cmd('!pdflatex --shell-escape ' .. expand('%:p'))
             end
             nnoremap('<leader>r', function()
-                local file = expand('%:r.pdf')
+                local file = expand('%:r') .. '.pdf'
                 os.execute('exec zathura ' .. file ..' >/dev/null &')
             end)
             inoremap(',tt', [[\texttt{}<Space><++><Esc>T{i]])

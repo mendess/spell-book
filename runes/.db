@@ -6,8 +6,8 @@
 #~/.config/polybar,polybar
 #~/.config/termite/config,termite
 #~/.zprofile,zprofile
-/.clang-format,clang-format,sudo
-/.clang-tidy,clang-tidy,sudo
+/.clang-format,clang-format,sudo,copy
+/.clang-tidy,clang-tidy,sudo,copy
 /etc/udev/rules.d/backlight.rules,backlight.rules,sudo
 ~/.bash_profile,bash/profile
 ~/.bashrc,bash/bashrc

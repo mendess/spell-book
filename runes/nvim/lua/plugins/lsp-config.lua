@@ -42,5 +42,9 @@ lsp.rust_analyzer.setup {
     },
     capabilities = update_capabilities(protocol.make_client_capabilities())
 }
+lsp.bashls.setup {
+    on_attach = on_attach,
+    capabilities = update_capabilities(protocol.make_client_capabilities())
+}
 
 vim.cmd [[LspStart]]
