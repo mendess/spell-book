@@ -73,12 +73,13 @@ export PATH="$PATH:$CARGO_HOME/bin"
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
-if [ "$tty" = "/dev/tty1" ]; then
+LOG=~/.local/cache/startx.log
+if [[ "$tty" =~ /dev/tty[12] ]]; then
     pfetch
-    rm -f /tmp/startx.log
-    pgrep bspwm || xinit -- :0 vt1 &>/tmp/startx.log
+    rm -f "$LOG"
+    xinit -- :$(( $(tty | grep -Eo '[0-9]') - 1)) vt1 &>"$LOG"
 elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
-    if [[ "$tty" =~ tty[3-9] ]]; then
+    if [[ "$tty" =~ tty[4-9] ]]; then
         export TTY_TMUX=1
         tmux new-session -A -s "$(basename "$(tty)")"
     elif [[ "$SSH_CONNECTION" ]]; then
