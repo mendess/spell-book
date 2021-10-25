@@ -78,7 +78,7 @@ if [[ "$tty" =~ /dev/tty[12] ]]; then
     pfetch
     rm -f "$LOG"
     tty_num=$(tty | grep -Eo '[0-9]')
-    xinit -- ":$(( $tty_num - 1 ))" "vt$tty_num" &>"$LOG"
+    xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num" &>"$LOG"
 elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
     if [[ "$tty" =~ tty[4-9] ]]; then
         export TTY_TMUX=1

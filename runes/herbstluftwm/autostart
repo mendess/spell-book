@@ -132,7 +132,7 @@ $hc keybind $Mod-r cycle
 # theme
 $hc attr theme.tiling.reset 1
 $hc attr theme.floating.reset 1
-mapfile -t colors < <(awk '{print $1}' $CACHE_DIR/wall_colors)
+mapfile -t colors < <(awk '{print $1}' "$CACHE_DIR/wall_colors")
 $hc attr theme.active.color "${colors[0]}"
 $hc attr theme.normal.color "${colors[2]}"
 $hc attr settings.frame_border_active_color "${colors[0]}"
