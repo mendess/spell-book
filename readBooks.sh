@@ -15,6 +15,8 @@ lemons_installed() { (
 ); }
 
 lemons() { (
+    rustup show | grep -q 'no active toolchain' &&
+        return
     cd "$1" &&
         cargo install --path . --bin lemon
 ); }
