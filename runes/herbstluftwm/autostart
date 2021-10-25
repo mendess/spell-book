@@ -5,6 +5,7 @@ trap 0 'herbstclient unlock'
 
 hc=herbstclient
 
+CACHE_DIR="${XDG_CACHE_HOME:-~/.cache}"
 daemonise() { (
     set +x
     # Close all but stdio
@@ -131,7 +132,7 @@ $hc keybind $Mod-r cycle
 # theme
 $hc attr theme.tiling.reset 1
 $hc attr theme.floating.reset 1
-mapfile -t colors < <(awk '{print $1}' /tmp/wall_colors)
+mapfile -t colors < <(awk '{print $1}' $CACHE_DIR/wall_colors)
 $hc attr theme.active.color "${colors[0]}"
 $hc attr theme.normal.color "${colors[2]}"
 $hc attr settings.frame_border_active_color "${colors[0]}"
@@ -299,7 +300,7 @@ esac
 if pgrep -u "$LOGNAME" sxhkd; then
     pkill -SIGUSR1 sxhkd
 else
-    daemonise sxhkd -m -1 -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
+    daemonise sxhkd -m -1 -r "$CACHE_DIR/sxhkd.log" -s "$CACHE_DIR/sxhkd.fifo"
 fi
 
 bar_args=()
@@ -312,7 +313,7 @@ done
 unset i
 
 pkill lemon
-RUST_LOG=debug,lemon::event_loop=trace daemonise lemon "${bar_args[@]}" &>/tmp/lemonbar.log
+RUST_LOG=debug,lemon::event_loop=trace daemonise lemon "${bar_args[@]}" &>"$CACHE_DIR/lemonbar.log"
 
 
 # unlock, just to be sure
