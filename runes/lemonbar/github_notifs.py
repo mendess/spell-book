@@ -6,6 +6,7 @@ from sys import argv
 import os
 import socket
 import json
+from os.path import dirname
 from typing import List
 
 try:
@@ -20,7 +21,8 @@ headers = {
     "Accept": "application/vnd.github.v3+json"
 }
 params = {"all": "false"}  # only unread notifications
-LAST_NOTIFS_FILENAME = '/tmp/last_github_notifs'
+LAST_NOTIFS_FILENAME = f'/tmp/{os.getlogin()}/last_github_notifs'
+os.mkdir(dirname(LAST_NOTIFS_FILENAME))
 
 
 class Wildcard:

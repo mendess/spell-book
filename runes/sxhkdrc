@@ -52,13 +52,15 @@ super + F8
     feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
 
 super + F10
-    if [ -e /tmp/.dnd ]; then \
+    DND="/tmp/.dnd" ; \
+    if [ -e "$DND" ]; then \
         ssh mirrodin automation/discord/online & \
-        rm /tmp/.dnd ; \
+        rm "$DND" ; \
     else \
         dunstctl close-all ; \
         ssh mirrodin automation/discord/busy & \
-        touch /tmp/.dnd ; \
+        touch "$DND" ; \
+        chmod a+rw "$DND" ; \
     fi &>/dev/null ; \
     pkill -10 -x lemon
 
@@ -92,18 +94,14 @@ super + alt + v
     vim-anywhere
 
 super + w
-    date +%F_%T-%N >/tmp/.super-w-time ;\
     desktop="$(xdotool get_desktop)"; \
-    date +%F_%T-%N >>/tmp/.super-w-time ;\
     win_name="$(xdotool search --desktop "$desktop" . | \
             grep -v "$(xdotool getwindowfocus)" | \
             xargs -I 'X' bash -c "printf '%d    %s\\n' 'X' \"\$(xdotool getwindowname 'X')\"" | \
             column -t -s'   ' | \
             dmenu -i -l 10 -p focus | \
             awk -F' ' '\{print $1\}')"; \
-    date +%F_%T-%N >>/tmp/.super-w-time ;\
     [ "$win_name" ] && xdotool windowactivate "$win_name" ;\
-    date +%F_%T-%N >>/tmp/.super-w-time
 
 
 @Print
@@ -180,7 +178,7 @@ super + shift + underscore
     m gui toggle-video
 
 super + BackSpace
-    echo quit | socat - /tmp/mpvalarm
+    echo quit | socat - "/tmp/$LOGNAME/mpvalarm"
 
 super + comma
     pkill -SIGUSR2 -x lemon

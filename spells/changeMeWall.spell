@@ -6,6 +6,8 @@
 # idea and help finding the more contrasting colors for dmenu
 
 set -e
+CACHE="/tmp/$LOGNAME"
+mkdir -p "$CACHE"
 
 show_help() {
     exe="$(basename "$0")"
@@ -183,7 +185,7 @@ unset i
     echo "Picking ${colors[*]}"
 
     # Dmenu colors
-    printf "%s\n" "${colors[@]}" >|/tmp/wall_colors
+    printf "%s\n" "${colors[@]}" >| "$CACHE/wall_colors"
 
     # BSPWM colors
     if command -v bspc &>/dev/null && bspc --test &>/dev/null; then
@@ -203,7 +205,7 @@ unset i
     # Lamp colors
     if [[ "$(hostname)" = tolaria ]] || nmcli -t dev | grep -q 'ZON.*2010' ; then
         #shellcheck disable=2029
-        [ -e /tmp/mood_light ] ||
+        [ -e "$CACHE/mood_light" ] ||
             ssh mirrodin -o BatchMode=yes \
                 "python ~/bulb/color.py \\${colors[0]% *} --flow --sleep"
     fi

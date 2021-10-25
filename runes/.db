@@ -1,11 +1,5 @@
 #~/.IntelliJIdea2018.3/config/idea.properties,idea.properties,ifdir
 #~/.Rider2018.3/config/idea.properties,idea.properties,ifdir
-#~/.config/i3/config,i3
-#~/.config/i3blocks,i3blocks
-#~/.config/i3status/config,i3status
-#~/.config/polybar,polybar
-#~/.config/termite/config,termite
-#~/.zprofile,zprofile
 /.clang-format,clang-format,sudo,copy
 /.clang-tidy,clang-tidy,sudo,copy
 /etc/udev/rules.d/backlight.rules,backlight.rules,sudo,copy
@@ -13,8 +7,6 @@
 ~/.bashrc,bash/bashrc
 ~/.config/X11/xinitrc,xinitrc
 ~/.config/alacritty/alacritty.yml,alacritty.yml,generated
-#~/.config/bspwm,bspwm
-#~/.config/calcurse/conf,calcurse.conf
 ~/.config/compton.conf,compton.conf
 ~/.config/dunst/dunstrc,dunstrc,generated
 ~/.config/gitignore-global,gitignore-global
@@ -31,7 +23,6 @@
 ~/.config/user-dirs.dirs,user-dirs.dirs,force
 ~/.config/wgetrc,wgetrc
 ~/.config/zathura/zathurarc,zathurarc
-~/.mailcap,mailcap
 ~/.mozilla/firefox/*.default-release/chrome/userChrome.css,firefox/userChrome.css
 ~/.mozilla/firefox/*.default-release/chrome/userContent.css,firefox/userContent.css
 ~/.mozilla/firefox/*.default-release/user.js,firefox/user.js

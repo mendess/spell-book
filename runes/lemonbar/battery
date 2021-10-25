@@ -26,7 +26,7 @@ for i in acpi:
     else:
         print_status = ' -'  #'⬙'
 
-    if 'harging' not in status:  #or not path.exists('/tmp/.bloat'):
+    if 'harging' not in status:
         time = ""
     else:
         try:

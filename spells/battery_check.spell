@@ -5,6 +5,8 @@ if acpi 2>&1 | grep 'power_supply'; then
     exit
 fi
 case "$(hostname)" in tolaria) exit ;; esac
+CACHE="/tmp/$LOGNAME"
+mkdir -p "$CACHE"
 
 setup() {
     batteries_levels=$(acpi -b | cut -d ' ' -f 4 | grep -o '[0-9]*')
@@ -15,17 +17,17 @@ setup() {
     battery_level=$(echo "$batteries_levels" | awk -v n="$num_batteries" '{s+=$1} END {printf "%.0f\n", s/n}')
     # Battery state selection (priority for 'Charging')
     battery_state=$(echo "$batteries_state" | awk '{ if($0=="Charging") {r=$0} else {s=$0} } END{if(r=="") {print s} else {print r}}')
-    
-    if [ ! -f "/tmp/.battery" ]; then
-        echo "$battery_level" >/tmp/.battery
-        echo "$battery_state" >>/tmp/.battery
+
+    if [ ! -f "$CACHE/.battery" ]; then
+        echo "$battery_level" >$CACHE/.battery
+        echo "$battery_state" >>$CACHE/.battery
         exit
     fi
 
-    previous_battery_level=$(head -n 1 /tmp/.battery)
-    previous_battery_state=$(tail -n 1 /tmp/.battery)
-    echo "$battery_level" >/tmp/.battery
-    echo "$battery_state" >>/tmp/.battery
+    previous_battery_level=$(head -n 1 $CACHE/.battery)
+    previous_battery_state=$(tail -n 1 $CACHE/.battery)
+    echo "$battery_level" >$CACHE/.battery
+    echo "$battery_state" >>$CACHE/.battery
 }
 
 checkBatteryLevel() {
@@ -34,10 +36,10 @@ checkBatteryLevel() {
     if [ "$battery_state" != "Discharging" ] && [ "$battery_level" -ge 90 ]; then
         notify-send "Battery almost full: ${battery_level}%, unplug" -u low -a "$(basename "$0")"
     elif [ "$battery_state" = "Discharging" ]; then
-        if [ -e /tmp/use_the_juice ] && [ "$battery_level" -le 5 ]; then
+        if [ -e $CACHE/use_the_juice ] && [ "$battery_level" -le 5 ]; then
             notify-send 'Shutting down' -u critical -a "$(basename "$0")"
             shutdown
-        elif ! [ -e /tmp/use_the_juice ] && [ "$battery_level" -le 10 ]; then
+        elif ! [ -e $CACHE/use_the_juice ] && [ "$battery_level" -le 10 ]; then
             systemctl suspend
         elif [ "$battery_level" -le 20 ]; then
             notify-send "Low Battery" "Your computer will suspend soon unless plugged into a power outlet." -u critical -a "$(basename "$0")"

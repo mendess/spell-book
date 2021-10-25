@@ -6,11 +6,13 @@ battery,use_the_juice
 walls,stop_wall"
 
 readonly NUM_DAEMONS="$(echo "$DAEMONS" | wc -l)"
+CACHE="/tmp/$LOGNAME"
+mkdir -p "$CACHE"
 
 while :; do
     i=1
     for d in $DAEMONS; do
-        if [[ -e "/tmp/${d#*,}" ]]; then
+        if [[ -e "$CACHE/${d#*,}" ]]; then
             printf "%d) \e[31mOFFLINE\e[0m %s\n" $i "${d%,*}"
         else
             printf "%d) \e[32mONLINE \e[0m %s\n" $i "${d%,*}"
@@ -27,7 +29,7 @@ while :; do
     done
     if [[ "$REPLY" -le "$NUM_DAEMONS" ]] && [[ "$REPLY" -gt 0 ]]; then
         dfile="$(echo "$DAEMONS" | sed -n "${REPLY}p")"
-        dfile="/tmp/${dfile#*,}"
+        dfile="$CACHE/${dfile#*,}"
         if [[ -e "$dfile" ]]; then
             rm "$dfile"
         else
