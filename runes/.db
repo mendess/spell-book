@@ -8,7 +8,7 @@
 #~/.zprofile,zprofile
 /.clang-format,clang-format,sudo,copy
 /.clang-tidy,clang-tidy,sudo,copy
-/etc/udev/rules.d/backlight.rules,backlight.rules,sudo
+/etc/udev/rules.d/backlight.rules,backlight.rules,sudo,copy
 ~/.bash_profile,bash/profile
 ~/.bashrc,bash/bashrc
 ~/.config/X11/xinitrc,xinitrc
