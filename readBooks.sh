@@ -4,6 +4,7 @@ m_installed() {
     f="$(readlink ~/.local/bin/m)" && [ -e "$f" ]
 }
 m() {
+    mkdir -p ~/.local/bin/
     ln -svf "$1"/m.sh ~/.local/bin/m
 }
 

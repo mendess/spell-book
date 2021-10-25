@@ -116,6 +116,7 @@ clean-runes() {
         local dir args
         IFS=',' read -ra args <<<"$d"
         dir=${args[0]}
+        [ -e "$dir" ] || continue
         args=("${args[@]:1}")
         while read -r link_to_rm; do
             echo -e "\033[31mRemoving broken rune: $(basename "$link_to_rm")\033[0m"

@@ -7,6 +7,7 @@
     { echo "please make sure jq, hostname and python are installed" && exit 1; }
 
 symlinks() {
+    cd ${SPELLS:-$(dirname $(readlink "$0"))/..} || return 1
     bash ./learnSpells.sh
     bash ./castRunes.sh
     bash ./synclinks.sh
@@ -83,7 +84,7 @@ sync() {
     elif [ -n "$hasPulls" ]; then
         git pull --rebase
     fi
-    [ -e ./castRunes.sh ] && symlinks
+    symlinks
     return 0
 }
 
