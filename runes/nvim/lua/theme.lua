@@ -4,6 +4,8 @@ local misc = require('utils.misc')
 
 -- theme.lua
 
+set.termguicolors = true
+
 misc.if_require_do('base16', function(base16)
     base16(base16.themes['default-dark'], true, {
         transparent_bg = true,
