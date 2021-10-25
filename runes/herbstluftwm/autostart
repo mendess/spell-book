@@ -296,7 +296,7 @@ case "${#monitors[@]}" in
         ;;
 esac
 
-if pgrep sxhkd; then
+if pgrep -u "$LOGNAME" sxhkd; then
     pkill -SIGUSR1 sxhkd
 else
     daemonise sxhkd -m -1 -r /tmp/sxhkd.log -s /tmp/sxhkd.fifo
