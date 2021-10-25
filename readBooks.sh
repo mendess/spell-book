@@ -10,7 +10,7 @@ m() {
 
 lemons_installed() { (
     cd "$1" &&
-        command -V lemon 2>/dev/null &&
+        command -V lemon 2>/dev/null >/dev/null &&
         [ "$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)" = "$(lemon --version | awk '{print $2}')" ]
 ); }
 
