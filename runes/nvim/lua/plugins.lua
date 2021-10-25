@@ -18,7 +18,7 @@ return require('packer').startup({function(use)
     -- mappings api
     use 'b0o/mapx.nvim'
     -- profiling
-    use 'tweekmonster/startuptime.vim'
+    use {'tweekmonster/startuptime.vim', disable = true }
     ------ ============================= ------
 
 
@@ -55,6 +55,7 @@ return require('packer').startup({function(use)
         'machakann/vim-highlightedyank',
         config = function() vim.g.highlightedyank_highlight_duration = 100 end
     }
+    use { 'tversteeg/registers.nvim' }
     ------ ============================= ------
 
 

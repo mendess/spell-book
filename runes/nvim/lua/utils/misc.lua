@@ -3,10 +3,10 @@ local M = {}
 M.file_exists = function(name)
     local f = io.open(name, 'r')
     if f ~= nil then
-	io.close(f)
-	return true
+        io.close(f)
+        return true
     else
-	return false
+        return false
     end
 end
 
@@ -32,10 +32,10 @@ end
 M.if_require_do = function(mod, f)
     local m = M.safe_require(mod)
     if m then
-	f(m)
-	return m
+        f(m)
+        return m
     else
-	return nil
+        return nil
     end
 end
 

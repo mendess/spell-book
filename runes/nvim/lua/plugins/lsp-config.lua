@@ -22,7 +22,7 @@ end
 
 lsp.tsserver.setup {
     on_attach = on_attach,
-    filetypes = { "typescript", "typescrptreact", "typescript.tsx" },
+    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     capabilities = update_capabilities(protocol.make_client_capabilities())
 }
 lsp.rust_analyzer.setup {
@@ -31,9 +31,16 @@ lsp.rust_analyzer.setup {
         ["rust-analyzer"] = {
             cargo = {
                 autoreload = true
-            }
+            },
+            flags = {
+                exit_timeout = 0,
+            },
+            checkOnSave = {
+                command = "clippy"
+            },
         }
     },
     capabilities = update_capabilities(protocol.make_client_capabilities())
 }
 
+vim.cmd [[LspStart]]
