@@ -73,11 +73,12 @@ export PATH="$PATH:$CARGO_HOME/bin"
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
-LOG=~/.local/cache/startx.log
+LOG="$XDG_CACHE_HOME/startx.log"
 if [[ "$tty" =~ /dev/tty[12] ]]; then
     pfetch
     rm -f "$LOG"
-    xinit -- :$(( $(tty | grep -Eo '[0-9]') - 1)) vt1 &>"$LOG"
+    tty_num=$(tty | grep -Eo '[0-9]')
+    xinit -- ":$(( $tty_num - 1 ))" "vt$tty_num" &>"$LOG"
 elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
     if [[ "$tty" =~ tty[4-9] ]]; then
         export TTY_TMUX=1
