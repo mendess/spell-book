@@ -83,12 +83,12 @@ return require('packer').startup({function(use)
         after = 'nvim-cmp',
         config = function() require('plugins.lsp-config') end,
     }
-    -- smart syntax highlighting
+    -- syntax highlighting
     use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate',
-        config = function() require('plugins.tree-sitter') end,
-        event = "BufRead",
+        'sheerun/vim-polyglot',
+        setup = function()
+            vim.g.polyglot_disabled = {'sensible', 'autoindent'}
+        end,
     }
     -- pweatty lsp frontend
     use {
@@ -148,4 +148,3 @@ config = {
 
 -- Plug('chrisbra/csv.vim')
 
--- Plug('sheerun/vim-polyglot')
