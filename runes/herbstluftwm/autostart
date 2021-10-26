@@ -5,7 +5,9 @@ trap 0 'herbstclient unlock'
 
 hc=herbstclient
 
-CACHE_DIR="${XDG_CACHE_HOME:-~/.cache}"
+CACHE_DIR="/tmp/$LOGNAME"
+mkdir -p $CACHE_DIR
+
 daemonise() { (
     set +x
     # Close all but stdio

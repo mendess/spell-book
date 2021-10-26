@@ -101,7 +101,7 @@ super + w
             column -t -s'   ' | \
             dmenu -i -l 10 -p focus | \
             awk -F' ' '\{print $1\}')"; \
-    [ "$win_name" ] && xdotool windowactivate "$win_name" ;\
+    [ "$win_name" ] && xdotool windowactivate "$win_name"
 
 
 @Print
