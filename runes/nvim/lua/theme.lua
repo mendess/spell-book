@@ -10,32 +10,19 @@ misc.if_require_do('base16', function(base16)
     base16(base16.themes['default-dark'], true, {
         transparent_bg = true,
         Comment = function(theme, cterm)
-    	return theme.base04, nil, cterm.cterm04, nil, nil, nil
+            return theme.base04, nil, cterm.cterm04, nil, nil, nil
         end,
         MatchParen = function(theme, cterm)
-    	return nil, nil, nil, nil, 'bold', nil
+            return nil, nil, nil, nil, 'bold', nil
         end,
     })
 end)
 
 -- assign syntax to some special files
 au.group('syntax-fix', function(g)
-    au.BufReadPre = {
-        {'*.spell', '*xinitrc'},
-        function() set.filetype ='sh' end
-    }
-    au.BufReadPre = { '*.glsl', function() set.filetype = 'c' end }
-    au.BufReadPre = { '*.hbs', function() set.filetype = 'html' end }
     au(
         {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
         { '*.h', function() set.filetype = 'c' end }
-    )
-    au(
-        {'BufRead', 'BufNewFile'},
-        {
-            { '*.pde', '*.ino' },
-            function() set.filetype = 'arduino' end
-        }
     )
 end)
 

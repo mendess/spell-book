@@ -19,6 +19,26 @@ return require('packer').startup({function(use)
     use 'b0o/mapx.nvim'
     -- profiling
     use {'tweekmonster/startuptime.vim', disable = true }
+    -- improve startup time
+    use {
+        'nathom/filetype.nvim',
+        config = function()
+            require('filetype').setup {
+                overrides = {
+                    extensions = {
+                        spell = 'sh',
+                        hbs = 'html',
+                        h = 'c',
+                        pde = 'arduino',
+                        ino = 'arduino',
+                    },
+                    literal = {
+                        xinitrc = 'sh'
+                    }
+                }
+            }
+        end,
+    }
     ------ ============================= ------
 
 

@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+vim.g.did_load_filetypes = 1
 
 local if_require_do = require('utils.misc').if_require_do
 
