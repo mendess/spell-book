@@ -86,11 +86,11 @@ return require('packer').startup({function(use)
     use 'alvan/vim-closetag'
     -- better .
     use 'tpope/vim-repeat'
-    -- helpfull prompt with keybinds
-    use {
-        'folke/which-key.nvim',
-        config = function() require('plugins.which-key') end,
-    }
+    -- -- helpfull prompt with keybinds
+    -- use {
+    --     'folke/which-key.nvim',
+    --     config = function() require('plugins.which-key') end,
+    -- }
     -- make vim understand tables
     use 'godlygeek/tabular'
     ------ ============================= ------
