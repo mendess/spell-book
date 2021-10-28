@@ -41,6 +41,15 @@ return require('packer').startup({function(use)
     }
     ------ ============================= ------
 
+    ------ ====== VIM AS FRONTEND ====== ------
+    use {
+        'soywod/himalaya',
+        rtp = 'vim',
+        config = function()
+            vim.g.himalaya_mailbox_picker = 'telescope'
+        end,
+    }
+    ------ ============================= ------
 
     ------ ======  COLOR SCHEMES  ====== ------
     use 'mendess/nvim-base16.lua'
@@ -157,11 +166,12 @@ return require('packer').startup({function(use)
         disable = true,
     }
     ------ ============================= ------
+
 end,
 config = {
     display = {
         open_fn = require('packer.util').float
-    }
+    },
 }})
 
 -- Plug('chrisbra/unicode.vim')

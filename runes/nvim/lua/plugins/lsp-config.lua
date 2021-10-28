@@ -46,5 +46,9 @@ lsp.bashls.setup {
     on_attach = on_attach,
     capabilities = update_capabilities(protocol.make_client_capabilities())
 }
+lsp.clangd.setup {
+    on_attach = on_attach,
+    capabilities = update_capabilities(protocol.make_client_capabilities())
+}
 
 vim.cmd [[LspStart]]
