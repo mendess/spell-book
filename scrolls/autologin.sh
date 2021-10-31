@@ -15,22 +15,21 @@ if ! [[ $tty =~ tty[0-9] ]]; then
 fi
 
 service_name="getty@$tty"
-service_dir="/etc/systemd/system/getty@$tty.service.d"
+service_dir="/etc/systemd/system/$service_name.service.d"
 
 enable() {
     sudo mkdir -pv "$service_dir"
 
     echo "$service" | sudo tee "$service_dir/override.conf" >/dev/null
 
-    sudo systemctl enable "getty@$tty"
+    sudo systemctl enable "$service_name"
 
     echo -e "Auto login for user $BLUE$user$RESET ${GREEN}created$RESET on $BLUE$tty$RESET"
 }
 
 case "$1" in
     reset)
-        sudo systemctl disable "getty@$tty"
-        if sudo rm -v "$service_dir/override.conf"; then
+        if sudo rm -rv "$service_dir" ; then
             echo -e "Auto login on $BLUE$tty$RESET has been ${RED}disabled$RESET"
         else
             echo -e "Auto login was already ${RED}disabled$RESET on $tty"
