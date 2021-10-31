@@ -213,6 +213,17 @@ super + shift + o
 super + shift + f
     $TERMINAL --class floating-terminal -e f launcher
 
+# DUNST KEYBINDS
+
+control + {_, shift +} space
+        dunstctl {close,close-all}
+
+control + {_, shift +} period
+        dunstctl {context, action 0}
+
+control + grave
+        dunstctl history-pop
+
 ###### bspwm
 #super + space
 #   if bspc query --nodes --node focused.floating; then \

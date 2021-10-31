@@ -26,16 +26,16 @@ set.path='**'
 -- line numbers
 set.number = true
 set.relativenumber = true
-au.group('number-toggle', function(g)
-    g(
-        {'BufEnter', 'FocusGained', 'InsertLeave'},
-        { '*', function() set.relativenumber = true end }
-    )
-    g(
-        {'BufLeave', 'FocusLost', 'InsertEnter'},
-        { '*', function() set.relativenumber = false end }
-    )
-end)
+-- au.group('number-toggle', function(g)
+--     g(
+--         {'BufEnter', 'FocusGained', 'InsertLeave'},
+--         { '*', function() set.relativenumber = true end }
+--     )
+--     g(
+--         {'BufLeave', 'FocusLost', 'InsertEnter'},
+--         { '*', function() set.relativenumber = false end }
+--     )
+-- end)
 
 set.scrolloff=4
 set.hidden = true
@@ -86,3 +86,13 @@ command.Q ='q'
 command.WQ = 'wq'
 command.Wq = 'wq'
 
+au.group('himalaya-bad-ws', function(g)
+    g.Filetype = {
+        'himalaya-msg-list',
+        ':HideBadWhitespace'
+    }
+    g.BufEnter = {
+        'Himalaya*',
+        ':HideBadWhitespace',
+    }
+end)

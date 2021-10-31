@@ -44,7 +44,7 @@ return require('packer').startup({function(use)
     ------ ====== VIM AS FRONTEND ====== ------
     use {
         'soywod/himalaya',
-        rtp = 'vim',
+        -- rtp = '/vim',
         config = function()
             vim.g.himalaya_mailbox_picker = 'telescope'
         end,
@@ -84,7 +84,7 @@ return require('packer').startup({function(use)
         'machakann/vim-highlightedyank',
         config = function() vim.g.highlightedyank_highlight_duration = 100 end
     }
-    use { 'tversteeg/registers.nvim' }
+    use 'tversteeg/registers.nvim'
     ------ ============================= ------
 
 
@@ -95,11 +95,6 @@ return require('packer').startup({function(use)
     use 'alvan/vim-closetag'
     -- better .
     use 'tpope/vim-repeat'
-    -- -- helpfull prompt with keybinds
-    -- use {
-    --     'folke/which-key.nvim',
-    --     config = function() require('plugins.which-key') end,
-    -- }
     -- make vim understand tables
     use 'godlygeek/tabular'
     ------ ============================= ------
