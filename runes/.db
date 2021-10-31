@@ -10,7 +10,7 @@
 ~/.config/compton.conf,compton.conf
 ~/.config/dunst/dunstrc,dunstrc,generated
 ~/.config/gitignore-global,gitignore-global
-~/.config/glava,glava,force
+~/.config/glava,glava,force,ifdir
 ~/.config/gtk-3.0,gtk-3.0
 ~/.config/lemonbar,lemonbar
 ~/.config/libinput-gestures.conf,libinput-gestures.conf

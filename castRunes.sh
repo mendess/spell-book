@@ -51,10 +51,10 @@ expand() {
     for file in "$2"/*; do
         f="$(basename "$file")"
         if [ -d "$file" ]; then
-            rune_dir+=("$(join-by ',' "$1" "${args[@]:2}")")
+            rune_dir+=("$(join-by ',' "$1" "${@:2}")")
             expand "$1/$f" "$2/$f" "${@:3}"
         else
-            expanded_runes+=("$1/$f,$2/$f,${@:3}")
+            expanded_runes+=("$1/$f,$2/$f,$(join-by , "${@:3}")")
         fi
     done
 }
@@ -136,8 +136,7 @@ new-runes() {
         local args link
         IFS=',' read -r -a args <<<"${rune}"
         link="${args[0]}"
-        local ifdir=""
-        local generated=""
+        unset ifdir generated copy
         any-match sudo "${args[@]:2}" && ! sudo_host && continue
         any-match ifdir "${args[@]:2}" && ifdir=1
         any-match generated "${args[@]:2}" && generated=1
@@ -145,11 +144,13 @@ new-runes() {
 
         [ "$ifdir" ] && [ ! -e "$(dirname "$link")" ] && continue
 
-        if [ "$generated" ] || [ "$copy" ]; then
+        if [ "$generated" ]; then
             [ ! -e "$link" ] || [ "$link" -ot "$(pwd)/${args[1]}" ]
+        elif [ "$copy" ]; then
+            cmp -s "$target" "$link_name"
         else
             [ ! -h "$link" ]
-        fi && return 0
+        fi &&  return 0
     done
     return 1
 }
@@ -174,7 +175,7 @@ link-rune() {
         if [[ "$force" ]] || ! cmp -s "$target" "$link_name"; then
             cmd=(cp --verbose "$target" "$link_name")
         fi
-    elif [[ ! -L "$link_name" ]]; then
+    elif [[ ! -L "$link_name" ]] || [[ "$(readlink -f "$link_name")" != "$target" ]]; then
         cmd=(ln --symbolic --verbose)
         [[ "$force" ]] && cmd+=(--force)
         cmd+=("$target" "$link_name")
