@@ -67,6 +67,7 @@
 - scroll-down: `m vd`
 - underline: `yellow`
 - signal: `1`
+- raw: `true`
 
 
 ## Spotify

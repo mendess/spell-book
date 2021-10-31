@@ -28,10 +28,10 @@ error() {
 }
 
 todo() {
-    case "$(hostname)" in
-        kaladesh) f=-E ;;
-        localhost) f=-vF ;;
-        *) f=-Ev ;;
+    case "$LOGNAME" in
+        work) f=-E ;;
+        mendess) f=-Ev ;;
+        *) f=-vF ;;
     esac
     LC_ALL=C sort "$file" | grep $f '^work'
 }

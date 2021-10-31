@@ -1,9 +1,10 @@
 #!/bin/bash
 exec 2>&1
 set -x
-trap 0 'herbstclient unlock'
-
 hc=herbstclient
+
+trap "$hc unlock" EXIT
+
 
 CACHE_DIR="/tmp/$LOGNAME"
 mkdir -p "$CACHE_DIR"
@@ -95,6 +96,11 @@ $hc keybind $Mod-apostrophe or \
             . remove \
             . focus_edge -i left \
             . remove
+
+$hc keybind $Mod-Shift-apostrophe spawn bash -c "
+termFromHere
+$hc chain . set_layout horizontal . split explode . resize right +0.15
+"
 
 $hc keybind $Mod-F7 chain \
     + lock \

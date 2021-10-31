@@ -101,7 +101,7 @@ alias ca=cargo
 alias cn='cargo +nightly'
 
 alias bashrc="cd $SPELLS/runes/bash && vim bashrc"
-alias vimrc='cd $SPELLS/runes/nvim/; vim init.*'
+alias vimrc='cd $SPELLS/runes/nvim/; vim init.* ; cd -'
 alias viminstall="vim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; echo"
 alias py="python3"
 alias c="clear"

@@ -5,7 +5,7 @@ local if_require_do = require('utils.misc').if_require_do
 
 require('plugins')
 -- rtp hack while packer bugged
-vim.o.runtimepath = vim.o.runtimepath .. ',~/.local/share/nvim/site/pack/packer/start/himalaya/vim'
+vim.o.runtimepath = vim.o.runtimepath .. ',~/.local/share/nvim/site/pack/packer/start/himalaya/email-manager/vim'
 
 mapx = if_require_do('mapx', function(m) m.setup { global = true, whichKey = true } end)
 if not mapx then

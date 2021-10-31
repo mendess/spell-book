@@ -29,5 +29,6 @@ else
     notify-send -u low "Couldn't find cwd" -a "$(basename "$0")" -t 1000
     $TERMINAL "$@" &
 fi
+xdotool search --pid $! --onlyvisible --sync >/dev/null
 disown
 exit

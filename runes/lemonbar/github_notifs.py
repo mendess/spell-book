@@ -22,7 +22,10 @@ headers = {
 }
 params = {"all": "false"}  # only unread notifications
 LAST_NOTIFS_FILENAME = f'/tmp/{os.getlogin()}/last_github_notifs'
-os.mkdir(dirname(LAST_NOTIFS_FILENAME))
+try:
+    os.mkdir(dirname(LAST_NOTIFS_FILENAME))
+except:
+    pass
 
 
 class Wildcard:
