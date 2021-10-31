@@ -142,19 +142,7 @@
 - interval: `10`
 - raw: `true`
 
-## Date command long
-- command: `date`
-- interval: `1`
+## Clock
+- native: `clock`
 - alignment: `right`
-- signal: `true`
 - underline: `cyan`
-- layer: `1`
-
-## Date command short
-- command: `date +"%d/%m %H:%M"`
-- interval: `10`
-- alignment: `right`
-- signal: `true`
-- underline: `cyan`
-- layer: `0`
-
