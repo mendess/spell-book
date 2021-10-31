@@ -321,7 +321,7 @@ done
 unset i
 
 pkill lemon
-RUST_LOG=debug,lemon::event_loop=trace daemonise lemon "${bar_args[@]}" &>"$CACHE_DIR/lemonbar.log"
+RUST_LOG=info daemonise lemon "${bar_args[@]}" &>"$CACHE_DIR/lemonbar.log"
 
 
 # unlock, just to be sure
