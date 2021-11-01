@@ -47,3 +47,4 @@
 ~/.config/free-nitro-list,free-nitro-list
 ~/.config/desmume,desmume
 ~/.config/git,git
+~/.local/share/gnupg/gpg-agent.conf,gpg-agent.conf
