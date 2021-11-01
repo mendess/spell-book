@@ -61,7 +61,7 @@ except json.decoder.JSONDecodeError:
 
 
 def at_work_computer() -> bool:
-    return socket.gethostname() == 'kaladesh'
+    return os.getlogin() == 'work'
 
 
 class Filter:
@@ -72,7 +72,7 @@ class Filter:
 
 filters = {
     'work': Filter(
-        owners=['EmituCom'],
+        owners=['SpeechifyInc'],
         checks=[at_work_computer]
     ),
     'blacklist': Filter(
