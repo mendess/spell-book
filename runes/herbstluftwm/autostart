@@ -3,7 +3,7 @@ exec 2>&1
 set -x
 hc=herbstclient
 
-trap "$hc unlock" EXIT
+trap 'herbstclient unlock' EXIT
 
 
 CACHE_DIR="/tmp/$LOGNAME"
