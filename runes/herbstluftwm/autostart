@@ -87,8 +87,13 @@ $hc keybind $Mod-apostrophe or \
         + new_attr bool tags.focus.my_pseudo_tiled \
         + chain \
             . split left 0.25 \
-            . focus_edge -i right \
+            . focus left \
+            . set_layout vertical \
+            . focus right \
             . split right 0.67 \
+            . focus right \
+            . set_layout vertical \
+            . focus left \
     ^ and \
         + remove_attr tags.focus.my_pseudo_tiled \
         + chain \
@@ -99,7 +104,7 @@ $hc keybind $Mod-apostrophe or \
 
 $hc keybind $Mod-Shift-apostrophe spawn bash -c "
 termFromHere
-$hc chain . set_layout horizontal . split explode . resize right +0.15
+$hc chain . split right 0.65 . shift right . set_layout vertical
 "
 
 $hc keybind $Mod-F7 chain \

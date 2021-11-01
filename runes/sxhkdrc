@@ -16,13 +16,14 @@ super + control + Return
     termFromHere --class floating-terminal
 
 super + d
-    cmd=$( (pacman -Qqe | sed -E 's/-(git|bin|desktop)//g' | while read -r cmd; do command -v "$cmd" 2>/dev/null; done & \
-                  find ~/.local/bin ! -type d & \
-                  find ~/.local/share/cargo/bin ! -type d) | xargs -L1 basename | dmenu -i -l 20); \
-    case $cmd in \
-    *\; ) "$TERMINAL" --hold -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";; \
-    * ) ${cmd} ;; \
-    esac & disown
+    dmenu_run -i -l 20
+#   cmd=$( (pacman -Qqe | sed -E 's/-(git|bin|desktop)//g' | while read -r cmd; do command -v "$cmd" 2>/dev/null; done & \
+#                 find ~/.local/bin ! -type d & \
+#                 find ~/.local/share/cargo/bin ! -type d) | xargs -L1 basename | dmenu -i -l 20); \
+#   case $cmd in \
+#   *\; ) "$TERMINAL" --hold -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";; \
+#   * ) ${cmd} ;; \
+#   esac & disown
 
 # super + shift + f
 #     $TERMINAL --class floating-terminal,floating-terminal -e f launcher
