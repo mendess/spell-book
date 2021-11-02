@@ -48,7 +48,7 @@ if vim.fn.has('nvim') == 1 then
         g.TermOpen = {
             '*',
             function()
-                vim.cmd 'autocmd! number-toggle'
+                -- vim.cmd 'autocmd! number-toggle'
                 vim.wo.number = false
                 vim.wo.relativenumber = false
                 vim.cmd 'startinsert'

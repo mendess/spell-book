@@ -55,7 +55,34 @@ alias gaa='git add --all'
 alias gau='git add --update'
 alias gbD='git branch -D'
 alias gbl='git blame -b -w'
-alias gc='git commit -v'
+gc() {
+    if [[ ! -e .ccommits ]]; then
+        git commit "$@"
+        return
+    fi
+    commit=$(fzf --prompt type --print-query <<EOF
+fix
+feat
+build
+chore
+ci
+docs
+style
+refactor
+perf
+test
+EOF
+)
+    read -rp "scope? (leave empty to skip) " scope
+    [[ "$scope" ]] && commit="$commit($scope)"
+    read -rp 'breaking change? [Y/n] ' breaking
+    if [[ ! "$breaking" =~ n|N ]]; then
+        commit="$commit!"
+        breaking_footer="\n\nBREAKING CHANGE:"
+    fi
+    git commit -m "$commit:$breaking_footer" -e
+}
+
 alias glog="git log --pretty=format:'%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s' --date=short --graph"
 alias glogn='git --no-pager log --oneline --decorate --graph'
 alias 'gc!'='git commit -v --amend'
