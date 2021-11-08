@@ -75,7 +75,7 @@ export PATH="$PATH:$CARGO_HOME/bin"
 tty=$(tty)
 LOG="$XDG_CACHE_HOME/startx.log"
 case "$(uname -n)" in
-    tolaria)
+    tolaria|matess)
         ttys='/dev/tty[12]'
         ;;
     *)
