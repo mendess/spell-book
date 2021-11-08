@@ -56,12 +56,19 @@ alias gau='git add --update'
 alias gbD='git branch -D'
 alias gbl='git blame -b -w'
 gc() {
-    if [[ ! -e .ccommits ]]; then
+    path="$PWD"
+    while [[ ! -e "$path/.ccommits" ]] && [[ -e "$path/.git" ]]; do
+        echo "$path failed"
+        path=$(dirname "$path")
+        # get git to print the error message about not being in a repo
+        [[ "$path" = / ]] && git commit "$@" && return
+    done
+    if [[ ! -e "$path/.ccommits" ]]; then
         git commit "$@"
         return
     fi
-    commit=$(fzf --prompt type --print-query <<EOF
-fix
+
+    types="fix
 feat
 build
 chore
@@ -70,22 +77,55 @@ docs
 style
 refactor
 perf
-test
-EOF
-)
+test"
+    commit=$(fzf --prompt 'type ' --print-query <<<"$types" | tail -1)
+
     read -rp "scope? (leave empty to skip) " scope
     [[ "$scope" ]] && commit="$commit($scope)"
-    read -rp 'breaking change? [Y/n] ' breaking
-    if [[ ! "$breaking" =~ n|N ]]; then
-        commit="$commit!"
-        breaking_footer="\n\nBREAKING CHANGE:"
-    fi
-    git commit -m "$commit:$breaking_footer" -e
-}
 
+    read -rp 'breaking change? [y/N] ' breaking
+    if [[ "$breaking" =~ y|Y ]]; then
+        commit="$commit!"
+        breaking_footer="BREAKING CHANGE:"
+    fi
+    args=()
+    msg=()
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -m)
+                shift
+                msg+=("$1")
+                ;;
+            -m*)
+                msg+=("${1:2}")
+                ;;
+            --message=*)
+                msg+=("${1#*=}")
+                ;;
+            -c*|-C*|-F*)
+                found_incompatible_opt=1
+                ;;
+            *)
+                args+=("$1")
+                ;;
+        esac
+        shift
+    done
+    if [[ "$found_incompatible_opt" ]]; then
+        if [[ "${#msg}" -gt 0 ]]; then
+            git commit -m -c HEAD^
+        else
+            git commit "${args[@]}"
+        fi
+    else
+        m="$(printf "%s\n\n" "${msg[@]}")"
+        git commit -m "$commit: $m$breaking_footer" -e "${args[@]}"
+    fi
+}
+alias 'gc!'='git commit -v --amend'
+alias gcwip='git commit -v -mWIP'
 alias glog="git log --pretty=format:'%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s' --date=short --graph"
 alias glogn='git --no-pager log --oneline --decorate --graph'
-alias 'gc!'='git commit -v --amend'
 alias gco='git checkout'
 alias gd='git diff'
 alias gf='git fetch'

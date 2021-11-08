@@ -475,8 +475,8 @@ background_opacity: 0.7
 #  program: /bin/bash
 #  args:
 #    - --login
-%% switch on hostname
-%% kaladesh {
+%% switch on whoami
+%% work {
 shell:
   program: /bin/bash
 %% }

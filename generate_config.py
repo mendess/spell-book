@@ -26,6 +26,9 @@ def hostname():
                        capture_output=True).stdout.decode('utf-8').strip()
     )
 
+def whoami():
+    return os.getlogin()
+
 
 class ParseError(Exception):
     def __init__(self, s, message='does not match'):
