@@ -119,7 +119,8 @@ test"
         fi
     else
         m="$(printf "%s\n\n" "${msg[@]}")"
-        git commit -m "$commit: $m$breaking_footer" -e "${args[@]}"
+        [[ "$breaking_footer" ]] && m="$m"$'\n\n'"$breaking_footer"
+        git commit -m "$commit: $m" -e "${args[@]}"
     fi
 }
 alias 'gc!'='git commit -v --amend'
