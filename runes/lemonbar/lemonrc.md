@@ -136,6 +136,13 @@
 - align: `right`
 - signal: `true`
 
+## Ram
+- cmd: `free -h | sed -n 2p  | awk '{print $3 "/" $2}'`
+- un: `yellow`
+- fg: `white`
+- align: `right`
+- signal: `true`
+
 ## Batery
 - cmd: `~/.config/lemonbar/battery`
 - align: `right`

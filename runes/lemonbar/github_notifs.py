@@ -2,6 +2,7 @@
 import requests
 import threading
 import subprocess
+import sys
 from sys import argv
 import os
 import socket
@@ -12,7 +13,8 @@ from typing import List
 try:
     with open(os.path.expanduser('~/.config/github/api_key')) as key:
         token = key.read().strip()
-except Exception:
+except Exception as e:
+    print(e, file=sys.stderr)
     exit(0)
 
 endpoint = "https://api.github.com/notifications"
