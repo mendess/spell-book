@@ -138,10 +138,10 @@
 
 ## Ram
 - cmd: `free -h | sed -n 2p  | awk '{print $3 "/" $2}'`
+- interval: `10`
 - un: `yellow`
 - fg: `white`
 - align: `right`
-- signal: `true`
 
 ## Batery
 - cmd: `~/.config/lemonbar/battery`
