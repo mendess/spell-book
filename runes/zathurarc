@@ -1,9 +1,12 @@
 set recolor true
 set recolor-keephue true
-set default-bg "#666666"
+set adjust-open "best-fit"
+set scroll-page-aware "true"
+set guioptions ""
+set statusbar-h-padding 0
+set statusbar-v-padding 0
 map i recolor
 map I recolor
-set recolor-lightcolor "#181A1C"
 map b toggle_statusbar
 map B toggle_statusbar
 map <Space> navigate next
@@ -11,8 +14,8 @@ map <Space> navigate next
 # Base16 Default Dark
 # Author: Chris Kempson (http://chriskempson.com)
 
-#set default-bg                  "#181818"
-set default-bg                  "#282828"
+set default-bg                  "#181818"
+#set default-bg                  "#2e3440"
 set default-fg                  "#282828"
 
 set statusbar-fg                "#b8b8b8"
@@ -39,7 +42,8 @@ set completion-fg               "#7cafc2"
 set completion-highlight-fg     "#f8f8f8"
 set completion-highlight-bg     "#7cafc2"
 
-set recolor-lightcolor          "#181818"
+#set recolor-lightcolor          "#181818"
+set recolor-lightcolor          "#2e3440"
 set recolor-darkcolor           "#e8e8e8"
 
 #set recolor                     "false"

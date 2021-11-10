@@ -51,7 +51,3 @@ else
     #shellcheck disable=2016
     echo 'typos checking not installed: `cargo install typos-cli`'
 fi
-
-# If there are whitespace errors, print the offending file names and fail.
-exec git diff-index --check --cached "$against" --
-
