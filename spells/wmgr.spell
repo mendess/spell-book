@@ -214,7 +214,7 @@ urldecode() {
 
 if [ "$sync" ]; then
     endpoint="mendess.xyz"
-    mkdir -p "$WALLPAPERS"
+    [ -d "$WALLPAPERS" ] || mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
     [ "$(hostname)" = localhost ] && is_phone="/phone"
     curl --silent "$endpoint/walls$is_phone" |
