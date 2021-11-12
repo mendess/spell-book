@@ -49,7 +49,7 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 
-CACHE="${XDG_CACHE_HOME:-~/.cache}"
+CACHE="/tmp/$LOGNAME"
 file="$CACHE/todo"
 if [ "$bg_pull" ]; then
     pull &
