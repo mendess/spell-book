@@ -3,6 +3,7 @@
 scripts=(
     https://raw.githubusercontent.com/matildeopbravo/dotfiles/master/scripts/f
     https://raw.githubusercontent.com/matildeopbravo/dotfiles/master/scripts/vim-anywhere
+    https://raw.githubusercontent.com/JoseFilipeFerreira/toolbelt/master/toolbox/qrwifi.tool
 )
 
 user-from-link() {
