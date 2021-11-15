@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script for my bar, shows repository status as little icons
 
-[[ "$(hostname)" = kaladesh ]] || exit 0
+[[ "$(whoami)" = work ]] || exit 0
 
 branch_status() {
     timeout 30s git fetch &>/dev/null || return 0
