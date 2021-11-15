@@ -198,7 +198,6 @@ share() { (
         echo -n "$url" | xclip -sel clip
     fi
     echo "$url"
-    rm "$FILE"
 ); }
 
 connect() {

@@ -131,6 +131,7 @@ return require('packer').startup({function(use)
             {'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
             {'hrsh7th/vim-vsnip', after = 'nvim-cmp' },
             {'hrsh7th/cmp-vsnip', after = 'vim-vsnip' },
+            {'hrsh7th/cmp-emoji', after = 'nvim-cmp' },
         },
         config = function() require('plugins.cmp') end,
         event = "VimEnter *"
