@@ -50,6 +50,7 @@ while [ "$#" -gt 0 ]; do
 done
 
 CACHE="/tmp/$LOGNAME"
+mkdir -p "$CACHE"
 file="$CACHE/todo"
 if [ "$bg_pull" ]; then
     pull &
