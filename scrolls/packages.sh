@@ -85,7 +85,6 @@ xorg-xev
 xorg-xinit
 xorg-xrandr
 xz
-youtube-dl
 zathura
 zathura-pdf-mupdf
 zip
@@ -101,8 +100,9 @@ picom-git
 shellcheck-bin
 xdo-git # herbstluftwm and bspwm
 termsyn-font
-bear
+#bear
 web-xdg-open-git
+yt-dlp-drop-in
 )
 
 export cargopackages=(
