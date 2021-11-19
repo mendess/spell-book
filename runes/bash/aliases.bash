@@ -54,6 +54,8 @@ alias ga='git add'
 alias gaa='git add --all'
 alias gau='git add --update'
 alias gbD='git branch -D'
+alias gbpurge='git fetch --all -p; git branch -vv | grep ": gone]" | awk "{ print \$1 }" | xargs -n 1 git branch -d'
+alias gbPURGE='git fetch --all -p; git branch -vv | grep ": gone]" | awk "{ print \$1 }" | xargs -n 1 git branch -D'
 alias gbl='git blame -b -w'
 gc() {
     path="$PWD"

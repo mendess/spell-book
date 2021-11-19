@@ -25,7 +25,7 @@
 
 ## Github notifications
 - command: `~/.config/lemonbar/github_notifs.py`
-- interval: `300`
+- interval: `150`
 - align: `left`
 - left-click: `firefox "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
 - middle-click: `firefox "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
