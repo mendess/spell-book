@@ -28,6 +28,6 @@ case "$(hostname)" in
 
         ;;
     *)
-        pkill -SIGRTMIN+1 -x lemon
+        pkill -u "$(whoami)" -SIGRTMIN+1 -x lemon
         ;;
 esac
