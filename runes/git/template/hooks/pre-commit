@@ -45,8 +45,8 @@ EOF
 	exit 1
 fi
 
-if command -V typos >/dev/null ; then
-    :
+if [ -e .typos.toml ] && command -V typos >/dev/null ; then
+    typos
 else
     #shellcheck disable=2016
     echo 'typos checking not installed: `cargo install typos-cli`'

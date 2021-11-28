@@ -18,6 +18,7 @@ local on_attach = function(autoformat)
                     vim.lsp.buf.formatting_seq_sync
                 }
             end)
+            buf_set_keymap('n', '<leader>f', '<Cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>', opts)
         end
     end
 end
