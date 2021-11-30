@@ -38,8 +38,7 @@
  - [wmgr](./spells/wmgr.spell) - Wallpaper manager
  - [xls_to_csv](./spells/xls_to_csv.spell) - Python script that converts a xls file to a csv
 
-## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the
-[menu](./cantrips/menu.sh).
+## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 
  - [displayselect](./cantrips/displayselect.sh) - Configure multi monitors
  - [draw](./cantrips/draw.sh) - draw terminals
