@@ -26,8 +26,7 @@ EOF
 
 cantrips() {
     cat <<EOF
-## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the
-[menu](./cantrips/menu.sh).
+## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 
 EOF
     _extract_desc ./cantrips
