@@ -3271,3 +3271,4 @@ __git_complete g __git_main
 __git_complete gco _git_checkout
 __git_complete gb _git_branch
 __git_complete gd _git_diff
+__git_complete gl _git_pull

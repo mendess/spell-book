@@ -226,6 +226,7 @@ alias rustfmttoml='cp -v $SPELLS/runes/rustfmt.toml .'
 alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
 alias queres='echo queres'
 alias mail='vim +Himalaya'
+alias uuid='cat /proc/sys/kernel/random/uuid'
 
 
 # Cleanup
