@@ -1,12 +1,12 @@
 local saga = require('lspsaga')
 
 saga.init_lsp_saga {
-    error_sign = '»',
-    warn_sign = '»',
-    hint_sign = '»',
-    infor_sign = '»',
+    error_sign = '>>',
+    warn_sign = '?',
+    hint_sign = '>',
+    infor_sign = '>',
     border_style = "round",
-    code_action_icon = "❕",
+    code_action_icon = "*",
 }
 
 mapx.group({ silent = true }, function()
