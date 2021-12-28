@@ -62,8 +62,8 @@ export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
 local_bin=
 local_bin=$(find ~/.local/bin -type d | sed 's|/$||' | tr '\n' ':' | sed 's/:$//')
-export PATH="$PATH:$local_bin"
 export PATH="$PATH:$CARGO_HOME/bin"
+export PATH="$PATH:$local_bin"
 [ -e ~/.shortcuts ] &&
     export PATH=$PATH:~/.shortcuts &&
     export PATH=$PATH:~/.shortcuts/tasks
