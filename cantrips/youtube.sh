@@ -2,7 +2,7 @@
 # Launches the music player controled using [m](./spells/m.spell)
 
 set -x
-m gui play-interactive
+SESSION_KIND=gui m play-interactive
 command -v jukebox && { pgrep jukebox ||
     [[ "$(pgrep youtube | wc -l)" -gt 2 ]] ||
     while :; do

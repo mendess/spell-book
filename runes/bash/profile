@@ -73,7 +73,7 @@ export PATH="$PATH:$local_bin"
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
-LOG="$XDG_CACHE_HOME/startx.log"
+LOG="/tmp/$(whoami)/startx.log"
 case "$(uname -n)" in
     tolaria|matess)
         ttys='/dev/tty[12]'
