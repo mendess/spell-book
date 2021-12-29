@@ -151,32 +151,32 @@ XF86AudioMicMute
     pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
 
 super + backslash
-    m gui pause
+    SESSION_KIND=gui m pause
 
 super + shift + bar
-    m gui quit
+    SESSION_KIND=gui m quit
 
 super + {minus,plus}
-    m gui {vd,vu} 2
+    SESSION_KIND=gui m {vd,vu} 2
 
 super + {Next,Prior,End,Home}
-    m gui {next,prev,next-file,prev-file}
+    SESSION_KIND=gui m {next,prev,next-file,prev-file}
 
 super + {Up,Down}
-    m gui {frwd,back} 60
+    SESSION_KIND=gui m {frwd,back} 60
 
 super + {Right,Left}
-    m gui {frwd,back} 5
+    SESSION_KIND=gui m {frwd,back} 5
 
 super + {Insert,Delete}
-    m gui {current,ch-cat}
+    SESSION_KIND=gui m {current,ch-cat}
 
 super + shift + Insert
     $TERMINAL -e m lyrics
 
 super + shift + underscore
     bspc rule -a mpv -o state=pseudo_tiled rectangle=820x466; \
-    m gui toggle-video
+    SESSION_KIND=gui m toggle-video
 
 super + BackSpace
     echo quit | socat - "/tmp/$LOGNAME/mpvalarm"
