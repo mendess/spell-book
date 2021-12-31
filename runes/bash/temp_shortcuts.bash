@@ -9,3 +9,16 @@ mac-check() {
     read -r -u 3
     echo "$REPLY"
 }
+
+sdk() {
+    case "$1" in
+        b) gradle build ;;
+        cb) gradle clean build ;;
+        fmt) gradle ktlintformat ;;
+    esac
+    if [ "$?" = 0 ]; then
+        notify-send "Done" "$1" -a sdk
+    else
+        notify-send "Error" "$1" --urgency critical -a sdk
+    fi
+}
