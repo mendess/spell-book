@@ -12,6 +12,7 @@ list="
 💦 ~~ 𝒜𝑔𝓊𝒾𝓃𝒽𝒶 ~~
 ✔ General ~
 📽Movie Tiiiim
+Taberna
 Disconnect
 "
 list="$(echo "$list" | grep -v '^$')"
