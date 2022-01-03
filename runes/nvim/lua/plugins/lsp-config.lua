@@ -23,8 +23,8 @@ local on_attach = function(autoformat)
     end
 end
 
-lsp.tsserver.setup {
-    on_attach = on_attach(false),
+lsp.eslint.setup {
+    on_attach = on_attach(true),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     capabilities = update_capabilities(protocol.make_client_capabilities())
 }
@@ -45,10 +45,10 @@ lsp.rust_analyzer.setup {
     },
     capabilities = update_capabilities(protocol.make_client_capabilities())
 }
-lsp.bashls.setup {
-    on_attach = on_attach(true),
-    capabilities = update_capabilities(protocol.make_client_capabilities())
-}
+-- lsp.bashls.setup {
+--     on_attach = on_attach(true),
+--     capabilities = update_capabilities(protocol.make_client_capabilities())
+-- }
 lsp.clangd.setup {
     on_attach = on_attach(true),
     capabilities = update_capabilities(protocol.make_client_capabilities())
