@@ -29,6 +29,7 @@ iabbrev('reutnr', 'return')
 iabbrev('brian', 'brain')
 iabbrev('asyuc', 'async')
 iabbrev('asycn', 'async')
+iabbrev('awiat', 'await')
 
 au.group('writing-opts', function(g)
     g.Filetype = {
