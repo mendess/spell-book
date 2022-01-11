@@ -91,45 +91,45 @@ complete -F _ssh ssh
 complete -F _ssh sshp
 complete -F _ssh deploy_to
 
-_m() {
-    for a in "$@"; do
-        echo "a: $a"
-    done
-    local opts
-    COMPREPLY=()
-    local cur="$2"
-    local prev="$3"
-    case "$prev" in
-        m | help)
-            opts="$(m help |
-                grep -Pv '^\t' |
-                sed -E 's/([^ ]+) | ([^ ]+)/\1\n\2/g' |
-                sed -E 's/(^.\s|\s.$|^.$)//g' |
-                sed 's/?/-/g' |
-                grep -v '^.$')"
-            ;;
-        *)
-            local sub_command="${COMP_WORDS[1]}"
-            if [[ "$sub_command" =~ q|queue|play ]] && [[ "$3" =~ -c|--category ]]; then
-                opts="$(m cat | awk '{print $2}')"
-            else
-                opts="$(m help "$sub_command" | awk '
-                            opts && /|/       { print $1" "$3 }
-                            opts && $0 !~ /|/ { print $1 }
-                            /Options/         { opts=1 }')"
-                case "$sub_command" in
-                    q | queue | play)
-                        opts="$opts $(compgen -f)"
-                        ;;
-                esac
-            fi
-            ;;
+# _m() {
+#     for a in "$@"; do
+#         echo "a: $a"
+#     done
+#     local opts
+#     COMPREPLY=()
+#     local cur="$2"
+#     local prev="$3"
+#     case "$prev" in
+#         m | help)
+#             opts="$(m help |
+#                 grep -Pv '^\t' |
+#                 sed -E 's/([^ ]+) | ([^ ]+)/\1\n\2/g' |
+#                 sed -E 's/(^.\s|\s.$|^.$)//g' |
+#                 sed 's/?/-/g' |
+#                 grep -v '^.$')"
+#             ;;
+#         *)
+#             local sub_command="${COMP_WORDS[1]}"
+#             if [[ "$sub_command" =~ q|queue|play ]] && [[ "$3" =~ -c|--category ]]; then
+#                 opts="$(m cat | awk '{print $2}')"
+#             else
+#                 opts="$(m help "$sub_command" | awk '
+#                             opts && /|/       { print $1" "$3 }
+#                             opts && $0 !~ /|/ { print $1 }
+#                             /Options/         { opts=1 }')"
+#                 case "$sub_command" in
+#                     q | queue | play)
+#                         opts="$opts $(compgen -f)"
+#                         ;;
+#                 esac
+#             fi
+#             ;;
 
-    esac
-    mapfile -t COMPREPLY < <(compgen -W "$opts" -- "$cur")
-}
+#     esac
+#     mapfile -t COMPREPLY < <(compgen -W "$opts" -- "$cur")
+# }
 
-complete -F _m m
+# complete -F _m m
 
 _path_compleation() {
     [[ $COMP_CWORD = 1 ]] &&

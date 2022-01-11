@@ -36,12 +36,14 @@ class Wildcard:
 
 
 class Notification(dict):
-    def __init__(self, owner, name, title, url):
-        dict.__init__(self, owner=owner, name=name, title=title, url=url)
+    def __init__(self, owner, name, title, url, reason, kind):
+        dict.__init__(self, owner=owner, name=name, title=title, url=url, reason=reason, kind=kind)
         self.owner = owner
         self.name = name
         self.title = title
         self.url = url
+        self.reason = reason
+        self.kind = kind
 
     @staticmethod
     def from_dictionary(d) -> 'Notification':
@@ -113,7 +115,9 @@ def fetch_notifs() -> List[tuple[Notification, bool]]:
             owner=owner,
             name=name,
             title=notif["subject"]["title"],
-            url=notif['url']
+            url=notif['url'],
+            reason=notif["reason"],
+            kind=notif["subject"]["type"],
         )
         notifications.append(
             (notification, notification.url not in LAST_NOTIFS)
@@ -129,7 +133,7 @@ if len(argv) == 1:
     if type(notifications) != str and len(notifications) != 0:
         print(f'gh[{len(notifications)}]')
         for n, _ in filter(lambda x: x[1], notifications):
-            subprocess.run(['notify-send', f'{n.owner}/{n.name}', n.title])
+            subprocess.run(['notify-send', f'{n.owner}/{n.name}', f'{n.title}\n\nreason: {n.reason}\ntype: {n.kind}'])
 
 elif argv[1] == 'dmenu':
     # Currently doesn't work as one would expect
