@@ -67,7 +67,7 @@ save_compile_run('cpp', {
 
 save_compile_run('rust', {
     compile = function()
-        vim.cmd [[!rustc % --allow dead_code --allow unused_variables -o %:r]]
+        vim.cmd [[!rustc % --allow dead_code --allow unused_variables --edition 2021 -o %:r]]
     end,
     run = function()
         if path_is_absolute() then
