@@ -36,13 +36,13 @@ pdf() {
 video() {
     case "$1" in
         *soundcloud* | *wav | *mp3 | *m4a)
-            $TERMINAL -e mpv "$1"
+            $TERMINAL -e mpv --no-terminal "$1"
             ;;
         *)
             notify 'Playing in mpv' "$1" -u low
-            mpv "$1" || {
+            mpv --no-terminal "$1" || {
                 notify 'Retrying in mpv' "$1" -u low
-                mpv "$1"
+                mpv --no-terminal "$1"
             }
             ;;
     esac
@@ -50,7 +50,7 @@ video() {
 
 gif() {
     notify 'Playing in mpv' "$1" -u low
-    mpv --loop-file "$1"
+    mpv --no-terminal --loop-file "$1"
 }
 
 git() {

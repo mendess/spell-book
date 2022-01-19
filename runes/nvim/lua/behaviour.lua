@@ -96,3 +96,5 @@ au.group('himalaya-bad-ws', function(g)
         ':HideBadWhitespace',
     }
 end)
+
+set.foldmethod = 'indent'

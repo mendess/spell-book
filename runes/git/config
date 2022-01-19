@@ -7,8 +7,8 @@
 [pull]
 	ff = only
 [delta]
-    plus-color = "#012800"
-    minus-color = "#340001"
+    plus-style = syntax "#012800"
+    minus-color = normal "#340001"
     syntax-theme = base16
 [interactive]
     diffFilter = delta --color-only
