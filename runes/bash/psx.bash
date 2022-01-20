@@ -83,7 +83,7 @@ case "$(hostname)" in
         ;;
 
 esac
-SSH_PROMPT="$(__c "$BOLD_RED" '\u@')$(__c "$hostname_color" '\h')"
+SSH_PROMPT="$(__c "$BOLD_RED" '\u')@$(__c "$hostname_color" '\h')"
 G_BRANCH="\$(__git_branch \$?)"
 T_PATH="\$(__truncPath \$?)"
 EXIT_STATUS="\$(__rightprompt \$?)"
