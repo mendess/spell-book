@@ -64,5 +64,10 @@ lsp.ocamllsp.setup {
     on_attach = on_attach(true),
     capabilities = update_capabilities(protocol.make_client_capabilities())
 }
+lsp.elixirls.setup {
+    cmd = { "/usr/bin/elixir-ls" },
+    on_attach = on_attach(false),
+    capabilities = update_capabilities(protocol.make_client_capabilities())
+}
 
 vim.cmd [[LspStart]]
