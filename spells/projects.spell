@@ -2,7 +2,7 @@
 # Open dmenu, show me my projects, open a terminal in the selected one
 
 dir="$(
-    find ~/projects -mindepth 1 -maxdepth 1 -type d -printf "%T@\t%p\n" |
+    find -H ~/projects -mindepth 1 -maxdepth 1 -type d -printf "%T@\t%p\n" |
         sort -nr |
         cut -f2 |
         xargs -L1 basename |
