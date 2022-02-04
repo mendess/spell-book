@@ -72,8 +72,8 @@ alarm() {
     fi
     {
         sleep "$1"
-        mpv --no-video /usr/share/sounds/freedesktop/stereo/alarm*
         notify-send -u critical "Alarm" "$2" -a "$(basename "$0")"
+        mpv --no-video /usr/share/sounds/freedesktop/stereo/alarm*
     } &
     disown
 }
