@@ -147,10 +147,10 @@ new-runes() {
         if [ "$generated" ]; then
             [ ! -e "$link" ] || [ "$link" -ot "$(pwd)/${args[1]}" ]
         elif [ "$copy" ]; then
-            cmp -s "$target" "$link_name"
+            ! cmp -s "$link" "$(pwd)/${args[1]}"
         else
             [ ! -h "$link" ]
-        fi &&  return 0
+        fi && return 0
     done
     return 1
 }
@@ -175,7 +175,7 @@ link-rune() {
         if [[ "$force" ]] || ! cmp -s "$target" "$link_name"; then
             cmd=(cp --verbose "$target" "$link_name")
         fi
-    elif [[ ! -L "$link_name" ]] || [[ "$(readlink -f "$link_name")" != "$target" ]]; then
+    elif [[ ! -L "$link_name" ]] || [[ "$(readlink -f "$link_name")" != "$(readlink -f "$target")" ]]; then
         cmd=(ln --symbolic --verbose)
         [[ "$force" ]] && cmd+=(--force)
         cmd+=("$target" "$link_name")
