@@ -89,7 +89,7 @@ super + m
     $TERMINAL -e neomutt
 
 super + shift + c
-    $TERMINAL -e ikhal
+    $TERMINAL -e bash -c 'ikhal 2>/dev/null'
 
 super + alt + v
     vim-anywhere
@@ -132,7 +132,7 @@ super + x
         --option window.dimensions.lines=25 \
         --class floating-terminal \
         -e bash -c 'echo -e "\e[1m\t\t   C A L E N D A R\e[0m" ;\
-                    khal calendar -o ;\
+                    khal calendar -o 2>/dev/null ;\
                     read -s -r -n 1'
 
 super + shift + p

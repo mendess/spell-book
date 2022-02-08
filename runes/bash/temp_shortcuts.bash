@@ -18,6 +18,7 @@ sdk() {
         cb) gradle clean build ;;
         cbc) gradle clean build && ./scripts/check-example-apps.sh ;;
         fmt) gradle ktlintformat ;;
+        *) gradle "$@" ;;
     esac
     if [ "$?" = 0 ]; then
         notify-send "Done" "$1" -a sdk
