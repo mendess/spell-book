@@ -117,7 +117,7 @@ au.group('boilerplate', function(g)
         'kotlin',
         run_checked(
             'fun main() {',
-            {'   println("Hello world")'},
+            {'    println("Hello world")'},
             '}'
         )
     }

@@ -4,7 +4,7 @@ alias purge-podspec='gco multiplatform-sdk/src/iosMain/resources/SpeechifySDK.po
 alias check-apps='gradle build; ./scripts/check-example-apps.sh'
 
 mac-check() {
-    exec 3<>/dev/tcp/new-phyrexia/8912 || return
+    exec 3<>/dev/tcp/phyrexia/8912 || return
     { echo "$(git rev-parse --abbrev-ref HEAD)" >&3 && echo >&3 ; } || return
     read -r -u 3 || return
     echo "$REPLY"
