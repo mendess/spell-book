@@ -475,19 +475,6 @@ colors: *base16
 #  program: /bin/bash
 #  args:
 #    - --login
-%% switch on whoami
-%% work {
-shell:
-  program: /bin/bash
-%% }
-%% default {
-shell:
-  program: /bin/bash
-  args:
-      - -c
-      - echo 'I love you' && exec $SHELL
-%% }
-%% end
 
 # Startup directory
 #
