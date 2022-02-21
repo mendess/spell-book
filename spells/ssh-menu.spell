@@ -1,5 +1,6 @@
 #!/bin/bash
-# A gift from the love of my life [matilde](https://github.com/matildeopbravo)
+# A menu to quickly open ssh connections
 
 host=$(grep -w 'Host' .ssh/config | cut -d ' ' -f2 | dmenu -l 20 -p "ssh")
+[ -z "$host" ] && exit
 alacritty --class 'floating-term' -e bash -c "ssh $host"
