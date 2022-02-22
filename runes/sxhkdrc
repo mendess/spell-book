@@ -35,7 +35,7 @@ super + shift + t
     todo gui
 
 super + s
-    naoseioquefaco
+    ssh-menu
 
 super + p
     projects

@@ -136,6 +136,7 @@ if [[ "$sxiv" ]]; then
 elif [[ "${#files[@]}" = 0 ]]; then
     mapfile -t files < <(find "$WALLPAPERS" -type f |
         grep -v mtg |
+        grep -v arga |
         grep -iP "/[^/]*${filter}[^/]*$")
 fi
 [[ "${#files[@]}" = 0 ]] && exit
