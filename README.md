@@ -22,12 +22,12 @@
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
- - [naoseioquefaco](./spells/naoseioquefaco.spell) - A gift from the love of my life [matilde](https://github.com/matildeopbravo)
  - [picker](./spells/picker.spell) - Wrapper around dmenu and fzf to unify their options, it's not very good
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
  - [snapit](./spells/snapit.spell) - A printscreen script, supports crop to clipboard, crop to file, fullscreen print and floating print
+ - [ssh-menu](./spells/ssh-menu.spell) - A menu to quickly open ssh connections
  - [subscribe](./spells/subscribe.spell) - Subscribe to a youtube channel as an rss feed
  - [syncmusic](./spells/syncmusic.spell) - A termux only script that predownloads all music from $PLAYLIST
  - [syncspellbook](./spells/syncspellbook.spell) - Tries to synchronise with changes to the remote repository. Also runs [learnSpells](./learnSpells.sh) and [castRunes](./castRunes.sh)
