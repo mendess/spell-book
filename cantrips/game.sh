@@ -19,7 +19,7 @@ steam_libraries=(
     ~/.local/share/Steam
     ~/.disks/ssd/media/games/Steam
     ~/.disks/hdd/SteamLibrary
-    ~/.disks/nvme/media/games/steam/
+    ~/.disks/nvme/media/games/steam
 )
 acfs=()
 for path in "${steam_libraries[@]}"; do
