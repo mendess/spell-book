@@ -1,6 +1,22 @@
 #!/bin/bash
 # A menu to quickly open ssh connections
 
-host=$(grep -w 'Host' .ssh/config | cut -d ' ' -f2 | dmenu -l 20 -p "ssh")
+spark_hosts_cache="/tmp/$(whoami)/spark-hosts"
+
+if [[ -f "$spark_hosts_cache" ]]; then
+    spark_hosts=$(cat "$spark_hosts_cache")
+    echo "$(spark route show --list | sort -r)" > "$spark_hosts_cache" &
+else
+    spark_hosts="$(spark route show --list | sort -r)"
+    echo "$spark_hosts" > "$spark_hosts_cache" &
+fi
+local_hosts="$(grep -w Host ~/.ssh/config | cut -d ' ' -f2)"
+host=$(echo -e "$spark_hosts\n$local_hosts" | awk '!(a[$0]++)' | dmenu -l 20 -p "ssh")
 [ -z "$host" ] && exit
-alacritty --class 'floating-term' -e bash -c "ssh $host"
+
+
+if grep "$host" <<<$spark_hosts; then
+    alacritty --class 'floating-term' -e bash -c "spark ssh $host"
+else
+    alacritty --class 'floating-term' -e bash -c "ssh $host"
+fi

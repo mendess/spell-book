@@ -159,6 +159,7 @@ alias crr='cargo run --release'
 alias cbr='cargo build --release'
 alias cch='cargo check'
 alias ct='cargo test'
+alias cdoc='BROWSER=vimb cargo doc --open'
 
 alias cnr='cargo +nightly run'
 alias cnb='cargo +nightly build'
