@@ -29,8 +29,6 @@ tnoremap('<Esq>', [[<C-\><C-n>]])
 tnoremap('<A-[>', '<Esq>')
 
 -- jump to marker
-inoremap(',,', '<Esq>/<++><Enter>"_c4l')
-
 nnoremap('<A-1>', '1gt')
 nnoremap('<A-2>', '2gt')
 nnoremap('<A-3>', '3gt')
