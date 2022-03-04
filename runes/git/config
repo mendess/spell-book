@@ -15,3 +15,5 @@
 [init]
 	defaultBranch = master
 	templateDir = ~/.config/git/template
+[diff]
+    colorMoved = default
