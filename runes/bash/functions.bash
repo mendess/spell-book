@@ -459,8 +459,7 @@ function gb {
     if [[ "$1" ]]; then
         git branch "$@"
     else
-        git --no-pager branch --color=always -vv | cut -b-$(tput cols) |
-            sed -E 's/$/'`echo -e "\033"`'[0m/g'
+        git --no-pager branch --color=always -vv | cut -b-$(tput cols)
     fi
 }
 
