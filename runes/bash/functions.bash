@@ -355,14 +355,14 @@ function which() {
     w="$(command -V "$1")"
     case "$w" in
         *'is a function'*)
-            echo "$w" | tail -n +2
+            echo "${w#*$'\n'}"
             ;;
         *'is aliased to'*)
             w="${w#*\`}"
             echo "${w%\'*}"
             ;;
         *)
-            echo "${w##* }" | tr -d '()'
+            echo "${w##* }"
             ;;
     esac
 }
