@@ -171,8 +171,11 @@ super + {Right,Left}
 super + {Insert,Delete}
     SESSION_KIND=gui m {current,ch-cat}
 
+#super + shift + Insert
+#    $TERMINAL -e m lyrics
 super + shift + Insert
-    $TERMINAL -e m lyrics
+    SESSION_KIND=cli m current --link | xclip -sel clip; \
+    notify-send -u low 'copied'
 
 super + shift + underscore
     bspc rule -a mpv -o state=pseudo_tiled rectangle=820x466; \
