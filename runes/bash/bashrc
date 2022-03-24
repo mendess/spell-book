@@ -35,6 +35,7 @@ for f in "$SPELLS"/runes/bash/*.bash
 do
     source "$f"
 done
+
 [ -e /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
 
 [ -e ~/.bashrc-local ] && source ~/.bashrc-local

@@ -13,7 +13,8 @@ mac-check() {
 sdk() {
     case "$1" in
         c) gradle check ;;
-        b) gradle build ;;
+        b) gradle build -x test -x jvmTest -x check ;;
+        bt) gradle build ;;
         bc) gradle build && ./scripts/check-example-apps.sh ;;
         cb) gradle clean build ;;
         cbc) gradle clean build && ./scripts/check-example-apps.sh ;;
