@@ -52,7 +52,7 @@ local on_attach = function(autoformat)
         local opts = { noremap = true, silent = true }
         buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 
-        if dbg(client.name) == "eslint" then
+        if client.name == "eslint" then
             buf_set_keymap('n', '<leader>f', ':EslintFixAll<CR>', opts)
         elseif client.resolved_capabilities.document_formatting then
             if autoformat then
