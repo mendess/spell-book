@@ -362,7 +362,7 @@ function which() {
             echo "${w%\'*}"
             ;;
         *)
-            echo "${w##* }"
+            echo "${w##* }" | tr -d '()'
             ;;
     esac
 }
