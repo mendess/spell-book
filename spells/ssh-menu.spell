@@ -11,7 +11,7 @@ else
     echo "$spark_hosts" > "$spark_hosts_cache" &
 fi
 local_hosts="$(grep -w Host ~/.ssh/config | cut -d ' ' -f2)"
-host=$(echo -e "$spark_hosts\n$local_hosts" | awk '!(a[$0]++)' | dmenu -l 20 -p "ssh")
+host=$(cat <<<"$spark_hosts" <<<"$local_hosts" | awk '!(a[$0]++)' | dmenu -l 20 -p "ssh")
 [ -z "$host" ] && exit
 
 
