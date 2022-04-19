@@ -13,7 +13,10 @@ cmp.setup {
     mapping = {
         ['<C-Space>'] = cmp.mapping.complete(),
         -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Y>'] = cmp.mapping.confirm({ select = true }),
         ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<C-N>'] = cmp.mapping.select_next_item(),
+        ['<C-P>'] = cmp.mapping.select_prev_item(),
     },
     sources = {
         { name = 'nvim_lsp' },

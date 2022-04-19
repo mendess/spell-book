@@ -253,7 +253,7 @@ $hc detect_monitors
 while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
     echo "${geometry[@]}"
-    monitors+=("${geometry[0]}x0+$((steps * 1920))+0")
+    monitors+=("${geometry[0]}x0+${geometry[2]}+0")
     ((steps++))
 done < <($hc list_monitors | awk '{print $2}')
 
@@ -275,8 +275,8 @@ case "${#monitors[@]}" in
     2)
         case "$(hostname)" in
             tolaria)
-                lock_tag_to_monitor 0 {0..3}
-                lock_tag_to_monitor 1 {4..9}
+                lock_tag_to_monitor 0 {4..9}
+                lock_tag_to_monitor 1 {0..3}
                 ;;
             weatherlight | matess | kaladesh)
                 lock_tag_to_monitor 0 {0..6}
