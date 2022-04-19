@@ -33,7 +33,7 @@ save_compile_run('c', {
         if filereadable('makefile') == 1 or filereadable('Makefile') == 1 then
             vim.cmd [[make]]
         else
-            vim.cmd [[make CFLAGS=-lm %:r]]
+            vim.cmd [[make CFLAGS='-lm -g' %:r]]
         end
     end,
     run = function()
