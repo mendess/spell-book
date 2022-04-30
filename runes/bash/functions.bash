@@ -229,16 +229,18 @@ gcl() {
 nospace() {
     for file in *; do
         grep ' ' <<<"$file" || continue
-	new_name=$(sed -r "s/['&,()!]//g;s/ ([-_]) /\\1/g;s/ /-/g;s/_+/-/g" <<<"$file")
-	if [ -e "$new_name" ]; then
-	    echo "can't rename $file to $new_name. A file with that name already exists"
-	else
+    new_name=$(sed -r "s/['&,()!]//g;s/ ([-_]) /\\1/g;s/ /-/g;s/_+/-/g" <<<"$file")
+    if [ -e "$new_name" ]; then
+       echo "can't rename $file to $new_name. A file with that name already exists"
+    else
             mv -vn "$file" "$new_name"
-	fi
+    fi
     done
 }
 
 xdofast() {
+    # shellcheck disable=SC2031
+    # shellcheck disable=SC2030
     export DISPLAY=:0
     echo "alias x='xdotool'"
     echo "alias xk='xdotool key'"
@@ -455,7 +457,7 @@ function gb {
     if [[ "$1" ]]; then
         git branch "$@"
     else
-        git --no-pager branch --color=always -vv | cut -b-$(tput cols)
+        git --no-pager branch --color=always -vv | cut -b-"$(tput cols)"
     fi
 }
 
@@ -467,4 +469,8 @@ function file-swap {
     mv "$1" "$tmpfile" || return 1
     mv "$2" "$1"       || return 1
     mv "$tmpfile" "$2" || return 1
+}
+
+function wait-for-ci {
+    gh run watch ; notify-send "${1:-CI DONE} ${*:2}" -u critical
 }

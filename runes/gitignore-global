@@ -11,3 +11,4 @@ mendess_work_dir/
 src/main/resources/application-test.properties
 .typos.toml
 .ccommits
+mendess-*.sh
