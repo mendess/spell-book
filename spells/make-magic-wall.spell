@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
 
 if [[ $1 = "" ]]; then
     cat <<EOF
