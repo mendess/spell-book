@@ -8,8 +8,20 @@ EOF
     exit
 fi
 
-maincolor=$(
-    convert "$1" \
+case "$1" in
+    http*)
+        original=$(mktemp)
+        wget "$1" -O "$original"
+        read -r -p 'output file name? ' new
+        ;;
+    *)
+        original=$1
+        new="${2:-${1%.*}-magic.${1#*.}}"
+        ;;
+esac
+
+[[ "$maincolor" ]] || maincolor=$(
+    convert "$original" \
         -define histogram:unique-colors=true \
         -format %c \
         histogram:info:- |
@@ -30,7 +42,7 @@ convert -size $res xc:"#$maincolor" "$solid_color_wall"
 magick composite \
     -type TrueColor \
     -gravity center \
-    "$1" \
+    "$original" \
     "$solid_color_wall" \
-    "${2:-${1%.*}-magic.${1#*.}}"
+    "$new"
 

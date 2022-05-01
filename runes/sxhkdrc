@@ -106,16 +106,15 @@ super + w
 
 
 @Print
-    snapit
-
-alt + @Print
-    snapit fullscreen
+    cd /tmp ; cuffs --select --clipboard --keep
 
 shift + @Print
-    snapit save
+    screenshots=$(xdg-user-dir PICTURES)/screenshots; \
+    mkdir -p "$screenshots" ; \
+    cd $screenshots && cuffs --select --rename
 
 super + @Print
-    snapit floating
+    cd /tmp ; cuffs --select --floating
 
 super + control + s
     $TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
