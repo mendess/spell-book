@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+if [[ $1 = "" ]]; then
+    cat <<EOF
+Usage: $0 filename [new-filename]
+EOF
+    exit
+fi
+
+maincolor=$(
+    convert "$1" \
+        -define histogram:unique-colors=true \
+        -format %c \
+        histogram:info:- |
+        sort -n |
+        sed '$!d' |
+        cut -d'#' -f2 |
+        cut -c1-6
+)
+
+echo "main color is: #$maincolor" | {
+    if hash color_picker; then color_picker -f; else cat ; fi;
+}
+
+res=2560x1440
+
+solid_color_wall=$(mktemp).png
+convert -size $res xc:"#$maincolor" "$solid_color_wall"
+magick composite \
+    -type TrueColor \
+    -gravity center \
+    "$1" \
+    "$solid_color_wall" \
+    "${2:-${1%.*}-magic.${1#*.}}"
+

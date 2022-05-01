@@ -21,6 +21,7 @@
  - [ex](./spells/ex.spell) - Extract anything
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
+ - [make-magic-wall](./spells/make-magic-wall.spell)
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [picker](./spells/picker.spell) - Wrapper around dmenu and fzf to unify their options, it's not very good
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
