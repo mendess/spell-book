@@ -47,8 +47,7 @@ fi
 
 if command -V typos >/dev/null ; then
     if [ -e ".typos.toml" ]; then
-        # typos || exit 1
-        :
+        typos || exit 1
     else
         echo "no typos toml, skipping typo checking"
     fi
