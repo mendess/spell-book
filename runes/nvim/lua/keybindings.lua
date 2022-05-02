@@ -33,5 +33,5 @@ mapx.group({ silent = true }, function()
 end)
 
 -- windowing
-nnoremap('<C-w><leader>', ':tab split<CR>')
-tnoremap('<C-w><leader> <c-w>', ':tab split<CR>')
+nnoremap('<c-w>o', ':tab split<CR>')
+tnoremap('<c-w>o <c-w>', ':tab split<CR>')
