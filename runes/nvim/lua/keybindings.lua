@@ -32,3 +32,6 @@ mapx.group({ silent = true }, function()
     command.Rg = function() require('telescope.builtin').grep_string() end
 end)
 
+-- windowing
+nnoremap('<C-w><leader>', ':tab split<CR>')
+tnoremap('<C-w><leader> <c-w>', ':tab split<CR>')

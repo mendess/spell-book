@@ -98,3 +98,4 @@ au.group('himalaya-bad-ws', function(g)
 end)
 
 set.foldmethod = 'indent'
+set.foldlevelstart = 99
