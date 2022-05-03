@@ -118,7 +118,7 @@ alt + @Print
     mkdir -p "$videos" ; \
     cd "$videos" && cuffs.tool --select --rename --video
 
-control ; alt + @Print
+shift + alt + Print
     kill -s SIGINT $(cat /tmp/$LOGNAME/ffmpeg_screenshot_pid)
 
 super + @Print

@@ -12,7 +12,11 @@ case "$1" in
     http*)
         original=$(mktemp)
         wget "$1" -O "$original"
-        read -r -p 'output file name? ' new
+        if [[ "$2" ]]; then
+            new="$2"
+        else
+            read -r -p 'output file name? ' new
+        fi
         ;;
     *)
         original=$1
