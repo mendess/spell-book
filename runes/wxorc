@@ -38,6 +38,21 @@ video() {
         *soundcloud* | *wav | *mp3 | *m4a)
             $TERMINAL -e mpv --no-terminal "$1"
             ;;
+        *youtu.be* | *youtube*)
+            sock_num=/tmp/$LOGNAME/wxo-running-sock
+            if [[ -e "$sock_num" ]]; then
+                notify-send 'Queueing in m' "$1" -u low &&
+                m -s "$(cat "$sock_num")" q "$1"
+            else
+                notify-send 'Playing in m' "$1" -u low &&
+                sock=$(m socket new) &&
+                echo "$sock" | grep -oE '[0-9]+$' > "$sock_num" &&
+                mpv --no-terminal --input-ipc-server="$sock" "$1"
+                error=$?
+                rm -f "$sock_num"
+                [ $error = 0 ]
+            fi
+            ;;
         *)
             notify 'Playing in mpv' "$1" -u low
             mpv --no-terminal "$1" || {
