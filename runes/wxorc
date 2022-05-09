@@ -42,7 +42,10 @@ video() {
             sock_num=/tmp/$LOGNAME/wxo-running-sock
             if [[ -e "$sock_num" ]]; then
                 notify-send 'Queueing in m' "$1" -u low &&
-                m -s "$(cat "$sock_num")" q "$1"
+                m -s "$(cat "$sock_num")" q "$1" || {
+                    rm -f "$sock_num"
+                    video "$@"
+                }
             else
                 notify-send 'Playing in m' "$1" -u low &&
                 sock=$(m socket new) &&
