@@ -24,7 +24,7 @@ case "$1" in
         ;;
 esac
 
-[[ "$maincolor" ]] || maincolor=$(
+[[ "${maincolor:=$C}" ]] || maincolor=$(
     convert "$original" \
         -define histogram:unique-colors=true \
         -format %c \
