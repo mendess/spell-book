@@ -13,11 +13,6 @@ common() {
         m vd
     done &
     ssh mendess@mirrodin -i ~/.ssh/id_rsa bulb/flow.py sunset &
-    {
-        sleep 2m
-        DISPLAY=:0 xset dpms force off
-    } &
-    disown
 }
 
 sleep_now() {

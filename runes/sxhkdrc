@@ -92,7 +92,7 @@ super + shift + c
     $TERMINAL -e bash -c 'ikhal 2>/dev/null'
 
 super + alt + v
-    vim-anywhere
+    vim-anywhere ; chmod 777 /tmp/vim-anywhere
 
 super + w
     desktop="$(xdotool get_desktop)"; \
