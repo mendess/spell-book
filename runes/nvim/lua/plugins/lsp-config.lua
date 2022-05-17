@@ -54,12 +54,12 @@ local on_attach = function(autoformat)
 
         if client.name == "eslint" then
             buf_set_keymap('n', '<leader>f', ':EslintFixAll<CR>', opts)
-            buf_set_keymap(
-                'n',
-                '<leader>f',
-                '<Cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>',
-                opts
-            )
+            -- buf_set_keymap(
+            --     'n',
+            --     '<leader>f',
+            --     '<Cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>',
+            --     opts
+            -- )
         elseif client.resolved_capabilities.document_formatting then
             if autoformat then
                 au.group('Format', function(g)

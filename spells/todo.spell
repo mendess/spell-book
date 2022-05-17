@@ -78,8 +78,9 @@ else
     while :; do
         cmd=$(todo | selector -l "$height" -p "$prompt")
         [ "$cmd" ] || break
-        if [ "$(s="$cmd" awk 'substr($0, 1, length(ENVIRON["s"])) == ENVIRON["s"] { print }' "$file")" ]; then
-            s="$cmd" awk 'substr($0, 1, length(ENVIRON["s"])) != ENVIRON["s"] { print }' "$file" >"$file.$$"
+        [ "$LOGNAME" = work ] && echo "$cmd" | grep -qv '^work' && cmd="work: $cmd"
+        if grep --quiet --line-regex --fixed-strings "$cmd" "$file"; then
+            grep --line-regex --fixed-strings --invert-match "$cmd" "$file" >"$file.$$"
             mv "$file.$$" "$file"
             height=$((height - 1))
         else

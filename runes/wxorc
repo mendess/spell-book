@@ -34,6 +34,13 @@ pdf() {
 }
 
 video() {
+    default() {
+        notify 'Playing in mpv' "$1" -u low
+        mpv --no-terminal "$1" || {
+            notify 'Retrying in mpv' "$1" -u low
+            mpv --no-terminal "$1"
+        }
+    }
     case "$1" in
         *soundcloud* | *wav | *mp3 | *m4a)
             $TERMINAL -e mpv --no-terminal "$1"
@@ -48,20 +55,25 @@ video() {
                 }
             else
                 notify-send 'Playing in m' "$1" -u low &&
-                sock=$(m socket new) &&
-                echo "$sock" | grep -oE '[0-9]+$' > "$sock_num" &&
-                mpv --no-terminal --input-ipc-server="$sock" "$1"
-                error=$?
-                rm -f "$sock_num"
-                [ $error = 0 ]
+                if m play "$1"; then
+                    export SESSION_KIND=cli
+                    export WITH_VIDEO=1
+                    sock=$(m status | sed -n 1p | grep -oE '[0-9]+$' | tee "$sock_num")
+                    (
+                        sleep 30
+                        while m -s "$sock" c &>/dev/null; do
+                            sleep 1
+                        done
+                        rm -f "$sock_num"
+                    ) &
+                    disown
+                else
+                    default "$@"
+                fi
             fi
             ;;
         *)
-            notify 'Playing in mpv' "$1" -u low
-            mpv --no-terminal "$1" || {
-                notify 'Retrying in mpv' "$1" -u low
-                mpv --no-terminal "$1"
-            }
+            default "$@"
             ;;
     esac
 }
