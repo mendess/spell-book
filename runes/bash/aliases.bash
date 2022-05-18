@@ -172,6 +172,7 @@ alias ca=cargo
 alias cn='cargo +nightly'
 
 alias bashrc="cd $SPELLS/runes/bash && vim bashrc; cd -"
+alias vims='vim +source Session.vim'
 alias vimrc='cd $SPELLS/runes/nvim/; vim init.* ; cd -'
 alias viminstall="vim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; echo"
 alias py="python3"
@@ -236,3 +237,4 @@ command -v calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME
 command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
 
 alias network_monitor='nmcli -c yes monitor | while read -r line; do echo -e "\e[0m[$(date)] $line"; done'
+alias ts='cd ~/task-stack/; vim +source Session.vim ; cd -'

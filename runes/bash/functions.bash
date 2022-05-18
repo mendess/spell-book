@@ -458,8 +458,12 @@ function gb {
         git branch "$@"
     else
         git --no-pager branch -vv |
-            sed -E 's/\[[^]]*origin[^]]*\]//' |
-            cut -b-"$(tput cols)"
+            sed -E 's/ \[[^]]*origin[^]]*\]//' |
+            cut -b-"$(tput cols)" |
+            GREP_COLOR="1;32" grep --color=always -E '^\* [^/ ]+|' |
+            GREP_COLOR="32"   grep --color=always -E '^\* [^ ]+|' |
+            GREP_COLOR="33"   grep --color=always -E ' [a-f0-9]{8,10} |' |
+            GREP_COLOR="34"   grep --color=always -E '^  [^/]+|'
     fi
 }
 
