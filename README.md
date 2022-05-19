@@ -44,8 +44,7 @@
  - [displayselect](./cantrips/displayselect.sh) - Configure multi monitors
  - [draw](./cantrips/draw.sh) - draw terminals
  - [emoji](./cantrips/emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
- - [empty_monitor](./cantrips/empty_monitor.sh)
- - [free-nitro](./cantrips/free-nitro.sh)
+ - [free-nitro](./cantrips/free-nitro.sh) - I don't feel like paying discord, so I just store emoji gifs and quickly copy them to the clipboard to paste in chat. 😎
  - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu
  - [mconlinelist](./cantrips/mconlinelist.sh) - Send a notification with the list of online players in a minecraft server
  - [menu](./cantrips/menu.sh) - The menu used to find and launch the cantrips
@@ -60,10 +59,10 @@
 ## [Scrolls](./scrolls/): Instalation scripts *Mostly untested*
 
  - [autologin](./scrolls/autologin.sh) - Setup auto login with or without password
- - [basicWF](./scrolls/basicWF.sh)
+ - [basicWF](./scrolls/basicWF.sh) - Sets up my basic workflow, install packages, configures some other packages.
  - [calendar](./scrolls/calendar.sh) - Configure khal using vdirsyncer
  - [dmenu](./scrolls/dmenu.sh) - Install my custom build of dmenu
- - [fix-dns-home](./scrolls/fix-dns-home.sh)
+ - [fix-dns-home](./scrolls/fix-dns-home.sh) - Fix my home dns resolution, basically sets the primary dns provider to the gateway and sets the secondary dns provider to 1.1.1.1 (cloudflare)
  - [gestures](./scrolls/gestures.sh) - Enable gestures to switch workspace
  - [lutris](./scrolls/lutris.sh) - Install lutris and all the dependencies needed for battle net, assuming nvidia
  - [nfs_walls](./scrolls/nfs_walls.sh) - Create a network mounted filesystem for my wallpapers

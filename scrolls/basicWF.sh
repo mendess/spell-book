@@ -1,5 +1,7 @@
 #!/bin/bash
-#shellcheck disable=1090
+# Sets up my basic workflow, install packages, configures some other packages.
+#shellcheck disable=SC1091
+
 
 if [ "$#" = 0 ]; then
     ALL=1

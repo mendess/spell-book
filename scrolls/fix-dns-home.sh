@@ -1,4 +1,6 @@
 #!/bin/bash
+# Fix my home dns resolution, basically sets the primary dns provider to the
+# gateway and sets the secondary dns provider to 1.1.1.1 (cloudflare)
 
 con="${1:-$(nmcli -t --fields NAME connection show --active)}"
 read -rp "Change dns for network $con [Y/n]? "
