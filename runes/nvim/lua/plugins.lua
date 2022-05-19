@@ -55,6 +55,7 @@ return require('packer').startup({function(use)
     use 'mendess/nvim-base16.lua'
     use 'mendess/ayu-vim'
     use 'ntk148v/vim-horizon'
+    use 'sainnhe/everforest'
     ------ ============================= ------
 
 
