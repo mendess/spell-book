@@ -6,7 +6,7 @@
 ~/.bash_profile,bash/profile
 ~/.bashrc,bash/bashrc
 ~/.config/X11/xinitrc,xinitrc
-~/.config/alacritty/alacritty.yml,alacritty.yml,generated
+~/.config/alacritty/alacritty.yml,alacritty.yml,force
 ~/.config/compton.conf,compton.conf
 ~/.config/dunst/dunstrc,dunstrc,generated
 ~/.config/gitignore-global,gitignore-global
