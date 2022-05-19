@@ -29,12 +29,14 @@ vim.g.everforest_background = 'hard'
 vim.g.everforest_better_performance = 1
 vim.g.everforest_disable_italic_comment = 1
 vim.g.everforest_transparent_background = 2
+vim.g.everforest_show_eob = 0
 
 vim.cmd('colorscheme everforest')
 
 function transparent_bg()
     vim.cmd('highlight Normal guibg=none')
     vim.cmd('highlight NonText guibg=none')
+    vim.cmd('highlight EndOfBuffer guibg=none')
 end
 transparent_bg()
 

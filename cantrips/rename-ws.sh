@@ -1,5 +1,5 @@
 #!/bin/bash
-# Dynamic [i3|bspwm] workspace renamer
+# Dynamic [i3|bspwm|herbstluftwm] workspace renamer
 [ "$1" = GUI ] && picker=dmenu || picker=fzf
 NEW=$(echo "" | PICKER="$picker" picker -p "Enter new ws name:" | sed 's/\t/    /g')
 
