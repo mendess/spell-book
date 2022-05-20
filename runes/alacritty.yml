@@ -231,7 +231,7 @@ schemes:
       background: '#2b3339'
       foreground: '#d3c6aa'
     normal:
-      black:   '#4b565c'
+      black:   '#102020' # original color: 4b565c
       red:     '#e67e80'
       green:   '#a7c080'
       yellow:  '#dbbc7f'
