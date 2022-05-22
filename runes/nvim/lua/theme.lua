@@ -31,14 +31,22 @@ vim.g.everforest_disable_italic_comment = 1
 vim.g.everforest_transparent_background = 2
 vim.g.everforest_show_eob = 0
 
-vim.cmd('colorscheme everforest')
+-- vim.cmd('colorscheme everforest')
+require('kanagawa').setup({
+    commentStyle = "NONE",
+    keywordStyle = "NONE",
+    variablebuiltinStyle = "NONE",
+    transparent = true,
+})
+
+vim.cmd("colorscheme kanagawa")
 
 function transparent_bg()
     vim.cmd('highlight Normal guibg=none')
     vim.cmd('highlight NonText guibg=none')
     vim.cmd('highlight EndOfBuffer guibg=none')
 end
-transparent_bg()
+-- transparent_bg()
 
 command.Bt = transparent_bg
 

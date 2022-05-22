@@ -56,6 +56,7 @@ return require('packer').startup({function(use)
     use 'mendess/ayu-vim'
     use 'ntk148v/vim-horizon'
     use 'sainnhe/everforest'
+    use 'rebelot/kanagawa.nvim'
     ------ ============================= ------
 
 
