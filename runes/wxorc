@@ -132,3 +132,14 @@ archive() {
         *) exec bash -i ;;
     esac"
 }
+
+other() {
+    case "$2" in
+        *twitter.com*)
+            xdg-open "${1//twitter.com/nitter.unixfox.eu}"
+            ;;
+        *)
+            false
+            ;;
+    esac
+}
