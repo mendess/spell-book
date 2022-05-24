@@ -209,7 +209,8 @@ fi
 process_params || exit 1
 
 urldecode() {
-    sed 's@+@ @g;s@%@\\x@g' | xargs -0 printf "%b"
+    python3 -c 'from urllib.parse import unquote
+print(unquote(input().strip()))'
 }
 
 if [ "$sync" ]; then
