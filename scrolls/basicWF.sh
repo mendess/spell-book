@@ -1,6 +1,6 @@
 #!/bin/bash
 # Sets up my basic workflow, install packages, configures some other packages.
-#shellcheck disable=SC1091
+#shellcheck disable=SC1090-SC1091
 
 
 if [ "$#" = 0 ]; then

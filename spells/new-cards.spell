@@ -1,5 +1,7 @@
-set -x
-dir=$(mktemp -d)
+#!/bin/bash
+
+dir="${TMPDIR:-/tmp}/$USER/new-cards/"
+mkdir -p "$dir"
 cd "$dir"
 base=http://mythicspoiler.com
 cap="${1:-10}"
@@ -13,14 +15,12 @@ curl --silent "$base/newspoilers.html" |
     head -"$cap" |
     while read -r link; do
         file="${link//\//-}"
-        wget -q "$link" -O "$file"
+        [ -f "$file" ] || wget -q "$link" -O "$file" >/dev/null
         echo "$file"
     done |
-    sxiv -io |
+    sxiv -b -g 590x800 -io -z 200 |
     while read -r link; do
         url="${link//-/\/}"
         html="${url%.*}.html"
         "$BROWSER" "$html"
     done
-
-rm -vrf "$dir"
