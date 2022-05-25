@@ -1,0 +1,26 @@
+set -x
+dir=$(mktemp -d)
+cd "$dir"
+base=http://mythicspoiler.com
+cap="${1:-10}"
+curl --silent "$base/newspoilers.html" |
+    awk -v base=$base '
+    $0 ~ /CARD CARD CARD/ { in_card = 1 }
+    in_card && $0 ~ /img.*src="/ { url = 1 }
+    url && $0 ~ /cards/ { print(base "/" $1); url = 0 }
+    $0 ~ /END CARD/ { in_card = 0 }
+    ' |
+    head -"$cap" |
+    while read -r link; do
+        file="${link//\//-}"
+        wget -q "$link" -O "$file"
+        echo "$file"
+    done |
+    sxiv -io |
+    while read -r link; do
+        url="${link//-/\/}"
+        html="${url%.*}.html"
+        "$BROWSER" "$html"
+    done
+
+rm -vrf "$dir"
