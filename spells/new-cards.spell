@@ -4,7 +4,7 @@ dir="${TMPDIR:-/tmp}/$USER/new-cards/"
 mkdir -p "$dir"
 cd "$dir"
 base=http://mythicspoiler.com
-cap="${1:-10}"
+cap="${1:-50}"
 curl --silent "$base/newspoilers.html" |
     awk -v base=$base '
     $0 ~ /CARD CARD CARD/ { in_card = 1 }
