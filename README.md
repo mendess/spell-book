@@ -23,6 +23,7 @@
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
+ - [new-cards](./spells/new-cards.spell)
  - [picker](./spells/picker.spell) - Wrapper around dmenu and fzf to unify their options, it's not very good
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
