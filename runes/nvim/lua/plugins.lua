@@ -116,6 +116,8 @@ return require('packer').startup({function(use)
             vim.g.polyglot_disabled = {'sensible', 'autoindent'}
         end,
     }
+
+    use 'evanleck/vim-svelte'
     -- pweatty lsp frontend
     use {
         'tami5/lspsaga.nvim',

@@ -33,9 +33,9 @@ vim.g.everforest_show_eob = 0
 
 -- vim.cmd('colorscheme everforest')
 require('kanagawa').setup({
-    commentStyle = "NONE",
-    keywordStyle = "NONE",
-    variablebuiltinStyle = "NONE",
+    commentStyle = {},
+    keywordStyle = {},
+    variablebuiltinStyle = {},
     transparent = true,
 })
 

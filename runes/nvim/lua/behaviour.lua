@@ -12,7 +12,7 @@ set.shiftwidth = 4
 set.smarttab = true
 au.group('tab-settings', function(g)
     g.BufEnter = {
-        { '*css', '*scss', '*.html', '*hbs' },
+        { '*css', '*scss', '*.html', '*hbs', "*.svelte", "*.tsx", ".ts" },
         function()
             set.tabstop = 2
             set.shiftwidth = 2
