@@ -114,6 +114,9 @@ while [ "$#" -gt 0 ]; do
         -d | --different)
             different=1
             ;;
+        --wait-for-colors)
+            wait_for_colors=1
+            ;;
         -h | --help)
             show_help
             exit 1
@@ -214,9 +217,10 @@ unset i
 
 printf "Setting: %s\n" "${files[@]}"
 
+[[ "$wait_for_colors" ]] && wait
 if [ "$wide" -gt 0 ]; then
     feh --no-fehbg --bg-fill --no-xinerama "${files[@]}"
 else
     feh --no-fehbg --bg-fill "${files[@]}"
 fi
-wait
+[[ "$wait_for_colors" ]] || wait

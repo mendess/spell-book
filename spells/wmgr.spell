@@ -219,7 +219,7 @@ if [ "$sync" ]; then
     [ -d "$WALLPAPERS" ] || mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
     [ "$(hostname)" = localhost ] && is_phone="/phone"
-    curl --silent "$endpoint/walls$is_phone" |
+    curl -L --silent "$endpoint/walls$is_phone" |
         grep '<a' |
         cut -d"'" -f4 |
         while read -r f; do

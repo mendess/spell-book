@@ -215,7 +215,7 @@ alias alert='notify-send -i "$([ $? = 0 ] && echo "/usr/share/icons/Adwaita/48x4
 #shellcheck disable=2142
 alias fix_divinity="cd $HOME/.disks/nvme/media/games/steam/steamapps/common/Divinity\ Original\ Sin\ 2/ && mv ./bin ./bin.bak && ln -s DefEd/bin bin && cd bin && mv ./SupportTool.exe ./SupportTool.bak && ln -s EoCApp.exe SupportTool.exe"
 command -v neofetch &>/dev/null ||
-    alias neofetch="curl --silent mendess.xyz/file/neofetch | bash"
+    alias neofetch="curl -L --silent mendess.xyz/file/neofetch | bash"
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'

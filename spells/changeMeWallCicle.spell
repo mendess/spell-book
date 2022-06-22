@@ -10,5 +10,6 @@ do
     pgrep wineserver && continue
     # pgrep steam && continue
     [ -e "$CACHE/stop_wall" ] && continue
-    changeMeWall
+    wait
+    changeMeWall --wait-for-colors &
 done
