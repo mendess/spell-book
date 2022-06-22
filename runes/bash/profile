@@ -95,3 +95,5 @@ elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
         tmux -2 new -A -s default
     fi
 fi
+
+if [ -e /home/mendess/.nix-profile/etc/profile.d/nix.sh ]; then . /home/mendess/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

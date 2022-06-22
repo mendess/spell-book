@@ -2,7 +2,7 @@
 # Fix my home dns resolution, basically sets the primary dns provider to the
 # gateway and sets the secondary dns provider to 1.1.1.1 (cloudflare)
 
-con="${1:-$(nmcli -t --fields NAME connection show --active)}"
+con="${1:-$(nmcli -t --fields NAME connection show --active | head -1)}"
 read -rp "Change dns for network $con [Y/n]? "
 [[ "${REPLY,,}" = n ]] && exit
 [[ "$gateway" ]] ||

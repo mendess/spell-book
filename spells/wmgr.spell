@@ -3,6 +3,7 @@
 
 # shellcheck disable=SC2029
 
+HOST=root@meditation.mendess.xyz
 TMPDIR=${TMPDIR:-/tmp}
 set -e
 yellow() {
@@ -81,34 +82,34 @@ process_params() {
             fi
             yellow "Sending $name to $wall_dir"
             if [[ "$replace" ]]; then
-                ssh mirrodin test '!' -e "'Pictures/$wall_dir/$name'" &&
+                ssh "$HOST" test '!' -e "'Pictures/$wall_dir/$name'" &&
                     echo 'A wallpaper with that name doesn'\'' exist' &&
                     return 1
-                ssh mirrodin touch -r "'Pictures/$wall_dir/$name'" "/tmp/reference"
+                ssh "$HOST" touch -r "'Pictures/$wall_dir/$name'" "/tmp/reference"
             else
-                ssh mirrodin test -e "'Pictures/$wall_dir/$name'" &&
+                ssh "$HOST" test -e "'Pictures/$wall_dir/$name'" &&
                     echo 'A wallpaper with that name doesn'\''t exist' &&
                     return 1
             fi
-            scp "$wall" "mirrodin:Pictures/$wall_dir/$name"
-            [[ "$replace" ]] && ssh mirrodin touch -r /tmp/reference "'Pictures/$wall_dir/$name'"
+            scp "$wall" ""$HOST":Pictures/$wall_dir/$name"
+            [[ "$replace" ]] && ssh "$HOST" touch -r /tmp/reference "'Pictures/$wall_dir/$name'"
             case "${host[0]}" in Powerstone | Tolaria) return 0 ;; esac
             for h in "${host[@]}"; do
                 case "$h" in
                     weatherlight | matess | kaladesh)
                         blue "Creating symlink"
-                        ssh mirrodin \
+                        ssh "$HOST" \
                             "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
                         [[ "$(hostname)" != "tolaria" ]] && cp -v "$wall" "$WALLPAPERS/$name"
                         ;;
                     powerstone)
                         blue "Creating symlink"
-                        ssh mirrodin \
+                        ssh "$HOST" \
                             "[ -e Pictures/PhoneCollection/$name ] && \
                              [ ! -h Pictures/PhoneCollection/$name ]" &&
                             echo -e "A \e[34mnon link\e[0m wallpaper with that name already exists" &&
                             return 1
-                        ssh mirrodin "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/PhoneCollection"
+                        ssh "$HOST" "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/PhoneCollection"
                         ;;
                 esac
             done
