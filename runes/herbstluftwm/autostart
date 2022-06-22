@@ -201,6 +201,7 @@ $hc rule title~'Steam .*' instance=Steam floating=on
 $hc rule title~'.* Steam .*' instance=Steam floating=on
 $hc rule title~'Properties .*' instance=Steam floating=on
 $hc rule class='steam_app_782330' tag=9
+$hc rule title~'Android Emulator .*' floating=on
 
 $hc set tree_style '╾│ ├└╼─┐'
 
