@@ -168,6 +168,7 @@ record() {
 
 share() { (
     set -e
+    HOST=meditation
     while [[ "$#" -gt 0 ]]; do
         case "$1" in
             -u | --unlisted)
@@ -190,7 +191,7 @@ share() { (
         filename="$filename.zip"
     fi
     [[ "$unlisted" ]] && filename="unlisted/$filename"
-    scp "$FILE" "mirrodin:~/disk0/Mirrodin/share/$filename"
+    spark rsync av "$HOST" "$FILE" "mirrodin/share/$filename"
     url="http://mendess.xyz/file/$filename"
     if command -v termux-clipboard-set &>/dev/null; then
         echo -n "$url" | termux-clipboard-set

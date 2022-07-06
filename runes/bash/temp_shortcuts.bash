@@ -12,14 +12,14 @@ mac-check() {
 
 sdk() {
     case "$1" in
-        c) gradle check ;;
-        b) gradle build -x test -x jvmTest -x check ;;
-        bt) gradle build ;;
-        bc) gradle build && ./scripts/check-example-apps.sh ;;
-        cb) gradle clean build ;;
-        cbc) gradle clean build && ./scripts/check-example-apps.sh ;;
-        fmt) gradle ktlintformat ;;
-        *) gradle "$@" ;;
+        c) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g check ;;
+        b) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build -x test -x jvmTest -x check ;;
+        bt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build ;;
+        bc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build && ./scripts/check-example-apps.sh ;;
+        cb) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build ;;
+        cbc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build && ./scripts/check-example-apps.sh ;;
+        fmt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g ktlintformat ;;
+        *) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g "$@" ;;
     esac
     if [ "$?" = 0 ]; then
         notify-send "Done" "$1" -a sdk
@@ -27,3 +27,5 @@ sdk() {
         notify-send "Error" "$1" --urgency critical -a sdk
     fi
 }
+
+command -V chromium &>/dev/null && export CHROME_BIN=$(which chromium)
