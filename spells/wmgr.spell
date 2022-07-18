@@ -223,7 +223,7 @@ if [ "$sync" ]; then
     CLEAN_LINE="\r\033[2K"
     all_walls_obj=$(curl -L --silent "$base")
     total=$(jq length <<<"$all_walls_obj")
-    i=0
+    i=1
     while read -r json; do
         file_name="$(jq -r .path <<<"$json")"
         name="$(jq -r .name <<<"$json")"
