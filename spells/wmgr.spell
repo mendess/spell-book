@@ -219,15 +219,26 @@ if [ "$sync" ]; then
     [ -d "$WALLPAPERS" ] || mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
     [ "$(hostname)" = localhost ] && is_phone="/phone"
-    curl -L --silent "$endpoint/walls$is_phone" |
-        grep '<a' |
-        cut -d"'" -f4 |
-        while read -r f; do
-            if [ ! -e "$(basename "$f" | urldecode)" ]; then
-                echo -n "Downloading $endpoint$f ..."
-                wget --quiet "http://$endpoint/$f"
-                echo ' Done'
-            fi
-        done
+    base="$endpoint/api/v1/walls$is_phone"
+    CLEAN_LINE="\r\033[2K"
+    all_walls_obj=$(curl -L --silent "$base")
+    total=$(jq length <<<"$all_walls_obj")
+    i=0
+    while read -r json; do
+        file_name="$(jq -r .path <<<"$json")"
+        name="$(jq -r .name <<<"$json")"
+        printf "${CLEAN_LINE}[$i/$total] Checking $name"
+        if [ ! -e "$file_name" ]; then
+            echo -ne "${CLEAN_LINE}[$i/$total] Downloading $name ..."
+            encoded_name=$(
+                python \
+                    -c "from urllib.parse import quote, sys; print(quote(sys.argv[1]))" \
+                    "$file_name"
+            )
+            wget --quiet "http://$base/$encoded_name"
+            echo ' Done'
+        fi
+        ((++i))
+    done < <(jq -c .[] <<<"$all_walls_obj")
     echo 'Synced'
 fi
