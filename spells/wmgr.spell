@@ -240,5 +240,6 @@ if [ "$sync" ]; then
         fi
         ((++i))
     done < <(jq -c .[] <<<"$all_walls_obj")
+    echo
     echo 'Synced'
 fi
