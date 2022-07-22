@@ -1,8 +1,5 @@
 #!/bin/bash
 
-alias purge-podspec='gco multiplatform-sdk/src/iosMain/resources/SpeechifySDK.podspec'
-alias check-apps='gradle build; ./scripts/check-example-apps.sh'
-
 mac-check() {
     exec 3<>/dev/tcp/phyrexia/8912 || return
     { echo "$(git rev-parse --abbrev-ref HEAD)" >&3 && echo >&3 ; } || return
@@ -12,13 +9,13 @@ mac-check() {
 
 sdk() {
     case "$1" in
-        c) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g check ;;
-        b) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build -x test -x jvmTest -x check ;;
-        bt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build ;;
-        bc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build && ./scripts/check-example-apps.sh ;;
-        cb) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build ;;
-        cbc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build && ./scripts/check-example-apps.sh ;;
-        fmt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g ktlintformat ;;
+        c) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g check "${@:2}" ;;
+        b) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build -x test -x jvmTest -x check "${@:2}" ;;
+        bt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build "${@:2}" ;;
+        bc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build && ./scripts/check-example-apps.sh "${@:2}" ;;
+        cb) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build "${@:2}" ;;
+        cbc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build && ./scripts/check-example-apps.sh "${@:2}" ;;
+        fmt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g ktlintformat "${@:2}" ;;
         *) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g "$@" ;;
     esac
     if [ "$?" = 0 ]; then
