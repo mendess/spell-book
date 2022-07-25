@@ -10,7 +10,7 @@ mac-check() {
 sdk() {
     case "$1" in
         c) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g check "${@:2}" ;;
-        b) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build -x test -x jvmTest -x check "${@:2}" ;;
+        b) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build "${@:2}" -x test -x jvmTest -x check ;;
         bt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build "${@:2}" ;;
         bc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build && ./scripts/check-example-apps.sh "${@:2}" ;;
         cb) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build "${@:2}" ;;

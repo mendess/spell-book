@@ -35,6 +35,7 @@
  - [syncspellbook](./spells/syncspellbook.spell) - Tries to synchronise with changes to the remote repository. Also runs [learnSpells](./learnSpells.sh) and [castRunes](./castRunes.sh)
  - [termFromHere](./spells/termFromHere.spell) - Opens a terminal in the same `cwd` as the focused `X` program.
  - [todo](./spells/todo.spell) - Write/remove a task to do later.  Select an existing entry to remove it from the file, or type a new entry to add it.
+ - [travel](./spells/travel.spell)
  - [update_discord_dnd](./spells/update_discord_dnd.spell) - Using a "copied as curl" request to change discord status to or front dnd, update the remote to use the new request
  - [update_rust_analyzer](./spells/update_rust_analyzer.spell) - Update rust_analyzer from the latest github release
  - [wmgr](./spells/wmgr.spell) - Wallpaper manager
