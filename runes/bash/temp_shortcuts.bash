@@ -22,13 +22,13 @@ sdk() {
         if command -V notify-send 2>/dev/null; then
             notify-send "Done" "$1" -a sdk
         elif command -V terminal-notifier 2>/dev/null; then
-            terminal-notifier Done
+            terminal-notifier -message Done
         fi
     else
         if command -V notify-send 2>/dev/null; then
             notify-send "Error" "$1" --urgency critical -a sdk
         elif command -V terminal-notifier 2>/dev/null; then
-            terminal-notifier Error
+            terminal-notifier -message Error
         fi
     fi
 }
