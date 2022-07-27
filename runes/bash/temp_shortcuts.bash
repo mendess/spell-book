@@ -9,19 +9,27 @@ mac-check() {
 
 sdk() {
     case "$1" in
-        c) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g check "${@:2}" ;;
-        b) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build "${@:2}" -x test -x jvmTest -x check ;;
-        bt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build "${@:2}" ;;
-        bc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build && ./scripts/check-example-apps.sh "${@:2}" ;;
-        cb) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build "${@:2}" ;;
-        cbc) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build && ./scripts/check-example-apps.sh "${@:2}" ;;
-        fmt) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g ktlintformat "${@:2}" ;;
-        *) gradle -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g "$@" ;;
+        c) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g check "${@:2}" ;;
+        b) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build "${@:2}" -x test -x jvmTest -x check ;;
+        bt) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build "${@:2}" ;;
+        bc) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build && ./scripts/check-example-apps.sh "${@:2}" ;;
+        cb) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build "${@:2}" ;;
+        cbc) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g clean build && ./scripts/check-example-apps.sh "${@:2}" ;;
+        fmt) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g ktlintformat "${@:2}" ;;
+        *) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g "$@" ;;
     esac
     if [ "$?" = 0 ]; then
-        notify-send "Done" "$1" -a sdk
+        if command -V notify-send 2>/dev/null; then
+            notify-send "Done" "$1" -a sdk
+        elif command -V terminal-notifier 2>/dev/null; then
+            terminal-notifier Done
+        fi
     else
-        notify-send "Error" "$1" --urgency critical -a sdk
+        if command -V notify-send 2>/dev/null; then
+            notify-send "Error" "$1" --urgency critical -a sdk
+        elif command -V terminal-notifier 2>/dev/null; then
+            terminal-notifier Error
+        fi
     fi
 }
 
