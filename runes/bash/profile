@@ -86,14 +86,12 @@ if [[ "$tty" =~ $ttys ]]; then
     pfetch
     rm -f "$LOG"
     tty_num=$(tty | grep -Eo '[0-9]')
-    xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num" &>"$LOG"
+    exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num" &>"$LOG"
 elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
     if [[ "$tty" =~ tty[4-9] ]]; then
         export TTY_TMUX=1
-        tmux new-session -A -s "$(basename "$(tty)")"
+        exec tmux new-session -A -s "$(basename "$(tty)")"
     elif [[ "$SSH_CONNECTION" ]]; then
-        tmux -2 new -A -s default
+        exec tmux -2 new -A -s default
     fi
 fi
-
-if [ -e /home/mendess/.nix-profile/etc/profile.d/nix.sh ]; then . /home/mendess/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
