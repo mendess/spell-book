@@ -152,8 +152,8 @@ if hash gh &>/dev/null; then
 else
     alias gpsupr='gpsup && xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
 fi
-alias gwi='git switch'
-alias gwi-='git switch -'
+alias gsw='git switch'
+alias gsw-='git switch -'
 # CARGO
 alias cr='cargo run'
 alias cb='cargo build'
