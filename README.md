@@ -65,6 +65,7 @@
  - [calendar](./scrolls/calendar.sh) - Configure khal using vdirsyncer
  - [dmenu](./scrolls/dmenu.sh) - Install my custom build of dmenu
  - [fix-dns-home](./scrolls/fix-dns-home.sh) - Fix my home dns resolution, basically sets the primary dns provider to the gateway and sets the secondary dns provider to 1.1.1.1 (cloudflare)
+ - [fix-ssh-permissions](./scrolls/fix-ssh-permissions.sh)
  - [gestures](./scrolls/gestures.sh) - Enable gestures to switch workspace
  - [lutris](./scrolls/lutris.sh) - Install lutris and all the dependencies needed for battle net, assuming nvidia
  - [nfs_walls](./scrolls/nfs_walls.sh) - Create a network mounted filesystem for my wallpapers
