@@ -1,9 +1,5 @@
 #!/bin/sh
 # Configure my keymap, I'm too lazy to configure X and udev
 
-if lsusb | grep -qE 'Mechanical|Kingston'; then
-    setxkbmap us -option caps:escape #-option altwin:menu_win
-    xmodmap -e 'keycode  21 = plus equal plus equal'
-else
-    setxkbmap pt -option caps:escape #-option altwin:menu_win
-fi
+setxkbmap us -option caps:escape #-option altwin:menu_win
+xmodmap -e 'keycode  21 = plus equal plus equal'
