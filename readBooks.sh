@@ -1,25 +1,31 @@
 #!/bin/sh
 git submodule update --init --recursive
-m_installed() {
-    f="$(readlink ~/.local/bin/m)" && [ -e "$f" ]
-}
-m() {
-    mkdir -p ~/.local/bin/
-    ln -svf "$1"/m.sh ~/.local/bin/m
+
+rust_is_setup() {
+    rustup show | grep -q 'no active toolchain'
 }
 
-lemons_installed() { (
-    rustup show | grep -q 'no active toolchain' &&
-        return 0
+m_installed() (
+    rust_is_setup || return 0
+    cd "$1" &&
+        command -V m 2>/dev/null >/dev/null &&
+        [ "$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)" = "$(m --version | awk '{print $2}')" ]
+)
+m() {
+    cd "$1" &&
+        cargo install --path . --bin m
+}
+
+lemons_installed() (
+    rust_is_setup || return 0
     cd "$1" &&
         command -V lemon 2>/dev/null >/dev/null &&
         [ "$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)" = "$(lemon --version | awk '{print $2}')" ]
-); }
-
-lemons() { (
+)
+lemons() (
     cd "$1" &&
         cargo install --path . --bin lemon
-); }
+)
 
 all_installed() {
     find library/ -mindepth 1 -maxdepth 1 -type d |
