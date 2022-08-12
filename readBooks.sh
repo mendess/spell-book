@@ -2,7 +2,7 @@
 git submodule update --init --recursive
 
 rust_is_setup() {
-    rustup show | grep -q 'no active toolchain'
+    ! rustup show | grep -q 'no active toolchain'
 }
 
 m_installed() (
