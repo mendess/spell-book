@@ -9,7 +9,7 @@ m_installed() (
     rust_is_setup || return 0
     cd "$1" &&
         command -V m 2>/dev/null >/dev/null &&
-        [ "$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)" = "$(m --version | awk '{print $2}')" ]
+        [ "$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)" = "$(command m --version | awk '{print $2}')" ]
 )
 m() {
     cd "$1" &&
