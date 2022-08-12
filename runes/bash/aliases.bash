@@ -133,7 +133,17 @@ alias gco='git checkout'
 alias gd='git diff'
 alias gf='git fetch'
 alias gl='git pull'
-alias gp='git push'
+gp() {
+    if [ $(git log --format=format:%ae | sort -u | wc -l) -gt 1 ]; then
+        b=$(git branch)
+        case "$b" in
+            main|master|dev|develop)
+                read -p "You are in '$b', are you sure you want to push? [n/Y] "
+                [[ "$REPLY" =~ Y|y ]] || return 0
+        esac
+    fi
+    git push "$@"
+}
 alias gpt='git push; git push origin --tags'
 alias gpf='git push --force-with-lease'
 alias gpft='git push --force; git push origin --tags'
