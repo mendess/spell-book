@@ -137,7 +137,7 @@ done
 if [[ "$sxiv" ]]; then
     mapfile -t files < <(sxiv -to "$WALLPAPERS")
 elif [[ "${#files[@]}" = 0 ]]; then
-    mapfile -t files < <(find "$WALLPAPERS" -type f |
+    mapfile -t files < <(find -H "$WALLPAPERS" -type f |
         grep -v mtg |
         grep -iP "/[^/]*${filter}[^/]*$")
 fi
