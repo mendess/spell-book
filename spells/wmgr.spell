@@ -231,7 +231,7 @@ if [ "$sync" ]; then
         if [ ! -e "$file_name" ]; then
             echo -ne "${CLEAN_LINE}[$i/$total] Downloading $name ..."
             encoded_name=$(
-                python \
+                python3 \
                     -c "from urllib.parse import quote, sys; print(quote(sys.argv[1]))" \
                     "$file_name"
             )
