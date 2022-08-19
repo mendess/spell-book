@@ -13,11 +13,11 @@ curl --silent "$base/newspoilers.html" |
     $0 ~ /END CARD/ { in_card = 0 }
     ' |
     while read -r link; do
+        [ "$((i++))" -ge "$cap" ] && continue
         file="${link//\//-}"
         [ -f "$file" ] || wget -q "$link" -O "$file" >/dev/null
         echo "$file"
     done |
-    head -"$cap" |
     xargs -L 1 stat -c '%n|%Y' |
     sort -n -k 2 -t '|' -r |
     cut -d'|' -f1 |
