@@ -12,12 +12,15 @@ curl --silent "$base/newspoilers.html" |
     url && $0 ~ /cards/ { print(base "/" $1); url = 0 }
     $0 ~ /END CARD/ { in_card = 0 }
     ' |
-    head -"$cap" |
     while read -r link; do
         file="${link//\//-}"
         [ -f "$file" ] || wget -q "$link" -O "$file" >/dev/null
         echo "$file"
     done |
+    head -"$cap" |
+    xargs -L 1 stat -c '%n|%Y' |
+    sort -n -k 2 -t '|' -r |
+    cut -d'|' -f1 |
     sxiv -b -g 590x800 -io -z 200 |
     while read -r link; do
         url="${link//-/\/}"

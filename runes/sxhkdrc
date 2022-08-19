@@ -44,10 +44,9 @@ super + F9
     changeMeWall
 
 super + shift + F9
-    changeMeWall "$(xclip -sel clip -o)"
-
-super + shift + F9
-    ssh mirrodin bulb/flow.py -s ; changeMeWall
+    pape=$(xclip -sel clip -o) ; \
+    notify-send -a "sxhrd" "Changing to clipboard wallpaper" "$pape" -u low ; \
+    changeMeWall "$pape"
 
 super + F8
     feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
@@ -119,7 +118,7 @@ alt + @Print
     cd "$videos" && cuffs.tool --select --rename --video
 
 shift + alt + Print
-    kill -s SIGINT $(cat /tmp/$LOGNAME/ffmpeg_screenshot_pid)
+    kill -s SIGINT $(cat "/tmp/$LOGNAME/ffmpeg_screenshot_pid")
 
 super + @Print
     cd /tmp ; cuffs.tool --select --floating

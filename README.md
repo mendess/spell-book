@@ -50,6 +50,7 @@
  - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu
  - [mconlinelist](./cantrips/mconlinelist.sh) - Send a notification with the list of online players in a minecraft server
  - [menu](./cantrips/menu.sh) - The menu used to find and launch the cantrips
+ - [mpv-shot0001](./cantrips/mpv-shot0001.jpg)
  - [quickbrowser](./cantrips/quickbrowser.sh) - Launches vimb with one of the [bookmarks](./library/bookmarks)
  - [rename-ws](./cantrips/rename-ws.sh) - Dynamic [i3|bspwm|herbstluftwm] workspace renamer
  - [trayer](./cantrips/trayer.sh) - trayer launcher
