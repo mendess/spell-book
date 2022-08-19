@@ -3,10 +3,10 @@
 
 echo Uncomments these lines:
 echo '[multilib]'
-echo Include = /etc/pacman.d/mirrorlist
+echo 'Include = /etc/pacman.d/mirrorlist'
 read -r
 sudo nvim /etc/pacman.conf
-sudo pacman -Syu --needed --noconfirm \
+sudo pacman -Syu --needed \
     alsa-lib \
     alsa-plugins \
     giflib \
@@ -62,7 +62,7 @@ sudo pacman -Syu --needed --noconfirm \
     vulkan-icd-loader \
     vulkan-intel \
     wine \
-    wine-gecko
+    wine-gecko \
     wine-mono \
     wine-staging \
     wine_gecko \
