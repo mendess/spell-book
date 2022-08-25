@@ -8,6 +8,7 @@ mac-check() {
 }
 
 sdk() {
+    SECONDS=0
     case "$1" in
         c) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g check "${@:2}" ;;
         b) ./gradlew -Dorg.gradle.jvmargs=-XX:MetaspaceSize=2g build "${@:2}" -x test -x jvmTest -x check ;;
@@ -20,13 +21,13 @@ sdk() {
     esac
     if [ "$?" = 0 ]; then
         if command -V notify-send &>/dev/null; then
-            notify-send "Done" "$1" -a sdk
+            notify-send "Done (in $SECONDS)" "$1" -a sdk
         elif command -V terminal-notifier 2>/dev/null; then
             terminal-notifier -message Done
         fi
     else
         if command -V notify-send &>/dev/null; then
-            notify-send "Error" "$1" --urgency critical -a sdk
+            notify-send "Error (in $SECONDS)" "$1" --urgency critical -a sdk
         elif command -V terminal-notifier 2>/dev/null; then
             terminal-notifier -message Error
         fi
