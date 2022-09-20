@@ -28,6 +28,10 @@ super + d
 # super + shift + f
 #     $TERMINAL --class floating-terminal,floating-terminal -e f launcher
 
+
+@super + @shift + @period
+    xdotool mousedown 1; xdotool mouseup 1
+
 super + shift + d
     menu GUI
 
