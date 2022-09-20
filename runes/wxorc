@@ -56,6 +56,7 @@ video() {
                     }
                 }
             else
+                set -x
                 notify 'Playing in m' "$1" -u low &&
                 export WITH_VIDEO=1
                 if m play "$1"; then
@@ -72,6 +73,7 @@ video() {
                 else
                     default "$@"
                 fi
+                set +x
             fi
             ;;
         *)
