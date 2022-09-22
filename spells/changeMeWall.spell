@@ -135,7 +135,14 @@ while [ "$#" -gt 0 ]; do
     shift
 done
 if [[ "$sxiv" ]]; then
-    mapfile -t files < <(sxiv -to "$WALLPAPERS")
+    if [[ "$filter" ]]; then
+        mapfile -t files < <(find -H "$WALLPAPERS" -type f |
+            grep -iP "/[^/]*${filter}[^/]*$" |
+            sxiv -tio
+        )
+    else
+        mapfile -t files < <(sxiv -to "$WALLPAPERS")
+    fi
 elif [[ "${#files[@]}" = 0 ]]; then
     mapfile -t files < <(find -H "$WALLPAPERS" -type f |
         grep -v mtg |
