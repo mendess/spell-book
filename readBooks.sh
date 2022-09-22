@@ -5,11 +5,18 @@ rust_is_setup() {
     ! rustup show | grep -q 'no active toolchain'
 }
 
+up_to_date_rust_bin() {
+    cmd=$1
+    new=$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)
+    curr=$(command "$cmd" --version | awk '{print $2}') &&
+    [ "$new" == "$curr" ] || [ "$(echo -e "$new\n$curr" | sort -V | tail -1)" == "$curr" ]
+}
+
 m_installed() (
     rust_is_setup || return 0
     cd "$1" &&
         command -V m 2>/dev/null >/dev/null &&
-        [ "$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)" = "$(command m --version | awk '{print $2}')" ]
+        up_to_date_rust_bin m
 )
 m() {
     cd "$1" &&
@@ -20,7 +27,7 @@ lemons_installed() (
     rust_is_setup || return 0
     cd "$1" &&
         command -V lemon 2>/dev/null >/dev/null &&
-        [ "$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)" = "$(lemon --version | awk '{print $2}')" ]
+        up_to_date_rust_bin lemon
 )
 lemons() (
     cd "$1" &&
