@@ -5,6 +5,7 @@ scripts=(
     https://raw.githubusercontent.com/matildeopbravo/dotfiles/master/scripts/vim-anywhere
     https://raw.githubusercontent.com/JoseFilipeFerreira/toolbelt/master/toolbox/qrwifi.tool
     https://raw.githubusercontent.com/JoseFilipeFerreira/toolbelt/master/toolbox/cuffs.tool
+    https://raw.githubusercontent.com/JoseFilipeFerreira/toolbelt/master/powertools/thonkbar/scripts/platform_profile
 )
 
 user-from-link() {

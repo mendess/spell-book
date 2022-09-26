@@ -58,7 +58,8 @@
 - left-click: `bash ~/.package.sh click`
 
 ## PowerMode
-- persistent: `~/.config/lemonbar/power-mode.sh`
+- persistent: `~/.local/bin/platform_profile`
+- raw: `true`
 - align: `left`
 
 ## Music
