@@ -8,8 +8,10 @@ rust_is_setup() {
 up_to_date_rust_bin() {
     cmd=$1
     new=$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)
-    curr=$(command "$cmd" --version | awk '{print $2}') &&
-    [ "$new" == "$curr" ] || [ "$(echo -e "$new\n$curr" | sort -V | tail -1)" == "$curr" ]
+    curr=$(command "$cmd" --version | awk '{print $2}') && {
+        [ "$new" = "$curr" ] ||
+            [ "$(printf "%s\n%s" "$new" "$curr" | sort -V | tail -1)" = "$curr" ]
+    }
 }
 
 m_installed() (
