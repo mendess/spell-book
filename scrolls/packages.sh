@@ -38,6 +38,7 @@ htop
 hyperfine
 i3lock
 imagemagick
+inotify-tools # power mode checking in lemonbar
 jq
 khal
 libconfig # compton dependency

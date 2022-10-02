@@ -1,0 +1,10 @@
+#!/bin/bash
+
+p2c=media/games/cockatrice
+
+mkdir -p ~/"$p2c"
+sshfs "mendess@mirrodin:$p2c" ~/"$p2c"
+
+cockatrice
+
+umount ~/"$p2c"
