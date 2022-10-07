@@ -3,7 +3,7 @@
 script_name=$(basename "$0")
 
 notify() {
-    notify-send -u low -a "$script_name"
+    notify-send -u low -a "$script_name" "$@"
 }
 
 p2c=media/games/cockatrice
