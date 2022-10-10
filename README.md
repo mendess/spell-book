@@ -21,6 +21,7 @@
  - [ex](./spells/ex.spell) - Extract anything
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
+ - [launch-cocktracice](./spells/launch-cocktracice.spell)
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [new-cards](./spells/new-cards.spell)
