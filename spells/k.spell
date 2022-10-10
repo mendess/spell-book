@@ -1,5 +1,7 @@
 #!/bin/sh
 # Configure my keymap, I'm too lazy to configure X and udev
 
-setxkbmap us -option caps:escape #-option altwin:menu_win
-xmodmap -e 'keycode  21 = plus equal plus equal'
+if ! lsusb | grep ZSA -q; then
+    setxkbmap us -option caps:escape #-option altwin:menu_win
+    xmodmap -e 'keycode  21 = plus equal plus equal'
+fi

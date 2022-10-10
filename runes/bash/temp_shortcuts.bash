@@ -36,5 +36,5 @@ sdk() {
 
 command -V chromium &>/dev/null && export CHROME_BIN=$(which chromium)
 
-alias auto-yarn='while :; do yarn storybook; done'
+alias auto-yarn='nvm use 16 && while :; do yarn storybook; done'
 alias auto-sdk='while read; do sdk b && pkill node; done'
