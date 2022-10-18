@@ -34,50 +34,16 @@ pdf() {
 }
 
 video() {
-    default() {
-        notify 'Playing in mpv' "$1" -u low
-        mpv --no-terminal "$1" || {
-            notify 'Retrying in mpv' "$1" -u low
-            mpv --no-terminal "$1"
-        }
-    }
     case "$1" in
         *soundcloud* | *wav | *mp3 | *m4a)
             $TERMINAL -e mpv --no-terminal "$1"
             ;;
-        *youtu.be* | *youtube*)
-            sock_num=/tmp/$LOGNAME/wxo-running-sock
-            if [[ -e "$sock_num" ]]; then
-                notify 'Queueing in m' "$1" -u low &&
-                {
-                    m -s "$(cat "$sock_num")" q "$1" || {
-                        rm -f "$sock_num"
-                        default "$@"
-                    }
-                }
-            else
-                set -x
-                notify 'Playing in m' "$1" -u low &&
-                export WITH_VIDEO=1
-                if m play "$1"; then
-                    export SESSION_KIND=cli
-                    sock=$(m status | sed -n 1p | grep -oE '[0-9]+$' | tee "$sock_num")
-                    (
-                        sleep 30
-                        while m -s "$sock" c &>/dev/null; do
-                            sleep 1
-                        done
-                        rm -f "$sock_num"
-                    ) &
-                    disown
-                else
-                    default "$@"
-                fi
-                set +x
-            fi
-            ;;
         *)
-            default "$@"
+            notify 'Playing in mpv' "$1" -u low
+            mpv --no-terminal "$1" || {
+                notify 'Retrying in mpv' "$1" -u low
+                mpv --no-terminal "$1"
+            }
             ;;
     esac
 }
