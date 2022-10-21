@@ -15,7 +15,10 @@ curl --silent "$base/newspoilers.html" |
     while read -r link; do
         [ "$((i++))" -ge "$cap" ] && continue
         file="${link//\//-}"
-        [ -f "$file" ] || wget -q "$link" -O "$file" >/dev/null
+        [ -f "$file" ] || {
+            wget -q "$link" -O "$file" >/dev/null &&
+            notify-send -u low 'downloaded'
+        }
         echo "$file"
     done |
     xargs -L 1 stat -c '%n|%Y' |
