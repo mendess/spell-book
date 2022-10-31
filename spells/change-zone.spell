@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+continent=$(find /usr/share/zoneinfo/* -maxdepth 0 | cut -d/ -f5 | dmenu -l 20 -p 'Zone')
+[ "$continent" ] || exit
+capital=$(find /usr/share/zoneinfo/"$continent"/* | cut -d/ -f6 | dmenu -l 20 -p 'SubZone')
+[ "$capital" ] || exit
+
+lxqt-sudo ln -sfv /usr/share/zoneinfo/$continent/$capital /etc/localtime
