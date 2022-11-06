@@ -4,6 +4,7 @@
 - separator: ` | `
 - n_clickables: `32`
 - font: `Misc Termsynu: size=12`
+- font: `Noto Sans Mono CJK JP: size=7`
 - underline_width: `2`
 - name: `bar_of_the_lemons`
 - colors:
@@ -58,7 +59,7 @@
 - left-click: `bash ~/.package.sh click`
 
 ## PowerMode
-- persistent: `~/.local/bin/platform_profile`
+- persistent: `~/.local/bin/platform_profile low balanced performance`
 - raw: `true`
 - align: `left`
 
