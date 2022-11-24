@@ -85,9 +85,9 @@ case "$(uname -n)" in
 esac
 if [[ "$tty" =~ $ttys ]]; then
     pfetch
-    rm -f "$LOG"
     tty_num=$(tty | grep -Eo '[0-9]')
-    exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num" &>"$LOG"
+    echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
+    exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num" &>>"$LOG"
 elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
     if [[ "$tty" =~ tty[4-9] ]]; then
         export TTY_TMUX=1
