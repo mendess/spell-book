@@ -461,10 +461,10 @@ function gb {
         git --no-pager branch -vv |
             sed -E 's/ \[[^]]*origin[^]]*\]//' |
             cut -b-"$(tput cols)" |
-            GREP_COLOR="1;32" grep --color=always -E '^\* [^/ ]+|' |
-            GREP_COLOR="32"   grep --color=always -E '^\* [^ ]+|' |
-            GREP_COLOR="33"   grep --color=always -E ' [a-f0-9]{8,10} |' |
-            GREP_COLOR="34"   grep --color=always -E '^  [^/]+|'
+            GREP_COLORS="mt=1;32" grep --color=always -E '^\* [^/ ]+|' |
+            GREP_COLORS="mt=32"   grep --color=always -E '^\* [^ ]+|' |
+            GREP_COLORS="mt=33"   grep --color=always -E ' [a-f0-9]{8,10} |' |
+            GREP_COLORS="mt=34"   grep --color=always -E '^  [^/]+|'
     fi
 }
 
