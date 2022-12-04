@@ -104,7 +104,6 @@ fi
 
 bash ./readBooks.sh
 
-set -x
 find library/ -maxdepth 1 -mindepth 1 -type d |
     while read -r l; do
         pushd "$l" >/dev/null || continue
