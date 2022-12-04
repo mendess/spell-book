@@ -1,6 +1,6 @@
 local lsp = require('lspconfig')
 local protocol = require('vim.lsp.protocol')
-local update_capabilities = require('cmp_nvim_lsp').update_capabilities
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local au = require('utils.au')
 
 function print_table(t)
@@ -60,12 +60,12 @@ local on_attach = function(autoformat)
             --     '<Cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>',
             --     opts
             -- )
-        elseif client.resolved_capabilities.document_formatting then
+        elseif client.server_capabilities.documentFormattingProvider then
             if autoformat then
                 au.group('Format', function(g)
                     g.BufWritePre = {
                         '<buffer>',
-                        vim.lsp.buf.formatting_seq_sync
+                        vim.lsp.buf.format
                     }
                 end)
             end
@@ -73,7 +73,7 @@ local on_attach = function(autoformat)
                 buf_set_keymap(
                     'n',
                     '<leader>f',
-                    '<Cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>',
+                    '<Cmd>lua vim.lsp.buf.format()<CR>',
                     opts
                 )
             end
@@ -84,12 +84,12 @@ end
 lsp.tsserver.setup {
     on_attach = on_attach(false),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-    capabilities = update_capabilities(protocol.make_client_capabilities())
+    capabilities = capabilities
 }
 lsp.eslint.setup {
     on_attach = on_attach(true),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-    capabilities = update_capabilities(protocol.make_client_capabilities())
+    capabilities = capabilities
 }
 lsp.rust_analyzer.setup {
     on_attach = on_attach(true),
@@ -106,7 +106,7 @@ lsp.rust_analyzer.setup {
             },
         }
     },
-    capabilities = update_capabilities(protocol.make_client_capabilities())
+    capabilities = capabilities
 }
 -- lsp.bashls.setup {
 --     on_attach = on_attach(true),
@@ -114,16 +114,16 @@ lsp.rust_analyzer.setup {
 -- }
 lsp.clangd.setup {
     on_attach = on_attach(true),
-    capabilities = update_capabilities(protocol.make_client_capabilities())
+    capabilities = capabilities
 }
 lsp.ocamllsp.setup {
     on_attach = on_attach(true),
-    capabilities = update_capabilities(protocol.make_client_capabilities())
+    capabilities = capabilities
 }
 lsp.elixirls.setup {
     cmd = { "/usr/bin/elixir-ls" },
     on_attach = on_attach(false),
-    capabilities = update_capabilities(protocol.make_client_capabilities())
+    capabilities = capabilities
 }
 
 vim.cmd [[LspStart]]
