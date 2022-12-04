@@ -37,6 +37,8 @@ sync() {
     git add --verbose --all
     echo -en "\033[0m"
 
+    [[ "$1" == --nocommit ]] && return
+
     if ! git diff-index --quiet HEAD --; then
         hasCommits="true"
         name=$(uname -n | sed 's/localhost/powerstone/g')
@@ -102,25 +104,27 @@ fi
 
 bash ./readBooks.sh
 
+set -x
 find library/ -maxdepth 1 -mindepth 1 -type d |
     while read -r l; do
         pushd "$l" >/dev/null || continue
         if [ "$(git status --porcelain)" ]; then
             echo "library $l is dirty, please clean it"
         else
-            git pull origin master
+            branch=$(git symbolic-ref refs/remotes/origin/HEAD | cut -d/ -f4)
+            git checkout "$branch"
+            git pull origin "$branch" --rebase
         fi
         popd >/dev/null || continue
     done
+wait
 
 echo -e "\e[36mBacking up spell-book\e[0m"
-[[ "$1" != --nocommit ]] && {
-    if sync; then
-        echo -e "\033[33m\n${farrow}Back me up and save me${barrow}\033[0m"
-    else
-        echo -e "\033[31m\n${farrow}     Can't backup     ${barrow}\033[0m"
-    fi
-}
+if sync "$1"; then
+    echo -e "\033[33m\n${farrow}Back me up and save me${barrow}\033[0m"
+else
+    echo -e "\033[31m\n${farrow}     Can't backup     ${barrow}\033[0m"
+fi
 
 if command -V termux-fix-shebang &>/dev/null; then
     find ~/.local/bin/ -type f | while read -r spell; do
