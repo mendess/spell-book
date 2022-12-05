@@ -10,7 +10,7 @@ grep 'tar.*wildcards' README.md | sed 's/\$//g' | sh
 make
 sudo make install
 cd "$cwd" || exit
-cat <<EOF > ~/.local/bin/spotify
+cat <<EOF > ~/.local/bin/spotify-adblock
 #!/bin/bash
 LD_PRELOAD="/usr/local/lib/spotify-adblock.so" /usr/bin/spotify
 EOF
