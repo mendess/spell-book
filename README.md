@@ -12,6 +12,7 @@
  - [bulkrename](./spells/bulkrename.spell) - Bulk rename every file in the current directory using your default editor (Editor defined by $EDITOR or $VISUAL)
  - [changeMeWallCicle](./spells/changeMeWallCicle.spell) - Runs `changeMeWall` every 5 minutes
  - [changeMeWall](./spells/changeMeWall.spell) - Changes the wallpaper to a random one in the `$WALLPAPERS` folder. (requires `feh`).  Thanks [matilde](https://github.com/matildeopbravo) for the idea and help finding the more contrasting colors for dmenu
+ - [change-zone](./spells/change-zone.spell)
  - [check_repos](./spells/check_repos.spell) - Script for my bar, shows repository status as little icons
  - [clean_ws_names](./spells/clean_ws_names.spell) - I sometimes rename my workspaces, this resets the name when the ws is empty. Supports bspwm and herbstluftwm
  - [daemons](./spells/daemons.spell) - Enable/disable my custom daemons
