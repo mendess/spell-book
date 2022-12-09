@@ -99,3 +99,5 @@ end)
 
 set.foldmethod = 'indent'
 set.foldlevelstart = 99
+
+set.mouse = ''
