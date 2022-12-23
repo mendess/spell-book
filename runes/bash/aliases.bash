@@ -65,6 +65,12 @@ gc() {
         # get git to print the error message about not being in a repo
         [[ "$path" = / ]] && git commit "$@" && return
     done
+    if [[ -e "$path/.pre-commit-checks" ]]; then
+        while IFS="\n" read -r check; do
+            echo "did you $check?"
+            read </dev/tty
+        done < "$path/.pre-commit-checks"
+    fi
     if [[ ! -e "$path/.ccommits" ]]; then
         git commit "$@"
         return

@@ -12,3 +12,4 @@ src/main/resources/application-test.properties
 .typos.toml
 .ccommits
 mendess-*.sh
+.pre-commit-checks
