@@ -151,35 +151,35 @@ XF86AudioMicMute
     pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
 
 super + backslash
-    ;SESSION_KIND=gui m pause
+    ;RUST_LOG=debug SESSION_KIND=gui m pause
 
 super + shift + bar
-    ;SESSION_KIND=gui m quit
+    ;RUST_LOG=debug SESSION_KIND=gui m quit
 
 super + {minus,plus}
-    ;SESSION_KIND=gui m {vd,vu} 2
+    ;RUST_LOG=debug SESSION_KIND=gui m {vd,vu} 2
 
 super + {Next,Prior,End,Home}
-    ;SESSION_KIND=gui m {next,prev,next-file,prev-file}
+    ;RUST_LOG=debug SESSION_KIND=gui m {next,prev,next-file,prev-file}
 
 super + {Up,Down}
-    ;SESSION_KIND=gui m {frwd,back} 60
+    ;RUST_LOG=debug SESSION_KIND=gui m {frwd,back} 60
 
 super + {Right,Left}
-    ;SESSION_KIND=gui m {frwd,back} 5
+    ;RUST_LOG=debug SESSION_KIND=gui m {frwd,back} 5
 
 super + {Insert,Delete}
-    ;SESSION_KIND=gui m {current,ch-cat}
+    ;RUST_LOG=debug SESSION_KIND=gui m {current,ch-cat}
 
 #super + shift + Insert
 #    $TERMINAL -e m lyrics
 super + shift + Insert
-    ;SESSION_KIND=cli m current --link | xclip -sel clip; \
+    ;RUST_LOG=debug SESSION_KIND=cli m current --link | xclip -sel clip; \
     notify-send -u low 'copied'
 
 super + shift + underscore
     ;bspc rule -a mpv -o state=pseudo_tiled rectangle=820x466; \
-    SESSION_KIND=gui m toggle-video
+    SRUST_LOG=debug ESSION_KIND=gui m toggle-video
 
 super + BackSpace
     echo quit | socat - "/tmp/$LOGNAME/mpvalarm"
