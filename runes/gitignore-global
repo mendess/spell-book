@@ -13,3 +13,4 @@ src/main/resources/application-test.properties
 .ccommits
 mendess-*.sh
 .pre-commit-checks
+.envrc

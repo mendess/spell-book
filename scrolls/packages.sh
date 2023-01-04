@@ -17,6 +17,7 @@ cmake
 cronie
 curl
 dash
+direnv
 discord
 dmenu
 duf
