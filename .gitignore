@@ -1,2 +1,3 @@
 #vim
 *.swp
+.install-profile/*

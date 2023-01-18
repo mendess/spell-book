@@ -1,5 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 git submodule update --init --recursive
+
+allows="$(dirname -- "$0")/.install-profile/allows.sh readBooks"
 
 rust_is_setup() {
     ! rustup show | grep -q 'no active toolchain'
@@ -36,21 +38,27 @@ lemons() (
         cargo install --path . --bin lemon
 )
 
-all_installed() {
+find_missing() {
     find library/ -mindepth 1 -maxdepth 1 -type d |
         while read -r l; do
-            "$(basename "$l")_installed" "$(pwd)/$l" || return 1
+            book=$(basename "$l")
+            if $allows "$book" && ! "${book}_installed" "$(pwd)/$l"; then
+                 echo "$book"
+            fi
         done
 }
 
-all_installed && exit
+mapfile -t missing_books < <(find_missing)
+if [ "${#missing_books[@]}" -eq 0 ]; then
+    exit 0
+fi
 
 printf "\033[33mReading Books...\033[0m\n"
 
 find library/ -mindepth 1 -maxdepth 1 -type d |
     while read -r l; do
         #shellcheck disable=2091
-        "$(basename "$l")_installed" "$(pwd)/$l" || "$(basename "$l")" "$(pwd)/$l"
+        "$(basename "$l")" "$(pwd)/$l"
     done
 
 printf "\033[33mDone!\033[0m\n"

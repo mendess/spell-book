@@ -1,13 +1,15 @@
 #!/bin/bash
 #shellcheck disable=2155
 # Creates a sym-link for every rune in [runes](runes/). The location of the
-# sym-link depends on the rune and is defined in the script.
+# sym-link depends on the rune and is defined in [runes/.db].
 
 ## Option docs:
 ## - sudo: Require sudo to install the dotfiles
 ## - generated: Dotfile is generated based on host
 ## - ifdir: Only install if it's directory already exists
 ## - copy: Copy instead symlinking
+
+verbose="$1"
 
 any-match() {
     local i
@@ -42,6 +44,17 @@ if [[ "$SPELLS" ]]; then
 else
     cd "$(dirname "$0")"/runes || exit 1
 fi
+
+rune-wanted() {
+    ../.install-profile/allows.sh castRunes "$1" || {
+        case "$verbose" in
+            -v|--verbose)
+                echo "rune $1 skipped"
+                ;;
+        esac
+        false
+    }
+}
 
 expanded_runes=()
 rune_dir=()
@@ -136,6 +149,9 @@ new-runes() {
         local args link
         IFS=',' read -r -a args <<<"${rune}"
         link="${args[0]}"
+        if ! rune-wanted "${args[1]}" >/dev/stderr; then
+            continue
+        fi
         unset ifdir generated copy
         any-match sudo "${args[@]:2}" && ! sudo_host && continue
         any-match ifdir "${args[@]:2}" && ifdir=1
@@ -150,9 +166,8 @@ new-runes() {
             ! cmp -s "$link" "$(pwd)/${args[1]}"
         else
             [ ! -h "$link" ]
-        fi && return 0
+        fi && echo "$rune"
     done
-    return 1
 }
 
 link-rune() {
@@ -196,7 +211,7 @@ link-rune() {
     fi
 }
 
-make-if-absent() {
+make-dir-if-absent() {
     if [ ! -e "$1" ]; then
         any-match ifdir "${@:2}" && return 1
         echo -e "\033[31mMissing \033[36m$1\033[31m directory, creating....\033[0m"
@@ -206,15 +221,18 @@ make-if-absent() {
 }
 
 clean-runes
-new-runes || exit 0
+mapfile -t runes < <(new-runes)
+if [[ "${#runes[@]}" -eq 0 ]]; then
+    exit 0
+fi
 
 echo -e "\033[33mCasting Runes...\033[0m"
 
-for rune in "${expanded_runes[@]}"; do
+for rune in "${runes[@]}"; do
     IFS=',' read -r -a args <<<"${rune}"
     link="${args[0]}"
     file="${args[1]}"
-    if make-if-absent "$(dirname "$link")" "${args[@]:2}"; then
+    if make-dir-if-absent "$(dirname "$link")" "${args[@]:2}"; then
         link-rune "$file" "$link" "${args[@]:2}"
     fi
 done
