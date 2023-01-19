@@ -1,7 +1,5 @@
 #!/bin/bash
 
-mkdir -p .install-profile/
-
 cd "$(dirname "$(realpath "$0")")" || exit 0
 
 for s in *.sh; do
