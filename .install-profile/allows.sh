@@ -6,4 +6,8 @@ script="$1"
 want_to_install="$2"
 
 ! [ -e "$profiles_folder/$script.profile" ] ||
-    grep -qEf "$profiles_folder/$script.profile" <<<"$want_to_install"
+    grep --line-regexp \
+        --quiet \
+        --extended-regexp \
+        --file="$profiles_folder/$script.profile" \
+        <<<"$want_to_install"
