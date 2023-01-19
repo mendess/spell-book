@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if ! o=$(wmname compiz 2>&1) ; then
-    notify-send 'wmname failed' "$o" -a 'idea fix'
-fi
-
-PATH="${PATH/\/home\/*\/.local\/bin\/crafted://}"
-. /etc/profile.d/jre.sh
-_JAVA_AWT_WM_NONREPARENTING=1 AWT_TOOLKIT=MToolkit HOME="$XDG_DATA_HOME" idea "$@"

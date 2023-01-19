@@ -4,11 +4,9 @@
 
 ## [Spells](./spells/): Scritps to be run by hand or through a keybind.
 
- - [add_gift](./spells/add_gift.spell)
  - [add_rune](./spells/add_rune.spell) - Add a new [rune](runes-static-configuration-files) to the dotfiles, supports some customization options
  - [allgst](./spells/allgst.spell) - Performs `git status` on every folder in the `cwd`.
  - [battery_check](./spells/battery_check.spell) - Checks battery life and suspends if it's too low.
- - [bookmark](./spells/bookmark.spell) - Adds a bookmark to the [bookmarks](./runes/bookmarks)
  - [bulkrename](./spells/bulkrename.spell) - Bulk rename every file in the current directory using your default editor (Editor defined by $EDITOR or $VISUAL)
  - [changeMeWallCicle](./spells/changeMeWallCicle.spell) - Runs `changeMeWall` every 5 minutes
  - [changeMeWall](./spells/changeMeWall.spell) - Changes the wallpaper to a random one in the `$WALLPAPERS` folder. (requires `feh`).  Thanks [matilde](https://github.com/matildeopbravo) for the idea and help finding the more contrasting colors for dmenu
@@ -26,20 +24,15 @@
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [new-cards](./spells/new-cards.spell)
- - [picker](./spells/picker.spell) - Wrapper around dmenu and fzf to unify their options, it's not very good
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
- - [snapit](./spells/snapit.spell) - A printscreen script, supports crop to clipboard, crop to file, fullscreen print and floating print
  - [ssh-menu](./spells/ssh-menu.spell) - A menu to quickly open ssh connections
- - [subscribe](./spells/subscribe.spell) - Subscribe to a youtube channel as an rss feed
  - [syncmusic](./spells/syncmusic.spell) - A termux only script that predownloads all music from $PLAYLIST
  - [syncspellbook](./spells/syncspellbook.spell) - Tries to synchronise with changes to the remote repository. Also runs [learnSpells](./learnSpells.sh) and [castRunes](./castRunes.sh)
  - [termFromHere](./spells/termFromHere.spell) - Opens a terminal in the same `cwd` as the focused `X` program.
  - [todo](./spells/todo.spell) - Write/remove a task to do later.  Select an existing entry to remove it from the file, or type a new entry to add it.
  - [travel](./spells/travel.spell)
- - [update_discord_dnd](./spells/update_discord_dnd.spell) - Using a "copied as curl" request to change discord status to or front dnd, update the remote to use the new request
- - [update_rust_analyzer](./spells/update_rust_analyzer.spell) - Update rust_analyzer from the latest github release
  - [wmgr](./spells/wmgr.spell) - Wallpaper manager
  - [xls_to_csv](./spells/xls_to_csv.spell) - Python script that converts a xls file to a csv
 
