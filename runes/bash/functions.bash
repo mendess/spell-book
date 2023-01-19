@@ -11,28 +11,6 @@ make() {
     fi
 }
 
-ex() {
-    if [ -f "$1" ]; then
-        case "$1" in
-            *.tar.bz2) tar xjf "$1" ;;
-            *.tar.gz) tar xzf "$1" ;;
-            *.bz2) bunzip2 -v "$1" ;;
-            *.rar) unrar x "$1" ;;
-            *.gz) gunzip "$1" ;;
-            *.tar) tar xf "$1" ;;
-            *.tbz2) tar xjf "$1" ;;
-            *.tgz) tar xzf "$1" ;;
-            *.zip) unzip "$1" ;;
-            *.Z) uncompress "$1" ;;
-            *.7z) 7z x "$1" ;;
-            *.xz) xz -d "$1" ;;
-            *) echo "$1 cannot be extracted via ex()" ;;
-        esac
-    else
-        echo "$1 is not a valid file"
-    fi
-}
-
 __run_disown() { # $1 program, $2 file
     local filesize=10
     local file="$2"
@@ -109,20 +87,6 @@ vimbd() {
     exit
 }
 
-# svim() { (
-#     cd "$SPELLS" || return 1
-#     if [ -n "$1" ]; then
-#         "$EDITOR" "$1"
-#     else
-#         local DIR
-#         DIR="$(find . -type f |
-#             grep -vP '\.git|library' |
-#             sed 's|^./||g' |
-#             fzf)"
-#         [ -n "$DIR" ] && "$EDITOR" "$DIR"
-#     fi
-# ); }
-
 advent-of-code() {
     if [[ "$1" != day* ]]; then
         echo "bad input: '$1'"
@@ -149,21 +113,6 @@ from random import choice
 from sys import argv
 print("".join((map(lambda x: x.upper() if choice([True, False]) else x.lower(), " ".join(argv[1:])))))
 ' "$@"
-}
-
-record() {
-    if [ "$1" = right ]; then
-        i=1920
-    else
-        i=0
-    fi
-    ffmpeg \
-        -video_size 1920x1080 \
-        -framerate 30 \
-        -f x11grab \
-        -i :0.0+$i,0 \
-        -vcodec nvenc \
-        "output-$(date +"%d_%m_%Y_%H_%M").mp4"
 }
 
 share() { (
@@ -200,14 +149,6 @@ share() { (
     fi
     echo "$url"
 ); }
-
-connect() {
-    if [ $# -lt 2 ]; then
-        echo "Usage: $0 ssid password"
-        return
-    fi
-    nmcli device wifi connect "$1" password "$2"
-}
 
 gcl() {
     case "$1" in
@@ -283,10 +224,14 @@ insist() {
 }
 
 nest() {
+    # example:
+    # nest new-dir *
+
     tmp=..
     [ "$PWD" = / ] && tmp=/tmp
     dir="$tmp/$1"
     echo "Gonna create $1 at $dir and move stuff there"
+    read
     mkdir "$dir" || return
     mv "${@:2}" "$dir" || return
     mv "$dir" . || return
@@ -298,22 +243,7 @@ lyrics() {
         --data-urlencode "artist=$1"
 }
 
-fcd() {
-    local dir
-    for i in {0..64}; do
-        printf "depth: %d" "$i"
-        dir="$(find -L . -maxdepth "$i" -type d ! -path './.*' |
-            grep -i "$*" |
-            head -1)"
-        printf "\r\e[K"
-        if [ -n "$dir" ]; then
-            cd "$dir" || continue
-            break
-        fi
-    done
-}
-
-latex_ignore() {
+create-latex-git-ignore() {
     cat <<EOF
 *.toc
 *.aux
@@ -332,11 +262,6 @@ EOF
 
 sshp() {
     ssh "$1" '. $HOME/.bash_profile; '"${*:2}"
-}
-
-function songs() {
-    grep -P '.+\t.+\t[0-9]+(\t.*)?'"$1" "$PLAYLIST" |
-        awk -F'\t' '{print $2" :: "$1}'
 }
 
 3_simple() {
@@ -370,7 +295,7 @@ function which() {
     esac
 }
 
-function t() {
+function torrent() {
     pgrep -f transmission-daemon >/dev/null || {
         transmission-daemon --download-dir ~/dl/
         echo -n "waiting for deamon to start"
@@ -410,11 +335,7 @@ EOF
     esac
 }
 
-mvim() {
-    nvim scp://mirrodin/"$1"
-}
-
-google_fotos() {
+make-gif-of-photos() {
     if [ $# -lt 2 ]; then
         cat <<EOF
 Make a cute foto montage
@@ -423,20 +344,6 @@ Usage: $0 image1 image2 output.gif
 EOF
     fi
     convert -limit memory 64 -delay 50 -loop 0 -dispose previous "$@"
-}
-
-rga-fzf() {
-    RG_PREFIX="rga --files-with-matches"
-    local file
-    file="$(
-        FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
-            fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
-            --phony -q "$1" \
-            --bind "change:reload:$RG_PREFIX {q}" \
-            --preview-window="70%:wrap"
-    )" &&
-        echo "opening $file" &&
-        xdg-open "$file"
 }
 
 sshfs() {
@@ -479,5 +386,6 @@ function file-swap {
 }
 
 function wait-for-ci {
-    gh run watch ; notify-send "${1:-CI DONE} ${*:2}" -u critical
+    gh run watch
+    notify-send "${1:-CI DONE} ${*:2}" -u critical
 }

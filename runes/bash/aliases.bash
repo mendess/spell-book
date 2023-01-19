@@ -7,17 +7,12 @@ if hash exa &>/dev/null; then
     alias exa='exa -g'
     alias ls='exa'
     alias tree='exa -T'
-    alias li='exa --git --git-ignore'
-    alias lli='exa -l --git --git-ignore'
-    alias lg='exa -laah --git'
 else
     alias ls='ls --color=auto'
 fi
 alias la='ls -la'
 alias l='ls -lha'
-alias ll='ls -lh'
 alias cl="clear; ls -lh"
-alias clg="clear; ls -lh --git"
 
 ## df
 if hash duf &>/dev/null; then
@@ -29,18 +24,8 @@ if hash du &>/dev/null; then
     alias du=dust
 fi
 
-# DOCKER
-alias d=docker
-alias dr='docker run'
-alias db='docker build'
-alias ds='docker stop'
-alias drm='docker rm'
-alias drmi='docker rmi'
-function dsr() { docker stop "$@" | sed 's/^/stopping/' && docker rm "$@" | sed 's/^/removing/'; }
-alias dop='yes | docker container prune'
 ## GIT
 alias gs=gst # fuck ghost script
-alias gbr='gb -r'
 alias gdd='git difftool --tool=vimdiff'
 g() {
     if [[ $# -eq 0 ]]; then
@@ -54,9 +39,7 @@ alias ga='git add'
 alias gaa='git add --all'
 alias gau='git add --update'
 alias gbD='git branch -D'
-alias gbpurge='git fetch --all -p; git branch -vv | grep ": gone]" | awk "{ print \$1 }" | xargs -n 1 git branch -d'
-alias gbPURGE='git fetch --all -p; git branch -vv | grep ": gone]" | awk "{ print \$1 }" | xargs -n 1 git branch -D'
-alias gbl='git blame -b -w'
+alias gbpurge='git fetch --all -p; git branch -vv | grep ": gone]" | awk "{ print \$1 }" | xargs -n 1 git branch -D'
 gc() {
     path="$PWD"
     while [[ ! -e "$path/.ccommits" ]] && [[ -e "$path/.git" ]]; do
@@ -152,8 +135,7 @@ gp() {
 }
 alias gpt='git push; git push origin --tags'
 alias gpf='git push --force-with-lease'
-alias gpft='git push --force; git push origin --tags'
-alias grm='git rm --cached'
+alias gpft='git push --force-with-lease; git push origin --tags'
 alias gst='git status'
 alias gcm='git checkout master || git checkout main'
 alias gcd='git checkout develop || git checkout dev'
@@ -166,11 +148,12 @@ alias gpsup='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
 if hash gh &>/dev/null; then
     alias gpsupr='gpsup ; gh pr create -a @me'
 else
-    alias gpsupr='gpsup && xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
+    alias gpsupr='gpsup && gpr'
 fi
 alias gsw='git switch'
 alias gsw-='git switch -'
 # CARGO
+alias c=cargo
 alias cr='cargo run'
 alias cb='cargo build'
 alias crr='cargo run --release'
@@ -179,6 +162,7 @@ alias cch='cargo check'
 alias ct='cargo test'
 alias cdoc='BROWSER=vimb cargo doc --open'
 
+alias cn='cargo +nightly'
 alias cnr='cargo +nightly run'
 alias cnb='cargo +nightly build'
 alias cnrr='cargo +nightly run --release'
@@ -186,25 +170,17 @@ alias cnbr='cargo +nightly build --release'
 alias cnch='cargo +nightly check'
 alias cnt='cargo +nightly test'
 
-alias ca=cargo
-alias cn='cargo +nightly'
-
-alias bashrc="cd $SPELLS/runes/bash && vim bashrc; cd -"
 alias vims='vim +source Session.vim'
-alias vimrc='cd $SPELLS/runes/nvim/; vim init.* ; cd -'
 alias viminstall="vim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'; echo"
 alias py="python3"
-alias c="clear"
 alias pyenv="source .env/bin/activate"
-alias makeclean="find . -maxdepth 1 -type f -executable -delete"
 alias :q=exit
 hash nvim &>/dev/null && alias vim=nvim
 alias bc="bc -lq"
 command -V bat &>/dev/null &&
-    alias bat='bat --theme=base16 -p' &&
-    alias cat=bat
+    alias bat='bat --theme=base16' &&
+    alias cat='bat -p'
 alias :r="source ~/.bashrc"
-alias db="dropbox-cli"
 alias mpvs='mpv --no-video --input-ipc-server=$(m socket new)'
 alias mpvsv='mpv --input-ipc-server=$(m socket new)'
 alias s='sxiv'
@@ -219,16 +195,13 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
-alias whoshome='cd ~/Projects/whoshome/; pyenv; py main.py; deactivate; cd - &>/dev/null'
 alias screenoff='DISPLAY=:0 xset dpms force off'
-alias spotify="LD_PRELOAD=$HOME/.local/bin/spotify-adblock.so spotify"
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias tmux="tmux -2 -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias sctl='systemctl'
-alias install-occult='ssh mirrodin "cat ~/disk0/occult-book/install" | sh'
 alias oldvim='/bin/vim'
-alias matrixmap='sudo nmap -v -sS -O'
+alias matrixnmap='sudo nmap -v -sS -O'
 alias alert='notify-send -i "$([ $? = 0 ] && echo "/usr/share/icons/Adwaita/48x48/emblems/emblem-ok-symbolic.symbolic.png" || echo "/usr/share/icons/Adwaita/48x48/actions/edit-delete-symbolic.symbolic.png")" "$(history 1 | sed '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 #shellcheck disable=2142
 alias fix_divinity="cd $HOME/.disks/nvme/media/games/steam/steamapps/common/Divinity\ Original\ Sin\ 2/ && mv ./bin ./bin.bak && ln -s DefEd/bin bin && cd bin && mv ./SupportTool.exe ./SupportTool.bak && ln -s EoCApp.exe SupportTool.exe"
@@ -238,21 +211,14 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
 alias ytdl='youtube-dl'
-alias ard='arduino-cli'
 alias hc=herbstclient
 alias ikhal='ikhal; clear'
-alias love='ssh berrygood -t tmux a -t chat'
 alias rustfmttoml='cp -v $SPELLS/runes/rustfmt.toml .'
 alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
-alias queres='echo queres'
 alias mail='vim +Himalaya'
 alias uuid='cat /proc/sys/kernel/random/uuid'
 
-
 # Cleanup
-command -v weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
-command -v calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
 command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
 
 alias network_monitor='nmcli -c yes monitor | while read -r line; do echo -e "\e[0m[$(date)] $line"; done'
-alias ts='cd ~/task-stack/; vim +source Session.vim ; cd -'

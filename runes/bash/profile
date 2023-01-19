@@ -2,7 +2,6 @@
 #shellcheck disable=SC1090
 #shellcheck disable=SC1091
 
-export RTV_EDITOR='nvim'
 export VISUAL='nvim'
 export EDITOR='nvim'
 export BROWSER="firefox"
@@ -64,12 +63,6 @@ local_bin=
 local_bin=$(find ~/.local/bin -type d | sed 's|/$||' | tr '\n' ':' | sed 's/:$//')
 export PATH="$PATH:$CARGO_HOME/bin"
 export PATH="$PATH:$local_bin"
-[ -e ~/.shortcuts ] &&
-    export PATH=$PATH:~/.shortcuts &&
-    export PATH=$PATH:~/.shortcuts/tasks
-# hash weechat &>/dev/null && alias weechat='weechat -d $XDG_CONFIG_HOME/weechat'
-# hash calcurse &>/dev/null && alias calcurse='calcurse -C "$XDG_CONFIG_HOME"/calcurse -D "$XDG_DATA_HOME"/calcurse'
-# hash firefox &>/dev/null && alias firefox='HOME="$XDG_DATA_HOME" firefox'
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
