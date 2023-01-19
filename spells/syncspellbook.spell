@@ -12,7 +12,6 @@ symlinks() {
     mkdir -p ~/.local/{share,cache}
     bash ./learnSpells.sh
     bash ./castRunes.sh
-    bash ./synclinks.sh
     bash ./stolenMagic.sh
 }
 
