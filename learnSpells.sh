@@ -29,14 +29,14 @@ spell_name() {
 link_path() {
     local spell_name
     spell_name="$(spell_name "$1")"
-    realpath ~/.local/bin/"$spell_name"
+    realpath ~/.local/bin/"$spell_name" 2>/dev/null
 }
 
 should_learn_spell() {
     {
-        local link_target
-        ! link_target=$(realpath "$(link_path "$1")") ||
-            [[ $(realpath "$link_target") != $(link_target "$1") ]]
+        local link_path
+        ! link_path=$(link_path "$1") ||
+            [[ "$link_path" != $(link_target "$1") ]]
     } && {
         grep -v -i termux "$1" >/dev/null || command -V termux-fix-shebang &>/dev/null
     } && {
