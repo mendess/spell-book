@@ -64,7 +64,6 @@ newSpells() {
     done
 }
 
-mkdir -p ~/.local/bin/crafted
 cd "$(dirname "$(realpath "$0")")" || return 0
 
 cleanSpells
