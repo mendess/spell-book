@@ -1,11 +1,14 @@
 #!/bin/bash
 
+trap '' STOP
+
 __truncPath() {
     pwd | sed -r -e 's!^'"$HOME"'!~!g' -e 's|([^/])[^/]+/|\1/|g' | tr -d '\n'
     return "$1"
 }
 __rightprompt() {
-    [ "$1" -gt 0 ] && printf "<%s>" "$1"
+    # 148 is the sig stop code, so I can Ctrl+Z without getting an error
+    [ "$1" -gt 0 ] && [ "$1" -ne 148 ] && printf "<%s>" "$1"
 }
 
 __git_branch() {
@@ -47,7 +50,7 @@ __has_more_than_job() {
 
 BOLD_RED="\e[1;31m"
 BOLD_GREEN="\e[1;32m"
-# BOLD_YELLOW="\e[1;33m"
+BOLD_YELLOW="\e[1;33m"
 BOLD_BLUE="\e[1;34m"
 BOLD_MAGENTA="\e[1;35m"
 BOLD_CYAN="\e[1;36m"
@@ -69,20 +72,20 @@ case "$(hostname)" in
     tolaria)
         hostname_color=$BOLD_BLUE
         ;;
-    matess)
-        hostname_color=$BOLD_MAGENTA
-        ;;
     weatherlight | kaladesh)
         hostname_color=$BOLD_CYAN
         ;;
     mirrodin)
         hostname_color=$BOLD_GRAY
         ;;
+    argentum)
+        hostname_color=$BOLD_YELLOW
+        ;;
     *)
         hostname_color=$BOLD_GREEN
         ;;
-
 esac
+
 SSH_PROMPT="$(__c "$BOLD_RED" '\u')@$(__c "$hostname_color" '\h')"
 G_BRANCH="\$(__git_branch \$?)"
 T_PATH="\$(__truncPath \$?)"
