@@ -31,7 +31,6 @@
  - [syncspellbook](./spells/syncspellbook.spell) - Tries to synchronise with changes to the remote repository. Also runs [learnSpells](./learnSpells.sh) and [castRunes](./castRunes.sh)
  - [termFromHere](./spells/termFromHere.spell) - Opens a terminal in the same `cwd` as the focused `X` program.
  - [todo](./spells/todo.spell) - Write/remove a task to do later.  Select an existing entry to remove it from the file, or type a new entry to add it.
- - [travel](./spells/travel.spell)
  - [wmgr](./spells/wmgr.spell) - Wallpaper manager
  - [xls_to_csv](./spells/xls_to_csv.spell) - Python script that converts a xls file to a csv
 
@@ -63,7 +62,6 @@
  - [fix-ssh-permissions](./scrolls/fix-ssh-permissions.sh)
  - [gestures](./scrolls/gestures.sh) - Enable gestures to switch workspace
  - [lutris](./scrolls/lutris.sh) - Install lutris and all the dependencies needed for battle net, assuming nvidia
- - [nfs_walls](./scrolls/nfs_walls.sh) - Create a network mounted filesystem for my wallpapers
  - [packages](./scrolls/packages.sh) - List of important packages
  - [spotify-adblock](./scrolls/spotify-adblock.sh) - Install a hacky addblock for spotify
  - [theme](./scrolls/theme.sh) - Setup the artim-dark theme

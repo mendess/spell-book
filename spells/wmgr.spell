@@ -3,8 +3,10 @@
 
 # shellcheck disable=SC2029
 
-HOST=root@meditation.mendess.xyz
+HOST=root@mendess.xyz
 TMPDIR=${TMPDIR:-/tmp}
+WALLPAPER_ROOT=mirari/mirrodin/walls
+
 set -e
 yellow() {
     echo -e "\e[32m$*\e[0m"
@@ -71,45 +73,45 @@ process_params() {
                 exit 1
             }
             if [[ "${host[0]}" = Powerstone ]]; then
-                wall_dir=PhoneCollection
+                wall_dir=phone
                 if [[ ! "$wall" =~ *vertical* ]]; then
                     n_wall="$(basename "$wall" ."$ext")-vertical.$ext"
                     mv "$wall" "$n_wall"
                     wall="$n_wall"
                 fi
             else
-                wall_dir=Wallpapers
+                wall_dir=all
             fi
             yellow "Sending $name to $wall_dir"
             if [[ "$replace" ]]; then
-                ssh "$HOST" test '!' -e "'Pictures/$wall_dir/$name'" &&
+                ssh "$HOST" test '!' -e "'$WALLPAPER_ROOT/$wall_dir/$name'" &&
                     echo 'A wallpaper with that name doesn'\'' exist' &&
                     return 1
-                ssh "$HOST" touch -r "'Pictures/$wall_dir/$name'" "/tmp/reference"
+                ssh "$HOST" touch -r "'$WALLPAPER_ROOT/$wall_dir/$name'" "/tmp/reference"
             else
-                ssh "$HOST" test -e "'Pictures/$wall_dir/$name'" &&
+                ssh "$HOST" test -e "'$WALLPAPER_ROOT/$wall_dir/$name'" &&
                     echo 'A wallpaper with that name doesn'\''t exist' &&
                     return 1
             fi
-            scp "$wall" ""$HOST":Pictures/$wall_dir/$name"
-            [[ "$replace" ]] && ssh "$HOST" touch -r /tmp/reference "'Pictures/$wall_dir/$name'"
+            scp "$wall" ""$HOST":$WALLPAPER_ROOT/$wall_dir/$name"
+            [[ "$replace" ]] && ssh "$HOST" touch -r /tmp/reference "'$WALLPAPER_ROOT/$wall_dir/$name'"
             case "${host[0]}" in Powerstone | Tolaria) return 0 ;; esac
             for h in "${host[@]}"; do
                 case "$h" in
                     weatherlight | matess | kaladesh)
                         blue "Creating symlink"
                         ssh "$HOST" \
-                            "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/LaptopCollection"
+                            "ln -sfv ~/$WALLPAPER_ROOT/all/$name ~/$WALLPAPER_ROOT/small"
                         [[ "$(hostname)" != "tolaria" ]] && cp -v "$wall" "$WALLPAPERS/$name"
                         ;;
                     powerstone)
                         blue "Creating symlink"
                         ssh "$HOST" \
-                            "[ -e Pictures/PhoneCollection/$name ] && \
-                             [ ! -h Pictures/PhoneCollection/$name ]" &&
+                            "[ -e $WALLPAPER_ROOT/phone/$name ] && \
+                             [ ! -h $WALLPAPER_ROOT/phone/$name ]" &&
                             echo -e "A \e[34mnon link\e[0m wallpaper with that name already exists" &&
                             return 1
-                        ssh "$HOST" "ln -sfv ~/Pictures/Wallpapers/$name ~/Pictures/PhoneCollection"
+                        ssh "$HOST" "ln -sfv ~/$WALLPAPER_ROOT/all/$name ~/$WALLPAPER_ROOT/phone"
                         ;;
                 esac
             done
@@ -120,11 +122,11 @@ process_params() {
                 cut -d' ' -f2- |
                 sxiv -i -g 1800x1000 -b -t -o)"
             case "${host[0]}" in
-                Powerstone) local filter=PhoneCollection
+                Powerstone) local filter=phone
             esac
             for w in $wall; do
                 ssh mirrodin \
-                    "find Pictures/$filter -type l,f -name '$(basename "$w")' | xargs -r rm -v" |
+                    "find $WALLPAPER_ROOT/$filter -type l,f -name '$(basename "$w")' | xargs -r rm -v" |
                     sed "s/'/'mirrodin:/"
 
                 [ "$(hostname)" = tolaria ] || { [ -w "$w" ] && rm -v "$w"; }
@@ -216,7 +218,7 @@ print(unquote(input().strip()))'
 
 if [ "$sync" ]; then
     endpoint="mendess.xyz"
-    [ -d "$WALLPAPERS" ] || mkdir -p "$WALLPAPERS"
+    mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
     [ "$(hostname)" = localhost ] && is_phone="/phone"
     base="$endpoint/api/v1/walls$is_phone"

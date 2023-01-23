@@ -12,7 +12,7 @@ common() {
         sleep 5m
         m vd
     done &
-    ssh mendess@mirrodin -i ~/.ssh/id_rsa bulb/flow.py sunset &
+    ssh mendess@mendess.xyz -i ~/.ssh/id_rsa bulb/flow.py sunset &
 }
 
 sleep_now() {

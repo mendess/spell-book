@@ -216,7 +216,7 @@ unset i
     if [[ "$(hostname)" = tolaria ]] || nmcli -t dev | grep -q 'ZON.*2010' ; then
         #shellcheck disable=2029
         [ -e "$CACHE/mood_light" ] ||
-            ssh mirrodin -o BatchMode=yes \
+            ssh mendess.xyz -o BatchMode=yes \
                 "python ~/bulb/color.py \\${colors[0]% *} --flow --sleep"
     fi
     wait

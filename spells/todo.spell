@@ -37,7 +37,7 @@ todo() {
 }
 
 pull() {
-    o="$(rsync --update --timeout=5 mirrodin:todo "$CACHE" 2>&1)" || error "Download failed" "$o"
+    o="$(rsync --update --timeout=5 mendess.xyz:todo "$CACHE" 2>&1)" || error "Download failed" "$o"
 }
 
 while [ "$#" -gt 0 ]; do
@@ -88,5 +88,5 @@ else
             height=$((height + 1))
         fi
     done
-    o="$(rsync --update --timeout=5 "$file" mirrodin: 2>&1)" || error "Upload failed" "$o"
+    o="$(rsync --update --timeout=5 "$file" mendess.xyz: 2>&1)" || error "Upload failed" "$o"
 fi

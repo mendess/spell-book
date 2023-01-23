@@ -5,6 +5,7 @@ status_path = "~/.config/vdirsyncer/status/"
 a = "calendar_local"
 b = "calendar_remote"
 collections = ["from a", "from b"]
+conflict_resolution = "b wins"
 metadata = ["color", "displayname"]
 
 [storage calendar_local]
@@ -16,5 +17,4 @@ fileext = ".ics"
 type = "caldav"
 url = "http://mendess.xyz:5232/mendess"
 username = "mendess"
-password.fetch = ["command", "ssh", "mirrodin", "cat", "~/disk0/cal/non_important_file"]
-verify = true
+password.fetch = ["command", "ssh", "mendess.xyz", "cat", "~/mirari/radicale/non_important_file"]

@@ -117,7 +117,7 @@ print("".join((map(lambda x: x.upper() if choice([True, False]) else x.lower(), 
 
 share() { (
     set -e
-    HOST=meditation
+    HOST=argentum
     while [[ "$#" -gt 0 ]]; do
         case "$1" in
             -u | --unlisted)
@@ -140,8 +140,8 @@ share() { (
         filename="$filename.zip"
     fi
     [[ "$unlisted" ]] && filename="unlisted/$filename"
-    spark rsync av "$FILE" "$HOST:mirrodin/share/$filename"
-    url="http://mendess.xyz/file/$filename"
+    spark rsync av "$FILE" "$HOST:mirari/mirrodin/share/$filename"
+    url="http://mendess.xyz/api/v1/file/$filename"
     if command -v termux-clipboard-set &>/dev/null; then
         echo -n "$url" | termux-clipboard-set
     elif [[ "$DISPLAY" ]]; then

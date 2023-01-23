@@ -10,7 +10,7 @@ p2c=media/games/cockatrice
 
 notify 'mounting decks'
 mkdir -p ~/"$p2c"
-sshfs "mendess@mirrodin:$p2c" ~/"$p2c"
+sshfs "mendess@mendess.xyz:$p2c" ~/"$p2c"
 notify 'mounted'
 
 cockatrice
