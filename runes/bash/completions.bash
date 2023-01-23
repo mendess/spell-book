@@ -157,5 +157,6 @@ command -V youtube-dl &>/dev/null &&
 
 for c in "$SPELLS"/runes/bash/completions/*; do
     #shellcheck disable=1090
+    command -V "$(basename "$c" .bash)" &>/dev/null || continue
     . "$c"
 done
