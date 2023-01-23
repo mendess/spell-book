@@ -220,7 +220,7 @@ any() {
 }
 
 insist() {
-    until eval "$@"; do :; done
+    until eval "$@"; do sleep ${T:-0}; done
 }
 
 nest() {
