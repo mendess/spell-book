@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+command -V docker &>/dev/null || exit 0
 # shellcheck disable=SC2016,SC2119,SC2155,SC2206,SC2207,SC2254
 #
 # Shellcheck ignore list:

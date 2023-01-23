@@ -58,6 +58,7 @@ export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
+export GOPATH="$XDG_DATA_HOME/go"
 export SUDO_ASKPASS=/usr/bin/lxqt-sudo
 local_bin=
 local_bin=$(find ~/.local/bin -type d | sed 's|/$||' | tr '\n' ':' | sed 's/:$//')

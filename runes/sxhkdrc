@@ -6,11 +6,7 @@ super + Return
     $TERMINAL
 
 super + shift + Return
-    if xprop -id $(xprop -root _NET_ACTIVE_WINDOW | cut -d ' ' -f 5) _NET_WM_NAME WM_CLASS | grep -i jetbrains; then \
-        $TERMINAL -e sh -c "cd $(xdotool search JetBrains getwindowname | perl -ne 's/[^\[]*\[([^\]]*)].*$/\1/g and print'); bash"; \
-    else \
-        termFromHere; \
-    fi
+    termFromHere
 
 super + control + Return
     termFromHere --class floating-terminal
