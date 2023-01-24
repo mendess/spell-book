@@ -20,7 +20,8 @@ case "$1" in
         ;;
     *)
         original=$1
-        new="${2:-${1%.*}-magic.${1#*.}}"
+        bn=$(basename "$1")
+        new="${2:-${bn%.*}-magic.${bn#*.}}"
         ;;
 esac
 
