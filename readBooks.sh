@@ -4,7 +4,9 @@ git submodule update --init --recursive
 allows="$(dirname -- "$0")/.install-profile/allows.sh readBooks"
 
 rust_is_setup() {
-    ! rustup show | grep -q 'no active toolchain'
+    set -o pipefail
+    command -V cargo &>/dev/null &&
+        ! rustup show 2>/dev/null | grep -q 'no active toolchain'
 }
 
 up_to_date_rust_bin() {
