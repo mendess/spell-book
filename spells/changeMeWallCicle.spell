@@ -3,7 +3,7 @@
 
 CACHE="/tmp/$LOGNAME"
 mkdir -p "$CACHE"
-changeMeWall
+changeMeWall "$@"
 while true;
 do
     sleep 5m
@@ -11,5 +11,5 @@ do
     # pgrep steam && continue
     [ -e "$CACHE/stop_wall" ] && continue
     wait
-    changeMeWall --wait-for-colors &
+    changeMeWall --wait-for-colors "$@" &
 done

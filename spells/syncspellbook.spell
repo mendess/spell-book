@@ -3,8 +3,23 @@
 # remote repository. Also runs [learnSpells](./learnSpells.sh)
 # and [castRunes](./castRunes.sh)
 
-{ command -v jq && command -v hostname && command -v python; } &>/dev/null ||
-    { echo "please make sure jq, hostname and python are installed" && exit 1; }
+{ command -v jq && command -v python; } &>/dev/null ||
+    { echo "please make sure jq, and python are installed" && exit 1; }
+
+hostname() {
+    hn=$(command uname -n)
+    case "$hn" in
+        3QWP3T3)
+            echo "oboro"
+            ;;
+        localhost)
+            echo "ornithopter"
+            ;;
+        *)
+            echo "$hn"
+            ;;
+    esac
+}
 
 symlinks() {
     cd "${SPELLS:-$(dirname "$(readlink -f "$0")")/..}" || return 1
@@ -40,8 +55,7 @@ sync() {
 
     if ! git diff-index --quiet HEAD --; then
         hasCommits="true"
-        name=$(uname -n | sed 's/localhost/powerstone/g')
-        git commit -m"$name => $file_str"
+        git commit -m"$(hostname) => $file_str"
     elif [ -n "$(git rev-list '@{u}'..)" ]; then
         hasCommits="true"
     else

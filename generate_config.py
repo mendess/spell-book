@@ -19,12 +19,24 @@ def dbg(s):
     print(f"DEBUG: '{s}'")
     return s
 
+def __running_wm(wm):
+    return subprocess.run(["pgrep", wm], capture_output=True).returncode == 0
 
 def hostname():
     return (
         subprocess.run(['hostname'],
                        capture_output=True).stdout.decode('utf-8').strip()
     )
+
+def wayland():
+    return "no" if __running_wm("herbstluftwm") else "yes"
+
+def wm():
+    possibilities = ["herbstluftwm", "gnome-shell", "river"]
+    for p in possibilities:
+        if __running_wm(p):
+            return p
+    return None
 
 def whoami():
     return os.getlogin()

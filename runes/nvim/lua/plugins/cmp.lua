@@ -1,6 +1,6 @@
 local set = vim.opt
 
-set.completeopt = {'menu', 'menuone', 'noselect', 'preview'}
+set.completeopt = {'menu', 'menuone', 'noselect', 'preview', 'noinsert'}
 
 local cmp = require('cmp')
 
@@ -12,11 +12,17 @@ cmp.setup {
     },
     mapping = {
         ['<C-Space>'] = cmp.mapping.complete(),
-        -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        -- ['<CR>'] = cmp.mapping.confirm({
+        --     behavior = cmp.ConfirmBehavior.Insert,
+        --     select = true,
+        -- }),
         ['<C-Y>'] = cmp.mapping.confirm({ select = true }),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
         ['<Tab>'] = cmp.mapping.select_next_item(),
         ['<C-N>'] = cmp.mapping.select_next_item(),
         ['<C-P>'] = cmp.mapping.select_prev_item(),
+        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
     },
     sources = {
         { name = 'nvim_lsp' },
