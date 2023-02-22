@@ -1,8 +1,8 @@
 -- split navigations
-nnoremap("<C-J>", "<C-W>j")
-nnoremap("<C-K>", "<C-W>k")
-nnoremap("<C-L>", "<C-W>l")
-nnoremap("<C-H>", "<C-W>h")
+nnoremap("<C-j>", "<C-W>j")
+nnoremap("<C-k>", "<C-W>k")
+nnoremap("<C-l>", "<C-W>l")
+nnoremap("<C-h>", "<C-W>h")
 
 nnoremap("<M-h>", "<C-w>H")
 nnoremap("<M-j>", "<C-w>J")

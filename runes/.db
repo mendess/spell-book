@@ -46,5 +46,6 @@
 ~/.config/screenlayouts,screenlayouts
 ~/.config/free-nitro-list,free-nitro-list
 ~/.config/desmume,desmume
-~/.config/git,git
+~/.config/git/template,git/template
+~/.config/git/config,git/config,generated
 ~/.local/share/gnupg/gpg-agent.conf,gpg-agent.conf

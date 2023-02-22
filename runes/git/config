@@ -1,6 +1,13 @@
 [user]
 	name = mendess
+%% switch on whoami
+%% pmendes {
+	email = pmendes@cloudflare.com
+%% }
+%% default {
 	email = pedro.mendes.26@gmail.com
+%% }
+%% end
 [core]
 	excludesfile = ~/.config/gitignore-global
     pager = delta
