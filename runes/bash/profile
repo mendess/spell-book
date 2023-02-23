@@ -68,15 +68,7 @@ export PATH="$PATH:$local_bin"
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
 LOG="/tmp/$(whoami)/startx.log"
-case "$(uname -n)" in
-    tolaria|weatherlight)
-        ttys='/dev/tty[12]'
-        ;;
-    *)
-        ttys='/dev/tty1'
-        ;;
-esac
-if [[ "$tty" =~ $ttys ]]; then
+if [[ "$tty" =~ /dev/tty1 ]]; then
     pfetch
     tty_num=$(tty | grep -Eo '[0-9]')
     echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
