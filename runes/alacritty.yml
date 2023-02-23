@@ -155,8 +155,8 @@ font:
     #style: Bold Italic
 
   # Point size
-%% switch on wayland
-%% yes {
+%% switch on hostname
+%%  3QWP3T3 {
   size: 11.0
 %% }
 %% no {
