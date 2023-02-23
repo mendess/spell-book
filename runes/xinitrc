@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+set -x
 xrdb -merge ~/.config/X11/Xresources
 
 # deamons
