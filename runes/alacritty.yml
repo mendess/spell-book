@@ -159,7 +159,7 @@ font:
 %%  3QWP3T3 {
   size: 11.0
 %% }
-%% no {
+%% default {
   size: 8.0
 %% }
 %% end
