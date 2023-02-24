@@ -20,8 +20,6 @@ k # keyboard settings
     xrandr --output HDMI-0 --mode 1920x1080 --pos 0x360 --rotate normal \
         --output DP-4 --primary --mode 2560x1440 --pos 1920x0 --rotate normal --rate 144
 
-if command -V herbstluftwm >/dev/null 2>/dev/null; then
-    exec herbstluftwm
-else
-    exec bspwm
-fi
+eval $(ssh-agent)
+
+exec herbstluftwm
