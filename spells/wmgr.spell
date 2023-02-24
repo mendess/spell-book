@@ -3,7 +3,7 @@
 
 # shellcheck disable=SC2029
 
-HOST=root@mendess.xyz
+HOST=mendess@mendess.xyz
 TMPDIR=${TMPDIR:-/tmp}
 WALLPAPER_ROOT=mirari/mirrodin/walls
 
