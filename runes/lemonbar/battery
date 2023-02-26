@@ -57,6 +57,6 @@ for i in acpi:
     fore = '%{F' + c + '}'
     under = '%{U' + c + '}'
     print(
-        f"{under}%{{+u}}%{{F#FFFF00}}⚡%{{F-}}{fore}{percent}{print_status}{time}{clear}%{{U-}}%{{-u}}",
+        f"{under}%{{+u}}{fore}{percent}{print_status}{time}{clear}%{{U-}}%{{-u}}",
         end=''
     )

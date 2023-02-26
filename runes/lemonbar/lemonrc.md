@@ -7,6 +7,7 @@
 - font: `Noto Sans Mono CJK JP: size=7`
 - underline_width: `2`
 - name: `bar_of_the_lemons`
+- foreground: `#FFFFFF`
 - colors:
   - black: `#181818`
   - red: `#F07178`
