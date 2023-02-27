@@ -57,8 +57,8 @@ super + F8
 super + control + m
     $TERMINAL -e pacmixer
 
-super + {F2, F3, F4}
-    {$BROWSER, discord --no-sandbox, steam}
+super + {F2, F3}
+    {~/.config/sxhkd/browser-program || $BROWSER, ~/.config/sxhkd/chat-program || discord --no-sandbox}
 
 super + shift + F2
     $BROWSER -private-window https://duckduckgo.com/
