@@ -116,7 +116,7 @@ lsp.rust_analyzer.setup {
 --     capabilities = update_capabilities(protocol.make_client_capabilities())
 -- }
 lsp.clangd.setup {
-    on_attach = on_attach(true),
+    on_attach = on_attach(false),
     capabilities = capabilities
 }
 lsp.ocamllsp.setup {
