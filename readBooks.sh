@@ -45,7 +45,7 @@ find_missing() {
         while read -r l; do
             book=$(basename "$l")
             if $allows "$book" && ! "${book}_installed" "$(pwd)/$l"; then
-                 echo "$book"
+                 echo "$l"
             fi
         done
 }
@@ -57,10 +57,9 @@ fi
 
 printf "\033[33mReading Books...\033[0m\n"
 
-find library/ -mindepth 1 -maxdepth 1 -type d |
-    while read -r l; do
-        #shellcheck disable=2091
-        "$(basename "$l")" "$(pwd)/$l"
-    done
+for l in ${missing_books[@]}; do
+    #shellcheck disable=2091
+    "$(basename "$l")" "$(pwd)/$l"
+done
 
 printf "\033[33mDone!\033[0m\n"

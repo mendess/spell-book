@@ -14,3 +14,4 @@ src/main/resources/application-test.properties
 mendess-*.sh
 .pre-commit-checks
 .envrc
+.direnv/
