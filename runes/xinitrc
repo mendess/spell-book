@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 set -x
+mkdir -p "/tmp/$LOGNAME"
 xrdb -merge ~/.config/X11/Xresources
 
 # deamons
