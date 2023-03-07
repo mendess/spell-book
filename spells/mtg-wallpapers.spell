@@ -6,14 +6,21 @@ mkdir -p /tmp/walls
 cd /tmp/walls || exit 1
 rm -f ./*
 
-curl --silent https://magic.wizards.com/en/articles/media/wallpapers |
-    grep '1920x1080' |
-    cut -d'=' -f2 |
-    cut -d'"' -f2 |
+curl -L --silent https://magic.wizards.com/en/articles/media/wallpapers |
+    grep -o -E 'href="[^"]+"' |
+    grep '2560x1600' |
+    cut -d= -f2 |
+    cut -d '"' -f2 |
+    sed 's|^//||g' |
+    sort -u |
     xargs wget ||
     exit 1
 
+rm -v *.1
 for f in *; do
     mv -v "$f" \
-        "$HOME/Pictures/Wallpapers/$(echo "$f" | sed -r -e 's/_1920x1080//' -e 's/_(W|w)allpaper//' | sed -r 's/\.(jpg|png)$/_mtg.\1/')"
+        "$(echo "$f" | sed -r -e 's/[_-](1920|2560)x(1080|1600)//;s/[_-]((W|w)allpaper|background)//;s/\.(jpg|png)$/_mtg.\1/')"
+done
+for f in *; do
+    spark rsync av * argentum:mirari/mirrodin/walls/all/
 done
