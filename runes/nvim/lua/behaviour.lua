@@ -101,3 +101,5 @@ set.foldmethod = 'indent'
 set.foldlevelstart = 99
 
 set.mouse = ''
+
+set.cmdheight = 0

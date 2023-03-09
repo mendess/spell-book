@@ -46,7 +46,16 @@ end
 local on_attach = function(autoformat)
     return function(client, bufnr)
         -- disable semantic hightlighting
-        client.server_capabilities.semanticTokensProvider = nil
+        client.server_capabilities.semanticTokensProvider = {
+            legend = {
+                tokenModifiers = { },
+                tokenTypes = { },
+            },
+            full = {
+                -- delta = true,
+            },
+            range = false,
+        }
 
         local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
         local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end

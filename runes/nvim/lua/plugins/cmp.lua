@@ -17,6 +17,7 @@ cmp.setup {
         --     select = true,
         -- }),
         ['<C-Y>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-U>'] = cmp.mapping.confirm({ select = true }),
         ["<S-Tab>"] = cmp.mapping.select_prev_item(),
         ['<Tab>'] = cmp.mapping.select_next_item(),
         ['<C-N>'] = cmp.mapping.select_next_item(),
