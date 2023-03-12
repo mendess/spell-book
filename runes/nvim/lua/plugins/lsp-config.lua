@@ -103,6 +103,10 @@ lsp.eslint.setup {
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     capabilities = capabilities
 }
+lsp.svelte.setup {
+    on_attach = on_attach(true),
+    capabilities = capabilities,
+}
 lsp.rust_analyzer.setup {
     on_attach = on_attach(true),
     settings = {

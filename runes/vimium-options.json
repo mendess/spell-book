@@ -1,5 +1,5 @@
 {
-  "settingsVersion": "1.67.1",
+  "settingsVersion": "1.67.4",
   "exclusionRules": [
     {
       "pattern": "*youtube.com/*",
@@ -116,7 +116,7 @@
   "keyMappings": "# Insert your preferred key mappings here.",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
-  "newTabUrl": "mendess.xyz/walls/random",
+  "newTabUrl": "https://mendess.xyz/walls/random",
   "nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
   "previousPatterns": "prev,previous,back,older,<,‹,←,«,≪,<<",
   "regexFindMode": false,
