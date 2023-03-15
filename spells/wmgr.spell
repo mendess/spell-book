@@ -223,7 +223,14 @@ if [ "$sync" ]; then
     [ "$(hostname)" = localhost ] && is_phone="/phone"
     base="https://$endpoint/api/v1/walls$is_phone"
     CLEAN_LINE="\r\033[2K"
+    set +e
     all_walls_obj=$(curl -L --silent "$base")
+    e=$?
+    set -e
+    if [ "$e" -ne 0 ] ; then
+        echo "Error getting wallpaper list: $e"
+        exit "$e"
+    fi
     total=$(jq length <<<"$all_walls_obj")
     i=1
     while read -r json; do
@@ -237,7 +244,15 @@ if [ "$sync" ]; then
                     -c "from urllib.parse import quote, sys; print(quote(sys.argv[1]))" \
                     "$file_name"
             )
+            set +e
             wget --quiet "$base/$encoded_name"
+            e=$?
+            set -e
+            if [ "$e" -ne 0 ]; then
+                echo
+                echo "Error downloading '$name': $e"
+                exit "$e"
+            fi
             echo ' Done'
         fi
         ((++i))
