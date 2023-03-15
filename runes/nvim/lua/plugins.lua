@@ -54,7 +54,6 @@ return require('packer').startup({function(use)
     ------ ======  COLOR SCHEMES  ====== ------
     use 'mendess/nvim-base16.lua'
     use 'mendess/ayu-vim'
-    use 'ntk148v/vim-horizon'
     use 'sainnhe/everforest'
     use 'rebelot/kanagawa.nvim'
     ------ ============================= ------
