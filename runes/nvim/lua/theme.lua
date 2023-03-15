@@ -120,6 +120,10 @@ au.group('syntax-fix', function(g)
         {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
         { '*.h', function() set.filetype = 'c' end }
     )
+    au(
+        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        { '*.spell', function() set.filetype = 'sh' end }
+    )
 end)
 
 -- Hide all semantic highlights
