@@ -221,7 +221,7 @@ if [ "$sync" ]; then
     mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
     [ "$(hostname)" = localhost ] && is_phone="/phone"
-    base="$endpoint/api/v1/walls$is_phone"
+    base="https://$endpoint/api/v1/walls$is_phone"
     CLEAN_LINE="\r\033[2K"
     all_walls_obj=$(curl -L --silent "$base")
     total=$(jq length <<<"$all_walls_obj")
@@ -237,7 +237,7 @@ if [ "$sync" ]; then
                     -c "from urllib.parse import quote, sys; print(quote(sys.argv[1]))" \
                     "$file_name"
             )
-            wget --quiet "http://$base/$encoded_name"
+            wget --quiet "$base/$encoded_name"
             echo ' Done'
         fi
         ((++i))
