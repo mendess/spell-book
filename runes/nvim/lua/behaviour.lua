@@ -91,6 +91,14 @@ au.group('himalaya-bad-ws', function(g)
         'himalaya-msg-list',
         ':HideBadWhitespace'
     }
+    -- g.Filetype = {
+    --     'neo-tree',
+    --     ':HideBadWhitespace'
+    -- }
+    -- g.BufEnter = {
+    --     '*neo-tree*',
+    --     ':HideBadWhitespace'
+    -- }
     g.BufEnter = {
         'Himalaya*',
         ':HideBadWhitespace',

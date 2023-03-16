@@ -41,16 +41,6 @@ return require('packer').startup({function(use)
     }
     ------ ============================= ------
 
-    ------ ====== VIM AS FRONTEND ====== ------
-    use {
-        'soywod/himalaya',
-        -- rtp = '/vim',
-        config = function()
-            vim.g.himalaya_mailbox_picker = 'telescope'
-        end,
-    }
-    ------ ============================= ------
-
     ------ ======  COLOR SCHEMES  ====== ------
     use 'mendess/nvim-base16.lua'
     use 'mendess/ayu-vim'
@@ -102,7 +92,7 @@ return require('packer').startup({function(use)
                     },
                 },
                 filesystem = {
-                    -- follow_current_file = true, badwhitespace ruins this
+                    follow_current_file = true,
                 },
                 buffers = {
                     follow_current_file = true,
@@ -116,7 +106,14 @@ return require('packer').startup({function(use)
         config = function() vim.g.gitgutter_enabled = 0 end,
     }
     -- detect bad whitespace
-    use 'bitc/vim-bad-whitespace'
+    use {
+        'ntpeters/vim-better-whitespace',
+        setup = function()
+            vim.g.better_whitespace_filetypes_blacklist={
+                'neo-tree', 'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'fugitive'
+            }
+        end,
+    }
     -- highlight select text for a bit
     use {
         'machakann/vim-highlightedyank',
