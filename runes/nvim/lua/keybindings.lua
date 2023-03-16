@@ -17,8 +17,8 @@ nnoremap('S', [[:%s/\<<C-r><C-w>\>/]])
 vnoremap('s', ':s//<Left>')
 
 -- nerdtree
-nnoremap('<F2>', ':NERDTreeToggle<CR>')
-inoremap('<F2>', ':NERDTreeToggle<CR>')
+nnoremap('<F2>', ':Neotree<CR>')
+inoremap('<F2>', ':Neotree<CR>')
 
 -- gitgutter
 nnoremap('<leader>g', ':GitGutterToggle<CR>')

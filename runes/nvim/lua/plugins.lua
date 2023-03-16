@@ -70,8 +70,45 @@ return require('packer').startup({function(use)
     ------ ======     INSIGHT     ====== ------
     -- File browser
     use {
-        'scrooloose/nerdtree',
-        config = function() vim.g.NERDTreeSortOrder = {'include/$', 'src/$'} end
+        'nvim-neo-tree/neo-tree.nvim',
+        branch = "v2.x",
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'MunifTanjim/nui.nvim'
+        },
+        config = function()
+            vim.cmd [[ let g:neo_tree_remove_legacy_commands = 1 ]]
+            require('neo-tree').setup({
+                close_if_last_window = true,
+                default_component_configs = {
+                    icon = {
+                        folder_closed = "▶️",
+                        folder_open = "v",
+                        folder_empty = "▶️",
+                        default = " ",
+                    },
+                    name = {
+                        trailing_slash = true,
+                    },
+                    git_status = {
+                        symbols = {
+                            modified = "M",
+                            untracked = "",
+                            ignored = "I",
+                            unstaged = "U",
+                            staged = "S",
+                            conflict = "C",
+                        },
+                    },
+                },
+                filesystem = {
+                    -- follow_current_file = true, badwhitespace ruins this
+                },
+                buffers = {
+                    follow_current_file = true,
+                },
+            })
+        end
     }
     -- git keybinds
     use {
