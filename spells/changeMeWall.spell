@@ -173,9 +173,6 @@ for file in "${files[@]}"; do
         aspect_ratio="$(convert "$file" -format '%[fx:w/h]' info:)"
         wide=$(echo "$aspect_ratio" | awk '$0 >= 2.5 {found=1}
                         END {if(found) {print '$i'} else {print "0"}}')
-        [ "$wide" -gt 0 ] &&
-            [[ "$file" != *wide* ]] &&
-            echo "not wide set as wide: $file" >>~/CHANGE_WALL_WIDE_ERROR
         i=$((i + 1))
     fi
 done

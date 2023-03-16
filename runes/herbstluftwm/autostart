@@ -251,10 +251,19 @@ done
 # or simply:
 $hc detect_monitors
 
+case "$(uname -n)" in
+    3QWP3T3)
+        extra_height=0
+        ;;
+    *)
+        extra_height=0
+        ;;
+esac
+
 while read -r mon; do
     read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
     echo "${geometry[@]}"
-    monitors+=("${geometry[0]}x0+${geometry[2]}+0")
+    monitors+=("${geometry[0]}x${extra_height}+${geometry[2]}+0")
     ((steps++))
 done < <($hc list_monitors | awk '{print $2}')
 
@@ -321,7 +330,7 @@ bar_args=()
 i=0
 for mon in "${monitors[@]}"; do
     echo "$mon"
-    $hc pad "$((i++))" 22 0 0 0
+    $hc pad "$((i++))" "$((extra_height + 22))" 0 0 0
     bar_args+=('--bar' "${mon}")
 done
 unset i
