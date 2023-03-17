@@ -100,8 +100,8 @@ process_params() {
                 case "$h" in
                     weatherlight | matess | kaladesh)
                         blue "Creating symlink"
-                        ssh "$HOST" \
-                            "ln -sfv ~/$WALLPAPER_ROOT/all/$name ~/$WALLPAPER_ROOT/small"
+                        ssh "$HOST" bash -c \
+                            "cd $WALLPAPER_ROOT; ln -svr ./all/$name ./small/$name"
                         [[ "$(hostname)" != "tolaria" ]] && cp -v "$wall" "$WALLPAPERS/$name"
                         ;;
                     powerstone)
@@ -111,7 +111,7 @@ process_params() {
                              [ ! -h $WALLPAPER_ROOT/phone/$name ]" &&
                             echo -e "A \e[34mnon link\e[0m wallpaper with that name already exists" &&
                             return 1
-                        ssh "$HOST" "ln -sfv ~/$WALLPAPER_ROOT/all/$name ~/$WALLPAPER_ROOT/phone"
+                        ssh "$HOST" bash -c "cd $WALLPAPER_ROOT; ln -svr ./all/$name ./phone/$name"
                         ;;
                 esac
             done

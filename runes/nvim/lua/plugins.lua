@@ -109,6 +109,7 @@ return require('packer').startup({function(use)
     use {
         'ntpeters/vim-better-whitespace',
         setup = function()
+            vim.g.better_whitespace_enabled = false
             vim.g.better_whitespace_filetypes_blacklist={
                 'neo-tree', 'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'fugitive'
             }
