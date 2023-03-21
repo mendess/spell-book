@@ -8,4 +8,4 @@ dir="$(
         xargs -L1 basename |
         dmenu -l 50 -i -p project
 )"
-[ "$dir" ] && $TERMINAL --working-directory "$HOME/projects/$dir"
+[ "$dir" ] && exec $TERMINAL --working-directory "$HOME/projects/$dir"
