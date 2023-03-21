@@ -57,7 +57,7 @@ fi
 
 printf "\033[33mReading Books...\033[0m\n"
 
-for l in ${missing_books[@]}; do
+for l in "${missing_books[@]}"; do
     #shellcheck disable=2091
     "$(basename "$l")" "$(pwd)/$l"
 done
