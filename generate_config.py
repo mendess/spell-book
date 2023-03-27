@@ -16,7 +16,8 @@ IS_REGEX = re.compile(r'/([^/]*)/')
 
 
 def dbg(s):
-    print(f"DEBUG: '{s}'")
+    x = s[0:40] if type(s) == str and len(s) > 40 else s
+    print(f"DEBUG: '{x}'")
     return s
 
 def __running_wm(wm):
@@ -182,10 +183,10 @@ def parse_case(original_s: str) -> (Case, str):
     if match:
         full = match.group(1)
         case = match.group(2)
-        s = s[len(full):]
+        s = s[len(full) + 1:] # trim new line at the start
         (text, s) = skip_past(CASE_END_REGEX, s)
         (_, s) = parse_endline(s)
-        return (Case(case, text), s)
+        return (Case(case, text[:-1]), s) # -1 trim new line at the end
     else:
         raise ParseError(original_s, "is not a valid case header")
 
@@ -207,7 +208,7 @@ def parse_default(original_s: str) -> (str, str):
         if match:
             (default, s) = skip_past(CASE_END_REGEX, s[len(match.group(1)):])
             (_, s) = parse_endline(s)
-            return (default, s)
+            return (default[1:-1], s) # trim newlines at start end end
         else:
             raise ParseError(original_s)
     except ParseError as pe:

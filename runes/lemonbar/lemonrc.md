@@ -3,8 +3,16 @@
 - geometry: `x22`
 - separator: ` | `
 - n_clickables: `32`
+%% switch on hostname
+%% 3QWP3T3 {
+- font: `Hack: size=18`
+- font: `Noto Sans Mono CJK JP: size=15`
+%% }
+%% default {
 - font: `Misc Termsynu: size=12`
 - font: `Noto Sans Mono CJK JP: size=7`
+%% }
+%% end
 - underline_width: `2`
 - name: `bar_of_the_lemons`
 - foreground: `#FFFFFF`

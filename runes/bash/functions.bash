@@ -1,16 +1,5 @@
 #!/bin/bash
 
-make() {
-    if [[ -e Makefile ]] || [[ -e makefile ]] || [[ "$1" ]]; then
-        command make -j"$(nproc || echo 4)" "$@"
-    else
-        for i in *.c; do
-            file=${i//\.c/}
-            command make "$file"
-        done
-    fi
-}
-
 __run_disown() { # $1 program, $2 file
     local filesize=10
     local file="$2"

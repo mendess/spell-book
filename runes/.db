@@ -12,7 +12,7 @@
 ~/.config/gitignore-global,gitignore-global
 ~/.config/glava,glava,force,ifdir
 ~/.config/gtk-3.0,gtk-3.0
-~/.config/lemonbar,lemonbar
+~/.config/lemonbar,lemonbar,generated
 ~/.config/libinput-gestures.conf,libinput-gestures.conf
 ~/.config/mpv,mpv
 ~/.config/mutt,mutt

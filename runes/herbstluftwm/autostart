@@ -253,7 +253,7 @@ $hc detect_monitors
 
 case "$(uname -n)" in
     3QWP3T3)
-        extra_height=0
+        extra_height=16
         ;;
     *)
         extra_height=0
