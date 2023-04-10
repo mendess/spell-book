@@ -62,6 +62,15 @@ set.conceallevel = 2
 set.list = true
 set.listchars = 'tab:>-'
 
+au.group('go-shit', function(g)
+    g.BufEnter = {
+        {'*.go'},
+        function()
+            set.listchars = 'tab:  '
+        end
+    }
+end)
+
 
 -- vim.cmd('colorscheme everforest')
 require('kanagawa').setup({

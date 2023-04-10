@@ -92,6 +92,10 @@ lsp.elixirls.setup {
     on_attach = on_attach(false),
     capabilities = capabilities
 }
+lsp.gopls.setup {
+    on_attach = on_attach(true),
+    capabilities = capabilities,
+}
 
 -- Hide all semantic highlights
 -- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do

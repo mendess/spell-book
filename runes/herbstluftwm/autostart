@@ -292,6 +292,10 @@ case "${#monitors[@]}" in
                 lock_tag_to_monitor 0 {0..6}
                 lock_tag_to_monitor 1 {7..9}
                 ;;
+            3QWP3T3)
+                lock_tag_to_monitor 0 {4..9}
+                lock_tag_to_monitor 1 {0..3}
+                ;;
             *)
                 lock_tag_to_monitor 0 {0..7}
                 lock_tag_to_monitor 1 {8..9}
