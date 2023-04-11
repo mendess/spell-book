@@ -1,4 +1,5 @@
 local lsp = require('lspconfig')
+local lsp_util = require('lspconfig.util')
 local protocol = require('vim.lsp.protocol')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local au = require('utils.au')
@@ -96,6 +97,14 @@ lsp.gopls.setup {
     on_attach = on_attach(true),
     capabilities = capabilities,
 }
+-- missing features
+-- https://github.com/joe-re/sql-language-server/issues/173
+-- https://github.com/joe-re/sql-language-server/issues/172
+-- lsp.sqlls.setup {
+--     on_attach = on_attach(true),
+--     root_dir = lsp_util.root_pattern("docker-compose.yaml", "docker-compose.yml"),
+--     capabilities = capabilities,
+-- }
 
 -- Hide all semantic highlights
 -- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do

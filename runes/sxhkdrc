@@ -208,7 +208,7 @@ super + shift + i
         xargs --no-run-if-empty $BROWSER
 
 super + shift + o
-    echo -e 'i3lock -e --image=$HOME/.local/share/wallpapers/home.png\nsystemctl suspend\nreboot\nshutdown now' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 4 | sh
+    echo -e 'lock\nsystemctl suspend\nreboot\nshutdown now' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 4 | sh
 
 super + shift + f
     $TERMINAL --class floating-terminal -e f launcher

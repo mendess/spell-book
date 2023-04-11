@@ -52,21 +52,23 @@ end
 set.linebreak = true
 set.breakindent = true
 set.showbreak = '> '
+set.cmdheight = 0
+set.conceallevel = 2
+set.list = true
+set.listchars = 'tab:>-'
 -- au.group('disable-linebreak', function(g)
 --     g(
 --         {'BufEnter','BufRead'},
 --         { '*.rs', function() set.linebreak = false end }
 --     )
 -- end)
-set.conceallevel = 2
-set.list = true
-set.listchars = 'tab:>-'
 
 au.group('go-shit', function(g)
     g.BufEnter = {
         {'*.go'},
         function()
             set.listchars = 'tab:  '
+            set.cmdheight = 1
         end
     }
 end)
