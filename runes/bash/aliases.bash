@@ -217,6 +217,7 @@ alias rustfmttoml='cp -v $SPELLS/runes/rustfmt.toml .'
 alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
 alias mail='vim +Himalaya'
 alias uuid='cat /proc/sys/kernel/random/uuid'
+alias ip='ip --color=always'
 
 # Cleanup
 command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
