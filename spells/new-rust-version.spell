@@ -1,0 +1,8 @@
+#!/bin/bash
+
+lattest=$(curl --silent https://blog.rust-lang.org/ | grep -E 'Announcing Rust [0-9]+\.[0-9]+(\.[0-9]+)?' -o | cut -d' ' -f3 | head -1)
+current=$(rustc --version | cut -d' ' -f2)
+
+if [[ "$lattest" -ne "$current" ]]; then
+    echo "$lattest"
+fi
