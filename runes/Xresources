@@ -24,8 +24,10 @@
 *color15: #f1efee
 
 background: #181A1C
-Sxiv.background: #181A1C
-Sxiv.foreground: #FFFFFF
+Nsxiv.window.background: #181A1C
+Nsxiv.window.foreground: #FFFFFF
+Nsxiv.bar.background: #FFFFFF
+
 urxvt.background:       [60]#222222
 urxvt.foreground:       #FFFFFF
 urxvt.blurRadius:       1

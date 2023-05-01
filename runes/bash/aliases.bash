@@ -183,7 +183,11 @@ command -V bat &>/dev/null &&
 alias :r="source ~/.bashrc"
 alias mpvs='mpv --no-video --input-ipc-server=$(m socket new)'
 alias mpvsv='mpv --input-ipc-server=$(m socket new)'
-alias s='sxiv'
+if command -v sxiv &>/dev/null; then
+    alias s=sxiv
+elif command -v nsxiv &>/dev/null; then
+    alias s=nsxiv
+fi
 if command -v evcxr &>/dev/null; then
     alias rs='evcxr --edit-mode vi'
 else

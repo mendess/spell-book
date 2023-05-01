@@ -21,9 +21,11 @@
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [launch-cocktracice](./spells/launch-cocktracice.spell)
+ - [lock](./spells/lock.spell)
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [new-cards](./spells/new-cards.spell)
+ - [new-rust-version](./spells/new-rust-version.spell)
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
