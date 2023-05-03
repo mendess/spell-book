@@ -10,6 +10,9 @@ export TERMINAL='alacritty'
 export _JAVA_AWT_WM_NONREPARTENTING=1
 
 export PAGER="less -isg"
+if hash bat &> /dev/null; then
+    export MANPAGER="sh -c 'col -bx | bat --theme=gruvbox-dark -l man -p'"
+fi
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export LESS_TERMCAP_mb=$'\e[1;35m'
 export LESS_TERMCAP_md=$'\e[1;36m'
