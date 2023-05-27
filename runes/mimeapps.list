@@ -8,10 +8,10 @@ text/x-c=nvim.desktop
 text/x-cpp=nvim.desktop
 text/x-script.python=nvim.desktop
 text/html=firefox.desktop
-image/png=sxiv.desktop
-image/jpg=sxiv.desktop
-image/jpeg=sxiv.desktop
-image/webp=sxiv.desktop
+image/png=nsxiv.desktop
+image/jpg=nsxiv.desktop
+image/jpeg=nsxiv.desktop
+image/webp=nsxiv.desktop
 x-scheme-handler/msteams=teams.desktop
 
 [Added Associations]
