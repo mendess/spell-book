@@ -65,7 +65,8 @@ except json.decoder.JSONDecodeError:
 
 
 def at_work_computer() -> bool:
-    return os.getlogin() == 'work'
+    login = os.getlogin()
+    return login == 'work' or login == 'pmendes'
 
 
 class Filter:
@@ -76,7 +77,7 @@ class Filter:
 
 filters = {
     'work': Filter(
-        owners=['SpeechifyInc'],
+        owners=['cloudflare'],
         checks=[at_work_computer]
     ),
     'blacklist': Filter(

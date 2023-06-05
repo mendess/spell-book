@@ -21,7 +21,7 @@ image() {
         h=$(((h * 1800) / w))
         w=1800
     fi
-    sxiv -b -g "${w}x${h}" "$TEMPFILE"
+    nsxiv -b -g "${w}x${h}" "$TEMPFILE"
 }
 
 text() {
