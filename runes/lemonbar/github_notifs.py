@@ -142,7 +142,7 @@ elif argv[1] == 'dmenu':
     subprocess.Popen(
         fr"""
 grep -F "$(dmenu -i -l 20 < {LAST_NOTIFS_FILENAME})" {LAST_NOTIFS_FILENAME} | \
-    sed -E 's/.*\[([^]]+)]$/\\1/' | xargs -L 1 firefox
+    sed -E 's/.*\[([^]]+)]$/\\1/' | xargs -L 1 $BROWSER
 """,
         shell=True
     )

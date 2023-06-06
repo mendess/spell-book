@@ -72,6 +72,9 @@ lsp.rust_analyzer.setup {
             checkOnSave = {
                 command = "clippy"
             },
+            procMacro = {
+                enable = true
+            },
         }
     },
     capabilities = capabilities

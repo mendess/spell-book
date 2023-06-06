@@ -37,9 +37,9 @@
 - command: `~/.config/lemonbar/github_notifs.py`
 - interval: `150`
 - align: `left`
-- left-click: `firefox "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
-- middle-click: `firefox "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
-- right-click: `firefox "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
+- left-click: `$BROWSER "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
+- middle-click: `$BROWSER "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
+- right-click: `$BROWSER "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
 - fg: `red`
 - underline: `red`
 - signal: `true`
