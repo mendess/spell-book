@@ -218,9 +218,11 @@ unset i
     # Lamp colors
     if [[ "$(hostname)" = tolaria ]] || nmcli -t dev | grep -q 'ZON.*2010' ; then
         #shellcheck disable=2029
+        set +e
         [ -e "$CACHE/mood_light" ] ||
-            ssh mendess.xyz -o BatchMode=yes \
+            ssh mendess@mendess.xyz -o BatchMode=yes \
                 "python ~/bulb/color.py \\${colors[0]% *} --flow --sleep"
+        set -e
     fi
     wait
 } 2>&1 | color_picker -f &
