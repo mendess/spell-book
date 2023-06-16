@@ -10,5 +10,4 @@ cd "$(dirname "$(realpath "$0")")" || exit 1
     dmenu  \
         -i \
         -p "Pick a menu:" \
-        -l 100)".sh "$1" &
-disown
+        -l 100)".sh "$1"
