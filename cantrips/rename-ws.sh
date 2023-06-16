@@ -9,7 +9,7 @@ else
     NEW=$(fzf --print-query --prompt "Enter new ws name: " </dev/null | head -1) || true
 fi
 
-NEW=$(printf "$NEW" | sed 's/\t/    /g') || exit
+NEW=$(printf "%s" "$NEW" | sed 's/\t/    /g') || exit
 
 if pgrep i3; then
     WS=$(i3-msg -t 'get_workspaces' | jq '.[] |select(.focused == true).name' -r)
