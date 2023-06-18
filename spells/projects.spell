@@ -1,11 +1,29 @@
 #!/bin/sh
 # Open dmenu, show me my projects, open a terminal in the selected one
 
-dir="$(
-    find -H ~/projects -mindepth 1 -maxdepth 1 -type d -printf "%T@\t%p\n" |
+find_at() {
+    find -H "$1" -mindepth 1 -maxdepth 1 -type d -printf "%T@\t%p\n"
+}
+
+expand_categories() {
+    while IFS=$(printf '\t') read -r time folder; do
+        case "$folder" in
+            */_*)
+                find_at "$folder"
+                ;;
+            *)
+                printf "%s\t%s\n" "$time" "$folder"
+                ;;
+        esac
+    done
+}
+
+dir=$(
+    find_at ~/projects |
+        expand_categories |
         sort -nr |
         cut -f2 |
-        xargs -L1 basename |
+        sed "s|$HOME/projects/||" |
         dmenu -l 50 -i -p project
-)"
+)
 [ "$dir" ] && exec $TERMINAL --working-directory "$HOME/projects/$dir"
