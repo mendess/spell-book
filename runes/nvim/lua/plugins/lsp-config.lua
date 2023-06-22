@@ -64,7 +64,8 @@ lsp.rust_analyzer.setup {
     settings = {
         ["rust-analyzer"] = {
             cargo = {
-                autoreload = true
+                autoreload = true,
+                features = "all",
             },
             flags = {
                 exit_timeout = 0,
