@@ -52,7 +52,6 @@ end
 set.linebreak = true
 set.breakindent = true
 set.showbreak = '> '
-set.cmdheight = 0
 set.conceallevel = 2
 set.list = true
 set.listchars = 'tab:>-'
@@ -68,7 +67,6 @@ au.group('go-shit', function(g)
         {'*.go'},
         function()
             set.listchars = 'tab:  '
-            set.cmdheight = 1
         end
     }
 end)
