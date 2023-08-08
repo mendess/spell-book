@@ -301,7 +301,8 @@ function torrent() {
                 grep -vP '^(\s+ID)|Sum:' |
                 fzf --height="$(transmission-remote -l | wc -l)" \
                     --layout=reverse |
-                awk '{print $1}')"
+                awk '{print $1}' |
+                sed 's/\*//g')"
             [[ "$t" ]] || return 0
             transmission-remote -t "$t" --remove
             ;;
