@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+file=$1
+
+if [ -z "$file" ]; then
+    echo "USAGE: $0 pdf-file.pdf"
+    exit
+fi
+
+select queue in HP-CARTAS-C6; do
+    spark rsync "$file" argentum:/tmp/
+    spark ssh argentum -- lpr -P "$queue" "/tmp/$file"
+    break
+done
