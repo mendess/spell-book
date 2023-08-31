@@ -207,6 +207,9 @@ link-rune() {
             [ ! -x "$link_name" ] &&
             echo "and chmod +x $link_name" &&
             chmod -v +x "$link_name"
+        [ "$generated" ] &&
+            echo "and chmod $(stat --format '%a' "$target") $link_name" &&
+            chmod -v --reference="$target" "$link_name"
         echo -en "\033[0m"
     fi
 }
