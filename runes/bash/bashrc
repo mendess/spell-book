@@ -43,3 +43,7 @@ done
 command -V direnv &>/dev/null && eval "$(direnv hook bash)"
 
 :
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"

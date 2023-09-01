@@ -63,7 +63,7 @@
 
 ## Package
 - command: `[ ! -f ~/.package.sh ] || bash ~/.package.sh`
-- interval: `3600`
+- interval: `60`
 - align: `left`
 - left-click: `bash ~/.package.sh click`
 

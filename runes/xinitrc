@@ -23,4 +23,6 @@ k # keyboard settings
 
 eval $(ssh-agent)
 
+echo "DISPLAY=$DISPLAY" > /tmp/xini-has-display-var
+systemctl --user set-environment DISPLAY="$DISPLAY"
 exec herbstluftwm
