@@ -9,7 +9,7 @@ if [ -z "$file" ]; then
 fi
 
 select queue in HP-CARTAS-C6; do
-    spark rsync "$file" argentum:/tmp/
+    spark rsync v "$file" argentum:/tmp/
     spark ssh argentum -- lpr -P "$queue" "/tmp/$file"
     break
 done
