@@ -67,7 +67,7 @@ shfmt
 shotgun
 socat
 sxhkd
-sxiv
+nsxiv
 tmux
 tree
 ttf-dejavu
