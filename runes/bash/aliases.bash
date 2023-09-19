@@ -3,16 +3,26 @@
 #shellcheck disable=SC2139
 # COREUTILS
 ## ls
-if hash exa &>/dev/null; then
-    alias exa='exa -g'
-    alias ls='exa'
-    alias tree='exa -T'
+if hash eza &>/dev/null; then
+    ls_bin=eza
+elif hash exa &>/dev/null; then
+    ls_bin=exa
 else
-    alias ls='ls --color=auto'
+    ls_bin=ls
+fi
+
+if hash exa &>/dev/null || hash eza &>/dev/null; then
+    alias ls="$ls_bin -g"
+
+    alias tree="$ls_bin -T"
+else
+    alias ls="$ls_bin --color=auto"
 fi
 alias la='ls -la'
 alias l='ls -lha'
 alias cl="clear; ls -lh"
+
+unset ls_bin
 
 ## df
 if hash duf &>/dev/null; then

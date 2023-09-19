@@ -4,7 +4,11 @@
 file=$1
 
 if [ -z "$file" ]; then
-    echo "USAGE: $0 pdf-file.pdf"
+    if [ -t 0 ]; then
+        echo "USAGE: $0 pdf-file.pdf"
+    else
+        notify-send -u critical 'missing pdf file param'
+    fi
     exit
 fi
 
@@ -14,6 +18,6 @@ queue=HP-CARTAS-C6
     spark rsync v "$file" argentum:/tmp/
 [ -t 0 ] || notify-send -u low 'printing pdf'
     spark ssh argentum -- lpr -P "$queue" "/tmp/$(basename "$file")"
-[ -t 0 ] || notify-send -u low 'printing pdf'
+[ -t 0 ] || notify-send -u low 'done printing pdf'
     # break
 # done
