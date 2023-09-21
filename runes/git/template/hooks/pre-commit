@@ -55,3 +55,9 @@ else
     #shellcheck disable=2016
     echo 'typos checking not installed: `cargo install typos-cli`'
 fi
+
+cargo_root=$(find -name 'Cargo.toml' 2>/dev/null | sort | head -1)
+if [ -n "$cargo_root" ]; then
+    cd "$(dirname "$cargo_root")" || exit 1
+    cargo fmt --check || exit 1
+fi

@@ -6,7 +6,16 @@ xrdb -merge ~/.config/X11/Xresources
 # deamons
 changeMeWallCicle &
 clean_ws_names &
-picom --daemon
+case "$(picom --version)" in
+    v9*)
+        picom --daemon --experimental-backends
+        ;;
+    v*)
+        picom --daemon
+        ;;
+    *)
+        ;;
+esac
 battery_check &
 dunst &
 clipmenud &
