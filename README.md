@@ -27,6 +27,7 @@
  - [new-cards](./spells/new-cards.spell)
  - [new-rust-version](./spells/new-rust-version.spell)
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
+ - [print](./spells/print.spell)
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
  - [ssh-menu](./spells/ssh-menu.spell) - A menu to quickly open ssh connections

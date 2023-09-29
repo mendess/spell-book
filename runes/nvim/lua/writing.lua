@@ -113,7 +113,7 @@ au.group('writing-opts', function(g)
             ))
 
             vim.cmd(string.format(
-                'keepjumps exe "%d,%ds/^date =.*/date = \\"%s\\"/"',
+                'keepjumps exe "%d,%ds/^date =.*/date = %s/"',
                 top,
                 btm,
                 os.date('%F')
