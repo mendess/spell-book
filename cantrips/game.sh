@@ -36,7 +36,7 @@ games="$(grep -Hn "name" "${acfs[@]}" |
 
 name="$(echo "$games" |
     column -ts$'\t' |
-    PICKER="$picker" picker \
+    dmenu \
     -i \
     -l "$(echo "$games" | wc -l)" \
     -p "dsteam" \
@@ -45,8 +45,11 @@ name="$(echo "$games" |
     -sb "#3e4e69" \
     -sf "#ffffff" |
     cut -d' ' -f2- |
-    xargs)"
+    sed -E 's/^ +//;s/ +$//')"
 
 [ -n "$name" ] || exit
 
-echo "$games" | grep "$name" | cut -d$'\t' -f2 | xargs -I{} steam 'steam://run/{}'
+echo "searching for $name"
+
+game=$(echo "$games" | tee /dev/tty | grep "$name" | cut -d$'\t' -f2)
+steam "steam://run/$game"
