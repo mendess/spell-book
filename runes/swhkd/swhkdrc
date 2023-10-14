@@ -11,7 +11,10 @@ super + Return
 #     zathura $SPELLS/layout.pdf
 
 super + d
-    tofi
+    first=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f1) ; \
+    first_text=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f2) ; \
+    second="$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f1)60" ; \
+    tofi-run --background-color "$second" --border-color "$first" --selection-background "$first" --selection-color "$first_text" | bash
 #   cmd=$( (pacman -Qqe | sed -E 's/-(git|bin|desktop)//g' | while read -r cmd; do command -v "$cmd" 2>/dev/null; done & \
 #                 find ~/.local/bin ! -type d & \
 #                 find ~/.local/share/cargo/bin ! -type d) | xargs -L1 basename | dmenu -i -l 20); \
@@ -39,13 +42,13 @@ super + d
 # super + p
 #     projects
 
-# super + F9
-#     changeMeWall
+super + F9
+    changeMeWall --wayland
 
-# super + shift + F9
-#     pape=$(xclip -sel clip -o) ; \
-    # notify-send -a "sxhrd" "Changing to clipboard wallpaper" "$pape" -u low ; \
-    # changeMeWall "$pape"
+super + shift + F9
+    pape=$(xclip -sel clip -o) ; \
+    notify-send -a "sxhrd" "Changing to clipboard wallpaper" "$pape" -u low ; \
+    changeMeWall "$pape" --wayland
 
 # super + F8
 #     feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png

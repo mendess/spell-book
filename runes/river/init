@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 # This is the example configuration file for river.
 #
 # If you wish to edit this, you will probably want to copy it to
@@ -142,7 +143,7 @@ riverctl border-color-focused 0x93a1a1
 riverctl border-color-unfocused 0x586e75
 
 # Set keyboard repeat rate
-riverctl set-repeat 50 300
+riverctl set-repeat 25 300
 
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
 riverctl rule-add float -app-id 'float*' -title 'foo'
@@ -155,4 +156,8 @@ riverctl rule-add csd -app-id "bar"
 riverctl default-layout rivertile
 rivertile -view-padding 6 -outer-padding 6 &
 
-bash -x ~/projects/spell-book/wayland-experiments/start-swhkd.sh & disown
+swww init
+if [[ "$1" == first-boot ]]; then
+    ~/.config/river/start-swhkd.sh &
+    changeMeWallCicly --wayland &
+fi

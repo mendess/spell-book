@@ -231,7 +231,9 @@ printf "Setting: %s\n" "${files[@]}"
 
 [[ "$wait_for_colors" ]] && wait
 if [ "$wayland" ]; then
-    swww img "${files[@]}" -t simple --transition-step 2
+    swww img "${files[@]}" -t simple \
+        --transition-step 2 \
+        # --transition-duration 10
 else
     if [ "$wide" -gt 0 ]; then
         feh --no-fehbg --bg-fill --no-xinerama "${files[@]}"

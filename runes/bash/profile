@@ -86,9 +86,7 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
     echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
     wm() {
         if hash river; then
-            river || true
-            echo "RIVER EXITED"
-            sleep 5
+            bash -x ~/.config/river/start-river.sh
         fi
         exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num"
     }

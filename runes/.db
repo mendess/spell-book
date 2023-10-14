@@ -48,4 +48,7 @@
 ~/.config/desmume,desmume
 ~/.config/git/template,git/template
 ~/.config/git/config,git/config,generated
+~/.config/river,river
+~/.config/swhkd,swhkd
+~/.config/tofi,tofi
 ~/.local/share/gnupg/gpg-agent.conf,gpg-agent.conf

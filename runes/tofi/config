@@ -1,0 +1,9 @@
+width = 18%
+height = 35%
+font-size = 12
+result-spacing = 2
+font = monospaced
+border-width = 2
+outline-width = 0
+selection-color = #FFF
+selection-background-padding = 1, 100000
