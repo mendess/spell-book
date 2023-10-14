@@ -84,8 +84,13 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
     pfetch
     tty_num=$(tty | grep -Eo '[0-9]')
     echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
-    exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num" |&
-        awk '{ print(strftime("[%Y-%m-%d %H:%M:%S]"), $0); fflush(stdout) }' &>>"$LOG"
+    wm() {
+        if hash river; then
+            river
+        fi
+        exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num"
+    }
+    wm |& awk '{ print(strftime("[%Y-%m-%d %H:%M:%S]"), $0); fflush(stdout) }' &>>"$LOG"
 # elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
 #     if [[ "$tty" =~ tty[4-9] ]]; then
 #         export TTY_TMUX=1
