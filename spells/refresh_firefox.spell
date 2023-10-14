@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Refreshes firefox
 
 while read -r wid ; do
