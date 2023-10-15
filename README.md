@@ -26,6 +26,7 @@
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [new-cards](./spells/new-cards.spell)
  - [new-rust-version](./spells/new-rust-version.spell)
+ - [picker](./spells/picker.spell)
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
  - [print](./spells/print.spell)
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
@@ -44,10 +45,9 @@
  - [draw](./cantrips/draw.sh) - draw terminals
  - [emoji](./cantrips/emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
  - [free-nitro](./cantrips/free-nitro.sh) - I don't feel like paying discord, so I just store emoji gifs and quickly copy them to the clipboard to paste in chat. 😎
- - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu
+ - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu/fzf/tofi
  - [mconlinelist](./cantrips/mconlinelist.sh) - Send a notification with the list of online players in a minecraft server
  - [menu](./cantrips/menu.sh) - The menu used to find and launch the cantrips
- - [mpv-shot0001](./cantrips/mpv-shot0001.jpg)
  - [quickbrowser](./cantrips/quickbrowser.sh) - Launches vimb with one of the [bookmarks](./library/bookmarks)
  - [rename-ws](./cantrips/rename-ws.sh) - Dynamic [i3|bspwm|herbstluftwm] workspace renamer
  - [trayer](./cantrips/trayer.sh) - trayer launcher
