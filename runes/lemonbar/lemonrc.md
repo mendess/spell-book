@@ -1,8 +1,7 @@
 # Bar
 - bg: `#aa222222`
-- geometry: `x22`
+- height: `x22`
 - separator: ` | `
-- n_clickables: `32`
 %% switch on hostname
 %% 3QWP3T3 {
 - font: `Hack: size=18`
