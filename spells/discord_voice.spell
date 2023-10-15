@@ -17,7 +17,7 @@ Disconnect
 "
 list="$(echo "$list" | grep -v '^$')"
 if [ "$DISPLAY" ]; then
-    ch=$(echo "$list" | dmenu -p channel -i -l "$(echo "$list" | wc -l)")
+    ch=$(echo "$list" | picker -p channel -i -l "$(echo "$list" | wc -l)")
 else
     export DISPLAY=:0
     printf "%s\nOther" "$list" | nl

@@ -12,19 +12,17 @@ selector() {
         esac
         shift
     done
-    case "$PROMPT_PROG" in
-        fzf) fzf -i --prompt "$prompt " --print-query | tail -1 ;;
-        dmenu) dmenu -i -p "$prompt" -l "$listsize" ;;
-    esac
+    picker -i -p "$prompt" -l "$listsize"
 }
 
 error() {
     title=$1
     shift
-    case "$PROMPT_PROG" in
-        fzf) printf "[1;31mError:[0m[1m %s[0m\n%s\n" "$title" "$*" ;;
-        dmenu) notify-send "Error: $title" "$*" -u critical -a todo ;;
-    esac
+    if [ -t 0 ]; then
+        printf "[1;31mError:[0m[1m %s[0m\n%s\n" "$title" "$*"
+    else
+        notify-send "Error: $title" "$*" -u critical -a todo
+    fi
 }
 
 todo() {
@@ -63,17 +61,12 @@ touch "$file"
 height=$(wc -l <"$file")
 prompt="Add/delete a task: "
 
-if [ ! "$DISPLAY" ] || [ ! "$gui" ]; then
-    PROMPT_PROG=fzf
-else
-    PROMPT_PROG=dmenu
-fi
-
 if [ "$list" ]; then
-    case "$PROMPT_PROG" in
-        fzf) todo ;;
-        dmenu) notify-send 'Todo list' "$(todo)" -a todo ;;
-    esac
+    if [ -t 0 ]; then
+        todo
+    else
+        notify-send 'Todo list' "$(todo)" -a todo
+    fi
 else
     while :; do
         cmd=$(todo | selector -l "$height" -p "$prompt")

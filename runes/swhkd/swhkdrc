@@ -14,33 +14,25 @@ super + d
     first=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f1) ; \
     first_text=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f2) ; \
     second="$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f1)60" ; \
-    tofi-run --background-color "$second" --border-color "$first" --selection-background "$first" --selection-color "$first_text" | bash
-#   cmd=$( (pacman -Qqe | sed -E 's/-(git|bin|desktop)//g' | while read -r cmd; do command -v "$cmd" 2>/dev/null; done & \
-#                 find ~/.local/bin ! -type d & \
-#                 find ~/.local/share/cargo/bin ! -type d) | xargs -L1 basename | dmenu -i -l 20); \
-#   case $cmd in \
-#   *\; ) "$TERMINAL" --hold -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";; \
-#   * ) ${cmd} ;; \
-#   esac & disown
+    second_text=$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f2) ; \
+    tofi-run \
+        --background-color "$second" \
+        --text-color "$second_text" \
+        --border-color "$first" \
+        --selection-background "$first" \
+        --selection-color "$first_text" | bash
 
-# super + shift + f
-#     $TERMINAL --class floating-terminal,floating-terminal -e f launcher
-
-
-# @super + @shift + @period
-#     xdotool mousedown 1; xdotool mouseup 1
-
-# super + shift + d
-#     menu GUI
+super + shift + d
+    menu GUI
 
 # super + shift + t
 #     todo gui
 
-# super + s
-#     ssh-menu
+super + s
+    ssh-menu
 
-# super + p
-#     projects
+super + p
+    projects
 
 super + F9
     changeMeWall --wayland
@@ -151,7 +143,7 @@ super + backslash
 super + shift + backslash
     RUST_LOG=debug SESSION_KIND=gui m quit
 
-super + {minus,plus}
+super + {minus,=}
     RUST_LOG=debug SESSION_KIND=gui m {vd,vu} 2
 
 super + {Next,Prior,End,Home}
@@ -197,14 +189,14 @@ super + alt + BackSpace
 super + Pause
     systemctl suspend
 
-# super + shift + i
-#     printf "%s\n" pulls issues notifications | \
-#         dmenu -l 20 | \
-#         sed 's|^|https://github.com/|' | \
-#         xargs --no-run-if-empty $BROWSER
+super + shift + i
+    printf "%s\n" pulls issues notifications | \
+        picker -l 20 | \
+        sed 's|^|https://github.com/|' | \
+        xargs --no-run-if-empty $BROWSER
 
-# super + shift + o
-#     echo -e 'lock\nsystemctl suspend\nreboot\nshutdown now' | dmenu -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 4 | sh
+super + shift + o
+    echo -e 'lock\nsystemctl suspend\nreboot\nshutdown now' | picker -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 4 | sh
 
 # DUNST KEYBINDS
 
@@ -217,68 +209,3 @@ control + {_, shift +} period
 control + grave
         dunstctl history-pop
 
-###### bspwm
-#super + space
-#   if bspc query --nodes --node focused.floating; then \
-#       bspc node last.local.\!floating -f; \
-#   else \
-#       bspc node last.local.floating -f; \
-#   fi
-
-#super + shift + control + q
-#    bspc node -k
-
-#super + {_,shift +} Tab
-#   bspc desktop -f {next,prev}.local.occupied
-
-#super + e
-#   bspc desktop --layout next
-
-##super + {_,shift +} n
-##  bspc desktop --bubble {next,prev}
-
-#super + g
-#   bspc node -s biggest.local
-
-#super + shift + e
-#   bspc node $(bspc query --nodes --desktop | head -1) --equalize
-
-#super + r
-#   bspc node $(bspc query --nodes --desktop | head -1) --circulate forward
-
-#super + i
-#   bspc node $(bspc query --nodes --desktop | head -1) -g hidden
-
-#super + control + i
-#   bspc node -g hidden
-
-#super + alt + i
-#    bspc node $(bspc query -N -n .hidden | tail -n1) -g hidden=off
-
-## super + shift + i
-##     for n in $(bspc query --nodes); do bspc node $n -g hidden; done
-
-#super + shift + r
-#   bspc node @parent -R 90
-
-#super + control + {h,j,k,l}
-#   dir={(right left -10 0),(bottom top 0 +10),(bottom top 0 -10),(right left +10 0)}; \
-#    bspc node --resize $\{dir[0]\} $\{dir[2]\} $\{dir[3]\} || bspc node --resize $\{dir[1]\} $\{dir[2]\} $\{dir[3]\}
-
-
-##  || bspc node $(bspc query --nodes --desktop | head -1) --circulate $\{dir[1]\}
-
-#super + shift + s
-#    bspc node -g sticky
-
-#super + shift + m
-#    if marked=$(bspc query -N -n .marked); then \
-#        bspc node --swap $marked ; \
-#        bspc node $marked -g 'marked=off' ; \
-#    else \
-#        bspc node -g marked ; \
-#    fi
-
-#super + colon
-#    bspc node --state pseudo_tiled; \
-#    bspc node --resize bottom_right 50 800

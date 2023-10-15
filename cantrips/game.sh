@@ -1,19 +1,6 @@
 #!/bin/bash
 
-# Launch steam games from /comfy/ dmenu
-
-case "$1" in
-    GUI)
-        picker=dmenu
-        ;;
-    spit)
-        spit=1
-        ;;
-    *)
-        picker=fzf
-        ;;
-esac
-[ "$1" = GUI ] && picker=dmenu || picker=fzf
+# Launch steam games from /comfy/ dmenu/fzf/tofi
 
 steam_libraries=(
     ~/.local/share/Steam
@@ -36,7 +23,7 @@ games="$(grep -Hn "name" "${acfs[@]}" |
 
 name="$(echo "$games" |
     column -ts$'\t' |
-    dmenu \
+    picker \
     -i \
     -l "$(echo "$games" | wc -l)" \
     -p "dsteam" \

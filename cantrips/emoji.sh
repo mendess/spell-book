@@ -5,7 +5,7 @@
 # Must have xclip installed to even show menu.
 xclip -h >/dev/null || exit
 
-chosen=$(grep -v "#" "$EMOJIS" | dmenu -i -l 20 -fn Monospace-18)
+chosen=$(grep -v "#" "$EMOJIS" | picker -i -l 20 -fn Monospace-18)
 
 [ "$chosen" ] || exit
 

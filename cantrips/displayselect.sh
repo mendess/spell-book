@@ -16,7 +16,7 @@ EOF
 
 twoscreen() { # If multi-monitor is selected and there are two screens.
 
-    mirror=$(printf "no\\nyes" | dmenu -i -l 10 -p "Mirror displays?")
+    mirror=$(printf "no\\nyes" | picker -i -l 10 -p "Mirror displays?")
     # Mirror displays using native resolution of external display and a scaled
     # version for the internal display
     if [ "$mirror" = "yes" ]; then

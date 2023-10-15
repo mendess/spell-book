@@ -24,6 +24,6 @@ dir=$(
         sort -nr |
         cut -f2 |
         sed "s|$HOME/projects/||" |
-        dmenu -l 50 -i -p project
+        picker -l 50 -i -p project
 )
 [ "$dir" ] && exec $TERMINAL --working-directory "$HOME/projects/$dir"

@@ -159,5 +159,5 @@ rivertile -view-padding 6 -outer-padding 6 &
 swww init
 if [[ "$1" == first-boot ]]; then
     ~/.config/river/start-swhkd.sh &
-    changeMeWallCicly --wayland &
+    changeMeWallCicle --wayland &
 fi

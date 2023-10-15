@@ -4,7 +4,7 @@ set -o pipefail
 set -e
 
 if [ "$1" = GUI ]; then
-    NEW=$(dmenu -p "Enter new ws name:" </dev/null)
+    NEW=$(picker -p "Enter new ws name:" </dev/null)
 else
     NEW=$(fzf --print-query --prompt "Enter new ws name: " </dev/null | head -1) || true
 fi

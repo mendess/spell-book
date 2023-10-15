@@ -14,7 +14,7 @@ local_hosts="$(grep -w Host ~/.ssh/config | cut -d ' ' -f2)"
 host=$(
     echo -e "$spark_hosts\n$local_hosts" |
         awk '$0 !~ /^\s*$/ && !(a[$0]++)' |
-        dmenu -l 20 -p "ssh"
+        picker -l 20 -p "ssh"
 )
 [ -z "$host" ] && exit
 
