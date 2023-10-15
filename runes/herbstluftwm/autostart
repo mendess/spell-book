@@ -261,12 +261,9 @@ case "$(uname -n)" in
         ;;
 esac
 
-while read -r mon; do
-    read -ra geometry < <(echo "$mon" | tr 'x+' ' ')
-    echo "${geometry[@]}"
-    monitors+=("${geometry[0]}x${extra_height}+${geometry[2]}+0")
-    ((steps++))
-done < <($hc list_monitors | awk '{print $2}')
+mapfile -t monitors < <(xrandr --listmonitors | awk '{print $4}' | sed 1d)
+printf "detected %s\n" "${#monitors[@]}"
+printf "\t%s" "${monitors[@]}"
 
 # Statically define which tag should be send to which monitor
 lock_tag_to_monitor() {
@@ -334,14 +331,13 @@ fi
 bar_args=()
 i=0
 for mon in "${monitors[@]}"; do
-    echo "$mon"
     $hc pad "$((i++))" "$((extra_height + 22))" 0 0 0
-    bar_args+=('--bar' "${mon}")
+    bar_args+=('--output' "${mon}")
 done
 unset i
 
 pkill lemon
-RUST_LOG=debug daemonise lemon "${bar_args[@]}" &>"$CACHE_DIR/lemonbar.log"
+RUST_LOG=trace daemonise lemon "${bar_args[@]}" &>"$CACHE_DIR/lemonbar.log"
 
 
 # unlock, just to be sure
