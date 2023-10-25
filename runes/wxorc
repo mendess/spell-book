@@ -103,8 +103,10 @@ archive() {
 
 other() {
     case "$2" in
-        *twitter.com*)
-            xdg-open "${1//twitter.com/nitter.unixfox.eu}"
+        *twitter.com* | *https://x.com/* | *http://x.com/*)
+            url="${1//twitter.com/nitter.unixfox.eu}"
+            url="${url//x.com/nitter.unixfox.eu}"
+            xdg-open "$url"
             ;;
         *)
             false

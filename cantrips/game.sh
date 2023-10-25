@@ -19,8 +19,6 @@ games="$(grep -Hn "name" "${acfs[@]}" |
     sed -r 's/[0-9]+\s//' |
     grep -viE 'proton|redistributable|linux')"
 
-[[ "$spit" ]] && echo "$games" && exit
-
 name="$(echo "$games" |
     column -ts$'\t' |
     picker \
