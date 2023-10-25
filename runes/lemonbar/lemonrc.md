@@ -1,6 +1,6 @@
 # Bar
-- bg: `#aa222222`
-- height: `x22`
+- bg: `#222222aa`
+- height: `22`
 - separator: ` | `
 %% switch on hostname
 %% 3QWP3T3 {

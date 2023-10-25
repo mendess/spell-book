@@ -13,7 +13,7 @@ use_tofi() {
     [ "$selection_text_color" ] && args+=(--selection-color "$selection_text_color")
     [ "$lines" ] && args+=(--num-results "$lines")
     [ "$require_match" ] && args+=(--require-match "$require_match")
-    tofi ${args[@]}
+    tofi "${args[@]}"
 }
 
 use_dmenu() {
@@ -26,7 +26,7 @@ use_dmenu() {
     [ "$case_insensitive" ] && args+=(-i)
     [ "$lines" ] && args+=(-l "$lines")
     [ "$font" ] && args+=(-fn "$font")
-    dmenu ${args[@]}
+    dmenu "${args[@]}"
 }
 
 use_fzf() {
