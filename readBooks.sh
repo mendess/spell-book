@@ -24,10 +24,10 @@ m_installed() (
         command -V m 2>/dev/null >/dev/null &&
         up_to_date_rust_bin m
 )
-m() {
+m() (
     cd "$1" &&
         cargo install --path . --bin m
-}
+)
 
 lemons_installed() (
     rust_is_setup || return 0
@@ -38,6 +38,17 @@ lemons_installed() (
 lemons() (
     cd "$1" &&
         cargo install --path . --bin lemon
+)
+
+foretell_installed() (
+    rust_is_setup || return 0
+    cd "$1" &&
+        command -V foretell 2>/dev/null >/dev/null &&
+        up_to_date_rust_bin foretell
+)
+foretell() (
+    cd "$1" &&
+        cargo install --path . --bin foretell
 )
 
 find_missing() {
