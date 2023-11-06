@@ -1,6 +1,13 @@
 # Bar
 - bg: `#222222aa`
+%% switch on hostname
+%% 3QWP3T3 {
+- height: `37`
+%% }
+%% default {
 - height: `22`
+%% }
+%% end
 - separator: ` | `
 %% switch on hostname
 %% 3QWP3T3 {
