@@ -95,6 +95,12 @@
 - align: `middle`
 - left-click: `bash ~/.package.sh click`
 - underline: `yellow`
+- left-click: `m prev-file; pkill --signal SIGUSR1 -x lemon`
+- middle-click: `m pause; pkill --signal SIGUSR1 -x lemon`
+- right-click: `m next-file; pkill --signal SIGUSR1 -x lemon`
+- scroll-up: `m vu; pkill --signal SIGUSR1 -x lemon`
+- scroll-down: `m vd; pkill --signal SIGUSR1 -x lemon`
+- signal: `true`
 
 
 ## Spotify

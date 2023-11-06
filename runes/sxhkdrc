@@ -146,31 +146,40 @@ XF86Audio{Raise,Lower}Volume
 XF86AudioMicMute
     pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
 
+{XF86AudioPlay,XF86AudioPause}
+    RUST_LOG=debug SESSION_KIND=gui m set-{play,pause}
+
+{XF86AudioNext,XF86AudioPrev}
+    RUST_LOG=debug SESSION_KIND=gui m {next-file,prev-file}
+
+{XF86AudioForward,XF86AudioRewind}
+    RUST_LOG=debug SESSION_KIND=gui m {frwd,back}
+
 super + backslash
-    ;RUST_LOG=debug SESSION_KIND=gui m pause
+    RUST_LOG=debug SESSION_KIND=gui m pause
 
 super + shift + bar
-    ;RUST_LOG=debug SESSION_KIND=gui m quit
+    RUST_LOG=debug SESSION_KIND=gui m quit
 
 super + {minus,plus}
-    ;RUST_LOG=debug SESSION_KIND=gui m {vd,vu} 2
+    RUST_LOG=debug SESSION_KIND=gui m {vd,vu} 2
 
 super + {Next,Prior,End,Home}
-    ;RUST_LOG=debug SESSION_KIND=gui m {next,prev,next-file,prev-file}
+    RUST_LOG=debug SESSION_KIND=gui m {next,prev,next-file,prev-file}
 
 super + {Up,Down}
-    ;RUST_LOG=debug SESSION_KIND=gui m {frwd,back} 60
+    RUST_LOG=debug SESSION_KIND=gui m {frwd,back} 60
 
 super + {Right,Left}
-    ;RUST_LOG=debug SESSION_KIND=gui m {frwd,back} 5
+    RUST_LOG=debug SESSION_KIND=gui m {frwd,back} 5
 
 super + {Insert,Delete}
-    ;RUST_LOG=debug SESSION_KIND=gui m {current,ch-cat}
+    RUST_LOG=debug SESSION_KIND=gui m {current,ch-cat}
 
 #super + shift + Insert
 #    $TERMINAL -e m lyrics
 super + shift + Insert
-    ;RUST_LOG=debug SESSION_KIND=cli m current --link | xclip -sel clip; \
+    RUST_LOG=debug SESSION_KIND=cli m current --link | xclip -sel clip; \
     notify-send -u low 'copied'
 
 super + shift + underscore
