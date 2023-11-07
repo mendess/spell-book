@@ -132,6 +132,12 @@
 - signal: `true`
 - layer: `1`
 
+## Bt
+- command: `~/.config/lemonbar/bt-devices`
+- underline: `blue`
+- interval: `10`
+- alignment: `right`
+
 ## Brightness
 - command: `~/.config/lemonbar/brightness`
 - alignment: `right`
@@ -181,6 +187,7 @@
 - interval: `10`
 - un: `yellow`
 - fg: `white`
+- layer: `1`
 - align: `right`
 
 ## Batery
