@@ -3,8 +3,8 @@
 set -x
 use_tofi() {
     args=()
-    [ "$prompt" ] && args+=(--prompt "$prompt")
-    [ "$bg_color" ] && args+=(--background-color "${bg_color}60")
+    [ "$prompt" ] && args+=(--prompt "$prompt ")
+    [ "$bg_color" ] && args+=(--background-color "${bg_color}DD")
     [ "$text_color" ] && args+=(--text-color "$text_color")
     [ "$selection_bg_color" ] && args+=(
         --border-color "$selection_bg_color"

@@ -164,6 +164,8 @@ if [[ "$1" == first-boot ]]; then
     changeMeWallCicle --wayland &
 fi
 
+pgrep dunst || { dunst & disown; }
+
 mapfile -t outputs < <(wlr-randr | awk '$0 ~ /^[^ ]/ { print("--output"); print($1) }')
 pkill lemon
-RUST_LOG=info lemon --program zelbar "${outputs[@]}"
+RUST_LOG=info lemon --program zelbar ${outputs[@]} & disown
