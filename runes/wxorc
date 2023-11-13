@@ -104,8 +104,13 @@ archive() {
 other() {
     case "$2" in
         *twitter.com* | *https://x.com/* | *http://x.com/*)
-            url="${1//twitter.com/nitter.unixfox.eu}"
+            notify-send "before" "$1"
+            url="${1//vxtwitter.com/nitter.unixfox.eu}"
+            notify-send "1" "$1"
+            url="${url//twitter.com/nitter.unixfox.eu}"
+            notify-send "2" "$url"
             url="${url//x.com/nitter.unixfox.eu}"
+            notify-send "3" "$url"
             xdg-open "$url"
             ;;
         *)

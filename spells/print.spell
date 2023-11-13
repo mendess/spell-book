@@ -12,7 +12,7 @@ if [ -z "$file" ]; then
     exit
 fi
 
-queue=HP-CARTAS-C6
+queue=${2:-HP-CARTAS-C6}
 # select queue in HP-CARTAS-C6; do
 [ -t 0 ] || notify-send -u low 'sending pdf to print server'
     spark rsync v "$file" argentum:/tmp/
