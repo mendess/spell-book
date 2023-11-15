@@ -103,7 +103,7 @@ while [ "$#" -gt 0 ]; do
             shift
             ;;
         -s)
-            sxiv=1
+            nsxiv=1
             ;;
         -w)
             wide=1
@@ -137,14 +137,14 @@ while [ "$#" -gt 0 ]; do
     esac
     shift
 done
-if [[ "$sxiv" ]]; then
+if [[ "$nsxiv" ]]; then
     if [[ "$filter" ]]; then
         mapfile -t files < <(find -H "$WALLPAPERS" -type f |
             grep -iP "/[^/]*${filter}[^/]*$" |
-            sxiv -tio
+            nsxiv -tio
         )
     else
-        mapfile -t files < <(sxiv -to "$WALLPAPERS")
+        mapfile -t files < <(nsxiv -to "$WALLPAPERS")
     fi
 elif [[ "${#files[@]}" = 0 ]]; then
     mapfile -t files < <(find -H "$WALLPAPERS" -type f |
