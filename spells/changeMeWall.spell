@@ -6,7 +6,9 @@
 # idea and help finding the more contrasting colors for dmenu
 
 set -e
-CACHE="/tmp/$LOGNAME"
+TEMPDIR="/tmp/$LOGNAME"
+mkdir -p "$TEMPDIR"
+CACHE="${XDG_CACHE_HOME:-~/.cache/}/changeMeWall"
 mkdir -p "$CACHE"
 
 show_help() {
@@ -181,21 +183,29 @@ unset i
 [ "$wide" -gt 0 ] && files=("${files[$((wide - 1))]}")
 
 [ "$fast" ] || {
-    mapfile -t colors < <(
-        convert "${files[0]}" +dither -colors 10 histogram: |
-            sed -n '/comment={/,/^}/p' |
-            sed -E 's/comment=\{\s*|\}|^\s*//g' |
-            awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
-                 $0 !~ /[0-9]e\+[0-9]/ {print}' |
-            sort -nr |
-            grep -aoP '#[a-fA-F0-9]{6}' |
-            python3 -c "$BRIGHTNESS_FILTER" |
-            head -3
-    )
+    cached_colors="$CACHE/${files[0]//\//%}"
+    echo "Cache is: $cached_colors"
+    if [[ -f "$cached_colors" ]]; then
+        mapfile -t colors < "$cached_colors"
+    else
+        mapfile -t colors < <(
+            convert "${files[0]}" +dither -colors 10 histogram: |
+                sed -n '/comment={/,/^}/p' |
+                sed -E 's/comment=\{\s*|\}|^\s*//g' |
+                awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
+                     $0 !~ /[0-9]e\+[0-9]/ {print}' |
+                sort -nr |
+                grep -aoP '#[a-fA-F0-9]{6}' |
+                python3 -c "$BRIGHTNESS_FILTER" |
+                head -3
+        )
+
+        printf "%s\n" "${colors[@]}" > "$cached_colors"
+    fi
     echo "Picking ${colors[*]}"
 
     # Dmenu colors
-    printf "%s\n" "${colors[@]}" >| "$CACHE/wall_colors"
+    printf "%s\n" "${colors[@]}" >| "$TEMPDIR/wall_colors"
 
     if [[ "$wayland" ]]; then
         set -x
@@ -219,7 +229,7 @@ unset i
     if [[ "$(hostname)" = tolaria ]] || nmcli -t dev | grep -q 'ZON.*2010' ; then
         #shellcheck disable=2029
         set +e
-        [ -e "$CACHE/mood_light" ] ||
+        [ -e "$TEMPDIR/mood_light" ] ||
             ssh mendess@mendess.xyz -o BatchMode=yes \
                 "python ~/bulb/color.py \\${colors[0]% *} --flow --sleep"
         set -e
