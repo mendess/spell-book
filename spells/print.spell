@@ -14,10 +14,10 @@ fi
 
 queue=${2:-HP-CARTAS-C6}
 # select queue in HP-CARTAS-C6; do
-[ -t 0 ] || notify-send -u low 'sending pdf to print server'
+[ -t 0 ] || notify-send -u low 'sending pdf to print server' "$file"
     spark rsync v "$file" argentum:/tmp/
-[ -t 0 ] || notify-send -u low 'printing pdf'
+[ -t 0 ] || notify-send -u low 'printing pdf' "$file"
     spark ssh argentum -- lpr -P "$queue" "/tmp/$(basename "$file")"
-[ -t 0 ] || notify-send -u low 'done printing pdf'
+[ -t 0 ] || notify-send -u low 'done printing pdf' "$file"
     # break
 # done
