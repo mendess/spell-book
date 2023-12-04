@@ -98,10 +98,9 @@ process_params() {
             case "${host[0]}" in Powerstone | Tolaria) return 0 ;; esac
             for h in "${host[@]}"; do
                 case "$h" in
-                    weatherlight | matess | kaladesh)
+                    weatherlight | kaladesh)
                         blue "Creating symlink"
-                        ssh "$HOST" bash -c \
-                            "cd $WALLPAPER_ROOT; ln -svr ./all/$name ./small/$name"
+                        ssh "$HOST" "cd $WALLPAPER_ROOT; ln -svr ./all/$name ./small/$name"
                         [[ "$(hostname)" != "tolaria" ]] && cp -v "$wall" "$WALLPAPERS/$name"
                         ;;
                     powerstone)
@@ -111,7 +110,7 @@ process_params() {
                              [ ! -h $WALLPAPER_ROOT/phone/$name ]" &&
                             echo -e "A \e[34mnon link\e[0m wallpaper with that name already exists" &&
                             return 1
-                        ssh "$HOST" bash -c "cd $WALLPAPER_ROOT; ln -svr ./all/$name ./phone/$name"
+                        ssh "$HOST" "cd $WALLPAPER_ROOT; ln -svr ./all/$name ./phone/$name"
                         ;;
                 esac
             done
@@ -125,7 +124,7 @@ process_params() {
                 Powerstone) local filter=phone
             esac
             for w in $wall; do
-                ssh mirrodin \
+                ssh "$HOST" \
                     "find $WALLPAPER_ROOT/$filter -type l,f -name '$(basename "$w")' | xargs -r rm -v" |
                     sed "s/'/'mirrodin:/"
 
