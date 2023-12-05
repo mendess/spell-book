@@ -105,6 +105,7 @@ other() {
     case "$2" in
         *twitter.com* | *https://x.com/* | *http://x.com/*)
             url="${1//vxtwitter.com/nitter.unixfox.eu}"
+            url="${url//fxtwitter.com/nitter.unixfox.eu}"
             url="${url//twitter.com/nitter.unixfox.eu}"
             url="${url//x.com/nitter.unixfox.eu}"
             xdg-open "$url"
