@@ -219,8 +219,10 @@ if [ "$sync" ]; then
     endpoint="mendess.xyz"
     mkdir -p "$WALLPAPERS"
     cd "$WALLPAPERS" || exit 1
-    [ "$(hostname)" = localhost ] && is_phone="/phone"
-    base="https://$endpoint/api/v1/walls$is_phone"
+    path="walls"
+    [ "$(hostname)" = localhost ] && path="$path/phone"
+    [ "$(hostname)" = tolaria ] && path="$path/all"
+    base="https://$endpoint/api/v1/$path"
     CLEAN_LINE="\r\033[2K"
     set +e
     all_walls_obj=$(curl -L --silent "$base")
@@ -250,6 +252,7 @@ if [ "$sync" ]; then
             if [ "$e" -ne 0 ]; then
                 echo
                 echo "Error downloading '$name': $e"
+                echo "$base/$encoded_name"
                 exit "$e"
             fi
             echo ' Done'

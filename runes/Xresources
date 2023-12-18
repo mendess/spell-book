@@ -27,6 +27,7 @@ background: #181A1C
 Nsxiv.window.background: #181A1C
 Nsxiv.window.foreground: #FFFFFF
 Nsxiv.bar.background: #FFFFFF
+Nsxiv.bar.foreground: #000000
 
 urxvt.background:       [60]#222222
 urxvt.foreground:       #FFFFFF
