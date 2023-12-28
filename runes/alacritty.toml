@@ -1,0 +1,509 @@
+[colors.bright]
+black = "0x727169"
+blue = "0x7fb4ca"
+cyan = "0x7aa89f"
+green = "0x98bb6c"
+magenta = "0x938aa9"
+red = "0xe82424"
+white = "0xdcd7ba"
+yellow = "0xe6c384"
+
+[colors.normal]
+black = "0x090618"
+blue = "0x7e9cd8"
+cyan = "0x6a9589"
+green = "0x76946a"
+magenta = "0x957fb8"
+red = "0xc34043"
+white = "0xc8c093"
+yellow = "0xc0a36e"
+
+[colors.primary]
+background = "0x1f1f28"
+foreground = "0xdcd7ba"
+
+[colors.selection]
+background = "0x2d4f67"
+foreground = "0xc8c093"
+
+[env]
+TERM = "xterm-256color"
+WINIT_X11_SCALE_FACTOR = "1.5"
+
+[font]
+size = 8.0
+
+[font.normal]
+family = "monospace"
+
+[[hints.enabled]]
+command = "xdg-open"
+post_processing = true
+regex = "(mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key = "U"
+mods = "Control|Shift"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "None"
+
+[[keyboard.bindings]]
+action = "ScrollToBottom"
+key = "Escape"
+mode = "Vi"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ToggleViMode"
+key = "Escape"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ClearSelection"
+key = "Escape"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ScrollToBottom"
+key = "I"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ToggleViMode"
+key = "I"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ScrollLineUp"
+key = "Y"
+mode = "Vi"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollLineDown"
+key = "E"
+mode = "Vi"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollToTop"
+key = "G"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ScrollToBottom"
+key = "G"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key = "B"
+mode = "Vi"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key = "F"
+mode = "Vi"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollHalfPageUp"
+key = "U"
+mode = "Vi"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollHalfPageDown"
+key = "D"
+mode = "Vi"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "Y"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ClearSelection"
+key = "Y"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ClearSelection"
+key = "Copy"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ToggleNormalSelection"
+key = "V"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ToggleLineSelection"
+key = "V"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "ToggleBlockSelection"
+key = "V"
+mode = "Vi"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ToggleSemanticSelection"
+key = "V"
+mode = "Vi"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "Open"
+key = "Return"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "Up"
+key = "K"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "Down"
+key = "J"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "Left"
+key = "H"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "Right"
+key = "L"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "First"
+key = "Key0"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "Last"
+key = "Key4"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "FirstOccupied"
+key = "Key6"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "High"
+key = "H"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "Middle"
+key = "M"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "Low"
+key = "L"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "SemanticLeft"
+key = "B"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "SemanticRight"
+key = "W"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "SemanticRightEnd"
+key = "E"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "WordLeft"
+key = "B"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "WordRight"
+key = "W"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "WordRightEnd"
+key = "E"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "Bracket"
+key = "Key5"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "SearchForward"
+key = "Slash"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "SearchBackward"
+key = "Slash"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "SearchNext"
+key = "N"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "SearchPrevious"
+key = "N"
+mode = "Vi"
+mods = "Shift"
+
+[[keyboard.bindings]]
+action = "SearchForward"
+key = "F"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "Insert"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key = "PageUp"
+mode = "~Alt"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key = "PageDown"
+mode = "~Alt"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollLineUp"
+key = "K"
+mode = "~Alt"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "ScrollLineDown"
+key = "J"
+mode = "~Alt"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Super|Shift"
+
+[mouse]
+hide_when_typing = true
+
+# [[schemes.indexed_colors]]
+# color = "0xffa066"
+# index = 16
+
+# [[schemes.indexed_colors]]
+# color = "0xff5d62"
+# index = 17
+
+# [schemes.ayu_dark.bright]
+# black = "0x686868"
+# blue = "0x59C2FF"
+# cyan = "0x95E6CB"
+# green = "0xC2D94C"
+# magenta = "0xD4BFFF"
+# red = "0xF07178"
+# white = "0xFFFFFF"
+# yellow = "0xFFB454"
+
+# [schemes.ayu_dark.normal]
+# black = "0x01060E"
+# blue = "0x53BDFA"
+# cyan = "0x90E1C6"
+# green = "0x91B362"
+# magenta = "0xA37ACC"
+# red = "0xEA6C73"
+# white = "0xC7C7C7"
+# yellow = "0xF9AF4F"
+
+# [schemes.ayu_dark.primary]
+# background = "0x222222"
+# foreground = "0xFFFFFF"
+
+# [[schemes.base16.indexed_colors]]
+# color = "0xdc9656"
+# index = 16
+
+# [[schemes.base16.indexed_colors]]
+# color = "0xa16946"
+# index = 17
+
+# [[schemes.base16.indexed_colors]]
+# color = "0x282828"
+# index = 18
+
+# [[schemes.base16.indexed_colors]]
+# color = "0x383838"
+# index = 19
+
+# [[schemes.base16.indexed_colors]]
+# color = "0xb8b8b8"
+# index = 20
+
+# [[schemes.base16.indexed_colors]]
+# color = "0xe8e8e8"
+# index = 21
+
+# [schemes.base16.bright]
+# black = "0x585858"
+# blue = "0x8cc6db"
+# cyan = "0x96d6cd"
+# green = "0xbad17d"
+# magenta = "0xd19dc5"
+# red = "0xc9514d"
+# white = "0xf8f8f8"
+# yellow = "0xffd08c"
+
+# [schemes.base16.cursor]
+# cursor = "0xd8d8d8"
+# text = "0x181818"
+
+# [schemes.base16.normal]
+# black = "0x181818"
+# blue = "0x7cafc2"
+# cyan = "0x86c1b9"
+# green = "0xa1b56c"
+# magenta = "0xba8baf"
+# red = "0xab4642"
+# white = "0xd8d8d8"
+# yellow = "0xe3b97d"
+
+# [schemes.base16.primary]
+# background = "0x181818"
+# foreground = "0xd8d8d8"
+
+# [schemes.base16.search.bar]
+# background = "#181818"
+# foreground = "#d8d8d8"
+
+# [schemes.base16.search.matches]
+# background = "#181818"
+# foreground = "#d8d8d8"
+
+# [schemes.custom.bright]
+# black = "0x766e66"
+# blue = "0x7aa6da"
+# cyan = "0x00ad9c"
+# green = "0x9ec400"
+# magenta = "0xb77ee0"
+# red = "0xff3334"
+# white = "0xffffff"
+# yellow = "0xe7c547"
+
+# [schemes.custom.normal]
+# black = "0x1b1918"
+# blue = "0x407ee7"
+# cyan = "0x70c0ba"
+# green = "0x5ab738"
+# magenta = "0x6666ea"
+# red = "0xf22c40"
+# white = "0xeaeaea"
+# yellow = "0xd5911a"
+
+# [schemes.custom.primary]
+# background = "0x222222"
+# foreground = "0xeaeaea"
+
+# [schemes.everforest_dark_hard.bright]
+# black = "#4b565c"
+# blue = "#7fbbb3"
+# cyan = "#83c092"
+# green = "#a7c080"
+# magenta = "#d699b6"
+# red = "#e67e80"
+# white = "#d3c6aa"
+# yellow = "#dbbc7f"
+
+# [schemes.everforest_dark_hard.normal]
+# black = "#102020"
+# blue = "#7fbbb3"
+# cyan = "#83c092"
+# green = "#a7c080"
+# magenta = "#d699b6"
+# red = "#e67e80"
+# white = "#d3c6aa"
+# yellow = "#dbbc7f"
+
+# [schemes.everforest_dark_hard.primary]
+# background = "#2b3339"
+# foreground = "#d3c6aa"
+
+# [schemes.kanagawa.bright]
+# black = "0x727169"
+# blue = "0x7fb4ca"
+# cyan = "0x7aa89f"
+# green = "0x98bb6c"
+# magenta = "0x938aa9"
+# red = "0xe82424"
+# white = "0xdcd7ba"
+# yellow = "0xe6c384"
+
+# [schemes.kanagawa.normal]
+# black = "0x090618"
+# blue = "0x7e9cd8"
+# cyan = "0x6a9589"
+# green = "0x76946a"
+# magenta = "0x957fb8"
+# red = "0xc34043"
+# white = "0xc8c093"
+# yellow = "0xc0a36e"
+
+# [schemes.kanagawa.primary]
+# background = "0x1f1f28"
+# foreground = "0xdcd7ba"
+
+# [schemes.kanagawa.selection]
+# background = "0x2d4f67"
+# foreground = "0xc8c093"
+
+[window]
+decorations = "full"
+dynamic_padding = true
+dynamic_title = true
+%% switch on wm
+%% gnome-shell {
+opacity = 0.9
+%% }
+%% default {
+opacity = 0.8
+%% }
+%% end
+
+[window.dimensions]
+columns = 81
+lines = 24
