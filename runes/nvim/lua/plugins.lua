@@ -154,6 +154,8 @@ return require('packer').startup({function(use)
     use 'evanleck/vim-svelte'
 
     use 'waycrate/swhkd-vim'
+
+    use 'cstrahan/vim-capnp'
     -- pweatty lsp frontend
     use {
         'tami5/lspsaga.nvim',
