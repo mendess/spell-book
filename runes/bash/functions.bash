@@ -129,7 +129,7 @@ share() { (
         filename="$filename.zip"
     fi
     [[ "$unlisted" ]] && filename="unlisted/$filename"
-    spark rsync av "$FILE" "$HOST:mirari/mirrodin/share/$filename"
+    spark rsync av "$FILE" "$HOST:core/mirari/mirrodin/share/$filename"
     url="https://mendess.xyz/api/v1/file/$filename"
     if command -v termux-clipboard-set &>/dev/null; then
         echo -n "$url" | termux-clipboard-set
