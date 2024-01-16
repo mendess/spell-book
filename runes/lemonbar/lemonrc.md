@@ -67,11 +67,19 @@
 - interval: `60`
 - align: `left`
 
+## CF Stock
+- command: `bash ~/.config/lemonbar/cf-stock.sh`
+- interval: `60`
+- align: `left`
+- raw: `true`
+- left-click: `bash ~/.config/lemonbar/cf-stock.sh click`
+
 ## Package
 - command: `[ ! -f ~/.package.sh ] || bash ~/.package.sh`
 - interval: `60`
 - align: `left`
 - left-click: `bash ~/.package.sh click`
+- raw: `true`
 
 ## PowerMode
 - persistent: `~/.local/bin/platform_profile low balanced performance`
