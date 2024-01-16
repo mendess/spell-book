@@ -36,3 +36,6 @@ end)
 -- windowing
 nnoremap('<c-w>o', ':tab split<CR>')
 tnoremap('<c-w>o <c-w>', ':tab split<CR>')
+
+-- show/hide tab
+nnoremap('<leader>,', ':set invlist<CR>')
