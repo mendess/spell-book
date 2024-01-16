@@ -9,5 +9,5 @@ price=$(xh GET https://www.alphavantage.co/query \
 )
 
 if [ "$price" ]; then
-    printf "CF: %f" $price
+    printf "CF: %s" $price
 fi
