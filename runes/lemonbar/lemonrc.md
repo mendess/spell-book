@@ -69,7 +69,7 @@
 
 ## CF Stock
 - command: `bash ~/.config/lemonbar/cf-stock.sh`
-- interval: `60`
+- interval: `3600`
 - align: `left`
 - raw: `true`
 - left-click: `bash ~/.config/lemonbar/cf-stock.sh click`
