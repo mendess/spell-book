@@ -17,4 +17,4 @@ fileext = ".ics"
 type = "caldav"
 url = "http://mendess.xyz:5232/mendess"
 username = "mendess"
-password.fetch = ["command", "ssh", "mendess@mendess.xyz", "cat", "~/mirari/radicale/non_important_file"]
+password.fetch = ["command", "ssh", "mendess@mendess.xyz", "cat", "~/core/mirari/radicale/non_important_file"]
