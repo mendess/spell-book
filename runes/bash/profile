@@ -86,9 +86,9 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
     echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
     wm() {
         [[ $(hostname) = tolaria ]] && sleep 5
-        if hash river && [[ "$(hostname)" != tolaria ]]; then
-            bash -x ~/.config/river/start-river.sh
-        fi
+        # if hash river && [[ "$(hostname)" != tolaria ]]; then
+        #     bash -x ~/.config/river/start-river.sh
+        # fi
         exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num"
     }
     wm |& awk '{ print(strftime("[%Y-%m-%d %H:%M:%S]"), $0); fflush(stdout) }' &>>"$LOG"
