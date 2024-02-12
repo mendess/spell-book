@@ -1,3 +1,11 @@
+[env]
+TERM = "xterm-256color"
+WINIT_X11_SCALE_FACTOR = "1.5"
+
+[font]
+size = 8.0
+normal = { family = "monospace" }
+
 [colors.bright]
 black = "0x727169"
 blue = "0x7fb4ca"
@@ -26,302 +34,81 @@ foreground = "0xdcd7ba"
 background = "0x2d4f67"
 foreground = "0xc8c093"
 
-[env]
-TERM = "xterm-256color"
-WINIT_X11_SCALE_FACTOR = "1.5"
-
-[font]
-size = 8.0
-
-[font.normal]
-family = "monospace"
-
 [[hints.enabled]]
 command = "xdg-open"
 post_processing = true
 regex = "(mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+binding = { key = "U", mods = "Control|Shift" }
+mouse = { enabled = true, mods = "None" }
 
-[hints.enabled.binding]
-key = "U"
-mods = "Control|Shift"
-
-[hints.enabled.mouse]
-enabled = true
-mods = "None"
-
-[[keyboard.bindings]]
-action = "ScrollToBottom"
-key = "Escape"
-mode = "Vi"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ToggleViMode"
-key = "Escape"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ClearSelection"
-key = "Escape"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ScrollToBottom"
-key = "I"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ToggleViMode"
-key = "I"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ScrollLineUp"
-key = "Y"
-mode = "Vi"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollLineDown"
-key = "E"
-mode = "Vi"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollToTop"
-key = "G"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ScrollToBottom"
-key = "G"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "ScrollPageUp"
-key = "B"
-mode = "Vi"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollPageDown"
-key = "F"
-mode = "Vi"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollHalfPageUp"
-key = "U"
-mode = "Vi"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollHalfPageDown"
-key = "D"
-mode = "Vi"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "Copy"
-key = "Y"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ClearSelection"
-key = "Y"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ClearSelection"
-key = "Copy"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ToggleNormalSelection"
-key = "V"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ToggleLineSelection"
-key = "V"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "ToggleBlockSelection"
-key = "V"
-mode = "Vi"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ToggleSemanticSelection"
-key = "V"
-mode = "Vi"
-mods = "Alt"
-
-[[keyboard.bindings]]
-action = "Open"
-key = "Return"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "Up"
-key = "K"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "Down"
-key = "J"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "Left"
-key = "H"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "Right"
-key = "L"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "First"
-key = "Key0"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "Last"
-key = "Key4"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "FirstOccupied"
-key = "Key6"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "High"
-key = "H"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "Middle"
-key = "M"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "Low"
-key = "L"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "SemanticLeft"
-key = "B"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "SemanticRight"
-key = "W"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "SemanticRightEnd"
-key = "E"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "WordLeft"
-key = "B"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "WordRight"
-key = "W"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "WordRightEnd"
-key = "E"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "Bracket"
-key = "Key5"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "SearchForward"
-key = "Slash"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "SearchBackward"
-key = "Slash"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "SearchNext"
-key = "N"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "SearchPrevious"
-key = "N"
-mode = "Vi"
-mods = "Shift"
-
-[[keyboard.bindings]]
-action = "SearchForward"
-key = "F"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "Paste"
-key = "Insert"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollPageUp"
-key = "PageUp"
-mode = "~Alt"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollPageDown"
-key = "PageDown"
-mode = "~Alt"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollLineUp"
-key = "K"
-mode = "~Alt"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "ScrollLineDown"
-key = "J"
-mode = "~Alt"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "SpawnNewInstance"
-key = "Return"
-mods = "Super|Shift"
+[window]
+decorations = "full"
+dimensions = { columns = 81, lines = 24 }
+dynamic_padding = true
+dynamic_title = true
+%% switch on wm
+%% gnome-shell {
+opacity = 0.9
+%% }
+%% default {
+opacity = 0.8
+%% }
+%% end
 
 [mouse]
 hide_when_typing = true
+
+[keyboard]
+bindings = [
+    { action = "ScrollToBottom"          , key = "Escape"   , mode = "Vi"              , mods = "Control" } ,
+    { action = "ClearSelection"          , key = "Escape"   , mode = "Vi" }            ,
+    { action = "ToggleViMode"            , key = "I"        , mode = "Vi" }            ,
+    { action = "ScrollLineUp"            , key = "Y"        , mode = "Vi"              , mods = "Control" } ,
+    { action = "ScrollLineDown"          , key = "E"        , mode = "Vi"              , mods = "Control" } ,
+    { action = "ScrollToTop"             , key = "G"        , mode = "Vi" }            ,
+    { action = "ScrollToBottom"          , key = "G"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "ScrollPageUp"            , key = "B"        , mode = "Vi"              , mods = "Control" } ,
+    { action = "ScrollPageDown"          , key = "F"        , mode = "Vi"              , mods = "Control" } ,
+    { action = "ScrollHalfPageUp"        , key = "U"        , mode = "Vi"              , mods = "Control" } ,
+    { action = "ScrollHalfPageDown"      , key = "D"        , mode = "Vi"              , mods = "Control" } ,
+    { action = "Copy"                    , key = "Y"        , mode = "Vi" }            ,
+    { action = "ClearSelection"          , key = "Y"        , mode = "Vi" }            ,
+    { action = "ClearSelection"          , key = "Copy"     , mode = "Vi" }            ,
+    { action = "ToggleNormalSelection"   , key = "V"        , mode = "Vi" }            ,
+    { action = "ToggleLineSelection"     , key = "V"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "ToggleBlockSelection"    , key = "V"        , mode = "Vi"              , mods = "Control" } ,
+    { action = "ToggleSemanticSelection" , key = "V"        , mode = "Vi"              , mods = "Alt" }     ,
+    { action = "Open"                    , key = "Return"   , mode = "Vi" }            ,
+    { action = "Up"                      , key = "K"        , mode = "Vi" }            ,
+    { action = "Down"                    , key = "J"        , mode = "Vi" }            ,
+    { action = "Left"                    , key = "H"        , mode = "Vi" }            ,
+    { action = "Right"                   , key = "L"        , mode = "Vi" }            ,
+    { action = "First"                   , key = "Key0"     , mode = "Vi" }            ,
+    { action = "Last"                    , key = "Key4"     , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "FirstOccupied"           , key = "Key6"     , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "High"                    , key = "H"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "Middle"                  , key = "M"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "Low"                     , key = "L"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "SemanticLeft"            , key = "B"        , mode = "Vi" }            ,
+    { action = "SemanticRight"           , key = "W"        , mode = "Vi" }            ,
+    { action = "SemanticRightEnd"        , key = "E"        , mode = "Vi" }            ,
+    { action = "WordLeft"                , key = "B"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "WordRight"               , key = "W"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "WordRightEnd"            , key = "E"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "Bracket"                 , key = "Key5"     , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "SearchForward"           , key = "Slash"    , mode = "Vi" }            ,
+    { action = "SearchBackward"          , key = "Slash"    , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "SearchNext"              , key = "N"        , mode = "Vi" }            ,
+    { action = "SearchPrevious"          , key = "N"        , mode = "Vi"              , mods = "Shift" }   ,
+    { action = "ToggleViMode"            , key = "Escape"   ,                            mods = "Control" } ,
+    { action = "SearchForward"           , key = "F"        ,                            mods = "Control|Shift" } ,
+    { action = "Paste"                   , key = "Insert"   ,                            mods = "Control" }       ,
+    { action = "ScrollPageUp"            , key = "PageUp"   , mode = "~Alt"            , mods = "Control" } ,
+    { action = "ScrollPageDown"          , key = "PageDown" , mode = "~Alt"            , mods = "Control" } ,
+    { action = "ScrollLineUp"            , key = "K"        , mode = "~Alt"            , mods = "Control" } ,
+    { action = "ScrollLineDown"          , key = "J"        , mode = "~Alt"            , mods = "Control" } ,
+    { action = "SpawnNewInstance"        , key = "Return"   , mods = "Super|Shift" }   ,
+]
 
 # [[schemes.indexed_colors]]
 # color = "0xffa066"
@@ -490,20 +277,3 @@ hide_when_typing = true
 # [schemes.kanagawa.selection]
 # background = "0x2d4f67"
 # foreground = "0xc8c093"
-
-[window]
-decorations = "full"
-dynamic_padding = true
-dynamic_title = true
-%% switch on wm
-%% gnome-shell {
-opacity = 0.9
-%% }
-%% default {
-opacity = 0.8
-%% }
-%% end
-
-[window.dimensions]
-columns = 81
-lines = 24
