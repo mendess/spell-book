@@ -7,8 +7,8 @@ super + Return
 # super + control + Return
 #     termFromHere --class floating-terminal
 
-# super + control + alt + shift + l
-#     zathura $SPELLS/layout.pdf
+super + control + alt + shift + l
+    zathura $SPELLS/layout.pdf
 
 super + d
     first=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f1) ; \
