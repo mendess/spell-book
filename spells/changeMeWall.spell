@@ -212,12 +212,17 @@ unset i
     if [[ "$wayland" ]]; then
         set -x
         printf "%s\n" "${colors[@]}"
-        function convert {
-            c="${1/\#/0x}"
-            echo "${c% *}"
-        }
-        riverctl border-color-focused "$(convert "${colors[0]}")"
-        riverctl border-color-unfocused "$(convert "${colors[2]}")"
+        if pgrep river 2>/dev/null; then
+            function convert { c="${1/\#/0x}"; echo "${c% *}"; }
+
+            riverctl border-color-focused "$(convert "${colors[0]}")"
+            riverctl border-color-unfocused "$(convert "${colors[2]}")"
+        elif pgrep Hyprland 2>/dev/null; then
+            function convert { c="${1#\#}"; echo "${c% *}"; }
+
+            hyprctl keyword general:col.active_border "rgb($(convert "${colors[0]}"))"
+            hyprctl keyword general:col.inactive_border "rgb($(convert "${colors[2]}"))"
+        fi
         set +x
     else
         if command -v herbstclient &>/dev/null; then

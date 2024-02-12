@@ -85,10 +85,10 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
     tty_num=$(tty | grep -Eo '[0-9]')
     echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
     wm() {
-        [[ $(hostname) = tolaria ]] && sleep 5
-        # if hash river && [[ "$(hostname)" != tolaria ]]; then
-        #     bash -x ~/.config/river/start-river.sh
-        # fi
+        if hash Hyprland; then
+            Hyprland
+            read -r -p "Hyprland EXITED. Press enter to launch X" &>/dev/tty
+        fi
         exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num"
     }
     wm |& awk '{ print(strftime("[%Y-%m-%d %H:%M:%S]"), $0); fflush(stdout) }' &>>"$LOG"
