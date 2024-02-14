@@ -77,6 +77,7 @@ usbutils
 vdirsyncer
 vimb
 wget
+wl-clipboard
 xclip
 xdg-user-dirs
 xdotool

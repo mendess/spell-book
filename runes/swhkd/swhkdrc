@@ -49,7 +49,7 @@ super + control + m
     $TERMINAL -e pacmixer
 
 super + {F2, F3}
-    {~/.config/sxhkd/browser-program || $BROWSER, ~/.config/sxhkd/chat-program || discord --no-sandbox}
+    {~/.config/sxhkd/browser-program || $BROWSER, ~/.config/sxhkd/chat-program || ELECTRON_OZONE_PLATFORM_HINT=wayland discord --no-sandbox --ozone-platform-hint=wayland --enable-webrtc-pipewire-capturer}
 
 super + shift + F2
     $BROWSER -private-window https://duckduckgo.com/
@@ -143,8 +143,11 @@ super + backslash
 super + shift + backslash
     RUST_LOG=debug SESSION_KIND=gui m quit
 
-super + {minus,=}
-    RUST_LOG=debug SESSION_KIND=gui m {vd,vu} 2
+super + minus
+    RUST_LOG=debug SESSION_KIND=gui m vd 2
+
+super + shift + =
+    RUST_LOG=debug SESSION_KIND=gui m vu 2
 
 super + {Next,Prior,End,Home}
     RUST_LOG=debug SESSION_KIND=gui m {next,prev,next-file,prev-file}

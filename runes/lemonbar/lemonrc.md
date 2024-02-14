@@ -34,7 +34,14 @@
 
 
 ## Workspaces
+%% switch on hostname
+%% 3QWP3T3 {
 - persistent: `~/.config/lemonbar/workspaces`
+%% }
+%% default {
+- native: `hyprland`
+%% }
+%% end
 - raw: `true`
 - align: `left`
 - multi_monitor: `true`
