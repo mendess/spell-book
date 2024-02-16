@@ -199,7 +199,13 @@ super + shift + i
         xargs --no-run-if-empty $BROWSER
 
 super + shift + o
-    echo -e 'lock\nsystemctl suspend\nreboot\nshutdown now' | picker -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 4 | sh
+    opt=$(echo -e 'lock\nsuspend\nreboot\nshutdown' | picker -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 4); \
+    case "$opt" in \
+        lock) lock ;; \
+        suspend) systemctl suspend ;; \
+        reboot) ~/.config/hypr/kill-hypr.sh reboot ;; \
+        shutdown) ~/.config/hypr/kill-hypr.sh shutdown now ;; \
+    esac
 
 # DUNST KEYBINDS
 
