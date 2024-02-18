@@ -20,7 +20,21 @@
 [interactive]
     diffFilter = delta --color-only
 [init]
-	defaultBranch = master
-	templateDir = ~/.config/git/template
+    defaultBranch = master
+    templateDir = ~/.config/git/template
 [diff]
     colorMoved = default
+    algorithm = histogram # patience also a possible value
+    context = 10
+[merge]
+    conflictstyle = zdiff3
+    tool = nvim
+[commit]
+    verbose = true
+[rerere]
+    enabled = true
+[fetch]
+    prune = true
+    prunetags = true
+[push]
+    followtags = true
