@@ -1,18 +1,18 @@
 [user]
-	name = mendess
+    name = mendess
 %% switch on whoami
 %% pmendes {
-	email = pmendes@cloudflare.com
+    email = pmendes@cloudflare.com
 %% }
 %% default {
-	email = pedro.mendes.26@gmail.com
+    email = pedro.mendes.26@gmail.com
 %% }
 %% end
 [core]
-	excludesfile = ~/.config/gitignore-global
+    excludesfile = ~/.config/gitignore-global
     pager = delta
 [pull]
-	ff = only
+    ff = only
 [delta]
     plus-style = syntax "#012800"
     minus-color = normal "#340001"
@@ -24,10 +24,17 @@
     templateDir = ~/.config/git/template
 [diff]
     colorMoved = default
-    algorithm = histogram # patience also a possible value
+    algorithm = histogram # `patience` also a possible value
     context = 10
 [merge]
+%% switch on hostname
+%% 3QWP3T3 {
+    conflictstyle = diff3
+%% }
+%% default {
     conflictstyle = zdiff3
+%% }
+%% end
     tool = nvim
 [commit]
     verbose = true
