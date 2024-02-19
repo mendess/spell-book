@@ -75,6 +75,8 @@ local_bin=
 local_bin=$(find ~/.local/bin -type d | sed 's|/$||' | tr '\n' ':' | sed 's/:$//')
 export PATH="$PATH:$CARGO_HOME/bin"
 export PATH="$PATH:$local_bin"
+export PATH="$PATH:$HOME/.local/share/go/bin"
+export PATH="$HOME/.tfenv/bin:$PATH"
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
