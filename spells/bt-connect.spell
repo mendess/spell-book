@@ -1,0 +1,16 @@
+#!/bin/bash
+
+declare -Ar addr_table=(
+    [XM5]=88:C9:E8:D8:99:94
+    [JBL]=E8:D0:3C:E8:6F:57
+    [Sala_122]=94:9F:3F:EF:3B:2F
+)
+
+select dev in "${!addr_table[@]}"; do
+    addr=${addr_table[$dev]}
+    if [[ "$addr" ]]; then
+        bluetoothctl power on
+        bluetoothctl connect "$addr"
+    fi
+    break
+done
