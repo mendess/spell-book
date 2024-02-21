@@ -85,8 +85,8 @@ super + alt + v
     # [ "$win_name" ] && xdotool windowactivate "$win_name"
 
 
-# @Print
-#     cd /tmp ; cuffs.tool --select --clipboard --keep
+@Print
+    grim -g "$(slurp)" /tmp/$(date +'screenshot_%s.png')
 
 # shift + @Print
 #     screenshots=$(xdg-user-dir PICTURES)/screenshots; \
