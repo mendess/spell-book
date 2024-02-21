@@ -5,7 +5,7 @@
 
 HOST=mendess@mendess.xyz
 TMPDIR=${TMPDIR:-/tmp}
-WALLPAPER_ROOT=mirari/mirrodin/walls
+WALLPAPER_ROOT=core/mirari/mirrodin/walls
 
 set -e
 yellow() {

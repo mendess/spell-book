@@ -3,12 +3,9 @@
 
 CACHE="/tmp/$LOGNAME"
 mkdir -p "$CACHE"
-changeMeWall "$@"
-while true;
+changeMeWall --wait-for-colors "$@"
+while sleep 5m;
 do
-    sleep 5m
-    pgrep wineserver && continue
-    # pgrep steam && continue
     [ -e "$CACHE/stop_wall" ] && continue
     wait
     changeMeWall --wait-for-colors "$@" &

@@ -7,6 +7,7 @@
  - [add_rune](./spells/add_rune.spell) - Add a new [rune](runes-static-configuration-files) to the dotfiles, supports some customization options
  - [allgst](./spells/allgst.spell) - Performs `git status` on every folder in the `cwd`.
  - [battery_check](./spells/battery_check.spell) - Checks battery life and suspends if it's too low.
+ - [bt-connect](./spells/bt-connect.spell)
  - [bulkrename](./spells/bulkrename.spell) - Bulk rename every file in the current directory using your default editor (Editor defined by $EDITOR or $VISUAL)
  - [changeMeWallCicle](./spells/changeMeWallCicle.spell) - Runs `changeMeWall` every 5 minutes
  - [changeMeWall](./spells/changeMeWall.spell) - Changes the wallpaper to a random one in the `$WALLPAPERS` folder. (requires `feh`).  Thanks [matilde](https://github.com/matildeopbravo) for the idea and help finding the more contrasting colors for dmenu
