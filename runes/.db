@@ -50,7 +50,7 @@
 ~/.config/git/template,git/template,generated
 ~/.config/git/config,git/config,generated
 ~/.config/river,river
-~/.config/hypr,hypr
+~/.config/hypr,hypr,generated
 ~/.config/swhkd,swhkd
 ~/.config/tofi,tofi
 ~/.local/share/gnupg/gpg-agent.conf,gpg-agent.conf
