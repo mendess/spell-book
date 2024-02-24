@@ -1,0 +1,3 @@
+#!/bin/bash
+
+freetube --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform=wayland

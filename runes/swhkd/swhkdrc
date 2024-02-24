@@ -13,7 +13,7 @@ super + control + alt + shift + l
 super + d
     first=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f1) ; \
     first_text=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f2) ; \
-    second="$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f1)60" ; \
+    second="$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f1)AA" ; \
     second_text=$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f2) ; \
     tofi-run \
         --background-color "$second" \
@@ -86,7 +86,23 @@ super + alt + v
 
 
 @Print
-    grim -g "$(slurp)" /tmp/$(date +'screenshot_%s.png')
+   cd /tmp ; cuffs.tool --select --clipboard --keep
+
+shift + @Print
+    screenshots=$(xdg-user-dir PICTURES)/screenshots; \
+    mkdir -p "$screenshots" ; \
+    cd "$screenshots" && cuffs.tool --select --rename
+
+alt + @Print
+    videos=$(xdg-user-dir VIDEOS)/screen-rec ; \
+    mkdir -p "$videos" ; \
+    cd "$videos" && cuffs.tool --select --rename --video
+
+shift + alt + Print
+    kill -s SIGINT $(cat "/tmp/$LOGNAME/ffmpeg_screenshot_pid")
+
+super + @Print
+    cd /tmp ; cuffs.tool --select --floating
 
 # shift + @Print
 #     screenshots=$(xdg-user-dir PICTURES)/screenshots; \
