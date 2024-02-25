@@ -87,11 +87,17 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
     tty_num=$(tty | grep -Eo '[0-9]')
     echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
     wm() {
+        launch_x=1
         if hash Hyprland; then
-            Hyprland
-            read -r -p "Hyprland EXITED. Press enter to launch X" &>/dev/tty
+            Hyprland || echo "hyperland crashed with exit code $?"
+            read -r -p "Hyprland EXITED. Launch X? [y/N]" &>/dev/tty
+            if [ "${REPLY}" != y ] && [ "${REPLY}" != Y ]; then
+                launch_x=0
+            fi
         fi
-        exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num"
+        if (( launch_x )); then
+            exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num"
+        fi
     }
     wm |& awk '{ print(strftime("[%Y-%m-%d %H:%M:%S]"), $0); fflush(stdout) }' &>>"$LOG"
 # elif command -V tmux &>/dev/null && [[ ! "$TMUX" ]]; then
