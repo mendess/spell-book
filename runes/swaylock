@@ -1,0 +1,7 @@
+screenshots
+clock
+indicator
+indicator-radius=100
+indicator-thickness=7
+effect-blur=7x5
+fade-in=0.2
