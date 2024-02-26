@@ -217,7 +217,16 @@ super + shift + i
 super + shift + o
     opt=$(echo -e 'lock\nsuspend\nreboot\nshutdown' | picker -nb '#6b0213' -sb '#a8031e' -nf '#FFFFFF' -sf '#FFFFFF' -l 4); \
     case "$opt" in \
-        lock) lock ;; \
+        lock) \
+            c1=$(cat /tmp/$LOGNAME/wall_colors | sed -n 1p | cut -d' ' -f1 | sed 's/#//') ; \
+            c1_t=$(cat /tmp/$LOGNAME/wall_colors | sed -n 1p | cut -d' ' -f2 | sed 's/#//') ; \
+            c2=$(cat /tmp/$LOGNAME/wall_colors | sed -n 2p | cut -d' ' -f1 | sed 's/#//') ; \
+            c3=$(cat /tmp/$LOGNAME/wall_colors | sed -n 3p | cut -d' ' -f1 | sed 's/#//') ; \
+            sleep 0.04 ; \
+            swaylock --inside-clear-color="$c1" --text-clear-color="$c1_t" --ring-clear-color="$c3" \
+                     --inside-ver-color="$c1"   --text-ver-color="$c1_t"   --ring-ver-color="$c3" \
+                     --ring-color="$c3" --key-hl-color="$c2" ; \
+        ;; \
         suspend) systemctl suspend ;; \
         reboot) ~/.config/hypr/kill-hypr.sh reboot ;; \
         shutdown) ~/.config/hypr/kill-hypr.sh shutdown now ;; \
