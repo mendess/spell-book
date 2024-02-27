@@ -57,12 +57,6 @@
 - underline: `red`
 - signal: `true`
 
-## Repo statuses
-- command: `check_repos`
-- interval: `300`
-- align: `left`
-- raw: `true`
-
 ## Uptime
 - command: `echo "$(uptime -p)"`
 - interval: `1800`
@@ -80,6 +74,12 @@
 - align: `left`
 - raw: `true`
 - left-click: `bash ~/.config/lemonbar/cf-stock.sh click`
+
+## Spell-Book status
+- command: `printf "book stat %s" $(g status --short | grep -v '^??' -c)`
+- interval: `900`
+- align: `left`
+- fg: `yellow`
 
 ## Package
 - command: `[ ! -f ~/.package.sh ] || bash ~/.package.sh`
