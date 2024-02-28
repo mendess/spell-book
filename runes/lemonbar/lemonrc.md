@@ -76,7 +76,7 @@
 - left-click: `bash ~/.config/lemonbar/cf-stock.sh click`
 
 ## Spell-Book status
-- command: `printf "book stat %s" $(git -C $SPELLS status --short | grep -v '^??' -c)`
+- command: `n=$(git -C $SPELLS status --short | grep -v '^??' -c) && printf "book stat %s" $n`
 - interval: `900`
 - align: `left`
 - fg: `yellow`
