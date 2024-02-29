@@ -99,6 +99,8 @@ second = chosen_colours[1 if contrast != chosen_colours[1] else 2]
 for c, _, t in [first, second, contrast]: print(c, t)
 '
 
+[[ "$XDG_SESSION_TYPE" = wayland ]] && wayland=1
+
 wide=0
 while [ "$#" -gt 0 ]; do
     case "$1" in
@@ -127,9 +129,6 @@ while [ "$#" -gt 0 ]; do
             ;;
         -q | --fast)
             fast=1
-            ;;
-        --wayland)
-            wayland=1
             ;;
         -*)
             echo "Invalid option '$1'"
@@ -248,9 +247,18 @@ printf "Setting: %s\n" "${files[@]}"
 
 [[ "$wait_for_colors" ]] && wait
 if [ "$wayland" ]; then
-    swww img "${files[@]}" -t simple \
-        --transition-step 2 \
-        # --transition-duration 10
+    set -x
+    for i in $(seq 0 ${#files[@]}); do
+        if [[ "${files[$i]}" ]] && ! [[ -e ${files[$i]} ]]; then
+            f=$(mktemp)
+            wget "${files[$i]}" -O "$f"
+            files[$i]="$f"
+        fi
+    done
+    swww img "${files[@]}" \
+        -t simple \
+        --transition-step 2
+    set +x
 else
     if [ "$wide" -gt 0 ]; then
         feh --no-fehbg --bg-fill --no-xinerama "${files[@]}"

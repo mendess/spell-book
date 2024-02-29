@@ -38,9 +38,9 @@ super + F9
     changeMeWall --wayland
 
 super + shift + F9
-    pape=$(xclip -sel clip -o) ; \
-    notify-send -a "sxhrd" "Changing to clipboard wallpaper" "$pape" -u low ; \
-    changeMeWall "$pape" --wayland
+    pape=$(wl-paste) ; \
+    notify-send -a "swhrd" "Changing to clipboard wallpaper" "$pape" -u low ; \
+    changeMeWall "$pape"
 
 # super + F8
 #     feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
