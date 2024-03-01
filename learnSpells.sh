@@ -15,6 +15,10 @@ spell_name() {
             v="${1#spells/}"
             v="${v%.spell}"
             ;;
+        spells/*.crs)
+            v="${1#spells/}"
+            v="${v%.crs}"
+            ;;
         cantrips/*.sh)
             v="${1%.sh}"
             ;;
@@ -57,7 +61,7 @@ cleanSpells() {
 }
 
 newSpells() {
-    for spell in spells/*.spell cantrips/*.sh; do
+    for spell in spells/*.spell spells/*.crs cantrips/*.sh; do
         if should_learn_spell "$spell" ; then
             echo "$spell"
         fi
@@ -80,5 +84,5 @@ for spell in "${newSpells[@]}"; do
     echo -e "\033[35m\t$(spell_name "$spell")\033[0m"
     ln -s "$(link_target "$spell")" "$(link_path "$spell")"
 done
-chmod +x spells/*.spell
+chmod +x spells/*.spell spells/*.crs
 echo -e "\033[33mDone!\033[0m"

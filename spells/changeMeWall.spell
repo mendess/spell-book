@@ -29,8 +29,6 @@ show_help() {
             Pick a different wallpaper for each screen
         -q | --fast
             Skip picking colors from wallpaper for faster setting
-        --wayland
-            Use wayland mode
 
     \e[36mExamples:\e[0m
         Pick a random wallpaper

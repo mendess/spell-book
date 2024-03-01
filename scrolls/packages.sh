@@ -5,14 +5,12 @@ export packages=(
 acpi
 alacritty
 alsa-utils
-asciidoc # compton dependency
 base
 base-devel
 bat
 bc
 bottom
 clang
-clipmenu
 cmake
 cronie
 curl
@@ -26,24 +24,17 @@ dust
 entr
 exa
 fakeroot
-feh
 firefox
 fzf
 gdb
 gimp
 git-delta
-glava
-hacksaw
-herbstluftwm
 htop
-hyperfine
-i3lock
+hyprland
 imagemagick
 inotify-tools # power mode checking in lemonbar
 jq
 khal
-libconfig # compton dependency
-libxdg-basedir # compton dependency
 man
 man-pages
 mpv
@@ -51,8 +42,8 @@ neovim
 nmap
 noto-fonts-cjk
 noto-fonts-emoji
+nsxiv
 openssh
-parted
 pkgconf
 pulseaudio
 pulseaudio-alsa
@@ -63,30 +54,16 @@ python-pygments
 ripgrep
 rsync
 rustup
-shfmt
-shotgun
 socat
-sxhkd
-nsxiv
 tmux
-tree
 ttf-dejavu
 ttf-hack
 unzip
-usbutils
 vdirsyncer
-vimb
 wget
 wl-clipboard
-xclip
 xdg-user-dirs
-xdotool
 xh
-xorg-server
-xorg-xdpyinfo
-xorg-xev
-xorg-xinit
-xorg-xrandr
 xz
 zathura
 zathura-pdf-mupdf
@@ -96,21 +73,19 @@ zip
 [[ "$(hostname)" = tolaria ]] || packages+=(brightnessctl)
 
 export aurpackages=(
-lemonbar-xft-git
 pacmixer
 pfetch
-picom-git
 shellcheck-bin
-xdo-git # herbstluftwm and bspwm
 termsyn-font
-#bear
 web-xdg-open-git
-yt-dlp-drop-in
+freetube-bin
+swaylock-effects
 )
 
 export cargopackages=(
 cargo-watch
 color_picker
+rust-script
 )
 
 export bloat=(
@@ -121,5 +96,4 @@ xorg-xclock
 
 export pythonpackages=(
 pynvim
-yapf
 )

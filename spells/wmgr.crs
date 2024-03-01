@@ -1,0 +1,332 @@
+#!/usr/bin/env rust-script
+//! ```cargo
+//! [dependencies]
+//! clap = { version = "4", features = ["derive"] }
+//! url = "2"
+//! ureq = { version = "2", features = ["json"] }
+//! anyhow = "1"
+//! serde = { version = "1", features = ["derive"] }
+//! whoami = "1"
+//! ```
+
+use anyhow::{bail, Context};
+use clap::{Args, Parser};
+use std::{
+    ffi::OsStr,
+    fs::File,
+    path::{Path, PathBuf},
+    process::{Command, ExitStatus},
+};
+use url::Url;
+
+#[derive(Parser, Debug)]
+enum Wmgr {
+    Add {
+        #[command(flatten)]
+        placement: WallPlacement,
+
+        #[arg(short, long, value_parser = name_parser)]
+        name: Option<PathBuf>,
+
+        wallpaper: String,
+    },
+    Replace {
+        #[command(flatten)]
+        placement: WallPlacement,
+
+        #[arg(short, long, required = true, value_parser = name_parser)]
+        name: PathBuf,
+
+        wallpaper: String,
+    },
+    Delete {
+        name: String,
+    },
+    Sync,
+}
+
+#[derive(Args, Debug)]
+#[group(required = true, multiple = false)]
+struct WallPlacement {
+    #[arg(short, long)]
+    all: bool,
+    #[arg(short = 'T', long)]
+    tolaria_only: bool,
+    #[arg(short = 'P', long)]
+    powerstone_only: bool,
+}
+
+impl WallPlacement {
+    fn base_wall_dir(&self) -> &'static str {
+        match self {
+            Self { all: true, .. }
+            | Self {
+                tolaria_only: true, ..
+            } => "all",
+            Self {
+                powerstone_only: true,
+                ..
+            } => "phone",
+            Self {
+                all: false,
+                tolaria_only: false,
+                powerstone_only: false,
+            } => unreachable!("at least one of these has to be true"),
+        }
+    }
+
+    fn non_base_dirs(&self) -> &'static [&'static str] {
+        match self {
+            Self { all: true, .. } => &["small", "phone"],
+            Self {
+                tolaria_only: true, ..
+            } => &[],
+            Self {
+                powerstone_only: true,
+                ..
+            } => &[],
+            Self {
+                all: false,
+                tolaria_only: false,
+                powerstone_only: false,
+            } => unreachable!("at least one of these has to be true"),
+        }
+    }
+}
+
+const HOST: &str = "mendess@mendess.xyz";
+const WALLPAPER_ROOT: &str = "core/mirari/mirrodin/walls";
+
+const GREEN: &str = "\x1b[32m";
+const BLUE: &str = "\x1b[34m";
+const RESET: &str = "\x1b[0m";
+const CLEAN_LINE: &str = "\r\x1b[2K";
+
+fn name_parser(s: &str) -> Result<PathBuf, String> {
+    if s.contains('/') {
+        return Err(format!("name can't contain '/'"));
+    }
+    Ok(PathBuf::from(s))
+}
+
+fn run_remote<I: IntoIterator<Item = S>, S: AsRef<OsStr>>(args: I) -> anyhow::Result<ExitStatus> {
+    let code = Command::new("ssh")
+        .arg(HOST)
+        .arg("--")
+        .args(args)
+        .spawn()?
+        .wait()?;
+    Ok(code)
+}
+
+fn process_wallpaper(
+    wallpaper: String,
+    name: Option<PathBuf>,
+) -> anyhow::Result<(PathBuf, String)> {
+    if wallpaper.starts_with("http") {
+        let url = Url::parse(&wallpaper).context("invalid wallpaper url")?;
+        let file_name = || {
+            url.path_segments()
+                .context("can't deduce wallpaper extension from url")
+                .map(|segments| segments.last().unwrap())
+                .map(Path::new)
+        };
+
+        let file_name = match name {
+            Some(mut name) => {
+                if name.extension().is_none() {
+                    name.set_extension(
+                        file_name()?
+                            .extension()
+                            .context("can't deduce wallpaper extension from url")?,
+                    );
+                }
+                name.display().to_string()
+            }
+            None => {
+                let name = file_name()?;
+                if name.extension().is_none() {
+                    bail!("can't deduce wallpaper name from url")
+                }
+                name.display().to_string()
+            }
+        };
+
+        let target_file_path = ["/tmp", &file_name].iter().collect::<PathBuf>();
+        let mut target_file = File::create(&target_file_path)?;
+        let mut resp = ureq::request_url("GET", &url)
+            .call()
+            .context("failed to GET wallpaper")?
+            .into_reader();
+        std::io::copy(&mut resp, &mut target_file).context("failed to download wallpaper")?;
+        drop(target_file);
+        Ok((target_file_path, file_name))
+    } else {
+        let file_name = Path::new(&wallpaper)
+            .file_name()
+            .context("not a file")?
+            .to_str()
+            .context("not valid utf8")?
+            .to_owned();
+        Ok((PathBuf::from(wallpaper), file_name))
+    }
+}
+
+fn add(placement: WallPlacement, name: Option<PathBuf>, wallpaper: String) -> anyhow::Result<()> {
+    let (wallpaper_path, wallpaper_name) = process_wallpaper(wallpaper, name)?;
+    let wall_dir = placement.base_wall_dir();
+    let status = run_remote([
+        "test",
+        "!",
+        "-e",
+        &format!("{WALLPAPER_ROOT}/{wall_dir}/{wallpaper_name}"),
+    ])?;
+    if !status.success() {
+        bail!("A wallpaper with that name already exists");
+    }
+    eprintln!("{GREEN}sending {wallpaper_name} to {wall_dir}{RESET}");
+    let status = Command::new("scp")
+        .arg(wallpaper_path)
+        .arg(format!(
+            "{HOST}:{WALLPAPER_ROOT}/{wall_dir}/{wallpaper_name}",
+        ))
+        .spawn()
+        .context("running scp")?
+        .wait()
+        .context("waiting for scp")?;
+    if !status.success() {
+        bail!("scp failed with code {status}")
+    }
+
+    for dir in placement.non_base_dirs() {
+        eprintln!("{BLUE}creating symlink{RESET}");
+        let status = run_remote([format!(
+            "cd {WALLPAPER_ROOT}; ln -svr ./all/{wallpaper_name} ./{dir}/{wallpaper_name}",
+        )])?;
+        if !status.success() {
+            bail!("creating sym link failed with code: {status:?}")
+        }
+    }
+
+    Ok(())
+}
+
+fn replace(placement: WallPlacement, name: PathBuf, wallpaper: String) -> anyhow::Result<()> {
+    let (wallpaper_path, wallpaper_name) = process_wallpaper(wallpaper, Some(name))?;
+
+    let wall_dir = placement.base_wall_dir();
+
+    let status = run_remote([
+        "test",
+        "-e",
+        &format!("{WALLPAPER_ROOT}/{wall_dir}/{wallpaper_name}"),
+    ])?;
+    if !status.success() {
+        bail!("A wallpaper with that name doesn't exist");
+    }
+    let status = Command::new("scp")
+        .arg(wallpaper_path)
+        .arg(format!(
+            "{HOST}:{WALLPAPER_ROOT}/{wall_dir}/{wallpaper_name}",
+        ))
+        .spawn()
+        .context("running scp")?
+        .wait()
+        .context("waiting for scp")?;
+    if !status.success() {
+        bail!("scp failed with code {status}")
+    }
+    Ok(())
+}
+
+fn delete(name: String) -> anyhow::Result<()> {
+    let output = Command::new("ssh")
+        .arg(HOST)
+        .arg("--")
+        .args(["find", WALLPAPER_ROOT, "-type", "l,f", "-name", &name])
+        .output()?;
+    if !output.status.success() {
+        bail!("failed to find that wallpaper: {:?}", output.status);
+    }
+    let files = std::str::from_utf8(&output.stdout).context("files in server are not utf8")?;
+    let files = files.split('\n').map(str::trim);
+    eprintln!("about to delete:");
+    for f in files.clone() {
+        eprintln!(" - {HOST}:{f}");
+    }
+    eprint!("proceed? [Y/n] ");
+    let mut buf = String::new();
+    std::io::stdin().read_line(&mut buf)?;
+    if matches!(buf.trim(), "N" | "n") {
+        return Ok(());
+    }
+    let status = run_remote(["rm", "-v"].into_iter().chain(files))?;
+    if !status.success() {
+        bail!("failed to remove files: {status:?}");
+    }
+
+    Ok(())
+}
+
+fn sync() -> anyhow::Result<()> {
+    #[derive(serde::Deserialize, Debug)]
+    struct Wall {
+        path: String,
+        name: String,
+    }
+
+    const DOMAIN: &str = "mendess.xyz";
+
+    let filter = match whoami::hostname().as_str() {
+        "localhost" => "walls/phone",
+        "tolaria" => "walls/all",
+        _ => "walls",
+    };
+
+    let base = format!("https://{DOMAIN}/api/v1/{filter}");
+    let walls = ureq::get(&base).call()?.into_json::<Vec<Wall>>()?;
+
+    let wall_paper_dir =
+        PathBuf::from(std::env::var("WALLPAPERS").context("failed to get $WALLPAPERS")?);
+    std::fs::create_dir_all(&wall_paper_dir).context("failed to create wallpaper dir")?;
+    let total = walls.len();
+    for (i, w) in walls.into_iter().enumerate() {
+        eprint!("[{i}/{total}] Checking {}", w.name);
+        let file_name = wall_paper_dir.join(&w.path);
+        let mut file = match File::options().write(true).create_new(true).open(file_name) {
+            Ok(file) => file,
+            Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => {
+                eprint!("{CLEAN_LINE}");
+                continue;
+            }
+            Err(e) => return Err(e.into()),
+        };
+        eprintln!("\nDownloading {}", w.name);
+        let mut image = ureq::get(&format!("{base}/{}", w.path))
+            .call()
+            .with_context(|| format!("getting wallpaper {w:?}"))?
+            .into_reader();
+        std::io::copy(&mut image, &mut file)
+            .with_context(|| format!("downloading wallpaper {w:?}"))?;
+    }
+    eprintln!("Synced");
+    Ok(())
+}
+
+fn main() -> anyhow::Result<()> {
+    eprintln!("welcome to wmgr!");
+    match Wmgr::parse() {
+        Wmgr::Add {
+            placement,
+            name,
+            wallpaper,
+        } => add(placement, name, wallpaper),
+        Wmgr::Replace {
+            placement,
+            name,
+            wallpaper,
+        } => replace(placement, name, wallpaper),
+        Wmgr::Delete { name } => delete(name),
+        Wmgr::Sync => sync(),
+    }
+}

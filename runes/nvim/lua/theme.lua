@@ -133,6 +133,10 @@ au.group('syntax-fix', function(g)
         {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
         { '*.spell', function() set.filetype = 'sh' end }
     )
+    au(
+        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        { '*.crs', function() set.filetype = 'rust' end }
+    )
 end)
 
 -- Hide all semantic highlights
