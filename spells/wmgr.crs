@@ -243,13 +243,27 @@ fn delete(name: String) -> anyhow::Result<()> {
     let output = Command::new("ssh")
         .arg(HOST)
         .arg("--")
-        .args(["find", WALLPAPER_ROOT, "-type", "l,f", "-name", &name])
+        .args([
+            "find",
+            WALLPAPER_ROOT,
+            "-type",
+            "l,f",
+            "-name",
+            &format!("*{name}*"),
+        ])
         .output()?;
     if !output.status.success() {
         bail!("failed to find that wallpaper: {:?}", output.status);
     }
     let files = std::str::from_utf8(&output.stdout).context("files in server are not utf8")?;
-    let files = files.split('\n').map(str::trim);
+    let mut files = files
+        .split('\n')
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+        .peekable();
+    if files.peek().is_none() {
+        bail!("no files found with name {name}")
+    }
     eprintln!("about to delete:");
     for f in files.clone() {
         eprintln!(" - {HOST}:{f}");
