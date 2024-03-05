@@ -252,18 +252,25 @@ done
 # or simply:
 $hc detect_monitors
 
+mapfile -t monitors < <(xrandr --listmonitors | awk '{print $4}' | sed 1d)
+printf "detected %s\n" "${#monitors[@]}"
+printf "\t%s" "${monitors[@]}"
+
+if [[ "$(xrandr | grep ' connected' | wc -l)" -gt 1 ]]; then
+    docked=1
+fi
 case "$(uname -n)" in
     3QWP3T3)
-        extra_height=16
+        if [[ "$docked" ]]; then
+            extra_height=0
+        else
+            extra_height=16
+        fi
         ;;
     *)
         extra_height=0
         ;;
 esac
-
-mapfile -t monitors < <(xrandr --listmonitors | awk '{print $4}' | sed 1d)
-printf "detected %s\n" "${#monitors[@]}"
-printf "\t%s" "${monitors[@]}"
 
 # Statically define which tag should be send to which monitor
 lock_tag_to_monitor() {
@@ -286,7 +293,7 @@ case "${#monitors[@]}" in
                 lock_tag_to_monitor 0 {4..9}
                 lock_tag_to_monitor 1 {0..3}
                 ;;
-            weatherlight | matess | kaladesh)
+            weatherlight)
                 lock_tag_to_monitor 0 {0..6}
                 lock_tag_to_monitor 1 {7..9}
                 ;;
@@ -301,18 +308,9 @@ case "${#monitors[@]}" in
         esac
         ;;
     3)
-        case "$(hostname)" in
-            kaladesh)
-                lock_tag_to_monitor 0 {0..3}
-                lock_tag_to_monitor 1 {4..7}
-                lock_tag_to_monitor 2 {8..9}
-                ;;
-            *)
-                lock_tag_to_monitor 0 {0..2}
-                lock_tag_to_monitor 1 {3..6}
-                lock_tag_to_monitor 2 {7..9}
-                ;;
-        esac
+        lock_tag_to_monitor 0 {0..2}
+        lock_tag_to_monitor 1 {3..6}
+        lock_tag_to_monitor 2 {7..9}
         ;;
     4)
         lock_tag_to_monitor 0 0
@@ -331,8 +329,20 @@ fi
 bar_args=()
 i=0
 for mon in "${monitors[@]}"; do
-    $hc pad "$((i++))" "$((extra_height + 22))" 0 0 0
-    bar_args+=('--output' "${mon}")
+    bar_height=$(( extra_height + 22 ))
+    $hc pad "$((i++))" "$bar_height" 0 0 0
+    bar_args+=('--output' "${mon}" --height-override "$bar_height")
+    config=~/.config/lemonbar/lemonrc.md
+    docked_config=~/.config/lemonbar/lemonrc-docked.md
+    if [[ "$docked" ]]; then
+        # -nt: is newer
+        if [[ ! -e "$docked_config" ]] || [[ "$config" -nt "$docked_config" ]]; then
+            sed 's/Hack: size=18/Hack: size=9/;s/Noto Sans Mono CJK JP: size=15/Noto Sans Mono CJK JP: size=7/' \
+                ~/.config/lemonbar/lemonrc.md \
+                > "$docked_config"
+        fi
+        bar_args+=(--config "$docked_config")
+    fi
 done
 unset i
 
