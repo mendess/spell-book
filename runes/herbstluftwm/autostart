@@ -37,6 +37,11 @@ Mod=Mod4 # Use the super key as the main modifier
 $hc keybind $Mod-Shift-q close_or_remove
 $hc keybind $Mod-Control-q remove
 $hc keybind $Mod-Shift-F5 reload
+case "$(hostname)" in
+    3QWP3T3)
+        $hc keybind $Mod-Control-Shift-F5 spawn dell-toggle-dock
+        ;;
+esac
 
 # basic movement in tiling and floating mode
 # focusing clients

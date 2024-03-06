@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ "$(xrandr | grep ' connected' -c)" -gt 1 ]; then
+    second_monitor=$(xrandr | grep ' connected' | grep -v eDP-1 | cut -d' ' -f1)
+    case "$(xrandr --listmonitors)" in
+        *eDP-1*)
+            xrandr --output eDP-1 --off --output "$second_monitor" --auto
+            herbstclient reload
+            ;;
+        *DP-?-?*)
+            xrandr --output eDP-1 --auto --output "$second_monitor" --off
+            herbstclient reload
+            ;;
+    esac
+fi
