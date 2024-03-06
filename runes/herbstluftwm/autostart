@@ -336,20 +336,22 @@ i=0
 for mon in "${monitors[@]}"; do
     bar_height=$(( extra_height + 22 ))
     $hc pad "$((i++))" "$bar_height" 0 0 0
-    bar_args+=('--output' "${mon}" --height-override "$bar_height")
-    config=~/.config/lemonbar/lemonrc.md
-    docked_config=~/.config/lemonbar/lemonrc-docked.md
-    if [[ "$docked" ]]; then
-        # -nt: is newer
-        if [[ ! -e "$docked_config" ]] || [[ "$config" -nt "$docked_config" ]]; then
-            sed 's/Hack: size=18/Hack: size=9/;s/Noto Sans Mono CJK JP: size=15/Noto Sans Mono CJK JP: size=7/' \
-                ~/.config/lemonbar/lemonrc.md \
-                > "$docked_config"
-        fi
-        bar_args+=(--config "$docked_config")
-    fi
+    bar_args+=('--output' "${mon}")
 done
 unset i
+
+bar_args+=(--height-override "$bar_height")
+config=~/.config/lemonbar/lemonrc.md
+docked_config=~/.config/lemonbar/lemonrc-docked.md
+if [[ "$docked" ]]; then
+    # -nt: is newer
+    if [[ ! -e "$docked_config" ]] || [[ "$config" -nt "$docked_config" ]]; then
+        sed 's/Hack: size=18/Hack: size=9/;s/Noto Sans Mono CJK JP: size=15/Noto Sans Mono CJK JP: size=7/' \
+            ~/.config/lemonbar/lemonrc.md \
+            > "$docked_config"
+    fi
+    bar_args+=(--config "$docked_config")
+fi
 
 pkill lemon
 RUST_LOG=debug daemonise lemon "${bar_args[@]}" &>"$CACHE_DIR/lemonbar.log"
