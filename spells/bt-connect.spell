@@ -10,7 +10,7 @@ select dev in "${!addr_table[@]}"; do
     addr=${addr_table[$dev]}
     if [[ "$addr" ]]; then
         bluetoothctl power on
-        bluetoothctl connect "$addr"
+        bluetoothctl "${1:-connect}" "$addr"
     fi
     break
 done
