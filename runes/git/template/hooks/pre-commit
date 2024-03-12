@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
@@ -60,4 +60,17 @@ cargo_root=$(find . -name 'Cargo.toml' 2>/dev/null | sort | head -1)
 if [ -n "$cargo_root" ]; then
     cd "$(dirname "$cargo_root")" || exit 1
     cargo fmt --check || exit 1
+fi
+
+if [ -e mendess-copyright-check-holder ]; then
+    holder=$(cat mendess-copyright-check-holder)
+    while read -r file; do
+        if ! head -n 5 "$file" | grep "Copyright.*$holder" -q; then
+            printf "\e[31mERROR:\e[0m %s is missing copyright\n" "$file"
+            failed=1
+        fi
+    done < <(git status --short --porcelain --untracked-files=no | awk '{$1=""; print}')
+    if [ "$failed" ]; then
+        exit 1
+    fi
 fi

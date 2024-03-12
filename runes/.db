@@ -47,7 +47,7 @@
 ~/.config/screenlayouts,screenlayouts
 ~/.config/free-nitro-list,free-nitro-list
 ~/.config/desmume,desmume
-~/.config/git/template,git/template,generated
+~/.config/git/template,git/template
 ~/.config/git/config,git/config,generated
 ~/.config/river,river
 ~/.config/hypr,hypr,generated
