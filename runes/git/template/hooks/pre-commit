@@ -69,7 +69,10 @@ if [ -e mendess-copyright-check-holder ]; then
             printf "\e[31mERROR:\e[0m %s is missing copyright\n" "$file"
             failed=1
         fi
-    done < <(git status --short --porcelain --untracked-files=no | awk '{$1=""; print}')
+    done < <(git status --short --porcelain --untracked-files=no |
+        awk '{$1=""; print}' |
+        grep -v -E '.*\.md'
+    )
     if [ "$failed" ]; then
         exit 1
     fi
