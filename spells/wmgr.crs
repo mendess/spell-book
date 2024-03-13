@@ -12,8 +12,9 @@
 use anyhow::{bail, Context};
 use clap::{Args, Parser};
 use std::{
+    env,
     ffi::OsStr,
-    fs::File,
+    fs::{read_dir, File},
     path::{Path, PathBuf},
     process::{Command, ExitStatus},
 };
@@ -107,6 +108,12 @@ fn name_parser(s: &str) -> Result<PathBuf, String> {
         return Err(format!("name can't contain '/'"));
     }
     Ok(PathBuf::from(s))
+}
+
+fn wall_dir() -> anyhow::Result<PathBuf> {
+    Ok(PathBuf::from(
+        env::var_os("WALLPAPERS").context("$WALLPAPERS var unset")?,
+    ))
 }
 
 fn run_remote<I: IntoIterator<Item = S>, S: AsRef<OsStr>>(args: I) -> anyhow::Result<ExitStatus> {
@@ -240,6 +247,16 @@ fn replace(placement: WallPlacement, name: PathBuf, wallpaper: String) -> anyhow
 }
 
 fn delete(name: String) -> anyhow::Result<()> {
+    let name = if name.contains('/') {
+        Path::new(&name)
+            .file_name()
+            .context("invalid wallpaper name")?
+            .to_str()
+            .unwrap()
+            .to_string()
+    } else {
+        name
+    };
     let output = Command::new("ssh")
         .arg(HOST)
         .arg("--")
@@ -255,8 +272,9 @@ fn delete(name: String) -> anyhow::Result<()> {
     if !output.status.success() {
         bail!("failed to find that wallpaper: {:?}", output.status);
     }
-    let files = std::str::from_utf8(&output.stdout).context("files in server are not utf8")?;
-    let mut files = files
+    let remote_files =
+        std::str::from_utf8(&output.stdout).context("files in server are not utf8")?;
+    let mut files = remote_files
         .split('\n')
         .map(str::trim)
         .filter(|s| !s.is_empty())
@@ -268,6 +286,19 @@ fn delete(name: String) -> anyhow::Result<()> {
     for f in files.clone() {
         eprintln!(" - {HOST}:{f}");
     }
+    let local_files = read_dir(wall_dir()?)?
+        .filter_map(Result::ok)
+        .map(|e| e.path())
+        .filter(|e| {
+            e.file_name()
+                .unwrap()
+                .to_str()
+                .map_or(false, |s| s.contains(&name))
+        })
+        .collect::<Vec<_>>();
+    for f in &local_files {
+        eprintln!(" - {}", f.display());
+    }
     eprint!("proceed? [Y/n] ");
     let mut buf = String::new();
     std::io::stdin().read_line(&mut buf)?;
@@ -277,6 +308,10 @@ fn delete(name: String) -> anyhow::Result<()> {
     let status = run_remote(["rm", "-v"].into_iter().chain(files))?;
     if !status.success() {
         bail!("failed to remove files: {status:?}");
+    }
+    for f in local_files {
+        std::fs::remove_file(&f).with_context(|| format!("removing {}", f.display()))?;
+        eprintln!("removed '{}'", f.display());
     }
 
     Ok(())
@@ -291,7 +326,7 @@ fn sync() -> anyhow::Result<()> {
 
     const DOMAIN: &str = "mendess.xyz";
 
-    let filter = match whoami::hostname().as_str() {
+    let filter = match whoami::fallible::hostname()?.as_str() {
         "localhost" => "walls/phone",
         "tolaria" => "walls/all",
         _ => "walls",
@@ -300,8 +335,7 @@ fn sync() -> anyhow::Result<()> {
     let base = format!("https://{DOMAIN}/api/v1/{filter}");
     let walls = ureq::get(&base).call()?.into_json::<Vec<Wall>>()?;
 
-    let wall_paper_dir =
-        PathBuf::from(std::env::var("WALLPAPERS").context("failed to get $WALLPAPERS")?);
+    let wall_paper_dir = PathBuf::from(wall_dir()?);
     std::fs::create_dir_all(&wall_paper_dir).context("failed to create wallpaper dir")?;
     let total = walls.len();
     for (i, w) in walls.into_iter().enumerate() {

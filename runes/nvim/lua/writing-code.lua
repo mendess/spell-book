@@ -67,13 +67,19 @@ save_compile_run('cpp', {
 
 save_compile_run('rust', {
     compile = function()
-        vim.cmd [[!rustc % --allow dead_code --allow unused_variables --edition 2021 -o %:r]]
+        if not vim.fn.executable('rust-script') then
+            vim.cmd [[!rustc % --allow dead_code --allow unused_variables --edition 2021 -o %:r]]
+        end
     end,
     run = function()
-        if path_is_absolute() then
-            vim.cmd [[!%:r]]
+        if vim.fn.executable('rust-script') then
+            vim.cmd [[!rust-script %]]
         else
-            vim.cmd [[!./%:r]]
+            if path_is_absolute() then
+                vim.cmd [[!%:r]]
+            else
+                vim.cmd [[!./%:r]]
+            end
         end
     end
 })
