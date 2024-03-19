@@ -6,7 +6,7 @@
 //! ureq = { version = "2", features = ["json"] }
 //! anyhow = "1"
 //! serde = { version = "1", features = ["derive"] }
-//! whoami = "1"
+//! whoami = "=1.5.1"
 //! ```
 
 use anyhow::{bail, Context};

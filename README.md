@@ -14,6 +14,7 @@
  - [change-zone](./spells/change-zone.spell)
  - [clean_ws_names](./spells/clean_ws_names.spell) - I sometimes rename my workspaces, this resets the name when the ws is empty. Supports bspwm and herbstluftwm
  - [daemons](./spells/daemons.spell) - Enable/disable my custom daemons
+ - [dell-toggle-dock](./spells/dell-toggle-dock.spell)
  - [del_rss_feed](./spells/del_rss_feed.spell) - Script to be used by newsboat to delete the selected rss feed
  - [die_now](./spells/die_now.spell) - Auto shutdown that sets slowly dims the light, slowly lowers the song volume, and turns of the monitor(s)
  - [discord_voice](./spells/discord_voice.spell) - Change discord voice channel with dmenu
