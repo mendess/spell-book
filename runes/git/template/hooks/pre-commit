@@ -73,7 +73,7 @@ if [ -e mendess-copyright-check-holder ]; then
         grep -v '^D' |
         awk '{$1=""; print}' |
         grep -v -E '.*\.md' |
-        grep -v -E '*.lock'
+        grep -v -E '.*\.lock'
     )
     if [ "$failed" ]; then
         exit 1
