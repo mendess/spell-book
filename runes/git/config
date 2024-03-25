@@ -1,10 +1,11 @@
 [user]
-    name = mendess
 %% switch on whoami
 %% pmendes {
+    name = pmendes
     email = pmendes@cloudflare.com
 %% }
 %% default {
+    name = mendess
     email = pedro.mendes.26@gmail.com
 %% }
 %% end

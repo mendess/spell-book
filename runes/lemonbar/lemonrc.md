@@ -108,7 +108,6 @@
 - command: `[[ "$(file "$(realpath "$(which m)")")" = *Bourne-Again* ]] && m c -s`
 - interval: `60`
 - align: `middle`
-- left-click: `bash ~/.package.sh click`
 - underline: `yellow`
 - left-click: `m prev-file; pkill --signal SIGUSR1 -x lemon`
 - middle-click: `m pause; pkill --signal SIGUSR1 -x lemon`
