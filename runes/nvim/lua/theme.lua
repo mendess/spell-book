@@ -137,6 +137,14 @@ au.group('syntax-fix', function(g)
         {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
         { '*.crs', function() set.filetype = 'rust' end }
     )
+    au(
+        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        { '*.sls', function() set.filetype = 'yaml' end }
+    )
+    au(
+        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        { '*.jinja', function() set.filetype = 'yaml' end }
+    )
 end)
 
 -- Hide all semantic highlights
