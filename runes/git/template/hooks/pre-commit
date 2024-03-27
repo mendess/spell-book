@@ -57,7 +57,7 @@ else
 fi
 
 cargo_root=$(find . -name 'Cargo.toml' 2>/dev/null | sort | head -1)
-if [ -n "$cargo_root" ]; then
+if [ -n "$cargo_root" ] && [ -z "$DISABLE_FMT_CHECK" ]; then
     cd "$(dirname "$cargo_root")" || exit 1
     cargo fmt --check || exit 1
 fi
