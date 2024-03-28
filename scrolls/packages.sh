@@ -17,7 +17,6 @@ curl
 dash
 direnv
 discord
-dmenu
 duf
 dunst
 dust

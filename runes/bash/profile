@@ -70,13 +70,15 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
 export GOPATH="$XDG_DATA_HOME/go"
+export WASMTIME_HOME="$XDG_CONFIG_HOME/.wasmtime"
 export SUDO_ASKPASS=/usr/bin/lxqt-sudo
 local_bin=
 local_bin=$(find ~/.local/bin -type d | sed 's|/$||' | tr '\n' ':' | sed 's/:$//')
 export PATH="$PATH:$CARGO_HOME/bin"
 export PATH="$PATH:$local_bin"
 export PATH="$PATH:$HOME/.local/share/go/bin"
-export PATH="$HOME/.tfenv/bin:$PATH"
+export PATH="$PATH:$HOME/.tfenv/bin"
+export PATH="$PATH:$WASMTIME_HOME/bin"
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
