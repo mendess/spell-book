@@ -79,6 +79,7 @@ termsyn-font
 web-xdg-open-git
 freetube-bin
 swaylock-effects
+swhkd-git
 )
 
 export cargopackages=(
