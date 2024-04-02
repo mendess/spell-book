@@ -74,6 +74,9 @@ done
 if [ -t 0 ]; then
     use_fzf
 elif [ "$WAYLAND_DISPLAY" ]; then
+    if [[ "$0" = *dmenu* ]]; then
+        require_match=false
+    fi
     use_tofi
 else
     use_dmenu
