@@ -149,7 +149,6 @@ if [[ "$nsxiv" ]]; then
     fi
 elif [[ "${#files[@]}" = 0 ]]; then
     mapfile -t files < <(find -H "$WALLPAPERS" -type f |
-        grep -v mtg |
         grep -iP "/[^/]*${filter}[^/]*$")
 fi
 [[ "${#files[@]}" = 0 ]] && exit
@@ -241,7 +240,7 @@ unset i
     wait
 } 2>&1 | color_picker -f &
 
-printf "Setting: %s\n" "${files[@]}"
+printf "Setting: %s\n" "${files[@]}" | tee "$TEMPDIR/last-wall"
 
 [[ "$wait_for_colors" ]] && wait
 if [ "$wayland" ]; then

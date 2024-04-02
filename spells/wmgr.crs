@@ -126,6 +126,17 @@ fn run_remote<I: IntoIterator<Item = S>, S: AsRef<OsStr>>(args: I) -> anyhow::Re
     Ok(code)
 }
 
+fn yn_prompt(prompt: &str, default: bool) -> std::io::Result<bool> {
+    eprint!("{prompt}? {} ", if default { "[Y/n]" } else { "[y/N]" });
+    let mut buf = String::new();
+    std::io::stdin().read_line(&mut buf)?;
+    Ok(match buf.trim() {
+        "N" | "n" => false,
+        "Y" | "y" => true,
+        _ => default,
+    })
+}
+
 fn process_wallpaper(
     wallpaper: String,
     name: Option<PathBuf>,
@@ -299,10 +310,7 @@ fn delete(name: String) -> anyhow::Result<()> {
     for f in &local_files {
         eprintln!(" - {}", f.display());
     }
-    eprint!("proceed? [Y/n] ");
-    let mut buf = String::new();
-    std::io::stdin().read_line(&mut buf)?;
-    if matches!(buf.trim(), "N" | "n") {
+    if !yn_prompt("proceed", true)? {
         return Ok(());
     }
     let status = run_remote(["rm", "-v"].into_iter().chain(files))?;
@@ -333,12 +341,18 @@ fn sync() -> anyhow::Result<()> {
     };
 
     let base = format!("https://{DOMAIN}/api/v1/{filter}");
-    let walls = ureq::get(&base).call()?.into_json::<Vec<Wall>>()?;
+    let walls = {
+        let mut req = ureq::get(&base);
+        if filter == "walls/all" {
+            req = req.query("mtg", "true");
+        }
+        req.call()?.into_json::<Vec<Wall>>()?
+    };
 
     let wall_paper_dir = PathBuf::from(wall_dir()?);
     std::fs::create_dir_all(&wall_paper_dir).context("failed to create wallpaper dir")?;
     let total = walls.len();
-    for (i, w) in walls.into_iter().enumerate() {
+    for (i, w) in walls.iter().enumerate() {
         eprint!("[{i}/{total}] Checking {}", w.name);
         let file_name = wall_paper_dir.join(&w.path);
         let mut file = match File::options().write(true).create_new(true).open(file_name) {
@@ -358,6 +372,26 @@ fn sync() -> anyhow::Result<()> {
             .with_context(|| format!("downloading wallpaper {w:?}"))?;
     }
     eprintln!("Synced");
+    let outdated = std::fs::read_dir(wall_paper_dir)?
+        .filter_map(Result::ok)
+        .filter(|f| {
+            walls
+                .iter()
+                .all(|w| Some(w.path.as_str()) != f.file_name().to_str())
+        })
+        .collect::<Vec<_>>();
+    if !outdated.is_empty() {
+        eprintln!("Local wallpapers found that aren't available online:");
+        for p in &outdated {
+            eprintln!(" - {}", p.file_name().to_str().unwrap());
+        }
+        if yn_prompt("delete them", false)? {
+            for p in outdated {
+                std::fs::remove_file(p.path())?;
+            }
+        }
+    }
+
     Ok(())
 }
 

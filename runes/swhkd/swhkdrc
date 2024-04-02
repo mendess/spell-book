@@ -35,7 +35,7 @@ super + p
     projects
 
 super + F9
-    changeMeWall --wayland
+    changeMeWall
 
 super + shift + F9
     pape=$(wl-paste) ; \
