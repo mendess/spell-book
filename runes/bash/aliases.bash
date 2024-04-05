@@ -168,7 +168,7 @@ alias cr='cargo run'
 alias cb='cargo build'
 alias crr='cargo run --release'
 alias cbr='cargo build --release'
-alias cch='cargo check'
+alias cch='cargo clippy'
 alias ct='cargo test'
 alias cdoc='BROWSER=vimb cargo doc --open'
 
