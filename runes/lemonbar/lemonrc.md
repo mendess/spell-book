@@ -80,6 +80,7 @@
 - align: `left`
 - left-click: `bash ~/.package.sh click`
 - raw: `true`
+- signal: `true`
 
 ## PowerMode
 - persistent: `~/.local/bin/platform_profile low balanced performance`
