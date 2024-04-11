@@ -180,12 +180,15 @@ fn process_wallpaper(
         drop(target_file);
         Ok((target_file_path, file_name))
     } else {
-        let file_name = Path::new(&wallpaper)
-            .file_name()
-            .context("not a file")?
-            .to_str()
-            .context("not valid utf8")?
-            .to_owned();
+        let file_name = match name {
+            Some(name) => name.to_str().context("not valid utf8")?.to_owned(),
+            None => Path::new(&wallpaper)
+                .file_name()
+                .context("not a file")?
+                .to_str()
+                .context("not valid utf8")?
+                .to_owned(),
+        };
         Ok((PathBuf::from(wallpaper), file_name))
     }
 }
@@ -240,13 +243,16 @@ fn replace(placement: WallPlacement, name: PathBuf, wallpaper: String) -> anyhow
         &format!("{WALLPAPER_ROOT}/{wall_dir}/{wallpaper_name}"),
     ])?;
     if !status.success() {
-        bail!("A wallpaper with that name doesn't exist");
+        bail!("A wallpaper with that name ({wallpaper_name}) doesn't exist");
     }
+    let target = format!("{HOST}:{WALLPAPER_ROOT}/{wall_dir}/{wallpaper_name}");
+    eprintln!(
+        "{GREEN}sending {} to {target}{RESET}",
+        wallpaper_path.display()
+    );
     let status = Command::new("scp")
         .arg(wallpaper_path)
-        .arg(format!(
-            "{HOST}:{WALLPAPER_ROOT}/{wall_dir}/{wallpaper_name}",
-        ))
+        .arg(target)
         .spawn()
         .context("running scp")?
         .wait()

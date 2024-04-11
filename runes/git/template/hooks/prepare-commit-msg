@@ -1,0 +1,50 @@
+#!/bin/bash
+# prepare-commit-msg
+# Assuming you use a JIRA key in your branch names, this script will extract
+# that key from the current branch name and inject it into the commit message.
+#
+# installation:
+# - drop this script into $REPO/.git/hooks/prepare-commit-msg
+#
+# usage:
+# 1. Use a JIRA issue in your branch name
+#    git checkout -b larry/PROJECT-1234-good-stuff-coming-soon
+# 2. Commit!  If you don't mention a JIRA ..
+#    git commit -m "changed some things"
+#    .. the commit message will become "PROJECT-1234 changed some things"
+
+# git-gui will pass us a nonexistant commit message filename
+# (".git/PREPARE_COMMIT_MSG")
+if [ ! -e "$1" ] ; then
+    exit 0
+fi
+
+# Assuming a JIRA key looks like:
+#   Two or more capital letters, a dash, and some numbers
+JIRA_REGEX="\b[A-Z]\{2,\}-[0-9]\+\b"
+
+# Find the JIRA in the branch name
+JIRA_ID=$( git symbolic-ref --short HEAD | grep -o "$JIRA_REGEX" )
+
+# Couldn't find a JIRA key in branch name, just stop.
+[ -z "$JIRA_ID" ] && {
+    [ ! -e mendess-require-ticket-number ]
+    exit
+}
+
+
+case "$2,$3" in
+  message,)
+    # -m was used - modify the commit message passed on the command line.
+    # If that JIRA is already in the commit message, stop.
+    grep -q "$JIRA_ID" "$1" && exit
+    # Otherwise, inject it.
+    sed -i.bak -e "1 s/^/$JIRA_ID /;" "$1"
+    ;;
+  ,)
+    # no -m specified, just inject now
+    sed -i.bak -e "1 s/^/$JIRA_ID /;" "$1"
+    ;;
+
+  *) ;;
+esac
