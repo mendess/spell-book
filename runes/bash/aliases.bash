@@ -49,7 +49,7 @@ alias ga='git add'
 alias gaa='git add --all'
 alias gau='git add --update'
 alias gbD='git branch -D'
-alias gbpurge='git fetch --all -p; git branch -vv | grep ": gone]" | awk "{ print \$1 }" | xargs -n 1 git branch -D'
+alias gbpurge='git fetch --all -p; git branch -vv | grep ": gone]" | awk "{ print \$1 }" | xargs -n 1 --no-run-if-empty git branch -D'
 gc() {
     path="$PWD"
     while [[ ! -e "$path/.ccommits" ]] && [[ -e "$path/.git" ]]; do
