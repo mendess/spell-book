@@ -72,8 +72,7 @@ if [ -e mendess-copyright-check-holder ]; then
     done < <(git status --short --no-renames --porcelain --untracked-files=no |
         grep -v '^D' |
         awk '{$1=""; print}' |
-        grep -v -E '.*\.md' |
-        grep -v -E '.*\.lock'
+        grep -v -E '.*\.(md|lock|json|gitignore)$'
     )
     if [ "$failed" ]; then
         exit 1
