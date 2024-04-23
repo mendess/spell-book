@@ -72,7 +72,8 @@ if [ -e mendess-copyright-check-holder ]; then
     done < <(git status --short --no-renames --porcelain --untracked-files=no |
         grep -v '^D' |
         awk '{$1=""; print}' |
-        grep -v -E '.*\.(md|lock|json|gitignore)$'
+        grep -v -E '.*\.(md|lock|json|gitignore)$' |
+        grep -v -F 'RELEASE_NOTES'
     )
     if [ "$failed" ]; then
         exit 1
