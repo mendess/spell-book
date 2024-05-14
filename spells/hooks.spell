@@ -1,0 +1,3 @@
+#!/bin/bash
+
+grep -o -E '[^ ]*mendess-[a-z\-]+' ~/.config/git/template/hooks/* | sort -u | cut -d: -f2-

@@ -19,16 +19,21 @@ if [ ! -e "$1" ] ; then
     exit 0
 fi
 
+if [[  $(git rev-parse --abbrev-ref HEAD) = "HEAD" ]]; then
+    exit
+fi
+
 # Assuming a JIRA key looks like:
 #   Two or more capital letters, a dash, and some numbers
 JIRA_REGEX="\b[a-zA-Z]\{2,\}-[0-9]\+\b"
 
 # Find the JIRA in the branch name
-JIRA_ID=$( git symbolic-ref --short HEAD | grep -o "$JIRA_REGEX" )
+JIRA_ID=$( git symbolic-ref --short HEAD | grep -o "$JIRA_REGEX" | head -1)
+JIRA_ID=${JIRA_ID^^}
 
 # Couldn't find a JIRA key in branch name, just stop.
 [ -z "$JIRA_ID" ] && {
-    if [ -e mendess-require-ticket-number ]; then
+    if [ -e .mendess-require-ticket-number ]; then
         echo "missing ticket number in commit message"
         exit 1
     else

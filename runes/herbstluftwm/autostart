@@ -70,10 +70,8 @@ $hc keybind $Mod-Control-j resize down +$resizestep
 $hc keybind $Mod-Control-k resize up +$resizestep
 $hc keybind $Mod-Control-l resize right +$resizestep
 
-# cycle through tags
-$hc keybind $Mod-Tab use_index +1 --skip-visible
-$hc keybind $Mod-Shift-Tab use_index -1 --skip-visible
-$hc keybind Mod1-Tab use_previous
+# previous tab
+$hc keybind $Mod-Tab use_previous
 
 # layouting
 $hc keybind $Mod-Shift-space set_attr clients.focus.floating toggle

@@ -62,8 +62,8 @@ if [ -n "$cargo_root" ] && [ -z "$DISABLE_FMT_CHECK" ]; then
     cargo fmt --check || exit 1
 fi
 
-if [ -e mendess-copyright-check-holder ]; then
-    holder=$(cat mendess-copyright-check-holder)
+if [ -e .mendess-copyright-check-holder ]; then
+    holder=$(cat .mendess-copyright-check-holder)
     while read -r file; do
         if ! head -n 5 "$file" | grep "Copyright.*$holder" -q; then
             printf "\e[31mERROR:\e[0m %s is missing copyright\n" "$file"
