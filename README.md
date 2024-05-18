@@ -20,6 +20,7 @@
  - [discord_voice](./spells/discord_voice.spell) - Change discord voice channel with dmenu
  - [ex](./spells/ex.spell) - Extract anything
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
+ - [hooks](./spells/hooks.spell)
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [launch-cocktracice](./spells/launch-cocktracice.spell)
  - [lock](./spells/lock.spell)
