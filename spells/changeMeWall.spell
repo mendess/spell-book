@@ -205,8 +205,8 @@ unset i
     # Dmenu colors
     printf "%s\n" "${colors[@]}" >| "$TEMPDIR/wall_colors"
 
+    set -x
     if [[ "$wayland" ]]; then
-        set -x
         printf "%s\n" "${colors[@]}"
         if pgrep river 2>/dev/null; then
             function convert { c="${1/\#/0x}"; echo "${c% *}"; }
@@ -219,7 +219,6 @@ unset i
             hyprctl keyword general:col.active_border "rgb($(convert "${colors[0]}"))"
             hyprctl keyword general:col.inactive_border "rgb($(convert "${colors[2]}"))"
         fi
-        set +x
     else
         if command -v herbstclient &>/dev/null; then
             herbstclient attr theme.active.color "${colors[0]% *}"
@@ -238,6 +237,7 @@ unset i
         set -e
     fi
     wait
+    set +x
 } 2>&1 | color_picker -f &
 
 printf "Setting: %s\n" "${files[@]}" | tee "$TEMPDIR/last-wall"
