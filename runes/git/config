@@ -46,3 +46,5 @@
     prunetags = true
 [push]
     followtags = true
+[branch]
+    sort = -committerdate

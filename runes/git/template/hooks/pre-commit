@@ -73,7 +73,8 @@ if [ -e .mendess-copyright-check-holder ]; then
         grep -v -E '^ ?D' |
         awk '{$1=""; print}' |
         grep -v -E '.*\.(md|lock|json|gitignore)$' |
-        grep -v -F 'RELEASE_NOTES'
+        grep -v -F 'RELEASE_NOTES' |
+        grep -v -F 'CODEOWNERS'
     )
     if [ "$failed" ]; then
         exit 1
