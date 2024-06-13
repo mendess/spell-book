@@ -1,5 +1,16 @@
 #!/bin/bash
 
+BOLD=$(tput bold)
+BLUE="\e[34m"
+RESET=$(tput sgr0)
+
+log() {
+    if [ -t 0 ]; then
+        echo -e "${BOLD}${BLUE}$1:${RESET} $2"
+    else
+        notify-send -u low "$1" "$2"
+    fi
+}
 
 file=$1
 
@@ -12,12 +23,21 @@ if [ -z "$file" ]; then
     exit
 fi
 
-queue=${2:-HP-CARTAS-C6}
-# select queue in HP-CARTAS-C6; do
-[ -t 0 ] || notify-send -u low 'sending pdf to print server' "$file"
-    spark rsync v "$file" argentum:/tmp/
-[ -t 0 ] || notify-send -u low 'printing pdf' "$file"
-    spark ssh argentum -- lpr -P "$queue" "/tmp/$(basename "$file")"
-[ -t 0 ] || notify-send -u low 'done printing pdf' "$file"
-    # break
-# done
+if [[ -z "$2" ]]; then
+    select q in HP-CARTAS-C6 HP-A4; do
+        queue="$q"
+        break
+    done
+else
+    queue=HP-CARTAS-C6
+fi
+
+log 'sending pdf to print server' "$file"
+
+spark rsync v "$file" argentum:/tmp/
+
+log 'printing pdf' "$file"
+
+spark ssh argentum -- lpr -P "$queue" "/tmp/$(basename "$file")"
+
+log 'done printing pdf' "$file"
