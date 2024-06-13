@@ -143,18 +143,18 @@ gp() {
     fi
     git push "$@"
 }
-alias gpt='git push; git push origin --tags'
-alias gpf='git push --force-with-lease'
-alias gpft='git push --force-with-lease; git push origin --tags'
+alias gpt='gp && gp origin --tags'
+alias gpf='gp --force-with-lease'
+alias gpft='gp --force-with-lease && gp origin --tags'
 alias gst='git status'
-alias gcm='git checkout master || git checkout main'
-alias gcd='git checkout develop || git checkout dev'
+alias gcm='git checkout main || git checkout master'
+alias gcd='git checkout dev || git checkout develop'
 __guri() {
     echo "https://github.com/$(git remote get-url --push origin | sed -r 's|.*[:/](.*)/(.*)(.git)?|\1/\2|g')"
 }
 alias gfi='xdg-open "$(__guri)"'
 alias gpr='xdg-open "$(__guri)/pull/new/$(git symbolic-ref --short HEAD)"'
-alias gpsup='git push --set-upstream origin $(git symbolic-ref --short HEAD)'
+alias gpsup='gp --set-upstream origin $(git symbolic-ref --short HEAD)'
 if hash gh &>/dev/null; then
     alias gpsupr='gpsup ; gh pr create -a @me'
 else
