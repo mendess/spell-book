@@ -158,10 +158,9 @@ return require('packer').startup({function(use)
     use 'cstrahan/vim-capnp'
     -- pweatty lsp frontend
     use {
-        'tami5/lspsaga.nvim',
-        -- branch = "nvim6.0",
+        'nvimdev/lspsaga.nvim',
+        after = "nvim-lspconfig",
         config = function() require('plugins.lspsaga') end,
-        after = "nvim-lspconfig"
     }
     -- completion
     use {
