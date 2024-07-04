@@ -24,12 +24,16 @@ if [ -z "$file" ]; then
 fi
 
 if [[ -z "$2" ]]; then
-    select q in HP-CARTAS-C6 HP-A4; do
-        queue="$q"
-        break
-    done
+    if [ -t 0 ]; then
+        select q in HP-CARTAS-C6 HP-A4; do
+            queue="$q"
+            break
+        done
+    else
+        queue=HP-CARTAS-C6
+    fi
 else
-    queue=HP-CARTAS-C6
+    queue="$2"
 fi
 
 log 'sending pdf to print server' "$file"
