@@ -237,3 +237,4 @@ alias ip='ip --color=always'
 command -v julia &>/dev/null && alias julia='HOME=$XDG_CACHE_HOME julia'
 
 alias network_monitor='nmcli -c yes monitor | while read -r line; do echo -e "\e[0m[$(date)] $line"; done'
+alias sent-bangers="ssh mendess@mendess.xyz -- jq -r '.[].url' core/mirari/memnarch/files/sent-bangers.json | tac"
