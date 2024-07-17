@@ -147,8 +147,15 @@ alias gpt='gp && gp origin --tags'
 alias gpf='gp --force-with-lease'
 alias gpft='gp --force-with-lease && gp origin --tags'
 alias gst='git status'
-alias gcm='git checkout main || git checkout master'
-alias gcd='git checkout dev || git checkout develop'
+function gcm() {
+    case "$(git branch --format='%(refname:short)')" in
+        *develop*) git switch develop ;;
+        *dev*) git switch dev ;;
+        *main*) git switch main ;;
+        *master*) git switch master ;;
+    esac
+}
+alias gcmm='git checkout main || git checkout master'
 __guri() {
     echo "https://github.com/$(git remote get-url --push origin | sed -r 's|.*[:/](.*)/(.*)(.git)?|\1/\2|g')"
 }
