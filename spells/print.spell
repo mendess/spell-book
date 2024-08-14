@@ -25,12 +25,12 @@ fi
 
 if [[ -z "$2" ]]; then
     if [ -t 0 ]; then
-        select q in HP-CARTAS-C6 HP-A4; do
+        select q in HP-C6 HP-A4; do
             queue="$q"
             break
         done
     else
-        queue=HP-CARTAS-C6
+        queue=HP-C6
     fi
 else
     queue="$2"
