@@ -146,6 +146,9 @@ gp() {
 alias gpt='gp && gp origin --tags'
 alias gpf='gp --force-with-lease'
 alias gpft='gp --force-with-lease && gp origin --tags'
+function gdt() {
+    g tag -d "$1" && git push origin --delete "$1"
+}
 alias gst='git status'
 function gcm() {
     case "$(git branch --format='%(refname:short)')" in
