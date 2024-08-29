@@ -109,6 +109,7 @@ lsp.gopls.setup {
 --     root_dir = lsp_util.root_pattern("docker-compose.yaml", "docker-compose.yml"),
 --     capabilities = capabilities,
 -- }
+lsp.zls.setup {}
 
 -- Hide all semantic highlights
 -- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do

@@ -35,6 +35,7 @@ au.group('writing-opts', function(g)
     g.Filetype = {
         {'markdown', 'tex'},
         function()
+            print("using writing mode")
             set.linebreak = true
             set.textwidth = 80
             inoremap('`A', 'À')
