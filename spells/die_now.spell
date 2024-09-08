@@ -8,7 +8,7 @@ mpv_get ()
 }
 
 common() {
-    while [[ "$(mpv_get volume .data)" -gt 30 ]]; do
+    while [[ "$(mpv_get volume .data | cut -d. -f1)" -gt 30 ]]; do
         sleep 5m
         m vd
     done &
