@@ -63,6 +63,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export WEECHAT_HOME="$XDG_CONFIG_HOME"/weechat
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export ANDROID_HOME="$XDG_CONFIG_HOME/android"
 #echo hsts-file \= "$XDG_CACHE_HOME"/wget-hsts >> "$XDG_CONFIG_HOME/wgetrc"
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 [ -z "$SSH_CLIENT" ] && export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
