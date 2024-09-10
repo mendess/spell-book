@@ -72,7 +72,7 @@ if [ -e .mendess-copyright-check-holder ]; then
     done < <(git status --short --no-renames --porcelain --untracked-files=no |
         grep -v -E '^ ?D' |
         awk '{$1=""; print}' |
-        grep -v -E '.*\.(md|lock|json|gitignore)$' |
+        grep -v -E '.*\.(md|lock|json|gitignore|svg|html)$' |
         grep -v -F 'RELEASE_NOTES' |
         grep -v -F 'CODEOWNERS'
     )
