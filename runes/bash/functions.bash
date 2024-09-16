@@ -140,21 +140,37 @@ share() { (
 ); }
 
 gcl() {
+    if [[ "$(whoami)" = pmendes ]]; then
+        mk_repo_dir() {
+            project=$(basename $(dirname "$1"))
+            mkdir -p _$project
+            cd _$project
+        }
+    else
+        mk_repo_dir() { :; }
+    fi
     case "$1" in
         http://*)
             echo '============================> using http'
-            git clone "$@"
+            read -p 'press enter to continue anyway' && \
+                mk_repo_dir "$1" && \
+                git clone "$@"
             ;;
-        git@* | https://*)
+        git@* | https://* | ssh://*)
+            mk_repo_dir "$1"
             git clone "$@"
             ;;
         */*)
+            mk_repo_dir "$@"
             git clone git@github.com:"$1" "${@:2}"
             ;;
         *)
-            git clone git@github.com:"$(git config --global user.name)"/"$1" "${@:2}"
+            gh_name=$(git config --global user.name)
+            mk_repo_dir "$gh_name"
+            git clone git@github.com:"$gh_name/$1" "${@:2}"
             ;;
     esac
+    cd "$(basename "${1%.git}")"
 }
 
 nospace() {
