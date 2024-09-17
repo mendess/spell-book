@@ -142,7 +142,7 @@ share() { (
 gcl() {
     if [[ "$(whoami)" = pmendes ]]; then
         mk_repo_dir() {
-            project=$(basename $(dirname "$1"))
+            project=$(basename $(dirname "$1") | rev | cut -d: -f1 | rev)
             mkdir -p _$project
             cd _$project
         }
