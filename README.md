@@ -33,6 +33,7 @@
  - [print](./spells/print.spell)
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
+ - [share](./spells/share.spell)
  - [ssh-menu](./spells/ssh-menu.spell) - A menu to quickly open ssh connections
  - [syncspellbook](./spells/syncspellbook.spell) - Tries to synchronise with changes to the remote repository. Also runs [learnSpells](./learnSpells.sh) and [castRunes](./castRunes.sh)
  - [termFromHere](./spells/termFromHere.spell) - Opens a terminal in the same `cwd` as the focused `X` program.
