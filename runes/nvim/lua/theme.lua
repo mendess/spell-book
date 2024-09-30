@@ -126,23 +126,23 @@ command.Bt = transparent_bg
 -- assign syntax to some special files
 au.group('syntax-fix', function(g)
     au(
-        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        {'BufNewFile', 'BufRead', 'BufWritePost'},
         { '*.h', function() set.filetype = 'c' end }
     )
     au(
-        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        {'BufNewFile', 'BufRead', 'BufWritePost'},
         { '*.spell', function() set.filetype = 'sh' end }
     )
     au(
-        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        {'BufNewFile', 'BufRead', 'BufWritePost'},
         { '*.crs', function() set.filetype = 'rust' end }
     )
     au(
-        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        {'BufNewFile', 'BufRead', 'BufWritePost'},
         { '*.sls', function() set.filetype = 'yaml' end }
     )
     au(
-        {'BufNewFile', 'BufRead', 'BufReadPost', 'BufWritePost'},
+        {'BufNewFile', 'BufRead', 'BufWritePost'},
         { '*.jinja', function() set.filetype = 'yaml' end }
     )
 end)

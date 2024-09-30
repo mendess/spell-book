@@ -33,7 +33,7 @@ local on_attach = function(autoformat)
                     }
                 end)
             end
-            if client.name ~= "tsserver" then
+            if client.name ~= "tsserver" or client.name ~= "ts_ls" then
                 buf_set_keymap(
                     'n',
                     '<leader>f',
@@ -45,7 +45,7 @@ local on_attach = function(autoformat)
     end
 end
 
-lsp.tsserver.setup {
+lsp.ts_ls.setup {
     on_attach = on_attach(false),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     capabilities = capabilities

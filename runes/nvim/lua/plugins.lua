@@ -17,24 +17,6 @@ return require('lazy').setup({
     'b0o/mapx.nvim',
     -- profiling
     {'tweekmonster/startuptime.vim', enabled = false },
-    -- improve startup time
-    {
-        'nathom/filetype.nvim',
-        opts = {
-            overrides = {
-                extensions = {
-                    spell = 'sh',
-                    hbs = 'html',
-                    h = 'c',
-                    pde = 'arduino',
-                    ino = 'arduino',
-                },
-                literal = {
-                    xinitrc = 'sh'
-                }
-            }
-        }
-    },
     ------ ============================= ------
 
     ------ ======  COLOR SCHEMES  ====== ------
