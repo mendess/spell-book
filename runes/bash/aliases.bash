@@ -30,7 +30,7 @@ if hash duf &>/dev/null; then
 fi
 
 # du
-if hash du &>/dev/null; then
+if hash dust &>/dev/null; then
     alias du=dust
 fi
 
