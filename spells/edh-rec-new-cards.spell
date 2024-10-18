@@ -1,0 +1,20 @@
+#!/bin/bash
+
+commanders=(
+    rafiq-of-the-many
+    kamiz-obscura-oculus
+    alaundo-the-seer
+    sliver-overlord
+    lonis-cryptozoologist
+    narset-enlightened-exile
+    rielle-the-everwise
+    brago-king-eternal
+    atraxa-praetors-voice
+    mairsil-the-pretender
+)
+
+clues=https://gist.github.com/mendess/c78ed6b368c643d9b81ba493749eb99a
+
+for cmdr in "${commanders[@]}"; do
+    xdg-open "$cmdr"
+done
