@@ -16,5 +16,5 @@ commanders=(
 clues=https://gist.github.com/mendess/c78ed6b368c643d9b81ba493749eb99a
 
 for cmdr in "${commanders[@]}"; do
-    xdg-open "$cmdr"
+    xdg-open "https://edhrec.com/commanders/$cmdr"
 done
