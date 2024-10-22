@@ -18,6 +18,7 @@
  - [del_rss_feed](./spells/del_rss_feed.spell) - Script to be used by newsboat to delete the selected rss feed
  - [die_now](./spells/die_now.spell) - Auto shutdown that sets slowly dims the light, slowly lowers the song volume, and turns of the monitor(s)
  - [discord_voice](./spells/discord_voice.spell) - Change discord voice channel with dmenu
+ - [edh-rec-new-cards](./spells/edh-rec-new-cards.spell)
  - [ex](./spells/ex.spell) - Extract anything
  - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
  - [hooks](./spells/hooks.spell)
