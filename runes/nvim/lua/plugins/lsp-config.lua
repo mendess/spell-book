@@ -71,12 +71,17 @@ lsp.rust_analyzer.setup {
                 exit_timeout = 0,
             },
             checkOnSave = {
-                command = "clippy"
+                command = "clippy",
             },
             procMacro = {
-                enable = true
+                enable = true,
             },
-        }
+            imports = {
+                group = {
+                    enable = false,
+                },
+            },
+        },
     },
     capabilities = capabilities
 }
