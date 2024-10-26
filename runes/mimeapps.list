@@ -13,6 +13,7 @@ image/jpg=nsxiv.desktop
 image/jpeg=nsxiv.desktop
 image/webp=nsxiv.desktop
 x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/discord-402572971681644545=discord-402572971681644545.desktop
 
 [Added Associations]
 application/octet-stream=gvim.desktop;
