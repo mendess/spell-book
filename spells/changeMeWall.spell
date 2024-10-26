@@ -162,7 +162,7 @@ if [[ "$different" ]]; then
 else
     size=1
 fi
-mapfile -t files < <(printf "%s\n" "${files[@]}" | shuf -n "$size")
+mapfile -t files < <(printf "%s\n" "${files[@]}" | grep -v mtg | shuf -n "$size")
 
 i=1
 for file in "${files[@]}"; do
