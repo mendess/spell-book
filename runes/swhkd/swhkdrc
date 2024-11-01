@@ -49,7 +49,7 @@ super + control + m
     $TERMINAL -e pacmixer
 
 super + {F2, F3}
-    {~/.config/swhkd/browser-program || $BROWSER, ~/.config/swhkd/chat-program || ELECTRON_OZONE_PLATFORM_HINT=wayland discord --no-sandbox --ozone-platform-hint=wayland --enable-webrtc-pipewire-capturer}
+    {~/.config/swhkd/browser-program || $BROWSER, ~/.config/swhkd/chat-program || webcord}
 
 super + shift + F2
     $BROWSER -private-window https://duckduckgo.com/
