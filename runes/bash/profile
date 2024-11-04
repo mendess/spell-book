@@ -81,6 +81,8 @@ export PATH="$PATH:$HOME/.local/share/go/bin"
 export PATH="$PATH:$HOME/.tfenv/bin"
 export PATH="$PATH:$WASMTIME_HOME/bin"
 
+export COMP_WORDBREAKS=${COMP_WORDBREAKS/://}
+
 rfkill unblock bluetooth wlan
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc

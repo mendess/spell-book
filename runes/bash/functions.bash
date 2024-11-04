@@ -45,57 +45,6 @@ alarm() {
     disown
 }
 
-matrix() {
-    echo -e "\e[1;40m"
-    clear
-    while :; do
-        echo $LINES $COLUMNS $((RANDOM % COLUMNS)) $((RANDOM % 72))
-        sleep 0.05
-    done |
-        awk '{ letters="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()"; c=$4; letter=substr(letters,c,1);a[$3]=0;for (x in a) {o=a[x];a[x]=a[x]+1; printf "\033[%s;%sH\033[2;32m%s",o,x,letter; printf "\033[%s;%sH\033[1;37m%s\033[0;0H",a[x],x,letter;if (a[x] >= $1) { a[x]=0; } }}'
-}
-
-loop() {
-    n=""
-    while ! [ "$n" = "n" ]; do
-        "$@"
-        read -r n
-    done
-}
-
-clearswap() {
-    local drive
-    drive="$(lsblk -i | grep SWAP | awk '{print $1}' | sed -r 's#[|`]-#/dev/#')"
-    sudo swapoff "$drive"
-    sudo swapon "$drive"
-}
-
-vimbd() {
-    vimb "$1" &
-    disown
-    exit
-}
-
-advent-of-code() {
-    if [[ "$1" != day* ]]; then
-        echo "bad input: '$1'"
-        return 1
-    fi
-    cargo new "$1" || return 1
-    cd "$1" || return 1
-    echo '
-[[bin]]
-name = "one"
-path = "src/one.rs"
-
-[[bin]]
-name = "two"
-path = "src/two.rs"' >>Cargo.toml
-    cp src/main.rs src/one.rs
-    cp src/main.rs src/two.rs
-    rm src/main.rs
-}
-
 degen() {
     python3 -c '
 from random import choice
@@ -205,12 +154,6 @@ nest() {
     mkdir "$dir" || return
     mv "${@:2}" "$dir" || return
     mv "$dir" . || return
-}
-
-lyrics() {
-    curl -s --get "https://makeitpersonal.co/lyrics" \
-        --data-urlencode "title='${*:2}'" \
-        --data-urlencode "artist=$1"
 }
 
 create-latex-git-ignore() {
@@ -346,17 +289,23 @@ function gb {
     fi
 }
 
-function file-swap {
-    [ "$#" -eq 2 ] && { echo "Usage: $0 path/to/file1 path/to/file2"; return 1; }
-    [ -e "$1" ] || { echo "file-swap: $1 No such file or directory"; return 1; }
-    [ -e "$2" ] || { echo "file-swap: $2 No such file or directory"; return 1; }
-    tmpfile=$(mktemp --tmpdir="$(dirname "$1")")
-    mv "$1" "$tmpfile" || return 1
-    mv "$2" "$1"       || return 1
-    mv "$tmpfile" "$2" || return 1
-}
-
 function wait-for-ci {
     gh run watch
     notify-send "${1:-CI DONE} ${*:2}" -u critical
+}
+
+base64url::encode() {
+    base64 -w0 | tr '+/' '-_' | tr -d '='
+}
+
+base64url::decode() {
+    awk '{
+        if (length($0) % 4 == 3)
+            print $0"=";
+        else if (length($0) % 4 == 2)
+            print $0"==";
+        else print $0;
+    }' |
+        tr -- '-_' '+/' |
+        base64 -d
 }
