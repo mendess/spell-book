@@ -19,7 +19,6 @@ esac
 battery_check &
 dunst &
 clipmenud &
-command -V espanso && espanso -v worker &
 # if [ $LOGNAME = work ] && [ -f ~/focus-bro.py ]; then
 #     ~/focus-bro.py > /tmp/$LOGNAME/focus-bro.log &
 # fi
