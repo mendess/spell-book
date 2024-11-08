@@ -12,9 +12,7 @@ vnoremap('<C-c>', '"+y')
 vnoremap('<C-x>', '"+d')
 
 -- fast replace
-nnoremap('s', ':%s//<Left>')
 nnoremap('S', [[:%s/\<<C-r><C-w>\>/]])
-vnoremap('s', ':s//<Left>')
 
 -- nerdtree
 nnoremap('<F2>', ':Neotree toggle<CR>')
@@ -31,7 +29,7 @@ mapx.group({ silent = true }, function()
     nnoremap('<leader>p', function() require('telescope.builtin').find_files() end)
     nnoremap('<leader>b', function() require('telescope.builtin').buffers() end)
     nnoremap('gD', function() require('telescope.builtin').lsp_type_definitions() end)
-    command.Rg = function() require('telescope.builtin').grep_string() end
+    command.Rg = function() require('telescope.builtin').live_grep() end
 end)
 
 -- windowing
