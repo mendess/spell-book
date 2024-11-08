@@ -1,5 +1,24 @@
 local M = {}
 
+local function tmerge(dest, source)
+    for k,v in pairs(source) do
+        if type(v) == "table" then
+            if type(dest[k] or false) == "table" then
+                tmerge(dest[k] or {}, source[k] or {})
+            else
+                dest[k] = v
+            end
+        else
+            dest[k] = v
+        end
+    end
+    return dest
+end
+
+M.table_merge = function(dest, source)
+    return tmerge(dest, source)
+end
+
 M.file_exists = function(name)
     local f = io.open(name, 'r')
     if f ~= nil then

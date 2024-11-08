@@ -3,6 +3,7 @@ local lsp_util = require('lspconfig.util')
 local protocol = require('vim.lsp.protocol')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local au = require('utils.au')
+local table_merge = require('utils.misc').table_merge
 
 local on_attach = function(autoformat)
     return function(client, bufnr)
@@ -45,6 +46,36 @@ local on_attach = function(autoformat)
     end
 end
 
+
+local function setup_rust_analyzer(config)
+    -- Function to load settings from the .nvim/settings.json file
+    local load_project_settings = function()
+        local settings_file = lsp_util.root_pattern("Cargo.toml")(vim.fn.getcwd()) .. '/.nvim/settings.json'
+        if vim.fn.filereadable(settings_file) == 1 then
+            local file = io.open(settings_file, "r")
+            local content = file:read("*a")
+            file:close()
+            local settings = vim.fn.json_decode(content)
+            return settings
+        else
+            return nil
+        end
+    end
+
+    -- Check if Cargo.toml exists
+    local local_overrides = load_project_settings()
+    if local_overrides then
+        -- Load project-specific settings
+        config.settings = table_merge(config.settings, local_overrides)
+    end
+    lsp.rust_analyzer.setup({
+        on_attach = on_attach(config.autoformat),
+        settings = config.settings,
+        capabilities = capabilities,
+    })
+
+end
+
 lsp.ts_ls.setup {
     on_attach = on_attach(false),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
@@ -59,8 +90,8 @@ lsp.svelte.setup {
     on_attach = on_attach(true),
     capabilities = capabilities,
 }
-lsp.rust_analyzer.setup {
-    on_attach = on_attach(true),
+setup_rust_analyzer({
+    autoformat = true,
     settings = {
         ["rust-analyzer"] = {
             cargo = {
@@ -82,9 +113,8 @@ lsp.rust_analyzer.setup {
                 },
             },
         },
-    },
-    capabilities = capabilities
-}
+    }
+})
 -- lsp.bashls.setup {
 --     on_attach = on_attach(true),
 --     capabilities = update_capabilities(protocol.make_client_capabilities())
@@ -122,3 +152,4 @@ lsp.zls.setup {}
 -- end
 
 -- vim.cmd [[LspStart]]
+
