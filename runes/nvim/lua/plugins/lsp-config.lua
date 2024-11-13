@@ -50,7 +50,11 @@ end
 local function setup_rust_analyzer(config)
     -- Function to load settings from the .nvim/settings.json file
     local load_project_settings = function()
-        local settings_file = lsp_util.root_pattern("Cargo.toml")(vim.fn.getcwd()) .. '/.nvim/settings.json'
+        local rust_project_root = lsp_util.root_pattern("Cargo.toml")(vim.fn.getcwd())
+        if rust_project_root == nil then
+            return nil
+        end
+        local settings_file = rust_project_root .. '/.nvim/settings.json'
         if vim.fn.filereadable(settings_file) == 1 then
             local file = io.open(settings_file, "r")
             local content = file:read("*a")
