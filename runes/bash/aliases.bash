@@ -179,7 +179,11 @@ alias cb='cargo build'
 alias crr='cargo run --release'
 alias cbr='cargo build --release'
 alias cch='cargo clippy'
-alias ct='cargo test'
+if hash cargo-nextest &>/dev/null; then
+    alias ct='cargo nextest run'
+else
+    alias ct='cargo test'
+fi
 alias cdoc='BROWSER=vimb cargo doc --open'
 
 alias cn='cargo +nightly'
