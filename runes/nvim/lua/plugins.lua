@@ -20,12 +20,12 @@ return require('lazy').setup({
     ------ ============================= ------
 
     ------ ======  COLOR SCHEMES  ====== ------
-    'mendess/nvim-base16.lua',
-    'mendess/ayu-vim',
-    'sainnhe/everforest',
+    {'mendess/nvim-base16.lua', enabled = false},
+    {'mendess/ayu-vim', enabled = false},
+    {'sainnhe/everforest', enabled = false},
     'rebelot/kanagawa.nvim',
-    ------ ============================= ------
 
+    ------ ============================= ------
 
     ------ ====== EXTRA KEYBINDS  ====== ------
     -- quick quoting/unquoting/swap quoting keybinds
@@ -196,7 +196,7 @@ return require('lazy').setup({
         config = function()
             require('headlines').setup()
         end,
-        enabled = false,
+        enabled = true,
     },
     {
         'fatih/vim-go',

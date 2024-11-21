@@ -26,11 +26,11 @@ misc.if_require_do('base16', function(base16)
     -- set_base16()
 end)
 
-vim.g.everforest_background = 'hard'
-vim.g.everforest_better_performance = 1
-vim.g.everforest_disable_italic_comment = 1
-vim.g.everforest_transparent_background = 2
-vim.g.everforest_show_eob = 0
+-- vim.g.everforest_background = 'hard'
+-- vim.g.everforest_better_performance = 1
+-- vim.g.everforest_disable_italic_comment = 1
+-- vim.g.everforest_transparent_background = 2
+-- vim.g.everforest_show_eob = 0
 
 -- THE RULER OF DISCIPLINE
 set.colorcolumn = '101'
@@ -152,3 +152,12 @@ end)
 --   vim.api.nvim_set_hl(0, group, {})
 -- end
 
+function fugitive_status_line()
+    local branch = vim.fn.FugitiveHead()
+    if branch ~= "" then
+        return string.format("[%s]", branch)
+    else
+        return ''
+    end
+end
+vim.opt.statusline = [[%<%f %#StatusLineNC#%{v:lua.fugitive_status_line()}%#StatusLine# %h%w%m%r%=%-14.(%l,%c%V%) %P]]
