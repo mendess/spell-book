@@ -83,6 +83,16 @@ return require('lazy').setup({
         'airblade/vim-gitgutter',
         config = function() vim.g.gitgutter_enabled = 0 end,
     },
+    { 'tpope/vim-fugitive' },
+    {
+        'shumphrey/fugitive-gitlab.vim',
+        config = function() vim.g.fugitive_gitlab_domains = {'https://gitlab.cfdata.org'} end,
+        dependencies = { 'tpope/vim-fugitive' },
+    },
+    {
+        'tpope/vim-rhubarb',
+        dependencies = { 'tpope/vim-fugitive' },
+    },
     -- detect bad whitespace
     {
         'ntpeters/vim-better-whitespace',
