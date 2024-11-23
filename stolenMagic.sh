@@ -16,10 +16,14 @@ user-from-link() {
 
 install-script() {
     (
-        cd ~/.local/bin/
-        wget --quiet -N "$1" |& grep -v ^SSL_INIT$
-        chmod +x "$(basename "$1")"
-        echo "  - $(basename "$1")"
+        cd ~/.local/bin/ || exit
+        timeout 5 bash -c "wget --quiet -N '$1' |& grep -v ^SSL_INIT$;"
+        if [[ "$?" == 124 ]]; then
+            echo "  - timedout fetching $(basename "$1") :("
+        else
+            chmod +x "$(basename "$1")"
+            echo "  - $(basename "$1")"
+        fi
     )
 }
 
@@ -28,11 +32,11 @@ if [[ "${#scripts[@]}" -eq 0 ]]; then
 fi
 
 printf "\n\033[33mStealing magic from \033[1m%s\033[0;33m users\033[0m\n" \
-    $(printf "%s\n" "${scripts[@]}" | user-from-link | sort -u | wc -l)
+    "$(printf "%s\n" "${scripts[@]}" | user-from-link | sort -u | wc -l)"
 
 for s in "${scripts[@]}"; do
     install-script "$s" &
 done
 wait
 
-printf "\n\033[33mDone!\033[0m\n"
+printf "\033[33mDone!\033[0m\n"
