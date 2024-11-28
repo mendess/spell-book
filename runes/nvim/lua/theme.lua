@@ -55,12 +55,10 @@ set.showbreak = '> '
 set.conceallevel = 2
 set.list = true
 set.listchars = 'tab:>-'
--- au.group('disable-linebreak', function(g)
---     g(
---         {'BufEnter','BufRead'},
---         { '*.rs', function() set.linebreak = false end }
---     )
--- end)
+
+command.ToggleTabs = function()
+    set.list = not set.list:get()
+end
 
 au.group('go-shit', function(g)
     g.BufEnter = {
