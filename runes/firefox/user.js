@@ -8,3 +8,5 @@ user_pref("browser.ssb.enabled", true);
 user_pref("extensions.pocket.enabled", false);
 user_pref("extensions.pocket.onSaveRecs", false);
 user_pref("extensions.pocket.showHome", false);
+user_pref("sidebar.revamp", true);
+user_pref("sidebar.verticalTabs", true);
