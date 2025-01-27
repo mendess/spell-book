@@ -56,4 +56,5 @@ Control-l: clear-screen
 Control-p: previous-history
 Control-n: next-history
 TAB: menu-complete
+"\C-z": # disable emacs-mode-toggle
 $endif
