@@ -109,6 +109,38 @@ return require('lazy').setup({
         init = function() vim.g.highlightedyank_highlight_duration = 100 end
     },
     'tversteeg/registers.nvim',
+    {
+        "LintaoAmons/bookmarks.nvim",
+        -- pin the plugin at specific version for stability
+        -- backup your bookmark sqlite db when there are breaking changes
+        -- tag = "v2.3.0",
+        dependencies = {
+            {"kkharji/sqlite.lua"},
+            {"nvim-telescope/telescope.nvim"},
+            {"stevearc/dressing.nvim"} -- optional: better UI
+        },
+        config = function()
+            require("bookmarks").setup({ -- you must call setup to init sqlite db
+                signs = {
+                    mark = {
+                        icon = "",
+                        color = "#F8D06F",
+                        line_bg = "#1F1F28"
+                    },
+                    desc_format = function(bookmark)
+                        if bookmark.name == "" then
+                            return "   ☩"
+                        else
+                            return "   » " .. bookmark.name
+                        end
+                    end
+                },
+                treeview = {
+                    window_split_dimension = 60,
+                },
+            })
+        end,
+    },
     ------ ============================= ------
 
 
@@ -186,7 +218,6 @@ return require('lazy').setup({
     ------ ============================= ------
 
     ------ ======  EXTRA SINTAX   ====== ------
-    -- Rust
     {
         'rust-lang/rust.vim',
         ft = { 'rust' }
