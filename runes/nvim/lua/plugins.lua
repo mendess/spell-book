@@ -212,7 +212,24 @@ return require('lazy').setup({
             'nvim-lua/popup.nvim',
             'nvim-lua/plenary.nvim',
         },
-        config = function() require('plugins.telescope') end,
+        config = function()
+            require('telescope').setup {
+                defaults = {
+                    layout_strategy = 'flex',
+                    layout_config = {
+                        flex = {
+                            horizontal = {
+                                preview_width = 80 * 2,
+                            },
+                            vertical = {
+
+                            },
+                            flip_columns = 80 * 3,
+                        },
+                    },
+                }
+            }
+        end,
         module = {'telescope', 'telescope.builtin'},
     },
     ------ ============================= ------

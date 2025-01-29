@@ -29,7 +29,7 @@ mapx.group({ silent = true }, function()
     nnoremap('<leader>p', function() require('telescope.builtin').find_files() end)
     nnoremap('<leader>b', function() require('telescope.builtin').buffers() end)
     nnoremap('gD', function() require('telescope.builtin').lsp_type_definitions() end)
-    command.Rg = function() require('telescope.builtin').live_grep() end
+    nnoremap('<leader>l', function() require('telescope.builtin').live_grep() end)
 end)
 
 -- windowing

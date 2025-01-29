@@ -116,14 +116,36 @@ fn wall_dir() -> anyhow::Result<PathBuf> {
     ))
 }
 
-fn run_remote<I: IntoIterator<Item = S>, S: AsRef<OsStr>>(args: I) -> anyhow::Result<ExitStatus> {
-    let code = Command::new("ssh")
-        .arg(HOST)
-        .arg("--")
-        .args(args)
-        .spawn()?
-        .wait()?;
+fn run_remote_impl<I: IntoIterator<Item = S>, S: AsRef<OsStr>>(
+    args: I,
+    log: bool,
+) -> anyhow::Result<ExitStatus> {
+    let mut command = Command::new("ssh");
+    command.arg(HOST).arg("--").args(args);
+    if log {
+        eprintln!(
+            "running remotely {}",
+            command
+                .get_args()
+                .skip(2)
+                .collect::<Vec<_>>()
+                .join(std::ffi::OsStr::new(" "))
+                .to_str()
+                .unwrap()
+        );
+    }
+    let code = command.spawn()?.wait()?;
     Ok(code)
+}
+
+fn run_remote_logged<I: IntoIterator<Item = S>, S: AsRef<OsStr>>(
+    args: I,
+) -> anyhow::Result<ExitStatus> {
+    run_remote_impl(args, true)
+}
+
+fn run_remote<I: IntoIterator<Item = S>, S: AsRef<OsStr>>(args: I) -> anyhow::Result<ExitStatus> {
+    run_remote_impl(args, false)
 }
 
 fn yn_prompt(prompt: &str, default: bool) -> std::io::Result<bool> {
@@ -171,6 +193,7 @@ fn process_wallpaper(
         };
 
         let target_file_path = ["/tmp", &file_name].iter().collect::<PathBuf>();
+        eprintln!("downloading to {}", target_file_path.display());
         let mut target_file = File::create(&target_file_path)?;
         let mut resp = ureq::request_url("GET", &url)
             .call()
@@ -196,7 +219,7 @@ fn process_wallpaper(
 fn add(placement: WallPlacement, name: Option<PathBuf>, wallpaper: String) -> anyhow::Result<()> {
     let (wallpaper_path, wallpaper_name) = process_wallpaper(wallpaper, name)?;
     let wall_dir = placement.base_wall_dir();
-    let status = run_remote([
+    let status = run_remote_logged([
         "test",
         "!",
         "-e",
@@ -237,7 +260,7 @@ fn replace(placement: WallPlacement, name: PathBuf, wallpaper: String) -> anyhow
 
     let wall_dir = placement.base_wall_dir();
 
-    let status = run_remote([
+    let status = run_remote_logged([
         "test",
         "-e",
         &format!("{WALLPAPER_ROOT}/{wall_dir}/{wallpaper_name}"),
