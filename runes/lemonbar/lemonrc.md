@@ -88,7 +88,7 @@
 - align: `left`
 
 ## Rust Version
-- command: `new-rust-version | sed 's/^/new rust version:/'`
+- command: `new-rust-version | sed 's/^/new rust version: /'`
 - interval: `3600`
 - align: `left`
 - left-click: `xdg-open https://blog.rust-lang.org`
