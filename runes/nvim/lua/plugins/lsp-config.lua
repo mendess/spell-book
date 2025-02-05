@@ -100,7 +100,6 @@ setup_rust_analyzer({
         ["rust-analyzer"] = {
             cargo = {
                 autoreload = true,
-                features = "all",
             },
             flags = {
                 exit_timeout = 0,
