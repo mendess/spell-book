@@ -1,0 +1,13 @@
+⚠ Missing or outdated udev rules for 'atmel-dfu' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'kiibohd' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'stm32-dfu' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'apm32-dfu' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'gd32v-dfu' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'wb32-dfu' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'at32-dfu' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'bootloadhid' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'usbasploader' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'usbtinyisp' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'md-boot' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'caterina' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
+⚠ Missing or outdated udev rules for 'hid-bootloader' boards. Run 'sudo cp /home/mendess/.cache/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/'.
