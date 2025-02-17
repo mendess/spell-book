@@ -1,4 +1,5 @@
 #!/bin/bash
 
 res=$(xrandr | grep -F '*' | awk '{print $1}')
-convert $WALLPAPERS/home.png -scale $res RGB:- | i3lock --raw $res:rgb --image /dev/stdin
+convert $WALLPAPERS/home.png -gravity center -background black -extent $res RGB:- |
+    i3lock --raw $res:rgb --image /dev/stdin
