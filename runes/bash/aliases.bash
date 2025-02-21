@@ -39,7 +39,11 @@ alias gs=gst # fuck ghost script
 alias gdd='git difftool --tool=vimdiff'
 g() {
     if [[ $# -eq 0 ]]; then
-        git status --short --branch
+        if [ -t 1 ]; then
+            git status --short --branch
+        else
+            git status --short --porcelain --untracked-files=no | awk '{print $2}'
+        fi
     else
         git "$@"
     fi

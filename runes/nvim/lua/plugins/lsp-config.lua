@@ -8,7 +8,7 @@ local table_merge = require('utils.misc').table_merge
 local on_attach = function(autoformat)
     return function(client, bufnr)
         -- disable semantic hightlighting
-        client.server_capabilities.semanticTokensProvider = nil
+        -- client.server_capabilities.semanticTokensProvider = nil
 
         local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
         local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end

@@ -225,6 +225,7 @@ return require('lazy').setup({
 
                             },
                             flip_columns = 80 * 3,
+                            flip_lines = 0,
                         },
                     },
                 }
