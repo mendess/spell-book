@@ -1,6 +1,9 @@
 super + Return
     $TERMINAL
 
+super + N
+    notify-send $PWD "$(pwd)"
+
 # super + shift + Return
 #     termFromHere
 
