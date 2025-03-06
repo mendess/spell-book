@@ -42,48 +42,26 @@ super + shift + F9
     notify-send -a "swhrd" "Changing to clipboard wallpaper" "$pape" -u low ; \
     changeMeWall "$pape"
 
-# super + F8
-#     feh --bg-fill --no-fehbg ~/.local/share/wallpapers/home.png
+super + F8
+    changeMeWall ~/.local/share/wallpapers/home.png
 
 super + control + m
     $TERMINAL -e pacmixer
 
-super + {F2, F3}
-    {~/.config/swhkd/browser-program || $BROWSER, ~/.config/swhkd/chat-program || webcord}
+super + F2
+    ~/.config/swhkd/browser-program || $BROWSER
+
+super + F3
+    ~/.config/swhkd/chat-program || webcord || discord
 
 super + shift + F2
     $BROWSER -private-window https://duckduckgo.com/
-
-# super + shift + F3
-#     d="$(xdotool search --name "Discord" | \
-         # xargs -L1 xdotool get_desktop_for_window | \
-         # grep '^[0-9]' | \
-         # head -1)" ; \
-    # while pgrep -i discord; do pkill Discord; done ; \
-    # bspc rule -a '*:*:Discord Updater' -o desktop=^$(( d + 1 )); \
-    # bspc rule -a '*:*:Discord' -o desktop=^$(( d + 1 )); \
-    # discord --no-sandbox
-
-
-# super + m
-#     $TERMINAL -e neomutt
 
 super + shift + c
     $TERMINAL -e bash -c 'ikhal 2>/dev/null'
 
 super + alt + v
     vim-anywhere ; chmod 777 /tmp/vim-anywhere
-
-# super + w
-#     desktop="$(xdotool get_desktop)"; \
-    # win_name="$(xdotool search --desktop "$desktop" . | \
-    #         grep -v "$(xdotool getwindowfocus)" | \
-            # xargs -I 'X' bash -c "printf '%d    %s\\n' 'X' \"\$(xdotool getwindowname 'X')\"" | \
-            # column -t -s'   ' | \
-            # dmenu -i -l 10 -p focus | \
-            # awk -F' ' '\{print $1\}')"; \
-    # [ "$win_name" ] && xdotool windowactivate "$win_name"
-
 
 @Print
    cd /tmp ; cuffs.tool --select --clipboard --keep
@@ -103,22 +81,6 @@ shift + alt + Print
 
 super + @Print
     cd /tmp ; cuffs.tool --select --floating
-
-# shift + @Print
-#     screenshots=$(xdg-user-dir PICTURES)/screenshots; \
-#     mkdir -p "$screenshots" ; \
-#     cd "$screenshots" && cuffs.tool --select --rename
-
-# alt + @Print
-#     videos=$(xdg-user-dir VIDEOS)/screen-rec ; \
-#     mkdir -p "$videos" ; \
-#     cd "$videos" && cuffs.tool --select --rename --video
-
-# shift + alt + Print
-#     kill -s SIGINT $(cat "/tmp/$LOGNAME/ffmpeg_screenshot_pid")
-
-# super + @Print
-    # cd /tmp ; cuffs.tool --select --floating
 
 super + control + s
     $TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
@@ -141,14 +103,8 @@ super + x
 super + shift + p
     playClipboard
 
-# super + v
-    # clipmenu
-
 XF86AudioMute
     pactl 'set-sink-mute' @DEFAULT_SINK@ toggle
-
-XF86Audio{Raise,Lower}Volume
-    pactl 'set-sink-volume' @DEFAULT_SINK@ {+,-}5%
 
 XF86AudioMicMute
     pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
@@ -166,7 +122,7 @@ super + shift + =
     RUST_LOG=debug SESSION_KIND=gui m vu 2
 
 super + {Next,Prior,End,Home}
-    RUST_LOG=debug SESSION_KIND=gui m {next,prev,next-file,prev-file}
+    RUST_LOG=debug SESSION_KIND=gui m {next,prev,next\-file,prev\-file}
 
 super + {Up,Down}
     RUST_LOG=debug SESSION_KIND=gui m {frwd,back} 60
@@ -175,7 +131,7 @@ super + {Right,Left}
     RUST_LOG=debug SESSION_KIND=gui m {frwd,back} 5
 
 super + {Insert,Delete}
-    RUST_LOG=debug SESSION_KIND=gui m {current,ch-cat}
+    RUST_LOG=debug SESSION_KIND=gui m {current,ch\-cat}
 
 super + shift + Insert
     RUST_LOG=debug SESSION_KIND=cli m current --link | xclip -sel clip; \
@@ -190,11 +146,11 @@ super + BackSpace
 super + comma
     pkill -SIGUSR2 -x lemon
 
-super + F{6,5}
-    brightnessctl set 2{+,-}%
+super + F5
+    brightnessctl set 2-%
 
-XF86MonBrightness{Up,Down}
-    brightnessctl set 2{+,-}%
+super + F6
+    brightnessctl set 2+%
 
 super + shift + BackSpace
     spark ssh argentum -- python bulb/let_there_be_light.py
@@ -235,7 +191,7 @@ super + shift + o
 # DUNST KEYBINDS
 
 control + {_, shift +} space
-        dunstctl {close,close-all}
+        dunstctl {close,close\-all}
 
 control + {_, shift +} period
         dunstctl {context, action 0}

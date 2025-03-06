@@ -6,6 +6,9 @@ TERM = "xterm-256color"
 %%  3QWP3T3 {
 size = 11.0
 %% }
+%%  weatherlight {
+size = 14.0
+%% }
 %% default {
 size = 8.0
 %% }
