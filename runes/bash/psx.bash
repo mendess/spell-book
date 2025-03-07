@@ -12,11 +12,11 @@ __rightprompt() {
 }
 
 __git_branch() {
-    if [[ -d .git ]] ||
-        [[ -d ../.git ]] ||
-        [[ -d ../../.git ]] ||
-        [[ -d ../../../.git ]] ||
-        [[ -d ../../../../.git ]]; then
+    if [[ -e .git ]] ||
+        [[ -e ../.git ]] ||
+        [[ -e ../../.git ]] ||
+        [[ -e ../../../.git ]] ||
+        [[ -e ../../../../.git ]]; then
         if [ -n "$SSH_CLIENT" ]; then
             printf '::'
         fi

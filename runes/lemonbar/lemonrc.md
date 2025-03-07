@@ -43,9 +43,20 @@
 - command: `~/.config/lemonbar/github_notifs.py`
 - interval: `150`
 - align: `left`
-- left-click: `$BROWSER "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
-- middle-click: `$BROWSER "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
-- right-click: `$BROWSER "$(base64 -d <<<aHR0cHM6Ly9naXRodWIuY29tL25vdGlmaWNhdGlvbnM/cXVlcnk9aXMlM0F1bnJlYWQK)"`
+- left-click: `$BROWSER 'https://github.com/notifications?query=is%3Aunread'`
+- middle-click: `$BROWSER 'https://github.com/notifications?query=is%3Aunread'`
+- right-click: `$BROWSER 'https://github.com/notifications?query=is%3Aunread'`
+- fg: `red`
+- underline: `red`
+- signal: `true`
+
+## Gitlab notifications
+- command: `~/.config/lemonbar/gitlab_notifs.py`
+- interval: `150`
+- align: `left`
+- left-click: `$BROWSER 'https://gitlab.cfdata.org/dashboard/todos'`
+- middle-click: `$BROWSER 'https://gitlab.cfdata.org/dashboard/todos'`
+- right-click: `$BROWSER 'https://gitlab.cfdata.org/dashboard/todos'`
 - fg: `red`
 - underline: `red`
 - signal: `true`

@@ -205,19 +205,22 @@ unset i
     # Dmenu colors
     printf "%s\n" "${colors[@]}" >| "$TEMPDIR/wall_colors"
 
-    set -x
     if [[ "$wayland" ]]; then
         printf "%s\n" "${colors[@]}"
-        if pgrep river 2>/dev/null; then
+        if pgrep river >/dev/null; then
             function convert { c="${1/\#/0x}"; echo "${c% *}"; }
 
             riverctl border-color-focused "$(convert "${colors[0]}")"
             riverctl border-color-unfocused "$(convert "${colors[2]}")"
-        elif pgrep Hyprland 2>/dev/null; then
+        elif pgrep Hyprland >/dev/null; then
             function convert { c="${1#\#}"; echo "${c% *}"; }
 
             hyprctl keyword general:col.active_border "rgb($(convert "${colors[0]}"))"
             hyprctl keyword general:col.inactive_border "rgb($(convert "${colors[2]}"))"
+        elif pgrep -f sway >/dev/null; then
+            swaymsg client.focused          '#4c7899' '#285577' '#ffffff' '#2e9ef4' "${colors[0]% *}"
+            swaymsg client.focused_inactive '#333333' '#5f676a' '#ffffff' '#484e50' "${colors[1]% *}"
+            swaymsg client.unfocused        '#333333' '#222222' '#888888' '#292d2e' "${colors[2]% *}"
         fi
     else
         if command -v herbstclient &>/dev/null; then
@@ -237,14 +240,12 @@ unset i
         set -e
     fi
     wait
-    set +x
 } 2>&1 | color_picker -f &
 
 printf "Setting: %s\n" "${files[@]}" | tee "$TEMPDIR/last-wall"
 
 [[ "$wait_for_colors" ]] && wait
 if [ "$wayland" ]; then
-    set -x
     for i in $(seq 0 ${#files[@]}); do
         if [[ "${files[$i]}" ]] && ! [[ -e ${files[$i]} ]]; then
             f=$(mktemp)
@@ -255,7 +256,6 @@ if [ "$wayland" ]; then
     swww img "${files[@]}" \
         -t simple \
         --transition-step 2
-    set +x
 else
     if [ "$wide" -gt 0 ]; then
         feh --no-fehbg --bg-fill --no-xinerama "${files[@]}"

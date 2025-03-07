@@ -55,3 +55,4 @@
 ~/.config/tofi,tofi
 ~/.local/share/gnupg/gpg-agent.conf,gpg-agent.conf
 ~/.config/swaylock/config,swaylock
+~/.config/sway,sway
