@@ -5,7 +5,8 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local au = require('utils.au')
 local table_merge = require('utils.misc').table_merge
 
-local on_attach = function(autoformat)
+local on_attach = function(opts)
+    opts = setmetatable(opts or {}, {__index = { format_on_save=true }})
     return function(client, bufnr)
         -- disable semantic hightlighting
         -- client.server_capabilities.semanticTokensProvider = nil
@@ -13,35 +14,41 @@ local on_attach = function(autoformat)
         local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
         local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
+        local keybind_opts = { noremap = true, silent = true }
         -- Mappings
-        local opts = { noremap = true, silent = true }
-        buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+        buf_set_keymap(
+            'n',
+            'gd',
+            '<Cmd>lua vim.lsp.buf.definition()<CR>',
+            keybind_opts
+        )
 
+            -- prefer eslint format instead of this
+        local is_ts_ls = client.name == "ts_ls"
+
+        -- local function log(...) print("[" .. client.name .. "]", ...) end
+
+        -- the eslint linter doesn't provide lsp formatting capabilities but
+        -- provides a vim command for formatting...
         if client.name == "eslint" then
-            buf_set_keymap('n', '<leader>f', ':EslintFixAll<CR>', opts)
-            -- buf_set_keymap(
-            --     'n',
-            --     '<leader>f',
-            --     '<Cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>',
-            --     opts
-            -- )
-        elseif client.server_capabilities.documentFormattingProvider then
-            if autoformat then
+            buf_set_keymap('n', '<leader>f', ':EslintFixAll<CR>', keybind_opts)
+            if opts.format_on_save then
                 au.group('Format', function(g)
-                    g.BufWritePre = {
-                        '<buffer>',
-                        vim.lsp.buf.format
-                    }
+                    g.BufWritePre = { '<buffer>', ':EslintFixAll' }
                 end)
             end
-            if client.name ~= "tsserver" or client.name ~= "ts_ls" then
-                buf_set_keymap(
-                    'n',
-                    '<leader>f',
-                    '<Cmd>lua vim.lsp.buf.format()<CR>',
-                    opts
-                )
+        elseif client.server_capabilities.documentFormattingProvider and not is_ts_ls then
+            if opts.format_on_save then
+                au.group('Format', function(g)
+                    g.BufWritePre = { '<buffer>', vim.lsp.buf.format }
+                end)
             end
+            buf_set_keymap(
+                'n',
+                '<leader>f',
+                '<Cmd>lua vim.lsp.buf.format()<CR>',
+                keybind_opts
+            )
         end
     end
 end
@@ -73,7 +80,7 @@ local function setup_rust_analyzer(config)
         config.settings = table_merge(config.settings, local_overrides)
     end
     lsp.rust_analyzer.setup({
-        on_attach = on_attach(config.autoformat),
+        on_attach = on_attach({ format_on_save = config.format_on_save }),
         settings = config.settings,
         capabilities = capabilities,
     })
@@ -81,21 +88,21 @@ local function setup_rust_analyzer(config)
 end
 
 lsp.ts_ls.setup {
-    on_attach = on_attach(false),
+    on_attach = on_attach({ format_on_save = false }),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     capabilities = capabilities
 }
 lsp.eslint.setup {
-    on_attach = on_attach(true),
+    on_attach = on_attach(),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     capabilities = capabilities
 }
 lsp.svelte.setup {
-    on_attach = on_attach(true),
+    on_attach = on_attach(),
     capabilities = capabilities,
 }
 setup_rust_analyzer({
-    autoformat = true,
+    format_on_save = true,
     settings = {
         ["rust-analyzer"] = {
             cargo = {
@@ -123,20 +130,20 @@ setup_rust_analyzer({
 --     capabilities = update_capabilities(protocol.make_client_capabilities())
 -- }
 lsp.clangd.setup {
-    on_attach = on_attach(false),
+    on_attach = on_attach({ format_on_save = false }),
     capabilities = capabilities
 }
 lsp.ocamllsp.setup {
-    on_attach = on_attach(true),
+    on_attach = on_attach(),
     capabilities = capabilities
 }
 lsp.elixirls.setup {
     cmd = { "/usr/bin/elixir-ls" },
-    on_attach = on_attach(false),
+    on_attach = on_attach({ format_on_save = false }),
     capabilities = capabilities
 }
 lsp.gopls.setup {
-    on_attach = on_attach(true),
+    on_attach = on_attach(),
     capabilities = capabilities,
 }
 -- missing features
