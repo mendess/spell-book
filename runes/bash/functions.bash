@@ -139,7 +139,12 @@ any() {
 }
 
 insist() {
-    until eval "$@"; do sleep ${T:-0}; done
+    if [[ "$1" ]]; then
+        proc="$*"
+    else
+        proc=!!
+    fi
+    until eval "$proc"; do sleep ${T:-0}; done
 }
 
 nest() {
