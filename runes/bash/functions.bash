@@ -57,34 +57,40 @@ gcl() {
     if [[ "$(whoami)" = pmendes ]]; then
         mk_repo_dir() {
             project=$(basename $(dirname "$1") | rev | cut -d: -f1 | rev)
-            mkdir -p _$project
-            cd _$project
+            mkdir -p "_$project"
+            cd "_$project"
+        }
+        undo_on_error() {
+            cd ..
+            rmdir "_$project"
+            return 1
         }
     else
         mk_repo_dir() { :; }
+        undo_on_error() { return 1; }
     fi
     case "$1" in
         http://*)
             echo '============================> using http'
             read -p 'press enter to continue anyway' && \
                 mk_repo_dir "$1" && \
-                git clone "$@"
+                { git clone "$@" || undo_on_error; }
             ;;
         git@* | https://* | ssh://*)
             mk_repo_dir "$1"
-            git clone "$@"
+            git clone "$@" || undo_on_error
             ;;
         */*)
             mk_repo_dir "$@"
-            git clone git@github.com:"$1" "${@:2}"
+            git clone git@github.com:"$1" "${@:2}" || undo_on_error
             ;;
         *)
             gh_name=$(git config --global user.name)
             mk_repo_dir "$gh_name"
-            git clone git@github.com:"$gh_name/$1" "${@:2}"
+            git clone git@github.com:"$gh_name/$1" "${@:2}" || undo_on_error
             ;;
     esac
-    cd "$(basename "${1%.git}")"
+    [[ "$?" -eq 0 ]] && cd "$(basename "${1%.git}")"
 }
 
 nospace() {
