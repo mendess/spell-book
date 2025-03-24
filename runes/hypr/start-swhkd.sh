@@ -10,6 +10,6 @@ for i in {0..5000}; do
         break
     fi
 
-    sleep $(bc <<<"$i / 1000")
+    sleep "$(bc <<<"$i / 1000")"
 done
 disown
