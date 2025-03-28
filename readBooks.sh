@@ -1,54 +1,54 @@
 #!/bin/bash
-git submodule update --init --recursive
+#git submodule update --init --recursive
 
 allows="$(dirname -- "$0")/.install-profile/allows.sh readBooks"
 
-rust_is_setup() {
+_rust_is_setup() {
     set -o pipefail
     command -V cargo &>/dev/null &&
         ! rustup show 2>/dev/null | grep -q 'no active toolchain'
 }
 
-up_to_date_rust_bin() {
+_up_to_date_rust_bin() {
     cmd=$1
-    new=$(awk -F'"' '/version/ {print $2; exit(0)}' Cargo.toml)
+    new=$(cargo metadata --format-version 1 | jq ".packages[] | select(.name == \""$1\"") | .version" -r)
     curr=$(command "$cmd" --version | awk '{print $2}') && {
         [ "$new" = "$curr" ] ||
             [ "$(printf "%s\n%s" "$new" "$curr" | sort -V | tail -1)" = "$curr" ]
     }
 }
 
-m_installed() (
-    rust_is_setup || return 0
+_rust_installed() {
+    _rust_is_setup || return 0
     cd "$1" &&
         command -V m 2>/dev/null >/dev/null &&
-        up_to_date_rust_bin m
+        _up_to_date_rust_bin "$2"
+}
+
+_rust_install() {
+    cd "$1" &&
+        cargo install --path . --bin "$2"
+}
+
+m_installed() (
+    _rust_installed "$1" m
 )
 m() (
-    cd "$1" &&
-        cargo install --path . --bin m
+    _rust_install "$1" m
 )
 
 lemons_installed() (
-    rust_is_setup || return 0
-    cd "$1" &&
-        command -V lemon 2>/dev/null >/dev/null &&
-        up_to_date_rust_bin lemon
+    _rust_installed "$1" lemon
 )
 lemons() (
-    cd "$1" &&
-        cargo install --path . --bin lemon
+    _rust_install "$1" lemon
 )
 
 foretell_installed() (
-    rust_is_setup || return 0
-    cd "$1" &&
-        command -V foretell 2>/dev/null >/dev/null &&
-        up_to_date_rust_bin foretell
+    _rust_installed "$1" foretell
 )
 foretell() (
-    cd "$1" &&
-        cargo install --path . --bin foretell
+    _rust_install "$1" foretell
 )
 
 find_missing() {
