@@ -11,7 +11,10 @@ _rust_is_setup() {
 
 _up_to_date_rust_bin() {
     cmd=$1
-    new=$(cargo metadata --format-version 1 | jq ".packages[] | select(.name == \""$1\"") | .version" -r)
+    new=$(
+        cargo metadata --quiet --format-version 1 |
+            jq ".packages[] | select(.name == \"$1\") | .version" -r
+    )
     curr=$(command "$cmd" --version | awk '{print $2}') && {
         [ "$new" = "$curr" ] ||
             [ "$(printf "%s\n%s" "$new" "$curr" | sort -V | tail -1)" = "$curr" ]
