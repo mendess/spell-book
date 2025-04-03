@@ -47,11 +47,9 @@
 ## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 
  - [displayselect](./cantrips/displayselect.sh) - Configure multi monitors
- - [draw](./cantrips/draw.sh) - draw terminals
  - [emoji](./cantrips/emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
  - [free-nitro](./cantrips/free-nitro.sh) - I don't feel like paying discord, so I just store emoji gifs and quickly copy them to the clipboard to paste in chat. 😎
  - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu/fzf/tofi
- - [mconlinelist](./cantrips/mconlinelist.sh) - Send a notification with the list of online players in a minecraft server
  - [menu](./cantrips/menu.sh) - The menu used to find and launch the cantrips
  - [quickbrowser](./cantrips/quickbrowser.sh) - Launches vimb with one of the [bookmarks](./library/bookmarks)
  - [rename-ws](./cantrips/rename-ws.sh) - Dynamic [i3|bspwm|herbstluftwm] workspace renamer
