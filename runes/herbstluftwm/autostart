@@ -259,15 +259,25 @@ mapfile -t monitors < <(xrandr --listmonitors | awk '{print $4}' | sed 1d)
 printf "detected %s\n" "${#monitors[@]}"
 printf "\t%s" "${monitors[@]}"
 
+resolution=$(xrandr | awk '
+screen && $0 ~ /\*/ {
+    if ($1 == "3440x1440") {
+        print("not-4K")
+    } else {
+        print("4K")
+    }
+}
+$2 == "connected" { screen=$1 }
+$2 == "disconnected" { screen="" }')
 if [[ "$(xrandr | grep ' connected' -c)" -gt 1 ]]; then
     docked=1
 fi
 case "$(uname -n)" in
     3QWP3T3)
-        if [[ "$docked" ]]; then
-            extra_height=0
-        else
+        if [[ "$resolution" = "4K" ]]; then
             extra_height=16
+        else
+            extra_height=0
         fi
         ;;
     *)
@@ -301,8 +311,8 @@ case "${#monitors[@]}" in
                 lock_tag_to_monitor 1 {7..9}
                 ;;
             3QWP3T3)
-                lock_tag_to_monitor 0 {4..9}
-                lock_tag_to_monitor 1 {0..3}
+                lock_tag_to_monitor 0 {0..1}
+                lock_tag_to_monitor 1 {2..9}
                 ;;
             *)
                 lock_tag_to_monitor 0 {0..7}
@@ -338,17 +348,9 @@ for mon in "${monitors[@]}"; do
 done
 unset i
 
-bar_args+=(--height-override "$bar_height")
-config=~/.config/lemonbar/lemonrc.md
-docked_config=~/.config/lemonbar/lemonrc-docked.md
-if [[ "$docked" ]]; then
-    # -nt: is newer
-    if [[ ! -e "$docked_config" ]] || [[ "$config" -nt "$docked_config" ]]; then
-        sed 's/Hack: size=18/Hack: size=9/;s/Noto Sans Mono CJK JP: size=15/Noto Sans Mono CJK JP: size=7/' \
-            ~/.config/lemonbar/lemonrc.md \
-            > "$docked_config"
-    fi
-    bar_args+=(--config "$docked_config")
+bar_args+=(--height "$bar_height")
+if [[ "$resolution" != 4K ]]; then
+    bar_args+=(--font "Hack: size=9" --font "Noto Sans Mono CJK JP: size=7")
 fi
 
 pkill lemon
@@ -368,10 +370,3 @@ done
 for bar in $bar_id; do
     xdo below -t "$(xdo id -n root)" "$bar"
 done
-retries=0
-until systray_id=$(xdo id -N 'trayer') || [[ "$retries" = 1000 ]]; do
-    sleep 0.001
-    ((retries++))
-done
-[[ "$systray_id" ]] && xdo below -t "$(xdo id -n root)" "$systray_id"
-
