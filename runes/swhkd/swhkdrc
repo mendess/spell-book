@@ -14,16 +14,7 @@ super + control + alt + shift + l
     zathura $SPELLS/layout.pdf
 
 super + d
-    first=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f1) ; \
-    first_text=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f2) ; \
-    second="$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f1)AA" ; \
-    second_text=$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f2) ; \
-    tofi-run \
-        --background-color "$second" \
-        --text-color "$second_text" \
-        --border-color "$first" \
-        --selection-background "$first" \
-        --selection-color "$first_text" | bash
+    ~/.config/swhkd/tofi-run.sh
 
 super + shift + d
     menu GUI
