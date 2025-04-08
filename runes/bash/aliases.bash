@@ -132,7 +132,19 @@ alias 'gc!'='git commit -v --amend'
 alias gcwip='git commit -v -mWIP'
 alias glog="git log --pretty=format:'%C(yellow)%h %Cblue%>(12)%ad %Cgreen%<(7)%aN%Cred%d %Creset%s' --date=short --graph"
 alias glogn='git --no-pager log --oneline --decorate --graph'
-alias gco='git checkout'
+function gco() {
+    if [ "$#" -eq 0 ]; then
+        mapfile -t target < <(
+            {
+                git branch --format='%(refname:short)' | awk '{print "[B] " $0}'
+                git status --porcelain | awk '$1 ~ /M/ { print "[F] " $2 }'
+            } | fzf --no-sort | sed -E 's/\[(B|F)\] //'
+        )
+        git checkout "${target[@]}"
+    else
+        git checkout "$@"
+    fi
+}
 alias gd='git diff'
 alias gf='git fetch'
 alias gl='git pull'
