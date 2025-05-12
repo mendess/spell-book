@@ -204,7 +204,16 @@ fn process_wallpaper(
         Ok((target_file_path, file_name))
     } else {
         let file_name = match name {
-            Some(name) => name.to_str().context("not valid utf8")?.to_owned(),
+            Some(mut name) => {
+                if name.extension().is_none() {
+                    name.set_extension(
+                        Path::new(&wallpaper)
+                            .extension()
+                            .context("wallpaper has no extension")?,
+                    );
+                }
+                name.to_str().context("not valid utf8")?.to_owned()
+            }
             None => Path::new(&wallpaper)
                 .file_name()
                 .context("not a file")?
