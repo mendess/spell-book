@@ -927,11 +927,10 @@
     "name": "Молчат Дома - Судно",
     "link": "https://youtu.be/6KeEw0yp9_Q",
     "time": 145,
-    "categories": [
-      "russian"
-    ],
+    "categories": [],
     "artist": "molchat-doma",
-    "genre": "post-punk"
+    "genre": "post-punk",
+    "language": "russian"
   },
   {
     "name": "RRapid - Yarına Hevesim",
@@ -1067,9 +1066,7 @@
     "name": "Megadeth-Peace Sells...But Whos Buying?[HQ and LYRICS]",
     "link": "https://youtu.be/YlWq6WXIv7M",
     "time": 245,
-    "categories": [
-      "megadeth"
-    ],
+    "categories": [],
     "artist": "megadeth",
     "genre": "thrash-metal"
   },
@@ -2315,9 +2312,9 @@
     "link": "https://youtu.be/9K7uoQb1R7s",
     "time": 272,
     "categories": [
-      "rap",
       "chill"
-    ]
+    ],
+    "genre": "rap"
   },
   {
     "name": "bbno$ - i remember",
@@ -2891,8 +2888,6 @@
     "link": "https://youtu.be/pqw4O9LerGc",
     "time": 270,
     "categories": [
-      "city-pop",
-      "japanese",
       "upbeat"
     ],
     "artist": "anri",
@@ -2910,5 +2905,29 @@
     "artist": "napa",
     "genre": "rock",
     "language": "tuga"
+  }
+,
+  {
+    "name": "STRAWBERRY GIRLS - Moonwalker (Official Stream)",
+    "link": "https://youtu.be/07e1AZxcMwc",
+    "time": 175,
+    "categories": [
+        "upbeat",
+        "instrumental"
+    ],
+    "artist": "strawberry-girls",
+    "genre": "prog-rock"
+  }
+,
+  {
+    "name": "STRAWBERRY GIRLS - Mini Ripper (Official Stream)",
+    "link": "https://youtu.be/mHy6F3wwZUU",
+    "time": 231,
+    "categories": [
+      "instrumental",
+      "upbeat"
+    ],
+    "artist": "strawberry-girls",
+    "genre": "prog-rock"
   }
 ]

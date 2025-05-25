@@ -320,3 +320,7 @@ base64url::decode() {
         tr -- '-_' '+/' |
         base64 -d
 }
+
+md5dir() {
+    tar c $1 | md5sum
+}

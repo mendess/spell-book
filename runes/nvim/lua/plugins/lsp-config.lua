@@ -111,7 +111,8 @@ setup_rust_analyzer({
             flags = {
                 exit_timeout = 0,
             },
-            checkOnSave = {
+            checkOnSave = true,
+            check = {
                 command = "clippy",
             },
             procMacro = {
