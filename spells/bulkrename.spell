@@ -8,7 +8,7 @@ to="$(mktemp)"
 trap 'rm $from $to' 0 1 2 3 6 14 15
 
 echo "# use # to skip renaming a file" > "$from"
-find ./* -maxdepth 0 | sed 's|./||g' >> "$from"
+find ./* ./.* -maxdepth 0 | sed 's|./||g' >> "$from"
 cp "$from" "$to"
 if [ "$EDITOR" ]; then
     ed="$EDITOR"
