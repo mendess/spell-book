@@ -86,7 +86,8 @@
 - fg: `yellow`
 
 ## Package
-- command: `[ ! -f ~/.package.sh ] || bash ~/.package.sh`
+- command: `bash ~/.package.sh`
+- pre_condition: `file-exists .package.sh`
 - interval: `15`
 - align: `left`
 - left-click: `bash ~/.package.sh click`
@@ -160,7 +161,8 @@
 - underline: `magenta`
 
 ## Dnd
-- cmd: `[ -e /tmp/.dnd ] && printf "dnd" || :`
+- cmd: `printf "dnd"`
+- pre_condition: `file-exists /tmp/.dnd`
 - un: `red`
 - fg: `red`
 - align: `right`
@@ -172,6 +174,13 @@
 - un: `yellow`
 - fg: `white`
 - layer: `1`
+- align: `right`
+
+## Recording
+- cmd: `~/.config/lemonbar/recording-time.sh`
+- pre_condition: `file-exists /tmp/mendess/ffmpeg_screenshot_pid`
+- interval: `1`
+- un: `red`
 - align: `right`
 
 ## Batery
