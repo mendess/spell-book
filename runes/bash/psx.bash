@@ -114,6 +114,16 @@ move_cursor_to_start_of_ps1() {
     fi
     tput cuu $vertical_movement
 }
+new_line_ps1() {
+  local _ y x _
+  local LIGHT_YELLOW="\001\033[1;93m\002"
+  local     RESET="\001\e[0m\002"
+
+  IFS='[;' read -p $'\e[6n' -d R -rs _ y x _
+  if [[ "$x" != 1 ]]; then
+    printf "\n%%"
+  fi
+}
 
 PS0_ELEMENTS=(
     "$SAVE_CURSOR_POSITION" "\$(move_cursor_to_start_of_ps1)"
@@ -127,7 +137,7 @@ PS0=$(
 )
 export PS0
 
-PS1_ELEMENTS=()
+PS1_ELEMENTS=("\$(new_line_ps1)")
 if { [[ "$(tty)" == *tty* ]] || [ "$TTY_TMUX" ]; } && [ -f /sys/class/power_supply/BAT0/capacity ]; then
     PS1_ELEMENTS+=("$BATTERY")
 fi
