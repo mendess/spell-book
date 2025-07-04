@@ -48,6 +48,18 @@ __has_more_than_job() {
     return "$2"
 }
 
+__no_new_line_fix() {
+  local _ y x _
+  local LIGHT_YELLOW="\001\033[1;93m\002"
+  local     RESET="\001\e[0m\002"
+
+  IFS='[;' read -p $'\e[6n' -d R -rs _ y x _
+  if [[ "$x" != 1 ]]; then
+    printf "\n%%"
+  fi
+  return "$1"
+}
+
 BOLD_RED="\e[1;31m"
 BOLD_GREEN="\e[1;32m"
 BOLD_YELLOW="\e[1;33m"
@@ -87,15 +99,16 @@ case "$(hostname)" in
 esac
 
 SSH_PROMPT="$(__c "$BOLD_RED" '\u')@$(__c "$hostname_color" '\h')"
-G_BRANCH="\$(__git_branch \$?)"
-T_PATH="\$(__truncPath \$?)"
-EXIT_STATUS="\$(__rightprompt \$?)"
-NO_JOB="\$(__has_n_job 0 \$?)"
-ONE_JOB=$(__c "$MAGENTA" "\$(__has_n_job 1 \$?)")
-TWO_JOB=$(__c "$BLUE" "\$(__has_n_job 2 \$?)")
-THREE_JOB=$(__c "$YELLOW" "\$(__has_n_job 3 \$?)")
-FOUR_JOB=$(__c "$GREEN" "\$(__has_n_job 4 \$?)")
-LOTS_JOB=$(__c "$RED" "\$(__has_more_than_job 4 \$?)")
+G_BRANCH='$(__git_branch $?)'
+T_PATH='$(__truncPath $?)'
+EXIT_STATUS='$(__rightprompt $?)'
+NO_JOB='$(__has_n_job 0 $?)'
+ONE_JOB=$(__c "$MAGENTA" '$(__has_n_job 1 $?)')
+TWO_JOB=$(__c "$BLUE" '$(__has_n_job 2 $?)')
+THREE_JOB=$(__c "$YELLOW" '$(__has_n_job 3 $?)')
+FOUR_JOB=$(__c "$GREEN" '$(__has_n_job 4 $?)')
+LOTS_JOB=$(__c "$RED" '$(__has_more_than_job 4 $?)')
+NO_NEW_LINE_FIX='$(__no_new_line_fix $?)'
 JOBS=("$NO_JOB" "$ONE_JOB" "$TWO_JOB" "$THREE_JOB" "$FOUR_JOB" "$LOTS_JOB")
 
 #TIMESTAMP_PLACEHOLDER="--:--"
@@ -114,16 +127,6 @@ move_cursor_to_start_of_ps1() {
     fi
     tput cuu $vertical_movement
 }
-new_line_ps1() {
-  local _ y x _
-  local LIGHT_YELLOW="\001\033[1;93m\002"
-  local     RESET="\001\e[0m\002"
-
-  IFS='[;' read -p $'\e[6n' -d R -rs _ y x _
-  if [[ "$x" != 1 ]]; then
-    printf "\n%%"
-  fi
-}
 
 PS0_ELEMENTS=(
     "$SAVE_CURSOR_POSITION" "\$(move_cursor_to_start_of_ps1)"
@@ -137,7 +140,7 @@ PS0=$(
 )
 export PS0
 
-PS1_ELEMENTS=("\$(new_line_ps1)")
+PS1_ELEMENTS=("$NO_NEW_LINE_FIX")
 if { [[ "$(tty)" == *tty* ]] || [ "$TTY_TMUX" ]; } && [ -f /sys/class/power_supply/BAT0/capacity ]; then
     PS1_ELEMENTS+=("$BATTERY")
 fi

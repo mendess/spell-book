@@ -280,9 +280,9 @@ sshfs() {
 
 bak() {
     if [[ "$1" = *bak ]]; then
-        cp "$1" "${1%.bak}"
+        cp -r "$1" "${1%.bak}"
     else
-        cp "$1" "$1.bak"
+        cp -r "$1" "$1.bak"
     fi
 }
 
