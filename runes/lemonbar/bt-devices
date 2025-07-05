@@ -1,4 +1,6 @@
-bluetoothctl devices | cut -f2 -d' ' | while read uuid; do bluetoothctl info $uuid; done  | awk '
+#!/bin/bash
+
+bluetoothctl devices | cut -f2- -d' ' | while read uuid; do bluetoothctl info $uuid; done  | awk '
 $1 == "Device" {
     if (connected) {
         print(name)
