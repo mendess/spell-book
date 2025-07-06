@@ -1,5 +1,6 @@
 #!/bin/bash
 
+startc=$(start_timer)
 _za() {
     local cur
     cur="${COMP_WORDS[COMP_CWORD]}"
@@ -62,75 +63,6 @@ _za() {
     return
 }
 
-#complete -F _za za
-#complete -F _za pdf
-
-_svim() {
-    local files
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    files=$(find "$SPELLS" -type f | sed '/\.git/d ; s|'"$SPELLS"'/||g')
-    mapfile -t COMPREPLY < <(compgen -W "$files" -- "$cur")
-    return
-}
-
-complete -F _svim svim
-
-_ssh() {
-    local opts
-    # local prev
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    #prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts=$(grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null |
-        grep -v '[?*]' |
-        cut -d ' ' -f 2-)
-    mapfile -t COMPREPLY < <(compgen -W "$opts" -- "$cur")
-    return 0
-}
-
-complete -F _ssh ssh
-complete -F _ssh sshp
-complete -F _ssh deploy_to
-
-# _m() {
-#     for a in "$@"; do
-#         echo "a: $a"
-#     done
-#     local opts
-#     COMPREPLY=()
-#     local cur="$2"
-#     local prev="$3"
-#     case "$prev" in
-#         m | help)
-#             opts="$(m help |
-#                 grep -Pv '^\t' |
-#                 sed -E 's/([^ ]+) | ([^ ]+)/\1\n\2/g' |
-#                 sed -E 's/(^.\s|\s.$|^.$)//g' |
-#                 sed 's/?/-/g' |
-#                 grep -v '^.$')"
-#             ;;
-#         *)
-#             local sub_command="${COMP_WORDS[1]}"
-#             if [[ "$sub_command" =~ q|queue|play ]] && [[ "$3" =~ -c|--category ]]; then
-#                 opts="$(m cat | awk '{print $2}')"
-#             else
-#                 opts="$(m help "$sub_command" | awk '
-#                             opts && /|/       { print $1" "$3 }
-#                             opts && $0 !~ /|/ { print $1 }
-#                             /Options/         { opts=1 }')"
-#                 case "$sub_command" in
-#                     q | queue | play)
-#                         opts="$opts $(compgen -f)"
-#                         ;;
-#                 esac
-#             fi
-#             ;;
-
-#     esac
-#     mapfile -t COMPREPLY < <(compgen -W "$opts" -- "$cur")
-# }
-
-# complete -F _m m
-
 _path_compleation() {
     [[ $COMP_CWORD = 1 ]] &&
         mapfile -t COMPREPLY < <(compgen -A function -ac -- "$2")
@@ -140,28 +72,20 @@ complete -o default -F _path_compleation sudo
 complete -o default -F _path_compleation which
 complete -o default -F _path_compleation command
 
-#shellcheck disable=SC1090
-command -V arduino-cli &>/dev/null &&
-    . <(arduino-cli completion bash) &&
-    complete -o default -F __start_arduino-cli ard
+end_timer "general compleations" "$startc"
 
-completions_dir=/usr/share/bash-completion/completions/
-[[ -f $completions_dir ]] &&
-    for f in "$completions_dir"/*; do
-        #shellcheck disable=1090
-        . "$f"
-    done
-
-command -V youtube-dl &>/dev/null &&
-    eval "$(sed 's/youtube-dl/ytdl/' < <(complete -p youtube-dl 2>/dev/null))"
-
-# Needed by some scripts
-# _tilde() {
-#     ! _comp_compgen -c "$1" tilde
-# }
-
-for c in "$SPELLS"/runes/bash/completions/*; do
-    #shellcheck disable=1090
-    command -V "$(basename "$c" .bash)" &>/dev/null || continue
-    . "$c"
-done
+_completion_loader() {
+    case "$1" in
+        g|gco|gb|gl|gd)
+            cmd=git
+            ;;
+        *)
+            cmd=$1
+            ;;
+    esac
+    personal="$SPELLS/runes/bash/completions/$cmd.bash"
+    global="/usr/share/bash-completion/completions/$cmd"
+    [ -f "$personal" ] && . "$personal" >/dev/null 2>&1 && return 124
+    [ -f "$global" ] && . "$global" >/dev/null 2>&1 && return 124
+}
+complete -D -F _completion_loader -o bashdefault -o default
