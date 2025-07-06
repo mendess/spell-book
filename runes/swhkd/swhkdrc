@@ -189,7 +189,7 @@ super + shift + o
 # DUNST KEYBINDS
 
 # emit hot key so not to bug pc games when crouch jumping
-~control + {_, shift +} space
+control + {_, shift +} space
         dunstctl {close,close\-all}
 
 control + {_, shift +} period

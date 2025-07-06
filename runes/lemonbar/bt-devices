@@ -1,13 +1,13 @@
 #!/bin/bash
 
-bluetoothctl devices | cut -f2- -d' ' | while read uuid; do bluetoothctl info $uuid; done  | awk '
+bluetoothctl devices | cut -f2 -d' ' | while read uuid; do bluetoothctl info $uuid; done  | awk '
 $1 == "Device" {
     if (connected) {
         print(name)
     }
     name = ""; connected = false; mac = $2
 }
-$1 == "Name:"  { name = $2 }
+$1 == "Name:"  { tmp = $1; $1 = ""; name = $0; $1 = tmp }
 $1 == "Connected:" { connected = ($2 == "yes") }
 
 END {
