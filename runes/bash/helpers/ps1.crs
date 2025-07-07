@@ -2,6 +2,7 @@
 //! ```cargo
 //! [dependencies]
 //! termcolor = "1"
+//! whoami = "1"
 //! ```
 
 use std::io::{self, Write};
@@ -25,6 +26,28 @@ fn find_git_repo_path(depth: usize) -> Option<PathBuf> {
         }
     }
     None
+}
+
+fn ssh_prompt(buffer: &mut Buffer) -> io::Result<()> {
+    if std::env::var("SSH_PROMPT").is_ok() {
+        let hostname = whoami::fallible::hostname()?;
+        let color = match hostname.as_str() {
+            "tolaria" => Color::Blue,
+            "weatherlight" | "kaladesh" => Color::Cyan,
+            "mirrodin" => Color::Ansi256(2),
+            "argentum" => Color::Yellow,
+            _ => Color::Green,
+        };
+        buffer.set_color(
+            ColorSpec::new().set_bold(true).set_fg(Some(Color::Red)),
+        )?;
+        write!(buffer, "{}", whoami::username())?;
+        buffer
+            .set_color(ColorSpec::new().set_bold(true).set_fg(Some(color)))?;
+        write!(buffer, "{hostname}")
+    } else {
+        Ok(())
+    }
 }
 
 fn g_branch(buffer: &mut Buffer) -> io::Result<()> {
@@ -64,11 +87,23 @@ fn path(buffer: &mut Buffer) -> io::Result<()> {
     let home = std::env::home_dir().unwrap_or_default();
     let pwd = std::env::current_dir()?;
     let pwd = match pwd.strip_prefix(&home) {
+        Ok(path) if path.as_os_str().is_empty() => PathBuf::from("~"),
         Ok(path) => Path::new("~").join(path),
         Err(_) => pwd,
     };
     buffer.set_color(ColorSpec::new().set_fg(Some(Color::Yellow)))?;
-    write!(buffer, "{}", pwd.display())
+    trunc_path(buffer, pwd.to_str().unwrap())
+}
+
+fn trunc_path(buffer: &mut Buffer, s: &str) -> io::Result<()> {
+    for segment in s.trim().split_inclusive("/") {
+        if segment.ends_with("/") {
+            write!(buffer, "{}/", segment.chars().next().unwrap())?;
+        } else {
+            write!(buffer, "{}", segment)?;
+        }
+    }
+    Ok(())
 }
 
 fn exit_status(buffer: &mut Buffer, exit_code: u8) -> io::Result<()> {
@@ -82,21 +117,42 @@ fn exit_status(buffer: &mut Buffer, exit_code: u8) -> io::Result<()> {
     }
 }
 
+fn battery(buffer: &mut Buffer) -> io::Result<()> {
+    let tty = std::fs::read_link("/proc/self/fd/0")?;
+    let tmux = std::env::var("TTY_TMUX").is_ok();
+    let battery = Path::new("/sys/class/power_supply/BAT0/capacity");
+    if tty.to_str().unwrap().contains("tty") || tmux {
+        match std::fs::read_to_string(battery) {
+            Ok(capacity) => write!(buffer, "{capacity}"),
+            Err(e) if e.kind() == io::ErrorKind::NotFound => Ok(()),
+            Err(e) => Err(e),
+        }
+    } else {
+        Ok(())
+    }
+}
+
 fn main() -> io::Result<()> {
     let mut args = std::env::args().skip(1);
-    let job_count = args.next().map(|s| parse_jobs(&s)).unwrap_or(0);
     let exit_code = args.next().and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
+    let job_count = args.next().map(|s| parse_jobs(&s)).unwrap_or(0);
 
     let buffers = BufferWriter::stdout(ColorChoice::Always);
     let mut b = buffers.buffer();
+    battery(&mut b)?;
+    ssh_prompt(&mut b)?;
     g_branch(&mut b)?;
     jobs(&mut b, job_count)?;
-    b.set_color(ColorSpec::new().set_fg(None))?;
-    write!(&mut b, "<")?;
+    {
+        b.set_color(ColorSpec::new().set_fg(None))?;
+        write!(&mut b, "<")?;
+    }
     path(&mut b)?;
     exit_status(&mut b, exit_code)?;
-    b.set_color(ColorSpec::new().set_fg(None))?;
-    write!(&mut b, ">")?;
+    {
+        b.set_color(ColorSpec::new().set_fg(None))?;
+        write!(&mut b, "> ")?;
+    }
 
     buffers.print(&b)
 }
