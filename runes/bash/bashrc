@@ -4,20 +4,6 @@
 
 [[ $- != *i* ]] && return
 
-export TIME_FILE=/tmp/bash-timings-$(date +%s).log
-function start_timer() {
-    date +%s.%N
-}
-function end_timer() {
-    local section="$1"
-    local start="$2"
-    local end=$(date +%s.%N)
-    printf "[%s] %.6f seconds: %s\n" "$(date -Ins)" "$(\bc -lq <<<"$end - $start")" "$section" >>"$TIME_FILE"
-}
-
-global_start=$(start_timer)
-
-start=$(start_timer)
 export HISTSIZE=""
 PROMPT_COMMAND='history -a;history -n;stty susp ^@'
 export HISTCONTROL='ignoredups'
@@ -27,47 +13,32 @@ shopt -s autocd
 shopt -s checkwinsize
 stty -ixon
 set -o noclobber
-end_timer "exports and shopts" "$start"
 
-start=$(start_timer)
 bind "set completion-ignore-case On"
 bind "set show-all-if-unmodified on"
 bind -x '"\C-z":"fg"'
 for i in - {0..9} ; do
     bind -r '\e'$i
 done
-end_timer "bindings" "$start"
 
 GPG_TTY="$(tty)"
 export GPG_TTY
 
-start=$(start_timer)
 if [ -z "$SPELLS" ]
 then
     tmp="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.bash_profile)")")")"
     export SPELLS="$tmp"
     unset tmp
 fi
-end_timer "setting spells" "$start"
 
 for f in "$SPELLS"/runes/bash/*.bash; do
-    start=$(start_timer)
     source "$f"
-    end_timer "sourcing $f" "$start"
 done
 
-start=$(start_timer)
 [ -e /usr/share/nvm/init-nvm.sh ] && source /usr/share/nvm/init-nvm.sh
-end_timer "init-nvm" "$start"
 
-start=$(start_timer)
 [ -e ~/.bashrc-local ] && source ~/.bashrc-local
-end_timer "bashrc-local" "$start"
 
-start=$(start_timer)
 command -V direnv &>/dev/null && eval "$(direnv hook bash)"
-end_timer "direnv" "$start"
 
 :
-
-end_timer "global time" "$global_start"

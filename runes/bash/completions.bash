@@ -1,6 +1,5 @@
 #!/bin/bash
 
-startc=$(start_timer)
 _za() {
     local cur
     cur="${COMP_WORDS[COMP_CWORD]}"
@@ -71,8 +70,6 @@ _path_compleation() {
 complete -o default -F _path_compleation sudo
 complete -o default -F _path_compleation which
 complete -o default -F _path_compleation command
-
-end_timer "general compleations" "$startc"
 
 _completion_loader() {
     case "$1" in

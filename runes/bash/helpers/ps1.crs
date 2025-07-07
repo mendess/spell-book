@@ -1,0 +1,102 @@
+#!/usr/bin/env rust-script
+//! ```cargo
+//! [dependencies]
+//! termcolor = "1"
+//! ```
+
+use std::io::{self, Write};
+use std::path::{Path, PathBuf};
+use termcolor::{
+    Buffer, BufferWriter, Color, ColorChoice, ColorSpec, WriteColor,
+};
+
+fn parse_jobs(s: &str) -> usize {
+    s.split('\n').filter(|s| s.contains("Stopped")).count()
+}
+
+fn find_git_repo_path(depth: usize) -> Option<PathBuf> {
+    let mut dir = std::env::current_dir().ok()?;
+    for _ in 0..depth {
+        if dir.join(".git").exists() {
+            return Some(dir);
+        }
+        if !dir.pop() {
+            break;
+        }
+    }
+    None
+}
+
+fn g_branch(buffer: &mut Buffer) -> io::Result<()> {
+    let Some(repo) = find_git_repo_path(5) else {
+        return Ok(());
+    };
+
+    let head = std::fs::read_to_string(repo.join(".git/HEAD"))?;
+
+    let Some(branch_name) = head.strip_prefix("ref: refs/heads/") else {
+        return Ok(());
+    };
+
+    let mut s = String::new();
+    for segment in branch_name.trim().split_inclusive("/") {
+        if segment.ends_with("/") {
+            segment.chars().take(2).for_each(|c| s.push(c));
+            s.push('/');
+        } else {
+            s.push_str(segment);
+        }
+    }
+    write!(buffer, "{}", s.get(..10).unwrap_or(&s))
+}
+
+fn jobs(buffer: &mut Buffer, job_count: usize) -> io::Result<()> {
+    buffer.set_color(ColorSpec::new().set_fg(match job_count {
+        0 => None,
+        1 => Some(Color::Magenta),
+        2 => Some(Color::Blue),
+        _ => Some(Color::Red),
+    }))?;
+    write!(buffer, "::")
+}
+
+fn path(buffer: &mut Buffer) -> io::Result<()> {
+    let home = std::env::home_dir().unwrap_or_default();
+    let pwd = std::env::current_dir()?;
+    let pwd = match pwd.strip_prefix(&home) {
+        Ok(path) => Path::new("~").join(path),
+        Err(_) => pwd,
+    };
+    buffer.set_color(ColorSpec::new().set_fg(Some(Color::Yellow)))?;
+    write!(buffer, "{}", pwd.display())
+}
+
+fn exit_status(buffer: &mut Buffer, exit_code: u8) -> io::Result<()> {
+    if exit_code != 0 && exit_code != 124 {
+        buffer.set_color(
+            ColorSpec::new().set_bold(true).set_fg(Some(Color::Red)),
+        )?;
+        write!(buffer, "<{exit_code}>")
+    } else {
+        Ok(())
+    }
+}
+
+fn main() -> io::Result<()> {
+    let mut args = std::env::args().skip(1);
+    let job_count = args.next().map(|s| parse_jobs(&s)).unwrap_or(0);
+    let exit_code = args.next().and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
+
+    let buffers = BufferWriter::stdout(ColorChoice::Always);
+    let mut b = buffers.buffer();
+    g_branch(&mut b)?;
+    jobs(&mut b, job_count)?;
+    b.set_color(ColorSpec::new().set_fg(None))?;
+    write!(&mut b, "<")?;
+    path(&mut b)?;
+    exit_status(&mut b, exit_code)?;
+    b.set_color(ColorSpec::new().set_fg(None))?;
+    write!(&mut b, ">")?;
+
+    buffers.print(&b)
+}
