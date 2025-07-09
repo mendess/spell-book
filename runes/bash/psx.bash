@@ -63,4 +63,4 @@ PS1='$(__no_new_line_fix $?)$($SPELLS/runes/bash/helpers/ps1.crs $? "$(jobs)")'
 
 PS2="$(__c "$BLUE" "| ")"
 
-PS4="$(__c "$BLUE" "\$0:\$LINENO: ")"
+export PS4="$(__c "$BLUE" "\$0:\$LINENO: ")"

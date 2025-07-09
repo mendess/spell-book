@@ -97,7 +97,9 @@ fn path(buffer: &mut Buffer) -> io::Result<()> {
 
 fn trunc_path(buffer: &mut Buffer, s: &str) -> io::Result<()> {
     for segment in s.trim().split_inclusive("/") {
-        if segment.ends_with("/") {
+        if segment == "/" {
+            write!(buffer, "/")?
+        } else if segment.ends_with("/") {
             write!(buffer, "{}/", segment.chars().next().unwrap())?;
         } else {
             write!(buffer, "{}", segment)?;

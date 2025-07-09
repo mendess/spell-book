@@ -76,6 +76,10 @@ _completion_loader() {
         g|gco|gb|gl|gd)
             cmd=git
             ;;
+        # broken completions
+        mpv)
+            cmd="this-is-broken-$1"
+            ;;
         *)
             cmd=$1
             ;;
