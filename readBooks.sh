@@ -39,10 +39,10 @@ m_installed() (
 m() (
     case "$(hostname)" in
         weatherlight|tolaria)
-            enable_clipboard=--features=clipboard
+            enable_clipboard=(--features=clipboard)
             ;;
     esac
-    _rust_install "$1" m "$enable_clipboard"
+    _rust_install "$1" m "${enable_clipboard[@]}"
 )
 
 lemons_installed() (
