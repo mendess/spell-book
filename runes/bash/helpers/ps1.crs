@@ -55,7 +55,11 @@ fn g_branch(buffer: &mut Buffer) -> io::Result<()> {
         return Ok(());
     };
 
-    let head = std::fs::read_to_string(repo.join(".git/HEAD"))?;
+    let head = match std::fs::read_to_string(repo.join(".git/HEAD")) {
+        Ok(head) => head,
+        Err(e) if e.kind() == io::ErrorKind::NotADirectory => return Ok(()),
+        Err(e) => return Err(e),
+    };
 
     let Some(branch_name) = head.strip_prefix("ref: refs/heads/") else {
         return Ok(());
