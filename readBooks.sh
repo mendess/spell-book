@@ -30,14 +30,19 @@ _rust_installed() {
 
 _rust_install() {
     cd "$1" &&
-        cargo install --path . --bin "$2"
+        cargo install --path . --bin "$2" "${@:3}"
 }
 
 m_installed() (
     _rust_installed "$1" m
 )
 m() (
-    _rust_install "$1" m
+    case "$(hostname)" in
+        weatherlight|tolaria)
+            enable_clipboard=--feature=clipboard
+            ;;
+    esac
+    _rust_install "$1" m "$enable_clipboard"
 )
 
 lemons_installed() (
