@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 allows="$(dirname -- "$0")/.install-profile/allows.sh stolenMagic"
 

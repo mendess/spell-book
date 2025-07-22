@@ -1,11 +1,11 @@
 #!/bin/bash
 
-wall_colors=/tmp/$LOGNAME/wall_colors
+wall_colors="/tmp/$LOGNAME/wall_colors"
 if [ -e "$wall_colors" ]; then
-    first=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f1) ; \
-    first_text=$(cat /tmp/$LOGNAME/wall_colors | head -1 | cut -d' ' -f2) ; \
-    second="$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f1)AA" ; \
-    second_text=$(cat /tmp/$LOGNAME/wall_colors | tail -1 | cut -d' ' -f2) ; \
+    first=$(head -1 "$wall_colors"| cut -d' ' -f1) ; \
+    first_text=$(head -1 "$wall_colors" | cut -d' ' -f2) ; \
+    second="$(tail -1 "$wall_colors" | cut -d' ' -f1)AA" ; \
+    second_text=$(tail -1 "$wall_colors" | cut -d' ' -f2) ; \
 else
     first='#6B97D0'
     first_text='#000000'

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 chmod -v go-w ~
 chmod -v 700 ~/.ssh

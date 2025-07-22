@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # a i3-like scratchpad for arbitrary applications.
 #
@@ -15,7 +15,7 @@
 tag="${1:-scratchpad}"
 hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
 
-mrect=( $(hc monitor_rect "" ) )
+mapfile -t mrect < <(hc monitor_rect "" )
 
 width=${mrect[2]}
 height=${mrect[3]}
@@ -23,8 +23,8 @@ height=${mrect[3]}
 rect=(
     $((width/2))
     $((height/2))
-    $((${mrect[0]}+(width/4)))
-    $((${mrect[1]}+(height/4)))
+    $((mrect[0]+(width/4)))
+    $((mrect[1]+(height/4)))
 )
 
 trap EXIT "herbstclient unlock"
@@ -35,7 +35,7 @@ hc add "$tag"
 monitor=scratchpad
 
 exists=false
-if ! hc add_monitor $(printf "%dx%d%+d%+d" "${rect[@]}") \
+if ! hc add_monitor "$(printf "%dx%d%+d%+d" "${rect[@]}")" \
                     "$tag" $monitor 2> /dev/null ; then
     exists=true
 else

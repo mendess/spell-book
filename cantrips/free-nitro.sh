@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # I don't feel like paying discord, so I just store emoji gifs and quickly copy
 # them to the clipboard to paste in chat. 😎
 
