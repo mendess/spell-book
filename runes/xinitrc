@@ -30,7 +30,7 @@ k # keyboard settings
     xrandr --output HDMI-0 --mode 1920x1080 --pos 0x360 --rotate normal \
         --output DP-4 --primary --mode 2560x1440 --pos 1920x0 --rotate normal --rate 144
 
-eval $(ssh-agent)
+eval "$(ssh-agent)"
 
 echo "DISPLAY=$DISPLAY" > /tmp/xini-has-display-var
 systemctl --user set-environment DISPLAY="$DISPLAY"
