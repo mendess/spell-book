@@ -15,7 +15,8 @@
 tag="${1:-scratchpad}"
 hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
 
-mapfile -t mrect < <(hc monitor_rect "" )
+#shellcheck disable=SC2207
+mrect=( $(hc monitor_rect "" ) )
 
 width=${mrect[2]}
 height=${mrect[3]}
