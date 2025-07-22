@@ -269,9 +269,6 @@ screen && $0 ~ /\*/ {
 }
 $2 == "connected" { screen=$1 }
 $2 == "disconnected" { screen="" }')
-if [[ "$(xrandr | grep ' connected' -c)" -gt 1 ]]; then
-    docked=1
-fi
 case "$(uname -n)" in
     3QWP3T3)
         if [[ "$resolution" = "4K" ]]; then

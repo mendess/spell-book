@@ -245,7 +245,7 @@ return require('lazy').setup({
         config = function()
             require('headlines').setup()
         end,
-        enabled = true,
+        enabled = false,
     },
     {
         'fatih/vim-go',
