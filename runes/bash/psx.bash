@@ -20,7 +20,6 @@ __no_new_line_fix() {
   if [[ "$x" != 1 ]]; then
     printf "\n%%"
   fi
-  return "$1"
 }
 
 __move_cursor_to_start_of_ps1() {
@@ -51,7 +50,6 @@ NO_NEW_LINE_FIX='$(__no_new_line_fix $?)'
 PS0_ELEMENTS=(
     "$SAVE_CURSOR_POSITION" "\$(__move_cursor_to_start_of_ps1)"
     "$(__c "$YELLOW" "$TIMESTAMP ")" "$RESTORE_CURSOR_POSITION"
-    "\$(stty susp ^z)"
     "\\e]2;::<$T_PATH> \$(history 1 | cut -d' ' -f3-)\\a"
 )
 PS0=$(
@@ -59,7 +57,13 @@ PS0=$(
     echo "${PS0_ELEMENTS[*]}"
 )
 
-PS1='$(__no_new_line_fix $?)$($SPELLS/runes/bash/helpers/ps1.crs $? "$(jobs)")'
+prompt-command() {
+    local error="$?"
+    history -a
+    history -n
+    PS1='$(__no_new_line_fix)'"$($SPELLS/runes/bash/helpers/ps1.crs "$error" "$(jobs)")"
+}
+PROMPT_COMMAND='prompt-command'
 
 PS2="$(__c "$BLUE" "| ")"
 

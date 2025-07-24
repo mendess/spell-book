@@ -1,15 +1,56 @@
 #!/usr/bin/env rust-script
 //! ```cargo
 //! [dependencies]
-//! termcolor = "1"
 //! whoami = "1"
 //! ```
 
-use std::io::{self, Write};
+use std::fmt::Write as _;
+use std::io::{self, Write as _};
 use std::path::{Path, PathBuf};
-use termcolor::{
-    Buffer, BufferWriter, Color, ColorChoice, ColorSpec, WriteColor,
-};
+
+enum Color {
+    BoldRed,
+    BoldGreen,
+    BoldYellow,
+    BoldBlue,
+    #[allow(dead_code)]
+    BoldMagenta,
+    BoldCyan,
+    BoldGray,
+    Red,
+    Green,
+    Yellow,
+    Blue,
+    Magenta,
+
+    Reset,
+}
+
+impl Color {
+    fn escape(&self) -> &'static str {
+        match self {
+            Self::BoldRed => "\x1b[1;31m",
+            Self::BoldGreen => "\x1b[1;32m",
+            Self::BoldYellow => "\x1b[1;33m",
+            Self::BoldBlue => "\x1b[1;34m",
+            Self::BoldMagenta => "\x1b[1;35m",
+            Self::BoldCyan => "\x1b[1;36m",
+            Self::BoldGray => "\x1b[1;2m",
+            Self::Red => "\x1b[0;31m",
+            Self::Green => "\x1b[0;32m",
+            Self::Yellow => "\x1b[0;33m",
+            Self::Blue => "\x1b[0;34m",
+            Self::Magenta => "\x1b[0;35m",
+            Self::Reset => "\x1b[00m",
+        }
+    }
+}
+
+fn set_skipped_color(buffer: &mut String, color: Color) {
+    buffer.push_str("\\[");
+    buffer.push_str(color.escape());
+    buffer.push_str("\\]");
+}
 
 fn parse_jobs(s: &str) -> usize {
     s.split('\n').filter(|s| s.contains("Stopped")).count()
@@ -28,29 +69,27 @@ fn find_git_repo_path(depth: usize) -> Option<PathBuf> {
     None
 }
 
-fn ssh_prompt(buffer: &mut Buffer) -> io::Result<()> {
-    if std::env::var("SSH_PROMPT").is_ok() {
+fn ssh_prompt(buffer: &mut String) -> io::Result<()> {
+    if std::env::var("SSH_CLIENT").is_ok() {
         let hostname = whoami::fallible::hostname()?;
         let color = match hostname.as_str() {
-            "tolaria" => Color::Blue,
-            "weatherlight" | "kaladesh" => Color::Cyan,
-            "mirrodin" => Color::Ansi256(2),
-            "argentum" => Color::Yellow,
-            _ => Color::Green,
+            "tolaria" => Color::BoldBlue,
+            "weatherlight" | "kaladesh" => Color::BoldCyan,
+            "mirrodin" => Color::BoldGray,
+            "argentum" => Color::BoldYellow,
+            _ => Color::BoldGreen,
         };
-        buffer.set_color(
-            ColorSpec::new().set_bold(true).set_fg(Some(Color::Red)),
-        )?;
-        write!(buffer, "{}", whoami::username())?;
-        buffer
-            .set_color(ColorSpec::new().set_bold(true).set_fg(Some(color)))?;
-        write!(buffer, "{hostname}")
-    } else {
-        Ok(())
+        set_skipped_color(buffer, Color::BoldRed);
+        buffer.push_str(&whoami::username());
+        set_skipped_color(buffer, Color::Reset);
+        buffer.push('@');
+        set_skipped_color(buffer, color);
+        buffer.push_str(&hostname);
     }
+    Ok(())
 }
 
-fn g_branch(buffer: &mut Buffer) -> io::Result<()> {
+fn g_branch(buffer: &mut String) -> io::Result<()> {
     let Some(repo) = find_git_repo_path(5) else {
         return Ok(());
     };
@@ -74,20 +113,27 @@ fn g_branch(buffer: &mut Buffer) -> io::Result<()> {
             s.push_str(segment);
         }
     }
-    write!(buffer, "{}", s.get(..10).unwrap_or(&s))
+    buffer.push_str(s.get(..10).unwrap_or(&s));
+    Ok(())
 }
 
-fn jobs(buffer: &mut Buffer, job_count: usize) -> io::Result<()> {
-    buffer.set_color(ColorSpec::new().set_fg(match job_count {
-        0 => None,
-        1 => Some(Color::Magenta),
-        2 => Some(Color::Blue),
-        _ => Some(Color::Red),
-    }))?;
-    write!(buffer, "::")
+fn jobs(buffer: &mut String, job_count: usize) {
+    if job_count > 0 {
+        set_skipped_color(
+            buffer,
+            match job_count {
+                1 => Color::Magenta,
+                2 => Color::Blue,
+                3 => Color::Yellow,
+                4 => Color::Green,
+                _ => Color::Red,
+            },
+        );
+    }
+    buffer.push_str("::");
 }
 
-fn path(buffer: &mut Buffer) -> io::Result<()> {
+fn path(buffer: &mut String) -> io::Result<()> {
     let home = std::env::home_dir().unwrap_or_default();
     let pwd = std::env::current_dir()?;
     let pwd = match pwd.strip_prefix(&home) {
@@ -95,47 +141,48 @@ fn path(buffer: &mut Buffer) -> io::Result<()> {
         Ok(path) => Path::new("~").join(path),
         Err(_) => pwd,
     };
-    buffer.set_color(ColorSpec::new().set_fg(Some(Color::Yellow)))?;
-    trunc_path(buffer, pwd.to_str().unwrap())
+    set_skipped_color(buffer, Color::Yellow);
+    trunc_path(buffer, pwd.to_str().unwrap());
+    Ok(())
 }
 
-fn trunc_path(buffer: &mut Buffer, s: &str) -> io::Result<()> {
+fn trunc_path(buffer: &mut String, s: &str) {
     for segment in s.trim().split_inclusive("/") {
         if segment == "/" {
-            write!(buffer, "/")?
+            buffer.push('/');
         } else if segment.ends_with("/") {
-            write!(buffer, "{}/", segment.chars().next().unwrap())?;
+            buffer.push(segment.chars().next().unwrap());
+            buffer.push('/');
         } else {
-            write!(buffer, "{}", segment)?;
+            buffer.push_str(segment);
         }
+    }
+}
+
+fn exit_status(buffer: &mut String, exit_code: u8) -> io::Result<()> {
+    if exit_code != 0 && exit_code != 124 {
+        set_skipped_color(buffer, Color::BoldRed);
+        write!(buffer, "<{exit_code}>").map_err(io::Error::other)?;
     }
     Ok(())
 }
 
-fn exit_status(buffer: &mut Buffer, exit_code: u8) -> io::Result<()> {
-    if exit_code != 0 && exit_code != 124 {
-        buffer.set_color(
-            ColorSpec::new().set_bold(true).set_fg(Some(Color::Red)),
-        )?;
-        write!(buffer, "<{exit_code}>")
-    } else {
-        Ok(())
-    }
-}
-
-fn battery(buffer: &mut Buffer) -> io::Result<()> {
+fn battery(buffer: &mut String) -> io::Result<()> {
     let tty = std::fs::read_link("/proc/self/fd/0")?;
     let tmux = std::env::var("TTY_TMUX").is_ok();
     let battery = Path::new("/sys/class/power_supply/BAT0/capacity");
     if tty.to_str().unwrap().contains("tty") || tmux {
         match std::fs::read_to_string(battery) {
-            Ok(capacity) => write!(buffer, "{capacity}"),
-            Err(e) if e.kind() == io::ErrorKind::NotFound => Ok(()),
-            Err(e) => Err(e),
+            Ok(capacity) => {
+                write!(buffer, "{capacity}").map_err(io::Error::other)?
+            }
+            Err(e) if e.kind() != io::ErrorKind::NotFound => {
+                return Err(e.into())
+            }
+            Err(_not_found) => (),
         }
-    } else {
-        Ok(())
     }
+    Ok(())
 }
 
 fn main() -> io::Result<()> {
@@ -143,22 +190,22 @@ fn main() -> io::Result<()> {
     let exit_code = args.next().and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
     let job_count = args.next().map(|s| parse_jobs(&s)).unwrap_or(0);
 
-    let buffers = BufferWriter::stdout(ColorChoice::Always);
-    let mut b = buffers.buffer();
-    battery(&mut b)?;
-    ssh_prompt(&mut b)?;
-    g_branch(&mut b)?;
-    jobs(&mut b, job_count)?;
+    let buffer = &mut String::new();
+    battery(buffer)?;
+    ssh_prompt(buffer)?;
+    g_branch(buffer)?;
+    jobs(buffer, job_count);
     {
-        b.set_color(ColorSpec::new().set_fg(None))?;
-        write!(&mut b, "<")?;
+        set_skipped_color(buffer, Color::Reset);
+        buffer.push('<');
     }
-    path(&mut b)?;
-    exit_status(&mut b, exit_code)?;
+    path(buffer)?;
+    exit_status(buffer, exit_code)?;
     {
-        b.set_color(ColorSpec::new().set_fg(None))?;
-        write!(&mut b, "> ")?;
+        set_skipped_color(buffer, Color::Reset);
+        buffer.push_str("> ");
     }
 
-    buffers.print(&b)
+    std::io::stdout().write_all(buffer.as_bytes())?;
+    Ok(())
 }
