@@ -1,0 +1,18 @@
+#!/bin/bash
+# Cast links from any pc to my tv
+
+## Setup:
+## - sudo npm install -g @webos-tools/cli
+## - ares-setup-device
+## - open developer mode app in tv and enable key server
+## - ares-novacom --device tv --getkey
+
+case "$1" in
+    *youtube.com*|*youtu.be*)
+        id=$(echo "$1" | grep -Eo 'v=[a-z0-9A-Z]{11}')
+        ares-launch youtube.leanback.v4 --params '{"contentTarget":"'"$id"'"}'
+        ;;
+    *)
+        ares-launch com.webos.app.browser --params '{"target":"'"$1"'"}'
+        ;;
+esac
