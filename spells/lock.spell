@@ -1,6 +1,6 @@
 #!/bin/bash
 
-m set-pause
+SESSION_KIND=cli m set-pause > /dev/null
 res=$(xrandr | grep -F '*' | awk '{print $1}')
 convert $WALLPAPERS/home.png -gravity center -background black -extent $res RGB:- |
     i3lock --raw $res:rgb --image /dev/stdin
