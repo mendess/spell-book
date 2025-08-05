@@ -88,19 +88,13 @@ tty=$(tty)
 LOG="/tmp/$(whoami)/startx.log"
 mkdir -p "$(dirname "$LOG")"
 if [[ "$tty" =~ /dev/tty1 ]]; then
-    pfetch
+    command -V pfetch >/dev/null && pfetch
     tty_num=$(tty | grep -Eo '[0-9]')
     echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
     wm() {
-        launch_x=1
         if hash Hyprland; then
             Hyprland || echo "hyperland crashed with exit code $?"
-            read -r -p "Hyprland EXITED. Launch X? [y/N]" &>/dev/tty
-            if [ "${REPLY}" != y ] && [ "${REPLY}" != Y ]; then
-                launch_x=0
-            fi
-        fi
-        if (( launch_x )); then
+        else
             exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num"
         fi
     }
