@@ -85,6 +85,7 @@ fn ssh_prompt(buffer: &mut String) -> io::Result<()> {
         buffer.push('@');
         set_skipped_color(buffer, color);
         buffer.push_str(&hostname);
+        set_skipped_color(buffer, Color::Reset);
     }
     Ok(())
 }
