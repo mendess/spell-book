@@ -2929,5 +2929,30 @@
     ],
     "artist": "strawberry-girls",
     "genre": "prog-rock"
+  },
+  {
+    "name": "bbno$ x diamond pistols - help herself (Official Video)",
+    "link": "https://youtu.be/I6RVE0xYjoI",
+    "time": 200,
+    "categories": [
+      "chill",
+      "sad"
+    ],
+    "artist": "bbno$",
+    "genre": "bedroom-pop",
+    "language": "english"
+  },
+  {
+    "name": "Táxi - Chiclete",
+    "link": "https://youtu.be/qc0ZwEDGq6U",
+    "time": 262,
+    "categories": [
+      "upbeat",
+      "drive",
+      "old"
+    ],
+    "artist": "taxi",
+    "genre": "rock",
+    "language": "tuga"
   }
 ]
