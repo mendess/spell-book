@@ -69,7 +69,7 @@ fn find_git_repo_path(depth: usize) -> Option<PathBuf> {
     None
 }
 
-fn ssh_prompt(buffer: &mut String) -> io::Result<()> {
+fn ssh_prompt(buffer: &mut String) -> io::Result<bool> {
     if std::env::var("SSH_CLIENT").is_ok() {
         let hostname = whoami::fallible::hostname()?;
         let color = match hostname.as_str() {
@@ -77,20 +77,23 @@ fn ssh_prompt(buffer: &mut String) -> io::Result<()> {
             "weatherlight" | "kaladesh" => Color::BoldCyan,
             "mirrodin" => Color::BoldGray,
             "argentum" => Color::BoldYellow,
+            "pendrellvale" => Color::BoldMagenta,
             _ => Color::BoldGreen,
         };
-        set_skipped_color(buffer, Color::BoldRed);
+        set_skipped_color(buffer, Color::BoldCyan);
         buffer.push_str(&whoami::username());
         set_skipped_color(buffer, Color::Reset);
         buffer.push('@');
         set_skipped_color(buffer, color);
         buffer.push_str(&hostname);
         set_skipped_color(buffer, Color::Reset);
+        Ok(true)
+    } else {
+        Ok(false)
     }
-    Ok(())
 }
 
-fn g_branch(buffer: &mut String) -> io::Result<()> {
+fn g_branch(buffer: &mut String, prefix_with_colons: bool) -> io::Result<()> {
     let Some(repo) = find_git_repo_path(5) else {
         return Ok(());
     };
@@ -105,6 +108,9 @@ fn g_branch(buffer: &mut String) -> io::Result<()> {
         return Ok(());
     };
 
+    if prefix_with_colons {
+        buffer.push_str("::");
+    }
     let mut s = String::new();
     for segment in branch_name.trim().split_inclusive("/") {
         if segment.ends_with("/") {
@@ -193,8 +199,8 @@ fn main() -> io::Result<()> {
 
     let buffer = &mut String::new();
     battery(buffer)?;
-    ssh_prompt(buffer)?;
-    g_branch(buffer)?;
+    let enabled = ssh_prompt(buffer)?;
+    g_branch(buffer, enabled)?;
     jobs(buffer, job_count);
     {
         set_skipped_color(buffer, Color::Reset);
