@@ -49,7 +49,7 @@ export EMOJIS="$XDG_CONFIG_HOME/emojis"
 export BOOKMARKS="$XDG_CONFIG_HOME/quickbrowser/bookmarks"
 export WALLPAPERS=$XDG_DATA_HOME/wallpapers
 
-. ~/.config/user-dirs.dirs
+[[ -e ~/.config/user-dirs.dirs ]] && . ~/.config/user-dirs.dirs
 
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
@@ -81,17 +81,15 @@ export PATH="$PATH:$HOME/.local/share/go/bin"
 export PATH="$PATH:$HOME/.tfenv/bin"
 export PATH="$PATH:$WASMTIME_HOME/bin"
 
-export COMP_WORDBREAKS=${COMP_WORDBREAKS/://}
-
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
-LOG="/tmp/$(whoami)/startx.log"
-mkdir -p "$(dirname "$LOG")"
 if [[ "$tty" =~ /dev/tty1 ]]; then
+    LOG="/tmp/$(whoami)/startx.log"
+    mkdir -p "$(dirname "$LOG")"
     command -V pfetch >/dev/null && pfetch
-    tty_num=$(tty | grep -Eo '[0-9]')
-    echo "::::::::::: START XLOG :::::::::::" >>"$LOG"
+    tty_num=$(grep -Eo '[0-9]' <<<"$tty")
     wm() {
+        echo "::::::::::: START XLOG :::::::::::"
         if hash Hyprland; then
             Hyprland || echo "hyperland crashed with exit code $?"
         else
