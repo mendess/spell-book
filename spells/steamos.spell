@@ -1,0 +1,5 @@
+#!/bin/bash
+
+steam
+hyprctl dispatch exit
+hyprctl dispatch quit
