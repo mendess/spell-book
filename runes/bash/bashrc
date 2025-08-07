@@ -14,9 +14,6 @@ shopt -s checkwinsize
 stty -ixon
 set -o noclobber
 
-GPG_TTY="$(tty)"
-export GPG_TTY
-
 if [ -z "$SPELLS" ]
 then
     tmp="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.bash_profile)")")")"
