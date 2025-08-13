@@ -2954,5 +2954,17 @@
     "artist": "taxi",
     "genre": "rock",
     "language": "tuga"
+  },
+  {
+    "name": "Airport Lady - Toshiki Kadomatsu (1984)",
+    "link": "https://youtu.be/fLxQtcrzTlA",
+    "time": 269,
+    "categories": [
+      "upbeat",
+      "old"
+    ],
+    "artist": "toshiki-kadomatsu",
+    "genre": "city-pop",
+    "language": "japanese"
   }
 ]
