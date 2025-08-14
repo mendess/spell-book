@@ -22,5 +22,5 @@ for f in *; do
         "$(echo "$f" | sed -r -e 's/[_-](1920|2560)x(1080|1600)//;s/[_-]((W|w)allpaper|background)//;s/\.(jpg|png)$/_mtg.\1/')"
 done
 for f in *; do
-    spark rsync av "$f" argentum:core/mirari/mirrodin/walls/all/
+    spark rsync av "$f" pendrellvale:vault/basement/mirrodin//walls/all/
 done

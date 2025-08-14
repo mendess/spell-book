@@ -43,7 +43,6 @@
  - [todo](./spells/todo.spell) - Write/remove a task to do later.  Select an existing entry to remove it from the file, or type a new entry to add it.
  - [wfreetube](./spells/wfreetube.spell)
  - [wmgr](./spells/wmgr.crs)
- - [work-to-home](./spells/work-to-home.spell)
  - [xls_to_csv](./spells/xls_to_csv.spell) - Python script that converts a xls file to a csv
 
 ## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-HOST=argentum
+HOST=pendrellvale
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         -u | --unlisted)
@@ -24,7 +24,7 @@ if [ -d "$FILE" ]; then
     filename="$filename.zip"
 fi
 [[ "$unlisted" ]] && filename="unlisted/$filename"
-spark rsync av "$FILE" "$HOST:core/mirari/mirrodin/share/$filename"
+spark rsync av "$FILE" "$HOST:vault/basement/mirrodin/share/$filename"
 url="https://mendess.xyz/api/v1/file/$filename"
 if command -v termux-clipboard-set &>/dev/null; then
     echo -n "$url" | termux-clipboard-set

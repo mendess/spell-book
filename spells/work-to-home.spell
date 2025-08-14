@@ -1,3 +1,0 @@
-#!/bin/bash
-
-spark ssh argentum -- tee -a things-to-share <<<"$(xclip -o -sel clipboard)"
