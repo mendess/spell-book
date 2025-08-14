@@ -228,18 +228,8 @@ unset i
             herbstclient attr theme.normal.color "${colors[2]% *}"
             herbstclient attr settings.frame_border_active_color "${colors[0]% *}"
             herbstclient attr settings.frame_border_normal_color "${colors[1]% *}"
-        fi &
+        fi
     fi
-    # Lamp colors
-    if [[ "$(hostname)" = tolaria ]] || nmcli -t dev | grep -q 'ZON.*2010' ; then
-        #shellcheck disable=2029
-        set +e
-        [ -e "$TEMPDIR/mood_light" ] ||
-            ssh mendess@mendess.xyz -o BatchMode=yes \
-                "python ~/bulb/color.py \\${colors[0]% *} --flow --sleep"
-        set -e
-    fi
-    wait
 } 2>&1 | color_picker -f &
 
 printf "Setting: %s\n" "${files[@]}" | tee "$TEMPDIR/last-wall"

@@ -198,15 +198,6 @@ super + F{6,5}
 XF86MonBrightness{Up,Down}
     brightnessctl set 2{+,-}%
 
-super + shift + BackSpace
-    ssh mendess.xyz python bulb/let_there_be_light.py
-
-super + control + BackSpace
-    ssh mendess.xyz python bulb/turn_off.py
-
-super + alt + BackSpace
-    ssh mendess.xyz python bulb/let_there_be_light.py confy
-
 super + Pause
     systemctl suspend
 

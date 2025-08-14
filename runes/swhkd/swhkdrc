@@ -150,15 +150,6 @@ super + F5
 super + F6
     brightnessctl set 2+%
 
-super + shift + BackSpace
-    spark ssh argentum -- python bulb/let_there_be_light.py
-
-super + control + BackSpace
-    spark ssh argentum -- python bulb/turn_off.py
-
-super + alt + BackSpace
-    spark ssh argentum -- python bulb/let_there_be_light.py confy
-
 super + Pause
     systemctl suspend
 

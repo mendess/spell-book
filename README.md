@@ -24,6 +24,7 @@
  - [hooks](./spells/hooks.spell)
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [launch-cocktracice](./spells/launch-cocktracice.spell)
+ - [lg-cast](./spells/lg-cast.spell) - Cast links from any pc to my tv
  - [lock](./spells/lock.spell)
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
@@ -36,6 +37,7 @@
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
  - [share](./spells/share.spell)
  - [ssh-menu](./spells/ssh-menu.spell) - A menu to quickly open ssh connections
+ - [steamos](./spells/steamos.spell)
  - [syncspellbook](./spells/syncspellbook.spell) - Tries to synchronise with changes to the remote repository. Also runs [learnSpells](./learnSpells.sh) and [castRunes](./castRunes.sh)
  - [termFromHere](./spells/termFromHere.spell) - Opens a terminal in the same `cwd` as the focused `X` program.
  - [todo](./spells/todo.spell) - Write/remove a task to do later.  Select an existing entry to remove it from the file, or type a new entry to add it.
