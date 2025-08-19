@@ -38,7 +38,7 @@ m_installed() (
 )
 m() (
     case "$(hostname)" in
-        weatherlight|tolaria)
+        weatherlight|tolaria|3QWP3T3)
             enable_clipboard=("--features=clipboard")
             ;;
     esac
