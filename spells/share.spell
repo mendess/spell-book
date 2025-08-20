@@ -28,6 +28,8 @@ spark rsync av "$FILE" "$HOST:vault/basement/mirrodin/share/$filename"
 url="https://mendess.xyz/api/v1/file/$filename"
 if command -v termux-clipboard-set &>/dev/null; then
     echo -n "$url" | termux-clipboard-set
+elif [[ "$WAYLAND_DISPLAY" ]]; then
+    echo -n "$url" | wl-copy
 elif [[ "$DISPLAY" ]]; then
     echo -n "$url" | xclip -sel clip
 fi
