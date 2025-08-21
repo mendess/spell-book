@@ -57,12 +57,20 @@ PS0=$(
     echo "${PS0_ELEMENTS[*]}"
 )
 
-prompt-command() {
-    local error="$?"
-    history -a
-    history -n
-    PS1='$(__no_new_line_fix)'"$($SPELLS/runes/bash/helpers/ps1.crs "$error" "$(jobs)")"
-}
+if hash rust-script 2>/dev/null; then
+    prompt-command() {
+        local error="$?"
+        history -a
+        history -n
+        PS1='$(__no_new_line_fix)'"$($SPELLS/runes/bash/helpers/ps1.crs "$error" "$(jobs)")"
+    }
+else
+    prompt-command() {
+        local error="$?"
+        history -a
+        history -n
+    }
+fi
 PROMPT_COMMAND='prompt-command'
 
 PS2="$(__c "$BLUE" "| ")"
