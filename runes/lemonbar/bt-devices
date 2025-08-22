@@ -1,16 +1,7 @@
 #!/bin/bash
 
-bluetoothctl devices | cut -f2 -d' ' | while read -r uuid; do bluetoothctl info "$uuid"; done  | awk '
-$1 == "Device" {
-    if (connected) {
-        print(name)
-    }
-    name = ""; connected = false; mac = $2
-}
-$1 == "Name:"  { tmp = $1; $1 = ""; name = $0; $1 = tmp }
-$1 == "Connected:" { connected = ($2 == "yes") }
-
-END {
-    if (connected) print(name)
-}
+bluetoothctl devices | cut -f2 -d' ' | xargs -L 1 bluetoothctl info | awk '
+$1 == "Name:"  { $1 = ""; sub(/^[ \t]+|[ \t]+$/, ""); name = $0; }
+$1 == "Connected:" && $2 == "yes" { devices = (devices == "") ? name : devices " [&] " name }
+END { if (devices != "") print(devices) }
 '
