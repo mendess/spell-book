@@ -28,7 +28,6 @@ fzf
 gdb
 gimp
 git-delta
-htop
 hyprland
 imagemagick
 inotify-tools # power mode checking in lemonbar

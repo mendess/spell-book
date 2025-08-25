@@ -117,7 +117,7 @@ super + control + s
     $TERMINAL --class floating-terminal --title floating-terminal -e syncspellbook --hold
 
 super + t
-    $TERMINAL -e htop
+    $TERMINAL -e bash -c 'hash btm && exec btm || exec htop'
 
 super + c
     $TERMINAL --class floating-terminal --title floating-terminal -e bc -lq
