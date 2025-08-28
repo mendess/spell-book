@@ -2966,5 +2966,17 @@
     "artist": "toshiki-kadomatsu",
     "genre": "city-pop",
     "language": "japanese"
+  },
+  {
+    "name": "Face Off",
+    "link": "https://youtu.be/aXnyOYz9CpU",
+    "time": 216,
+    "categories": [
+      "sad",
+      "meme",
+      "instrumental"
+    ],
+    "artist": "ethereal-snake",
+    "recommended_by": "oracle"
   }
 ]
