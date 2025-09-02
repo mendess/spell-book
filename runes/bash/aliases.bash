@@ -167,12 +167,14 @@ function gdt() {
 }
 alias gst='git status'
 function gcm() {
-    case "$(git branch --format='%(refname:short)')" in
-        *develop*) git switch develop ;;
-        *dev*) git switch dev ;;
-        *main*) git switch main ;;
-        *master*) git switch master ;;
-    esac
+    for b in $(git branch --format='%(refname:short)'); do
+        case "$b" in
+            develop) git switch develop ;;
+            dev) git switch dev ;;
+            main) git switch main ;;
+            master) git switch master ;;
+        esac
+    done
 }
 alias gcmm='git checkout main || git checkout master'
 __guri() {
