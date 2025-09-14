@@ -76,25 +76,15 @@
       "drive",
       "psytrance"
     ],
-    "genre": "electronic",
-    "artist": "blazy"
-  },
-  {
-    "name": "Game of Thrones: Season 6 OST - Light of the Seven",
-    "link": "https://youtu.be/pS-gbqbVd8c",
-    "time": 589,
-    "categories": [
-      "ost"
-    ],
-    "genre": "classical",
-    "artist": "game of thrones"
+    "artist": "blazy",
+    "genre": "electronic"
   },
   {
     "name": "Joji - Will He",
     "link": "https://youtu.be/89eZkrKpQks",
     "time": 202,
     "categories": [
-        "chill"
+      "chill"
     ],
     "artist": "joji",
     "genre": "r&b"
@@ -161,7 +151,7 @@
     "artist": "supertramp",
     "genre": "pop-rock",
     "liked_by": [
-        "balao"
+      "balao"
     ]
   },
   {
@@ -203,7 +193,7 @@
     "categories": [],
     "artist": "highly-suspect",
     "genre": "rock",
-    "recomended_by": "mighty"
+    "recommended_by": "mighty"
   },
   {
     "name": "Fleshgod Apocalypse - Mafia",
@@ -551,7 +541,7 @@
     "categories": [],
     "artist": "elise-trouw",
     "genre": "pop",
-    "recomended_by": "noro"
+    "recommended_by": "noro"
   },
   {
     "name": "VIDEOCLUB - Amour plastique",
@@ -563,7 +553,7 @@
     "artist": "videoclub",
     "genre": "electropop",
     "language": "french",
-    "recomended_by": "noro"
+    "recommended_by": "noro"
   },
   {
     "name": "Men At Work - Overkill",
@@ -635,7 +625,7 @@
       "drive"
     ],
     "artist": "7777 の天使",
-    "recomended_by": "pp"
+    "recommended_by": "pp"
   },
   {
     "name": "Do Everything Now",
@@ -921,7 +911,7 @@
     "artist": "maelle",
     "genre": "pop",
     "language": "french",
-    "recomended_by": "mani"
+    "recommended_by": "mani"
   },
   {
     "name": "Молчат Дома - Судно",
@@ -979,7 +969,7 @@
     ],
     "genre": "future-funk",
     "language": "japanese",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "boy pablo - Feeling Lonely",
@@ -1088,7 +1078,7 @@
     "categories": [],
     "artist": "the-drums",
     "genre": "indie-pop",
-    "recomended_by": "oracle"
+    "recommended_by": "oracle"
   },
   {
     "name": "Joji - Ew",
@@ -1277,8 +1267,7 @@
     "name": "People Get Up And Drive Your Funky Soul",
     "link": "https://youtu.be/Nl-RVIdTUVI",
     "time": 545,
-    "categories": [
-    ],
+    "categories": [],
     "artist": "james-brown",
     "genre": "jazz"
   },
@@ -1316,7 +1305,7 @@
     "categories": [
       "chill"
     ],
-    "recomended_by": "tuga"
+    "recommended_by": "tuga"
   },
   {
     "name": "Mariza - Melhor de Mim",
@@ -1419,7 +1408,7 @@
       "drive"
     ],
     "artist": "7777 の天使",
-    "recomended_by": "pp"
+    "recommended_by": "pp"
   },
   {
     "name": "The Beatles - Eleanor Rigby",
@@ -1475,7 +1464,7 @@
     "categories": [],
     "artist": "luminism",
     "genre": "math-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Your Latest Trick",
@@ -1494,7 +1483,7 @@
     "categories": [],
     "artist": "luminism",
     "genre": "math-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Peeping Tom",
@@ -1504,7 +1493,7 @@
       "upbeat"
     ],
     "artist": "jamie-berry",
-    "recomended_by": "mani"
+    "recommended_by": "mani"
   },
   {
     "name": "Barbara Pravi - Voilà - LIVE - France 🇫🇷",
@@ -1524,7 +1513,7 @@
       "upbeat"
     ],
     "artist": "jawny",
-    "recomended_by": "mani"
+    "recommended_by": "mani"
   },
   {
     "name": "Deolinda | Passou Por Mim e Sorriu",
@@ -1683,7 +1672,7 @@
     ],
     "artist": "venetian-snares",
     "genre": "eletronic",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Elton John - I'm Still Standing",
@@ -1740,7 +1729,7 @@
     ],
     "artist": "luminism",
     "genre": "math-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "free time",
@@ -1751,7 +1740,7 @@
     ],
     "artist": "luminism",
     "genre": "math-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "mess it up",
@@ -1762,7 +1751,7 @@
     ],
     "artist": "luminism",
     "genre": "math-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "delirium",
@@ -1773,7 +1762,7 @@
     ],
     "artist": "luminism",
     "genre": "math-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Cosmo Sheldrake - Birthday Suit",
@@ -1784,7 +1773,7 @@
     ],
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
-    "recomended_by": "mani"
+    "recommended_by": "mani"
   },
   {
     "name": "Cosmo Sheldrake - Come Along",
@@ -1795,7 +1784,7 @@
     ],
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
-    "recomended_by": "mani"
+    "recommended_by": "mani"
   },
   {
     "name": "Rex Orange County – KEEP IT UP",
@@ -1836,7 +1825,7 @@
       "chill"
     ],
     "artist": "catie-turner",
-    "recomended_by": "marcia"
+    "recommended_by": "marcia"
   },
   {
     "name": "From Roots to Needles",
@@ -1912,7 +1901,7 @@
     "artist": "barbara-tinoco",
     "genre": "pop",
     "language": "tuga",
-    "recomended_by": "mariii"
+    "recommended_by": "mariii"
   },
   {
     "name": "Crumb - Locket",
@@ -1923,7 +1912,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Vinta",
@@ -1934,7 +1923,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Thirty-Nine",
@@ -1945,7 +1934,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Recently Played",
@@ -1956,7 +1945,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Plants",
@@ -1967,7 +1956,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "So Tired",
@@ -1978,7 +1967,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Crumb - Bones",
@@ -1989,7 +1978,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Jinx",
@@ -2000,7 +1989,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Faces",
@@ -2011,7 +2000,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "And It Never Ends",
@@ -2022,7 +2011,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Part III",
@@ -2033,7 +2022,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "The Letter",
@@ -2044,7 +2033,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "M.R.",
@@ -2055,7 +2044,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Fall Down",
@@ -2066,7 +2055,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Ghostride",
@@ -2077,7 +2066,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Nina",
@@ -2088,7 +2077,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Cracking",
@@ -2099,7 +2088,7 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Caravan Palace -  Black Betty",
@@ -2166,7 +2155,7 @@
     ],
     "artist": "runnner",
     "genre": "indie",
-    "recomended_by": "emi"
+    "recommended_by": "emi"
   },
   {
     "name": "Jamiroquai - Virtual Insanity",
@@ -2295,7 +2284,7 @@
     ],
     "artist": "the-killers",
     "genre": "indie-rock",
-    "recomended_by": "oracle"
+    "recommended_by": "oracle"
   },
   {
     "name": "MF DOOM & SADE (ft. Sean Price) - Blunted",
@@ -2414,7 +2403,7 @@
     ],
     "artist": "the-killers",
     "genre": "indie-rock",
-    "recomended_by": "oracle"
+    "recommended_by": "oracle"
   },
   {
     "name": "Metronomy - The Look",
@@ -2425,7 +2414,7 @@
     ],
     "artist": "metronomy",
     "genre": "new-wave",
-    "recomended_by": "oracle"
+    "recommended_by": "oracle"
   },
   {
     "name": "Royal Blood - Figure It Out",
@@ -2436,7 +2425,7 @@
     ],
     "artist": "royal-blood",
     "genre": "hard-rock",
-    "recomended_by": "oracle"
+    "recommended_by": "oracle"
   },
   {
     "name": "MGMT - Little Dark Age (Video)",
@@ -2449,7 +2438,7 @@
     ],
     "artist": "mgmt",
     "genre": "rock",
-    "recomended_by": "oracle"
+    "recommended_by": "oracle"
   },
   {
     "name": "Rats",
@@ -2491,7 +2480,7 @@
       "upbeat"
     ],
     "artist": "fish-in-a-birdcage",
-    "recomended_by": "mani"
+    "recommended_by": "mani"
   },
   {
     "name": "Westerman - Confirmation",
@@ -2534,7 +2523,7 @@
     ],
     "artist": "the-killers",
     "genre": "indie-rock",
-    "recomended_by": "oracle"
+    "recommended_by": "oracle"
   },
   {
     "name": "Valeria Castro - lo que siento",
@@ -2554,7 +2543,7 @@
       "upbeat"
     ],
     "artist": "rex-oragen-county",
-    "recomended_by": "balao"
+    "recommended_by": "balao"
   },
   {
     "name": "東京フラッシュ / Vaundy ：MUSIC VIDEO",
@@ -2679,7 +2668,7 @@
     ],
     "artist": "graca",
     "language": "tuga",
-    "recomended_by": "balao"
+    "recommended_by": "balao"
   },
   {
     "name": "Lara Li – Funâmbula | Festival da Canção 2023",
@@ -2699,7 +2688,7 @@
       "chill"
     ],
     "artist": "billie-eilish",
-    "recomended_by": "balao"
+    "recommended_by": "balao"
   },
   {
     "name": "Cosmo Sheldrake - Does the Swallow Dream of Flying",
@@ -2710,7 +2699,7 @@
     ],
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
-    "recomended_by": "mani"
+    "recommended_by": "mani"
   },
   {
     "name": "Os Quatro e Meia - Olá, Solidão",
@@ -2721,7 +2710,7 @@
     ],
     "artist": "quatro-e-meia",
     "language": "tuga",
-    "recomended_by": "balao"
+    "recommended_by": "balao"
   },
   {
     "name": "Miguel Araújo (c/ Os Quatro e Meia) - Saudade",
@@ -2732,8 +2721,7 @@
     ],
     "artist": "quatro-e-meia",
     "language": "tuga",
-    "recomended_by": "balao"
-
+    "recommended_by": "balao"
   },
   {
     "name": "Grito",
@@ -2766,7 +2754,7 @@
       "chill"
     ],
     "artist": "bbno$",
-    "recomended_by": "killbyte"
+    "recommended_by": "killbyte"
   },
   {
     "name": "Portugal. The Man - What, Me Worry? {Official Music Video}",
@@ -2776,7 +2764,7 @@
       "upbeat"
     ],
     "artist": "portugal-the-man",
-    "recomended_by": "killbyte"
+    "recommended_by": "killbyte"
   },
   {
     "name": "MONSUNE - OUTTA MY MIND",
@@ -2786,7 +2774,7 @@
       "chill"
     ],
     "artist": "monsune",
-    "recomended_by": "killbyte"
+    "recommended_by": "killbyte"
   },
   {
     "name": "JAWNY - adios",
@@ -2796,7 +2784,7 @@
       "upbeat"
     ],
     "artist": "jawny",
-    "recomended_by": "killbyte"
+    "recommended_by": "killbyte"
   },
   {
     "name": "JAWNY - Take It Back {Official Video}",
@@ -2806,7 +2794,7 @@
       "upbeat"
     ],
     "artist": "jawny",
-    "recomended_by": "killbyte"
+    "recommended_by": "killbyte"
   },
   {
     "name": "FINNEAS - For Cryin’ Out Loud! {Official Music Video}",
@@ -2816,7 +2804,7 @@
       "chill"
     ],
     "artist": "finneas",
-    "recomended_by": "balao"
+    "recommended_by": "balao"
   },
   {
     "name": "杉山清貴 & オメガトライブ - Futari no Natsu Monogatari Never Ending Summer",
@@ -2858,7 +2846,7 @@
     ],
     "artist": "ski-aggu",
     "genre": "rap",
-    "language":"german"
+    "language": "german"
   },
   {
     "name": "Masayoshi Takanaka - [02] Tokyo Reggie (All of Me 1979)",
@@ -2893,8 +2881,7 @@
     "artist": "anri",
     "genre": "city-pop",
     "language": "japanese"
-  }
-,
+  },
   {
     "name": "NAPA - Deslocado (Official Video)",
     "link": "https://youtu.be/pNstFdk-hnY",
@@ -2905,20 +2892,18 @@
     "artist": "napa",
     "genre": "rock",
     "language": "tuga"
-  }
-,
+  },
   {
     "name": "STRAWBERRY GIRLS - Moonwalker (Official Stream)",
     "link": "https://youtu.be/07e1AZxcMwc",
     "time": 175,
     "categories": [
-        "upbeat",
-        "instrumental"
+      "upbeat",
+      "instrumental"
     ],
     "artist": "strawberry-girls",
     "genre": "prog-rock"
-  }
-,
+  },
   {
     "name": "STRAWBERRY GIRLS - Mini Ripper (Official Stream)",
     "link": "https://youtu.be/mHy6F3wwZUU",
