@@ -30,7 +30,10 @@ _rust_installed() {
 
 _rust_install() {
     cd "$1" &&
-        cargo install --path . --bin "$2" "${@:3}"
+        p=$(cargo metadata --format-version 1 |
+            jq ".packages[] | select(.name == \"$2\") | .manifest_path" -r |
+            xargs dirname) &&
+        cargo install --path "$p" --bin "$2" "${@:3}"
 }
 
 m_installed() (
