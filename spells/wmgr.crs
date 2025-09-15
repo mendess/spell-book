@@ -96,7 +96,7 @@ impl WallPlacement {
 }
 
 const HOST: &str = "mendess@mendess.xyz";
-const WALLPAPER_ROOT: &str = "core/mirari/mirrodin/walls";
+const WALLPAPER_ROOT: &str = "vault/basement/mirrodin/walls";
 
 const GREEN: &str = "\x1b[32m";
 const BLUE: &str = "\x1b[34m";
