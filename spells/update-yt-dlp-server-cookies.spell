@@ -1,0 +1,5 @@
+#!/bin/bash
+
+yt-dlp --cookies-from-browser firefox --cookies /tmp/cookies.txt
+
+spark rsync av /tmp/cookies.txt argentum:youtube-downloader/cookies.txt
