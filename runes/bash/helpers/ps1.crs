@@ -46,6 +46,12 @@ impl Color {
     }
 }
 
+macro_rules! warn {
+    ($($t:tt)*) => {
+        eprintln!("[in line {}] warn: {}", line!(), format_args!($($t)*))
+    }
+}
+
 fn set_skipped_color(buffer: &mut String, color: Color) {
     buffer.push_str("\\[");
     buffer.push_str(color.escape());
@@ -69,9 +75,15 @@ fn find_git_repo_path(depth: usize) -> Option<PathBuf> {
     None
 }
 
-fn ssh_prompt(buffer: &mut String) -> io::Result<bool> {
+fn ssh_prompt(buffer: &mut String) -> bool {
     if std::env::var("SSH_CLIENT").is_ok() {
-        let hostname = whoami::fallible::hostname()?;
+        let hostname = match whoami::fallible::hostname() {
+            Ok(h) => h,
+            Err(e) => {
+                warn!("failed to get hostname: {e:?}");
+                return false;
+            }
+        };
         let color = match hostname.as_str() {
             "tolaria" => Color::BoldBlue,
             "weatherlight" | "kaladesh" => Color::BoldCyan,
@@ -87,25 +99,32 @@ fn ssh_prompt(buffer: &mut String) -> io::Result<bool> {
         set_skipped_color(buffer, color);
         buffer.push_str(&hostname);
         set_skipped_color(buffer, Color::Reset);
-        Ok(true)
+        true
     } else {
-        Ok(false)
+        false
     }
 }
 
-fn g_branch(buffer: &mut String, prefix_with_colons: bool) -> io::Result<()> {
+fn g_branch(buffer: &mut String, prefix_with_colons: bool) {
     let Some(repo) = find_git_repo_path(5) else {
-        return Ok(());
+        return;
     };
 
     let head = match std::fs::read_to_string(repo.join(".git/HEAD")) {
         Ok(head) => head,
-        Err(e) if e.kind() == io::ErrorKind::NotADirectory => return Ok(()),
-        Err(e) => return Err(e),
+        Err(e) => {
+            if !matches!(
+                e.kind(),
+                io::ErrorKind::NotADirectory | io::ErrorKind::NotFound
+            ) {
+                warn!("failed to read .git/HEAD {e:?}");
+            }
+            return;
+        }
     };
 
     let Some(branch_name) = head.strip_prefix("ref: refs/heads/") else {
-        return Ok(());
+        return;
     };
 
     if prefix_with_colons {
@@ -121,7 +140,6 @@ fn g_branch(buffer: &mut String, prefix_with_colons: bool) -> io::Result<()> {
         }
     }
     buffer.push_str(s.get(..10).unwrap_or(&s));
-    Ok(())
 }
 
 fn jobs(buffer: &mut String, job_count: usize) {
@@ -140,9 +158,15 @@ fn jobs(buffer: &mut String, job_count: usize) {
     buffer.push_str("::");
 }
 
-fn path(buffer: &mut String) -> io::Result<()> {
+fn path(buffer: &mut String) {
     let home = std::env::home_dir().unwrap_or_default();
-    let pwd = std::env::current_dir()?;
+    let pwd = match std::env::current_dir() {
+        Ok(pwd) => pwd,
+        Err(e) => {
+            warn!("failed to get current working directory: {e:?}");
+            return;
+        }
+    };
     let pwd = match pwd.strip_prefix(&home) {
         Ok(path) if path.as_os_str().is_empty() => PathBuf::from("~"),
         Ok(path) => Path::new("~").join(path),
@@ -150,7 +174,6 @@ fn path(buffer: &mut String) -> io::Result<()> {
     };
     set_skipped_color(buffer, Color::Yellow);
     trunc_path(buffer, pwd.to_str().unwrap());
-    Ok(())
 }
 
 fn trunc_path(buffer: &mut String, s: &str) {
@@ -166,53 +189,56 @@ fn trunc_path(buffer: &mut String, s: &str) {
     }
 }
 
-fn exit_status(buffer: &mut String, exit_code: u8) -> io::Result<()> {
+fn exit_status(buffer: &mut String, exit_code: u8) {
     if exit_code != 0 && exit_code != 124 {
         set_skipped_color(buffer, Color::BoldRed);
-        write!(buffer, "<{exit_code}>").map_err(io::Error::other)?;
+        write!(buffer, "<{exit_code}>").unwrap()
     }
-    Ok(())
 }
 
-fn battery(buffer: &mut String) -> io::Result<()> {
-    let tty = std::fs::read_link("/proc/self/fd/0")?;
+fn battery(buffer: &mut String) {
+    let tty = match std::fs::read_link("/proc/self/fd/0") {
+        Ok(t) => t,
+        Err(e) => {
+            warn!("failed to read /proc/self/fd/0: {e:?}");
+            return;
+        }
+    };
     let tmux = std::env::var("TTY_TMUX").is_ok();
     let battery = Path::new("/sys/class/power_supply/BAT0/capacity");
     if tty.to_str().unwrap().contains("tty") || tmux {
         match std::fs::read_to_string(battery) {
-            Ok(capacity) => {
-                write!(buffer, "{capacity}").map_err(io::Error::other)?
-            }
+            Ok(capacity) => write!(buffer, "{capacity}").unwrap(),
             Err(e) if e.kind() != io::ErrorKind::NotFound => {
-                return Err(e.into())
+                warn!("failed to read {battery:?}: {e:?}")
             }
             Err(_not_found) => (),
         }
     }
-    Ok(())
 }
 
-fn main() -> io::Result<()> {
+fn main() {
     let mut args = std::env::args().skip(1);
     let exit_code = args.next().and_then(|s| s.parse::<u8>().ok()).unwrap_or(0);
     let job_count = args.next().map(|s| parse_jobs(&s)).unwrap_or(0);
 
     let buffer = &mut String::new();
-    battery(buffer)?;
-    let enabled = ssh_prompt(buffer)?;
-    g_branch(buffer, enabled)?;
+    battery(buffer);
+    let enabled = ssh_prompt(buffer);
+    g_branch(buffer, enabled);
     jobs(buffer, job_count);
     {
         set_skipped_color(buffer, Color::Reset);
         buffer.push('<');
     }
-    path(buffer)?;
-    exit_status(buffer, exit_code)?;
+    path(buffer);
+    exit_status(buffer, exit_code);
     {
         set_skipped_color(buffer, Color::Reset);
         buffer.push_str("> ");
     }
 
-    std::io::stdout().write_all(buffer.as_bytes())?;
-    Ok(())
+    if let Err(e) = std::io::stdout().write_all(buffer.as_bytes()) {
+        warn!("failed to write PS1 to stdout: {e:?}");
+    }
 }
