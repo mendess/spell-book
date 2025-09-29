@@ -1,4 +1,3 @@
-local lsp = require('lspconfig')
 local lsp_util = require('lspconfig.util')
 local protocol = require('vim.lsp.protocol')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -79,28 +78,27 @@ local function setup_rust_analyzer(config)
         -- Load project-specific settings
         config.settings = table_merge(config.settings, local_overrides)
     end
-    lsp.rust_analyzer.setup({
+    vim.lsp.config("rust_analyzer", {
         on_attach = on_attach({ format_on_save = config.format_on_save }),
         settings = config.settings,
         capabilities = capabilities,
     })
+    vim.lsp.enable("rust_analyzer")
 
 end
 
-lsp.ts_ls.setup {
+vim.lsp.config("ts_ls", {
     on_attach = on_attach({ format_on_save = false }),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     capabilities = capabilities
-}
-lsp.eslint.setup {
+})
+vim.lsp.enable("ts_ls")
+vim.lsp.config("eslint", {
     on_attach = on_attach(),
     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
     capabilities = capabilities
-}
-lsp.svelte.setup {
-    on_attach = on_attach(),
-    capabilities = capabilities,
-}
+})
+vim.lsp.enable("eslint")
 setup_rust_analyzer({
     format_on_save = true,
     settings = {
@@ -130,23 +128,16 @@ setup_rust_analyzer({
 --     on_attach = on_attach(true),
 --     capabilities = update_capabilities(protocol.make_client_capabilities())
 -- }
-lsp.clangd.setup {
+vim.lsp.config("clangd", {
     on_attach = on_attach({ format_on_save = false }),
     capabilities = capabilities
-}
-lsp.ocamllsp.setup {
-    on_attach = on_attach(),
-    capabilities = capabilities
-}
-lsp.elixirls.setup {
-    cmd = { "/usr/bin/elixir-ls" },
-    on_attach = on_attach({ format_on_save = false }),
-    capabilities = capabilities
-}
-lsp.gopls.setup {
+})
+vim.lsp.enable("clangd")
+vim.lsp.config("gopls", {
     on_attach = on_attach(),
     capabilities = capabilities,
-}
+})
+vim.lsp.enable("gopls")
 -- missing features
 -- https://github.com/joe-re/sql-language-server/issues/173
 -- https://github.com/joe-re/sql-language-server/issues/172
@@ -155,7 +146,7 @@ lsp.gopls.setup {
 --     root_dir = lsp_util.root_pattern("docker-compose.yaml", "docker-compose.yml"),
 --     capabilities = capabilities,
 -- }
-lsp.zls.setup {}
+vim.lsp.enable("zls")
 
 -- Hide all semantic highlights
 -- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
