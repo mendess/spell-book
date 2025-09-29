@@ -33,7 +33,7 @@ _rust_install() {
         p=$(cargo metadata --format-version 1 |
             jq ".packages[] | select(.name == \"$2\") | .manifest_path" -r |
             xargs dirname) &&
-        cargo install --path "$p" --bin "$2" "${@:3}"
+        cargo install --locked --path "$p" --bin "$2" "${@:3}"
 }
 
 m_installed() (
