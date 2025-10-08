@@ -256,6 +256,7 @@ command -v neofetch &>/dev/null ||
 alias cp='cp -v'
 alias mv='mv -v'
 alias rm='rm -v'
+alias rmdir='rmdir -v'
 alias ytdl='youtube-dl'
 alias hc=herbstclient
 alias ikhal='ikhal; clear'
