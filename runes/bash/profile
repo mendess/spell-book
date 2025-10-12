@@ -92,6 +92,10 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
         echo "::::::::::: START XLOG :::::::::::"
         if hash Hyprland; then
             Hyprland || echo "hyperland crashed with exit code $?"
+            while [[ -e /tmp/reload-hyprland ]] && [[ "$(hostname)" -eq pendrellvale ]]; do
+                rm /tmp/reload-hyprland
+                Hyprland || echo "hyperland crashed with exit code $?"
+            done
         else
             exec xinit -- ":$(( "$tty_num" - 1 ))" "vt$tty_num"
         fi
