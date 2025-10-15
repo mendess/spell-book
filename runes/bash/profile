@@ -92,7 +92,7 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
         echo "::::::::::: START XLOG :::::::::::"
         if hash Hyprland; then
             Hyprland || echo "hyperland crashed with exit code $?"
-            while [[ -e /tmp/reload-hyprland ]] && [[ "$(hostname)" -eq pendrellvale ]]; do
+            while [[ -e /tmp/reload-hyprland ]] && [[ "$(hostname)" = pendrellvale ]]; do
                 rm /tmp/reload-hyprland
                 Hyprland || echo "hyperland crashed with exit code $?"
             done
