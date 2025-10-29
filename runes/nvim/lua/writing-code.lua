@@ -106,6 +106,12 @@ save_compile_run('javascript', {
     end
 })
 
+save_compile_run('sh', {
+    run = function()
+        vim.cmd [[!bash %]]
+    end
+})
+
 nnoremap('<leader>r', function()
     vim.cmd [[write]]
     vim.cmd("exec '!"..vim.opt.filetype:get().." %'")
