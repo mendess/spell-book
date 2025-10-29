@@ -337,15 +337,6 @@
     "genre": "synthwave"
   },
   {
-    "name": "GentleBeatz - Looking at the Moon",
-    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/TdHlMdHh",
-    "time": 125,
-    "categories": [
-      "chill"
-    ],
-    "artist": "gentlebeatz"
-  },
-  {
     "name": "furino - você",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/2fpnB8yC",
     "time": 164,
@@ -2962,8 +2953,7 @@
       "sad"
     ],
     "artist": "joji"
-  }
-,
+  },
   {
     "name": "I Like It",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/ZyhBnmgE",
@@ -3222,8 +3212,7 @@
     ],
     "artist": "totorro",
     "genre": "math-rock"
-  }
-,
+  },
   {
     "name": "Gérard Blast",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/h8dsE7c7",
@@ -3903,5 +3892,16 @@
     ],
     "artist": "the-marias",
     "genre": "indie-pop"
+  },
+  {
+    "name": "CHIHIRO",
+    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/EVXC1yod",
+    "time": 323,
+    "categories": [
+      "chill",
+      "drive"
+    ],
+    "artist": "billie-eilish",
+    "genre": "pop"
   }
 ]
