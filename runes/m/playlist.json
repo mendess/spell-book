@@ -4,7 +4,10 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/5R6FH6kr",
     "time": 900,
     "categories": [],
-    "genre": "classical"
+    "genre": "classical",
+    "genres": [
+      "classical"
+    ]
   },
   {
     "name": "sunday school",
@@ -13,7 +16,10 @@
     "categories": [
       "chill"
     ],
-    "genre": "synthwave"
+    "genre": "synthwave",
+    "genres": [
+      "synthwave"
+    ]
   },
   {
     "name": "Joji - SLOW DANCING IN THE DARK",
@@ -23,14 +29,20 @@
       "chill"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Für Elise",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/u325KOYg",
     "time": 175,
     "categories": [],
-    "genre": "classical"
+    "genre": "classical",
+    "genres": [
+      "classical"
+    ]
   },
   {
     "name": "Roundabout",
@@ -40,7 +52,10 @@
       "chill"
     ],
     "artist": "yes",
-    "genre": "prog-rock"
+    "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ]
   },
   {
     "name": "The Logical Song por Roger Hodgson -Letra.",
@@ -48,7 +63,10 @@
     "time": 251,
     "categories": [],
     "artist": "supertramp",
-    "genre": "pop-rock"
+    "genre": "pop-rock",
+    "genres": [
+      "pop-rock"
+    ]
   },
   {
     "name": "Dead Weight - Jack Stauber",
@@ -66,7 +84,10 @@
       "meme"
     ],
     "artist": "joji",
-    "genre": "meme-rap"
+    "genre": "meme-rap",
+    "genres": [
+      "meme-rap"
+    ]
   },
   {
     "name": "Blazy - Interlude Ft. Aura Vortex",
@@ -77,7 +98,10 @@
       "psytrance"
     ],
     "artist": "blazy",
-    "genre": "electronic"
+    "genre": "electronic",
+    "genres": [
+      "electronic"
+    ]
   },
   {
     "name": "Joji - Will He",
@@ -87,7 +111,10 @@
       "chill"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Push It To The Limit",
@@ -99,7 +126,10 @@
       "old",
       "ost"
     ],
-    "genre": "post-disco"
+    "genre": "post-disco",
+    "genres": [
+      "post-disco"
+    ]
   },
   {
     "name": "Shanti People - Tandava",
@@ -109,7 +139,10 @@
       "drive",
       "psytrance"
     ],
-    "genre": "electronic"
+    "genre": "electronic",
+    "genres": [
+      "electronic"
+    ]
   },
   {
     "name": "Gorillaz - Clint Eastwood",
@@ -150,6 +183,9 @@
     ],
     "artist": "supertramp",
     "genre": "pop-rock",
+    "genres": [
+      "pop-rock"
+    ],
     "liked_by": [
       "balao"
     ]
@@ -163,7 +199,10 @@
       "old"
     ],
     "artist": "lionel-richie",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "Pink Guy - Fried Noodles [Getter Remix] - OFFICIAL VIDEO",
@@ -174,7 +213,10 @@
       "meme"
     ],
     "artist": "joji",
-    "genre": "meme-rap"
+    "genre": "meme-rap",
+    "genres": [
+      "meme-rap"
+    ]
   },
   {
     "name": "Maneater",
@@ -184,7 +226,10 @@
       "chill"
     ],
     "artist": "hall&oates",
-    "genre": "soft-rock"
+    "genre": "soft-rock",
+    "genres": [
+      "soft-rock"
+    ]
   },
   {
     "name": "Highly Suspect - \"BATH SALTS\"",
@@ -193,6 +238,9 @@
     "categories": [],
     "artist": "highly-suspect",
     "genre": "rock",
+    "genres": [
+      "rock"
+    ],
     "recommended_by": "mighty"
   },
   {
@@ -207,7 +255,10 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/25plneGq",
     "time": 199,
     "categories": [],
-    "genre": "synthwave"
+    "genre": "synthwave",
+    "genres": [
+      "synthwave"
+    ]
   },
   {
     "name": "The Mountain Goats \"Rain in Soho\"",
@@ -215,7 +266,10 @@
     "time": 286,
     "categories": [],
     "artist": "the-mountain-goats",
-    "genre": "indie-rock"
+    "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ]
   },
   {
     "name": "Street Fever - Chained",
@@ -225,7 +279,10 @@
       "drive"
     ],
     "artist": "street-fever",
-    "genre": "synthwave"
+    "genre": "synthwave",
+    "genres": [
+      "synthwave"
+    ]
   },
   {
     "name": "Brick + Mortar \"Brighter Than The Sun\"",
@@ -235,7 +292,10 @@
       "upbeat"
     ],
     "artist": "brick+mortar",
-    "genre": "indie-rock"
+    "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ]
   },
   {
     "name": "STRAWBERRY GIRLS - Agua Verde",
@@ -245,7 +305,10 @@
       "acoustic"
     ],
     "artist": "strawberry-girls",
-    "genre": "prog-rock"
+    "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ]
   },
   {
     "name": "Glass Animals - The Other Side of Paradise",
@@ -256,7 +319,10 @@
       "chill"
     ],
     "artist": "glass-animals",
-    "genre": "indie-rock"
+    "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ]
   },
   {
     "name": "The Black Keys - Little Black Submarines",
@@ -264,7 +330,10 @@
     "time": 212,
     "categories": [],
     "artist": "the-black-keys",
-    "genre": "indie-rock"
+    "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ]
   },
   {
     "name": "Gettin My Mom On - Jack Stauber",
@@ -326,7 +395,10 @@
     "time": 129,
     "categories": [],
     "artist": "modern-baseball",
-    "genre": "emo"
+    "genre": "emo",
+    "genres": [
+      "emo"
+    ]
   },
   {
     "name": "Street Fever - Resistor",
@@ -334,7 +406,10 @@
     "time": 267,
     "categories": [],
     "artist": "street-fever",
-    "genre": "synthwave"
+    "genre": "synthwave",
+    "genres": [
+      "synthwave"
+    ]
   },
   {
     "name": "furino - você",
@@ -344,7 +419,10 @@
       "chill"
     ],
     "artist": "furino",
-    "genre": "lofi"
+    "genre": "lofi",
+    "genres": [
+      "lofi"
+    ]
   },
   {
     "name": "Quixotic - Palms",
@@ -352,7 +430,10 @@
     "time": 362,
     "categories": [],
     "artist": "quixotic",
-    "genre": "synthwave"
+    "genre": "synthwave",
+    "genres": [
+      "synthwave"
+    ]
   },
   {
     "name": "Caravan Palace - Lone Digger",
@@ -362,7 +443,10 @@
       "upbeat"
     ],
     "artist": "caravan-palace",
-    "genre": "electro-swing"
+    "genre": "electro-swing",
+    "genres": [
+      "electro-swing"
+    ]
   },
   {
     "name": "Caravan Palace - Dramophone",
@@ -372,7 +456,10 @@
       "upbeat"
     ],
     "artist": "caravan-palace",
-    "genre": "electro-swing"
+    "genre": "electro-swing",
+    "genres": [
+      "electro-swing"
+    ]
   },
   {
     "name": "Thats Life",
@@ -382,7 +469,10 @@
       "joker"
     ],
     "artist": "frank-sinatra",
-    "genre": "vocal-jazz"
+    "genre": "vocal-jazz",
+    "genres": [
+      "vocal-jazz"
+    ]
   },
   {
     "name": "Nero - Satisfy",
@@ -392,7 +482,10 @@
       "drive"
     ],
     "artist": "nero",
-    "genre": "electronic"
+    "genre": "electronic",
+    "genres": [
+      "electronic"
+    ]
   },
   {
     "name": "STRAWBERRY GIRLS - Spanish Bay",
@@ -400,7 +493,10 @@
     "time": 220,
     "categories": [],
     "artist": "strawberry-girls",
-    "genre": "prog-rock"
+    "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ]
   },
   {
     "name": "James Blunt - Monsters",
@@ -410,7 +506,10 @@
       "sad"
     ],
     "artist": "james-blunt",
-    "genre": "pop"
+    "genre": "pop",
+    "genres": [
+      "pop"
+    ]
   },
   {
     "name": "Gorillaz - Feel Good Inc.",
@@ -486,7 +585,10 @@
       "drive"
     ],
     "artist": "the-animals",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "Wolfmother - Joker and the Thief",
@@ -494,7 +596,10 @@
     "time": 282,
     "categories": [],
     "artist": "wolfmother",
-    "genre": "hard-rock"
+    "genre": "hard-rock",
+    "genres": [
+      "hard-rock"
+    ]
   },
   {
     "name": "Blonde Redhead - For the Damaged Coda",
@@ -505,7 +610,10 @@
       "chill"
     ],
     "artist": "blonde-redhead",
-    "genre": "prog-rock"
+    "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ]
   },
   {
     "name": "STRAWBERRY GIRLS - Simon Vandetta",
@@ -513,7 +621,10 @@
     "time": 253,
     "categories": [],
     "artist": "strawberry-girls",
-    "genre": "prog-rock"
+    "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ]
   },
   {
     "name": "Elise Trouw - How to Get What You Want",
@@ -522,6 +633,9 @@
     "categories": [],
     "artist": "elise-trouw",
     "genre": "pop",
+    "genres": [
+      "pop"
+    ],
     "recommended_by": "noro"
   },
   {
@@ -533,6 +647,9 @@
     ],
     "artist": "videoclub",
     "genre": "electropop",
+    "genres": [
+      "electropop"
+    ],
     "language": "french",
     "recommended_by": "noro"
   },
@@ -542,7 +659,10 @@
     "time": 227,
     "categories": [],
     "artist": "men-at-work",
-    "genre": "new-wave"
+    "genre": "new-wave",
+    "genres": [
+      "new-wave"
+    ]
   },
   {
     "name": "Mac Miller - Good News",
@@ -553,7 +673,10 @@
       "sad"
     ],
     "artist": "mac-miller",
-    "genre": "rap"
+    "genre": "rap",
+    "genres": [
+      "rap"
+    ]
   },
   {
     "name": "Dire Straits - Money For Nothing",
@@ -563,7 +686,10 @@
       "chill"
     ],
     "artist": "dire-straits",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "putting a spin on never ever getting rid of me - egg",
@@ -595,7 +721,10 @@
       "drive"
     ],
     "artist": "the-protomen",
-    "genre": "rock-opera"
+    "genre": "rock-opera",
+    "genres": [
+      "rock-opera"
+    ]
   },
   {
     "name": "Switchblades of Fate",
@@ -623,7 +752,10 @@
     "time": 222,
     "categories": [],
     "artist": "affiance",
-    "genre": "metal"
+    "genre": "metal",
+    "genres": [
+      "metal"
+    ]
   },
   {
     "name": "Joji - TEST DRIVE",
@@ -634,7 +766,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - WANTED U",
@@ -645,7 +780,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji ft. Clams Casino - CANT GET OVER YOU",
@@ -656,7 +794,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - YEAH RIGHT",
@@ -667,7 +808,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - WHY AM I STILL IN LA, ft. Shlohmo & D33J",
@@ -678,7 +822,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - NO FUN",
@@ -689,7 +836,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - COME THRU",
@@ -700,7 +850,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - XNXX",
@@ -711,7 +864,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - ILL SEE YOU IN 40",
@@ -722,7 +878,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Momentary Bliss",
@@ -750,7 +909,10 @@
       "sad"
     ],
     "artist": "gripinc",
-    "genre": "metal"
+    "genre": "metal",
+    "genres": [
+      "metal"
+    ]
   },
   {
     "name": "GRIP INC. - Built To Resist",
@@ -758,7 +920,10 @@
     "time": 270,
     "categories": [],
     "artist": "gripinc",
-    "genre": "metal"
+    "genre": "metal",
+    "genres": [
+      "metal"
+    ]
   },
   {
     "name": "Désolé, feat. Fatoumata Diawara",
@@ -805,7 +970,10 @@
     "time": 347,
     "categories": [],
     "artist": "dire-straits",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "putting a spin on slow dancing in the dark - egg",
@@ -864,7 +1032,10 @@
     "time": 241,
     "categories": [],
     "artist": "the-futureheads",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "Amor Electro | A Máquina",
@@ -880,7 +1051,10 @@
     "time": 192,
     "categories": [],
     "artist": "caravan-palace",
-    "genre": "electro-swing"
+    "genre": "electro-swing",
+    "genres": [
+      "electro-swing"
+    ]
   },
   {
     "name": "Maëlle - Leffet de masse",
@@ -891,6 +1065,9 @@
     ],
     "artist": "maelle",
     "genre": "pop",
+    "genres": [
+      "pop"
+    ],
     "language": "french",
     "recommended_by": "mani"
   },
@@ -901,6 +1078,9 @@
     "categories": [],
     "artist": "molchat-doma",
     "genre": "post-punk",
+    "genres": [
+      "post-punk"
+    ],
     "language": "russian"
   },
   {
@@ -910,6 +1090,9 @@
     "categories": [],
     "artist": "rrapid",
     "genre": "rap",
+    "genres": [
+      "rap"
+    ],
     "language": "turkish"
   },
   {
@@ -920,7 +1103,10 @@
       "chill"
     ],
     "artist": "mac-miller",
-    "genre": "rap"
+    "genre": "rap",
+    "genres": [
+      "rap"
+    ]
   },
   {
     "name": "Song for Denise",
@@ -930,7 +1116,10 @@
       "meme"
     ],
     "artist": "piano-fantasia",
-    "genre": "disco"
+    "genre": "disco",
+    "genres": [
+      "disco"
+    ]
   },
   {
     "name": "putting a spin on creep - egg",
@@ -949,6 +1138,9 @@
       "upbeat"
     ],
     "genre": "future-funk",
+    "genres": [
+      "future-funk"
+    ],
     "language": "japanese",
     "recommended_by": "emi"
   },
@@ -960,7 +1152,10 @@
       "chill"
     ],
     "artist": "boy-pablo",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop"
+    ]
   },
   {
     "name": "Mac Miller - Circles",
@@ -971,7 +1166,10 @@
       "sad"
     ],
     "artist": "mac-miller",
-    "genre": "mac-miller"
+    "genre": "mac-miller",
+    "genres": [
+      "mac-miller"
+    ]
   },
   {
     "name": "The Gypsy Meets The Boy",
@@ -981,7 +1179,10 @@
       "sad"
     ],
     "artist": "wasp",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "BENEE - Glitter",
@@ -989,7 +1190,10 @@
     "time": 182,
     "categories": [],
     "artist": "benee",
-    "genre": "pop"
+    "genre": "pop",
+    "genres": [
+      "pop"
+    ]
   },
   {
     "name": "BENEE - Find an Island",
@@ -1031,7 +1235,10 @@
       "old"
     ],
     "artist": "frank-sinatra",
-    "genre": "vocal-jazz"
+    "genre": "vocal-jazz",
+    "genres": [
+      "vocal-jazz"
+    ]
   },
   {
     "name": "Megadeth-Peace Sells...But Whos Buying?[HQ and LYRICS]",
@@ -1039,7 +1246,10 @@
     "time": 245,
     "categories": [],
     "artist": "megadeth",
-    "genre": "thrash-metal"
+    "genre": "thrash-metal",
+    "genres": [
+      "thrash-metal"
+    ]
   },
   {
     "name": "PINK GUY - HELP",
@@ -1050,7 +1260,10 @@
       "meme"
     ],
     "artist": "joji",
-    "genre": "meme-rap"
+    "genre": "meme-rap",
+    "genres": [
+      "meme-rap"
+    ]
   },
   {
     "name": "The Drums - Money",
@@ -1059,6 +1272,9 @@
     "categories": [],
     "artist": "the-drums",
     "genre": "indie-pop",
+    "genres": [
+      "indie-pop"
+    ],
     "recommended_by": "oracle"
   },
   {
@@ -1069,7 +1285,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - MODUS",
@@ -1079,7 +1298,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Tick Tock",
@@ -1089,7 +1311,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji & Diplo - Daylight",
@@ -1099,7 +1324,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Upgrade",
@@ -1109,7 +1337,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Gimme Love",
@@ -1119,7 +1350,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Run",
@@ -1131,7 +1365,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Sanctuary",
@@ -1141,7 +1378,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - High Hopes, ft. Omar Apollo",
@@ -1151,7 +1391,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - NITROUS",
@@ -1161,7 +1404,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Pretty Boy, ft. Lil Yachty",
@@ -1171,7 +1417,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Normal People, ft. rei brown",
@@ -1181,7 +1430,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji & BENEE - Afterthought",
@@ -1191,7 +1443,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Mr. Hollywood",
@@ -1201,7 +1456,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - 777",
@@ -1212,7 +1470,10 @@
       "drive"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Reanimator, ft. Yves Tumor",
@@ -1222,7 +1483,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Like You Do",
@@ -1232,7 +1496,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Your Man",
@@ -1242,7 +1509,10 @@
       "nectar"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "People Get Up And Drive Your Funky Soul",
@@ -1250,7 +1520,10 @@
     "time": 545,
     "categories": [],
     "artist": "james-brown",
-    "genre": "jazz"
+    "genre": "jazz",
+    "genres": [
+      "jazz"
+    ]
   },
   {
     "name": "Polyphia | G.O.A.T.",
@@ -1258,7 +1531,10 @@
     "time": 216,
     "categories": [],
     "artist": "polyphia",
-    "genre": "prog-rock"
+    "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ]
   },
   {
     "name": "Ornatos Violeta - Chaga",
@@ -1277,6 +1553,9 @@
     ],
     "artist": "deolinda",
     "genre": "fado",
+    "genres": [
+      "fado"
+    ],
     "language": "tuga"
   },
   {
@@ -1295,6 +1574,9 @@
     "categories": [],
     "artist": "mariza",
     "genre": "fado",
+    "genres": [
+      "fado"
+    ],
     "language": "tuga"
   },
   {
@@ -1304,6 +1586,9 @@
     "categories": [],
     "artist": "ornatos-violeta",
     "genre": "rock",
+    "genres": [
+      "rock"
+    ],
     "language": "tuga"
   },
   {
@@ -1315,6 +1600,9 @@
     ],
     "artist": "barbara-tinoco",
     "genre": "pop",
+    "genres": [
+      "pop"
+    ],
     "language": "tuga"
   },
   {
@@ -1326,6 +1614,9 @@
     ],
     "artist": "ornatos-violeta",
     "genre": "rock",
+    "genres": [
+      "rock"
+    ],
     "language": "tuga"
   },
   {
@@ -1351,7 +1642,10 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/ilxskpHN",
     "time": 237,
     "categories": [],
-    "genre": "synthwave"
+    "genre": "synthwave",
+    "genres": [
+      "synthwave"
+    ]
   },
   {
     "name": "HMLTD - Blank Slate",
@@ -1359,7 +1653,10 @@
     "time": 225,
     "categories": [],
     "artist": "hmltd",
-    "genre": "art-punk"
+    "genre": "art-punk",
+    "genres": [
+      "art-punk"
+    ]
   },
   {
     "name": "Bárbara Tinoco - Outras Línguas",
@@ -1370,6 +1667,9 @@
     ],
     "artist": "barbara-tinoco",
     "genre": "pop",
+    "genres": [
+      "pop"
+    ],
     "language": "tuga"
   },
   {
@@ -1379,6 +1679,9 @@
     "categories": [],
     "artist": "barbara-tinoco",
     "genre": "pop",
+    "genres": [
+      "pop"
+    ],
     "language": "tuga"
   },
   {
@@ -1399,7 +1702,10 @@
       "upbeat"
     ],
     "artist": "the-beatles",
-    "genre": "pop-rock"
+    "genre": "pop-rock",
+    "genres": [
+      "pop-rock"
+    ]
   },
   {
     "name": "putting a spin on sunflower - egg",
@@ -1418,7 +1724,10 @@
       "upbeat"
     ],
     "artist": "dire-straits",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "Give A Little Bit",
@@ -1426,7 +1735,10 @@
     "time": 248,
     "categories": [],
     "artist": "supertramp",
-    "genre": "pop-rock"
+    "genre": "pop-rock",
+    "genres": [
+      "pop-rock"
+    ]
   },
   {
     "name": "Wallows - Are You Bored Yet?, feat. Clairo",
@@ -1436,7 +1748,10 @@
       "chill"
     ],
     "artist": "wallows",
-    "genre": "indie-rock"
+    "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ]
   },
   {
     "name": "mrs",
@@ -1445,6 +1760,9 @@
     "categories": [],
     "artist": "luminism",
     "genre": "math-rock",
+    "genres": [
+      "math-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1455,7 +1773,10 @@
       "chill"
     ],
     "artist": "dire-straits",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "better than this (or something)",
@@ -1464,6 +1785,9 @@
     "categories": [],
     "artist": "luminism",
     "genre": "math-rock",
+    "genres": [
+      "math-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1503,6 +1827,9 @@
     "categories": [],
     "artist": "deolinda",
     "genre": "fado",
+    "genres": [
+      "fado"
+    ],
     "language": "tuga"
   },
   {
@@ -1513,7 +1840,10 @@
       "chill"
     ],
     "artist": "conan-gray",
-    "genre": "pop"
+    "genre": "pop",
+    "genres": [
+      "pop"
+    ]
   },
   {
     "name": "Declan McKenna - Paracetamol",
@@ -1523,7 +1853,10 @@
       "chill"
     ],
     "artist": "declan-mckenna",
-    "genre": "indie-rock"
+    "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ]
   },
   {
     "name": "Matty - Ill Gladly Place Myself Below You",
@@ -1542,7 +1875,10 @@
       "upbeat"
     ],
     "artist": "tash-sultana",
-    "genre": "psychedelic-rock"
+    "genre": "psychedelic-rock",
+    "genres": [
+      "psychedelic-rock"
+    ]
   },
   {
     "name": "B Fachada - Tempo Para Cantar",
@@ -1564,6 +1900,9 @@
     ],
     "artist": "scriptonite",
     "genre": "hip-hop",
+    "genres": [
+      "hip-hop"
+    ],
     "language": "russian"
   },
   {
@@ -1621,7 +1960,10 @@
       "chill"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Ovo de Colombo",
@@ -1642,6 +1984,9 @@
     ],
     "artist": "miki-matsubara",
     "genre": "city-pop",
+    "genres": [
+      "city-pop"
+    ],
     "language": "japanese"
   },
   {
@@ -1653,6 +1998,9 @@
     ],
     "artist": "venetian-snares",
     "genre": "eletronic",
+    "genres": [
+      "eletronic"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1663,7 +2011,10 @@
       "upbeat"
     ],
     "artist": "elton-john",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "Måneskin - Torna a casa",
@@ -1674,6 +2025,9 @@
     ],
     "artist": "maneskin",
     "genre": "rock",
+    "genres": [
+      "rock"
+    ],
     "language": "italian"
   },
   {
@@ -1682,7 +2036,10 @@
     "time": 249,
     "categories": [],
     "artist": "flume",
-    "genre": "eletronic"
+    "genre": "eletronic",
+    "genres": [
+      "eletronic"
+    ]
   },
   {
     "name": "Litany - Adult Movies",
@@ -1710,6 +2067,9 @@
     ],
     "artist": "luminism",
     "genre": "math-rock",
+    "genres": [
+      "math-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1721,6 +2081,9 @@
     ],
     "artist": "luminism",
     "genre": "math-rock",
+    "genres": [
+      "math-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1732,6 +2095,9 @@
     ],
     "artist": "luminism",
     "genre": "math-rock",
+    "genres": [
+      "math-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1743,6 +2109,9 @@
     ],
     "artist": "luminism",
     "genre": "math-rock",
+    "genres": [
+      "math-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1754,6 +2123,9 @@
     ],
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
+    "genres": [
+      "baroque-pop"
+    ],
     "recommended_by": "mani"
   },
   {
@@ -1765,6 +2137,9 @@
     ],
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
+    "genres": [
+      "baroque-pop"
+    ],
     "recommended_by": "mani"
   },
   {
@@ -1787,7 +2162,10 @@
       "chill"
     ],
     "artist": "black-mountain",
-    "genre": "space-rock"
+    "genre": "space-rock",
+    "genres": [
+      "space-rock"
+    ]
   },
   {
     "name": "Cambrian Explosion \"Crust of Theia\"",
@@ -1795,7 +2173,10 @@
     "time": 505,
     "categories": [],
     "artist": "cambrian-explosion",
-    "genre": "space-rock"
+    "genre": "space-rock",
+    "genres": [
+      "space-rock"
+    ]
   },
   {
     "name": "Catie Turner - God Must Hate Me",
@@ -1817,7 +2198,10 @@
       "instrumental"
     ],
     "artist": "if-these-trees-could-talk",
-    "genre": "post-rock"
+    "genre": "post-rock",
+    "genres": [
+      "post-rock"
+    ]
   },
   {
     "name": "Hige Dandism - 異端なスター/Itan na star",
@@ -1828,6 +2212,9 @@
     ],
     "artist": "hige-dadism",
     "genre": "city-pop",
+    "genres": [
+      "city-pop"
+    ],
     "language": "japanese"
   },
   {
@@ -1838,7 +2225,10 @@
       "upbeat"
     ],
     "artist": "queen",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "フライディ・チャイナタウン/ 泰葉 Official Lyric Video",
@@ -1849,6 +2239,9 @@
     ],
     "artist": "yasuha",
     "genre": "city-pop",
+    "genres": [
+      "city-pop"
+    ],
     "language": "language"
   },
   {
@@ -1860,7 +2253,10 @@
       "upbeat"
     ],
     "artist": "eagles",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "Caravan Palace - Moonshine",
@@ -1870,7 +2266,10 @@
       "upbeat"
     ],
     "artist": "caravan-palace",
-    "genre": "electro-swing"
+    "genre": "electro-swing",
+    "genres": [
+      "electro-swing"
+    ]
   },
   {
     "name": "Bárbara Tinoco - se o mundo acabar",
@@ -1881,6 +2280,9 @@
     ],
     "artist": "barbara-tinoco",
     "genre": "pop",
+    "genres": [
+      "pop"
+    ],
     "language": "tuga",
     "recommended_by": "mariii"
   },
@@ -1893,6 +2295,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1904,6 +2309,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1915,6 +2323,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1926,6 +2337,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1937,6 +2351,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1948,6 +2365,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1959,6 +2379,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1970,6 +2393,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1981,6 +2407,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -1992,6 +2421,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2003,6 +2435,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2014,6 +2449,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2025,6 +2463,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2036,6 +2477,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2047,6 +2491,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2058,6 +2505,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2069,6 +2519,9 @@
     ],
     "artist": "crumb",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2079,7 +2532,10 @@
       "upbeat"
     ],
     "artist": "caravan-palace",
-    "genre": "electro-swing"
+    "genre": "electro-swing",
+    "genres": [
+      "electro-swing"
+    ]
   },
   {
     "name": "Engelwood - Crystal Dolphin",
@@ -2097,7 +2553,10 @@
       "upbeat"
     ],
     "artist": "caravan-palace",
-    "genre": "electro-swing"
+    "genre": "electro-swing",
+    "genres": [
+      "electro-swing"
+    ]
   },
   {
     "name": "Caravan Palace - Wonderland",
@@ -2107,7 +2566,10 @@
       "upbeat"
     ],
     "artist": "caravan-palace",
-    "genre": "electro-swing"
+    "genre": "electro-swing",
+    "genres": [
+      "electro-swing"
+    ]
   },
   {
     "name": "Fever The Ghost - SOURCE (official music video)",
@@ -2125,7 +2587,10 @@
       "sad"
     ],
     "artist": "post-malone",
-    "genre": "hip-hop"
+    "genre": "hip-hop",
+    "genres": [
+      "hip-hop"
+    ]
   },
   {
     "name": "Ur Name on a Grain of Rice",
@@ -2136,6 +2601,9 @@
     ],
     "artist": "runnner",
     "genre": "indie",
+    "genres": [
+      "indie"
+    ],
     "recommended_by": "emi"
   },
   {
@@ -2156,6 +2624,9 @@
     ],
     "artist": "in-grid",
     "genre": "electro-swing",
+    "genres": [
+      "electro-swing"
+    ],
     "language": "french"
   },
   {
@@ -2177,7 +2648,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Die For You",
@@ -2188,7 +2662,10 @@
       "chill"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - YUKON",
@@ -2199,7 +2676,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Feeling Like The End",
@@ -2210,7 +2690,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Before The Day Is Over",
@@ -2221,7 +2704,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - Dissolve",
@@ -2232,7 +2718,10 @@
       "chill"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - NIGHT RIDER",
@@ -2243,7 +2732,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - 1AM FREESTYLE",
@@ -2254,7 +2746,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "The Killers - Just Another Girl",
@@ -2265,6 +2760,9 @@
     ],
     "artist": "the-killers",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "oracle"
   },
   {
@@ -2275,7 +2773,10 @@
       "chill"
     ],
     "artist": "mf-doom",
-    "genre": "rap"
+    "genre": "rap",
+    "genres": [
+      "rap"
+    ]
   },
   {
     "name": "SadeVillian - Silver Spoon",
@@ -2284,7 +2785,10 @@
     "categories": [
       "chill"
     ],
-    "genre": "rap"
+    "genre": "rap",
+    "genres": [
+      "rap"
+    ]
   },
   {
     "name": "bbno$ - i remember",
@@ -2299,7 +2803,10 @@
     "time": 197,
     "categories": [],
     "artist": "joji",
-    "genre": "ska"
+    "genre": "ska",
+    "genres": [
+      "ska"
+    ]
   },
   {
     "name": "Часы",
@@ -2308,6 +2815,9 @@
     "categories": [],
     "artist": "um6ra",
     "genre": "eletronic",
+    "genres": [
+      "eletronic"
+    ],
     "language": "ukranian"
   },
   {
@@ -2317,6 +2827,9 @@
     "categories": [],
     "artist": "um6ra",
     "genre": "eletronic",
+    "genres": [
+      "eletronic"
+    ],
     "language": "ukranian"
   },
   {
@@ -2326,6 +2839,9 @@
     "categories": [],
     "artist": "um6ra",
     "genre": "eletronic",
+    "genres": [
+      "eletronic"
+    ],
     "language": "ukranian"
   },
   {
@@ -2335,6 +2851,9 @@
     "categories": [],
     "artist": "um6ra",
     "genre": "eletronic",
+    "genres": [
+      "eletronic"
+    ],
     "language": "ukranian"
   },
   {
@@ -2344,6 +2863,9 @@
     "categories": [],
     "artist": "um6ra",
     "genre": "eletronic",
+    "genres": [
+      "eletronic"
+    ],
     "language": "ukranian"
   },
   {
@@ -2355,6 +2877,9 @@
     ],
     "artist": "zaz",
     "genre": "jazz",
+    "genres": [
+      "jazz"
+    ],
     "language": "french"
   },
   {
@@ -2365,7 +2890,10 @@
       "sad"
     ],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "Joji - BLAHBLAHBLAH DEMO",
@@ -2373,7 +2901,10 @@
     "time": 141,
     "categories": [],
     "artist": "joji",
-    "genre": "r&b"
+    "genre": "r&b",
+    "genres": [
+      "r&b"
+    ]
   },
   {
     "name": "The Killers - Runaways",
@@ -2384,6 +2915,9 @@
     ],
     "artist": "the-killers",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "oracle"
   },
   {
@@ -2395,6 +2929,9 @@
     ],
     "artist": "metronomy",
     "genre": "new-wave",
+    "genres": [
+      "new-wave"
+    ],
     "recommended_by": "oracle"
   },
   {
@@ -2406,6 +2943,9 @@
     ],
     "artist": "royal-blood",
     "genre": "hard-rock",
+    "genres": [
+      "hard-rock"
+    ],
     "recommended_by": "oracle"
   },
   {
@@ -2419,6 +2959,9 @@
     ],
     "artist": "mgmt",
     "genre": "rock",
+    "genres": [
+      "rock"
+    ],
     "recommended_by": "oracle"
   },
   {
@@ -2429,7 +2972,10 @@
       "chill"
     ],
     "artist": "devendra-banhart",
-    "genre": "freak-folk"
+    "genre": "freak-folk",
+    "genres": [
+      "freak-folk"
+    ]
   },
   {
     "name": "Pasan los días",
@@ -2441,6 +2987,9 @@
     ],
     "artist": "natalia-lafourcade",
     "genre": "pop-rock",
+    "genres": [
+      "pop-rock"
+    ],
     "language": "spanish"
   },
   {
@@ -2451,7 +3000,10 @@
       "chill"
     ],
     "artist": "post-malone",
-    "genre": "hip-hop"
+    "genre": "hip-hop",
+    "genres": [
+      "hip-hop"
+    ]
   },
   {
     "name": "Rule #27 - Drunk on Pride",
@@ -2491,6 +3043,9 @@
     ],
     "artist": "slow-j",
     "genre": "rap",
+    "genres": [
+      "rap"
+    ],
     "liked_by": [
       "mariii"
     ]
@@ -2504,6 +3059,9 @@
     ],
     "artist": "the-killers",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock"
+    ],
     "recommended_by": "oracle"
   },
   {
@@ -2535,6 +3093,9 @@
     ],
     "artist": "vaundy",
     "genre": "jpop",
+    "genres": [
+      "jpop"
+    ],
     "language": "japanese"
   },
   {
@@ -2554,7 +3115,10 @@
       "upbeat"
     ],
     "artist": "heavy-metal",
-    "genre": "eletronic"
+    "genre": "eletronic",
+    "genres": [
+      "eletronic"
+    ]
   },
   {
     "name": "CARMINHO - O quarto (fado Pagem)",
@@ -2565,6 +3129,9 @@
     ],
     "artist": "carminho",
     "genre": "fado",
+    "genres": [
+      "fado"
+    ],
     "language": "tuga"
   },
   {
@@ -2576,6 +3143,9 @@
     ],
     "artist": "s-kiyotaka",
     "genre": "city-pop",
+    "genres": [
+      "city-pop"
+    ],
     "language": "japanese"
   },
   {
@@ -2587,6 +3157,9 @@
     ],
     "artist": "meiko-nakahara",
     "genre": "city-pop",
+    "genres": [
+      "city-pop"
+    ],
     "language": "japanese"
   },
   {
@@ -2616,7 +3189,10 @@
       "upbeat"
     ],
     "artist": "psb",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "Public Service Broadcasting - Go!",
@@ -2627,7 +3203,10 @@
       "drive"
     ],
     "artist": "psb",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "PUBLIC SERVICE BROADCASTING - GAGARIN",
@@ -2638,7 +3217,10 @@
       "drive"
     ],
     "artist": "psb",
-    "genre": "rock"
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
   },
   {
     "name": "You Can't Win, Charlie Brown - Graça",
@@ -2680,6 +3262,9 @@
     ],
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
+    "genres": [
+      "baroque-pop"
+    ],
     "recommended_by": "mani"
   },
   {
@@ -2713,6 +3298,9 @@
     ],
     "artist": "iolanda",
     "genre": "fado",
+    "genres": [
+      "fado"
+    ],
     "language": "tuga"
   },
   {
@@ -2724,6 +3312,9 @@
     ],
     "artist": "miguel-luz",
     "genre": "pop",
+    "genres": [
+      "pop"
+    ],
     "language": "tuga"
   },
   {
@@ -2796,6 +3387,9 @@
     ],
     "artist": "s-kiyotaka",
     "genre": "city-pop",
+    "genres": [
+      "city-pop"
+    ],
     "language": "japanese"
   },
   {
@@ -2815,7 +3409,10 @@
       "upbeat"
     ],
     "artist": "bbno$",
-    "genre": "rap"
+    "genre": "rap",
+    "genres": [
+      "rap"
+    ]
   },
   {
     "name": "Ski Aggu x Makko - IMMER [Lyrics x AMV]",
@@ -2827,6 +3424,9 @@
     ],
     "artist": "ski-aggu",
     "genre": "rap",
+    "genres": [
+      "rap"
+    ],
     "language": "german"
   },
   {
@@ -2838,6 +3438,9 @@
     ],
     "artist": "masayoshi-takanaka",
     "genre": "jazz",
+    "genres": [
+      "jazz"
+    ],
     "language": "japanese"
   },
   {
@@ -2850,6 +3453,9 @@
     ],
     "artist": "hiroyuki-namba",
     "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ],
     "language": "japanese"
   },
   {
@@ -2861,6 +3467,9 @@
     ],
     "artist": "anri",
     "genre": "city-pop",
+    "genres": [
+      "city-pop"
+    ],
     "language": "japanese"
   },
   {
@@ -2872,6 +3481,9 @@
     ],
     "artist": "napa",
     "genre": "rock",
+    "genres": [
+      "rock"
+    ],
     "language": "tuga"
   },
   {
@@ -2883,7 +3495,10 @@
       "instrumental"
     ],
     "artist": "strawberry-girls",
-    "genre": "prog-rock"
+    "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ]
   },
   {
     "name": "STRAWBERRY GIRLS - Mini Ripper (Official Stream)",
@@ -2894,7 +3509,10 @@
       "upbeat"
     ],
     "artist": "strawberry-girls",
-    "genre": "prog-rock"
+    "genre": "prog-rock",
+    "genres": [
+      "prog-rock"
+    ]
   },
   {
     "name": "bbno$ x diamond pistols - help herself (Official Video)",
@@ -2906,6 +3524,9 @@
     ],
     "artist": "bbno$",
     "genre": "bedroom-pop",
+    "genres": [
+      "bedroom-pop"
+    ],
     "language": "english"
   },
   {
@@ -2919,6 +3540,9 @@
     ],
     "artist": "taxi",
     "genre": "rock",
+    "genres": [
+      "rock"
+    ],
     "language": "tuga"
   },
   {
@@ -2931,6 +3555,9 @@
     ],
     "artist": "toshiki-kadomatsu",
     "genre": "city-pop",
+    "genres": [
+      "city-pop"
+    ],
     "language": "japanese"
   },
   {
@@ -2959,69 +3586,87 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/ZyhBnmgE",
     "time": 203,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Hush",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/XtJF3AXT",
     "time": 181,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Tigers & Gorillas",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/fuKa8Kbz",
     "time": 268,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Chevalier Bulltoe",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/p3yZUb0A",
     "time": 212,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Bonnet Free Jazz",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/12PmiYqN",
     "time": 229,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Basta Ya",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/obuSnYn9",
     "time": 176,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
     "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ],
     "language": "spanish"
   },
   {
@@ -3029,93 +3674,117 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/eZSJcAxT",
     "time": 331,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Superclean",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/84nN8gIb",
     "time": 155,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Run Your Mouth",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/vtKzG3vF",
     "time": 160,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Yaaaago",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/NwEBPX4K",
     "time": 207,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "ABQ",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Xb1AoffT",
     "time": 311,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Blur",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/tvl9QUwf",
     "time": 225,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Little by little",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/YtrpDyUs",
     "time": 178,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "游戏结束(Outro)",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/w4XanOKu",
     "time": 99,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3123,12 +3792,15 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/oUuZhfSG",
     "time": 258,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
     "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ],
     "language": "spanish"
   },
   {
@@ -3136,58 +3808,73 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/gPLMDNw4",
     "time": 454,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "To Say Hello",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/GYB9mJco",
     "time": 202,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Echo",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/75m31G6H",
     "time": 209,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Heavy",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/YAXwsHhA",
     "time": 253,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "飞鱼转身",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/UwzbxoxZ",
     "time": 384,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3195,23 +3882,29 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/0KSehupP",
     "time": 209,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "100% Repos",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/d7jnGDtb",
     "time": 489,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Gérard Blast",
@@ -3219,35 +3912,44 @@
     "time": 285,
     "categories": [
       "chill",
-      "rock",
       "instrumental"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Ride",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/vEPvY6lu",
     "time": 81,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Ay No Puedo",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/dABk40rp",
     "time": 181,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
     "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ],
     "language": "spanish"
   },
   {
@@ -3255,58 +3957,73 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/zFNYFHdi",
     "time": 191,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Destiny's Chives",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/EcLRYoJi",
     "time": 326,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Loverboy",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/RDzHSi2x",
     "time": 73,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Vicious Sensitive Robot",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/l3NGjzIL",
     "time": 194,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "盲人摸象",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/neEXaIaZ",
     "time": 415,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3314,22 +4031,28 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/iAVgABpn",
     "time": 378,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "游戏暂停(Interlude)",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/zKkMBZ5o",
     "time": 76,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3337,23 +4060,29 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/q6rGzGAK",
     "time": 110,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Hable con Ella",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/vTgNMSYX",
     "time": 33,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
     "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ],
     "language": "spanish"
   },
   {
@@ -3361,57 +4090,72 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Aj4fvxbs",
     "time": 146,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "New Music",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/9Wi6DeWt",
     "time": 255,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Matthews Bridge",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/KPqbqp8B",
     "time": 161,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "No One Noticed",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/bxxsAQRY",
     "time": 236,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "帽子戏法",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/qgBCze5Y",
     "time": 308,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3419,11 +4163,14 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/XXUBbUHn",
     "time": 418,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3431,58 +4178,73 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/4MTot8vE",
     "time": 247,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Hamptons",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/AEzL73ub",
     "time": 188,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Only in My Dreams",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/ByCZdUBx",
     "time": 170,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Tonton Alain Michel",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/PQvs2CNI",
     "time": 317,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "游戏开始(Intro)",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Zw8deZ6R",
     "time": 118,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3490,12 +4252,15 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/CUVV4WhS",
     "time": 179,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
     "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ],
     "language": "spanish"
   },
   {
@@ -3503,22 +4268,28 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/G3abmFZQ",
     "time": 215,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "守门员",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/DKAdzdGf",
     "time": 251,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3526,12 +4297,15 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/QS86IUfl",
     "time": 167,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
     "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ],
     "language": "spanish"
   },
   {
@@ -3539,12 +4313,15 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/5hEiy82p",
     "time": 163,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
     "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ],
     "language": "spanish"
   },
   {
@@ -3552,35 +4329,43 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/m8vRc4oE",
     "time": 189,
     "categories": [
-      "chill",
-      "rock",
-      "instrumental"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Real Life",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/HgdDwgcf",
     "time": 206,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Clara Mystère",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/8kq2DVRa",
     "time": 329,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Come to Mexico",
@@ -3588,33 +4373,42 @@
     "time": 262,
     "categories": [
       "chill",
-      "rock",
       "instrumental"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Bang Bang",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/rlN32MvC",
     "time": 140,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "红牌罚下",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/yhDQzKhE",
     "time": 311,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3622,70 +4416,88 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/x7MVDDb0",
     "time": 326,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Over the Moon",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/qQoY4n3c",
     "time": 182,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Clueless",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/iSAVrnH9",
     "time": 227,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Sienna",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/FcyrcolF",
     "time": 224,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Bernard Guez",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/kqIyOdmu",
     "time": 339,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "400米",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/VHVvF8Gi",
     "time": 270,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3693,11 +4505,14 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/3yCbuN2f",
     "time": 386,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3705,22 +4520,28 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/6SsMBiJI",
     "time": 232,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "不是人人都能穿十号球衣",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/yNaR5doz",
     "time": 347,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3728,149 +4549,188 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/mqQ48k1s",
     "time": 231,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Osao San",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/7vVhiMhA",
     "time": 271,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Calling U Back",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/4Q9zKkyr",
     "time": 199,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Love You Anyway",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/JS5E0R78",
     "time": 237,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "The Mice Inside This Room",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Ms6ZIWLl",
     "time": 248,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Ouad & Khaled",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/fKz5zUrL",
     "time": 122,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Brocolissimo",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/gfX0pgey",
     "time": 96,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "If Only",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/IkGPWDCl",
     "time": 156,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Just a Feeling",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/dRrj3GLV",
     "time": 82,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Festivalbini",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/gY4ULUMn",
     "time": 193,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Home Alone",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/o2PLjmGI",
     "time": 95,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Sensation IRL",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/wKv9YNqa",
     "time": 337,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "地球上最后一个EMO男孩",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/YmFKJ9S0",
     "time": 347,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "chinese-football",
     "genre": "indie-rock",
+    "genres": [
+      "indie-rock",
+      "rock"
+    ],
     "language": "chinese"
   },
   {
@@ -3878,23 +4738,29 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/FIs0j7ih",
     "time": 240,
     "categories": [
-      "chill",
-      "rock"
+      "chill"
     ],
     "artist": "totorro",
-    "genre": "math-rock"
+    "genre": "math-rock",
+    "genres": [
+      "math-rock",
+      "rock"
+    ]
   },
   {
     "name": "Fog as a Bullet",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/ERU5rEoU",
     "time": 177,
     "categories": [
-      "chill",
-      "indie",
-      "pop"
+      "chill"
     ],
     "artist": "the-marias",
-    "genre": "indie-pop"
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "CHIHIRO",
@@ -3905,6 +4771,9 @@
       "drive"
     ],
     "artist": "billie-eilish",
-    "genre": "pop"
+    "genre": "pop",
+    "genres": [
+      "pop"
+    ]
   }
 ]
