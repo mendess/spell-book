@@ -54,7 +54,8 @@
     "artist": "yes",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ]
   },
   {
@@ -65,7 +66,9 @@
     "artist": "supertramp",
     "genre": "pop-rock",
     "genres": [
-      "pop-rock"
+      "pop-rock",
+      "rock",
+      "pop"
     ]
   },
   {
@@ -86,7 +89,8 @@
     "artist": "joji",
     "genre": "meme-rap",
     "genres": [
-      "meme-rap"
+      "meme-rap",
+      "rap"
     ]
   },
   {
@@ -184,7 +188,9 @@
     "artist": "supertramp",
     "genre": "pop-rock",
     "genres": [
-      "pop-rock"
+      "pop-rock",
+      "rock",
+      "pop"
     ],
     "liked_by": [
       "balao"
@@ -215,7 +221,8 @@
     "artist": "joji",
     "genre": "meme-rap",
     "genres": [
-      "meme-rap"
+      "meme-rap",
+      "rap"
     ]
   },
   {
@@ -228,7 +235,8 @@
     "artist": "hall&oates",
     "genre": "soft-rock",
     "genres": [
-      "soft-rock"
+      "soft-rock",
+      "rock"
     ]
   },
   {
@@ -268,7 +276,9 @@
     "artist": "the-mountain-goats",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ]
   },
   {
@@ -294,7 +304,9 @@
     "artist": "brick+mortar",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ]
   },
   {
@@ -307,7 +319,8 @@
     "artist": "strawberry-girls",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ]
   },
   {
@@ -321,7 +334,9 @@
     "artist": "glass-animals",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ]
   },
   {
@@ -332,7 +347,9 @@
     "artist": "the-black-keys",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ]
   },
   {
@@ -495,7 +512,8 @@
     "artist": "strawberry-girls",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ]
   },
   {
@@ -598,7 +616,8 @@
     "artist": "wolfmother",
     "genre": "hard-rock",
     "genres": [
-      "hard-rock"
+      "hard-rock",
+      "rock"
     ]
   },
   {
@@ -612,7 +631,8 @@
     "artist": "blonde-redhead",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ]
   },
   {
@@ -623,7 +643,8 @@
     "artist": "strawberry-girls",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ]
   },
   {
@@ -709,7 +730,11 @@
       "chill",
       "acoustic"
     ],
-    "artist": "egg"
+    "artist": "egg",
+    "genres": [
+      "indie",
+      "pop"
+    ]
   },
   {
     "name": "Light Up The Night",
@@ -723,7 +748,8 @@
     "artist": "the-protomen",
     "genre": "rock-opera",
     "genres": [
-      "rock-opera"
+      "rock-opera",
+      "rock"
     ]
   },
   {
@@ -1079,7 +1105,8 @@
     "artist": "molchat-doma",
     "genre": "post-punk",
     "genres": [
-      "post-punk"
+      "post-punk",
+      "punk"
     ],
     "language": "russian"
   },
@@ -1154,7 +1181,9 @@
     "artist": "boy-pablo",
     "genre": "indie-pop",
     "genres": [
-      "indie-pop"
+      "indie-pop",
+      "indie",
+      "pop"
     ]
   },
   {
@@ -1166,9 +1195,9 @@
       "sad"
     ],
     "artist": "mac-miller",
-    "genre": "mac-miller",
+    "genre": "rap",
     "genres": [
-      "mac-miller"
+      "rap"
     ]
   },
   {
@@ -1248,7 +1277,8 @@
     "artist": "megadeth",
     "genre": "thrash-metal",
     "genres": [
-      "thrash-metal"
+      "thrash-metal",
+      "metal"
     ]
   },
   {
@@ -1262,7 +1292,8 @@
     "artist": "joji",
     "genre": "meme-rap",
     "genres": [
-      "meme-rap"
+      "meme-rap",
+      "rap"
     ]
   },
   {
@@ -1273,7 +1304,9 @@
     "artist": "the-drums",
     "genre": "indie-pop",
     "genres": [
-      "indie-pop"
+      "indie-pop",
+      "indie",
+      "pop"
     ],
     "recommended_by": "oracle"
   },
@@ -1533,7 +1566,8 @@
     "artist": "polyphia",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ]
   },
   {
@@ -1655,7 +1689,8 @@
     "artist": "hmltd",
     "genre": "art-punk",
     "genres": [
-      "art-punk"
+      "art-punk",
+      "punk"
     ]
   },
   {
@@ -1704,7 +1739,9 @@
     "artist": "the-beatles",
     "genre": "pop-rock",
     "genres": [
-      "pop-rock"
+      "pop-rock",
+      "rock",
+      "pop"
     ]
   },
   {
@@ -1737,7 +1774,9 @@
     "artist": "supertramp",
     "genre": "pop-rock",
     "genres": [
-      "pop-rock"
+      "pop-rock",
+      "rock",
+      "pop"
     ]
   },
   {
@@ -1750,7 +1789,9 @@
     "artist": "wallows",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ]
   },
   {
@@ -1761,7 +1802,8 @@
     "artist": "luminism",
     "genre": "math-rock",
     "genres": [
-      "math-rock"
+      "math-rock",
+      "rock"
     ],
     "recommended_by": "emi"
   },
@@ -1786,7 +1828,8 @@
     "artist": "luminism",
     "genre": "math-rock",
     "genres": [
-      "math-rock"
+      "math-rock",
+      "rock"
     ],
     "recommended_by": "emi"
   },
@@ -1855,7 +1898,9 @@
     "artist": "declan-mckenna",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ]
   },
   {
@@ -1877,7 +1922,8 @@
     "artist": "tash-sultana",
     "genre": "psychedelic-rock",
     "genres": [
-      "psychedelic-rock"
+      "psychedelic-rock",
+      "rock"
     ]
   },
   {
@@ -2068,7 +2114,8 @@
     "artist": "luminism",
     "genre": "math-rock",
     "genres": [
-      "math-rock"
+      "math-rock",
+      "rock"
     ],
     "recommended_by": "emi"
   },
@@ -2082,7 +2129,8 @@
     "artist": "luminism",
     "genre": "math-rock",
     "genres": [
-      "math-rock"
+      "math-rock",
+      "rock"
     ],
     "recommended_by": "emi"
   },
@@ -2096,7 +2144,8 @@
     "artist": "luminism",
     "genre": "math-rock",
     "genres": [
-      "math-rock"
+      "math-rock",
+      "rock"
     ],
     "recommended_by": "emi"
   },
@@ -2110,7 +2159,8 @@
     "artist": "luminism",
     "genre": "math-rock",
     "genres": [
-      "math-rock"
+      "math-rock",
+      "rock"
     ],
     "recommended_by": "emi"
   },
@@ -2124,7 +2174,8 @@
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
     "genres": [
-      "baroque-pop"
+      "baroque-pop",
+      "pop"
     ],
     "recommended_by": "mani"
   },
@@ -2138,7 +2189,8 @@
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
     "genres": [
-      "baroque-pop"
+      "baroque-pop",
+      "pop"
     ],
     "recommended_by": "mani"
   },
@@ -2164,7 +2216,8 @@
     "artist": "black-mountain",
     "genre": "space-rock",
     "genres": [
-      "space-rock"
+      "space-rock",
+      "rock"
     ]
   },
   {
@@ -2175,7 +2228,8 @@
     "artist": "cambrian-explosion",
     "genre": "space-rock",
     "genres": [
-      "space-rock"
+      "space-rock",
+      "rock"
     ]
   },
   {
@@ -2200,7 +2254,8 @@
     "artist": "if-these-trees-could-talk",
     "genre": "post-rock",
     "genres": [
-      "post-rock"
+      "post-rock",
+      "rock"
     ]
   },
   {
@@ -2296,7 +2351,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2310,7 +2367,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2324,7 +2383,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2338,7 +2399,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2352,7 +2415,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2366,7 +2431,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2380,7 +2447,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2394,7 +2463,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2408,7 +2479,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2422,7 +2495,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2436,7 +2511,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2450,7 +2527,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2464,7 +2543,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2478,7 +2559,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2492,7 +2575,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2506,7 +2591,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2520,7 +2607,9 @@
     "artist": "crumb",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "emi"
   },
@@ -2761,7 +2850,9 @@
     "artist": "the-killers",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "oracle"
   },
@@ -2916,7 +3007,9 @@
     "artist": "the-killers",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "oracle"
   },
@@ -2944,7 +3037,8 @@
     "artist": "royal-blood",
     "genre": "hard-rock",
     "genres": [
-      "hard-rock"
+      "hard-rock",
+      "rock"
     ],
     "recommended_by": "oracle"
   },
@@ -2988,7 +3082,9 @@
     "artist": "natalia-lafourcade",
     "genre": "pop-rock",
     "genres": [
-      "pop-rock"
+      "pop-rock",
+      "rock",
+      "pop"
     ],
     "language": "spanish"
   },
@@ -3060,7 +3156,9 @@
     "artist": "the-killers",
     "genre": "indie-rock",
     "genres": [
-      "indie-rock"
+      "indie-rock",
+      "rock",
+      "indie"
     ],
     "recommended_by": "oracle"
   },
@@ -3263,7 +3361,8 @@
     "artist": "cosmo-sheldrake",
     "genre": "baroque-pop",
     "genres": [
-      "baroque-pop"
+      "baroque-pop",
+      "pop"
     ],
     "recommended_by": "mani"
   },
@@ -3454,7 +3553,8 @@
     "artist": "hiroyuki-namba",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ],
     "language": "japanese"
   },
@@ -3497,7 +3597,8 @@
     "artist": "strawberry-girls",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ]
   },
   {
@@ -3511,7 +3612,8 @@
     "artist": "strawberry-girls",
     "genre": "prog-rock",
     "genres": [
-      "prog-rock"
+      "prog-rock",
+      "rock"
     ]
   },
   {
@@ -3525,7 +3627,8 @@
     "artist": "bbno$",
     "genre": "bedroom-pop",
     "genres": [
-      "bedroom-pop"
+      "bedroom-pop",
+      "pop"
     ],
     "language": "english"
   },
@@ -3783,7 +3886,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -3873,7 +3977,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4022,7 +4127,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4051,7 +4157,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4154,7 +4261,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4169,7 +4277,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4243,7 +4352,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4288,7 +4398,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4407,7 +4518,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4496,7 +4608,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4511,7 +4624,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4540,7 +4654,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
@@ -4729,7 +4844,8 @@
     "genre": "indie-rock",
     "genres": [
       "indie-rock",
-      "rock"
+      "rock",
+      "indie"
     ],
     "language": "chinese"
   },
