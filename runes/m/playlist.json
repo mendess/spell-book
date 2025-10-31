@@ -741,6 +741,9 @@
     "genres": [
       "rock-opera",
       "rock"
+    ],
+    "liked_by": [
+      "tristao"
     ]
   },
   {
@@ -1586,11 +1589,11 @@
   {
     "name": "Linhas cruzadas",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/eDObMPRx",
-    "artist": "virgem-suta",
     "time": 207,
     "categories": [
       "chill"
     ],
+    "artist": "virgem-suta",
     "recommended_by": "tuga"
   },
   {
@@ -2621,13 +2624,13 @@
   {
     "name": "Crystal Dolphin",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/OMlED7BJ",
-    "artist": "englewood",
     "time": 103,
     "categories": [
       "upbeat"
     ],
+    "artist": "englewood",
     "liked_by": [
-        "jess"
+      "jess"
     ]
   },
   {
@@ -2659,11 +2662,11 @@
   {
     "name": "SOURCE",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/ajWCZGap",
-    "artist": "fever-the-ghost",
     "time": 249,
     "categories": [
       "upbeat"
-    ]
+    ],
+    "artist": "fever-the-ghost"
   },
   {
     "name": "Reputation",
