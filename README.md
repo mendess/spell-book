@@ -28,7 +28,6 @@
  - [lock](./spells/lock.spell)
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
- - [new-cards](./spells/new-cards.spell)
  - [new-rust-version](./spells/new-rust-version.spell)
  - [picker](./spells/picker.spell)
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
