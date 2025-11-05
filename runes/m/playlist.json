@@ -1675,20 +1675,6 @@
     ]
   },
   {
-    "name": "Outras Línguas",
-    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/S1Fbiaj5",
-    "time": 159,
-    "categories": [
-      "upbeat"
-    ],
-    "artist": "barbara-tinoco",
-    "genre": "pop",
-    "genres": [
-      "pop"
-    ],
-    "language": "tuga"
-  },
-  {
     "name": "A Fugir de Ser",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Krf0MNww",
     "time": 193,
@@ -4905,6 +4891,21 @@
     "genre": "pop",
     "genres": [
       "pop"
+    ]
+  },
+  {
+    "name": "s∆tellite",
+    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/VMEmkixO",
+    "time": 277,
+    "categories": [
+      "instrumental",
+      "upbeat",
+      "ost"
+    ],
+    "artist": "ost",
+    "genre": "rock",
+    "genres": [
+      "rock"
     ]
   }
 ]
