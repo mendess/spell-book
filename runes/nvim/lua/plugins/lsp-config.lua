@@ -22,21 +22,21 @@ local on_attach = function(opts)
             keybind_opts
         )
 
-            -- prefer eslint format instead of this
+        -- prefer eslint format instead of this
         local is_ts_ls = client.name == "ts_ls"
 
         -- local function log(...) print("[" .. client.name .. "]", ...) end
 
         -- the eslint linter doesn't provide lsp formatting capabilities but
         -- provides a vim command for formatting...
-        if client.name == "eslint" then
-            buf_set_keymap('n', '<leader>f', ':EslintFixAll<CR>', keybind_opts)
-            if opts.format_on_save then
-                au.group('Format', function(g)
-                    g.BufWritePre = { '<buffer>', ':EslintFixAll' }
-                end)
-            end
-        elseif client.server_capabilities.documentFormattingProvider and not is_ts_ls then
+        -- if client.name == "eslint" then
+        --     buf_set_keymap('n', '<leader>f', ':LspEslintFixAll<CR>', keybind_opts)
+        --     if opts.format_on_save then
+        --         au.group('Format', function(g)
+        --             g.BufWritePre = { '<buffer>', ':LspEslintFixAll' }
+        --         end)
+        --     end
+        if client.server_capabilities.documentFormattingProvider then
             if opts.format_on_save then
                 au.group('Format', function(g)
                     g.BufWritePre = { '<buffer>', vim.lsp.buf.format }
