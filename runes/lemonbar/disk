@@ -24,4 +24,5 @@ df -h |
     awk -F'/' '{if (NF > 2) {print $1" "$NF} else { print $0 }}' |
     sed 's|/home|~|g' |
     awk '{print $2" "$1}' |
+    sed -E 's/([0-9]+)([a-zA-Z]+)/\1 \2/g' |
     tr '\n' ' '
