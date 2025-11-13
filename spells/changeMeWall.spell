@@ -243,9 +243,16 @@ if [ "$wayland" ]; then
             files[$i]="$f"
         fi
     done
-    swww img "${files[@]}" \
-        -t simple \
-        --transition-step 2
+    case "$(hostname)" in
+        pendrellvale)
+            swww img "${files[@]}" \
+                -t random \
+                --transition-step 90 \
+                --transition-duration 5
+        ;;
+
+        *) swww img "${files[@]}" -t simple --transition-step 2 ;;
+    esac
 else
     if [ "$wide" -gt 0 ]; then
         feh --no-fehbg --bg-fill --no-xinerama "${files[@]}"
