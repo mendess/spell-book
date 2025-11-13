@@ -170,7 +170,7 @@ for file in "${files[@]}"; do
     if [[ "$file" = *wide* ]]; then
         wide=$i
     else
-        aspect_ratio="$(convert "$file" -format '%[fx:w/h]' info:)"
+        aspect_ratio="$(magick "$file" -format '%[fx:w/h]' info:)"
         wide=$(echo "$aspect_ratio" | awk '$0 >= 2.5 {found=1}
                         END {if(found) {print '$i'} else {print "0"}}')
         i=$((i + 1))
@@ -187,7 +187,7 @@ unset i
         mapfile -t colors < "$cached_colors"
     else
         mapfile -t colors < <(
-            convert "${files[0]}" +dither -colors 10 histogram: |
+            magick "${files[0]}" +dither -colors 10 histogram: |
                 sed -n '/comment={/,/^}/p' |
                 sed -E 's/comment=\{\s*|\}|^\s*//g' |
                 awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
