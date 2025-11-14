@@ -245,8 +245,9 @@ if [ "$wayland" ]; then
     done
     case "$(hostname)" in
         pendrellvale)
+            t=(fade left right top bottom wipe wave grow center any outer)
             swww img "${files[@]}" \
-                -t random \
+                -t ${t[$((RANDOM % ${#t[@]}))]} \
                 --transition-step 90 \
                 --transition-duration 5
         ;;
