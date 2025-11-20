@@ -7,6 +7,9 @@
     "genre": "classical",
     "genres": [
       "classical"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -19,6 +22,9 @@
     "genre": "synthwave",
     "genres": [
       "synthwave"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -32,6 +38,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -42,6 +51,9 @@
     "genre": "classical",
     "genres": [
       "classical"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -56,6 +68,9 @@
     "genres": [
       "prog-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -69,6 +84,9 @@
       "pop-rock",
       "rock",
       "pop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -76,7 +94,10 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/gyget1ka",
     "time": 187,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "WE FALL AGAIN",
@@ -91,6 +112,9 @@
     "genres": [
       "meme-rap",
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -105,6 +129,9 @@
     "genre": "electronic",
     "genres": [
       "electronic"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -118,6 +145,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -133,6 +163,9 @@
     "genre": "post-disco",
     "genres": [
       "post-disco"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -147,6 +180,9 @@
     "genre": "electronic",
     "genres": [
       "electronic"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -156,7 +192,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "gorillaz"
+    "artist": "gorillaz",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "ATTENTION",
@@ -166,7 +205,10 @@
       "chill",
       "sad"
     ],
-    "artist": "joji"
+    "artist": "joji",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Carlos Paredes - Verdes Anos",
@@ -177,7 +219,10 @@
       "chill"
     ],
     "artist": "carlos-paredes",
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Goodbye Stranger",
@@ -194,7 +239,8 @@
       "pop"
     ],
     "liked_by": [
-      "balao"
+      "balao",
+      "luis"
     ]
   },
   {
@@ -209,6 +255,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -224,6 +273,9 @@
     "genres": [
       "meme-rap",
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -238,6 +290,9 @@
     "genres": [
       "soft-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -250,14 +305,20 @@
     "genres": [
       "rock"
     ],
-    "recommended_by": "mighty"
+    "recommended_by": "mighty",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Mafia",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/FNwzBMh4",
     "time": 183,
     "categories": [],
-    "artist": "fleshgod-apocalypse"
+    "artist": "fleshgod-apocalypse",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Rain in Soho",
@@ -270,6 +331,9 @@
       "indie-rock",
       "rock",
       "indie"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -283,6 +347,9 @@
     "genre": "synthwave",
     "genres": [
       "synthwave"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -298,6 +365,9 @@
       "indie-rock",
       "rock",
       "indie"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -312,6 +382,9 @@
     "genres": [
       "prog-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -328,6 +401,9 @@
       "indie-rock",
       "rock",
       "indie"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -341,6 +417,9 @@
       "indie-rock",
       "rock",
       "indie"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -350,28 +429,40 @@
     "categories": [
       "upbeat"
     ],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Databend",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/aBaNl9OP",
     "time": 199,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Runaway",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/MVMN5swP",
     "time": 289,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Beird",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/zFSaNSDS",
     "time": 190,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "ILL SEE YOU IN 40",
@@ -381,21 +472,30 @@
       "sad",
       "chill"
     ],
-    "artist": "joji"
+    "artist": "joji",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Pizza Boy",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Z6g6ZFgF",
     "time": 240,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Cunk",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/TWVPTxHC",
     "time": 156,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Re-do",
@@ -406,6 +506,9 @@
     "genre": "emo",
     "genres": [
       "emo"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -417,6 +520,9 @@
     "genre": "synthwave",
     "genres": [
       "synthwave"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -430,6 +536,9 @@
     "genre": "lofi",
     "genres": [
       "lofi"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -441,6 +550,9 @@
     "genre": "synthwave",
     "genres": [
       "synthwave"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -454,6 +566,9 @@
     "genre": "electro-swing",
     "genres": [
       "electro-swing"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -467,6 +582,9 @@
     "genre": "electro-swing",
     "genres": [
       "electro-swing"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -480,6 +598,9 @@
     "genre": "vocal-jazz",
     "genres": [
       "vocal-jazz"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -493,6 +614,9 @@
     "genre": "electronic",
     "genres": [
       "electronic"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -505,6 +629,9 @@
     "genres": [
       "prog-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -518,6 +645,9 @@
     "genre": "pop",
     "genres": [
       "pop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -525,56 +655,80 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/UE3Na1EX",
     "time": 254,
     "categories": [],
-    "artist": "gorillaz"
+    "artist": "gorillaz",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Brother",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Nzut9ptl",
     "time": 203,
     "categories": [],
-    "artist": "warrel-dane"
+    "artist": "warrel-dane",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "The Ballad of Hamantha",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/HOHeHqnq",
     "time": 353,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Two Time",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/NbYy4Uxc",
     "time": 140,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Doctor",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Rdi5dFEL",
     "time": 35,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Words of Wisdom",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/KR424uw1",
     "time": 38,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Leopard",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/bFj0UIGS",
     "time": 262,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Pools",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/S87XiwSt",
     "time": 213,
     "categories": [],
-    "artist": "glass-animals"
+    "artist": "glass-animals",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Sorry",
@@ -583,7 +737,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "otis-stacks"
+    "artist": "otis-stacks",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "House Of The Rising Sun",
@@ -597,6 +754,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -609,6 +769,9 @@
     "genres": [
       "hard-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -624,6 +787,9 @@
     "genres": [
       "prog-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -636,6 +802,9 @@
     "genres": [
       "prog-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -648,7 +817,10 @@
     "genres": [
       "pop"
     ],
-    "recommended_by": "noro"
+    "recommended_by": "noro",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Amour plastique",
@@ -663,7 +835,10 @@
       "electropop"
     ],
     "language": "french",
-    "recommended_by": "noro"
+    "recommended_by": "noro",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Overkill",
@@ -674,6 +849,9 @@
     "genre": "new-wave",
     "genres": [
       "new-wave"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -688,6 +866,9 @@
     "genre": "rap",
     "genres": [
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -701,6 +882,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -711,7 +895,10 @@
       "chill",
       "acoustic"
     ],
-    "artist": "egg"
+    "artist": "egg",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "putting a spin on ride",
@@ -725,6 +912,9 @@
     "genres": [
       "indie",
       "pop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -743,7 +933,8 @@
       "rock"
     ],
     "liked_by": [
-      "tristao"
+      "tristao",
+      "luis"
     ]
   },
   {
@@ -755,7 +946,10 @@
       "drive"
     ],
     "artist": "7777 の天使",
-    "recommended_by": "pp"
+    "recommended_by": "pp",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Do Everything Now",
@@ -764,7 +958,10 @@
     "categories": [
       "upbeat"
     ],
-    "artist": "saint-motel"
+    "artist": "saint-motel",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "FIRE!",
@@ -775,6 +972,9 @@
     "genre": "metal",
     "genres": [
       "metal"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -789,6 +989,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -803,6 +1006,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -817,6 +1023,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -831,6 +1040,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -845,6 +1057,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -859,6 +1074,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -873,6 +1091,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -887,6 +1108,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -901,6 +1125,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -910,7 +1137,10 @@
     "categories": [
       "upbeat"
     ],
-    "artist": "gorillaz"
+    "artist": "gorillaz",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Souk Eye",
@@ -919,7 +1149,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "gorillaz"
+    "artist": "gorillaz",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Human?",
@@ -932,6 +1165,9 @@
     "genre": "metal",
     "genres": [
       "metal"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -943,6 +1179,9 @@
     "genre": "metal",
     "genres": [
       "metal"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -952,7 +1191,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "gorillaz"
+    "artist": "gorillaz",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "passing papers",
@@ -962,7 +1204,10 @@
       "chill",
       "acoustic"
     ],
-    "artist": "egg"
+    "artist": "egg",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "navy skies",
@@ -972,7 +1217,10 @@
       "chill",
       "acoustic"
     ],
-    "artist": "egg"
+    "artist": "egg",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "hey",
@@ -982,7 +1230,10 @@
       "chill",
       "acoustic"
     ],
-    "artist": "egg"
+    "artist": "egg",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Sultans Of Swing",
@@ -993,6 +1244,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1002,49 +1256,70 @@
     "categories": [
       "acoustic"
     ],
-    "artist": "egg"
+    "artist": "egg",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Intern",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/eZunFsG9",
     "time": 167,
     "categories": [],
-    "artist": "angel-olsen"
+    "artist": "angel-olsen",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Shut Up Kiss Me",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/IEdbbUXc",
     "time": 202,
     "categories": [],
-    "artist": "angel-olsen"
+    "artist": "angel-olsen",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Give It Up",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/bY1KNT8Q",
     "time": 176,
     "categories": [],
-    "artist": "angel-olsen"
+    "artist": "angel-olsen",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Sister",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/0O8ifwBI",
     "time": 466,
     "categories": [],
-    "artist": "angel-olsen"
+    "artist": "angel-olsen",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Those Were the Days",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/yPUhS4uP",
     "time": 260,
     "categories": [],
-    "artist": "angel-olsen"
+    "artist": "angel-olsen",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Woman",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/jgJwQbju",
     "time": 457,
     "categories": [],
-    "artist": "angel-olsen"
+    "artist": "angel-olsen",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "The Beginning of the Twist",
@@ -1055,6 +1330,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1063,7 +1341,10 @@
     "time": 318,
     "categories": [],
     "artist": "amor-electro",
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Plume",
@@ -1074,6 +1355,9 @@
     "genre": "electro-swing",
     "genres": [
       "electro-swing"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1089,7 +1373,10 @@
       "pop"
     ],
     "language": "french",
-    "recommended_by": "mani"
+    "recommended_by": "mani",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Судно",
@@ -1102,7 +1389,10 @@
       "post-punk",
       "punk"
     ],
-    "language": "russian"
+    "language": "russian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Yarına Hevesim",
@@ -1114,7 +1404,10 @@
     "genres": [
       "rap"
     ],
-    "language": "turkish"
+    "language": "turkish",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Surf",
@@ -1127,6 +1420,9 @@
     "genre": "rap",
     "genres": [
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1140,6 +1436,9 @@
     "genre": "disco",
     "genres": [
       "disco"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1149,7 +1448,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "egg"
+    "artist": "egg",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "『82.99 F.M』",
@@ -1163,7 +1465,10 @@
       "future-funk"
     ],
     "language": "japanese",
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Feeling Lonely",
@@ -1178,6 +1483,9 @@
       "indie-pop",
       "indie",
       "pop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1192,6 +1500,9 @@
     "genre": "rap",
     "genres": [
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1205,6 +1516,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1216,6 +1530,9 @@
     "genre": "pop",
     "genres": [
       "pop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1225,7 +1542,10 @@
     "categories": [
       "upbeat"
     ],
-    "artist": "benee"
+    "artist": "benee",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Think About Things",
@@ -1234,21 +1554,30 @@
     "categories": [
       "upbeat"
     ],
-    "artist": "daði-freyr"
+    "artist": "daði-freyr",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Jack Stauber - Milk Song",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/3OmLIbjZ",
     "time": 65,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Oatmeal - Shop: A Pop Opera",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/JbCl8ybz",
     "time": 75,
     "categories": [],
-    "artist": "jack-stauber"
+    "artist": "jack-stauber",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Theme From New York, New York",
@@ -1261,6 +1590,9 @@
     "genre": "vocal-jazz",
     "genres": [
       "vocal-jazz"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1273,6 +1605,9 @@
     "genres": [
       "thrash-metal",
       "metal"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1288,6 +1623,9 @@
     "genres": [
       "meme-rap",
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1302,7 +1640,10 @@
       "indie",
       "pop"
     ],
-    "recommended_by": "oracle"
+    "recommended_by": "oracle",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Ew",
@@ -1315,6 +1656,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1328,6 +1672,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1341,6 +1688,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1354,6 +1704,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1367,6 +1720,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1380,6 +1736,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1395,6 +1754,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1408,6 +1770,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1421,6 +1786,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1434,6 +1802,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1447,6 +1818,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1460,6 +1834,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1473,6 +1850,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1486,6 +1866,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1500,6 +1883,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1513,6 +1899,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1526,6 +1915,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1539,6 +1931,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1550,6 +1945,9 @@
     "genre": "jazz",
     "genres": [
       "jazz"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1562,6 +1960,9 @@
     "genres": [
       "prog-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1570,7 +1971,10 @@
     "time": 184,
     "categories": [],
     "artist": "ornatos-violeta",
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Um Contra O Outro",
@@ -1584,7 +1988,10 @@
     "genres": [
       "fado"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Linhas cruzadas",
@@ -1594,7 +2001,10 @@
       "chill"
     ],
     "artist": "virgem-suta",
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Melhor de Mim",
@@ -1606,7 +2016,10 @@
     "genres": [
       "fado"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Capitão Romance",
@@ -1618,7 +2031,10 @@
     "genres": [
       "rock"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Dia Mau",
@@ -1632,7 +2048,10 @@
     "genres": [
       "rock"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Oh Darling",
@@ -1640,6 +2059,9 @@
     "time": 242,
     "categories": [
       "chill"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1650,7 +2072,10 @@
       "chill"
     ],
     "artist": "rss-disco",
-    "language": "french"
+    "language": "french",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Creep synthwave remix",
@@ -1660,6 +2085,9 @@
     "genre": "synthwave",
     "genres": [
       "synthwave"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1672,6 +2100,9 @@
     "genres": [
       "art-punk",
       "punk"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1684,7 +2115,10 @@
     "genres": [
       "pop"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Witch Heaven",
@@ -1694,7 +2128,10 @@
       "drive"
     ],
     "artist": "7777 の天使",
-    "recommended_by": "pp"
+    "recommended_by": "pp",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Eleanor Rigby",
@@ -1709,6 +2146,9 @@
       "pop-rock",
       "rock",
       "pop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1718,7 +2158,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "egg"
+    "artist": "egg",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Walk Of Life",
@@ -1731,6 +2174,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1744,6 +2190,9 @@
       "pop-rock",
       "rock",
       "pop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1759,6 +2208,9 @@
       "indie-rock",
       "rock",
       "indie"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1772,7 +2224,10 @@
       "math-rock",
       "rock"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Your Latest Trick",
@@ -1785,6 +2240,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1798,7 +2256,10 @@
       "math-rock",
       "rock"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Peeping Tom",
@@ -1808,7 +2269,10 @@
       "upbeat"
     ],
     "artist": "jamie-berry",
-    "recommended_by": "mani"
+    "recommended_by": "mani",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Voilà",
@@ -1818,7 +2282,10 @@
       "eurovision"
     ],
     "artist": "barbara-pravi",
-    "language": "french"
+    "language": "french",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Honeypie",
@@ -1828,7 +2295,10 @@
       "upbeat"
     ],
     "artist": "jawny",
-    "recommended_by": "mani"
+    "recommended_by": "mani",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Passou Por Mim e Sorriu",
@@ -1840,7 +2310,10 @@
     "genres": [
       "fado"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Comfort Crowd",
@@ -1853,6 +2326,9 @@
     "genre": "pop",
     "genres": [
       "pop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1868,6 +2344,9 @@
       "indie-rock",
       "rock",
       "indie"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1877,7 +2356,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "matty"
+    "artist": "matty",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Tash Sultana - Cigarettes - Flow State Album Official Audio",
@@ -1891,6 +2373,9 @@
     "genres": [
       "psychedelic-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1901,7 +2386,10 @@
       "chill"
     ],
     "artist": "b-fachada",
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Polozhenie, Izzamuzzic Remix",
@@ -1916,7 +2404,10 @@
     "genres": [
       "hip-hop"
     ],
-    "language": "russian"
+    "language": "russian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "telepatía",
@@ -1926,7 +2417,10 @@
       "chill"
     ],
     "artist": "kali-uchis",
-    "language": "spanish"
+    "language": "spanish",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "creep",
@@ -1935,7 +2429,10 @@
     "categories": [
       "sad"
     ],
-    "artist": "mxmtoon"
+    "artist": "mxmtoon",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Playlist ft. Oscar Scheller",
@@ -1944,7 +2441,10 @@
     "categories": [
       "upbeat"
     ],
-    "artist": "litany"
+    "artist": "litany",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "GRAE - 2725",
@@ -1953,7 +2453,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "grae"
+    "artist": "grae",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Dancin, KRONO Remix, slowed + reverb",
@@ -1963,7 +2466,10 @@
       "chill",
       "sad"
     ],
-    "artist": "aaron smith"
+    "artist": "aaron smith",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Will He, Ryan Hemsworth Remix",
@@ -1976,6 +2482,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -1986,7 +2495,10 @@
       "upbeat"
     ],
     "artist": "azeituna",
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "真夜中のドア/Stay With Me",
@@ -2000,7 +2512,10 @@
     "genres": [
       "city-pop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Hajnal",
@@ -2014,7 +2529,10 @@
     "genres": [
       "eletronic"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "I'm Still Standing",
@@ -2027,6 +2545,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2041,7 +2562,10 @@
     "genres": [
       "rock"
     ],
-    "language": "italian"
+    "language": "italian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Drop the Game ft. Chet Faker",
@@ -2052,6 +2576,9 @@
     "genre": "eletronic",
     "genres": [
       "eletronic"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2059,7 +2586,10 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/AZur7fjG",
     "time": 230,
     "categories": [],
-    "artist": "litany"
+    "artist": "litany",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Vida Tao Estranha",
@@ -2069,7 +2599,10 @@
       "chill"
     ],
     "artist": "rodrigo-leao",
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "want from me",
@@ -2084,7 +2617,10 @@
       "math-rock",
       "rock"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "free time",
@@ -2099,7 +2635,10 @@
       "math-rock",
       "rock"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "mess it up",
@@ -2114,7 +2653,10 @@
       "math-rock",
       "rock"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "delirium",
@@ -2129,7 +2671,10 @@
       "math-rock",
       "rock"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Birthday Suit",
@@ -2144,7 +2689,10 @@
       "baroque-pop",
       "pop"
     ],
-    "recommended_by": "mani"
+    "recommended_by": "mani",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Come Along",
@@ -2159,7 +2707,10 @@
       "baroque-pop",
       "pop"
     ],
-    "recommended_by": "mani"
+    "recommended_by": "mani",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "KEEP IT UP",
@@ -2170,7 +2721,8 @@
     ],
     "artist": "rex-oragen-county",
     "liked_by": [
-      "balao"
+      "balao",
+      "luis"
     ]
   },
   {
@@ -2185,6 +2737,9 @@
     "genres": [
       "space-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2197,6 +2752,9 @@
     "genres": [
       "space-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2208,7 +2766,10 @@
       "chill"
     ],
     "artist": "catie-turner",
-    "recommended_by": "marcia"
+    "recommended_by": "marcia",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "From Roots to Needles",
@@ -2223,6 +2784,9 @@
     "genres": [
       "post-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2237,7 +2801,10 @@
     "genres": [
       "city-pop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "The Show Must Go On",
@@ -2250,6 +2817,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2264,7 +2834,10 @@
     "genres": [
       "city-pop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Hotel California",
@@ -2278,6 +2851,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2291,6 +2867,9 @@
     "genre": "electro-swing",
     "genres": [
       "electro-swing"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2306,7 +2885,10 @@
       "pop"
     ],
     "language": "tuga",
-    "recommended_by": "mariii"
+    "recommended_by": "mariii",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Locket",
@@ -2322,7 +2904,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Vinta",
@@ -2338,7 +2923,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Thirty-Nine",
@@ -2354,7 +2942,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Recently Played",
@@ -2370,7 +2961,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Plants",
@@ -2386,7 +2980,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "So Tired",
@@ -2402,7 +2999,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Bones",
@@ -2418,7 +3018,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Jinx",
@@ -2434,7 +3037,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Faces",
@@ -2450,7 +3056,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "And It Never Ends",
@@ -2466,7 +3075,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Part III",
@@ -2482,7 +3094,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "The Letter",
@@ -2498,7 +3113,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "M.R.",
@@ -2514,7 +3132,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Fall Down",
@@ -2530,7 +3151,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Ghostride",
@@ -2546,7 +3170,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Nina",
@@ -2562,7 +3189,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Cracking",
@@ -2578,7 +3208,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": " Black Betty",
@@ -2591,6 +3224,9 @@
     "genre": "electro-swing",
     "genres": [
       "electro-swing"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2602,7 +3238,8 @@
     ],
     "artist": "englewood",
     "liked_by": [
-      "jess"
+      "jess",
+      "luis"
     ]
   },
   {
@@ -2616,6 +3253,9 @@
     "genre": "electro-swing",
     "genres": [
       "electro-swing"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2629,6 +3269,9 @@
     "genre": "electro-swing",
     "genres": [
       "electro-swing"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2638,7 +3281,10 @@
     "categories": [
       "upbeat"
     ],
-    "artist": "fever-the-ghost"
+    "artist": "fever-the-ghost",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Reputation",
@@ -2651,6 +3297,9 @@
     "genre": "hip-hop",
     "genres": [
       "hip-hop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2665,7 +3314,10 @@
     "genres": [
       "indie"
     ],
-    "recommended_by": "emi"
+    "recommended_by": "emi",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Virtual Insanity",
@@ -2674,7 +3326,10 @@
     "categories": [
       "upbeat"
     ],
-    "artist": "jamiroquai"
+    "artist": "jamiroquai",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Tu Es Foutu (DJ ZsuZsu & Wolfgang Lohr Remix)",
@@ -2688,7 +3343,10 @@
     "genres": [
       "electro-swing"
     ],
-    "language": "french"
+    "language": "french",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Cry Me A River",
@@ -2698,7 +3356,10 @@
       "instrumental",
       "chill"
     ],
-    "artist": "peaceful-melody"
+    "artist": "peaceful-melody",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Wrong Caller (Unreleased Come Thru)",
@@ -2712,6 +3373,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2726,6 +3390,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2740,6 +3407,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2754,6 +3424,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2768,6 +3441,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2782,6 +3458,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2796,6 +3475,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2810,6 +3492,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2826,7 +3511,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "oracle"
+    "recommended_by": "oracle",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "MF DOOM & SADE (ft. Sean Price) - Blunted",
@@ -2839,6 +3527,9 @@
     "genre": "rap",
     "genres": [
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2851,6 +3542,9 @@
     "genre": "rap",
     "genres": [
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2858,7 +3552,10 @@
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/7KTdZbCl",
     "time": 205,
     "categories": [],
-    "artist": "bbno$"
+    "artist": "bbno$",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Glimpse of Us Ska Cover",
@@ -2869,6 +3566,9 @@
     "genre": "ska",
     "genres": [
       "ska"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2881,7 +3581,10 @@
     "genres": [
       "eletronic"
     ],
-    "language": "ukranian"
+    "language": "ukranian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Бегу",
@@ -2893,7 +3596,10 @@
     "genres": [
       "eletronic"
     ],
-    "language": "ukranian"
+    "language": "ukranian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Спасу",
@@ -2905,7 +3611,10 @@
     "genres": [
       "eletronic"
     ],
-    "language": "ukranian"
+    "language": "ukranian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Никто",
@@ -2917,7 +3626,10 @@
     "genres": [
       "eletronic"
     ],
-    "language": "ukranian"
+    "language": "ukranian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Море",
@@ -2929,7 +3641,10 @@
     "genres": [
       "eletronic"
     ],
-    "language": "ukranian"
+    "language": "ukranian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Je veux",
@@ -2943,7 +3658,10 @@
     "genres": [
       "jazz"
     ],
-    "language": "french"
+    "language": "french",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Glimpse of Us",
@@ -2956,6 +3674,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2967,6 +3688,9 @@
     "genre": "r&b",
     "genres": [
       "r&b"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -2983,7 +3707,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "oracle"
+    "recommended_by": "oracle",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "The Look",
@@ -2997,7 +3724,10 @@
     "genres": [
       "new-wave"
     ],
-    "recommended_by": "oracle"
+    "recommended_by": "oracle",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Figure It Out",
@@ -3012,7 +3742,10 @@
       "hard-rock",
       "rock"
     ],
-    "recommended_by": "oracle"
+    "recommended_by": "oracle",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Little Dark Age (Video)",
@@ -3028,7 +3761,10 @@
     "genres": [
       "rock"
     ],
-    "recommended_by": "oracle"
+    "recommended_by": "oracle",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Rats",
@@ -3041,6 +3777,9 @@
     "genre": "freak-folk",
     "genres": [
       "freak-folk"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3058,7 +3797,10 @@
       "rock",
       "pop"
     ],
-    "language": "spanish"
+    "language": "spanish",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Circles",
@@ -3071,6 +3813,9 @@
     "genre": "hip-hop",
     "genres": [
       "hip-hop"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3081,7 +3826,10 @@
       "upbeat"
     ],
     "artist": "fish-in-a-birdcage",
-    "recommended_by": "mani"
+    "recommended_by": "mani",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Confirmation",
@@ -3090,7 +3838,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "westerman"
+    "artist": "westerman",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "la raíz (Videoclip Oficial)",
@@ -3100,7 +3851,10 @@
       "upbeat"
     ],
     "artist": "valeria-castro",
-    "language": "spanish"
+    "language": "spanish",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Ultimamente",
@@ -3115,7 +3869,8 @@
       "rap"
     ],
     "liked_by": [
-      "mariii"
+      "mariii",
+      "luis"
     ]
   },
   {
@@ -3132,7 +3887,10 @@
       "rock",
       "indie"
     ],
-    "recommended_by": "oracle"
+    "recommended_by": "oracle",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "lo que siento",
@@ -3142,7 +3900,10 @@
       "upbeat"
     ],
     "artist": "valeria-castro",
-    "language": "spanish"
+    "language": "spanish",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Best Friend",
@@ -3152,7 +3913,10 @@
       "upbeat"
     ],
     "artist": "rex-oragen-county",
-    "recommended_by": "balao"
+    "recommended_by": "balao",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "東京フラッシュ",
@@ -3166,7 +3930,10 @@
     "genres": [
       "jpop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Living With A Creature",
@@ -3175,7 +3942,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "acid-dad"
+    "artist": "acid-dad",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Marathon Soundtrack",
@@ -3188,6 +3958,9 @@
     "genre": "eletronic",
     "genres": [
       "eletronic"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3202,7 +3975,10 @@
     "genres": [
       "fado"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Summer Suspicion",
@@ -3216,7 +3992,10 @@
     "genres": [
       "city-pop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Fantasy",
@@ -3230,7 +4009,10 @@
     "genres": [
       "city-pop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Love Illumination",
@@ -3238,6 +4020,9 @@
     "time": 233,
     "categories": [
       "upbeat"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3248,7 +4033,10 @@
       "eurovision"
     ],
     "artist": "alyona-alyona&jerry-heil",
-    "language": "ukranian"
+    "language": "ukranian",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Signal 30",
@@ -3262,6 +4050,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3276,6 +4067,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3290,6 +4084,9 @@
     "genre": "rock",
     "genres": [
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3301,7 +4098,10 @@
     ],
     "artist": "graca",
     "language": "tuga",
-    "recommended_by": "balao"
+    "recommended_by": "balao",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Funâmbula",
@@ -3312,7 +4112,10 @@
       "eurovision"
     ],
     "artist": "lara-li",
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "BIRDS OF A FEATHER",
@@ -3322,7 +4125,10 @@
       "chill"
     ],
     "artist": "billie-eilish",
-    "recommended_by": "balao"
+    "recommended_by": "balao",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Does the Swallow Dream of Flying",
@@ -3337,7 +4143,10 @@
       "baroque-pop",
       "pop"
     ],
-    "recommended_by": "mani"
+    "recommended_by": "mani",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Olá, Solidão",
@@ -3348,7 +4157,10 @@
     ],
     "artist": "os-quatro-e-meia",
     "language": "tuga",
-    "recommended_by": "balao"
+    "recommended_by": "balao",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Saudade",
@@ -3359,7 +4171,10 @@
     ],
     "artist": "os-quatro-e-meia",
     "language": "tuga",
-    "recommended_by": "balao"
+    "recommended_by": "balao",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Grito",
@@ -3373,7 +4188,10 @@
     "genres": [
       "fado"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Amor De Ganga",
@@ -3387,7 +4205,10 @@
     "genres": [
       "pop"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "meant to be",
@@ -3398,7 +4219,10 @@
       "chill"
     ],
     "artist": "bbno$",
-    "recommended_by": "killbyte"
+    "recommended_by": "killbyte",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "What, Me Worry?",
@@ -3408,7 +4232,10 @@
       "upbeat"
     ],
     "artist": "portugal-the-man",
-    "recommended_by": "killbyte"
+    "recommended_by": "killbyte",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "OUTTA MY MIND",
@@ -3418,7 +4245,10 @@
       "chill"
     ],
     "artist": "monsune",
-    "recommended_by": "killbyte"
+    "recommended_by": "killbyte",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "adios",
@@ -3428,7 +4258,10 @@
       "upbeat"
     ],
     "artist": "jawny",
-    "recommended_by": "killbyte"
+    "recommended_by": "killbyte",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Take It Back {Official Video}",
@@ -3438,7 +4271,10 @@
       "upbeat"
     ],
     "artist": "jawny",
-    "recommended_by": "killbyte"
+    "recommended_by": "killbyte",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "For Cryin’ Out Loud!",
@@ -3448,7 +4284,10 @@
       "chill"
     ],
     "artist": "finneas",
-    "recommended_by": "balao"
+    "recommended_by": "balao",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "杉山清貴 & オメガトライブ - Futari no Natsu Monogatari Never Ending Summer",
@@ -3462,7 +4301,10 @@
     "genres": [
       "city-pop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Roommates",
@@ -3471,7 +4313,10 @@
     "categories": [
       "chill"
     ],
-    "artist": "malcolm-todd"
+    "artist": "malcolm-todd",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "edamame ft. Rich Brian",
@@ -3484,6 +4329,9 @@
     "genre": "rap",
     "genres": [
       "rap"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3499,7 +4347,10 @@
     "genres": [
       "rap"
     ],
-    "language": "german"
+    "language": "german",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Tokyo Reggie",
@@ -3513,7 +4364,10 @@
     "genres": [
       "jazz"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "City of silver gray",
@@ -3529,7 +4383,10 @@
       "prog-rock",
       "rock"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "I CAN'T STOP THE LONELINESS 悲しいがとまらない",
@@ -3543,7 +4400,10 @@
     "genres": [
       "city-pop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Deslocado",
@@ -3557,7 +4417,10 @@
     "genres": [
       "rock"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Moonwalker",
@@ -3572,6 +4435,9 @@
     "genres": [
       "prog-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3587,6 +4453,9 @@
     "genres": [
       "prog-rock",
       "rock"
+    ],
+    "liked_by": [
+      "luis"
     ]
   },
   {
@@ -3603,7 +4472,10 @@
       "bedroom-pop",
       "pop"
     ],
-    "language": "english"
+    "language": "english",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Chiclete",
@@ -3619,7 +4491,10 @@
     "genres": [
       "rock"
     ],
-    "language": "tuga"
+    "language": "tuga",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Airport Lady",
@@ -3634,7 +4509,10 @@
     "genres": [
       "city-pop"
     ],
-    "language": "japanese"
+    "language": "japanese",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "Face Off",
@@ -3646,7 +4524,10 @@
       "instrumental"
     ],
     "artist": "ethereal-snake",
-    "recommended_by": "oracle"
+    "recommended_by": "oracle",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "PIXELATED KISSES",
@@ -3655,7 +4536,10 @@
     "categories": [
       "sad"
     ],
-    "artist": "joji"
+    "artist": "joji",
+    "liked_by": [
+      "luis"
+    ]
   },
   {
     "name": "I Like It",
