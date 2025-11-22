@@ -5792,5 +5792,21 @@
     "genres": [
       "rock"
     ]
+  },
+  {
+    "name": "Dean Town",
+    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/owlhPstd",
+    "time": 213,
+    "categories": [
+      "instrumental",
+      "chill",
+      "bass"
+    ],
+    "artist": "vulfpeck",
+    "genre": "funk",
+    "genres": [
+      "funk"
+    ],
+    "recommended_by": "andreia"
   }
 ]
