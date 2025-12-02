@@ -5804,5 +5804,24 @@
     "genres": [
       "rock"
     ]
+  },
+  {
+    "name": "Sultans of Swing - Live",
+    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/d9axsxN6",
+    "time": 679,
+    "categories": [
+      "upbeat",
+      "old",
+      "live"
+    ],
+    "artist": "dire-straits",
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ],
+    "recommended_by": "hugo",
+    "liked_by": [
+      "luis"
+    ]
   }
 ]
