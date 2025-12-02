@@ -1,5 +1,14 @@
 #!/bin/sh
 # Configure my keymap, I'm too lazy to configure X and udev
 
-setxkbmap us -option caps:escape -option altwin:swap_alt_win #-option altwin:menu_win
+case "$1" in
+    mac)
+        setxkbmap us -option
+        setxkbmap us -option caps:escape
+        ;;
+    *)
+        setxkbmap us -option
+        setxkbmap us -option caps:escape -option altwin:swap_alt_win #-option altwin:menu_win
+        ;;
+esac
 #xmodmap -e 'keycode  21 = plus equal plus equal'
