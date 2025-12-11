@@ -103,3 +103,4 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
     wm |& awk '{ print(strftime("[%Y-%m-%d %H:%M:%S]"), $0); fflush(stdout) }' &>>"$LOG"
     echo "gui done"
 fi
+. "/home/pmendes/.local/share/cargo/env"

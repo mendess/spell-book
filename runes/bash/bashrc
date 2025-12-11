@@ -32,3 +32,4 @@ done
 command -V direnv &>/dev/null && eval "$(direnv hook bash)"
 
 :
+. "/home/pmendes/.local/share/cargo/env"
