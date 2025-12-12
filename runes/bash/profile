@@ -2,11 +2,12 @@
 #shellcheck disable=SC1090
 #shellcheck disable=SC1091
 
+mkdir -p "/tmp/$(whoami)"
 export VISUAL='nvim'
 export EDITOR='nvim'
 case $(whoami) in
     pmendes)
-        export BROWSER="$HOME/.config/sxhkd/browser-program"
+        export BROWSER=google-chrome
         ;;
     *)
         export BROWSER="firefox"

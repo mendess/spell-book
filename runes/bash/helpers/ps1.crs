@@ -208,7 +208,7 @@ fn battery(buffer: &mut String) {
     let battery = Path::new("/sys/class/power_supply/BAT0/capacity");
     if tty.to_str().unwrap().contains("tty") || tmux {
         match std::fs::read_to_string(battery) {
-            Ok(capacity) => write!(buffer, "{capacity}").unwrap(),
+            Ok(capacity) => write!(buffer, "{} ", capacity.trim()).unwrap(),
             Err(e) if e.kind() != io::ErrorKind::NotFound => {
                 warn!("failed to read {battery:?}: {e:?}")
             }

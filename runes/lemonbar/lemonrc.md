@@ -4,8 +4,8 @@
 - separator: ` | `
 %% switch on hostname
 %% 3QWP3T3 {
-- font: `Hack: size=18`
-- font: `Noto Sans Mono CJK JP: size=15`
+- font: `Hack`
+- font: `Noto Sans Mono CJK JP`
 %% }
 %% default {
 - font: `Misc Termsynu: size=12`
@@ -27,14 +27,8 @@
 
 
 ## Workspaces
-%% switch on hostname
-%% 3QWP3T3 {
 - persistent: `~/.config/lemonbar/workspaces`
-%% }
-%% default {
 - native: `hyprland`
-%% }
-%% end
 - raw: `true`
 - align: `left`
 - multi_monitor: `true`
