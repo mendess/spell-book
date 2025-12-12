@@ -36,7 +36,9 @@ use_fzf() {
     fzf "${args[@]}"
 }
 
-mapfile -t wall_colors < <(tr ' ' '\n' < "/tmp/$LOGNAME/wall_colors")
+CACHE=${XDG_CACHE_HOME:-~/.cache}/changeMeWall
+
+mapfile -t wall_colors < <(tr ' ' '\n' < "${CACHE}/wall_colors")
 
 selection_bg_color=${wall_colors[0]}
 selection_text_color=${wall_colors[1]}

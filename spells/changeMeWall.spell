@@ -203,7 +203,7 @@ unset i
     echo "Picking ${colors[*]}"
 
     # Dmenu colors
-    printf "%s\n" "${colors[@]}" >| "$TEMPDIR/wall_colors"
+    printf "%s\n" "${colors[@]}" >| "${CACHE}/wall_colors"
 
     if [[ "$wayland" ]]; then
         printf "%s\n" "${colors[@]}"

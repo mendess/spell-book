@@ -6,8 +6,10 @@ hc=herbstclient
 trap 'herbstclient unlock' EXIT
 
 
-CACHE_DIR="/tmp/$LOGNAME"
-mkdir -p "$CACHE_DIR"
+TEMPDIR="/tmp/$LOGNAME"
+mkdir -p "$TEMPDIR"
+
+CHANGE_WALL_CACHE=${XDG_CACHE_HOME:-~/.cache}/changeMeWall
 
 daemonise() { (
     set +x
@@ -148,7 +150,7 @@ $hc keybind $Mod-r cycle
 # theme
 $hc attr theme.tiling.reset 1
 $hc attr theme.floating.reset 1
-mapfile -t colors < <(awk '{print $1}' "$CACHE_DIR/wall_colors")
+mapfile -t colors < <(awk '{print $1}' "${CHANGE_WALL_CACHE}/wall_colors")
 $hc attr theme.active.color "${colors[0]}"
 $hc attr theme.normal.color "${colors[2]}"
 $hc attr settings.frame_border_active_color "${colors[0]}"
@@ -333,7 +335,7 @@ esac
 if pgrep -u "$LOGNAME" sxhkd; then
     pkill -SIGUSR1 sxhkd
 else
-    daemonise sxhkd -m -1 -r "$CACHE_DIR/sxhkd.log" -s "$CACHE_DIR/sxhkd.fifo"
+    daemonise sxhkd -m -1 -r "$TEMPDIR/sxhkd.log" -s "$TEMPDIR/sxhkd.fifo"
 fi
 
 bar_args=()
@@ -351,7 +353,7 @@ if [[ "$resolution" != 4K ]]; then
 fi
 
 pkill lemon
-RUST_LOG=debug daemonise lemon "${bar_args[@]}" &>"$CACHE_DIR/lemonbar.log"
+RUST_LOG=debug daemonise lemon "${bar_args[@]}" &>"$TEMPDIR/lemonbar.log"
 
 
 # unlock, just to be sure

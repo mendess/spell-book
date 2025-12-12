@@ -1,6 +1,7 @@
 #!/bin/bash
 
-wall_colors="/tmp/$LOGNAME/wall_colors"
+CACHE=${XDG_CACHE_HOME:-~/.cache}/changeMeWall
+wall_colors="${CACHE}/wall_colors"
 if [ -e "$wall_colors" ]; then
     first=$(head -1 "$wall_colors"| cut -d' ' -f1) ; \
     first_text=$(head -1 "$wall_colors" | cut -d' ' -f2) ; \
