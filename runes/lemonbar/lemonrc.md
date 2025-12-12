@@ -61,13 +61,6 @@
 - align: `left`
 - layer: `1`
 
-## CF Stock
-- command: `bash ~/.config/lemonbar/cf-stock.sh`
-- interval: `3600`
-- align: `left`
-- raw: `true`
-- left-click: `bash ~/.config/lemonbar/cf-stock.sh click`
-
 ## Spell-Book status
 - command: `n=$(git -C $SPELLS status --short | grep -v '^??' -c) && printf "book stat %s" $n`
 - interval: `900`
