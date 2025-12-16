@@ -10,7 +10,7 @@ size = 11.0
 size = 14.0
 %% }
 %% default {
-size = 8.0
+size = 11.0
 %% }
 %% end
 normal = { family = "monospace" }

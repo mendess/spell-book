@@ -5,14 +5,7 @@
 mkdir -p "/tmp/$(whoami)"
 export VISUAL='nvim'
 export EDITOR='nvim'
-case $(whoami) in
-    pmendes)
-        export BROWSER=google-chrome
-        ;;
-    *)
-        export BROWSER="firefox"
-        ;;
-esac
+export BROWSER="firefox"
 export WWW_HOME='duckduckgo.com/lite'
 export TERMINAL='alacritty'
 export _JAVA_AWT_WM_NONREPARTENTING=1
