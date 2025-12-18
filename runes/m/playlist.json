@@ -5826,5 +5826,22 @@
     "liked_by": [
       "luis"
     ]
+  },
+  {
+    "name": "Neptune",
+    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/6UdWOWvy",
+    "time": 252,
+    "categories": [
+      "chill"
+    ],
+    "artist": "lucien&the-kimono-orchestra",
+    "genre": "indie-pop",
+    "genres": [
+      "indie-pop",
+      "pop",
+      "indie"
+    ],
+    "language": "french",
+    "recommended_by": "andreia"
   }
 ]
