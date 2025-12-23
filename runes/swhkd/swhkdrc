@@ -107,6 +107,24 @@ XF86AudioMute
 XF86AudioMicMute
     pactl 'set-source-mute' @DEFAULT_SOURCE@ toggle
 
+# XF86AudioPause
+#     RUST_LOG=debug SESSION_KIND=gui m set-pause
+
+XF86AudioPlay
+    RUST_LOG=debug SESSION_KIND=gui m set-play
+
+XF86AudioNext
+    RUST_LOG=debug SESSION_KIND=gui m next-file
+
+XF86AudioPrev
+    RUST_LOG=debug SESSION_KIND=gui m prev-file
+
+# XF86AudioForward
+#     RUST_LOG=debug SESSION_KIND=gui m frwd
+
+# XF86AudioRewind
+#     RUST_LOG=debug SESSION_KIND=gui m back
+
 super + backslash
     RUST_LOG=debug SESSION_KIND=gui m pause
 

@@ -217,6 +217,10 @@ unset i
 
             hyprctl keyword general:col.active_border "rgb($(convert "${colors[0]}"))"
             hyprctl keyword general:col.inactive_border "rgb($(convert "${colors[2]}"))"
+            hyprctl keyword group:col.border_active "rgb($(convert "${colors[0]}"))"
+            hyprctl keyword group:col.border_inactive "rgb($(convert "${colors[2]}"))"
+            hyprctl keyword group:groupbar:col.active "rgb($(convert "${colors[0]}"))"
+            hyprctl keyword group:groupbar:col.inactive "rgb($(convert "${colors[2]}"))"
         elif pgrep -f sway >/dev/null; then
             swaymsg client.focused          '#4c7899' '#285577' '#ffffff' '#2e9ef4' "${colors[0]% *}"
             swaymsg client.focused_inactive '#333333' '#5f676a' '#ffffff' '#484e50' "${colors[1]% *}"
