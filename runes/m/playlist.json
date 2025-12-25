@@ -670,16 +670,6 @@
     ]
   },
   {
-    "name": "Brother",
-    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/Nzut9ptl",
-    "time": 203,
-    "categories": [],
-    "artist": "warrel-dane",
-    "liked_by": [
-      "luis"
-    ]
-  },
-  {
     "name": "The Ballad of Hamantha",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/HOHeHqnq",
     "time": 353,
@@ -762,21 +752,6 @@
     "artist": "the-animals",
     "genre": "rock",
     "genres": [
-      "rock"
-    ],
-    "liked_by": [
-      "luis"
-    ]
-  },
-  {
-    "name": "Joker and the Thief",
-    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/kT7BGu70",
-    "time": 282,
-    "categories": [],
-    "artist": "wolfmother",
-    "genre": "hard-rock",
-    "genres": [
-      "hard-rock",
       "rock"
     ],
     "liked_by": [
@@ -5988,6 +5963,17 @@
     ]
   },
   {
+    "name": "So ready",
+    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/pKavZfC3",
+    "time": 275,
+    "categories": [],
+    "artist": "goose",
+    "genre": "rock",
+    "genres": [
+      "rock"
+    ]
+  },
+  {
     "name": "Into the Myst Live",
     "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/D6GJuNCv",
     "time": 1150,
@@ -6016,17 +6002,6 @@
       "funk"
     ],
     "recommended_by": "andreia"
-  },
-  {
-    "name": "So ready",
-    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/pKavZfC3",
-    "time": 275,
-    "categories": [],
-    "artist": "goose",
-    "genre": "rock",
-    "genres": [
-      "rock"
-    ]
   },
   {
     "name": "Sultans of Swing - Live",
