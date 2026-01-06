@@ -84,7 +84,13 @@ if [[ "$tty" =~ /dev/tty1 ]]; then
     tty_num=$(grep -Eo '[0-9]' <<<"$tty")
     wm() {
         echo "::::::::::: START XLOG :::::::::::"
-        if hash Hyprland; then
+        if hash start-hyprland; then
+            start-hyprland || echo "hyperland crashed with exit code $?"
+            while [[ -e /tmp/reload-hyprland ]] && [[ "$(hostname)" = pendrellvale ]]; do
+                rm /tmp/reload-hyprland
+                start-hyprland || echo "hyperland crashed with exit code $?"
+            done
+        elif hash Hyprland; then
             Hyprland || echo "hyperland crashed with exit code $?"
             while [[ -e /tmp/reload-hyprland ]] && [[ "$(hostname)" = pendrellvale ]]; do
                 rm /tmp/reload-hyprland

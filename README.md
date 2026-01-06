@@ -70,6 +70,7 @@
  - [gestures](./scrolls/gestures.sh) - Enable gestures to switch workspace
  - [lutris](./scrolls/lutris.sh) - Install lutris and all the dependencies needed for battle net, assuming nvidia
  - [packages](./scrolls/packages.sh) - List of important packages
+ - [setup-wg](./scrolls/setup-wg.sh)
  - [spotify-adblock](./scrolls/spotify-adblock.sh) - Install a hacky addblock for spotify
  - [theme](./scrolls/theme.sh) - Setup the artim-dark theme
  - [thinkpad](./scrolls/thinkpad.sh)
