@@ -51,7 +51,7 @@ super + F3
 super + shift + F2
     $BROWSER -private-window https://duckduckgo.com/
 
-super + shift + c
+super + shift + x
     $TERMINAL -e bash -c 'ikhal 2>/dev/null'
 
 super + alt + v

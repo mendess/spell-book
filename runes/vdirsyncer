@@ -3,7 +3,7 @@ status_path = "~/.config/vdirsyncer/status/"
 
 [pair calendar]
 a = "calendar_local"
-b = "calendar_remote"
+b = "cal_nextcloud"
 collections = ["from a", "from b"]
 conflict_resolution = "b wins"
 metadata = ["color", "displayname"]
@@ -13,8 +13,8 @@ type = "filesystem"
 path = "~/.local/share/vdirsyncer"
 fileext = ".ics"
 
-[storage calendar_remote]
+[storage cal_nextcloud]
 type = "caldav"
-url = "http://mendess.xyz:5232/mendess"
+url = "http://pendrellvale.home:8085"
 username = "mendess"
-password.fetch = ["command", "ssh", "mendess@mendess.xyz", "cat", "./core/mirari/radicale/non_important_file"]
+password.fetch = ["command", "ssh", "mendess@mendess.xyz", "cat", "vault/spire/nextcloud/pw"]
