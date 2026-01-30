@@ -12,20 +12,14 @@
  - [changeMeWallCicle](./spells/changeMeWallCicle.spell) - Runs `changeMeWall` every 5 minutes
  - [changeMeWall](./spells/changeMeWall.spell) - Changes the wallpaper to a random one in the `$WALLPAPERS` folder. (requires `feh`).  Thanks [matilde](https://github.com/matildeopbravo) for the idea and help finding the more contrasting colors for dmenu
  - [change-zone](./spells/change-zone.spell)
- - [clean_ws_names](./spells/clean_ws_names.spell) - I sometimes rename my workspaces, this resets the name when the ws is empty. Supports bspwm and herbstluftwm
  - [daemons](./spells/daemons.spell) - Enable/disable my custom daemons
- - [dell-toggle-dock](./spells/dell-toggle-dock.spell)
- - [del_rss_feed](./spells/del_rss_feed.spell) - Script to be used by newsboat to delete the selected rss feed
  - [die_now](./spells/die_now.spell) - Auto shutdown that sets slowly dims the light, slowly lowers the song volume, and turns of the monitor(s)
  - [discord_voice](./spells/discord_voice.spell) - Change discord voice channel with dmenu
  - [edh-rec-new-cards](./spells/edh-rec-new-cards.spell)
  - [ex](./spells/ex.spell) - Extract anything
- - [glavad](./spells/glavad.spell) - Open glava in the background, suports multiple screens_ish_
  - [hooks](./spells/hooks.spell)
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
- - [launch-cocktracice](./spells/launch-cocktracice.spell)
  - [lg-cast](./spells/lg-cast.spell) - Cast links from any pc to my tv
- - [lock](./spells/lock.spell)
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [new-rust-version](./spells/new-rust-version.spell)
@@ -46,14 +40,11 @@
 
 ## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 
- - [displayselect](./cantrips/displayselect.sh) - Configure multi monitors
  - [emoji](./cantrips/emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
  - [free-nitro](./cantrips/free-nitro.sh) - I don't feel like paying discord, so I just store emoji gifs and quickly copy them to the clipboard to paste in chat. 😎
  - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu/fzf/tofi
  - [menu](./cantrips/menu.sh) - The menu used to find and launch the cantrips
- - [quickbrowser](./cantrips/quickbrowser.sh) - Launches vimb with one of the [bookmarks](./library/bookmarks)
  - [rename-ws](./cantrips/rename-ws.sh) - Dynamic [i3|bspwm|herbstluftwm] workspace renamer
- - [trayer](./cantrips/trayer.sh) - trayer launcher
  - [youtube](./cantrips/youtube.sh) - Launches the music player controled using [m](./spells/m.spell)
 
 ## [Runes](./runes/): Static configuration files

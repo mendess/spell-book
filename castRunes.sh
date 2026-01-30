@@ -9,7 +9,17 @@
 ## - ifdir: Only install if it's directory already exists
 ## - copy: Copy instead symlinking
 
-verbose="$1"
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -v|--verbose)
+            verbose=true
+            ;;
+        -c|--only-clean)
+            only_clean=true
+            ;;
+    esac
+    shift
+done
 
 any-match() {
     local i
@@ -47,11 +57,9 @@ fi
 
 rune-wanted() {
     ../.install-profile/allows.sh castRunes "$1" || {
-        case "$verbose" in
-            -v|--verbose)
-                echo "rune $1 skipped"
-                ;;
-        esac
+        if [[ "$verbose" ]]; then
+            echo "rune $1 skipped"
+        fi
         false
     }
 }
@@ -224,6 +232,9 @@ make-dir-if-absent() {
 }
 
 clean-runes
+if [[ "$only_clean" ]]; then
+    exit
+fi
 mapfile -t runes < <(new-runes)
 if [[ "${#runes[@]}" -eq 0 ]]; then
     exit 0

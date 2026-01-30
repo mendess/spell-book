@@ -10,6 +10,7 @@ else
 fi
 
 NEW=$(printf "%s" "$NEW" | sed 's/\t/    /g') || exit
+[[ "$NEW" ]] || exit 0
 
 if pgrep i3; then
     WS=$(i3-msg -t 'get_workspaces' | jq '.[] |select(.focused == true).name' -r)
@@ -31,4 +32,8 @@ elif pgrep herbstluftwm; then
         herbstclient attr tags.focus.name \
             "$((($(herbstclient attr tags.focus.index) + 1) % 10))"
     fi
+elif pgrep hyprland; then
+    WS=$(hyprctl activeworkspace | head -n 1 | cut -d' ' -f3)
+    WSNUM=$(hyprctl activeworkspace | head -n 1 | grep -oE '\([^)]+\)' | tr -d '()' | cut -d: -f1)
+    hyprctl dispatch renameworkspace "$WS" "$WSNUM: $NEW"
 fi

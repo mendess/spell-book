@@ -12,7 +12,7 @@ use_tofi() {
     )
     [ "$selection_text_color" ] && args+=(--selection-color "$selection_text_color")
     [ "$lines" ] && args+=(--num-results "$lines")
-    [ "$require_match" ] && args+=(--require-match "$require_match")
+    [ "$require_match" = true ] || args+=(--require-match=false)
     tofi "${args[@]}"
 }
 
