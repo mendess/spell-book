@@ -33,7 +33,7 @@ end)
 -- vim.g.everforest_show_eob = 0
 
 -- THE RULER OF DISCIPLINE
-set.colorcolumn = '101'
+set.colorcolumn = '81'
 au.group('even-more-discipline', function(g)
     g.BufEnter = {
         {'*.c', '*.h', '*.cpp', '*.hpp'},
