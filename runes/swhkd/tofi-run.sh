@@ -18,5 +18,7 @@ tofi-run \
     --text-color "$second_text" \
     --border-color "$first" \
     --selection-background "$first" \
-    --selection-color "$first_text" | bash
+    --selection-color "$first_text" \
+    --fuzzy-match true |
+    bash
 
