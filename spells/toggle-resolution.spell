@@ -1,0 +1,41 @@
+#!/bin/bash
+# Toggles between 21:9 and 16:9 resolutions to offer a better steam remote play experience
+
+set -euo pipefail
+
+conf=~/.config/hypr/hyprland.conf
+
+export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-$(basename $(echo /run/user/$(id -u)/wayland-?))}
+
+export HYPRLAND_INSTANCE_SIGNATURE=${HYPRLAND_INSTANCE_SIGNATURE:-$(cat /tmp/hyprland-instance-signature)}
+
+set_wide() {
+    hyprctl reload
+}
+
+set_normal() {
+    hyprctl keyword monitor DP-3,2560x1440@60,0x0,1
+}
+
+toggle() {
+    if [[ "$(state)" == "21:9" ]]; then
+        set_normal
+    else
+        set_wide
+    fi
+}
+
+state() {
+    if wlr-randr | grep -F '(current)' | grep -q 3440x1440; then
+        echo "21:9"
+    else
+        echo "16:9"
+    fi
+}
+
+case "${1:-}" in
+    16:9)  set_normal ;;
+    21:9)  set_wide ;;
+    state) state ;;
+    *)     toggle ;;
+esac

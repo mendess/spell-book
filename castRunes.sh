@@ -157,7 +157,7 @@ new-runes() {
         local args link
         IFS=',' read -r -a args <<<"${rune}"
         link="${args[0]}"
-        if ! rune-wanted "${args[1]}" >/dev/stderr; then
+        if ! rune-wanted "${args[1]}"; then
             continue
         fi
         unset ifdir generated copy
