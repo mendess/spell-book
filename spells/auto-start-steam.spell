@@ -1,0 +1,28 @@
+#!/bin/bash
+# Auto starts steam if home assistant booted up the pc
+
+set -euo pipefail
+
+until ping -c 1 pendrellvale.home; do
+    sleep 1;
+done
+
+HA_BEARER_TOKEN=$(cat ~/.config/hass-bearer-token)
+
+entity_id=input_boolean.tolaria_steam_intent
+
+STATE=$(curl -s -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
+             -H "Content-Type: application/json" \
+             http://homeassistant.pendrellvale.home/api/states/$entity_id | jq -r '.state')
+
+if [ "$STATE" == "on" ]; then
+    echo "Woke by HA intent. Starting Steam..."
+
+    # 2. Reset the toggle so it doesn't trigger on a manual power-button boot later
+    curl -X POST -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
+         -H "Content-Type: application/json" \
+         -d "{\"entity_id\": \"$entity_id\"}" \
+         http://homeassistant.pendrellvale.home/api/services/input_boolean/turn_off
+
+    exec ~/.local/bin/setup-remote-steam
+fi

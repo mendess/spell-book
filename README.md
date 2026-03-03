@@ -6,6 +6,7 @@
 
  - [add_rune](./spells/add_rune.spell) - Add a new [rune](runes-static-configuration-files) to the dotfiles, supports some customization options
  - [allgst](./spells/allgst.spell) - Performs `git status` on every folder in the `cwd`.
+ - [auto-start-steam](./spells/auto-start-steam.spell) - Auto starts steam if home assistant booted up the pc
  - [battery_check](./spells/battery_check.spell) - Checks battery life and suspends if it's too low.
  - [bt-connect](./spells/bt-connect.spell)
  - [bulkrename](./spells/bulkrename.spell) - Bulk rename every file in the current directory using your default editor (Editor defined by $EDITOR or $VISUAL)
@@ -28,6 +29,7 @@
  - [print](./spells/print.spell)
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
+ - [setup-remote-steam](./spells/setup-remote-steam.spell) - Starts steam and changes to a 16:9 resolution
  - [share](./spells/share.spell)
  - [ssh-menu](./spells/ssh-menu.spell) - A menu to quickly open ssh connections
  - [steamos](./spells/steamos.spell)

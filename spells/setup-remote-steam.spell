@@ -1,0 +1,7 @@
+#!/bin/bash
+# Starts steam and changes to a 16:9 resolution
+
+set -euo pipefail
+
+~/.local/bin/toggle-resolution 16:9
+exec steam
