@@ -4,4 +4,4 @@
 set -euo pipefail
 
 ~/.local/bin/toggle-resolution 16:9
-exec steam
+pgrep steam || exec steam
