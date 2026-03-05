@@ -17,4 +17,4 @@ fileext = ".ics"
 type = "caldav"
 url = "http://pendrellvale.home:8085"
 username = "mendess"
-password.fetch = ["command", "ssh", "mendess@mendess.xyz", "cat", "vault/spire/nextcloud/pw"]
+password.fetch = ["command", "ssh", "mendess.xyz", "cat", "vault/spire/nextcloud/pw"]
