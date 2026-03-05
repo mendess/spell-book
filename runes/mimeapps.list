@@ -14,6 +14,8 @@ image/jpeg=nsxiv.desktop
 image/webp=nsxiv.desktop
 x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/discord-402572971681644545=discord-402572971681644545.desktop
+x-scheme-handler/sgnl=signal.desktop
+x-scheme-handler/signalcaptcha=signal.desktop
 
 [Added Associations]
 application/octet-stream=gvim.desktop;
