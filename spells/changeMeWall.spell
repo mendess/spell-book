@@ -29,6 +29,8 @@ show_help() {
             Pick a different wallpaper for each screen
         -q | --fast
             Skip picking colors from wallpaper for faster setting
+        --wayland=X
+            Force wayland, X is the display. Defaults to 0
 
     \e[36mExamples:\e[0m
         Pick a random wallpaper
@@ -127,6 +129,12 @@ while [ "$#" -gt 0 ]; do
             ;;
         -q | --fast)
             fast=1
+            ;;
+        --wayland=*)
+            export WAYLAND_DISPLAY=wayland-${1#*=}
+            ;&
+        --wayland)
+            wayland=1
             ;;
         -*)
             echo "Invalid option '$1'"
