@@ -269,6 +269,7 @@ return require('lazy').setup({
             vim.g.go_highlight_build_constraints = 1
         end,
     },
+    { 'chrisbra/csv.vim' }
     ------ ============================= ------
 }, {
     lazy = true,
