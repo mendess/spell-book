@@ -258,13 +258,13 @@ if [ "$wayland" ]; then
     case "$(hostname)" in
         pendrellvale)
             t=(fade left right top bottom wipe wave grow center any outer)
-            swww img "${files[@]}" \
+            awww img "${files[@]}" \
                 -t ${t[$((RANDOM % ${#t[@]}))]} \
                 --transition-step 90 \
                 --transition-duration 5
         ;;
 
-        *) swww img "${files[@]}" -t simple --transition-step 2 ;;
+        *) awww img "${files[@]}" -t simple --transition-step 2 ;;
     esac
 else
     if [ "$wide" -gt 0 ]; then
