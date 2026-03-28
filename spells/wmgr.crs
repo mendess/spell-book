@@ -374,7 +374,7 @@ fn sync() -> anyhow::Result<()> {
 
     let filter = match whoami::fallible::hostname()?.as_str() {
         "localhost" => "walls/phone",
-        "tolaria" => "walls/all",
+        "tolaria" | "pendrellvale" => "walls/all",
         _ => "walls",
     };
 

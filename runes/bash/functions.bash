@@ -142,7 +142,12 @@ mpv_get() {
 }
 
 any() {
-    find "${1:-.}" -maxdepth 1 | shuf -n 1
+    if [[ "$#" -eq 1 ]]; then
+        find_arg=(.)
+    else
+        find_arg=("$@")
+    fi
+    find "${find_arg[@]}" -maxdepth 1 | shuf -n 1
 }
 
 insist() {
