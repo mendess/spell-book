@@ -2,7 +2,8 @@
 
 exec &>/tmp/mendess/swhkd.log
 
-swhks &
+while sleep 1; do swhks; done &
+
 (
 for i in {0..3000}; do
     if rfkill | grep -q ' blocked'; then
@@ -13,7 +14,6 @@ for i in {0..3000}; do
     sleep "$(bc <<<"$i / 1000")"
 done
 ) &
-disown
 
 while sleep 1; do
     pkexec swhkd --cooldown 400 --config ~/.config/swhkd/swhkdrc
