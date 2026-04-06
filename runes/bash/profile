@@ -16,13 +16,6 @@ if hash bat &> /dev/null; then
     export MANPAGER="sh -c 'col -bx | bat --theme=gruvbox-dark -l man -p'"
 fi
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export LESS_TERMCAP_mb=$'\e[1;35m'
-export LESS_TERMCAP_md=$'\e[1;36m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;32m'
 export JQ_COLORS='1;31:0;33:0;33:0;39:0;32:1;39:1;39'
 SPELLS=""
 # tem de existir para existir, e existe por acaso
@@ -74,6 +67,17 @@ export PATH="$PATH:$local_bin"
 export PATH="$PATH:$HOME/.local/share/go/bin"
 export PATH="$PATH:$HOME/.tfenv/bin"
 export PATH="$PATH:$WASMTIME_HOME/bin"
+
+systemctl --user import-environment
+
+# must be after systemctl --user import
+export LESS_TERMCAP_mb=$'\e[1;35m'
+export LESS_TERMCAP_md=$'\e[1;36m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;32m'
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 tty=$(tty)
