@@ -148,6 +148,12 @@ vim.lsp.enable("gopls")
 -- }
 vim.lsp.enable("zls")
 
+vim.lsp.config("pyright", {
+    on_attach = on_attach(),
+    capabilities = capabilities,
+})
+vim.lsp.enable("pyright")
+
 -- Hide all semantic highlights
 -- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
 --   vim.api.nvim_set_hl(0, group, {})
