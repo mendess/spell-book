@@ -2,19 +2,5 @@
 
 exec &>/tmp/mendess/swhkd.log
 
-while sleep 1; do swhks; done &
-
-(
-for i in {0..3000}; do
-    if rfkill | grep -q ' blocked'; then
-        rfkill unblock bluetooth wlan
-        break
-    fi
-
-    sleep "$(bc <<<"$i / 1000")"
-done
-) &
-
-while sleep 1; do
-    pkexec swhkd --cooldown 400 --config ~/.config/swhkd/swhkdrc
-done
+swhks &
+swhkd --cooldown 400 --log ${XDG_RUNTIME_DIR:-$HOME/.local/share}/swhks-current_unix_time.log
