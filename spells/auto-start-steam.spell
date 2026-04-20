@@ -9,7 +9,7 @@ done
 
 HA_BEARER_TOKEN=$(cat ~/.config/hass-bearer-token)
 
-entity_id=input_boolean.tolaria_steam_intent
+entity_id=input_boolean.gaming_mode
 
 STATE=$(curl -s -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
              -H "Content-Type: application/json" \
@@ -17,12 +17,6 @@ STATE=$(curl -s -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
 
 if [ "$STATE" == "on" ]; then
     echo "Woke by HA intent. Starting Steam..."
-
-    # 2. Reset the toggle so it doesn't trigger on a manual power-button boot later
-    curl -X POST -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
-         -H "Content-Type: application/json" \
-         -d "{\"entity_id\": \"$entity_id\"}" \
-         http://homeassistant.pendrellvale.home/api/services/input_boolean/turn_off
 
     exec ~/.local/bin/setup-remote-steam
 fi
