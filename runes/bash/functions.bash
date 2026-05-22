@@ -37,12 +37,13 @@ alarm() {
         echo "provide a time string"
         return 1
     fi
-    {
+    (
+        set -e
         sleep "$1"
         shift
         notify-send -u critical "Alarm" "$*" -a "$(basename "$0")"
         mpv --no-video --volume=50 /usr/share/sounds/freedesktop/stereo/alarm*
-    } &
+    ) &
     disown
 }
 
