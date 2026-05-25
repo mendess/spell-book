@@ -227,12 +227,12 @@ unset i
         elif pgrep Hyprland >/dev/null; then
             function convert { c="${1#\#}"; echo "${c% *}"; }
 
-            hyprctl keyword general:col.active_border "rgb($(convert "${active}"))"
-            hyprctl keyword general:col.inactive_border "rgb($(convert "${inactive}"))"
-            hyprctl keyword group:col.border_active "rgb($(convert "${active}"))"
-            hyprctl keyword group:col.border_inactive "rgb($(convert "${inactive}"))"
-            hyprctl keyword group:groupbar:col.active "rgb($(convert "${active}"))"
-            hyprctl keyword group:groupbar:col.inactive "rgb($(convert "${inactive}"))"
+            hyprctl keyword general:col.active_border "rgb($(convert "${active}"))" | grep -v ok
+            hyprctl keyword general:col.inactive_border "rgb($(convert "${inactive}"))" | grep -v ok
+            hyprctl keyword group:col.border_active "rgb($(convert "${active}"))" | grep -v ok
+            hyprctl keyword group:col.border_inactive "rgb($(convert "${inactive}"))" | grep -v ok
+            hyprctl keyword group:groupbar:col.active "rgb($(convert "${active}"))" | grep -v ok
+            hyprctl keyword group:groupbar:col.inactive "rgb($(convert "${inactive}"))" | grep -v ok
         elif pgrep -f sway >/dev/null; then
             swaymsg client.focused          '#4c7899' '#285577' '#ffffff' '#2e9ef4' "${active% *}"
             swaymsg client.focused_inactive '#333333' '#5f676a' '#ffffff' '#484e50' "${active2% *}"
