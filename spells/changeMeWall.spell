@@ -44,7 +44,7 @@ BRIGHTNESS_FILTER='
 import sys
 import colorsys
 
-colours = []
+colors = []
 for line in sys.stdin:
     line = line.strip()
     og_line = str(line)
@@ -53,50 +53,51 @@ for line in sys.stdin:
     r = int(line[0:2], 16) / 255
     g = int(line[2:4], 16) / 255
     b = int(line[4:6], 16) / 255
-    hsl = colorsys.rgb_to_hls(r, g, b)
-    text = "#000000" if hsl[1] >= .49 else "#FFFFFF"
-    colours.append([og_line, (r, g, b), text])
-
-chosen_colours = []
-regected_colors = []
-print("Rejecting colours with s < 0.20 or v < 0.30", file=sys.stderr)
-for colour in colours:
-    og_line, (r, g, b), __ = colour
+    hls = colorsys.rgb_to_hls(r, g, b)
+    text = "#000000" if hls[1] >= .49 else "#FFFFFF"
     hsv = colorsys.rgb_to_hsv(r, g, b)
-    l, m = (regected_colors, "\033[31mR\033[0m") if hsv[1] < 0.2 or hsv[2] < 0.3 else (chosen_colours, "\033[32mC\033[0m")
-    l.append(colour)
+    colors.append([og_line, (r, g, b), text, hsv])
+
+def rgb_distance(c0, c1):
+    _, rgb0, _, _ = c0
+    _, rgb1, _, _ = c1
+    return ((rgb0[0] - rgb1[0]) ** 2
+        + (rgb0[1] - rgb1[1]) ** 2
+        + (rgb0[2] - rgb1[2]) ** 2)
+
+def hue_distance(c0, c1):
+    _, _, _, hsv0 = c0
+    _, _, _, hsv1 = c1
+    return abs(hsv0[0] - hsv1[0])
+
+chosen_colors = []
+regected_colors = []
+print("Rejecting colors with s < 0.20 or v < 0.30", file=sys.stderr)
+for color in colors:
+    og_line, (r, g, b), __, hsv = color
+    l, m = (regected_colors, "\033[31mR\033[0m") if hsv[1] < 0.2 or hsv[2] < 0.3 else (chosen_colors, "\033[32mC\033[0m")
+    l.append(color)
     print(
-        "{} {:02d}:".format(m, len(regected_colors) + len(chosen_colours)),
+        "{} {:02d}:".format(m, len(regected_colors) + len(chosen_colors)),
         og_line,
-        "r: {:03}".format(r * 255),
-        "g: {:03}".format(g * 255),
-        "b: {:03}".format(b * 255),
+        "r: {:03}".format(int(r * 255)),
+        "g: {:03}".format(int(g * 255)),
+        "b: {:03}".format(int(b * 255)),
         "h: {:.2f} s: {:.2f} v: {:.2f}".format(*hsv),
+        "rgb distance: {:.2f}".format(rgb_distance(colors[0], color)),
+        "hue distance: {:.2f}".format(hue_distance(colors[0], color)),
         file=sys.stderr
     )
 
-def rgb_distance(c0, c1):
-    _, rgb0, _ = c0
-    _, rgb1, _ = c1
-    return ((rgb0[0] - rgb1[0]) * (rgb0[0] - rgb1[0])
-        + (rgb0[1] - rgb1[1]) * (rgb0[1] - rgb1[1])
-        + (rgb0[2] - rgb1[2]) * (rgb0[2] - rgb1[2]))
+if len(chosen_colors) < 3:
+    chosen_colors = chosen_colors + regected_colors
 
-if len(chosen_colours) < 3:
-    chosen_colours = chosen_colours + regected_colors
+first = chosen_colors[0]
+contrast = max(chosen_colors[1:], key=lambda c: hue_distance(first, c))
 
-first = chosen_colours[0]
-contrast = chosen_colours[1]
-max_distance = rgb_distance(first, chosen_colours[1])
-for c in chosen_colours[2:]:
-    d = rgb_distance(first, c)
-    if d > max_distance:
-        max_distance = d
-        contrast = c
+second = chosen_colors[1 if contrast != chosen_colors[1] else 2]
 
-second = chosen_colours[1 if contrast != chosen_colours[1] else 2]
-
-for c, _, t in [first, second, contrast]: print(c, t)
+for c, _, t, _ in [first, second, contrast]: print(c, t)
 '
 
 [[ "$XDG_SESSION_TYPE" = wayland ]] && wayland=1
@@ -195,7 +196,7 @@ unset i
         mapfile -t colors < "$cached_colors"
     else
         mapfile -t colors < <(
-            magick "${files[0]}" +dither -colors 10 histogram: |
+            magick "${files[0]}" +dither -colors 15 histogram: |
                 sed -n '/comment={/,/^}/p' |
                 sed -E 's/comment=\{\s*|\}|^\s*//g' |
                 awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
@@ -213,33 +214,36 @@ unset i
     # Dmenu colors
     printf "%s\n" "${colors[@]}" >| "${CACHE}/wall_colors"
 
+    active="${colors[2]}" # most contrasting color
+    active2="${colors[1]}" # second most common
+    inactive="${colors[0]}" # most common
     if [[ "$wayland" ]]; then
         printf "%s\n" "${colors[@]}"
         if pgrep river >/dev/null; then
             function convert { c="${1/\#/0x}"; echo "${c% *}"; }
 
-            riverctl border-color-focused "$(convert "${colors[0]}")"
-            riverctl border-color-unfocused "$(convert "${colors[2]}")"
+            riverctl border-color-focused "$(convert "${active}")"
+            riverctl border-color-unfocused "$(convert "${inactive}")"
         elif pgrep Hyprland >/dev/null; then
             function convert { c="${1#\#}"; echo "${c% *}"; }
 
-            hyprctl keyword general:col.active_border "rgb($(convert "${colors[0]}"))"
-            hyprctl keyword general:col.inactive_border "rgb($(convert "${colors[2]}"))"
-            hyprctl keyword group:col.border_active "rgb($(convert "${colors[0]}"))"
-            hyprctl keyword group:col.border_inactive "rgb($(convert "${colors[2]}"))"
-            hyprctl keyword group:groupbar:col.active "rgb($(convert "${colors[0]}"))"
-            hyprctl keyword group:groupbar:col.inactive "rgb($(convert "${colors[2]}"))"
+            hyprctl keyword general:col.active_border "rgb($(convert "${active}"))"
+            hyprctl keyword general:col.inactive_border "rgb($(convert "${inactive}"))"
+            hyprctl keyword group:col.border_active "rgb($(convert "${active}"))"
+            hyprctl keyword group:col.border_inactive "rgb($(convert "${inactive}"))"
+            hyprctl keyword group:groupbar:col.active "rgb($(convert "${active}"))"
+            hyprctl keyword group:groupbar:col.inactive "rgb($(convert "${inactive}"))"
         elif pgrep -f sway >/dev/null; then
-            swaymsg client.focused          '#4c7899' '#285577' '#ffffff' '#2e9ef4' "${colors[0]% *}"
-            swaymsg client.focused_inactive '#333333' '#5f676a' '#ffffff' '#484e50' "${colors[1]% *}"
-            swaymsg client.unfocused        '#333333' '#222222' '#888888' '#292d2e' "${colors[2]% *}"
+            swaymsg client.focused          '#4c7899' '#285577' '#ffffff' '#2e9ef4' "${active% *}"
+            swaymsg client.focused_inactive '#333333' '#5f676a' '#ffffff' '#484e50' "${active2% *}"
+            swaymsg client.unfocused        '#333333' '#222222' '#888888' '#292d2e' "${inactive% *}"
         fi
     else
         if command -v herbstclient &>/dev/null; then
-            herbstclient attr theme.active.color "${colors[0]% *}"
-            herbstclient attr theme.normal.color "${colors[2]% *}"
-            herbstclient attr settings.frame_border_active_color "${colors[0]% *}"
-            herbstclient attr settings.frame_border_normal_color "${colors[1]% *}"
+            herbstclient attr theme.active.color "${active}"
+            herbstclient attr theme.normal.color "${inactive% *}"
+            herbstclient attr settings.frame_border_active_color "${active}"
+            herbstclient attr settings.frame_border_normal_color "${active2% *}"
         fi
     fi
 } 2>&1 | color_picker -f &
