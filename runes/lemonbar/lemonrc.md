@@ -165,6 +165,12 @@
 - un: `red`
 - align: `right`
 
+## Wireguard
+- cmd: `~/.config/lemonbar/wireguard`
+- align: `right`
+- interval: `30`
+- raw: `true`
+
 ## Batery
 - cmd: `~/.config/lemonbar/battery`
 - align: `right`

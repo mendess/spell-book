@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -euo pipefail
+
+command -V wg-quick &>/dev/null || exit 0
+
+ip -color=never -o -d link show |
+    awk '/wireguard/ {print $2}' |
+    tr -d : |
+    while read -r network; do
+        fst_address=$(ip -color=never -o -d address |
+            grep "$network" |
+            grep -o -E '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' |
+            cut -d/ -f1 |
+            sed -E 's/\.[0-9]+$/.1/')
+        if ping -w 1 -c 1 "$fst_address" &>/dev/null; then
+            printf '%%{F#55AA00}[%s]%%{F-}' "$network"
+        else
+            printf '%%{F#FF2200}[%s]%%{F-}' "$network"
+        fi
+    done
+
+echo
