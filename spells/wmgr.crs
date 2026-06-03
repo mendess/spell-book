@@ -401,7 +401,7 @@ fn sync() -> anyhow::Result<()> {
             }
             Err(e) => return Err(e.into()),
         };
-        eprintln!("\nDownloading {}", w.name);
+        eprintln!("{CLEAN_LINE}Downloading {}", w.name);
         let mut image = ureq::get(&format!("{base}/{}", w.path))
             .call()
             .with_context(|| format!("getting wallpaper {w:?}"))?
