@@ -13,8 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 return require('lazy').setup({
     ------ ======      META       ====== ------
-    -- mappings api
-    'b0o/mapx.nvim',
     -- profiling
     {'tweekmonster/startuptime.vim', enabled = false },
     ------ ============================= ------
@@ -172,18 +170,18 @@ return require('lazy').setup({
         end,
     },
 
-    'evanleck/vim-svelte',
+    -- 'evanleck/vim-svelte',
 
     'waycrate/swhkd-vim',
 
     'cstrahan/vim-capnp',
 
-    {
-        'nvim-treesitter/nvim-treesitter',
-        config = function()
-            require('plugins.treesitter')
-        end,
-    },
+    -- {
+    --     'nvim-treesitter/nvim-treesitter',
+    --     config = function()
+    --         require('plugins.treesitter')
+    --     end,
+    -- },
     -- pweatty lsp frontend
     {
         'nvimdev/lspsaga.nvim',
@@ -232,6 +230,17 @@ return require('lazy').setup({
             }
         end,
         module = {'telescope', 'telescope.builtin'},
+    },
+    {
+      "folke/lazydev.nvim",
+      ft = "lua", -- only load on lua files
+      opts = {
+        library = {
+          -- See the configuration section for more details
+          -- Load luvit types when the `vim.uv` word is found
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
+      },
     },
     ------ ============================= ------
 

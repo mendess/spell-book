@@ -2,28 +2,35 @@ local au = require('utils.au')
 local fn = vim.fn
 local expand = fn.expand
 local filereadable = fn.filereadable
+local dbg = require('utils.dbg')
 
 au.group('shellcheck', function(g)
     g.FileType = {
         'sh',
         function()
-            nnoremap('<leader>s', ':sp | term shellcheck -x %<CR>')
+            vim.keymap.set('n', '<leader>s', ':sp | term shellcheck -x %<CR>', { nnoremap = true })
         end
     }
 end)
 
 local function save_compile_run(ft, spec)
-    nnoremap(
-        '<leader>r',
-        function()
-            vim.cmd [[write]]
-            if spec.compile then
-                spec.compile()
-            end
-            spec.run()
-        end,
-        { ft = ft }
-    )
+    vim.api.nvim_create_autocmd('FileType', {
+        pattern = { '*.'..ft },
+        callback = function()
+            vim.keymap.set(
+                'n',
+                '<leader>r',
+                function()
+                    vim.cmd [[write]]
+                    if spec.compile then
+                        spec.compile()
+                    end
+                    spec.run()
+                end,
+                { noremap = true }
+            )
+        end
+    })
 end
 
 local function path_is_absolute() return expand('%'):sub(1, 1) == '/' end
@@ -112,7 +119,7 @@ save_compile_run('sh', {
     end
 })
 
-nnoremap('<leader>r', function()
+vim.keymap.set('n', '<leader>r', function()
     vim.cmd [[write]]
     vim.cmd("exec '!"..vim.opt.filetype:get().." %'")
-end)
+end, { noremap = true })

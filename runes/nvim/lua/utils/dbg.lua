@@ -29,12 +29,17 @@ local function print_table(t)
 end
 
 local function dbg(x)
-    file = io.open('dbg', 'a')
+    local file = io.open('dbg', 'a')
+    if file == nil then
+        print("failed to open dbg")
+        return x
+    end
     if type(x) == "table" then
         file:write(print_table(x))
     else
         file:write(tostring(x).."\n")
     end
+    file:flush()
     return x
 end
 

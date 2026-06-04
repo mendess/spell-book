@@ -1,44 +1,44 @@
 -- split navigations
-nnoremap("<C-j>", "<C-W>j")
-nnoremap("<C-k>", "<C-W>k")
-nnoremap("<C-l>", "<C-W>l")
-nnoremap("<C-h>", "<C-W>h")
+vim.keymap.set('n', "<C-j>", "<C-W>j", { noremap = true })
+vim.keymap.set('n', "<C-k>", "<C-W>k", { noremap = true })
+vim.keymap.set('n', "<C-l>", "<C-W>l", { noremap = true })
+vim.keymap.set('n', "<C-h>", "<C-W>h", { noremap = true })
 
-nnoremap("<M-h>", "<C-w>H")
-nnoremap("<M-j>", "<C-w>J")
-nnoremap("<M-k>", "<C-w>K")
-nnoremap("<M-l>", "<C-w>L")
+vim.keymap.set('n', "<M-h>", "<C-w>H", { noremap = true })
+vim.keymap.set('n', "<M-j>", "<C-w>J", { noremap = true })
+vim.keymap.set('n', "<M-k>", "<C-w>K", { noremap = true })
+vim.keymap.set('n', "<M-l>", "<C-w>L", { noremap = true })
 
 -- split resize
-nnoremap("<M-K>", "<C-w>+")
-nnoremap("<M-J>", "<C-w>-")
-nnoremap("<M-H>", "<C-w><")
-nnoremap("<M-L>", "<C-w>>")
+vim.keymap.set('n', "<M-K>", "<C-w>+", { noremap = true })
+vim.keymap.set('n', "<M-J>", "<C-w>-", { noremap = true })
+vim.keymap.set('n', "<M-H>", "<C-w><", { noremap = true })
+vim.keymap.set('n', "<M-L>", "<C-w>>", { noremap = true })
 
 -- Fix Y
-nnoremap("Y", "y$")
+vim.keymap.set('n', "Y", "y$", { noremap = true })
 
 -- alt tab
-nnoremap('<leader><Tab>', '<C-^>')
+vim.keymap.set('n', '<leader><Tab>', '<C-^>', { noremap = true })
 
 -- confy quit
-nnoremap('<C-q>', ':q<CR>')
+vim.keymap.set('n', '<C-q>', ':q<CR>', { noremap = true })
 
 -- terminal esq
-tnoremap('<Esq>', [[<C-\><C-n>]])
-tnoremap('<A-[>', '<Esq>')
+vim.keymap.set('t', '<Esq>', [[<C-\><C-n>]], { noremap = true })
+vim.keymap.set('t', '<A-[>', '<Esq>', { noremap = true })
 
 -- jump to marker
-nnoremap('<A-1>', '1gt')
-nnoremap('<A-2>', '2gt')
-nnoremap('<A-3>', '3gt')
-nnoremap('<A-4>', '4gt')
-nnoremap('<A-5>', '5gt')
-nnoremap('<A-6>', '6gt')
-nnoremap('<A-7>', '7gt')
-nnoremap('<A-8>', '8gt')
-nnoremap('<A-9>', '9gt')
+vim.keymap.set('n', '<A-1>', '1gt', { noremap = true })
+vim.keymap.set('n', '<A-2>', '2gt', { noremap = true })
+vim.keymap.set('n', '<A-3>', '3gt', { noremap = true })
+vim.keymap.set('n', '<A-4>', '4gt', { noremap = true })
+vim.keymap.set('n', '<A-5>', '5gt', { noremap = true })
+vim.keymap.set('n', '<A-6>', '6gt', { noremap = true })
+vim.keymap.set('n', '<A-7>', '7gt', { noremap = true })
+vim.keymap.set('n', '<A-8>', '8gt', { noremap = true })
+vim.keymap.set('n', '<A-9>', '9gt', { noremap = true })
 
 -- easier start and end
-nnoremap('H', '^')
-nnoremap('L', '$')
+vim.keymap.set('n', 'H', '^', { noremap = true })
+vim.keymap.set('n', 'L', '$', { noremap = true })

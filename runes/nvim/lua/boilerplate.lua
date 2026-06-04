@@ -13,7 +13,7 @@ au.group('java-bloat', function(g)
     }
 end)
 
-au.group('boilerplate', function(g)
+au.group('boilerplate', function()
     local function append_lines(...)
         for i, l in ipairs({...}) do
             local text

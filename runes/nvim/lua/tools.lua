@@ -14,21 +14,3 @@ command(
         os.remove(this_file)
     end
 )
-
-nnoremap('<F1>', function()
-    help_popup('Himalaya keybinds', {
-        gm = 'Change the current mbox',
-        gp = 'Show previous page',
-        gn = 'Show next page',
-        ['<Enter>'] = 'Read focused msg',
-        gw = 'Write a new msg',
-        gr = 'Reply to the focused msg',
-        gR = 'Reply all to the focused msg',
-        gf = 'Forward the focused message',
-        ga = 'Download attachments from focused message',
-        gC = 'Copy the focused message',
-        gM = 'Move the focused message',
-        gD = 'Delete the focused message(s)',
-    })
-end,
-{ ft = 'himalaya-msg-list', buffer = true })

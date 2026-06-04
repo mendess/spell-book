@@ -8,7 +8,7 @@ local function assert_type(value, ...)
     for _, t in ipairs(tys) do
         if t == v_ty then return end
     end
-    error('expected ' .. table.concat(tys, ' or ') .. ', found ' .. vty)
+    error('expected ' .. table.concat(tys, ' or ') .. ', found ' .. v_ty)
 end
 
 -- OVERLOAD 1

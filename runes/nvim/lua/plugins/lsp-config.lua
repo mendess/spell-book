@@ -1,5 +1,4 @@
 local lsp_util = require('lspconfig.util')
-local protocol = require('vim.lsp.protocol')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local au = require('utils.au')
 local table_merge = require('utils.misc').table_merge
@@ -11,7 +10,6 @@ local on_attach = function(opts)
         -- client.server_capabilities.semanticTokensProvider = nil
 
         local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-        local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
         local keybind_opts = { noremap = true, silent = true }
         -- Mappings
@@ -23,7 +21,7 @@ local on_attach = function(opts)
         )
 
         -- prefer eslint format instead of this
-        local is_ts_ls = client.name == "ts_ls"
+        -- local is_ts_ls = client.name == "ts_ls"
 
         -- local function log(...) print("[" .. client.name .. "]", ...) end
 
@@ -61,8 +59,8 @@ local function setup_rust_analyzer(config)
             return nil
         end
         local settings_file = rust_project_root .. '/.nvim/settings.json'
-        if vim.fn.filereadable(settings_file) == 1 then
-            local file = io.open(settings_file, "r")
+        local file = io.open(settings_file, "r")
+        if file ~= nil then
             local content = file:read("*a")
             file:close()
             local settings = vim.fn.json_decode(content)
@@ -153,6 +151,17 @@ vim.lsp.config("pyright", {
     capabilities = capabilities,
 })
 vim.lsp.enable("pyright")
+
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+        diagnostics = {
+            disable = { "redefined-local" }
+        }
+    },
+  },
+})
+vim.lsp.enable("lua_ls")
 
 -- Hide all semantic highlights
 -- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
