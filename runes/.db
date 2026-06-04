@@ -12,7 +12,7 @@
 ~/.config/git/template,git/template
 ~/.config/gitignore-global,gitignore-global
 ~/.config/gtk-3.0,gtk-3.0
-~/.config/hypr,hypr,generated
+~/.config/hypr,hypr
 ~/.config/khal/config,khal
 ~/.config/lemonbar,lemonbar,generated
 ~/.config/m,m
