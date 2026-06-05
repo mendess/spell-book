@@ -40,6 +40,10 @@ hl.monitor({
 
 hl.workspace_rule({ workspace = "special:magic", gaps_out = 300 })
 
+if hostname == "3QWP3T3" then
+    hl.workspace_rule({ workspace = "10", monitor = "eDP-1" })
+end
+
 local config_dir = os.getenv("HOME").."/.config/hypr/"
 
 hl.on("hyprland.start", function()
@@ -141,13 +145,13 @@ hl.config({
     misc = {
         disable_hyprland_logo = true,
         animate_mouse_windowdragging = true,
+        animate_manual_resizes = true,
+        -- workspace_center_on = 1, -- the last active window for that workspace
     },
 })
 
-hl.animation({ leaf = "windows", enabled = true, speed = 0.5, bezier = "default" })
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 0.5, bezier = "default" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 0.5, bezier = "default" })
-hl.animation({ leaf = "border", enabled = true, speed = 1, bezier = "default" })
+hl.animation({ leaf = "windows", enabled = true, speed = 1, bezier = "default", style = "popin" })
+hl.animation({ leaf = "border", enabled = true, speed = 2, bezier = "default" })
 hl.animation({ leaf = "borderangle", enabled = false, speed = 1, bezier = "default" })
 hl.animation({ leaf = "fade", enabled = true, speed = 1, bezier = "default" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 0.5, bezier = "default", style = "slide" })
@@ -182,10 +186,10 @@ hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
 
 hl.bind(mainMod .. " + CONTROL + R", hl.dsp.window.cycle_next())
 
-hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
+hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left", group_aware = true }))
+hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right", group_aware = true }))
+hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up", group_aware = true }))
+hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down", group_aware = true }))
 
 hl.bind(mainMod .. " + CONTROL + H", hl.dsp.window.resize({ x = -20, y = 0 }))
 hl.bind(mainMod .. " + CONTROL + L", hl.dsp.window.resize({ x = 20, y = 0 }))
