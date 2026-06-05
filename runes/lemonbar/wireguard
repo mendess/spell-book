@@ -4,6 +4,19 @@ set -euo pipefail
 
 command -V wg-quick &>/dev/null || exit 0
 
+GREEN="#55AA00"
+RED="#FF2200"
+UG="%{U$GREEN}"
+UR="%{U$RED}"
+FG="%{F$GREEN}"
+FR="%{F$RED}"
+URST="%{U$LEMON_UN}"
+FRST="%{F$LEMON_FG}"
+
+paint() {
+    printf "%%{r}%s%s%s" "$1" "$2" "$3"
+}
+
 ip -color=never -o -d link show |
     awk '/wireguard/ {print $2}' |
     tr -d : |
@@ -13,10 +26,15 @@ ip -color=never -o -d link show |
             grep -o -E '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' |
             cut -d/ -f1 |
             sed -E 's/\.[0-9]+$/.1/')
+        printf " "
         if ping -w 1 -c 1 "$fst_address" &>/dev/null; then
-            printf '%%{F#55AA00}[%s]%%{F-}' "$network"
+            paint "$UG" "$FG" "["
+            paint "$UG" "$FRST" "$network"
+            paint "$UG" "$FG" "]"
         else
-            printf '%%{F#FF2200}[%s]%%{F-}' "$network"
+            paint "$UR" "$FR" "["
+            paint "$UR" "$FRST" "$network"
+            paint "$UR" "$FR" "]"
         fi
     done
 

@@ -16,6 +16,7 @@ x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/discord-402572971681644545=discord-402572971681644545.desktop
 x-scheme-handler/sgnl=signal.desktop
 x-scheme-handler/signalcaptcha=signal.desktop
+x-scheme-handler/freetube=freetube.desktop
 
 [Added Associations]
 application/octet-stream=gvim.desktop;
