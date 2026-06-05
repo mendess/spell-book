@@ -10,7 +10,6 @@ UG="%{U$GREEN}"
 UR="%{U$RED}"
 FG="%{F$GREEN}"
 FR="%{F$RED}"
-URST="%{U$LEMON_UN}"
 FRST="%{F$LEMON_FG}"
 
 paint() {
