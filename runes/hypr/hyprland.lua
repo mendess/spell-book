@@ -30,16 +30,15 @@ if monitor_conf ~= nil then
     for _, conf in pairs(monitor_conf) do
         hl.monitor(conf)
     end
-else
-    hl.monitor({
-        output   = "",
-        mode     = "preferred",
-        position = "auto",
-        scale    = "auto",
-    })
 end
+hl.monitor({
+    output   = "",
+    mode     = "preferred",
+    position = "auto",
+    scale    = "auto",
+})
 
--- TODO: no donation nag
+hl.workspace_rule({ workspace = "special:magic", gaps_out = 300 })
 
 local config_dir = os.getenv("HOME").."/.config/hypr/"
 
@@ -67,6 +66,51 @@ hl.config({
     ecosystem = {
         no_donation_nag = true
     },
+
+    general = {
+        -- See https://wiki.hyprland.org/Configuring/Variables/ for more
+        border_size = 5,
+        gaps_in = 3,
+        gaps_out = 7,
+        no_focus_fallback = true,
+        locale = "en_US",
+
+        layout = "dwindle",
+        -- Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
+        allow_tearing = false,
+    },
+
+    decoration = {
+        -- See https://wiki.hyprland.org/Configuring/Variables/ for more
+
+        rounding = 3,
+
+        rounding_power = 5.0,
+
+        blur = {
+            enabled = true,
+            size = 8,
+            passes = 1,
+            xray = false,
+        },
+
+        shadow = {
+            enabled = false,
+        },
+
+        glow = {
+            enabled = false,
+        },
+
+        -- motion_blur = {
+        --     enabled = true,
+        -- },
+    },
+
+    animations = {
+        enabled = true
+    },
+
     input = {
         kb_layout = "us",
         kb_options = "caps:escape",
@@ -76,60 +120,22 @@ hl.config({
             natural_scroll = false,
             disable_while_typing = true,
             tap_to_click = false,
+            clickfinger_behavior = true,
         },
         sensitivity = 0,
-    },
-
-    general = {
-        -- See https://wiki.hyprland.org/Configuring/Variables/ for more
-        gaps_in = 3,
-        gaps_out = 7,
-        border_size = 5,
-        col = {
-            active_border = "rgb(345F0C)",
-            inactive_border = "rgb(565656)",
-        },
-
-        layout = "dwindle",
-        -- Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-        allow_tearing = false,
     },
 
     group = {
         groupbar = {
             font_size = 13,
-            font_weight_active = "bold",
+            gradients = true,
+            blur = true,
         },
-    },
-
-    decoration = {
-        -- See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-        rounding = 1,
-
-        blur = {
-            enabled = true,
-            size = 10,
-            passes = 1,
-        },
-
-        shadow = {
-            enabled = false,
-        }
-    },
-
-    animations = {
-        enabled = true
     },
 
     dwindle = {
         -- See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
         preserve_split = true
-    },
-
-    master = {
-        -- See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-        new_status = "master"
     },
 
     misc = {
@@ -190,7 +196,7 @@ for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i }))
     hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i, follow = false }))
+    hl.bind(mainMod .. " + CONTROL + " .. key,   hl.dsp.window.move({ workspace = i, follow = false }))
 end
 
 hl.bind(mainMod .. " + SHIFT + space", hl.dsp.window.float({ action = "toggle" }))

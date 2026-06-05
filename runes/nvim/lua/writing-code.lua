@@ -8,7 +8,7 @@ au.group('shellcheck', function(g)
     g.FileType = {
         'sh',
         function()
-            vim.keymap.set('n', '<leader>s', ':sp | term shellcheck -x %<CR>', { nnoremap = true })
+            vim.keymap.set('n', '<leader>s', ':sp | term shellcheck -x %<CR>', { noremap = true })
         end
     }
 end)

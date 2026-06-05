@@ -225,14 +225,33 @@ unset i
             riverctl border-color-focused "$(convert "${active}")"
             riverctl border-color-unfocused "$(convert "${inactive}")"
         elif pgrep Hyprland >/dev/null; then
-            function convert { c="${1#\#}"; echo "${c% *}"; }
+            function convert { c="${1% *}"; echo "\"rgb(${c#\#})\""; }
+            function tconvert { c="${1#* }"; echo "\"rgb(${c#\#})\""; }
 
-            hyprctl keyword general:col.active_border "rgb($(convert "${active}"))"
-            hyprctl keyword general:col.inactive_border "rgb($(convert "${inactive}"))"
-            hyprctl keyword group:col.border_active "rgb($(convert "${active}"))"
-            hyprctl keyword group:col.border_inactive "rgb($(convert "${inactive}"))"
-            hyprctl keyword group:groupbar:col.active "rgb($(convert "${active}"))"
-            hyprctl keyword group:groupbar:col.inactive "rgb($(convert "${inactive}"))"
+            config="
+            hl.config({
+                general = {
+                    col = {
+                        active_border = $(convert "${active}"),
+                        inactive_border = $(convert "${inactive}"),
+                    },
+                },
+                group = {
+                    col = {
+                        border_active = $(convert "${active}"),
+                        border_inactive = $(convert "${inactive}"),
+                    },
+                    groupbar = {
+                        text_color = $(tconvert "${active}"),
+                        text_color_inactive = $(tconvert "${inactive}"),
+                        col = {
+                            active = $(convert "${active}"),
+                            inactive = $(convert "${inactive}"),
+                        },
+                    },
+                },
+            })"
+            hyprctl eval "$config"
         elif pgrep -f sway >/dev/null; then
             swaymsg client.focused          '#4c7899' '#285577' '#ffffff' '#2e9ef4' "${active% *}"
             swaymsg client.focused_inactive '#333333' '#5f676a' '#ffffff' '#484e50' "${active2% *}"
@@ -263,7 +282,7 @@ if [ "$wayland" ]; then
         pendrellvale)
             t=(fade left right top bottom wipe wave grow center any outer)
             awww img "${files[@]}" \
-                -t ${t[$((RANDOM % ${#t[@]}))]} \
+                -t "${t[$((RANDOM % ${#t[@]}))]}" \
                 --transition-step 90 \
                 --transition-duration 5
         ;;

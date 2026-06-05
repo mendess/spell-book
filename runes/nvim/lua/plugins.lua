@@ -176,12 +176,12 @@ return require('lazy').setup({
 
     'cstrahan/vim-capnp',
 
-    -- {
-    --     'nvim-treesitter/nvim-treesitter',
-    --     config = function()
-    --         require('plugins.treesitter')
-    --     end,
-    -- },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        config = function()
+            require('plugins.treesitter')
+        end,
+    },
     -- pweatty lsp frontend
     {
         'nvimdev/lspsaga.nvim',
