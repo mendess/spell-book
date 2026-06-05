@@ -66,6 +66,10 @@ hl.env("MOZ_ENABLE_WAYLAND", "1")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 
+local C = {
+    always_split_right = 2,
+}
+
 hl.config({
     ecosystem = {
         no_donation_nag = true
@@ -112,7 +116,7 @@ hl.config({
     },
 
     animations = {
-        enabled = true
+        enabled = true,
     },
 
     input = {
@@ -139,7 +143,8 @@ hl.config({
 
     dwindle = {
         -- See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-        preserve_split = true
+        preserve_split = true,
+        force_split = C.always_split_right,
     },
 
     misc = {
