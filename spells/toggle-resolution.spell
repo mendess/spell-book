@@ -14,7 +14,12 @@ set_wide() {
 }
 
 set_normal() {
-    hyprctl keyword monitor DP-3,2560x1440@60,0x0,1
+    hyprctl eval 'hl.monitor({
+        output = "DP-3",
+        mode = "2560x1440@60",
+        position = "0x0",
+        scale = "1"
+    })'
 }
 
 toggle() {
