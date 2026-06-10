@@ -6,7 +6,7 @@ mkdir -p "$CACHE"
 while :; do
     while :; do
         [ -e "$CACHE/stop_wall" ] && continue
-        read -r pape
+        read -r pape || break
         changeMeWall --wait-for-colors "$pape" "$@" &
         sleep 5m
         wait
