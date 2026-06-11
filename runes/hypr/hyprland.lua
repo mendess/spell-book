@@ -196,10 +196,10 @@ hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right", gro
 hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up", group_aware = true }))
 hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down", group_aware = true }))
 
-hl.bind(mainMod .. " + CONTROL + H", hl.dsp.window.resize({ x = -20, y = 0 }))
-hl.bind(mainMod .. " + CONTROL + L", hl.dsp.window.resize({ x = 20, y = 0 }))
-hl.bind(mainMod .. " + CONTROL + K", hl.dsp.window.resize({ x = 0, y = -20 }))
-hl.bind(mainMod .. " + CONTROL + J", hl.dsp.window.resize({ x = 0, y = 20 }))
+hl.bind(mainMod .. " + CONTROL + H", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + L", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + K", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CONTROL + J", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
 
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
