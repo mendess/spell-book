@@ -142,6 +142,7 @@ while [ "$#" -gt 0 ]; do
             exit 1
             ;;
         *)
+            file_specified=1
             files+=("$1")
             ;;
     esac
@@ -171,7 +172,16 @@ if [[ "$different" ]]; then
 else
     size=1
 fi
-mapfile -t files < <(printf "%s\n" "${files[@]}" | grep -v mtg | shuf -n "$size")
+
+filter_mtg() {
+    if [ -z "$file_specified" ]; then
+        grep -v mtg
+    else
+        cat
+    fi
+}
+
+mapfile -t files < <(printf "%s\n" "${files[@]}" | filter_mtg | shuf -n "$size")
 
 i=1
 for file in "${files[@]}"; do
