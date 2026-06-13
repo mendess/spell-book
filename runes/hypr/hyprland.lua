@@ -54,7 +54,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("changeMeWallCicle")
     if hostname == "tolaria" then
-        hl.exec_cmd("shyprctl daemon")
+        hl.exec_cmd("shyprctl daemon &>/tmp/mendess/shyprctl.log")
         hl.exec_cmd("auto-start-steam")
     end
 end)

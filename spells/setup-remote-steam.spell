@@ -3,5 +3,53 @@
 
 set -euo pipefail
 
+USE_PIPEWIRE=no
+
 ~/.local/bin/toggle-resolution 16:9
-pgrep steam || exec steam
+launch_steam() {
+    case "$USE_PIPEWIRE" in
+        yes) __GL_GSYNC_ALLOWED=0 __GL_VRR_ALLOWED=0 steam \
+                -pipewire \
+                --enable-features=UseOzonePlatform \
+                --ozone-platform=wayland \
+                --enable-gpu-rasterization \
+                --enable-zero-copy
+            ;;
+        no) steam ;;
+    esac
+}
+pgrep steam || launch_steam &
+
+if [[ "$USE_PIPEWIRE" = yes ]]; then
+    pgrep ydotoold || ydotoold &
+    TARGET_CLASS="hyprland-share-picker"
+    echo "Listening for $TARGET_CLASS..."
+
+    while true; do
+        WINDOW_INFO=$(hyprctl clients -j |
+            jq ".[] | select(.class == \"$TARGET_CLASS\")")
+
+        if [ ! -z "$WINDOW_INFO" ]; then
+            echo "Portal detected! Calculating coordinates..."
+
+            X=$(echo "$WINDOW_INFO" | jq '.at[0]')
+            Y=$(echo "$WINDOW_INFO" | jq '.at[1]')
+            WIDTH=$(echo "$WINDOW_INFO" | jq '.size[0]')
+            HEIGHT=$(echo "$WINDOW_INFO" | jq '.size[1]')
+
+            CLICK_X=$(echo "($X + ($WIDTH / 2)) / 2" | bc -l | cut -d'.' -f1)
+            CLICK_Y=$(echo "($Y + ($HEIGHT * 0.1)) / 2" | bc -l | cut -d'.' -f1)
+
+            echo "Simulating click at X: $CLICK_X, Y: $CLICK_Y"
+
+            ydotool mousemove -a $CLICK_X $CLICK_Y
+            ydotool click 0xC0 # 0xC0 is the code for left mouse button down/up
+
+            break
+        fi
+
+        sleep 0.5
+    done
+fi
+
+wait
