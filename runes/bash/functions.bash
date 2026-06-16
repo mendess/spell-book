@@ -29,7 +29,9 @@ pdf() {
 }
 
 za() {
-    __run_disown zathura "$1"
+    for p in "$@"; do
+        __run_disown zathura "$p"
+    done
 }
 
 alarm() {
