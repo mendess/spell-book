@@ -19,7 +19,7 @@ host=$(
 [ -z "$host" ] && exit
 
 
-if grep "$host" <<<$spark_hosts; then
+if grep "^$host$" <<<$spark_hosts; then
     alacritty --class 'floating-term' -e bash -c "spark ssh $host && exit" --hold
 else
     alacritty --class 'floating-term' -e bash -c "ssh $host && exit" --hold

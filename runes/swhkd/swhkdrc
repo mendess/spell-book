@@ -28,6 +28,9 @@ super + s
 super + p
     projects
 
+super + shift + p
+    projects ~/worktrees
+
 super + F9
     changeMeWall
 
@@ -95,11 +98,8 @@ super + x
         --option window.dimensions.lines=25 \
         --class floating-terminal \
         -e bash -c 'echo -e "\e[1m\t\t   C A L E N D A R\e[0m" ;\
-                    khal calendar -o 2>/dev/null ;\
+                    khal calendar $(date +"1/%m/%Y") $(date --date="6 months" +"1/%m/%Y") -o -d "Contact birthdays" 2>/dev/null ;\
                     read -s -r -n 1'
-
-super + shift + p
-    playClipboard
 
 XF86AudioMute
     pactl 'set-sink-mute' @DEFAULT_SINK@ toggle

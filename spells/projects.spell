@@ -18,12 +18,14 @@ expand_categories() {
     done
 }
 
+root=$(realpath ${1:-~/projects})
+
 dir=$(
-    find_at ~/projects |
+    find_at "$root" |
         expand_categories |
         sort -nr |
         cut -f2 |
-        sed "s|$HOME/projects/||" |
+        sed "s|$root/||" |
         picker -l 50 -i -p project
 )
-[ "$dir" ] && exec $TERMINAL --working-directory "$HOME/projects/$dir"
+[ "$dir" ] && exec $TERMINAL --working-directory "$root/$dir"
