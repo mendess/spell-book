@@ -3,11 +3,11 @@
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
-./"$(find . -name '*.sh' -executable |
+./??-"$(find . -name '*.sh' -executable |
     grep -v 'menu' |
-    sed 's|./||g;s/\.sh$//g' |
-    sort -r |
+    sort |
+    sed -E 's|^./[0-9][0-9]-||; s/\.sh$//;' |
     picker  \
         -i \
         -p "Pick a menu:" \
-        -l 100)".sh "$1"
+        -l 5)".sh "$1"
