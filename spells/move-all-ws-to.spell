@@ -1,0 +1,15 @@
+#!/bin/bash
+# Moves all workspaces (except 10) to another monitor
+
+# hypr docs: https://alejandrominaya.github.io/hyprland-lua-docs/
+
+monitor=$(hyprctl monitors | awk '$1 == "Monitor" {print $2}' | picker)
+
+hyprctl eval "
+for _, w in pairs(hl.get_workspaces()) do
+    if w.id > 0 and w.id ~= 10 and w.monitor.name ~= '$monitor' then
+        hl.notification.create({ text = 'Moving '..w.id, duration = 10000 })
+        hl.dispatch(hl.dsp.workspace.move({ workspace = w, monitor = '$monitor' }))
+    end
+end
+"

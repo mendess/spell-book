@@ -35,5 +35,5 @@ elif pgrep herbstluftwm; then
 elif pgrep hyprland; then
     WS=$(hyprctl activeworkspace | head -n 1 | cut -d' ' -f3)
     WSNUM=$(hyprctl activeworkspace | head -n 1 | grep -oE '\([^)]+\)' | tr -d '()' | cut -d: -f1)
-    hyprctl dispatch renameworkspace "$WS" "$WSNUM: $NEW"
+    hyprctl dispatch "hl.dsp.workspace.rename({ workspace = '$WSNUM', name = '$WSNUM: $NEW' })"
 fi

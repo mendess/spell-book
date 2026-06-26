@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -x
 use_tofi() {
     args=(--fuzzy-match=true)
     [ "$prompt" ] && args+=(--prompt "$prompt ")
