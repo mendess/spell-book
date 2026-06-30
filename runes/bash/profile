@@ -31,7 +31,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 
-export PLAYLIST="$XDG_CONFIG_HOME/m/playlist"
+export PLAYLIST="$XDG_CONFIG_HOME/m/playlist.json"
 export EMOJIS="$XDG_CONFIG_HOME/emojis"
 export BOOKMARKS="$XDG_CONFIG_HOME/quickbrowser/bookmarks"
 export WALLPAPERS=$XDG_DATA_HOME/wallpapers
