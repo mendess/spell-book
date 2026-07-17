@@ -24,8 +24,8 @@ if [ -d "$FILE" ]; then
     filename="$filename.zip"
 fi
 [[ "$unlisted" ]] && filename="unlisted/$filename"
-rsync -av "$FILE" "$HOST:vault/basement/mirrodin/share/$filename"
-url="https://mendess.xyz/api/v1/file/$filename"
+rsync -av "$FILE" "$HOST:vault/basement/blind-eternities/files/$filename"
+url="https://mendess.xyz/files/$filename"
 if command -v termux-clipboard-set &>/dev/null; then
     echo -n "$url" | termux-clipboard-set
 elif [[ "$WAYLAND_DISPLAY" ]]; then
