@@ -64,6 +64,11 @@ if [ -n "$cargo_root" ] &&
     cargo fmt --check || exit 1
 fi
 
+lint_script=$(find . -name 'package.json' | head -n 1 | xargs --no-run-if-empty jq '.scripts // {} | keys[]' -r | grep 'lint')
+if [ -n "$lint_script" ] && [ -z "$DISABLE_FMT_CHECK" ]; then
+    npm run lint || exit 1
+fi
+
 if [ -e .mendess-copyright-check-holder ]; then
     holder=$(cat .mendess-copyright-check-holder)
     while read -r file; do
