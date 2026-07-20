@@ -9,14 +9,16 @@ done
 
 HA_BEARER_TOKEN=$(cat ~/.config/hass-bearer-token)
 
-entity_id=input_boolean.gaming_mode
+entity_ids=(input_boolean.gaming_mode input_boolean.remote_gaming)
 
-STATE=$(curl -s -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
-             -H "Content-Type: application/json" \
-             http://homeassistant.pendrellvale.home/api/states/$entity_id | jq -r '.state')
+for entity_id in "${entity_ids[@]}"; do
+    STATE=$(curl -s -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
+                 -H "Content-Type: application/json" \
+                 http://homeassistant.pendrellvale.home/api/states/$entity_id | jq -r '.state')
 
-if [ "$STATE" == "on" ]; then
-    echo "Woke by HA intent. Starting Steam..."
+    if [ "$STATE" == "on" ]; then
+        echo "Woke by HA intent. Starting Steam..."
 
-    exec ~/.local/bin/setup-remote-steam
-fi
+        exec ~/.local/bin/setup-remote-steam
+    fi
+done
