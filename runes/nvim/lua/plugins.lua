@@ -182,6 +182,10 @@ return require('lazy').setup({
             require('plugins.treesitter')
         end,
     },
+    {
+        'norcalli/nvim-colorizer.lua',
+        config = true,
+    },
     -- pweatty lsp frontend
     {
         'nvimdev/lspsaga.nvim',
