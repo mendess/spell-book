@@ -370,7 +370,7 @@ fn sync() -> anyhow::Result<()> {
         name: String,
     }
 
-    const DOMAIN: &str = "mendess.xyz";
+    const DOMAIN: &str = "blind-eternities.mendess.xyz";
 
     let filter = match whoami::fallible::hostname()?.as_str() {
         "localhost" => "walls/phone",
@@ -378,7 +378,7 @@ fn sync() -> anyhow::Result<()> {
         _ => "walls",
     };
 
-    let base = format!("https://{DOMAIN}/api/v1/{filter}");
+    let base = format!("https://{DOMAIN}/{filter}");
     let walls = {
         let mut req = ureq::get(&base);
         if filter == "walls/all" {
