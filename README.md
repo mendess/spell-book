@@ -6,7 +6,6 @@
 
  - [add_rune](./spells/add_rune.spell) - Add a new [rune](runes-static-configuration-files) to the dotfiles, supports some customization options
  - [allgst](./spells/allgst.spell) - Performs `git status` on every folder in the `cwd`.
- - [auto-start-steam](./spells/auto-start-steam.spell) - Auto starts steam if home assistant booted up the pc
  - [battery_check](./spells/battery_check.spell) - Checks battery life and suspends if it's too low.
  - [bt-connect](./spells/bt-connect.spell)
  - [bulkrename](./spells/bulkrename.spell) - Bulk rename every file in the current directory using your default editor (Editor defined by $EDITOR or $VISUAL)
@@ -22,6 +21,7 @@
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [lg-cast](./spells/lg-cast.spell) - Cast links from any pc to my tv
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
+ - [move-all-ws-to](./spells/move-all-ws-to.spell) - Moves all workspaces (except 10) to another monitor
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [new-rust-version](./spells/new-rust-version.spell)
  - [picker](./spells/picker.spell)
@@ -29,9 +29,9 @@
  - [print](./spells/print.spell)
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
  - [refresh_firefox](./spells/refresh_firefox.spell) - Refreshes firefox
- - [setup-remote-steam](./spells/setup-remote-steam.spell) - Starts steam and changes to a 16:9 resolution
  - [share](./spells/share.spell)
  - [ssh-menu](./spells/ssh-menu.spell) - A menu to quickly open ssh connections
+ - [steamgr](./spells/steamgr.spell)
  - [syncspellbook](./spells/syncspellbook.spell) - Tries to synchronise with changes to the remote repository. Also runs [learnSpells](./learnSpells.sh) and [castRunes](./castRunes.sh)
  - [termFromHere](./spells/termFromHere.spell) - Opens a terminal in the same `cwd` as the focused `X` program.
  - [todo](./spells/todo.spell) - Write/remove a task to do later.  Select an existing entry to remove it from the file, or type a new entry to add it.
@@ -43,12 +43,12 @@
 
 ## [Cantrips](./cantrips/): Cantrips are scripts lauched from dmenu using the [menu](./cantrips/menu.sh).
 
- - [emoji](./cantrips/emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
- - [free-nitro](./cantrips/free-nitro.sh) - I don't feel like paying discord, so I just store emoji gifs and quickly copy them to the clipboard to paste in chat. 😎
- - [game](./cantrips/game.sh) - Launch steam games from /comfy/ dmenu/fzf/tofi
+ - [01-m](./cantrips/01-m.sh) - Launches the music player controled using [m](./spells/m.spell)
+ - [02-rename-ws](./cantrips/02-rename-ws.sh) - Dynamic [i3|bspwm|herbstluftwm] workspace renamer
+ - [03-emoji](./cantrips/03-emoji.sh) - Give dmenu list of all unicode characters to copy. Shows the selected character in dunst if running.
+ - [04-free-nitro](./cantrips/04-free-nitro.sh) - I don't feel like paying discord, so I just store emoji gifs and quickly copy them to the clipboard to paste in chat. 😎
+ - [05-game](./cantrips/05-game.sh) - Launch steam games from /comfy/ dmenu/fzf/tofi
  - [menu](./cantrips/menu.sh) - The menu used to find and launch the cantrips
- - [rename-ws](./cantrips/rename-ws.sh) - Dynamic [i3|bspwm|herbstluftwm] workspace renamer
- - [youtube](./cantrips/youtube.sh) - Launches the music player controled using [m](./spells/m.spell)
 
 ## [Runes](./runes/): Static configuration files
 

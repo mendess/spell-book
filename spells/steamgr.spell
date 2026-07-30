@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+check-and-auto-start() {
+    until ping -c 1 pendrellvale.home; do
+        sleep 1;
+    done
+
+    HA_BEARER_TOKEN=$(cat ~/.config/hass-bearer-token)
+
+    entity_ids=(input_boolean.gaming_mode input_boolean.remote_gaming)
+
+    for entity_id in "${entity_ids[@]}"; do
+        STATE=$(curl -s -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
+                     -H "Content-Type: application/json" \
+                     "http://homeassistant.pendrellvale.home/api/states/$entity_id" | jq -r '.state')
+
+        if [ "$STATE" == "on" ]; then
+            echo "Woke by HA intent. Starting Steam..."
+
+            setup-remote-steam
+        fi
+    done
+}
+
+setup-remote-steam-pipewire() {
+    launch_steam() {
+        __GL_GSYNC_ALLOWED=0 __GL_VRR_ALLOWED=0 steam \
+            -pipewire \
+            --enable-features=UseOzonePlatform \
+            --ozone-platform=wayland \
+            --enable-gpu-rasterization \
+            --enable-zero-copy
+    }
+    pgrep steam || launch_steam &
+
+    pgrep ydotoold || ydotoold &
+    TARGET_CLASS="hyprland-share-picker"
+    echo "Listening for $TARGET_CLASS..."
+
+    while true; do
+        WINDOW_INFO=$(hyprctl clients -j |
+            jq ".[] | select(.class == \"$TARGET_CLASS\")")
+
+        if [ -n "$WINDOW_INFO" ]; then
+            echo "Portal detected! Calculating coordinates..."
+
+            X=$(echo "$WINDOW_INFO" | jq '.at[0]')
+            Y=$(echo "$WINDOW_INFO" | jq '.at[1]')
+            WIDTH=$(echo "$WINDOW_INFO" | jq '.size[0]')
+            HEIGHT=$(echo "$WINDOW_INFO" | jq '.size[1]')
+
+            CLICK_X=$(echo "($X + ($WIDTH / 2)) / 2" | bc -l | cut -d'.' -f1)
+            CLICK_Y=$(echo "($Y + ($HEIGHT * 0.1)) / 2" | bc -l | cut -d'.' -f1)
+
+            echo "Simulating click at X: $CLICK_X, Y: $CLICK_Y"
+
+            ydotool mousemove -a "$CLICK_X" "$CLICK_Y"
+            ydotool click 0xC0 # 0xC0 is the code for left mouse button down/up
+
+            break
+        fi
+
+        sleep 0.5
+    done
+
+    wait
+}
+
+USE_PIPEWIRE=no
+GAME_MONITOR_PID=/tmp/game-monitor.pid
+
+setup-remote-steam() {
+    ~/.local/bin/toggle-resolution 16:9
+    hyprctl dispatch 'hl.dsp.focus({ workspace = "emptymn" })'
+    [ -e $GAME_MONITOR_PID ] || game-monitor &
+    if [[ "$USE_PIPEWIRE" = yes ]]; then
+        setup-remote-steam-pipewire
+    else
+        pgrep steam || steam
+    fi
+    wait
+}
+
+wait-for-steam() {
+    until pgrep steam &>/dev/null; do
+        printf "waiting for steam "
+        date
+        sleep 0.5
+    done
+    until ss -ltp sport = 27036 | grep steam -q; do
+        printf "waiting for remote play "
+        date
+        sleep 0.5
+    done
+}
+
+STOP_GAME_MONITOR_SENTINEL=/tmp/stop-game-monitor
+
+teardown-remote-steam() {
+    touch "$STOP_GAME_MONITOR_SENTINEL"
+    ~/.local/bin/toggle-resolution 21:9
+}
+
+game-monitor() {
+    exec &>/tmp/game-monitor-$$.log
+    cleanup() {
+        rm $GAME_MONITOR_PID
+    }
+    trap cleanup EXIT
+    rm -f $STOP_GAME_MONITOR_SENTINEL
+
+    echo "$$" > $GAME_MONITOR_PID
+
+    printf "PID: %s\n" "$(cat /tmp/game-monitor.pid)"
+    handle() {
+        echo "EV $(date): $*"
+        case "$1" in
+            'activewindow>>steam_app_858710') # Gravity Circuit
+                sleep 1
+                shyprctl dispatch 'hl.dsp.window.fullscreen({ action = "set" })'
+                ;;
+            'activewindow>>steam_app_1086940,LariLauncher') # Bg3
+                (
+                    pgrep ydotoold -a || ydotoold & disown
+                    sleep 5
+                    while [[ "$(hyprctl -j activewindow | jq .title -r)" == "LariLauncher" ]]; do
+                        echo clicking play on larian launcher
+                        ydotool mousemove -a 800 580
+                        ydotool click 0xC0
+                        sleep 0.5
+                    done
+                ) &
+                ;;
+            'activewindow>>steam_app_1086940,Baldur'*)
+                sleep 1
+                shyprctl dispatch 'hl.dsp.window.fullscreen({ action = "set" })'
+                ;;
+        esac
+    }
+
+    while read -r line; do
+        if [ -e "$STOP_GAME_MONITOR_SENTINEL" ]; then
+          rm "$STOP_GAME_MONITOR_SENTINEL"
+          exit 0
+        fi
+        handle "$line"
+    done < <(
+        socat -U - UNIX-CONNECT:"$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+    )
+}
+
+case "$1" in
+    check-and-auto-start|setup-remote-steam|wait-for-steam|teardown-remote-steam|game-monitor)
+        "$1"
+        ;;
+    *)
+        echo "unknown command"
+        exit 1
+        ;;
+esac

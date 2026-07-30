@@ -121,4 +121,13 @@ au.group('boilerplate', function()
             '}'
         )
     }
+    au.FileType = {
+        'sh',
+        run_checked(
+            '#!/usr/bin/env bash',
+            '',
+            'set -euo pipefail',
+            ''
+        )
+    }
 end)

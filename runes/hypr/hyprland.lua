@@ -55,7 +55,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("changeMeWallCicle")
     if hostname == "tolaria" then
         hl.exec_cmd("shyprctl daemon &>/tmp/mendess/shyprctl.log")
-        hl.exec_cmd("auto-start-steam")
+        hl.exec_cmd("steamgr check-and-auto-start")
     end
 end)
 
