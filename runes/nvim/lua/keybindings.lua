@@ -21,6 +21,8 @@ vim.keymap.set('n', '\\', ':Neotree toggle<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>g', ':GitGutterToggle<CR>', { noremap = true })
 command.Gd = ':GitGutterPreviewHunk'
 command.Gco = ':GitGutterUndoHunk'
+command.Gn = ':GitGutterNextHunk'
+command.Gp = ':GitGutterNextHunk'
 
 -- telescope
 vim.keymap.set('n', '<leader>p', function() require('telescope.builtin').find_files() end, { silent = true, noremap = true })
