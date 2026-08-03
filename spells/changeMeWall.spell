@@ -275,11 +275,13 @@ unset i
             herbstclient attr settings.frame_border_normal_color "${active2% *}"
         fi
     fi
+    printf "Setting: %s\n" "${files[@]}" | tee "$TEMPDIR/last-wall"
 } 2>&1 | color_picker -f &
 
-printf "Setting: %s\n" "${files[@]}" | tee "$TEMPDIR/last-wall"
-
 [[ "$wait_for_colors" ]] && wait
+
+[[ "$fast" ]] && printf "Setting: %s\n" "${files[@]}" | tee "$TEMPDIR/last-wall"
+
 if [ "$wayland" ]; then
     for i in $(seq 0 ${#files[@]}); do
         if [[ "${files[$i]}" ]] && ! [[ -e ${files[$i]} ]]; then
