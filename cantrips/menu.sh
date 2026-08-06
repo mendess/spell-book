@@ -3,6 +3,7 @@
 
 cd "$(dirname "$(realpath "$0")")" || exit 1
 
+# shellcheck disable=SC2211
 ./??-"$(find . -name '*.sh' -executable |
     grep -v 'menu' |
     sort |
