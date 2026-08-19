@@ -119,6 +119,12 @@ save_compile_run('sh', {
     end
 })
 
+save_compile_run('spell', {
+    run = function()
+        vim.cmd [[!bash %]]
+    end
+})
+
 vim.keymap.set('n', '<leader>r', function()
     vim.cmd [[write]]
     vim.cmd("exec '!"..vim.opt.filetype:get().." %'")

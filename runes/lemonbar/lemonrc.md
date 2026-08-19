@@ -68,13 +68,10 @@
 - fg: `yellow`
 
 ## Package
-- command: `bash ~/.package.sh`
+- persistent: `bash ~/.package.sh`
 - pre_condition: `file-exists .package.sh`
-- interval: `15`
 - align: `left`
-- left-click: `bash ~/.package.sh click`
 - raw: `true`
-- signal: `true`
 
 ## PowerMode
 - persistent: `~/.local/bin/platform_profile low balanced performance`

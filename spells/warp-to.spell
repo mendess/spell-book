@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Cloudflare Warp easy mdm target switcher
+
+set -euo pipefail
+
+target=$(warp-cli mdm get-configs |
+    awk ' list { print $0 } /Available:/ { list = 1 }' |
+    fzf)
+
+target=$(xargs <<<"$target")
+
+[[ "$target" ]] || exit 0
+
+warp-cli mdm set-config "$target"
