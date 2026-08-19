@@ -1,0 +1,15 @@
+#!/bin/bash
+
+warp-cli -l status | while read -r status; do
+    case "$status" in
+        'Status update'*);;
+        *) continue ;;
+    esac
+    case $status in
+        *Connected*) color="%{F#A1B56C}" ;;
+        *Connecting*) color="%{F#FFC40C}" ;;
+        *Disconnected*) color="%{F#F07178}" ;;
+    esac
+    profile=$(timeout 30s warp-cli mdm get-configs | grep 'Active:' | cut -d: -f2-)
+    printf "%sWARP%%{F-}%s\n" "$color" "$profile"
+done

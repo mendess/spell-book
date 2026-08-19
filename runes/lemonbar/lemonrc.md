@@ -67,11 +67,20 @@
 - align: `left`
 - fg: `yellow`
 
-## Package
-- persistent: `bash ~/.package.sh`
-- pre_condition: `file-exists .package.sh`
+## Cloudflare Warp Status
+- persistent: `~/.config/lemonbar/cf-warp`
+- pre_condition: `program-installed warp-cli`
 - align: `left`
 - raw: `true`
+
+## Package
+- command: `bash ~/.package.sh`
+- pre_condition: `file-exists .package.sh`
+- interval: `15`
+- align: `left`
+- left-click: `bash ~/.package.sh click`
+- raw: `true`
+- signal: `true`
 
 ## PowerMode
 - persistent: `~/.local/bin/platform_profile low balanced performance`
