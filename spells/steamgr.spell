@@ -13,6 +13,7 @@ check-and-auto-start() {
 
     for entity_id in "${entity_ids[@]}"; do
         STATE=$(curl -s -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
+                    --location \
                      -H "Content-Type: application/json" \
                      "https://homeassistant.mendess.xyz/api/states/$entity_id" | jq -r '.state')
 

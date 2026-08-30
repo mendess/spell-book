@@ -38,6 +38,7 @@
  - [toggle-resolution](./spells/toggle-resolution.spell) - Toggles between 21:9 and 16:9 resolutions to offer a better steam remote play experience
  - [torrent](./spells/torrent.spell)
  - [update-yt-dlp-server-cookies](./spells/update-yt-dlp-server-cookies.spell)
+ - [warp-to](./spells/warp-to.spell) - Cloudflare Warp easy mdm target switcher
  - [wfreetube](./spells/wfreetube.spell)
  - [wmgr](./spells/wmgr.crs)
 
