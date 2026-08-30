@@ -14,7 +14,7 @@ check-and-auto-start() {
     for entity_id in "${entity_ids[@]}"; do
         STATE=$(curl -s -H "Authorization: Bearer ${HA_BEARER_TOKEN}" \
                      -H "Content-Type: application/json" \
-                     "http://homeassistant.pendrellvale.home/api/states/$entity_id" | jq -r '.state')
+                     "https://homeassistant.mendess.xyz/api/states/$entity_id" | jq -r '.state')
 
         if [ "$STATE" == "on" ]; then
             echo "Woke by HA intent. Starting Steam..."
