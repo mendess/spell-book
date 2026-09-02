@@ -67,12 +67,6 @@
 - align: `left`
 - fg: `yellow`
 
-## Cloudflare Warp Status
-- persistent: `~/.config/lemonbar/cf-warp`
-- pre_condition: `program-installed warp-cli`
-- align: `left`
-- raw: `true`
-
 ## Package
 - command: `bash ~/.package.sh`
 - pre_condition: `file-exists .package.sh`
@@ -170,6 +164,12 @@
 - interval: `1`
 - un: `red`
 - align: `right`
+
+## Cloudflare Warp Status
+- persistent: `~/.config/lemonbar/cf-warp`
+- pre_condition: `program-installed warp-cli`
+- align: `right`
+- raw: `true`
 
 ## Wireguard
 - cmd: `~/.config/lemonbar/wireguard`
