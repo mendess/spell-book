@@ -91,12 +91,12 @@ vim.lsp.config("ts_ls", {
     capabilities = capabilities
 })
 vim.lsp.enable("ts_ls")
-vim.lsp.config("eslint", {
-    on_attach = on_attach(),
-    filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-    capabilities = capabilities
-})
-vim.lsp.enable("eslint")
+-- vim.lsp.config("eslint", {
+--     on_attach = on_attach(),
+--     filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+--     capabilities = capabilities
+-- })
+-- vim.lsp.enable("eslint")
 setup_rust_analyzer({
     format_on_save = true,
     settings = {

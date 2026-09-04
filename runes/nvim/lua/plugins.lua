@@ -178,8 +178,9 @@ return require('lazy').setup({
 
     {
         'nvim-treesitter/nvim-treesitter',
-        config = function()
-            require('plugins.treesitter')
+        lazy = false,
+        build = function()
+            vim.cmd(':TSUpdate')
         end,
     },
     {
