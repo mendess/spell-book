@@ -47,15 +47,17 @@ TIMESTAMP="\A"
 T_PATH='$(__truncPath $?)'
 NO_NEW_LINE_FIX='$(__no_new_line_fix $?)'
 
-PS0_ELEMENTS=(
-    "$SAVE_CURSOR_POSITION" "\$(__move_cursor_to_start_of_ps1)"
-    "$(__c "$YELLOW" "$TIMESTAMP ")" "$RESTORE_CURSOR_POSITION"
-    "\\e]2;::<$T_PATH> \$(history 1 | cut -d' ' -f3-)\\a"
-)
-PS0=$(
-    IFS=
-    echo "${PS0_ELEMENTS[*]}"
-)
+if [[ -z "$NVIM" ]]; then
+    PS0_ELEMENTS=(
+        "$SAVE_CURSOR_POSITION" "\$(__move_cursor_to_start_of_ps1)"
+        "$(__c "$YELLOW" "$TIMESTAMP ")" "$RESTORE_CURSOR_POSITION"
+        "\\e]2;::<$T_PATH> \$(history 1 | cut -d' ' -f3-)\\a"
+    )
+    PS0=$(
+        IFS=
+        echo "${PS0_ELEMENTS[*]}"
+    )
+fi
 
 if hash rust-script 2>/dev/null; then
     prompt-command() {
