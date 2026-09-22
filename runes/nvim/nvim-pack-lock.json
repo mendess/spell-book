@@ -1,0 +1,69 @@
+{
+  "plugins": {
+    "csv.vim": {
+      "rev": "375c1a81a4f186ce8949824f3b87ddc6727a63af",
+      "src": "https://github.com/chrisbra/csv.vim"
+    },
+    "efmls-configs-nvim": {
+      "rev": "f145a2e8212a195d44c1430e76cbc96efb0afb08",
+      "src": "https://github.com/creativenull/efmls-configs-nvim"
+    },
+    "floatty.nvim": {
+      "rev": "ba6c7cd828474084001d131fc0160fcb3bbef6d2",
+      "src": "https://github.com/ingur/floatty.nvim"
+    },
+    "friendly-snippets": {
+      "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
+      "src": "https://github.com/rafamadriz/friendly-snippets"
+    },
+    "fugitive-gitlab.vim": {
+      "rev": "effc1fcb81803aa9c1322b089c7f7a2b53cf3dcc",
+      "src": "https://github.com/shumphrey/fugitive-gitlab.vim"
+    },
+    "kanagawa.nvim": {
+      "rev": "bb85e4bfc8d89b0e62c8fa53ccdd13d12e2f77b3",
+      "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
+    "mason.nvim": {
+      "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.nvim": {
+      "rev": "561751e839b99a4baca36b9d963166b66d2536a6",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "nvim-lspconfig": {
+      "rev": "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "f603a2f4da48728f80257fb5fbb90145fd1dc173",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'main'"
+    },
+    "swhkd-vim": {
+      "rev": "0094acb1af9a4b17d280baf0a2bf46c3970b307c",
+      "src": "https://github.com/waycrate/swhkd-vim"
+    },
+    "tabular": {
+      "rev": "12437cd1b53488e24936ec4b091c9324cafee311",
+      "src": "https://github.com/godlygeek/tabular"
+    },
+    "vim-capnp": {
+      "rev": "954202e2c6c1cb9185082de8ddb7f2823a9d1206",
+      "src": "https://github.com/cstrahan/vim-capnp"
+    },
+    "vim-fugitive": {
+      "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
+    "vim-repeat": {
+      "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
+      "src": "https://github.com/tpope/vim-repeat"
+    },
+    "vim-rhubarb": {
+      "rev": "5496d7c94581c4c9ad7430357449bb57fc59f501",
+      "src": "https://github.com/tpope/vim-rhubarb"
+    }
+  }
+}

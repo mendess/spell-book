@@ -1,84 +1,20 @@
-local au = require('utils.au')
-local set = vim.opt
-local command = require('utils.command')
+local group = vim.api.nvim_create_augroup('user-theme', { clear = true })
 
--- theme.lua
-
-set.termguicolors = true
-
--- local function set_base16()
---     local base16 = require('base16')
---     vim.cmd('colorscheme default')
---     base16(base16.themes['default-dark'], true, {
---         transparent_bg = true,
---         Comment = function(theme, cterm)
---             return theme.base04, nil, cterm.cterm04, nil, nil, nil
---         end,
---         MatchParen = function(theme, cterm)
---             return nil, nil, nil, nil, 'bold', nil
---         end,
---     })
--- end
-
--- misc.if_require_do('base16', function(base16)
---     -- set_base16()
--- end)
-
--- vim.g.everforest_background = 'hard'
--- vim.g.everforest_better_performance = 1
--- vim.g.everforest_disable_italic_comment = 1
--- vim.g.everforest_transparent_background = 2
--- vim.g.everforest_show_eob = 0
-
--- THE RULER OF DISCIPLINE
-set.colorcolumn = '81'
-au.group('even-more-discipline', function(g)
-    g.BufEnter = {
-        {'*.c', '*.h', '*.cpp', '*.hpp'},
-        function() set.colorcolumn = '81' end
-    }
-    g.BufLeave = {
-        '*',
-        function() set.colorcolumn = '101' end
-    }
-end)
-
-if vim.fn.has('nvim') == 1 then
-    set.pumblend = 15
-end
-
-set.linebreak = true
-set.breakindent = true
-set.showbreak = '> '
-set.conceallevel = 2
-set.list = true
-set.listchars = 'tab:>-'
-
-au.group('go-shit', function(g)
-    g.BufEnter = {
-        {'*.go'},
-        function()
-            set.listchars = 'tab:  '
-        end
-    }
-end)
-
-
--- vim.cmd('colorscheme everforest')
 require('kanagawa').setup({
     commentStyle = { italic = false },
     keywordStyle = { italic = false },
+    statementStyle = { bold = false, italic = false },
+    typeStyle = { italic = false },
     variablebuiltinStyle = { italic = false },
-    terminalColors = false,
     transparent = true,
     colors = {
         theme = {
             all = {
                 ui = {
-                    bg_gutter = "none"
-                }
-            }
-        }
+                    bg_gutter = 'none',
+                },
+            },
+        },
     },
     overrides = function(colors)
         local theme = colors.theme
@@ -86,70 +22,92 @@ require('kanagawa').setup({
             TelescopeTitle = { fg = theme.ui.special, bold = true },
             TelescopePromptNormal = { bg = theme.ui.bg_p1 },
             TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
-            TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
-            TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
+            TelescopeResultsNormal = {
+                fg = theme.ui.fg_dim,
+                bg = theme.ui.bg_m1,
+            },
+            TelescopeResultsBorder = {
+                fg = theme.ui.bg_m1,
+                bg = theme.ui.bg_m1,
+            },
             TelescopePreviewNormal = { bg = theme.ui.bg_dim },
-            TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
+            TelescopePreviewBorder = {
+                bg = theme.ui.bg_dim,
+                fg = theme.ui.bg_dim,
+            },
             Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1, blend = 15 },
-            PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+            PmenuSel = { fg = 'NONE', bg = theme.ui.bg_p2 },
             PmenuSbar = { bg = theme.ui.bg_m1 },
             PmenuThumb = { bg = theme.ui.bg_p2 },
             rustModPath = { fg = theme.syn.constant },
             rustDerive = { fg = theme.syn.constant },
             rustAttribute = { fg = theme.syn.constant },
             rustMacro = { fg = theme.syn.constant },
+            MiniIndentscopeSymbol = { fg = colors.palette.fujiGray },
+            MiniIndentscopeSymbolOff = { link = 'MiniIndentscopeSymbol' },
         }
     end,
 })
 
-vim.cmd('command SynID  echo synIDattr(synID(line("."), col("."), 1), "name")')
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufWritePost' }, {
+    pattern = '*.h',
+    group = group,
+    callback = function()
+        vim.opt.filetype = 'c'
+    end,
+})
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufWritePost' }, {
+    pattern = '*.crs',
+    group = group,
+    callback = function()
+        vim.opt.filetype = 'rust'
+    end,
+})
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufWritePost' }, {
+    pattern = '*.sls',
+    group = group,
+    callback = function()
+        vim.opt.filetype = 'yaml'
+    end,
+})
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufWritePost' }, {
+    pattern = '*.jinja',
+    group = group,
+    callback = function()
+        vim.opt.filetype = 'yaml'
+    end,
+})
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufWritePost' }, {
+    pattern = '*.spell',
+    group = group,
+    callback = function()
+        vim.opt.filetype = 'sh'
+    end,
+})
 
-vim.cmd("colorscheme kanagawa")
+vim.api.nvim_create_autocmd('ColorScheme', {
+    group = group,
+    callback = function()
+        -- Strip italic from all treesitter highlight groups
+        for _, hl_name in ipairs(vim.fn.getcompletion('@', 'highlight')) do
+            local hl = vim.api.nvim_get_hl(0, { name = hl_name })
+            if hl.italic then
+                hl.italic = false
+                vim.api.nvim_set_hl(0, hl_name, hl)
+            end
+        end
+    end,
+})
 
-local function transparent_bg()
-    vim.cmd('highlight Normal guibg=none')
-    vim.cmd('highlight NonText guibg=none')
-    vim.cmd('highlight EndOfBuffer guibg=none')
-end
--- transparent_bg()
-
-command.Bt = transparent_bg
-
--- assign syntax to some special files
-au.group('syntax-fix', function()
-    au(
-        {'BufNewFile', 'BufRead', 'BufWritePost'},
-        { '*.h', function() set.filetype = 'c' end }
-    )
-    au(
-        {'BufNewFile', 'BufRead', 'BufWritePost'},
-        { '*.spell', function() set.filetype = 'sh' end }
-    )
-    au(
-        {'BufNewFile', 'BufRead', 'BufWritePost'},
-        { '*.crs', function() set.filetype = 'rust' end }
-    )
-    au(
-        {'BufNewFile', 'BufRead', 'BufWritePost'},
-        { '*.sls', function() set.filetype = 'yaml' end }
-    )
-    au(
-        {'BufNewFile', 'BufRead', 'BufWritePost'},
-        { '*.jinja', function() set.filetype = 'yaml' end }
-    )
-end)
-
--- Hide all semantic highlights
--- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
---   vim.api.nvim_set_hl(0, group, {})
--- end
+vim.cmd.colorscheme('kanagawa')
 
 function Fugitive_status_line()
-    local branch = vim.fn.FugitiveHead()
-    if branch ~= "" then
-        return string.format("[%s]", branch)
+    local ok, branch = pcall(vim.fn.FugitiveHead)
+    if ok and branch ~= '' then
+        return string.format('[%s]', branch)
     else
         return ''
     end
 end
-vim.opt.statusline = [[%<%f %#StatusLineNC#%{v:lua.Fugitive_status_line()}%#StatusLine# %h%w%m%r%=%-14.(%l,%c%V%) %P]]
+vim.opt.statusline =
+    [[%<%f %#StatusLineNC#%{v:lua.Fugitive_status_line()}%#StatusLine# %h%w%m%r%=%-14.(%l,%c%V%) %P]]

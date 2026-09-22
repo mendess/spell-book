@@ -1,13 +1,10 @@
 vim.g.mapleader = ' '
-vim.g.did_load_filetypes = 1
-vim.o.termguicolors = true
+vim.opt.termguicolors = true
 
 require('plugins')
+
 require('theme')
-require('behaviour')
-require('writing')
-require('writing-code')
-require('keybindings')
-require('boilerplate')
-require('navigation')
-require('tools')
+require('options')
+require('keybinds')
+require('commands')
+require('lsp')
