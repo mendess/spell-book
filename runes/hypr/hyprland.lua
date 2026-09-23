@@ -232,6 +232,9 @@ hl.bind(mainMod .. ' + L', hl.dsp.focus({ direction = 'right' }))
 hl.bind(mainMod .. ' + K', hl.dsp.focus({ direction = 'up' }))
 hl.bind(mainMod .. ' + J', hl.dsp.focus({ direction = 'down' }))
 
+hl.bind(mainMod .. ' + Y', hl.dsp.focus({ workspace = '-1' }))
+hl.bind(mainMod .. ' + U', hl.dsp.focus({ workspace = '+1' }))
+
 hl.bind(mainMod .. ' + CONTROL + R', hl.dsp.window.cycle_next())
 
 hl.bind(
@@ -284,6 +287,9 @@ for i = 1, 10 do
         hl.dsp.window.move({ workspace = i, follow = false })
     )
 end
+
+hl.bind(mainMod .. ' + SHIFT + Y', hl.dsp.window.move({ workspace = '-1' }))
+hl.bind(mainMod .. ' + SHIFT + U', hl.dsp.window.move({ workspace = '+1' }))
 
 hl.bind(
     mainMod .. ' + SHIFT + space',

@@ -36,10 +36,8 @@ local function reposition_signature_helper(args)
     vim.api.nvim_win_set_config(win, config)
 
     local text_height = vim.api.nvim_win_text_height(win, {}).all
-    local desired_height = math.min(
-        text_height,
-        MiniCompletion.config.window.info.height
-    )
+    local desired_height =
+        math.min(text_height, MiniCompletion.config.window.info.height)
 
     -- Only reposition above if there is enough space
     if anchor_row - padding < desired_height then
@@ -108,12 +106,19 @@ return {
             },
         })
 
-        require('mini.files').setup({
+        local MiniFiles = require('mini.files')
+        MiniFiles.setup({
+            mappings = {
+                go_in_plus = 'l',
+                go_in = 'L',
+            },
             windows = {
                 preview = true,
                 width_preview = 80,
             },
         })
+
+        require('plugins.mini_files_git').setup()
 
         require('mini.icons').setup()
 

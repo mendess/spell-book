@@ -113,7 +113,7 @@ vim.keymap.set('n', '<A-Return>', vim.lsp.buf.code_action, { silent = true })
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
 vim.keymap.set(
     'n',
-    '<leader>df',
+    '<leader>ld',
     vim.diagnostic.open_float,
     { desc = 'Show line diagnostics' }
 )
@@ -163,8 +163,39 @@ repeat
         break
     end
     vim.keymap.set('n', '\\', function()
-        MiniFiles.open()
+        if not MiniFiles.close() then
+            local file = vim.fs.normalize(vim.api.nvim_buf_get_name(0))
+            while
+                vim.fn.filereadable(file) == 0
+                and vim.fn.isdirectory(file) == 0
+                and file ~= '/'
+            do
+                vim.notify("can't read " .. file, vim.log.levels.WARN)
+                file = vim.fs.dirname(file)
+            end
+            if file == '/' then
+                MiniFiles.open()
+            else
+                MiniFiles.open(file)
+            end
+        end
     end)
+
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesBufferCreate',
+        group = group,
+        callback = function(args)
+            local buf_id = args.data.buf_id
+            vim.bo[buf_id].buftype = 'acwrite'
+            vim.api.nvim_create_autocmd('BufWriteCmd', {
+                buffer = buf_id,
+                group = group,
+                callback = function()
+                    MiniFiles.synchronize()
+                end,
+            })
+        end,
+    })
 until true
 
 repeat
@@ -199,6 +230,18 @@ repeat
     end)
     vim.keymap.set('n', 'gh', function()
         MiniExtra.pickers.lsp({ scope = 'references' })
+    end)
+until true
+
+repeat
+    local MiniDiff = lib.try_require('mini.diff')
+    if MiniDiff == nil then
+        vim.notify('Ignoring keybinds using mini.diff', vim.log.levels.WARN)
+        break
+    end
+
+    vim.keymap.set('n', '<leader>d', function()
+        MiniDiff.toggle_overlay(0)
     end)
 until true
 
