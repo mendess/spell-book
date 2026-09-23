@@ -4,6 +4,3 @@
 [submodule "library/lemons"]
 	path = library/lemons
 	url = https://github.com/mendess/lemons
-[submodule "foretell"]
-	path = foretell
-	url = https://github.com/mendess/foretell
