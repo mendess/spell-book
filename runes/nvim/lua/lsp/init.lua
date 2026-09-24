@@ -161,7 +161,10 @@ local diagnostic_signs = {
 }
 
 vim.diagnostic.config({
-    virtual_text = { prefix = '●', spacing = 4 },
+    virtual_text = false,
+    virtual_lines = function(_, _)
+        return { current_line = true }
+    end,
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = diagnostic_signs.Error,

@@ -35,8 +35,9 @@ vim.keymap.set('n', '<M-J>', '<C-w>-')
 vim.keymap.set('n', '<M-H>', '<C-w><')
 vim.keymap.set('n', '<M-L>', '<C-w>>')
 
--- Fix Y
-vim.keymap.set('n', 'Y', 'y$')
+-- Fix L and H in visual mode
+vim.keymap.set('v', 'H', '^')
+vim.keymap.set('v', 'L', '$')
 
 -- alt tab
 vim.keymap.set('n', '<leader><Tab>', '<C-^>')
