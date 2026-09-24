@@ -8,59 +8,18 @@ capabilities = vim.tbl_deep_extend(
 )
 
 vim.lsp.config('*', { capabilities = capabilities })
-
-vim.lsp.config('ts_ls', {})
-vim.lsp.config('clangd', {})
-vim.lsp.config('gopls', {})
-vim.lsp.config('zls', {})
-vim.lsp.config('pyright', {})
-vim.lsp.config('rust_analyzer', {
-    flags = {
-        exit_timeout = 0,
-    },
-    settings = {
-        ['rust-analyzer'] = {
-            cargo = {
-                autoreload = true,
-            },
-            checkOnSave = true,
-            check = {
-                command = 'clippy',
-            },
-            procMacro = {
-                enable = true,
-            },
-            imports = {
-                group = {
-                    enable = false,
-                },
-            },
-        },
-    },
-})
-vim.lsp.config('lua_ls', {
-    settings = {
-        Lua = {
-            telemetry = { enable = false },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file('', true),
-            },
-            diagnostics = {
-                disable = { 'redefined-local' },
-            },
-        },
-    },
-})
 do
     local rustfmt = require('efmls-configs.formatters.rustfmt')
+
     local luacheck = require('efmls-configs.linters.luacheck')
     local stylua = require('efmls-configs.formatters.stylua')
 
-    local ruff_lint = require('efmls-configs.linters.ruff')
-    local ruff_format = require('efmls-configs.formatters.ruff')
+    local black = require('efmls-configs.formatters.black')
 
     local prettier_d = require('efmls-configs.formatters.prettier_d')
     local eslint_d = require('efmls-configs.linters.eslint_d')
+    local oxlint = require('efmls-configs.linters.oxlint')
+    local oxfmt = require('efmls-configs.formatters.oxfmt')
 
     local fixjson = require('efmls-configs.formatters.fixjson')
 
@@ -100,14 +59,14 @@ do
                 cpp = { clangfmt, cpplint },
                 css = { prettier_d },
                 html = { prettier_d },
-                javascript = { eslint_d, prettier_d },
+                javascript = { oxlint, oxfmt, eslint_d, prettier_d },
                 json = { eslint_d, fixjson },
                 jsonc = { eslint_d, fixjson },
                 lua = { luacheck, stylua },
                 markdown = { prettier_d },
-                python = { ruff_lint, ruff_format },
+                python = { black },
                 sh = { shellcheck, shfmt },
-                typescript = { eslint_d, prettier_d },
+                typescript = { oxlint, oxfmt, eslint_d, prettier_d },
                 rust = { rustfmt },
             },
         },
@@ -115,6 +74,7 @@ do
 end
 
 vim.api.nvim_create_autocmd('BufWritePre', {
+    desc = 'Format on save',
     group = group,
     callback = function(ev)
         local efm = vim.lsp.get_clients({
@@ -135,6 +95,51 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
         vim.fn.winrestview(view)
     end,
+})
+
+vim.lsp.config('ts_ls', {})
+vim.lsp.config('pyright', {})
+vim.lsp.config('clangd', {})
+vim.lsp.config('gopls', {})
+vim.lsp.config('zls', {})
+vim.lsp.config('pyright', {})
+vim.lsp.config('bashls', {})
+vim.lsp.config('rust_analyzer', {
+    flags = {
+        exit_timeout = 0,
+    },
+    settings = {
+        ['rust-analyzer'] = {
+            cargo = {
+                autoreload = true,
+            },
+            checkOnSave = true,
+            check = {
+                command = 'clippy',
+            },
+            procMacro = {
+                enable = true,
+            },
+            imports = {
+                group = {
+                    enable = false,
+                },
+            },
+        },
+    },
+})
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = {
+            telemetry = { enable = false },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
+            },
+            diagnostics = {
+                disable = { 'redefined-local' },
+            },
+        },
+    },
 })
 
 vim.lsp.enable({
@@ -177,3 +182,5 @@ vim.diagnostic.config({
         style = 'minimal',
     },
 })
+
+require('lsp.mason')

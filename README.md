@@ -25,6 +25,7 @@
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
  - [new-rust-version](./spells/new-rust-version.spell)
  - [picker](./spells/picker.spell)
+ - [platform_profile](./spells/platform_profile.spell)
  - [playClipboard](./spells/playClipboard.spell) - Plays whatever is in the clipboard with xdg-open
  - [print](./spells/print.spell)
  - [projects](./spells/projects.spell) - Open dmenu, show me my projects, open a terminal in the selected one
@@ -63,6 +64,7 @@
  - [fix-dns-home](./scrolls/fix-dns-home.sh) - Fix my home dns resolution, basically sets the primary dns provider to the gateway and sets the secondary dns provider to 1.1.1.1 (cloudflare)
  - [fix-ssh-permissions](./scrolls/fix-ssh-permissions.sh)
  - [gestures](./scrolls/gestures.sh) - Enable gestures to switch workspace
+ - [install-nvim-lattest](./scrolls/install-nvim-lattest.sh)
  - [lutris](./scrolls/lutris.sh) - Install lutris and all the dependencies needed for battle net, assuming nvidia
  - [packages](./scrolls/packages.sh) - List of important packages
  - [setup-wg](./scrolls/setup-wg.sh)
