@@ -11,7 +11,6 @@ vim.lsp.config('*', { capabilities = capabilities })
 do
     local rustfmt = require('efmls-configs.formatters.rustfmt')
 
-    local luacheck = require('efmls-configs.linters.luacheck')
     local stylua = require('efmls-configs.formatters.stylua')
 
     local black = require('efmls-configs.formatters.black')
@@ -62,7 +61,7 @@ do
                 javascript = { oxlint, oxfmt, eslint_d, prettier_d },
                 json = { eslint_d, fixjson },
                 jsonc = { eslint_d, fixjson },
-                lua = { luacheck, stylua },
+                lua = { stylua },
                 markdown = { prettier_d },
                 python = { black },
                 sh = { shellcheck, shfmt },

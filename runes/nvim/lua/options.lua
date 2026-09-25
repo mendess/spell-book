@@ -39,7 +39,7 @@ vim.opt.scrolloff = 4
 
 -- hide markup
 vim.opt.hidden = true
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 1
 
 -- search
 vim.opt.ignorecase = true

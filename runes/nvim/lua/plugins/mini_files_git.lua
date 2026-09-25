@@ -1,33 +1,26 @@
--- Loader for bassamsdata's MiniFiles git integration gist.
+-- Loader for MiniFiles git integration gist (mendess fork of bassamsdata's).
 -- Downloads the pinned revision on first run; skips if curl is missing or
--- download fails. The file is executed with load() after stripping the
--- trailing "end," that the gist expects from a lazy.nvim config wrapper.
+-- download fails.
 
-local REVISION = 'db74ab640b23c4f68874b51aa63c7ffb6b8284ae'
-local URL = ('https://gist.githubusercontent.com/bassamsdata/%s/raw/%s/minifiles.lua'):format(
-    'eec0a3065152226581f8d4244cce9051',
+local REVISION = '893ec68c601656988c2ae83a820b1572d8abd86e'
+local URL = ('https://gist.githubusercontent.com/mendess/%s/raw/%s/minifiles.lua'):format(
+    '0a8215ad7f9dc4987ac4f03c394bb163',
     REVISION
 )
 
+local short_rev = function()
+    return REVISION:sub(1, 8)
+end
+
 local vendor_dir = vim.fs.joinpath(vim.fn.stdpath('config'), 'vendor')
-local dest = vim.fs.joinpath(
-    vendor_dir,
-    'minifiles_git_' .. REVISION:sub(1, 8) .. '.lua'
-)
+local dest =
+    vim.fs.joinpath(vendor_dir, 'minifiles_git_' .. short_rev() .. '.lua')
 
 local function load_vendor()
-    local f = io.open(dest, 'r')
-    if not f then
+    if not vim.uv.fs_stat(dest) then
         return false
     end
-    local source = f:read('*a')
-    f:close()
-
-    -- The gist ends with "end," closing a lazy.nvim config block.
-    -- Strip it so the code is valid standalone Lua.
-    source = source:gsub('%s*end,%s*$', '')
-
-    local chunk, err = load(source, '@' .. dest)
+    local chunk, err = loadfile(dest)
     if not chunk then
         vim.notify('minifiles_git: load error: ' .. err, vim.log.levels.WARN)
         return false
@@ -43,6 +36,28 @@ local function load_vendor()
     return true
 end
 
+--- Remove older vendored revisions that don't match the current REVISION.
+local function cleanup_old_revisions()
+    local handle = vim.uv.fs_scandir(vendor_dir)
+    if not handle then
+        return
+    end
+    local current_name = 'minifiles_git_' .. short_rev() .. '.lua'
+    while true do
+        local name, typ = vim.uv.fs_scandir_next(handle)
+        if not name then
+            break
+        end
+        if
+            typ == 'file'
+            and name ~= current_name
+            and name:match('^minifiles_git_%x+%.lua$')
+        then
+            os.remove(vim.fs.joinpath(vendor_dir, name))
+        end
+    end
+end
+
 local function download()
     if vim.fn.executable('curl') ~= 1 then
         return
@@ -54,7 +69,7 @@ local function download()
         vim.log.levels.INFO
     )
     vim.system(
-        { 'curl', '-fsSL', '-o', tmp, URL },
+        { 'curl', '-fsS', '-o', tmp, URL },
         { text = false },
         function(result)
             if result.code ~= 0 then
@@ -87,6 +102,7 @@ end
 
 return {
     setup = function()
+        cleanup_old_revisions()
         if not load_vendor() then
             download()
         end
