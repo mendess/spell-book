@@ -60,6 +60,21 @@ if [[ $- =~ i ]]; then
         fi
     }
 
+    __fzf_branches__() {
+        local output
+        output=$(
+            git branch --format='%(refname:lstrip=2)' |
+                tr '\n' '\0' |
+                FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort,ctrl-z:ignore $FZF_CTRL_R_OPTS +m --read0" eval "$(__fzfcmd)"
+        ) || return
+        READLINE_LINE="${READLINE_LINE% *} ${output#*$'\t'}"
+        if [ -z "$READLINE_POINT" ]; then
+            echo "$READLINE_LINE"
+        else
+            READLINE_POINT=0x7fffffff
+        fi
+    }
+
     # Required to refresh the prompt after fzf
     bind -m emacs-standard '"\er": redraw-current-line'
 
@@ -82,6 +97,11 @@ if [[ $- =~ i ]]; then
         bind -m emacs-standard -x '"\C-t": fzf-file-widget'
         bind -m vi-command -x '"\C-t": fzf-file-widget'
         bind -m vi-insert -x '"\C-t": fzf-file-widget'
+
+        # CTRL-B - Paste the selected file path into the command line
+        bind -m emacs-standard -x '"\C-b": __fzf_branches__'
+        bind -m vi-command -x '"\C-b": __fzf_branches__'
+        bind -m vi-insert -x '"\C-b": __fzf_branches__'
 
         # CTRL-R - Paste the selected command from history into the command line
         bind -m emacs-standard -x '"\C-r": __fzf_history__'

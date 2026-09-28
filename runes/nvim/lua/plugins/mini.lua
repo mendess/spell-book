@@ -95,6 +95,13 @@ return {
         })
         MiniSnippets.start_lsp_server({ match = false })
         require('mini.pairs').setup()
+        -- disable auto close pair for lifetimes in rust
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = 'rust',
+            callback = function(ev)
+                vim.keymap.set('i', "'", "'", { buffer = ev.buf })
+            end,
+        })
         require('mini.surround').setup()
         require('mini.bufremove').setup()
 

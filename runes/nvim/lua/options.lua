@@ -48,6 +48,32 @@ vim.opt.smartcase = true
 -- discipline
 vim.opt.colorcolumn = '81'
 
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'rust',
+    group = group,
+    callback = function(ev)
+        local buf_path = vim.api.nvim_buf_get_name(ev.buf)
+        if buf_path == '' then
+            return
+        end
+        local cfg = vim.fs.find(
+            { 'rustfmt.toml', '.rustfmt.toml' },
+            { path = vim.fs.dirname(buf_path), upward = true, type = 'file' }
+        )[1]
+        local max_width = 100 -- rustfmt default
+        if cfg then
+            for line in io.lines(cfg) do
+                local value = line:match('^%s*max_width%s*=%s*(%d+)')
+                if value then
+                    max_width = tonumber(value) or max_width
+                    break
+                end
+            end
+        end
+        vim.wo.colorcolumn = tostring(max_width + 1)
+    end,
+})
+
 -- no split for incremental commands
 vim.opt.inccommand = 'split'
 

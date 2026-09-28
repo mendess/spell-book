@@ -25,7 +25,7 @@ do
     local shellcheck = require('efmls-configs.linters.shellcheck')
     local shfmt = require('efmls-configs.formatters.shfmt')
     -- format with spaces
-    shfmt.formatCommand = shfmt.formatCommand:gsub('%s+%-$', ' -i 4 -')
+    shfmt.formatCommand = shfmt.formatCommand:gsub('%s+%-$', ' -ci -i 4 -')
 
     local cpplint = require('efmls-configs.linters.cpplint')
     local clangfmt = require('efmls-configs.formatters.clang_format')
@@ -172,7 +172,7 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.HINT] = diagnostic_signs.Hint,
         },
     },
-    underline = true,
+    underline = false,
     update_in_insert = false,
     severity_sort = true,
     float = {
