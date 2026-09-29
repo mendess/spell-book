@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]; then
+    cat <<EOF
+Make a cute foto montage
+
+Usage: $0 image1 image2 output.gif
+EOF
+fi
+convert -limit memory 64 -delay 50 -loop 0 -dispose previous "$@"

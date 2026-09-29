@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cd "$HOME/.disks/nvme/media/games/steam/steamapps/common/Divinity Original Sin 2/"
+
+mv ./bin ./bin.bak
+
+ln -s DefEd/bin bin
+
+cd bin
+
+mv ./SupportTool.exe ./SupportTool.bak
+
+ln -s EoCApp.exe SupportTool.exe
