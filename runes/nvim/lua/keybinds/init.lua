@@ -2,73 +2,100 @@ local lib = require('lib')
 
 local group = vim.api.nvim_create_augroup('user-keybinds', { clear = true })
 
--- clear selection
 vim.keymap.set('n', '<leader><leader>', function()
     vim.cmd('nohlsearch')
-    require('mini.snippets').session.stop()
-end)
+    local snippets = lib.try_require('mini.snippets')
+    if snippets ~= nil then
+        snippets.session.stop()
+    end
+end, { desc = 'clear highlights and snippet helpers' })
 
--- Ctrl+C and Ctrl+X
-vim.keymap.set('v', '<C-c>', '"+y')
-vim.keymap.set('v', '<C-x>', '"+d')
+vim.keymap.set('v', '<C-c>', '"+y', { desc = 'copy to system clipboard' })
+vim.keymap.set('v', '<C-x>', '"+d', { desc = 'cut to system clipboard' })
 
--- fast replace
-vim.keymap.set('n', 'S', [[:%s/\<<C-r><C-w>\>/]])
+vim.keymap.set(
+    'n',
+    'S',
+    [[:%s/\<<C-r><C-w>\>/]],
+    { desc = 'find and replace current word' }
+)
 
--- full screen this buffer in a new tab
-vim.keymap.set('n', '<c-w>o', ':tab split<CR>')
+vim.keymap.set(
+    'n',
+    '<c-w>o',
+    ':tab split<CR>',
+    { desc = 'fullscreen this buffer in a new tab' }
+)
 
 -- navigation
-vim.keymap.set('n', '<C-j>', '<C-W>j')
-vim.keymap.set('n', '<C-k>', '<C-W>k')
-vim.keymap.set('n', '<C-l>', '<C-W>l')
-vim.keymap.set('n', '<C-h>', '<C-W>h')
+vim.keymap.set('n', '<C-j>', '<C-W>j', { desc = 'focus window down' })
+vim.keymap.set('n', '<C-k>', '<C-W>k', { desc = 'focus window up' })
+vim.keymap.set('n', '<C-l>', '<C-W>l', { desc = 'focus window right' })
+vim.keymap.set('n', '<C-h>', '<C-W>h', { desc = 'focus window left' })
 
-vim.keymap.set('n', '<M-h>', '<C-w>H')
-vim.keymap.set('n', '<M-j>', '<C-w>J')
-vim.keymap.set('n', '<M-k>', '<C-w>K')
-vim.keymap.set('n', '<M-l>', '<C-w>L')
+vim.keymap.set('n', '<M-j>', '<C-w>J', { desc = 'move window down' })
+vim.keymap.set('n', '<M-k>', '<C-w>K', { desc = 'move window up' })
+vim.keymap.set('n', '<M-l>', '<C-w>L', { desc = 'move window right' })
+vim.keymap.set('n', '<M-h>', '<C-w>H', { desc = 'move window left' })
 
 -- split resize
-vim.keymap.set('n', '<M-K>', '<C-w>+')
-vim.keymap.set('n', '<M-J>', '<C-w>-')
-vim.keymap.set('n', '<M-H>', '<C-w><')
-vim.keymap.set('n', '<M-L>', '<C-w>>')
+vim.keymap.set(
+    'n',
+    '<M-K>',
+    '<C-w>+',
+    { desc = 'increase split vertical size' }
+)
+vim.keymap.set(
+    'n',
+    '<M-J>',
+    '<C-w>-',
+    { desc = 'decrease split vertical size' }
+)
+vim.keymap.set(
+    'n',
+    '<M-H>',
+    '<C-w><',
+    { desc = 'increase split horizontal left size' }
+)
+vim.keymap.set(
+    'n',
+    '<M-L>',
+    '<C-w>>',
+    { desc = 'increase split horizontal right size' }
+)
 
 -- Fix L and H in visual mode
-vim.keymap.set('v', 'H', '^')
-vim.keymap.set('v', 'L', '$')
+vim.keymap.set(
+    { 'n', 'v' },
+    'H',
+    '^',
+    { desc = 'bind H to jump to start of line' }
+)
+vim.keymap.set(
+    { 'n', 'v' },
+    'L',
+    '$',
+    { desc = 'bind L to jump to end of line' }
+)
 
 -- alt tab
-vim.keymap.set('n', '<leader><Tab>', '<C-^>')
+vim.keymap.set(
+    'n',
+    '<leader><Tab>',
+    '<C-^>',
+    { desc = 'jump to previous buffer in this window' }
+)
 
 -- confy quit
-vim.keymap.set('n', '<C-q>', ':q<CR>')
-
--- easier start and end
-vim.keymap.set('n', 'H', '^')
-vim.keymap.set('n', 'L', '$')
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'sh' },
-    group = group,
-    callback = function(ev)
-        vim.keymap.set(
-            'n',
-            '<leader>s',
-            ':sp | term shellcheck -x %<CR>',
-            { buf = ev.buf }
-        )
-    end,
-})
+vim.keymap.set('n', '<C-q>', ':q<CR>', { desc = 'quit vim' })
 
 -- ====================================================
 -- overrides
 -- ====================================================
 
 -- no help
-vim.keymap.set('n', '<F1>', ':echo<CR>')
-vim.keymap.set('i', '<F1>', '<C-o>:echo<CR>')
+vim.keymap.set('n', '<F1>', ':echo<CR>', { desc = 'disable help key' })
+vim.keymap.set('i', '<F1>', '<C-o>:echo<CR>', { desc = 'disable help key' })
 
 -- replaces selected text without losing what you yanked
 vim.keymap.set(
@@ -88,14 +115,24 @@ end, { desc = 'toggle builtin undotree' })
 -- ====================================================
 vim.keymap.set('n', '[e', function()
     vim.diagnostic.jump({ count = -1 })
-end)
+end, { desc = 'jump to next diagnostic' })
 
 vim.keymap.set('n', ']e', function()
     vim.diagnostic.jump({ count = 1 })
-end)
+end, { desc = 'jump to prev diagnostic' })
 
-vim.keymap.set('n', '<leader>c', vim.lsp.buf.rename, { silent = true })
-vim.keymap.set('n', '<A-Return>', vim.lsp.buf.code_action, { silent = true })
+vim.keymap.set(
+    'n',
+    '<leader>c',
+    vim.lsp.buf.rename,
+    { desc = 'lsp rename symbol ' }
+)
+vim.keymap.set(
+    'n',
+    '<A-Return>',
+    vim.lsp.buf.code_action,
+    { desc = 'lsp execute code action' }
+)
 
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
 vim.keymap.set(
@@ -115,8 +152,18 @@ repeat
         break
     end
     term = term.setup({})
-    vim.keymap.set('n', '<leader>t', term.toggle)
-    vim.keymap.set('t', '<leader>t', term.toggle)
+    vim.keymap.set(
+        'n',
+        '<leader>t',
+        term.toggle,
+        { desc = 'toggle floating terminal' }
+    )
+    vim.keymap.set(
+        't',
+        '<leader>t',
+        term.toggle,
+        { desc = 'toggle floating terminal' }
+    )
 until true
 
 repeat
@@ -171,6 +218,7 @@ repeat
     vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesBufferCreate',
         group = group,
+        desc = 'allow :w inside mini.files',
         callback = function(args)
             local buf_id = args.data.buf_id
             vim.bo[buf_id].buftype = 'acwrite'
@@ -194,13 +242,13 @@ repeat
 
     vim.keymap.set('n', '<leader>p', function()
         MiniPick.builtin.files({ tool = 'rg' })
-    end)
+    end, { desc = 'ripgrep fuzzy finder' })
     vim.keymap.set('n', '<leader>b', function()
         MiniPick.builtin.buffers()
-    end)
+    end, { desc = 'buffer fuzzy finder' })
     vim.keymap.set('n', '<leader>l', function()
         MiniPick.builtin.grep_live({ tool = 'rg' })
-    end)
+    end, { desc = 'file fuzzy finder' })
 until true
 
 repeat
@@ -211,13 +259,13 @@ repeat
     end
     vim.keymap.set('n', 'gD', function()
         MiniExtra.pickers.lsp({ scope = 'type_definition' })
-    end)
+    end, { desc = 'lsp type definitions picker' })
     vim.keymap.set('n', '<leader>xx', function()
         MiniExtra.pickers.diagnostic()
-    end)
+    end, { desc = 'lsp show diagnostic picker' })
     vim.keymap.set('n', 'gh', function()
         MiniExtra.pickers.lsp({ scope = 'references' })
-    end)
+    end, { desc = 'lsp show symbol references picker' })
 until true
 
 repeat
@@ -229,7 +277,7 @@ repeat
 
     vim.keymap.set('n', '<leader>d', function()
         MiniDiff.toggle_overlay(0)
-    end)
+    end, { desc = 'toggle git diff overlay' })
 until true
 
 repeat
@@ -243,16 +291,16 @@ repeat
     end
     vim.keymap.set({ 'x', 'o' }, 'af', function()
         treesitter_to.select_textobject('@function.outer', 'textobjects')
-    end)
+    end, { desc = 'function outer text object' })
     vim.keymap.set({ 'x', 'o' }, 'if', function()
         treesitter_to.select_textobject('@function.inner', 'textobjects')
-    end)
+    end, { desc = 'function inner text object' })
     vim.keymap.set({ 'x', 'o' }, 'aa', function()
         treesitter_to.select_textobject('@parameter.outer', 'textobjects')
-    end)
+    end, { desc = 'parameter outer text object' })
     vim.keymap.set({ 'x', 'o' }, 'ia', function()
         treesitter_to.select_textobject('@parameter.inner', 'textobjects')
-    end)
+    end, { desc = 'parameter inner text object' })
 until true
 
 repeat
@@ -261,7 +309,12 @@ repeat
         vim.notify('Ignoring keybinds using aerial', vim.log.levels.WARN)
         break
     end
-    vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
+    vim.keymap.set(
+        'n',
+        '<leader>a',
+        '<cmd>AerialToggle!<CR>',
+        { desc = 'toggle aerial code map' }
+    )
 until true
 
 -- ====================================================
@@ -293,7 +346,10 @@ local function save_compile_run(ft, spec)
                     end
                 end
                 spec.run()
-            end, { buffer = ev.buf })
+            end, {
+                buffer = ev.buf,
+                desc = 'quickly run this ' .. ft .. ' buffer',
+            })
         end,
     })
 end

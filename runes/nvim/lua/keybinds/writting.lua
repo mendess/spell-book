@@ -24,6 +24,7 @@ lib.iabbrev('Comming', 'Coming')
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = 'java',
+    desc = 'java println shortcut',
     callback = function()
         lib.iabbrev('sout', 'System.out.println')
     end,
@@ -32,6 +33,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'markdown', 'tex' },
     group = group,
+    desc = 'writting mode keymap overrides and abbreviations',
     callback = function(ev)
         if vim.bo[ev.buf].buftype == 'nofile' then
             return
@@ -43,10 +45,26 @@ vim.api.nvim_create_autocmd('FileType', {
         lib.iabbrev('tambem', 'também', { buffer = true })
         lib.iabbrev('ja', 'já', { buffer = true })
         lib.iabbrev('numero', 'número', { buffer = true })
-        lib.vim.keymap.set('n', 'k', 'gk', { silent = true, buf = ev.buf })
-        vim.keymap.set('n', 'j', 'gj', { silent = true, buf = ev.buf })
-        vim.keymap.set('n', '0', 'g0', { silent = true, buf = ev.buf })
-        vim.keymap.set('n', '$', 'g$', { silent = true, buf = ev.buf })
+        vim.keymap.set('n', 'k', 'gk', {
+            silent = true,
+            buf = ev.buf,
+            desc = 'use k to move up visual lines',
+        })
+        vim.keymap.set('n', 'j', 'gj', {
+            silent = true,
+            buf = ev.buf,
+            desc = 'use j to move up visual lines',
+        })
+        vim.keymap.set('n', '0', 'g0', {
+            silent = true,
+            buf = ev.buf,
+            desc = 'use 0 to move to the start of a visual line',
+        })
+        vim.keymap.set('n', '$', 'g$', {
+            silent = true,
+            buf = ev.buf,
+            desc = 'use $ to move to the end of a visual line',
+        })
     end,
 })
 
@@ -101,5 +119,15 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
-vim.keymap.set('n', '<leader>o', ':setlocal spell! spelllang=en_gb<CR>')
-vim.keymap.set('n', '<leader>O', ':setlocal spell! spelllang=en_gb,pt_pt<CR>')
+vim.keymap.set(
+    'n',
+    '<leader>o',
+    ':setlocal spell! spelllang=en_gb<CR>',
+    { desc = 'toggle en spellchecking' }
+)
+vim.keymap.set(
+    'n',
+    '<leader>O',
+    ':setlocal spell! spelllang=en_gb,pt_pt<CR>',
+    { desc = 'toggle en and pt spellchecking' }
+)
