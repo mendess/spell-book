@@ -14,4 +14,12 @@ return {
         -- Re-raise syntax/runtime/dependency errors
         error(result, 2)
     end,
+
+    iabbrev = function(bad, good, opts)
+        opts = opts or {}
+        local scope = opts.buffer and '<buffer>' or ''
+
+        vim.cmd('ia ' .. scope .. bad .. ' ' .. good)
+        vim.cmd('ia ' .. scope .. bad:lower() .. ' ' .. good:lower())
+    end,
 }
