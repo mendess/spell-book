@@ -53,6 +53,10 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
+    "nvim-treesitter-textobjects": {
+      "rev": "5c7b0263797dfd1bd6202f2b219f3b53a80b2187",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+    },
     "swhkd-vim": {
       "rev": "0094acb1af9a4b17d280baf0a2bf46c3970b307c",
       "src": "https://github.com/waycrate/swhkd-vim"

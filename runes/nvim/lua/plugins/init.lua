@@ -57,6 +57,7 @@ vim.pack.add({
         src = gh('nvim-treesitter/nvim-treesitter'),
         version = 'main',
     },
+    gh('nvim-treesitter/nvim-treesitter-textobjects'),
     gh('mason-org/mason.nvim'),
     gh('creativenull/efmls-configs-nvim'),
     gh('neovim/nvim-lspconfig'),

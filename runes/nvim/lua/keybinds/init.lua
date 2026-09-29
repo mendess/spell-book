@@ -232,6 +232,38 @@ repeat
     end)
 until true
 
+repeat
+    local treesitter_to = lib.try_require('nvim-treesitter-textobjects.select')
+    if treesitter_to == nil then
+        vim.notify(
+            'Ignoring keybinds using treesitter-textobjects.select',
+            vim.log.levels.WARN
+        )
+        break
+    end
+    vim.keymap.set({ 'x', 'o' }, 'af', function()
+        treesitter_to.select_textobject('@function.outer', 'textobjects')
+    end)
+    vim.keymap.set({ 'x', 'o' }, 'if', function()
+        treesitter_to.select_textobject('@function.inner', 'textobjects')
+    end)
+    vim.keymap.set({ 'x', 'o' }, 'aa', function()
+        treesitter_to.select_textobject('@parameter.outer', 'textobjects')
+    end)
+    vim.keymap.set({ 'x', 'o' }, 'ia', function()
+        treesitter_to.select_textobject('@parameter.inner', 'textobjects')
+    end)
+until true
+
+repeat
+    local aerial = lib.try_require('aerial')
+    if aerial == nil then
+        vim.notify('Ignoring keybinds using aerial', vim.log.levels.WARN)
+        break
+    end
+    vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
+until true
+
 -- ====================================================
 -- quick run
 -- ====================================================
