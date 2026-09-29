@@ -20,13 +20,6 @@ if [ -z "$SPELLS" ]; then
     unset tmp
 fi
 
-# Enable bash completion
-if [ -f /usr/share/bash-completion/bash_completion ]; then
-    source /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion
-fi
-
 for f in "$SPELLS"/runes/bash/*.bash "$SPELLS"/runes/bash/utils/*bash; do
     source "$f"
 done
@@ -35,6 +28,6 @@ done
 
 [ -e ~/.bashrc-local ] && source ~/.bashrc-local
 
-command -V direnv &>/dev/null && eval "$(direnv hook bash)"
+hash direnv &>/dev/null && eval "$(direnv hook bash)"
 
 :

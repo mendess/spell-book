@@ -73,7 +73,7 @@ complete -o default -F _path_compleation command
 
 _completion_loader() {
     case "$1" in
-        g|gco|gb|gl|gd)
+        g | gco | gb | gl | gd)
             cmd=git
             ;;
         # broken completions
@@ -86,7 +86,7 @@ _completion_loader() {
     esac
     personal="$SPELLS/runes/bash/completions/$cmd.bash"
     global="/usr/share/bash-completion/completions/$cmd"
-    [ -f "$personal" ] && . "$personal" >/dev/null 2>&1 && return 124
-    [ -f "$global" ] && . "$global" >/dev/null 2>&1 && return 124
+    [ -f "$personal" ] && source "$personal" >/dev/null 2>&1 && return 124
+    [ -f "$global" ] && source "$global" >/dev/null 2>&1 && return 124
 }
 complete -D -F _completion_loader -o bashdefault -o default
