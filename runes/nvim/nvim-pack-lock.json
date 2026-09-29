@@ -1,5 +1,13 @@
 {
   "plugins": {
+    "aerial.nvim": {
+      "rev": "28fe6e822ae344544c379d60fcb13c9519a1f08a",
+      "src": "https://github.com/stevearc/aerial.nvim"
+    },
+    "codemap": {
+      "rev": "0651911465960338bfb229c6a505ab30ac3430f5",
+      "src": "https://github.com/m2k3d/codemap"
+    },
     "csv.vim": {
       "rev": "375c1a81a4f186ce8949824f3b87ddc6727a63af",
       "src": "https://github.com/chrisbra/csv.vim"
@@ -31,6 +39,10 @@
     "mini.nvim": {
       "rev": "561751e839b99a4baca36b9d963166b66d2536a6",
       "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "nvim-hlslens": {
+      "rev": "be2d7b2be01860b5445a007ff2bc72b29896db6b",
+      "src": "https://github.com/kevinhwang91/nvim-hlslens"
     },
     "nvim-lspconfig": {
       "rev": "a9bb4d5f4276aa5cddc015faa3ecc5a7b5a26b14",

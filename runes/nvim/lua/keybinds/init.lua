@@ -78,20 +78,6 @@ vim.keymap.set(
     { desc = 'Paste over selection without losing yanked text' }
 )
 
--- search results are always at the center of the screen
-vim.keymap.set(
-    'n',
-    'n',
-    'nzzzv',
-    { desc = 'keep search results at the center of the screen' }
-)
-vim.keymap.set(
-    'n',
-    'N',
-    'Nzzzv',
-    { desc = 'keep search results at the center of the screen' }
-)
-
 vim.keymap.set('n', '<leader>u', function()
     vim.cmd.packadd('nvim.undotree')
     require('undotree').open()

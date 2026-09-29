@@ -60,9 +60,14 @@ vim.pack.add({
     gh('mason-org/mason.nvim'),
     gh('creativenull/efmls-configs-nvim'),
     gh('neovim/nvim-lspconfig'),
+    gh('m2k3d/codemap'),
+    gh('stevearc/aerial.nvim'),
 
     -- floating terminal
     gh('ingur/floatty.nvim'),
+
+    -- highlight lens
+    gh('kevinhwang91/nvim-hlslens'),
 })
 
 configure_plugins('after')
