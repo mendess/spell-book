@@ -1,4 +1,2 @@
-edition = "2018"
-unstable_features = true
+edition = "2021"
 max_width = 80
-merge_imports = true
