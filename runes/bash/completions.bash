@@ -84,9 +84,17 @@ _completion_loader() {
             cmd=$1
             ;;
     esac
+    check_source_com_lib() {
+        if [ -f /usr/share/bash-completion/bash_completion ] &&
+            [ -z "${BASH_COMPLETION_VERSINFO[*]}" ]; then
+            source /usr/share/bash-completion/bash_completion
+        fi
+    }
     personal="$SPELLS/runes/bash/completions/$cmd.bash"
     global="/usr/share/bash-completion/completions/$cmd"
-    [ -f "$personal" ] && source "$personal" >/dev/null 2>&1 && return 124
-    [ -f "$global" ] && source "$global" >/dev/null 2>&1 && return 124
+    [ -f "$personal" ] && source "$personal" && check_source_com_lib && return 124
+    [ -f "$global" ] && source "$global" && check_source_com_lib && return 124
+    check_source_com_lib
+    return 124
 }
 complete -D -F _completion_loader -o bashdefault -o default

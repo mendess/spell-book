@@ -23,6 +23,11 @@ do
     local fixjson = require('efmls-configs.formatters.fixjson')
 
     local shellcheck = require('efmls-configs.linters.shellcheck')
+    -- Exclude
+    -- SC1091 not following sourced files
+    -- SC1091 won't follow non-constant source.
+    shellcheck.lintCommand = shellcheck.lintCommand
+        .. ' --exclude=SC1091 --exclude=SC1090'
     local shfmt = require('efmls-configs.formatters.shfmt')
     -- format with spaces
     shfmt.formatCommand = shfmt.formatCommand:gsub('%s+%-$', ' -ci -i 4 -')
