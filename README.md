@@ -17,9 +17,11 @@
  - [discord_voice](./spells/discord_voice.spell) - Change discord voice channel with dmenu
  - [edh-rec-new-cards](./spells/edh-rec-new-cards.spell)
  - [ex](./spells/ex.spell) - Extract anything
+ - [fix-divinity](./spells/fix-divinity.spell)
  - [hooks](./spells/hooks.spell)
  - [k](./spells/k.spell) - Configure my keymap, I'm too lazy to configure X and udev
  - [lg-cast](./spells/lg-cast.spell) - Cast links from any pc to my tv
+ - [make-gif-of-photos](./spells/make-gif-of-photos.spell)
  - [make-magic-wall](./spells/make-magic-wall.spell) - make a small wallpaper big by surrouding with a solid color. Inspired by: https://github.com/chrisJuresh/paperWiz
  - [move-all-ws-to](./spells/move-all-ws-to.spell) - Moves all workspaces (except 10) to another monitor
  - [mtg-wallpapers](./spells/mtg-wallpapers.spell) - Downloads the last 6 wallpapers uploaded to https://magic.wizards.com/en/articles/media/wallpapers.
