@@ -203,11 +203,15 @@ repeat
                 vim.fn.filereadable(file) == 0
                 and vim.fn.isdirectory(file) == 0
                 and file ~= '/'
+                and file ~= ''
             do
-                vim.notify("can't read " .. file, vim.log.levels.WARN)
+                vim.notify(
+                    "[mini.files] can't read '" .. file .. "'. Going up a dir",
+                    vim.log.levels.WARN
+                )
                 file = vim.fs.dirname(file)
             end
-            if file == '/' then
+            if file == '/' or file == '' then
                 MiniFiles.open()
             else
                 MiniFiles.open(file)
