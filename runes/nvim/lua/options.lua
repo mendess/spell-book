@@ -149,7 +149,7 @@ vim.api.nvim_create_autocmd('BufReadPre', {
     end,
 })
 
-vim.api.nvim_create_autocmd('BufReadPre', {
+vim.api.nvim_create_autocmd('BufWritePre', {
     desc = 'mkdir parents of current file',
     group = group,
     callback = function()
