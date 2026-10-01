@@ -11,4 +11,5 @@ target=$(xargs <<<"$target")
 
 [[ "$target" ]] || exit 0
 
+echo "🌀🌀🌀🌀warping to $target 🌀🌀🌀🌀"
 warp-cli mdm set-config "$target"

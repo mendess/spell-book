@@ -44,13 +44,13 @@ end
 hl.monitor({
     output = '',
     mode = 'preferred',
-    position = 'auto',
+    position = 'auto-left',
     scale = 'auto',
 })
 
 hl.workspace_rule({ workspace = 'special:magic', gaps_out = 300 })
 
-if hostname == '3QWP3T3' then
+local function setup_oboro_monitors()
     local monitors = hl.get_monitors()
     if #monitors == 2 then
         for _, m in ipairs(monitors) do
@@ -65,7 +65,20 @@ if hostname == '3QWP3T3' then
             end
         end
     end
+    if #monitors == 1 then
+        for i = 1, 9 do
+            hl.workspace_rule({
+                workspace = tostring(i),
+                monitor = 'eDP-1',
+            })
+        end
+    end
     hl.workspace_rule({ workspace = '10', monitor = 'eDP-1' })
+end
+if hostname == '3QWP3T3' then
+    setup_oboro_monitors()
+    hl.on('monitor.added', setup_oboro_monitors)
+    hl.on('monitor.removed', setup_oboro_monitors)
 end
 
 local config_dir = os.getenv('HOME') .. '/.config/hypr/'
