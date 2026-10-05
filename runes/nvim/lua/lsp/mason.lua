@@ -19,7 +19,7 @@ local dev_machine_ls = vim.list_extend({
 
 local server_machine_ls = vim.list_extend({
     'docker-language-server',
-}, base_ls)
+}, dev_machine_ls)
 
 local work_machine_ls = vim.list_extend({
     'oxfmt',
