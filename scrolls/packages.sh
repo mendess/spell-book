@@ -87,6 +87,7 @@ export cargopackages=(
     cargo-watch
     color_picker
     rust-script
+    ripdrag
 )
 
 export bloat=(
