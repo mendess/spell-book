@@ -59,7 +59,7 @@ if [ -n "$cargo_root" ] &&
     [ -z "$DISABLE_FMT_CHECK" ] &&
     rustup component list | grep fmt | grep -q installed; then
     cd "$(dirname "$cargo_root")" || exit 1
-    mapfile -t changed_files < <(git diff --cached --name-only | grep '\.rs$')
+    mapfile -t changed_files < <(git diff --cached --name-only --diff-filter=A -z "$against" | grep '\.rs$')
     cargo fmt --check -- "${changed_files[@]}" || exit 1
 fi
 
