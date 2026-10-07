@@ -92,10 +92,13 @@ fn ssh_prompt(buffer: &mut String) -> bool {
             "pendrellvale" => Color::BoldMagenta,
             _ => Color::BoldGreen,
         };
-        set_skipped_color(buffer, Color::BoldCyan);
-        buffer.push_str(&whoami::username());
-        set_skipped_color(buffer, Color::Reset);
-        buffer.push('@');
+        let username = whoami::username();
+        if username != "mendess" {
+            set_skipped_color(buffer, Color::BoldCyan);
+            buffer.push_str(&username);
+            set_skipped_color(buffer, Color::Reset);
+            buffer.push('@');
+        }
         set_skipped_color(buffer, color);
         buffer.push_str(&hostname);
         set_skipped_color(buffer, Color::Reset);

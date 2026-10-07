@@ -109,5 +109,59 @@ function Fugitive_status_line()
         return ''
     end
 end
-vim.opt.statusline =
-    [[%<%f %#StatusLineNC#%{v:lua.Fugitive_status_line()}%#StatusLine# %h%w%m%r%=%-14.(%l,%c%V%) %P]]
+
+local status_line = {}
+if vim.fn.environ()['SSH_CLIENT'] ~= nil then
+    local ansi_colors = {
+        gray = '#333333',
+        black = '#090618',
+        blue = '#7e9cd8',
+        cyan = '#6a9589',
+        green = '#76946a',
+        magenta = '#957fb8',
+        red = '#c34043',
+        white = '#c8c093',
+        yellow = '#c0a36e',
+    }
+    local host_colors = {
+        ['tolaria'] = 'blue',
+        ['weatherlight'] = 'cyan',
+        ['kaladesh'] = 'cyan',
+        ['mirrodin'] = 'BoldGray',
+        ['argentum'] = 'yellow',
+        ['pendrellvale'] = 'magenta',
+        ['default'] = 'green',
+    }
+
+    local hostname = vim.fn.hostname()
+    local username = vim.env.USER or '?'
+    local color = ansi_colors[host_colors[hostname] or host_colors['default']]
+    vim.api.nvim_set_hl(0, 'SshHostname', { fg = color, bold = true })
+    if username ~= 'mendess' then
+        vim.api.nvim_set_hl(
+            0,
+            'SshUsername',
+            { fg = ansi_colors['cyan'], bold = true }
+        )
+        status_line = vim.list_extend(status_line, {
+            '%#SshUsername#',
+            vim.env.USER or '?',
+            '%#StatusLine#',
+            '@',
+        })
+    end
+    status_line = vim.list_extend(status_line, {
+        '%#SshHostname#',
+        hostname,
+        ' %#StatusLine#',
+    })
+end
+
+status_line = vim.list_extend(status_line, {
+    '%<%f ',
+    '%#StatusLineNC%',
+    '{v:lua.Fugitive_status_line()}',
+    ' %h%w%m%r%=%-14.(%l,%c%V%) %P',
+})
+
+vim.opt.statusline = table.concat(status_line)
