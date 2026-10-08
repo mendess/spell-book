@@ -28,5 +28,4 @@ hash neofetch &>/dev/null ||
     alias neofetch="curl -L --silent https://mendess.xyz/files/neofetch | bash"
 
 alias ytdl='yt-dlp'
-alias ikhal='ikhal; clear'
 alias uuid='cat /proc/sys/kernel/random/uuid'

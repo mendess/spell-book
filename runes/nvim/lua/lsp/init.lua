@@ -65,7 +65,7 @@ do
                 html = { prettier_d },
                 javascript = { oxlint, oxfmt, eslint_d, prettier_d },
                 json = { eslint_d, fixjson },
-                jsonc = { eslint_d, fixjson },
+                jsonc = { eslint_d, prettier_d },
                 lua = { stylua },
                 markdown = { prettier_d },
                 python = { black },

@@ -58,9 +58,33 @@ cargo_root=$(find . -name 'Cargo.toml' 2>/dev/null | awk '{ print length($0) " "
 if [ -n "$cargo_root" ] &&
     [ -z "$DISABLE_FMT_CHECK" ] &&
     rustup component list | grep fmt | grep -q installed; then
-    cd "$(dirname "$cargo_root")" || exit 1
-    mapfile -t changed_files < <(git diff --cached --name-only --diff-filter=A -z "$against" | grep '\.rs$')
-    cargo fmt --check -- "${changed_files[@]}" || exit 1
+    # Format only staged Rust paths. `cargo fmt --check -- <paths>` passes
+    # the paths directly to rustfmt without their Cargo edition (and can
+    # recurse into unrelated modules), so resolve each file's package via
+    # Cargo metadata and invoke rustfmt with that package's edition.
+    repo_root=$(git rev-parse --show-toplevel) || exit 1
+    cd "$repo_root" || exit 1
+    mapfile -d '' -t changed_files < <(git diff --cached --name-only --diff-filter=ACMRT -z)
+    for file in "${changed_files[@]}"; do
+        [[ "$file" == *.rs && -f "$file" ]] || continue
+        dir=$(dirname "$file")
+        while [[ "$dir" != . && ! -f "$dir/Cargo.toml" ]]; do
+            dir=$(dirname "$dir")
+        done
+        if [[ ! -f "$dir/Cargo.toml" ]]; then
+            echo "Cannot find Cargo.toml for staged Rust file: $file"
+            exit 1
+        fi
+        manifest=$(realpath "$dir/Cargo.toml") || exit 1
+        metadata=$(cargo metadata --no-deps --format-version 1 --manifest-path "$manifest") || exit 1
+        edition=$(jq -r --arg manifest "$manifest" \
+            '.packages[] | select(.manifest_path == $manifest) | .edition' <<<"$metadata") || exit 1
+        if [[ -z "$edition" ]]; then
+            echo "Cannot resolve Rust edition for staged file: $file"
+            exit 1
+        fi
+        rustfmt --check --edition "$edition" --config skip_children=true -- "$file" || exit 1
+    done
 fi
 
 lint_script=$(find . -name 'package.json' | head -n 1 | xargs --no-run-if-empty jq '.scripts // {} | keys[]' -r | grep 'lint')

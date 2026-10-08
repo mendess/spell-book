@@ -6,25 +6,6 @@ vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
-vim.api.nvim_create_autocmd('FileType', {
-    group = group,
-    pattern = {
-        'css',
-        'scss',
-        'html',
-        'htmldjango',
-        'svelte',
-        'typescriptreact',
-        'typescript',
-        'javascript',
-        'javascriptreact',
-    },
-    callback = function(ev)
-        vim.bo[ev.buf].tabstop = 2
-        vim.bo[ev.buf].shiftwidth = 2
-        vim.bo[ev.buf].softtabstop = 2
-    end,
-})
 
 -- splitting
 vim.opt.splitbelow = true
@@ -37,8 +18,10 @@ vim.opt.relativenumber = true
 -- scrolling
 vim.opt.scrolloff = 4
 
--- hide markup
+-- allow unsaved worked that’s not displayed on any window
 vim.opt.hidden = true
+
+-- hide markup
 vim.opt.conceallevel = 1
 
 -- search
@@ -47,32 +30,6 @@ vim.opt.smartcase = true
 
 -- discipline
 vim.opt.colorcolumn = '81'
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'rust',
-    group = group,
-    callback = function(ev)
-        local buf_path = vim.api.nvim_buf_get_name(ev.buf)
-        if buf_path == '' then
-            return
-        end
-        local cfg = vim.fs.find(
-            { 'rustfmt.toml', '.rustfmt.toml' },
-            { path = vim.fs.dirname(buf_path), upward = true, type = 'file' }
-        )[1]
-        local max_width = 100 -- rustfmt default
-        if cfg then
-            for line in io.lines(cfg) do
-                local value = line:match('^%s*max_width%s*=%s*(%d+)')
-                if value then
-                    max_width = tonumber(value) or max_width
-                    break
-                end
-            end
-        end
-        vim.wo.colorcolumn = tostring(max_width + 1)
-    end,
-})
 
 -- no split for incremental commands
 vim.opt.inccommand = 'split'
@@ -91,13 +48,6 @@ vim.opt.showbreak = '> '
 -- show tabs
 vim.opt.list = true
 vim.opt.listchars = 'tab:>-'
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'go' },
-    group = group,
-    callback = function()
-        vim.cmd('setlocal listchars=tab:\\ \\ ')
-    end,
-})
 
 -- completion
 vim.opt.completeopt = { 'menu', 'menuone', 'noinsert' }

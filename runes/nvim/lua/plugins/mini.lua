@@ -96,8 +96,10 @@ return {
         MiniSnippets.start_lsp_server({ match = false })
         require('mini.pairs').setup()
         -- disable auto close pair for lifetimes in rust
+        local group = vim.api.nvim_create_augroup('user-mini', { clear = true })
         vim.api.nvim_create_autocmd('FileType', {
             pattern = 'rust',
+            group = group,
             callback = function(ev)
                 vim.keymap.set('i', "'", "'", { buffer = ev.buf })
             end,
@@ -198,7 +200,6 @@ return {
         local MiniTrailspace = require('mini.trailspace')
         MiniTrailspace.setup()
 
-        local group = vim.api.nvim_create_augroup('user-mini', { clear = true })
         vim.api.nvim_create_autocmd('BufWritePre', {
             group = group,
             callback = function()

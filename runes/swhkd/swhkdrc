@@ -55,7 +55,7 @@ super + shift + F2
     $BROWSER -private-window https://duckduckgo.com/
 
 super + shift + x
-    $TERMINAL -e bash -c 'ikhal 2>/dev/null'
+    $TERMINAL -e ikhal
 
 super + alt + v
     vim-anywhere ; chmod 777 /tmp/vim-anywhere
@@ -95,10 +95,10 @@ super + c
 super + x
     $TERMINAL \
         --option window.dimensions.columns=80 \
-        --option window.dimensions.lines=25 \
+        --option window.dimensions.lines=35 \
         --class floating-terminal \
         -e bash -c 'echo -e "\e[1m\t\t   C A L E N D A R\e[0m" ;\
-                    khal calendar $(date +"1/%m/%Y") $(date --date="6 months" +"1/%m/%Y") -o -d "Contact birthdays" 2>/dev/null ;\
+                    khal calendar $(date +"1/%m/%Y") $(date --date="6 months" +"1/%m/%Y") -o -d "Contact birthdays" -d "vila-verde_shared_by_escola" -d "work_shared_by_escola" 2>/dev/null ;\
                     read -s -r -n 1'
 
 XF86AudioMute

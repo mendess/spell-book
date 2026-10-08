@@ -225,6 +225,15 @@ hl.window_rule({
         float = true,
     },
 })
+hl.window_rule({
+    name = 'floating-terminal',
+    match = {
+        class = 'floating-terminal',
+    },
+    float = true,
+    persistent_size = false,
+    size = { 800, 620 },
+})
 if hostname ~= 'tolaria' then
     hl.window_rule({
         -- Ignore maximize requests from all apps. You'll probably like this.
