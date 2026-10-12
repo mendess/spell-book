@@ -12,6 +12,10 @@ do
     local rustfmt = require('efmls-configs.formatters.rustfmt')
 
     local stylua = require('efmls-configs.formatters.stylua')
+    stylua.formatCommand = stylua.formatCommand:gsub(
+        '%-$',
+        '--quote-style AutoPreferSingle --indent-type Spaces --column-width 80 -'
+    )
 
     local black = require('efmls-configs.formatters.black')
 
@@ -30,7 +34,7 @@ do
         .. ' --exclude=SC1091 --exclude=SC1090'
     local shfmt = require('efmls-configs.formatters.shfmt')
     -- format with spaces
-    shfmt.formatCommand = shfmt.formatCommand:gsub('%s+%-$', ' -ci -i 4 -')
+    shfmt.formatCommand = shfmt.formatCommand:gsub('%-$', '-ci -i 4 -')
 
     local cpplint = require('efmls-configs.linters.cpplint')
     local clangfmt = require('efmls-configs.formatters.clang_format')
