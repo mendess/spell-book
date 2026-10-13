@@ -88,7 +88,7 @@ hl.timer(function()
     end
     local battery = f:read('*a') or ''
     battery = string.match(battery, '%d+%%')
-    if string.find(battery, 'Discharging') ~= nil then
+    if string.find(battery, 'Discharging') == nil then
         return
     end
     if battery ~= nil then
