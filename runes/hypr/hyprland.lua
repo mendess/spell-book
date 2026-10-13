@@ -98,6 +98,31 @@ hl.on('hyprland.start', function()
     end
 end)
 
+hl.timer(function()
+    local f = io.popen('acpi', 'r')
+    if f == nil then
+        return nil
+    end
+    local battery = f:read('*a') or ''
+    battery = string.match(battery, '%d+%%')
+    if string.find(battery, 'Discharging') ~= nil then
+        return
+    end
+    if battery ~= nil then
+        local bat = tonumber(battery:sub(1, #battery - 1))
+        if bat <= 10 then
+            hl.exec_cmd('systemctl suspend')
+        elseif bat <= 20 then
+            hl.notification.create({
+                text = 'low battery, pc will suspend when goes bellow 10%',
+                timeout = 5000,
+                color = '#ff4444',
+            })
+        end
+    end
+    f:close()
+end, { timeout = 30000, type = 'repeat' }):set_enabled(true)
+
 hl.env('XCURSOR_SIZE', '24')
 hl.env('HYPRCURSOR_SIZE', '24')
 hl.env('QT_QPA_PLATFORMTHEME', 'qt5ct')
