@@ -2,20 +2,30 @@
 
 set -eou pipefail
 
-con=$(nmcli --terse con show | grep ethernet | cut -d: -f1)
-
-if [ $# -lt 1 ]; then
-    echo "USAGE: $0 [LSB of the ip]"
+usage() {
+    echo "USAGE:"
+    echo "$0 apply [device] [LSB of the ip]"
+    echo "$0 revert [device]"
+    echo "available devices"
+    # shellcheck disable=SC2046
+    printf " - %s\n" $(nmcli --terse con show | cut -d: -f4 | sort -u | grep -v '^$')
     exit 1
+}
+
+if [ $# -lt 2 ]; then
+    usage
 fi
 
-address=192.168.42.$1/24
-gateway=192.168.42.1
-dns=192.168.42.2
+con=$(nmcli --terse con show | grep ":$2" | cut -d: -f1)
+
 static-ip() {
     method=$(nmcli --terse con show "$con" | grep 'ipv4.method')
     case "${1:-''}" in
         apply)
+            [ -z "$3" ] && usage
+            address=192.168.42.$3/24
+            gateway=192.168.42.1
+            dns=192.168.42.2
             if [[ "$method" = ipv4.method:manual ]]; then
                 echo "static ip already setup"
                 return
