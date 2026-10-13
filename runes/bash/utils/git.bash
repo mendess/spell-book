@@ -75,7 +75,7 @@ alias gcmm='git checkout main || git checkout master'
 
 # ----- MR management
 __guri() {
-    git remote get-url --push origin | sed -r 's|[a-z]+@([a-z.-_]+):(.*)(.git)?|https://\1/\2|'
+    git remote get-url --push origin | sed -r 's|[a-z]+@([a-z.-_]+):(.*)|https://\1/\2|;s/\.git$//g'
 }
 gpr() {
     case "$(__guri)" in
