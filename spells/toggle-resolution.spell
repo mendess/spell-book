@@ -3,9 +3,7 @@
 
 set -euo pipefail
 
-conf=~/.config/hypr/hyprland.conf
-
-export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-$(basename $(echo /run/user/$(id -u)/wayland-?))}
+export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-$(basename "$(echo /run/user/"$(id -u)"/wayland-?)")}
 
 export HYPRLAND_INSTANCE_SIGNATURE=${HYPRLAND_INSTANCE_SIGNATURE:-$(cat /tmp/hyprland-instance-signature)}
 
@@ -39,8 +37,8 @@ state() {
 }
 
 case "${1:-}" in
-    16:9)  set_normal ;;
-    21:9)  set_wide ;;
+    16:9) set_normal ;;
+    21:9) set_wide ;;
     state) state ;;
-    *)     toggle ;;
+    *) toggle ;;
 esac

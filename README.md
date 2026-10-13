@@ -73,3 +73,4 @@
  - [spotify-adblock](./scrolls/spotify-adblock.sh) - Install a hacky addblock for spotify
  - [theme](./scrolls/theme.sh) - Setup the artim-dark theme
  - [thinkpad](./scrolls/thinkpad.sh)
+ - [toggle-static-ip](./scrolls/toggle-static-ip.sh)

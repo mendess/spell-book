@@ -81,23 +81,6 @@ if hostname == '3QWP3T3' then
     hl.on('monitor.removed', setup_oboro_monitors)
 end
 
-local config_dir = os.getenv('HOME') .. '/.config/hypr/'
-
-hl.on('hyprland.start', function()
-    hl.exec_cmd('awww-daemon')
-    hl.exec_cmd(config_dir .. 'start-swhkd.sh')
-    hl.exec_cmd(config_dir .. 'start-lemonbar.sh')
-    hl.exec_cmd('dunst')
-    hl.exec_cmd(
-        'dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP'
-    )
-    hl.exec_cmd('changeMeWallCicle')
-    if hostname == 'tolaria' then
-        hl.exec_cmd('shyprctl daemon &>/tmp/mendess/shyprctl.log')
-        hl.exec_cmd('steamgr check-and-auto-start')
-    end
-end)
-
 hl.timer(function()
     local f = io.popen('acpi', 'r')
     if f == nil then
@@ -242,6 +225,22 @@ hl.animation({
     style = 'slide',
 })
 
+hl.on('hyprland.start', function()
+    local config_dir = os.getenv('HOME') .. '/.config/hypr/'
+    hl.exec_cmd('awww-daemon')
+    hl.exec_cmd(config_dir .. 'start-swhkd.sh')
+    hl.exec_cmd(config_dir .. 'start-lemonbar.sh')
+    hl.exec_cmd('dunst')
+    hl.exec_cmd(
+        'dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP'
+    )
+    hl.exec_cmd('changeMeWallCicle')
+    if hostname == 'tolaria' then
+        hl.exec_cmd('shyprctl daemon &>/tmp/mendess/shyprctl.log')
+        hl.exec_cmd('steamgr check-and-auto-start')
+    end
+end)
+
 hl.window_rule({
     name = 'fix-jetbrains-popups',
     no_focus = true,
@@ -266,6 +265,53 @@ if hostname ~= 'tolaria' then
         match = { class = '.*' },
 
         suppress_event = 'maximize',
+    })
+else
+    local function write(s)
+        local f = io.open('/tmp/log', 'a')
+        if f == nil then
+            print('failed to open /tmp/log')
+            print(s)
+            return
+        end
+        f:write(s .. '\n')
+        f:flush()
+        f:close()
+    end
+    ---@class HL.Timer
+    local click
+    click = hl.timer(function()
+        if hl.get_active_window().title ~= 'LariLauncher' then
+            write("job's done. Exiting")
+            click:set_enabled(false)
+            return
+        end
+        write('moving cursor')
+        hl.dispatch(hl.dsp.cursor.move({ x = 400, y = 1170 }))
+        write('clicking play')
+        hl.dispatch(hl.dsp.send_shortcut({ key = 'mouse:272', mods = '' }))
+        hl.exec_cmd('ydotool click 0xC0')
+    end, { timeout = 2000, type = 'repeat' })
+    click:set_enabled(false)
+
+    ---@param w HL.Window
+    ---@param reason integer
+    hl.on('window.active', function(w, reason)
+        write('window.active: ' .. w.title .. ' reason ' .. tostring(reason))
+        if w.monitor.width == 2560 and w.monitor.height == 1440 then
+            write('making fullscreen')
+            hl.dispatch(hl.dsp.window.fullscreen({ action = 'set' }))
+            if w.title == 'LariLauncher' then
+                click:set_enabled(true)
+            end
+        end
+    end)
+    hl.window_rule({
+        name = 'Big picture full screen',
+        match = {
+            initial_title = 'Steam Big Picture Mode',
+        },
+        fullscreen = true,
     })
 end
 
