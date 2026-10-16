@@ -73,13 +73,13 @@ complete -o default -F _path_compleation command
 
 _completion_loader() {
     case "$1" in
-        g | gco | gb | gl | gd)
+        g | ga | gb | gbD | gc | 'gc!' | gco | gcwip | gd | gdd | gf | gl | glog | glogn | gpsup | gst | gsw | 'gsw-')
             cmd=git
             ;;
-        # broken completions
-        mpv)
-            cmd="this-is-broken-$1"
-            ;;
+            # broken completions
+            # mpv)
+            #     cmd="this-is-broken-$1"
+            # ;;
         *)
             cmd=$1
             ;;

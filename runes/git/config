@@ -21,7 +21,6 @@
 [interactive]
     diffFilter = delta --color-only
 [init]
-    defaultBranch = master
     templateDir = ~/.config/git/template
 [diff]
     colorMoved = default

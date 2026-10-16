@@ -43,15 +43,18 @@ EOF
     exit 1
 fi
 
+log() {
+    echo "[pre-commit] $*" >&2
+}
+
 if command -V typos >/dev/null; then
     if [ -e ".typos.toml" ]; then
+        log "running typos check"
         typos || exit 1
-    else
-        echo "no typos toml, skipping typo checking"
     fi
 else
     #shellcheck disable=2016
-    echo 'typos checking not installed: `cargo install typos-cli`'
+    log 'typos checking not installed: `cargo install typos-cli`'
 fi
 
 cargo_root=$(find . -name 'Cargo.toml' 2>/dev/null | awk '{ print length($0) " " $0; }' "$file" | sort -n | cut -d ' ' -f 2- | head -1)
@@ -72,7 +75,7 @@ if [ -n "$cargo_root" ] &&
             dir=$(dirname "$dir")
         done
         if [[ ! -f "$dir/Cargo.toml" ]]; then
-            echo "Cannot find Cargo.toml for staged Rust file: $file"
+            log "Cannot find Cargo.toml for staged Rust file: $file"
             exit 1
         fi
         manifest=$(realpath "$dir/Cargo.toml") || exit 1
@@ -80,15 +83,17 @@ if [ -n "$cargo_root" ] &&
         edition=$(jq -r --arg manifest "$manifest" \
             '.packages[] | select(.manifest_path == $manifest) | .edition' <<<"$metadata") || exit 1
         if [[ -z "$edition" ]]; then
-            echo "Cannot resolve Rust edition for staged file: $file"
+            log "Cannot resolve Rust edition for staged file: $file"
             exit 1
         fi
+        log "running rustfmt check on '$file'" >&2
         rustfmt --check --edition "$edition" --config skip_children=true -- "$file" || exit 1
     done
 fi
 
-lint_script=$(find . -name 'package.json' | head -n 1 | xargs --no-run-if-empty jq '.scripts // {} | keys[]' -r | grep 'lint')
+lint_script=$(find . -maxdepth 1 -name 'package.json' | head -n 1 | xargs --no-run-if-empty jq '.scripts // {} | keys[]' -r | grep 'lint')
 if [ -n "$lint_script" ] && [ -z "$DISABLE_FMT_CHECK" ]; then
+    log "running npm lint" >&2
     npm run lint || exit 1
 fi
 
