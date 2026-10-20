@@ -17,8 +17,33 @@ alias ga='git add'
 alias gaa='git add --all'
 alias gau='git add --update'
 alias gbD='git branch -D'
-# shellcheck disable=SC2142
-alias gbpurge='git fetch --all -p; git branch -vv | grep ": gone]" | awk "{ print \$1 }" | xargs -n 1 --no-run-if-empty git branch -D'
+
+gbpurge() {
+    git fetch --all -p
+    git branch -vv |
+        grep ": gone]" |
+        while read -r line; do
+            case "$line" in
+                +*) # worktree
+                    dir=$(grep -oE '\(.*\)' <<<"$line" | tr -d '()')
+                    if (cd "$dir" && [[ -z "$(git status --porcelain)" ]]); then
+                        git worktree remove "$dir"
+                    else
+                        echo "Error: $dir as untracked or modified files"
+                        (cd "$dir" && git status --porcelain)
+                    fi
+                    ;;
+                '*'*) # current branch is gone
+                    echo "The current branch is gone from upstream." \
+                        "Checkout another branch before purging"
+                    ;;
+                *)
+                    git branch -D "$(awk '{print $1}' <<<"$line")"
+                    ;;
+            esac
+        done
+}
+
 alias gc='git commit -v'
 alias 'gc!'='git commit -v --amend'
 alias gcwip='git commit -v -mWIP'
@@ -106,12 +131,21 @@ gb() {
     else
         git --no-pager branch -vv |
             sed -E 's/ \[[^]]*origin[^]]*\]//' |
+            sed -E "s|$HOME/worktrees/|~/w/|" |
             cut -b-"$(tput cols)" |
-            GREP_COLORS="mt=1;32" grep --color=always -E '^\* [^/ ]+|' |
-            GREP_COLORS="mt=32" grep --color=always -E '^\* [^ ]+|' |
-            GREP_COLORS="mt=33" grep --color=always -E ' [a-f0-9]{8,10} |' |
-            GREP_COLORS="mt=34" grep --color=always -E '^  [^/]+|'
+            GREP_COLORS="mt=1;32" grep --color=always -E '^\* [^/ ]+|' |      # hl master/current
+            GREP_COLORS="mt=32" grep --color=always -E '^\* [^ ]+|' |         # hl current
+            GREP_COLORS="mt=33" grep --color=always -E ' [a-f0-9]{7,10}|' |   # hl git hash
+            GREP_COLORS="mt=34" grep --color=always -E '^( |\+) [^/]+|' |     # hl branch
+            GREP_COLORS="mt=35" grep --color=always -E ' [A-Z]+\-[0-9]+: |' | # hl ticket number
+            GREP_COLORS="mt=36" grep --color=always -E '\([^)]+\)|' |         # hl worktree path
+            \cat
     fi
+}
+
+gcd() {
+    pick=$(git worktree list | fzf | awk '{print $1}')
+    cd "$pick" || return 1
 }
 
 gcl() {
