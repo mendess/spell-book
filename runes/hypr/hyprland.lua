@@ -79,32 +79,31 @@ if hostname == '3QWP3T3' then
     setup_oboro_monitors()
     hl.on('monitor.added', setup_oboro_monitors)
     hl.on('monitor.removed', setup_oboro_monitors)
-end
-
-hl.timer(function()
-    local f = io.popen('acpi', 'r')
-    if f == nil then
-        return nil
-    end
-    local battery = f:read('*a') or ''
-    battery = string.match(battery, '%d+%%')
-    if string.find(battery, 'Discharging') == nil then
-        return
-    end
-    if battery ~= nil then
-        local bat = tonumber(battery:sub(1, #battery - 1))
-        if bat <= 10 then
-            hl.exec_cmd('systemctl suspend')
-        elseif bat <= 20 then
-            hl.notification.create({
-                text = 'low battery, pc will suspend when goes bellow 10%',
-                timeout = 5000,
-                color = '#ff4444',
-            })
+    hl.timer(function()
+        local f = io.popen('acpi', 'r')
+        if f == nil then
+            return nil
         end
-    end
-    f:close()
-end, { timeout = 30000, type = 'repeat' }):set_enabled(true)
+        local battery = f:read('*a') or ''
+        battery = string.match(battery, '%d+%%')
+        if string.find(battery, 'Discharging') ~= nil then
+            return
+        end
+        if battery ~= nil then
+            local bat = tonumber(battery:sub(1, #battery - 1))
+            if bat <= 10 then
+                hl.exec_cmd('systemctl suspend')
+            elseif bat <= 20 then
+                hl.notification.create({
+                    text = 'low battery, pc will suspend when goes bellow 10%',
+                    timeout = 5000,
+                    color = '#ff4444',
+                })
+            end
+        end
+        f:close()
+    end, { timeout = 30000, type = 'repeat' }):set_enabled(true)
+end
 
 hl.env('XCURSOR_SIZE', '24')
 hl.env('HYPRCURSOR_SIZE', '24')
@@ -297,7 +296,15 @@ else
     ---@param w HL.Window
     ---@param reason integer
     hl.on('window.active', function(w, reason)
-        write('window.active: ' .. w.title .. ' reason ' .. tostring(reason))
+        write(
+            'window.active: '
+                .. (w.title or 'unknown')
+                .. ' reason '
+                .. tostring(reason)
+        )
+        if w.monitor == nil then
+            return
+        end
         if w.monitor.width == 2560 and w.monitor.height == 1440 then
             write('making fullscreen')
             hl.dispatch(hl.dsp.window.fullscreen({ action = 'set' }))
