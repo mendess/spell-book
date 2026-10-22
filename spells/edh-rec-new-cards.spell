@@ -2,7 +2,7 @@
 
 commanders=(
     rafiq-of-the-many
-    kamiz-obscura-oculus
+    lyna-veil-of-vengeance
     alaundo-the-seer
     sliver-overlord
     lonis-cryptozoologist
@@ -11,6 +11,7 @@ commanders=(
     brago-king-eternal
     atraxa-praetors-voice
     mairsil-the-pretender
+    eluge-the-shoreless-sea
 )
 
 clues=https://gist.github.com/mendess/c78ed6b368c643d9b81ba493749eb99a
