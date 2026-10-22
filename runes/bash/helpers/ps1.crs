@@ -113,15 +113,46 @@ fn g_branch(buffer: &mut String, prefix_with_colons: bool) {
         return;
     };
 
-    let head = match std::fs::read_to_string(repo.join(".git/HEAD")) {
-        Ok(head) => head,
-        Err(e) => {
-            if !matches!(
-                e.kind(),
-                io::ErrorKind::NotADirectory | io::ErrorKind::NotFound
-            ) {
-                warn!("failed to read .git/HEAD {e:?}");
+    let dot_git = repo.join(".git");
+    let head = match std::fs::metadata(&dot_git) {
+        Ok(meta) if meta.file_type().is_dir() => {
+            match std::fs::read_to_string(dot_git.join("HEAD")) {
+                Ok(head) => head,
+                Err(e) => {
+                    warn!("failed to read {}/HEAD: {e}", dot_git.display());
+                    return;
+                }
             }
+        }
+        Ok(meta) if meta.file_type().is_file() => {
+            let worktree_git = match std::fs::read_to_string(repo.join(".git")) {
+                Ok(worktree) => worktree,
+                Err(e) => {
+                    warn!("failed to read worktree at {}: {e:?}", repo.display());
+                    return;
+                }
+            };
+            let Some(git_dir) = worktree_git.strip_prefix("gitdir: ") else {
+                return;
+            };
+            match std::fs::read_to_string(Path::new(git_dir.trim()).join("HEAD")) {
+                Ok(head) => head,
+                Err(e) => {
+                    warn!("failed to read {git_dir}/HEAD: {e}");
+                    return;
+                }
+            }
+        }
+        Ok(meta) if meta.file_type().is_symlink() => {
+            warn!("symlink .git not supported");
+            return;
+        }
+        Ok(meta) => {
+            warn!("unknown filetype for .git: {:?}", meta.file_type());
+            return;
+        }
+        Err(e) => {
+            warn!("failed to get file metadata for .git: {e}");
             return;
         }
     };

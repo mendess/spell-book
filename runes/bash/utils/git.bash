@@ -27,10 +27,12 @@ gbpurge() {
                 +*) # worktree
                     dir=$(grep -oE '\(.*\)' <<<"$line" | tr -d '()')
                     if (cd "$dir" && [[ -z "$(git status --porcelain)" ]]); then
+                        echo "removing worktree $dir"
                         git worktree remove "$dir"
+                        git branch -D "$(awk '{print $1}' <<<"${line:1}")"
                     else
-                        echo "Error: $dir as untracked or modified files"
-                        (cd "$dir" && git status --porcelain)
+                        echo "Error: $dir has untracked or modified files"
+                        (cd "$dir" && g)
                     fi
                     ;;
                 '*'*) # current branch is gone
