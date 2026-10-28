@@ -10,5 +10,5 @@ while :; do
         --cooldown 400 \
         --log "${XDG_RUNTIME_DIR:-$HOME/.local/share}/swhks-current_unix_time.log" &
     wait
-    sleep 10m
+    sleep 1m
 done

@@ -62,7 +62,7 @@ nospace() {
 }
 
 any() {
-    if [[ "$#" -eq 1 ]]; then
+    if [[ "$#" -eq 0 ]]; then
         find_arg=(.)
     else
         find_arg=("$@")

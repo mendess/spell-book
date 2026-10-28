@@ -39,7 +39,8 @@ static-ip() {
                 ipv4.gateway "$gateway" \
                 ipv4.dns "$dns" \
                 ipv4.dns-search "lan" \
-                ipv4.method "manual"
+                ipv4.method "manual" \
+                ipv4.routes "10.0.0.0/24 192.168.42.2"
             sudo nmcli con down "$con"
             sudo nmcli con up "$con"
             ;;
