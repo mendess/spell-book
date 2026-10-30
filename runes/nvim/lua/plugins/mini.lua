@@ -53,6 +53,26 @@ local function reposition_signature_helper(args)
     vim.api.nvim_win_set_config(win, config)
 end
 
+local function path_before_cursor()
+    local line = vim.api.nvim_get_current_line()
+    return line:sub(1, vim.fn.col('.') - 1)
+end
+
+local function is_path_context(before)
+    return before:match('/%S%S%S%S*$') ~= nil
+        or before:match('/%S+/$') ~= nil
+end
+
+local function complete_fallback()
+    local keys = is_path_context(path_before_cursor()) and '<C-x><C-f>'
+        or '<C-n>'
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes('<C-g><C-g>' .. keys, true, false, true),
+        'n',
+        false
+    )
+end
+
 return {
     after = function()
         require('mini.comment').setup()
@@ -66,6 +86,7 @@ return {
         end
 
         MiniCompletion.setup({
+            fallback_action = complete_fallback,
             lsp_completion = {
                 process_items = process_items,
             },
@@ -75,6 +96,65 @@ return {
                 scroll_up = '<C-d>',
                 scroll_down = '<C-f>',
             },
+        })
+
+        local group = vim.api.nvim_create_augroup('user-mini', { clear = true })
+        -- A slash itself is not a mini.completion trigger. Start filesystem
+        -- completion after three path characters, or at the next slash.
+        vim.api.nvim_create_autocmd('InsertCharPre', {
+            group = group,
+            callback = function(ev)
+                local after = path_before_cursor() .. vim.v.char
+                if
+                    not after:match('/%S%S%S$')
+                    and not after:match('/%S+/$')
+                then
+                    return
+                end
+
+                local win = vim.api.nvim_get_current_win()
+                vim.schedule(function()
+                    if
+                        vim.api.nvim_win_is_valid(win)
+                        and vim.api.nvim_get_current_win() == win
+                        and vim.api.nvim_get_current_buf() == ev.buf
+                        and path_before_cursor() == after
+                        and vim.fn.mode() == 'i'
+                    then
+                        MiniCompletion.complete_fallback()
+                    end
+                end)
+            end,
+        })
+
+        vim.api.nvim_create_autocmd('CompleteDone', {
+            group = group,
+            callback = function(ev)
+                local word = vim.v.completed_item.word
+                if
+                    type(word) ~= 'string'
+                    or not vim.endswith(word, '/')
+                then
+                    return
+                end
+
+                local win = vim.api.nvim_get_current_win()
+                local cursor = vim.api.nvim_win_get_cursor(win)
+                local directory = word:gsub('^~/', vim.fn.expand('~') .. '/', 1)
+                vim.schedule(function()
+                    if
+                        vim.api.nvim_win_is_valid(win)
+                        and vim.api.nvim_get_current_win() == win
+                        and vim.api.nvim_get_current_buf() == ev.buf
+                        and vim.deep_equal(vim.api.nvim_win_get_cursor(win), cursor)
+                        and vim.fn.mode() == 'i'
+                        and path_before_cursor():sub(-1) == '/'
+                        and vim.fn.isdirectory(directory) == 1
+                    then
+                        MiniCompletion.complete_fallback()
+                    end
+                end)
+            end,
         })
 
         require('mini.keymap').setup()
@@ -96,7 +176,6 @@ return {
         MiniSnippets.start_lsp_server({ match = false })
         require('mini.pairs').setup()
         -- disable auto close pair for lifetimes in rust
-        local group = vim.api.nvim_create_augroup('user-mini', { clear = true })
         vim.api.nvim_create_autocmd('FileType', {
             pattern = 'rust',
             group = group,

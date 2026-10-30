@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# shellcheck disable=SC2016
+script='
+set -euo pipefail
+
+HASS_TOKEN=$(cat ~/tower/spire/home-assistant-token)
+API=https://homeassistant.mendess.xyz/api
+FLAG=input_boolean.desk_raised
+
+state=$(curl -q -s -X GET \
+    -H "Authorization: Bearer $HASS_TOKEN" \
+    -H "Content-Type: application/json" \
+    $API/states/$FLAG |
+    jq -r .state)
+
+if [[ "$state" = on ]]; then
+    op=turn_off
+else
+    op=turn_on
+fi
+
+curl -q -s -X POST \
+      -H "Authorization: Bearer $HASS_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{\"entity_id\": \"$FLAG\"}" \
+      $API/services/input_boolean/$op
+'
+
+spark ssh pendrellvale -- bash <<EOF
+$script
+EOF
