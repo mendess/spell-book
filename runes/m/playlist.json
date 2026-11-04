@@ -6116,5 +6116,35 @@
     "liked_by": [
       "andreia"
     ]
+  },
+  {
+    "name": "Konichiwa",
+    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/PWXa9N02",
+    "time": 277,
+    "categories": [
+      "chill",
+      "meme"
+    ],
+    "artist": "donny-benet",
+    "genre": "pop",
+    "genres": [
+      "pop"
+    ],
+    "recommended_by": "andreia"
+  },
+  {
+    "name": "Santorini",
+    "link": "https://blind-eternities.mendess.xyz/playlist/song/audio/t5fC4GTL",
+    "time": 321,
+    "categories": [
+      "chill",
+      "meme"
+    ],
+    "artist": "donny-benet",
+    "genre": "pop",
+    "genres": [
+      "pop"
+    ],
+    "recommended_by": "andreia"
   }
 ]
