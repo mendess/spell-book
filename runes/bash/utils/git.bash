@@ -135,12 +135,12 @@ gb() {
             sed -E 's/ \[[^]]*origin[^]]*\]//' |
             sed -E "s|$HOME/worktrees/|~/w/|" |
             cut -b-"$(tput cols)" |
-            GREP_COLORS="mt=1;32" grep --color=always -E '^\* [^/ ]+|' |      # hl master/current
-            GREP_COLORS="mt=32" grep --color=always -E '^\* [^ ]+|' |         # hl current
-            GREP_COLORS="mt=33" grep --color=always -E ' [a-f0-9]{7,10}|' |   # hl git hash
-            GREP_COLORS="mt=34" grep --color=always -E '^( |\+) [^/]+|' |     # hl branch
-            GREP_COLORS="mt=35" grep --color=always -E ' [A-Z]+\-[0-9]+: |' | # hl ticket number
-            GREP_COLORS="mt=36" grep --color=always -E '\([^)]+\)|' |         # hl worktree path
+            GREP_COLORS="mt=1;32" grep --color=always -E '^\* [^/ ]+|' |     # hl master/current
+            GREP_COLORS="mt=32" grep --color=always -E '^\* [^ ]+|' |        # hl current
+            GREP_COLORS="mt=33" grep --color=always -E ' [a-f0-9]{7,10}|' |  # hl git hash
+            GREP_COLORS="mt=34" grep --color=always -E '^( |\+) [^/]+|' |    # hl branch
+            GREP_COLORS="mt=35" grep --color=always -E ' [A-Z]+-[0-9]+: |' | # hl ticket number
+            GREP_COLORS="mt=36" grep --color=always -E '\([^)]+\)|' |        # hl worktree path
             \cat
     fi
 }
