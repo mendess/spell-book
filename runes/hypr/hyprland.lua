@@ -75,6 +75,17 @@ local function setup_oboro_monitors()
     end
     hl.workspace_rule({ workspace = '10', monitor = 'eDP-1' })
 end
+local function write(s)
+    local f = io.open('/tmp/log', 'a')
+    if f == nil then
+        print('failed to open /tmp/log')
+        print(s)
+        return
+    end
+    f:write(s .. '\n')
+    f:flush()
+    f:close()
+end
 if hostname == '3QWP3T3' then
     setup_oboro_monitors()
     hl.on('monitor.added', setup_oboro_monitors)
@@ -86,7 +97,9 @@ if hostname == '3QWP3T3' then
         end
         local battery = f:read('*a') or ''
         battery = string.match(battery, '%d+%%')
-        if string.find(battery, 'Discharging') ~= nil then
+        local discharging = string.find(battery, 'Discharging')
+        write('discharging ' .. battery .. ' ' .. discharging)
+        if discharging ~= nil then
             return
         end
         if battery ~= nil then
@@ -266,17 +279,6 @@ if hostname ~= 'tolaria' then
         suppress_event = 'maximize',
     })
 else
-    local function write(s)
-        local f = io.open('/tmp/log', 'a')
-        if f == nil then
-            print('failed to open /tmp/log')
-            print(s)
-            return
-        end
-        f:write(s .. '\n')
-        f:flush()
-        f:close()
-    end
     ---@class HL.Timer
     local click
     click = hl.timer(function()
