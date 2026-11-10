@@ -159,8 +159,8 @@ end
 
 status_line = vim.list_extend(status_line, {
     '%<%f ',
-    '%#StatusLineNC%',
-    '{v:lua.Fugitive_status_line()}',
+    '%#StatusLineNC#',
+    '%{v:lua.Fugitive_status_line()}',
     ' %h%w%m%r%=%-14.(%l,%c%V%) %P',
 })
 

@@ -106,11 +106,14 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 vim.lsp.config('ts_ls', {})
-vim.lsp.config('pyright', {})
+vim.lsp.config('pyright', {
+    handlers = {
+        ['$/progress'] = function() end,
+    },
+})
 vim.lsp.config('clangd', {})
 vim.lsp.config('gopls', {})
 vim.lsp.config('zls', {})
-vim.lsp.config('pyright', {})
 vim.lsp.config('bashls', {})
 vim.lsp.config('rust_analyzer', {
     flags = {
