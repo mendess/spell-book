@@ -89,13 +89,20 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     group = group,
     callback = function()
         -- Strip italic from all treesitter highlight groups
-        for _, hl_name in ipairs(vim.fn.getcompletion('@', 'highlight')) do
-            local hl = vim.api.nvim_get_hl(0, { name = hl_name })
-            if hl.italic then
-                hl.italic = false
-                vim.api.nvim_set_hl(0, hl_name, hl)
-            end
-        end
+        vim.api.nvim_set_hl(
+            0,
+            '@variable.builtin',
+            { italic = false, update = true }
+        )
+        -- for _, hl_name in ipairs(vim.fn.getcompletion('@', 'highlight')) do
+        --     if hl_name == '@markup.italic' then
+        --         goto continue
+        --     end
+        --     if vim.api.nvim_get_hl(0, { name = hl_name }).italic then
+        --         vim.api.nvim_set_hl(0, hl_name, { italic = false, update = true })
+        --     end
+        --     ::continue::
+        -- end
     end,
 })
 
