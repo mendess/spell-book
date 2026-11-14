@@ -52,26 +52,20 @@ struct WallPlacement {
     #[arg(short, long)]
     all: bool,
     #[arg(short = 'T', long)]
-    tolaria_only: bool,
+    full: bool,
     #[arg(short = 'P', long)]
-    powerstone_only: bool,
+    phone: bool,
 }
 
 impl WallPlacement {
     fn base_wall_dir(&self) -> &'static str {
         match self {
-            Self { all: true, .. }
-            | Self {
-                tolaria_only: true, ..
-            } => "all",
-            Self {
-                powerstone_only: true,
-                ..
-            } => "phone",
+            Self { all: true, .. } | Self { full: true, .. } => "all",
+            Self { phone: true, .. } => "phone",
             Self {
                 all: false,
-                tolaria_only: false,
-                powerstone_only: false,
+                full: false,
+                phone: false,
             } => unreachable!("at least one of these has to be true"),
         }
     }
@@ -79,17 +73,12 @@ impl WallPlacement {
     fn non_base_dirs(&self) -> &'static [&'static str] {
         match self {
             Self { all: true, .. } => &["small", "phone"],
-            Self {
-                tolaria_only: true, ..
-            } => &[],
-            Self {
-                powerstone_only: true,
-                ..
-            } => &[],
+            Self { full: true, .. } => &[],
+            Self { phone: true, .. } => &[],
             Self {
                 all: false,
-                tolaria_only: false,
-                powerstone_only: false,
+                full: false,
+                phone: false,
             } => unreachable!("at least one of these has to be true"),
         }
     }

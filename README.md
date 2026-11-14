@@ -38,6 +38,7 @@
  - [syncspellbook](./spells/syncspellbook.spell) - Tries to synchronise with changes to the remote repository. Also runs [learnSpells](./learnSpells.sh) and [castRunes](./castRunes.sh)
  - [termFromHere](./spells/termFromHere.spell) - Opens a terminal in the same `cwd` as the focused `X` program.
  - [todo](./spells/todo.spell) - Write/remove a task to do later.  Select an existing entry to remove it from the file, or type a new entry to add it.
+ - [toggle-desk-height](./spells/toggle-desk-height.spell)
  - [toggle-resolution](./spells/toggle-resolution.spell) - Toggles between 21:9 and 16:9 resolutions to offer a better steam remote play experience
  - [torrent](./spells/torrent.spell)
  - [update-yt-dlp-server-cookies](./spells/update-yt-dlp-server-cookies.spell)
