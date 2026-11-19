@@ -22,6 +22,7 @@ use url::Url;
 
 #[derive(Parser, Debug)]
 enum Wmgr {
+    WallpaperDirectory,
     Add {
         #[command(flatten)]
         placement: WallPlacement,
@@ -367,6 +368,8 @@ fn sync() -> anyhow::Result<()> {
         _ => "walls",
     };
 
+    println!("syncing from: {filter}");
+
     let base = format!("https://{DOMAIN}/{filter}");
     let walls = {
         let mut req = ureq::get(&base);
@@ -425,6 +428,7 @@ fn sync() -> anyhow::Result<()> {
 fn main() -> anyhow::Result<()> {
     eprintln!("welcome to wmgr!");
     match Wmgr::parse() {
+    	Wmgr::WallpaperDirectory => wall_dir().map(|d| println!("{}", d.display())),
         Wmgr::Add {
             placement,
             name,
