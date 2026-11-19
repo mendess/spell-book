@@ -154,13 +154,13 @@ repeat
     term = term.setup({})
     vim.keymap.set(
         'n',
-        '<leader>t',
+        '<C-t>',
         term.toggle,
         { desc = 'toggle floating terminal' }
     )
     vim.keymap.set(
         't',
-        '<leader>t',
+        '<C-t>',
         term.toggle,
         { desc = 'toggle floating terminal' }
     )

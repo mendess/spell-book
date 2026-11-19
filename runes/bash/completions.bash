@@ -1,14 +1,6 @@
 #!/bin/bash
 
 _za() {
-    local cur
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    mapfile -t COMPREPLY < \
-        <(compgen -o plusdirs -A file -- "$cur" | grep -P '(\.djvu|\.pdf)$')
-    return
-}
-
-_za() {
     local cur files
     cur="${COMP_WORDS[COMP_CWORD]}"
     if [ -d "$cur" ]; then
@@ -71,7 +63,7 @@ complete -o default -F _path_compleation sudo
 complete -o default -F _path_compleation which
 complete -o default -F _path_compleation command
 
-_completion_loader() {
+_spell_book_completion_loader() {
     case "$1" in
         g | ga | gb | gbD | gc | 'gc!' | gco | gcwip | gd | gdd | gf | gl | glog | glogn | gpsup | gst | gsw | 'gsw-')
             cmd=git
@@ -84,17 +76,27 @@ _completion_loader() {
             cmd=$1
             ;;
     esac
-    check_source_com_lib() {
+    check_source_comp_lib() {
         if [ -f /usr/share/bash-completion/bash_completion ] &&
             [ -z "${BASH_COMPLETION_VERSINFO[*]}" ]; then
+            local prev_fn
+            prev_fn=$(complete -p -D)
             source /usr/share/bash-completion/bash_completion
+            eval "$prev_fn"
         fi
     }
     personal="$SPELLS/runes/bash/completions/$cmd.bash"
     global="/usr/share/bash-completion/completions/$cmd"
-    [ -f "$personal" ] && source "$personal" && check_source_com_lib && return 124
-    [ -f "$global" ] && source "$global" && check_source_com_lib && return 124
-    check_source_com_lib
-    return 124
+    [ -f "$personal" ] && source "$personal" && check_source_comp_lib && return 124
+    [ -f "$global" ] && source "$global" && check_source_comp_lib && return 124
+    check_source_comp_lib
+    # check and load python program auto complete
+    if declare -F _python_argcomplete_global >/dev/null; then
+        _python_argcomplete_global "$@"
+    elif declare -F _completion_loader >/dev/null; then
+        _completion_loader "$@"
+    else
+        return 1
+    fi
 }
-complete -D -F _completion_loader -o bashdefault -o default
+complete -D -F _spell_book_completion_loader -o bashdefault -o default
