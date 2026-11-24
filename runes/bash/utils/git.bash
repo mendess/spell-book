@@ -191,6 +191,10 @@ gcl() {
     [[ "$?" -eq 0 ]] && cd "$(basename "${1%.git}")" || return
 }
 
+g-top-hash() {
+    g log -1 | head -1 | cut -d' ' -f2 | tr -d '\n'
+}
+
 # ---- gh cli exclusives -----
 function wait-for-ci {
     gh run watch

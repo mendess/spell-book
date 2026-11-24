@@ -81,10 +81,16 @@ do
     })
 end
 
+local skip_format_once = {}
+
 vim.api.nvim_create_autocmd('BufWritePre', {
     desc = 'Format on save',
     group = group,
     callback = function(ev)
+        if skip_format_once[ev.buf] then
+            return
+        end
+
         local efm = vim.lsp.get_clients({
             name = 'efm',
             bufnr = ev.buf,
@@ -104,6 +110,16 @@ vim.api.nvim_create_autocmd('BufWritePre', {
         vim.fn.winrestview(view)
     end,
 })
+
+vim.api.nvim_create_user_command('WriteNoFormat', function(opts)
+    local buf = vim.api.nvim_get_current_buf()
+    skip_format_once[buf] = true
+    local ok, err = pcall(vim.api.nvim_cmd, { cmd = 'write', bang = opts.bang }, {})
+    skip_format_once[buf] = nil
+    if not ok then
+        error(err, 0)
+    end
+end, { bang = true, desc = 'Write without efm formatting' })
 
 vim.lsp.config('ts_ls', {})
 vim.lsp.config('pyright', {
